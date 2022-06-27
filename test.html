@@ -11,7 +11,7 @@
 <body>
 
     <div>
-       ssss 
+       <span id="barcode-value"></span>
     </div>
 
     <div id="camera" style="width: 100px; height: 200px;"></div>
@@ -19,11 +19,13 @@
     <script src="./js/quagga.min.js "></script>
 
     <script>
+        const barcodeValue = document.getElementById("#barcode-value") 
+
         Quagga.init({
             inputStream: {
                 name: "Live",
                 type: "LiveStream",
-                target: document.querySelector('#camera')    // Or '#yourElement' (optional)
+                target: document.querySelector('#camera') 
             },
             decoder: {
                 readers: ["code_128_reader"]
@@ -38,7 +40,7 @@
         });
 
         Quagga.onDetected(function (data) {
-            console.log(data);
+            console.log(data.codeResult.code);
         }); 
     </script>
 </body>

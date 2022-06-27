@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>マルトウコンパックースキャン</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<!--===============================================================================================-->
+</head>
+
+<body>
+
+	<div class="form-screen">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100 p-t-30 p-b-40">
+
+				<span class="login100-form-title p-b-41">
+					マルトウコンパック
+				</span>
+
+				<form aria-autocomplete="none" class="login100-form validate-form p-b-20 p-t-5">
+
+					<div>
+						<span id="barcodeValue"></span>
+					</div>
+
+					<div id="camera" style="width: fit-content; height: 200px;"></div>
+
+
+				</form>
+			</div>
+		</div>
+
+		<div class="modal fade" id="notificationLogin" data-bs-backdrop="static" tabindex="1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="alert alert-warning" role="alert">
+							完全な情報を入力してください。
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" onClick="closeModal()">Okay</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script src="./js/quagga.min.js "></script>
+
+	<script>
+		const barcodeValue = document.getElementById("barcodeValue")
+
+		Quagga.init({
+			inputStream: {
+				name: "Live",
+				type: "LiveStream",
+				constraints: {
+                width: 300,
+                height: 200,                  
+                facingMode: "environment"  //"environment" for back camera, "user" front camera
+                },
+				target: document.querySelector('#camera')
+			},
+			decoder: {
+				readers: ["code_128_reader"]
+			}
+		}, function (err) {
+			if (err) {
+				console.log(err);
+				return
+			}
+			console.log("Initialization finished. Ready to start");
+			Quagga.start();
+		});
+
+		Quagga.onDetected(function (data) {
+			console.log(data.codeResult.code);
+			document.getElementById("barcodeValue").innerHTML = data.codeResult.code;
+			// barcodeValue.innerHTML = data.codeResult.code;
+		}); 
+	</script>
+
+
+	<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+	<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+	<script>
+	</script>
+</body>
+
+</html>
