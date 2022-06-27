@@ -32,7 +32,13 @@ const barcodeValue = document.getElementById("barcodeValuee")
             inputStream: {
                 name: "Live",
                 type: "LiveStream",
-                target: document.querySelector('#camera') 
+                target: document.querySelector('#camera')
+                // area: { // defines rectangle of the detection/localization area
+                //   top: '25%',
+                //   right: '0%',
+                //   left: '0%',
+                //   bottom: '25%'
+                // },
             },
             decoder: {
                 readers: ["code_128_reader"]
