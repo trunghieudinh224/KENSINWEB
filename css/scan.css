@@ -261,3 +261,7 @@ iframe {
   margin: 5px;
   position: relative;
 }
+
+#camera video {
+  width: 300px;
+}
