@@ -30,7 +30,11 @@
 
 const startScan = () => {
     const button = document.getElementById("camera");
-    button.style.display = "block";
+    if (window.getComputedStyle(button).display === "none") {
+        button.style.display = "block";
+    } else {
+        return;
+    }
 
     Quagga.init({
         inputStream: {
