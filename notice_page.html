@@ -5,7 +5,8 @@
 	<title>Notice</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/ic_notice.png" />
 	<!-- Latest compiled and minified CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -35,24 +36,27 @@
 
 
 
-				<div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+				<div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
+					aria-labelledby="v-pills-profile-tab">
 					<form runat="server">
-						<input class="img-picker" accept="image/*" type='file' id="imgInp1"/>
-						<img id="image1" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp1')"/>
+						<input class="img-picker" accept="image/*" type='file' id="imgInp1" />
+						<img id="image1" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp1')" />
 						<span class="img-note note-value">(タップして選択または写真を撮ります)</span>
 					</form>
-					<img class="btn-delete-pic" id="buttonX_1" src="./images/ic_close.png" onclick="before('buttonX_1', 'image1')"/>
+					<img class="btn-delete-pic" id="buttonX_1" src="./images/ic_close.png"
+						onclick="before('buttonX_1', 'image1')" />
 				</div>
 
 
 
 				<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
 					<form runat="server">
-						<input class="img-picker" accept="image/*" type='file' id="imgInp2"/>
-						<img id="image2" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp2')"/>
+						<input class="img-picker" accept="image/*" type='file' id="imgInp2" />
+						<img id="image2" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp2')" />
 						<span class="img-note note-value">(タップして選択または写真を撮ります)</span>
 					</form>
-					<img class="btn-delete-pic" id="buttonX_2" src="./images/ic_close.png" onclick="before('buttonX_2', 'image2')"/>
+					<img class="btn-delete-pic" id="buttonX_2" src="./images/ic_close.png"
+						onclick="before('buttonX_2', 'image2')" />
 
 				</div>
 
@@ -60,10 +64,11 @@
 				<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
 					<form runat="server">
 						<input class="img-picker" accept="image/*" type='file' id="imgInp3" />
-						<img id="image3" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp3')"/>
+						<img id="image3" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp3')" />
 						<span class="img-note note-value">(タップして選択または写真を撮ります)</span>
 					</form>
-					<img class="btn-delete-pic" id="buttonX_3" src="./images/ic_close.png" onclick="before('buttonX_3', 'image3')"/>
+					<img class="btn-delete-pic" id="buttonX_3" src="./images/ic_close.png"
+						onclick="before('buttonX_3', 'image3')" />
 
 				</div>
 			</div>
@@ -114,7 +119,8 @@
 					<div class="col-9">
 						<div class="row area-value">
 							<div class="col-8 value">
-								<input class="area-value" id="txtTimeValue" type="text" id="country" name="country" value="" readonly><br>
+								<input class="area-value" id="txtTimeValue" type="text" id="country" name="country"
+									value="" readonly><br>
 							</div>
 
 							<div class="col-4">
@@ -127,24 +133,24 @@
 			</div>
 		</div>
 	</div>
-	
+
 </body>
 
 <!--===============================================================================================-->
 <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/animsition/js/animsition.min.js"></script>
+<script src="vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
+<script src="vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/daterangepicker/moment.min.js"></script>
-	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<script src="vendor/daterangepicker/moment.min.js"></script>
+<script src="vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/countdowntime/countdowntime.js"></script>
+<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-	<script src="./js/notice.js"></script>
+<script src="./js/notice.js"></script>
 
 </html>
