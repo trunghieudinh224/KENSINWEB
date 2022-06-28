@@ -1,3 +1,13 @@
+
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+@font-face {
+  font-family: Ubuntu-Bold;
+  src: url('../fonts/ubuntu/Ubuntu-Bold.ttf'); 
+}
+
+
+
 * {
   margin: 0px;
   padding: 0px;
@@ -22,6 +32,7 @@
   margin-right: auto;
   width: 40%;
   height: 250px;
+  border-radius: 5px;
   position: relative;
 }
 
@@ -305,7 +316,7 @@ div.click-to-top span {
 .img-note {
   align-items: center;
   display: table;
-  margin: 0 auto;
+  margin: 5px auto;
 }
 
 .area-value {
@@ -349,8 +360,8 @@ div.click-to-top span {
   }
 
   .btn-save {
-    margin-top: 4%;
-    width: 30%;
+    margin-top: 6%;
+    width: 40%;
   }
 
 }
@@ -388,19 +399,6 @@ div.click-to-top span {
     width: 80%;
   }
 
-  .nav-link {
-    font-size: 23px
-  }
-
-
-  .login100-form-title {
-    font-size: 18px;
-  }
-
-  .value {
-    font-size: 18px;
-  }
-
   #image1,
   #image2,
   #image3 {
@@ -413,7 +411,6 @@ div.click-to-top span {
   }
 
   .btn {
-    font-size: 18px;
     height: 45px;
   }
 
@@ -428,6 +425,32 @@ div.click-to-top span {
 
 @media screen and (max-width: 900px) {
 
+  .nav-link {
+    font-size: 23px
+  }
+
+  .img-note {
+    margin: 3px auto;
+  }
+
+  .login100-form-title {
+    font-size: 18px;
+  }
+
+  .value {
+    font-size: 18px;
+  }
+
+  #image1,
+  #image2,
+  #image3 {
+    width: 65%;
+  }
+
+  .btn {
+    font-size: 18px;
+  }
+
   .btn-delete-pic {
     left: 66%;
     top: 13%;
@@ -440,6 +463,10 @@ div.click-to-top span {
   .wrap-login100 {
     width: 80%;
     padding: 20px 25px;
+  }
+
+  .img-note {
+    margin: 2px auto;
   }
 
   .nav-link {
@@ -545,6 +572,12 @@ div.click-to-top span {
 }
 
 @media screen and (max-width: 450px) {
+
+  #image1,
+  #image2,
+  #image3 {
+    width: 100%;
+  }
 
   .btn-delete-pic {
     left: 72%;

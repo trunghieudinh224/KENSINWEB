@@ -1,3 +1,13 @@
+
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+@font-face {
+  font-family: Ubuntu-Bold;
+  src: url('../fonts/ubuntu/Ubuntu-Bold.ttf'); 
+}
+
+
+
 * {
   margin: 0px;
   padding: 0px;
@@ -15,7 +25,6 @@
   font-family: Ubuntu-Bold;
   color: white;
   font-size: 22px;
-  font-weight: bold;
   text-transform: uppercase;
   margin: auto;
 
@@ -41,6 +50,25 @@
   -moz-transition: all 0.4s;
   transition: all 0.4s;
   border: none;
+}
+
+.btn::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  border-radius: 21px;
+  background-color: #555555;
+  top: 0;
+  left: 0;
+  opacity: 0;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
 }
 
 .container-login100 {
@@ -76,7 +104,7 @@
 }
 
 .wrap-login100 {
-  width: fit-content;
+  width: 750px;
   border-radius: 10px;
   overflow: hidden;
   height: fit-content;
@@ -167,7 +195,7 @@
 
 @media screen and (min-width: 1500px) {
   #camera video {
-    width: fit-content;
+    width: 750px;
   }
   
 }
@@ -183,7 +211,18 @@
 @media screen and (max-width: 1200px) {
 
   .wrap-login100 {
-    width: fit-content;
+    width: 690;
+  }
+
+  #camera video {
+    width: -webkit-fill-available;
+  }
+}
+
+@media screen and (max-width: 900px) {
+
+  .wrap-login100 {
+    width: 590px;
   }
 
   .login100-form-title {
@@ -205,16 +244,6 @@
   .btn {
     font-size: 18px;
     padding: 20px 0;
-  }
-  #camera video {
-    width: -webkit-fill-available;
-  }
-}
-
-@media screen and (max-width: 900px) {
-
-  .wrap-login100 {
-    width: 590px;
   }
   
   #camera video {
@@ -270,10 +299,6 @@
 
   .value {
     font-size: 15px;
-  }
-
-  .note-value {
-    font-size: 14px;
   }
 
   .login100-form-title {

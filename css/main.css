@@ -170,7 +170,7 @@ iframe {
 }
 
 .wrap-login100 {
-  width: 350px;
+  width: 450px;
   border-radius: 10px;
   overflow: hidden;
 
@@ -336,11 +336,12 @@ iframe {
 }
 
 .login100-form-btn {
+  width: 90%;
   font-family: Ubuntu-Bold;
-  font-size: 18px;
-  color: #fff;
-  line-height: 1.2;
+  color: white;
+  font-size: 22px;
   text-transform: uppercase;
+  margin: auto;
 
   display: -webkit-box;
   display: -webkit-flex;
@@ -349,12 +350,9 @@ iframe {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 20px;
-  min-width: 160px;
-  height: 42px;
-  border-radius: 21px;
+  border-radius: 5px;
 
-  background: #d41872;
+  background: #ec4897;
   background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
   background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
   background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
@@ -366,6 +364,7 @@ iframe {
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
   transition: all 0.4s;
+  border: none;
 }
 
 .login100-form-btn::before {
@@ -508,3 +507,103 @@ iframe {
   display: block;
   margin-bottom: 5%;
 }
+
+
+
+@media screen and (min-width: 1500px) {
+  
+}
+
+@media screen and (max-width: 1500px) {
+
+  
+}
+
+@media screen and (max-width: 1200px) {
+
+  .wrap-login100 {
+    width: 400px;
+  }
+
+  .login100-form-title {
+    font-size: 18px;
+  }
+
+  .input100 {
+    font-size: 18px;
+  }
+
+  .btn-area {
+    padding: 10px 0;
+  }
+
+  .area-value {
+    min-height: 45px;
+  }
+
+  .btn {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+
+}
+
+
+@media screen and (max-width: 768px) {
+
+
+  .login100-form-title {
+    font-size: 16px;
+  }
+
+  .btn-area {
+    padding: 10px 0;
+  }
+
+  .area-value {
+    min-height: 40px;
+  }
+
+  .title-area {
+    padding: 0px;
+    padding-right: 12px;
+  }
+
+  .btn {
+    font-size: 16px;
+    padding: 20px 0;
+    height: 40px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+
+  .input100 {
+    font-size: 15px;
+  }
+  .login100-form-title {
+    font-size: 14px;
+  }
+
+  .btn {
+    padding: 0px;
+    font-size: 14px;
+    height: 40px;
+  }
+}
+
+
+@media screen and (max-width: 450px) {
+  .container-login100 {
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  .wrap-login100 {
+    width: 320px;
+    padding: 20px 10px;
+  }
+} 
+
