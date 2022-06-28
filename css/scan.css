@@ -76,7 +76,7 @@
 }
 
 .wrap-login100 {
-  width: 790px;
+  width: fit-content;
   border-radius: 10px;
   overflow: hidden;
   height: fit-content;
@@ -99,6 +99,10 @@
   display: block;
   margin: auto;
   text-align: start;
+}
+
+.title-form {
+  text-align: center;
 }
 
 .content {
@@ -157,13 +161,13 @@
 }
 
 #camera video {
-  width: 750px;
+  width: -webkit-fill-available;
 }
 
 
 @media screen and (min-width: 1500px) {
   #camera video {
-    width: 750px;
+    width: fit-content;
   }
   
 }
@@ -171,7 +175,7 @@
 @media screen and (max-width: 1500px) {
 
   #camera video {
-    width: 750px;
+    width: -webkit-fill-available;
   }
   
 }
@@ -179,7 +183,7 @@
 @media screen and (max-width: 1200px) {
 
   .wrap-login100 {
-    width: 690px;
+    width: fit-content;
   }
 
   .login100-form-title {
@@ -203,7 +207,7 @@
     padding: 20px 0;
   }
   #camera video {
-    width: 650px;
+    width: -webkit-fill-available;
   }
 }
 
@@ -214,7 +218,7 @@
   }
   
   #camera video {
-    width: 550px;
+    width: -webkit-fill-available;
   }
 }
 
@@ -255,7 +259,7 @@
   }
 
   #camera video {
-    width: 500px;
+    width: -webkit-fill-available;
   }
 }
 
@@ -284,12 +288,17 @@
   }
 
   #camera video {
-    width: 350px;
+    width: -webkit-fill-available;
   }
 }
 
 
 @media screen and (max-width: 450px) {
+  .container-login100 {
+    width: 100%;
+    min-height: 100vh;
+  }
+
   .wrap-login100 {
     width: 320px;
     padding: 20px 10px;
