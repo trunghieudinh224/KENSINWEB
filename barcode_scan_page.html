@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+    <meta charset=UTF-8>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- Latest compiled and minified CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/scan.css">
+	<!--===============================================================================================-->
+</head>
+
+<body>
+
+    <div class="form-screen">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100 p-t-30 p-b-40">
+
+				<div class="row" style="margin: 0px">
+					<div class="col-12 col-sm-12 col-md-10 col-lg-9 col-xl-10">
+						<div class="row content">
+							<div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+								<p class="login100-form-title">バーコード</p>
+							</div>
+		
+							<div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 area-value value">
+								<input id="barcodeValue" class="input"></input>
+							</div>
+						</div>
+
+						<div class="row content">
+							<div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+								<p class="login100-form-title">タイプ</p>
+							</div>
+		
+							<div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 area-value value">
+								<input id="barcodeType" class="input" value="" type="text" readonly></input>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-12 col-sm-12 col-md-2 col-lg-3 col-xl-2 btn-area">
+						<button id="btnScan" type="submit" class="btn" onclick="startScan()">スキャン</button>
+					</div>
+				</div>
+			 
+				 <div id="camera"></div>
+			</div>
+		</div>
+	</div>
+
+    <script src="./js/quagga.min.js "></script>
+	<script src="js/scan.js"></script>
+</body>
+
+</html>

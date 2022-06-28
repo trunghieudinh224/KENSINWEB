@@ -1,80 +1,50 @@
 * {
-	margin: 0px; 
-	padding: 0px; 
-	box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-size: 20px;
 }
 
-body, html {
-	height: 100%;
-	font-family: Ubuntu-Regular, sans-serif;
+.value {
+  font-size: 22px;
 }
 
-/*---------------------------------------------*/
-input {
-	outline: none;
-	border: none;
-}
+.btn {
+  width: 100%;
+  height: 100%;
+  font-family: Ubuntu-Bold;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: auto;
 
-textarea {
-  outline: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+
+  background: #d41872;
+  background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: linear-gradient(left, #a445b2, #d41872, #fa4299);
+  position: relative;
+  z-index: 1;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
   border: none;
 }
 
-textarea:focus, input:focus {
-  border-color: transparent !important;
-}
-
-input:focus::-webkit-input-placeholder { color:transparent; }
-input:focus:-moz-placeholder { color:transparent; }
-input:focus::-moz-placeholder { color:transparent; }
-input:focus:-ms-input-placeholder { color:transparent; }
-
-textarea:focus::-webkit-input-placeholder { color:transparent; }
-textarea:focus:-moz-placeholder { color:transparent; }
-textarea:focus::-moz-placeholder { color:transparent; }
-textarea:focus:-ms-input-placeholder { color:transparent; }
-
-input::-webkit-input-placeholder { color: #555555;}
-input:-moz-placeholder { color: #555555;}
-input::-moz-placeholder { color: #555555;}
-input:-ms-input-placeholder { color: #555555;}
-
-textarea::-webkit-input-placeholder { color: #555555;}
-textarea:-moz-placeholder { color: #555555;}
-textarea::-moz-placeholder { color: #555555;}
-textarea:-ms-input-placeholder { color: #555555;}
-
-label {
-  margin: 0;
-  display: block;
-}
-
-/*---------------------------------------------*/
-button {
-	outline: none !important;
-	border: none;
-	background: transparent;
-}
-
-button:hover {
-	cursor: pointer;
-}
-
-iframe {
-	border: none !important;
-}
-
-
-/*//////////////////////////////////////////////////////////////////
-[ login ]*/
-
-.form-screen {
-  width: 100%;
-  margin: 0 auto;
-}
-
 .container-login100 {
-  width: 100%;  
+  width: 100%;
   min-height: 100vh;
   display: -webkit-box;
   display: -webkit-flex;
@@ -90,7 +60,7 @@ iframe {
   background-position: center;
   background-size: cover;
   position: relative;
-  z-index: 1;  
+  z-index: 1;
 }
 
 .container-login100::before {
@@ -102,20 +72,17 @@ iframe {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgba(0,0,0,0.65);
+  background-color: rgba(0, 0, 0, 0.65);
 }
 
 .wrap-login100 {
-  width: fit-content;
+  width: 790px;
   border-radius: 10px;
   overflow: hidden;
-
-  background: transparent;
+  height: fit-content;
+  background: white;
+  padding: 30px 20px;
 }
-
-
-/*------------------------------------------------------------------
-[ Form ]*/
 
 .login100-form {
   width: 100%;
@@ -123,35 +90,21 @@ iframe {
   background-color: #fff;
 }
 
-.login100-form-logo {
-  font-size: 60px; 
-  color: #333333;
-
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background-color: #fff;
-  margin: 0 auto;
-}
-
 .login100-form-title {
   font-family: Ubuntu-Bold;
-  font-size: 24px;
-  color: #fff;
-  line-height: 1.2;
+  font-size: 22px;
+  font-weight: bold;
   text-align: center;
   text-transform: uppercase;
-  padding-bottom: 30px !important;
   display: block;
+  margin: auto;
+  text-align: start;
 }
 
+.content {
+  align-items: center;
+  margin: 10px 0px;
+}
 
 /*------------------------------------------------------------------
 [ Input ]*/
@@ -163,94 +116,30 @@ iframe {
   padding: 20px 0;
 }
 
-.input100 {
-  font-family: Ubuntu-Regular;
-  font-size: 18px;
-  color: #555555;
-  line-height: 1.2;
+.area-value {
+  height: 50px;
+  border-radius: 4px;
+  border-color: black;
+  border-width: 2px;
+}
 
-  display: block;
+.input {
   width: 100%;
-  height: 40px;
-  background: transparent;
-  padding: 0 10px 0 80px;
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
+  text-align: center;
+  border-radius: 4px;
+  border-color: black;
+  border-width: 2px;
+  padding: 3px 5px;
+  height: 50px;
+  resize: none;
 }
 
-/*------------------------------------------------------------------
-[ Button ]*/
-.container-login100-form-btn {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+#barcodeType {
+  font-weight: bold;
 }
 
-.login100-form-btn {
-  font-family: Ubuntu-Bold;
-  font-size: 18px;
-  color: #fff;
-  line-height: 1.2;
-  text-transform: uppercase;
-
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 20px;
-  min-width: 160px;
-  height: 42px;
-  border-radius: 21px;
-
-  background: #d41872;
-  background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: linear-gradient(left, #a445b2, #d41872, #fa4299);
-  position: relative;
-  z-index: 1;
-
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
-}
-
-.login100-form-btn::before {
-  content: "";
-  display: block;
-  position: absolute;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  border-radius: 21px;
-  background-color: #555555;
-  top: 0;
-  left: 0;
-  opacity: 0;
-
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
-}
-
-.login100-form-btn:hover {
-  background-color: transparent;
-}
-
-.login100-form-btn:hover:before {
-  opacity: 1;
+.btn-area {
+  padding: 10px 0;
 }
 
 .drawingBuffer {
@@ -258,10 +147,143 @@ iframe {
 }
 
 #camera {
-  margin: 5px;
+  display: none;
+  margin-top: 3%;
   position: relative;
 }
 
 #camera video {
-  width: 300px;
+  width: 750px;
 }
+
+
+@media screen and (min-width: 1500px) {
+  #camera video {
+    width: 750px;
+  }
+  
+}
+
+@media screen and (max-width: 1500px) {
+
+  #camera video {
+    width: 750px;
+  }
+  
+}
+
+@media screen and (max-width: 1200px) {
+
+  .wrap-login100 {
+    width: 690px;
+  }
+
+  .login100-form-title {
+    font-size: 18px;
+  }
+
+  .value {
+    font-size: 18px;
+  }
+
+  .btn-area {
+    padding: 10px 0;
+  }
+
+  .area-value {
+    min-height: 45px;
+  }
+
+  .btn {
+    font-size: 18px;
+    padding: 20px 0;
+  }
+  #camera video {
+    width: 650px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+
+  .wrap-login100 {
+    width: 590px;
+  }
+  
+  #camera video {
+    width: 550px;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+
+  .wrap-login100 {
+    width: 540px;
+  }
+
+  .login100-form-title {
+    font-size: 16px;
+  }
+
+  .value {
+    font-size: 16px;
+  }
+
+  .btn-area {
+    padding: 10px 0;
+  }
+
+  .area-value {
+    min-height: 40px;
+  }
+
+  .btn {
+    font-size: 16px;
+    padding: 20px 0;
+  }
+
+  #camera video {
+    width: 500px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .wrap-login100 {
+    width: 390px;
+  }
+
+  .value {
+    font-size: 15px;
+  }
+
+  .note-value {
+    font-size: 14px;
+  }
+
+  .login100-form-title {
+    font-size: 14px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 0px;
+    font-size: 14px;
+    height: 40px;
+  }
+
+  #camera video {
+    width: 350px;
+  }
+}
+
+
+@media screen and (max-width: 450px) {
+  .wrap-login100 {
+    width: 320px;
+  }
+
+  #camera video {
+    width: 280px;
+  }
+} 
+
