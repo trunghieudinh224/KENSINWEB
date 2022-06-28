@@ -296,7 +296,8 @@
   }
 
   #camera video {
-    width: 280px;
+    width: -webkit-fill-available;
+    margin: auto;
   }
 } 
 
