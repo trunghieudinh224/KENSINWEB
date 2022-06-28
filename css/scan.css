@@ -28,7 +28,7 @@
   align-items: center;
   border-radius: 5px;
 
-  background: #d41872;
+  background: #ec4897;
   background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
   background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
   background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
@@ -292,11 +292,11 @@
 @media screen and (max-width: 450px) {
   .wrap-login100 {
     width: 320px;
+    padding: 20px 10px;
   }
 
   #camera video {
     width: 280px;
-    height: 280px;
   }
 } 
 

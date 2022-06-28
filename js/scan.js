@@ -41,12 +41,6 @@ const startScan = () => {
             name: "Live",
             type: "LiveStream",
             target: document.querySelector('#camera')
-            // area: { // defines rectangle of the detection/localization area
-            //   top: '25%',
-            //   right: '0%',
-            //   left: '0%',
-            //   bottom: '25%'
-            // },
         },
         decoder: {
             readers: [
@@ -58,7 +52,7 @@ const startScan = () => {
                 'codabar_reader',
                 'code_93_reader'
             ]
-        }
+        },
     }, function (err) {
         if (err) {
             console.log(err);
@@ -67,10 +61,10 @@ const startScan = () => {
         console.log("Initialization finished. Ready to start");
         Quagga.start();
     });
-    
+
     Quagga.onDetected(function (data) {
         console.log(data.codeResult.code);
         document.getElementById("barcodeValue").value = data.codeResult.code;
         document.getElementById("barcodeType").value = data.codeResult.format;
-    }); 
+    });
 }
