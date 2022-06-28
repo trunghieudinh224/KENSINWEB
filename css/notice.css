@@ -585,9 +585,9 @@ div.click-to-top span {
   }
 }
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 380px) {
   .btn-delete-pic {
     left: 83%;
-    top: 15%;
+    top: 13%;
   }
 }
