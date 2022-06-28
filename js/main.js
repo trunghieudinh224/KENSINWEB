@@ -33,7 +33,13 @@ window.onload = async function () {
 
                 if (JSON.parse(result).err_code == 0) {
                     window.location.href = "/notice_page.html";
+                } else {
+                    document.getElementById("alertContent").innerText = JSON.parse(result).err_msg;
+                    notificationLogin?.classList.add("show");
                 }
+            },
+            error: function(jqXHR, exception) {
+                console.log(exception);
             }
         });
     }

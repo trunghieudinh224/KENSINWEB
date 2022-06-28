@@ -345,6 +345,29 @@ div.click-to-top span {
 }
 
 
+.modal.fade.show {
+  display: block;
+}
+#notificationLogin {
+/* position:relative; */
+background: rgb(0, 0, 0); /* Fallback for older browsers without RGBA-support */
+background: rgba(0, 0, 0, 0.7);
+}
+#notificationLogin > .modal-dialog{
+top: 40%;
+width: 90%;
+margin: auto;
+}
+
+
+.alert-warning {
+color: red;
+}
+.modal-footer {
+border: none;
+}
+
+
 
 @media screen and (min-width: 1500px) {
   .wrap-login100 {
