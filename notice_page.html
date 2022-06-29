@@ -18,135 +18,168 @@
 </head>
 
 <body>
-	<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
-		<div class="wrap-login100 p-t-30 p-b-40">
-			<div class="nav flex-row justify-content-evenly nav-pills me-3" id="v-pills-tab" role="tablist"
-				aria-orientation="vertical">
-				<button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill"
-					data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile"
-					aria-selected="false">写①</button>
-				<button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
-					data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages"
-					aria-selected="false">写②</button>
-				<button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
-					data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">写③</button>
+
+	<div style="background-image: url('images/bg-01.jpg');  background-repeat: no-repeat;background-size: cover;">
+		<div class="dropdown select-role">
+			<div class="btn-menu btn-secondary dropdown-toggle" type="button" id="dropdownSelectRole"
+				data-bs-toggle="dropdown" aria-expanded="false">
+				<img class="icon" src="./images/icons/ic_user.png" alt="User Avatar">
+				<span id="userName">username</span>
 			</div>
-			<div class="tab-content" id="v-pills-tabContent">
-
-
-
-				<div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
-					aria-labelledby="v-pills-profile-tab">
-					<form runat="server">
-						<input class="img-picker" accept="image/*" type='file' id="imgInp1" />
-						<img id="image1" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp1')" />
-						<span class="img-note note-value">(タップして選択または写真を撮ります)</span>
-					</form>
-					<img class="btn-delete-pic" id="buttonX_1" src="./images/ic_close.png"
-						onclick="before('buttonX_1', 'image1')" />
+			<ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
+				<li>
+					<a class="dropdown-item notice-page link value" href="#"  onclick="changePage('/notice_page.html')">
+						<img class="icon" src="./images/icons/ic_notice.png" alt="Icon Notice">
+						<span">ノーティス</span>
+					</a>
+				</li>
+				<li>
+					<a class="dropdown-item scan-page link value" href="#" onclick="changePage('/barcode_scan_page.html')">
+						<img class="icon" src="./images/icons/ic_barcode.png" alt="Icon Barcode">
+						<span">バーコードスキャナー</span>
+					</a>
+				</li>
+				<li  style="padding: 0px !important;">
+					<hr class="dropdown-divider">
+				</li>
+				<li>
+					<a class="dropdown-item scan-page link value" href="#">
+						<img class="icon" src="./images/icons/ic_logout.png" alt="User Avatar">
+						<span">ログアウト</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="container-login100">
+			<div class="wrap-login100 p-t-30 p-b-40">
+				<div class="nav flex-row justify-content-evenly nav-pills me-3" id="v-pills-tab" role="tablist"
+					aria-orientation="vertical">
+					<button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile"
+						aria-selected="false">写①</button>
+					<button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages"
+						aria-selected="false">写②</button>
+					<button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">写③</button>
 				</div>
-
-
-
-				<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-					<form runat="server">
-						<input class="img-picker" accept="image/*" type='file' id="imgInp2" />
-						<img id="image2" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp2')" />
-						<span class="img-note note-value">(タップして選択または写真を撮ります)</span>
-					</form>
-					<img class="btn-delete-pic" id="buttonX_2" src="./images/ic_close.png"
-						onclick="before('buttonX_2', 'image2')" />
-
-				</div>
-
-
-				<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-					<form runat="server">
-						<input class="img-picker" accept="image/*" type='file' id="imgInp3" />
-						<img id="image3" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp3')" />
-						<span class="img-note note-value">(タップして選択または写真を撮ります)</span>
-					</form>
-					<img class="btn-delete-pic" id="buttonX_3" src="./images/ic_close.png"
-						onclick="before('buttonX_3', 'image3')" />
-
-				</div>
-			</div>
-
-
-			<div>
-				<div class="row content">
-					<div class="col-3">
-						<p class="login100-form-title">区分１</p>
+				<div class="tab-content" id="v-pills-tabContent">
+	
+	
+	
+					<div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
+						aria-labelledby="v-pills-profile-tab">
+						<form runat="server">
+							<input class="img-picker" accept="image/*" type='file' id="imgInp1" />
+							<img id="image1" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp1')" />
+							<span class="img-note note-value">(タップして選択または写真を撮ります)</span>
+						</form>
+						<img class="btn-delete-pic" id="buttonX_1" src="./images/ic_close.png"
+							onclick="before('buttonX_1', 'image1')" />
 					</div>
-
-					<div class="col-9">
-						<select id="selectOne" class="form-select area-value value" aria-label="Default select example">
-							<option selected>この選択メニューを開く</option>
-						</select>
+					
+					<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+						<form runat="server">
+							<input class="img-picker" accept="image/*" type='file' id="imgInp2" />
+							<img id="image2" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp2')" />
+							<span class="img-note note-value">(タップして選択または写真を撮ります)</span>
+						</form>
+						<img class="btn-delete-pic" id="buttonX_2" src="./images/ic_close.png"
+							onclick="before('buttonX_2', 'image2')" />
+	
+					</div>
+	
+	
+					<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+						<form runat="server">
+							<input class="img-picker" accept="image/*" type='file' id="imgInp3" />
+							<img id="image3" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp3')" />
+							<span class="img-note note-value">(タップして選択または写真を撮ります)</span>
+						</form>
+						<img class="btn-delete-pic" id="buttonX_3" src="./images/ic_close.png"
+							onclick="before('buttonX_3', 'image3')" />
+	
 					</div>
 				</div>
-
-				<div class="row content">
-					<div class="col-3">
-						<p class="login100-form-title">区分２</p>
+	
+	
+				<div>
+					<div class="row content">
+						<div class="col-3">
+							<p class="login100-form-title">区分１</p>
+						</div>
+	
+						<div class="col-9">
+							<select id="selectOne" class="form-select area-value value" aria-label="Default select example">
+								<option selected>この選択メニューを開く</option>
+							</select>
+						</div>
 					</div>
-
-					<div class="col-9">
-						<select id="selectTwo" class="form-select area-value value" aria-label="Default select example">
-							<option selected>この選択メニューを開く</option>
-						</select>
+	
+					<div class="row content">
+						<div class="col-3">
+							<p class="login100-form-title">区分２</p>
+						</div>
+	
+						<div class="col-9">
+							<select id="selectTwo" class="form-select area-value value" aria-label="Default select example">
+								<option selected>この選択メニューを開く</option>
+							</select>
+						</div>
 					</div>
-				</div>
-
-				<div class="row content" style="margin-top: 20px">
-					<div class="col-3">
-						<p class="login100-form-title">メモ</p>
+	
+					<div class="row content" style="margin-top: 20px">
+						<div class="col-3">
+							<p class="login100-form-title">メモ</p>
+						</div>
+	
+						<div class="col-9 area-value value">
+							<textarea class="input" name="" id="" style="width: 100%;"></textarea>
+						</div>
 					</div>
-
-					<div class="col-9 area-value value">
-						<textarea class="input" name="" id="" style="width: 100%;"></textarea>
-					</div>
-				</div>
-
-				<div class="row content">
-					<div class="col-3">
-						<p class="login100-form-title">日時</p>
-					</div>
-					<div class="col-9">
-						<div class="row area-value">
-							<div class="col-8 value">
-								<input class="area-value" id="txtTimeValue" type="text" id="country" name="country"
-									value="" readonly><br>
-							</div>
-
-							<div class="col-4">
-								<button class="btn" onclick="showTime()">取得</button>
+	
+					<div class="row content">
+						<div class="col-3">
+							<p class="login100-form-title">日時</p>
+						</div>
+						<div class="col-9">
+							<div class="row area-value">
+								<div class="col-8 value">
+									<input class="area-value" id="txtTimeValue" type="text" id="country" name="country"
+										value="" readonly><br>
+								</div>
+	
+								<div class="col-4">
+									<button class="btn" onclick="showTime()">取得</button>
+								</div>
 							</div>
 						</div>
 					</div>
+					<button id="buttonSave" class="btn btn-save" onclick="openModal()">保存</button>
 				</div>
-				<button id="buttonSave" class="btn btn-save" onclick="openModal()">保存</button>
 			</div>
-		</div>
-
-		<div class="modal fade" id="notificationLogin" data-bs-backdrop="static" tabindex="1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
-						<div id="alertContent" class="alert alert-warning" role="alert">
-							保存されたデータ。
+	
+			<div class="modal fade" id="notificationLogin" data-bs-backdrop="static" tabindex="1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div id="alertContent" class="alert alert-warning" role="alert">
+								保存されたデータ。
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" onClick="closeModal()">Okay</button>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" onClick="closeModal()">Okay</button>
-					</div>
 				</div>
 			</div>
 		</div>
+	
 	</div>
-
+	
 </body>
 
 <!--===============================================================================================-->
@@ -165,5 +198,6 @@
 <script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 <script src="./js/notice.js"></script>
+<script src="js/menu.js"></script>
 
 </html>

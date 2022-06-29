@@ -193,10 +193,47 @@
   width: -webkit-fill-available;
 }
 
+.select-role{
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  z-index: 10;
+}
+
+.btn-menu {
+  background-color: transparent;
+}
+
+.btn-menu:hover {
+  background-color: transparent;
+}
+
+#userName {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+/* .dropdown-menu {
+  width: 30px !important;
+} */
+
+.dropdown-menu li {
+  padding: 3px 0;
+}
+
+.dropdown-item:hover {
+  background-color: rgb(234, 234, 234);
+}
+
+
+/* .dropdown-toggle::after {
+  margin-left: 15% !important;
+  padding-left: 20px !important;
+} */
 
 @media screen and (min-width: 1500px) {
   #camera video {
-    width: 750px;
+    width: -webkit-fill-available;
   }
   
 }
@@ -206,7 +243,6 @@
   #camera video {
     width: -webkit-fill-available;
   }
-  
 }
 
 @media screen and (max-width: 1200px) {
@@ -217,6 +253,11 @@
 
   #camera video {
     width: -webkit-fill-available;
+  }
+  
+  .icon {
+    height: 25px;
+    width: 25px;
   }
 }
 
@@ -231,7 +272,7 @@
   }
 
   .value {
-    font-size: 18px;
+    font-size: 18px !important;
   }
 
   .btn-area {
@@ -250,6 +291,19 @@
   #camera video {
     width: -webkit-fill-available;
   }
+  
+  .dropdown-menu {
+    width: 260px !important;
+  }
+
+  .icon {
+    height: 25px;
+    width: 25px;
+  }
+
+  #userName {
+    font-size: 18px;
+  }
 }
 
 
@@ -264,7 +318,7 @@
   }
 
   .value {
-    font-size: 16px;
+    font-size: 16px !important;
     padding: 0px;
     padding-left: 12px;
   }
@@ -291,6 +345,19 @@
   #camera video {
     width: -webkit-fill-available;
   }
+
+  .dropdown-menu {
+    max-width: 230px !important;
+  }
+
+  .icon {
+    height: 20px;
+    width: 20px;
+  }
+
+  #userName {
+    font-size: 18px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -299,7 +366,7 @@
   }
 
   .value {
-    font-size: 15px;
+    font-size: 15px !important;
   }
 
   .login100-form-title {
@@ -315,6 +382,23 @@
 
   #camera video {
     width: -webkit-fill-available;
+  }
+
+  .dropdown-menu li {
+    padding: 1px 0;
+  }
+  
+  .dropdown-menu {
+    max-width: 230px !important;
+  }
+
+  .icon {
+    height: 18px;
+    width: 18px;
+  }
+
+  #userName {
+    font-size: 16px;
   }
 }
 
