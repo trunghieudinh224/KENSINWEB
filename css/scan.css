@@ -106,6 +106,7 @@
 
 .wrap-login100 {
   width: 750px;
+  margin-top: 50px;
   border-radius: 10px;
   overflow: hidden;
   height: fit-content;
@@ -225,11 +226,10 @@
   background-color: rgb(234, 234, 234);
 }
 
+.value-dropdown {
+  font-size: 22px;
+}
 
-/* .dropdown-toggle::after {
-  margin-left: 15% !important;
-  padding-left: 20px !important;
-} */
 
 @media screen and (min-width: 1500px) {
   #camera video {
@@ -268,11 +268,11 @@
   }
 
   .login100-form-title {
-    font-size: 18px;
+    font-size: 20px;
   }
 
   .value {
-    font-size: 18px !important;
+    font-size: 20px !important;
   }
 
   .btn-area {
@@ -284,7 +284,7 @@
   }
 
   .btn {
-    font-size: 18px;
+    font-size: 20px;
     padding: 20px 0;
   }
   
@@ -302,7 +302,11 @@
   }
 
   #userName {
-    font-size: 18px;
+    font-size: 20px;
+  }
+
+  .value-dropdown {
+    font-size: 20px;
   }
 }
 
@@ -314,11 +318,11 @@
   }
 
   .login100-form-title {
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .value {
-    font-size: 16px !important;
+    font-size: 18px !important;
     padding: 0px;
     padding-left: 12px;
   }
@@ -337,7 +341,7 @@
   }
 
   .btn {
-    font-size: 16px;
+    font-size: 18px;
     padding: 20px 0;
     height: 40px;
   }
@@ -358,6 +362,10 @@
   #userName {
     font-size: 18px;
   }
+
+  .value-dropdown {
+    font-size: 18px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -366,7 +374,7 @@
   }
 
   .value {
-    font-size: 15px !important;
+    font-size: 16px !important;
   }
 
   .login100-form-title {
@@ -376,7 +384,7 @@
   .btn {
     width: 100%;
     padding: 0px;
-    font-size: 14px;
+    font-size: 16px;
     height: 40px;
   }
 
@@ -400,15 +408,14 @@
   #userName {
     font-size: 16px;
   }
+
+  .value-dropdown {
+    font-size: 16px;
+  }
 }
 
 
 @media screen and (max-width: 450px) {
-  .container-login100 {
-    width: 100%;
-    min-height: 90vh;
-  }
-
   .wrap-login100 {
     width: 320px;
     padding: 20px 10px;
@@ -418,6 +425,11 @@
     width: -webkit-fill-available;
     height: 280px;
     margin: auto;
+  }
+
+  .select-role{
+    top: 3%;
+    right: 5%;
   }
 } 
 

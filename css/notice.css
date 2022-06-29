@@ -340,9 +340,13 @@ div.click-to-top span {
   text-align: center;
 }
 
-.col-8 {
+.col-9 {
   padding: 0px;
   padding-left: 12px;
+}
+
+.col-8, .col-3 {
+  padding-right: 0px;
 }
 
 
@@ -407,11 +411,9 @@ div.click-to-top span {
   background-color: rgb(215, 215, 215);
 }
 
-
-/* .dropdown-toggle::after {
-  margin-left: 15% !important;
-  padding-left: 20px !important;
-} */
+.value-dropdown {
+  font-size: 22px;
+}
 
 
 
@@ -510,11 +512,11 @@ div.click-to-top span {
   }
 
   .login100-form-title {
-    font-size: 18px;
+    font-size: 20px;
   }
 
   .value {
-    font-size: 18px !important;
+    font-size: 20px !important;
   }
 
   #image1,
@@ -524,7 +526,7 @@ div.click-to-top span {
   }
 
   .btn {
-    font-size: 18px;
+    font-size: 20px;
   }
 
   .btn-delete-pic {
@@ -544,7 +546,11 @@ div.click-to-top span {
   }
 
   #userName {
-    font-size: 18px;
+    font-size: 20px;
+  }
+
+  .value-dropdown {
+    font-size: 20px;
   }
 }
 
@@ -563,15 +569,15 @@ div.click-to-top span {
   }
 
   .value {
-    font-size: 16px !important;
+    font-size: 18px !important;
   }
 
   .note-value {
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .login100-form-title {
-    font-size: 16px;
+    font-size: 18px;
   }
 
 
@@ -588,7 +594,7 @@ div.click-to-top span {
   }
 
   .btn {
-    font-size: 16px;
+    font-size: 18px;
     height: 40px;
   }
 
@@ -611,6 +617,10 @@ div.click-to-top span {
   #userName {
     font-size: 18px;
   }
+
+  .value-dropdown {
+    font-size: 18px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -625,7 +635,7 @@ div.click-to-top span {
   }
 
   .value {
-    font-size: 15px !important;
+    font-size: 16px !important;
   }
 
   .note-value {
@@ -633,7 +643,7 @@ div.click-to-top span {
   }
 
   .login100-form-title {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .btn {
@@ -652,11 +662,11 @@ div.click-to-top span {
   #image2,
   #image3 {
     width: 70%;
-    height: 250px;
+    height: 300px;
   }
 
   .btn-delete-pic {
-    left: 75%;
+    left: 76%;
     top: 19%;
   }
 
@@ -687,6 +697,10 @@ div.click-to-top span {
   }
 
   #userName {
+    font-size: 18px;
+  }
+
+  .value-dropdown {
     font-size: 16px;
   }
 }
@@ -705,6 +719,11 @@ div.click-to-top span {
   .btn-delete-pic {
     left: 84.5%;
     top: 18%;
+  }
+
+  .select-role{
+    top: 3%;
+    right: 5%;
   }
 }
 

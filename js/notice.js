@@ -4,22 +4,12 @@ function checkLogin() {
         window.location.href = "/login_page.html";
     } else {
         document.getElementById("userName").textContent = data;
+        fetne();
     }
 }
 window.onload = checkLogin;
 
 $(document).ready(function () {
-    fetne();
-
-    // const array = ["1", "2", "3", "4"]
-    // const selectOne = document.getElementById("selectOne");
-    // array.map(item => {
-    //     let option = document.createElement("option");
-    //     option.value = item;
-    //     console.log(option.value);
-    //     option.text = "Hand" + item;
-    //     selectOne.add(option);
-    // })
     $("#buttonSave").click(() => {
         notificationLogin?.classList.add("show");
     })
