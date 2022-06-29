@@ -1,32 +1,12 @@
-// const barcodeValue = document.getElementById("barcodeValue")
-
-// Quagga.init({
-//     inputStream: {
-//         name: "Live",
-//         type: "LiveStream",
-//         constraints: {
-//             width: 220,
-//             height: 200
-//         },
-//         target: document.querySelector('#camera')
-//     },
-//     decoder: {
-//         readers: ["code_128_reader"]
-//     }
-// }, function (err) {
-//     if (err) {
-//         console.log(err);
-//         return
-//     }
-//     console.log("Initialization finished. Ready to start");
-//     Quagga.start();
-// });
-
-// Quagga.onDetected(function (data) {
-//     console.log(data.codeResult.code);
-// }); 
-
-
+function checkLogin() {
+    var data = sessionStorage.getItem('username');
+    if (data == null || data == '') {
+        window.location.href = "/login_page.html";
+    } else {
+        document.getElementById("userName").textContent = data;
+    }
+}
+window.onload = checkLogin;
 
 const startScan = () => {
     const button = document.getElementById("camera");

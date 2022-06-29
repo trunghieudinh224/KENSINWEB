@@ -1,3 +1,12 @@
 const changePage = (page) => {
-    window.location.href = page;
+    if (page != 'logout') {
+        window.location.href = page;
+    } else {
+        // Remove saved data from sessionStorage
+        sessionStorage.removeItem('username');
+
+        // Remove all saved data from sessionStorage
+        sessionStorage.clear();
+        window.location.href = "/login_page.html";
+    }
 }

@@ -1,4 +1,9 @@
 window.onload = async function () {
+    var data = sessionStorage.getItem('username');
+    if (data != null) {
+        window.location.href = "/notice_page.html";
+    }
+    
     $("#btnLogin").click(() => {
         login();
     })
@@ -32,6 +37,7 @@ window.onload = async function () {
                 console.log(result)
 
                 if (JSON.parse(result).err_code == 0) {
+                    sessionStorage.setItem('username', username);
                     window.location.href = "/notice_page.html";
                 } else {
                     document.getElementById("alertContent").innerText = JSON.parse(result).err_msg;
