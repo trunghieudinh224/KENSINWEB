@@ -33,7 +33,7 @@ const closeModal = () => {
 
 const fetne = () => {
     $.ajax({
-        url: "http://192.168.200.218:8080/DemoWeb/compackr/kubunlist?key=0582668301&login_id=67&login_pw=67",
+        url: "https://192.168.200.218/DemoWeb/compackr/kubunlist?key=0582668301&login_id=67&login_pw=67",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },

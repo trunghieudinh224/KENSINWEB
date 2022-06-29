@@ -9,6 +9,8 @@ function checkLogin() {
 window.onload = checkLogin;
 
 const startScan = () => {
+    const form = document.getElementById('form');
+    form.style.marginTop = "40px";
     const button = document.getElementById("camera");
     if (window.getComputedStyle(button).display === "none") {
         button.style.display = "block";
