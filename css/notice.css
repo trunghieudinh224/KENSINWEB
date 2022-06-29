@@ -46,8 +46,8 @@
   width: 30px;
   height: 30px;
   position: absolute;
-  left: 62%;
-  top: 12.5%;
+  left: 62.5%;
+  top: 19%;
   font-size: large;
   font-weight: bold;
   display: none;
@@ -419,7 +419,7 @@ div.click-to-top span {
 
 @media screen and (min-width: 1500px) {
   .wrap-login100 {
-    width: 60%;
+    width: 70%;
     padding: 40px 70px;
   }
 
@@ -460,7 +460,7 @@ div.click-to-top span {
 
   .btn-delete-pic {
     left: 62%;
-    top: 12%;
+    top: 19%;
   }
 }
 
@@ -487,7 +487,7 @@ div.click-to-top span {
 
   .btn-delete-pic {
     left: 68%;
-    top: 13%;
+    top: 20%;
     height: 25px;
     width: 25px;
   }
@@ -528,8 +528,8 @@ div.click-to-top span {
   }
 
   .btn-delete-pic {
-    left: 66%;
-    top: 13%;
+    left: 66.5%;
+    top: 21%;
     height: 25px;
     width: 25px;
   }
@@ -595,8 +595,8 @@ div.click-to-top span {
   .btn-delete-pic {
     height: 20px;
     width: 20px;
-    left: 69%;
-    top: 13%;
+    left: 69.5%;
+    top: 21%;
   }
 
   .dropdown-menu {
@@ -657,7 +657,7 @@ div.click-to-top span {
 
   .btn-delete-pic {
     left: 75%;
-    top: 12%;
+    top: 19%;
   }
 
   .modal-dialog {
@@ -703,14 +703,14 @@ div.click-to-top span {
   }
 
   .btn-delete-pic {
-    left: 83%;
-    top: 15%;
+    left: 84.5%;
+    top: 18%;
   }
 }
 
 @media screen and (max-width: 380px) {
   .btn-delete-pic {
-    left: 83%;
-    top: 13%;
+    left: 83.5%;
+    top: 18%;
   }
 }
