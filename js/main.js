@@ -14,7 +14,7 @@ window.onload = async function () {
         console.log("check user");
         validate(user, pass);
         if (user && pass) {
-            showDialog(true, "しばらくお待ちください。。。", "black", false)
+            showDialog("./images/gif/gif_loading.gif", true, "しばらくお待ちください。。。", "black", false)
             sendAPI(user, pass);
             // window.location.href = "/notice_page.html";
         }
@@ -24,7 +24,7 @@ window.onload = async function () {
 
         console.log(user, pass)
         if (!user || !pass) {
-            showDialog(true, "ユーザIDとパスワードを入力してください。", "red", true)
+            showDialog("./images/gif/gif_fail.gif", true, "ユーザIDとパスワードを入力してください。", "red", true)
         }
     }
 
@@ -40,6 +40,7 @@ window.onload = async function () {
                 if (JSON.parse(result).err_code == 0) {
                     sessionStorage.setItem('username', username);
                     sessionStorage.setItem('password', password);
+                    window.location.href = "/notice_page.html";
                 } else {
                     updateDialog("./images/gif/gif_fail.gif", JSON.parse(result).err_msg, "red", true)
                 }
@@ -57,12 +58,15 @@ const closeModal = () => {
 }
 
 
-function showDialog(showIcon, mess, colorMess, showButton) {
+function showDialog(iconSrc, showIcon, mess, colorMess, showButton) {
     const gif = document.getElementById("loadingGif");
     if (showIcon == true) {
         gif.style.display = 'block';
     } else {
         gif.style.display = 'none';
+    }
+    if (iconSrc != null) {
+        gif.src = iconSrc;
     }
     const message = document.getElementById("alertContent");
     message.style.color = colorMess;
