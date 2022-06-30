@@ -190,6 +190,8 @@ const sendAPI = () => {
             }
         }).done(function (res) {
             console.log('res', res);
+            updateDialog("./images/gif/gif_success.gif", "データ保存に成功しました。", "black", true)
+            resetPage();
         });
     }, delayInMilliseconds);
 
