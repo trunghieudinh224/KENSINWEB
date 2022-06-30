@@ -174,7 +174,7 @@ const sendAPI = () => {
             data: JSON.stringify(noticeDat),
             url: "https://192.168.200.218/DemoWeb/compackr/notice",
             contentType: "application/json",
-            timeout: 15000,
+            timeout: 120000,
             success: function (response) {
                 console.log(response);
                 updateDialog("./images/gif/gif_success.gif", "データ保存に成功しました。", "black", true)
