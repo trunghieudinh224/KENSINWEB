@@ -53,7 +53,7 @@
 		
 		<div class="container-login100" id="form">
 			<div class="wrap-login100 p-t-30 p-b-40">
-				<div class="nav flex-row justify-content-evenly nav-pills me-3" id="v-pills-tab" role="tablist"
+				<div class="nav flex-row justify-content-between nav-pills me-3" id="v-pills-tab" role="tablist"
 					aria-orientation="vertical">
 					<button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill"
 						data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile"
@@ -74,7 +74,7 @@
 						<form runat="server">
 							<input class="img-picker" accept="image/*" type='file' id="imgInp1" />
 							<img id="image1" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp1')" />
-							<span class="img-note note-value">(タップして選択または写真を撮ります)</span>
+							<span class="img-note note-value">(タップすると、画像が選択できます)</span>
 						</form>
 						<img class="btn-delete-pic" id="buttonX_1" src="./images/ic_close.png"
 							onclick="before('buttonX_1', 'image1')" />
@@ -84,7 +84,7 @@
 						<form runat="server">
 							<input class="img-picker" accept="image/*" type='file' id="imgInp2" />
 							<img id="image2" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp2')" />
-							<span class="img-note note-value">(タップして選択または写真を撮ります)</span>
+							<span class="img-note note-value">(タップすると、画像が選択できます)</span>
 						</form>
 						<img class="btn-delete-pic" id="buttonX_2" src="./images/ic_close.png"
 							onclick="before('buttonX_2', 'image2')" />
@@ -96,7 +96,7 @@
 						<form runat="server">
 							<input class="img-picker" accept="image/*" type='file' id="imgInp3" />
 							<img id="image3" src="./images/image.png" alt="your image" onclick="takePhoto('imgInp3')" />
-							<span class="img-note note-value">(タップして選択または写真を撮ります)</span>
+							<span class="img-note note-value">(タップすると、画像が選択できます)</span>
 						</form>
 						<img class="btn-delete-pic" id="buttonX_3" src="./images/ic_close.png"
 							onclick="before('buttonX_3', 'image3')" />
@@ -136,7 +136,7 @@
 						</div>
 	
 						<div class="col-9 area-value value">
-							<textarea class="input" name="" id="" style="width: 100%;"></textarea>
+							<textarea class="input" name="" id="memo" style="width: 100%;"></textarea>
 						</div>
 					</div>
 	
@@ -166,12 +166,14 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-body">
-							<div id="alertContent" class="alert alert-warning" role="alert">
-								保存されたデータ。
+							
+							<div class="alert alert-warning" role="alert">
+								<img id="loadingGif" src="./images/gif/gif_loading.gif"/>
+								<span  id="alertContent" class="value"></span>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" onClick="closeModal()">Okay</button>
+							<button id="btnDialogOk" type="button" class="btn btn-secondary btn-ok" onClick="closeModal()">Okay</button>
 						</div>
 					</div>
 				</div>

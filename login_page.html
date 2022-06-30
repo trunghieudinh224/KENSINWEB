@@ -69,20 +69,22 @@
 		</div>
 
 		<div class="modal fade" id="notificationLogin" data-bs-backdrop="static" tabindex="1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
-						<div id="alertContent" class="alert alert-warning" role="alert">
-							完全な情報を入力してください。
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							
+							<div class="alert alert-warning" role="alert">
+								<img id="loadingGif" src="./images/gif/gif_loading.gif"/>
+								<span  id="alertContent" class="value"></span>
+							</div>
 						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" onClick="closeModal()">Okay</button>
+						<div class="modal-footer">
+							<button id="btnDialogOk" type="button" class="btn btn-secondary btn-ok" onClick="closeModal()">Okay</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 	</div>
 
 
