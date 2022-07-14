@@ -7,6 +7,6 @@ const changePage = (page) => {
 
         // Remove all saved data from sessionStorage
         sessionStorage.clear();
-        window.location.href = "/login_page.html";
+        window.location.href = "printdemo1://";
     }
 }
