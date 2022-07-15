@@ -46,8 +46,8 @@ function generatePDFFile() {
     // }, 1000);
 
     /* Copy the text inside the text field */
-    prepareDataPrint();
-    navigator.clipboard.writeText("集　計　表&&1&&1/title/全 集 計 日/nl/検 針 件 数/nl/[/t/10000 /t/件 ]/nl/ガ ス 使 用 量/nl/[/t/200/t/m3 ]/nl/ガ ス 料 金/nl/[/t/10000/t/件 ]/nl/消 費 税/nl/[/t/100000/t/円 ]/nl/還 元 額/nl/[/t/10000/t/円 ]/nl/合 計/nl/[/t/20000/t/円 ]/nl/入 金 件 数/nl/[/t/1000/t/円 ]/nl/入 金 額/nl/[/t/7000/t/円 ]/nl/調 整 額/nl/[/t/1000/t/円 ]");
+    navigator.clipboard.writeText(prepareDataPrint());
+    // navigator.clipboard.writeText("集　計　表&&1&&1/title/全 集 計 日/nl/検 針 件 数/nl/[/t/10000 /t/件 ]/nl/ガ ス 使 用 量/nl/[/t/200/t/m3 ]/nl/ガ ス 料 金/nl/[/t/10000/t/件 ]/nl/消 費 税/nl/[/t/100000/t/円 ]/nl/還 元 額/nl/[/t/10000/t/円 ]/nl/合 計/nl/[/t/20000/t/円 ]/nl/入 金 件 数/nl/[/t/1000/t/円 ]/nl/入 金 額/nl/[/t/7000/t/円 ]/nl/調 整 額/nl/[/t/1000/t/円 ]");
     window.location.href = "kensinkun://print";
     try {
         // window.location.href ="printer://";
@@ -77,6 +77,7 @@ function prepareDataPrint() {
     
                 
     console.log(str);
+    return str;
 }
 
 function prepareLine(subtile, value, unit) {
