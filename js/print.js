@@ -46,7 +46,8 @@ function generatePDFFile() {
     // }, 1000);
 
     /* Copy the text inside the text field */
-    navigator.clipboard.writeText("集　計　表&&1&&1/title/全 集 計 日/nl/検 針 件 数/nl/[/t/10000/t/件 ]/nl/ガ ス 使 用 量/nl/[/t/200/t/m3 ]/nl/ガ ス 料 金/nl/[/t/10000/t/件 ]/nl/消 費 税/nl/[/t/100000/t/円 ]/nl/還 元 額/nl/[/t/10000/t/円 ]/nl/合 計/nl/[/t/20000/t/円 ]/nl/入 金 件 数/nl/[/t/1000/t/円 ]/nl/入 金 額/nl/[/t/7000/t/円 ]/nl/調 整 額/nl/[/t/1000/t/円 ]/nl/");
+    prepareDataPrint();
+    navigator.clipboard.writeText("集　計　表&&1&&1/title/全 集 計 日/nl/検 針 件 数/nl/[/t/10000 /t/件 ]/nl/ガ ス 使 用 量/nl/[/t/200/t/m3 ]/nl/ガ ス 料 金/nl/[/t/10000/t/件 ]/nl/消 費 税/nl/[/t/100000/t/円 ]/nl/還 元 額/nl/[/t/10000/t/円 ]/nl/合 計/nl/[/t/20000/t/円 ]/nl/入 金 件 数/nl/[/t/1000/t/円 ]/nl/入 金 額/nl/[/t/7000/t/円 ]/nl/調 整 額/nl/[/t/1000/t/円 ]");
     window.location.href = "kensinkun://print";
     try {
         // window.location.href ="printer://";
@@ -55,6 +56,45 @@ function generatePDFFile() {
       catch(err) {
         adddlert(err);
       }
+}
+
+var titleSign = "/title/";
+var titleSplit = "&&"
+var lineSign = "/nl/"
+var tabSign = "/t/"
+function prepareDataPrint() {
+    let str = (document.getElementById("nameForm").innerText).trim() + titleSplit + "1" + titleSplit + "1" + titleSign +
+              splitString(document.getElementById("Combobox").options[document.getElementById("Combobox").selectedIndex].innerText.trim()) + lineSign +
+                prepareLine(document.getElementById("title1").innerText, document.getElementById("value1").value, document.getElementById("unit1").value) + lineSign +
+                prepareLine(document.getElementById("title4").innerText, document.getElementById("value4").value, document.getElementById("unit4").value) + lineSign +
+                prepareLine(document.getElementById("title3").innerText, document.getElementById("value3").value, document.getElementById("unit3").value) + lineSign +
+                prepareLine(document.getElementById("title5").innerText, document.getElementById("value5").value, document.getElementById("unit5").value) + lineSign +
+                prepareLine(document.getElementById("title6").innerText, document.getElementById("value6").value, document.getElementById("unit6").value) + lineSign +
+                prepareLine(document.getElementById("title7").innerText, document.getElementById("value7").value, document.getElementById("unit7").value) + lineSign +
+                prepareLine(document.getElementById("title2").innerText, document.getElementById("value2").value, document.getElementById("unit2").value) + lineSign +
+                prepareLine(document.getElementById("title8").innerText, document.getElementById("value8").value, document.getElementById("unit8").value) + lineSign +
+                prepareLine(document.getElementById("title9").innerText, document.getElementById("value9").value, document.getElementById("unit9").value);
+    
+                
+    console.log(str);
+}
+
+function prepareLine(subtile, value, unit) {
+    let result = splitString(subtile) + lineSign + "[" + tabSign + value + tabSign + unit + " ]";
+    return result;
+}
+
+function splitString(title) {
+    let arr = title.split("");
+    let value = "";
+    for (let i = 0; i < arr.length; i++) {
+        if (i == 0) {
+            value = value + arr[i]
+        } else {
+            value = value + " " + arr[i];
+        }
+    }
+    return value;
 }
 
 function setInformation() {

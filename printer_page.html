@@ -64,7 +64,7 @@
 			<div class="wrap-login100 p-t-30 p-b-40">
 
 				<div id="editView">
-					<span class="login100-form-title title-form">
+					<span class="login100-form-title title-form" id="nameForm">
 						集　計　表
 					</span>
 	
@@ -72,7 +72,7 @@
 						<div class="area-input">
 							<div class="row content">
 								<div class="col-4 title-area">
-									<p class="login100-form-title title-content value">集計日</p>
+									<p class="login100-form-title title-content value" id="title0">集計日</p>
 								</div>
 	
 								<div class="col-8 value">
@@ -85,127 +85,127 @@
 	
 							<div class="row content">
 								<div class="col-4 title-area">
-									<p class="login100-form-title title-content value">検針件数</p>
+									<p class="login100-form-title title-content value" id="title1">検針件数</p>
 								</div>
 	
 								<div class="col-6 area-value value">
-									<input class="input inputValueEdit" type="number"></input>
+									<input class="input inputValueEdit" type="number" id="value1"></input>
 								</div>
 	
 								<div class="col-2 area-value value">
-									<input class="input" style="border: none" value="件" tabindex="-1" readonly></input>
+									<input class="input" style="border: none" value="件" tabindex="-1" readonly id="unit1"></input>
 								</div>
 							</div>
 	
 							<div class="row content">
 								<div class="col-4 title-area">
-									<p class="login100-form-title title-content value">入金件数</p>
+									<p class="login100-form-title title-content value" id="title2">入金件数</p>
 								</div>
 	
 								<div class="col-6 area-value value">
-									<input class="input" type="number"></input>
+									<input class="input" type="number" id="value2"></input>
 								</div>
 	
 								<div class="col-2 area-value value">
-									<input class="input" style="border: none" value="件" tabindex="-1" readonly></input>
-								</div>
-							</div>
-
-							<div class="row content">
-								<div class="col-4 title-area">
-									<p class="login100-form-title title-content value">ガス料金</p>
-								</div>
-	
-								<div class="col-6 area-value value">
-									<input class="input inputValueEdit" type="number"></input>
-								</div>
-	
-								<div class="col-2 area-value value">
-									<input class="input" style="border: none" value="m3" tabindex="-1" readonly></input>
+									<input class="input" style="border: none" value="件" tabindex="-1" readonly id="unit2"></input>
 								</div>
 							</div>
 
 							<div class="row content">
 								<div class="col-4 title-area">
-									<p class="login100-form-title title-content value">ガス使用量</p>
+									<p class="login100-form-title title-content value" id="title3">ガス料金</p>
 								</div>
 	
 								<div class="col-6 area-value value">
-									<input class="input inputValueEdit" type="number"></input>
+									<input class="input inputValueEdit" type="number" id="value3"></input>
 								</div>
 	
 								<div class="col-2 area-value value">
-									<input class="input" style="border: none" tabindex="-1" value="円" readonly></input>
+									<input class="input" style="border: none" value="m3" tabindex="-1" readonly id="unit3"></input>
 								</div>
 							</div>
 
 							<div class="row content">
 								<div class="col-4 title-area">
-									<p class="login100-form-title title-content value">消費税</p>
+									<p class="login100-form-title title-content value" id="title4">ガス使用量</p>
 								</div>
 	
 								<div class="col-6 area-value value">
-									<input class="input inputValueEdit" type="number"></input>
+									<input class="input inputValueEdit" type="number" id="value4"></input>
 								</div>
 	
 								<div class="col-2 area-value value">
-									<input class="input" style="border: none" value="円" tabindex="-1" readonly></input>
+									<input class="input" style="border: none" tabindex="-1" value="円" readonly id="unit4"></input>
 								</div>
 							</div>
 
 							<div class="row content">
 								<div class="col-4 title-area">
-									<p class="login100-form-title title-content value">還元額</p>
+									<p class="login100-form-title title-content value" id="title5">消費税</p>
 								</div>
 	
 								<div class="col-6 area-value value">
-									<input class="input inputValueEdit" type="number"></input>
+									<input class="input inputValueEdit" type="number" id="value5"></input>
 								</div>
 	
 								<div class="col-2 area-value value">
-									<input class="input" style="border: none" value="円" tabindex="-1" readonly></input>
+									<input class="input" style="border: none" value="円" tabindex="-1" readonly id="unit5"></input>
 								</div>
 							</div>
 
 							<div class="row content">
 								<div class="col-4 title-area">
-									<p class="login100-form-title title-content value">合計</p>
+									<p class="login100-form-title title-content value" id="title6">還元額</p>
 								</div>
 	
 								<div class="col-6 area-value value">
-									<input class="input inputValueEdit" type="number"></input>
+									<input class="input inputValueEdit" type="number" id="value6"></input>
 								</div>
 	
 								<div class="col-2 area-value value">
-									<input class="input" style="border: none" value="円" tabindex="-1" readonly></input>
+									<input class="input" style="border: none" value="円" tabindex="-1" readonly id="unit6"></input>
 								</div>
 							</div>
 
 							<div class="row content">
 								<div class="col-4 title-area">
-									<p class="login100-form-title title-content value">入金額</p>
+									<p class="login100-form-title title-content value"  id="title7">合計</p>
 								</div>
 	
 								<div class="col-6 area-value value">
-									<input class="input inputValueEdit" type="number"></input>
+									<input class="input inputValueEdit" type="number" id="value7"></input>
 								</div>
 	
 								<div class="col-2 area-value value">
-									<input class="input" style="border: none" value="円" tabindex="-1" readonly></input>
+									<input class="input" style="border: none" value="円" tabindex="-1" readonly id="unit7"></input>
 								</div>
 							</div>
 
 							<div class="row content">
 								<div class="col-4 title-area">
-									<p class="login100-form-title title-content value">調整額</p>
+									<p class="login100-form-title title-content value" id="title8">入金額</p>
 								</div>
 	
 								<div class="col-6 area-value value">
-									<input class="input inputValueEdit" type="number"></input>
+									<input class="input inputValueEdit" type="number" id="value8"></input>
 								</div>
 	
 								<div class="col-2 area-value value">
-									<input class="input" style="border: none" value="円" tabindex="-1" readonly></input>
+									<input class="input" style="border: none" value="円" tabindex="-1" readonly id="unit8"></input>
+								</div>
+							</div>
+
+							<div class="row content">
+								<div class="col-4 title-area">
+									<p class="login100-form-title title-content value" id="title9">調整額</p>
+								</div>
+	
+								<div class="col-6 area-value value">
+									<input class="input inputValueEdit" type="number" id="value9"></input>
+								</div>
+	
+								<div class="col-2 area-value value">
+									<input class="input" style="border: none" value="円" tabindex="-1" readonly id="unit9"></input>
 								</div>
 							</div>
 						</div>
