@@ -1,0 +1,495 @@
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+@font-face {
+  font-family: Ubuntu-Regular;
+  src: url('../fonts/ubuntu/Ubuntu-Regular.ttf');
+}
+
+
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-size: 22px;
+}
+
+.value {
+  font-size: 22px;
+}
+
+.btn {
+  width: 100%;
+  height: 100%;
+  font-family: Ubuntu-Regular;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: auto;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+
+  background: #ec4897;
+  background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: linear-gradient(left, #a445b2, #d41872, #fa4299);
+  position: relative;
+  z-index: 1;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  border: none;
+}
+
+.btn::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  border-radius: 21px;
+  background-color: #555555;
+  top: 0;
+  left: 0;
+  opacity: 0;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.container-login100 {
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.container-login100::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.wrap-login100 {
+  width: 600px;
+  margin-top: 50px;
+  border-radius: 10px;
+  overflow: hidden;
+  height: fit-content;
+  background: white;
+  padding: 30px 20px;
+}
+
+.login100-form {
+  width: 100%;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.login100-form-title {
+  font-family: Ubuntu-Regular;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  display: block;
+  margin: auto;
+  text-align: start;
+}
+
+.title-form {
+  text-align: center;
+}
+
+.content {
+  align-items: center;
+  margin: 10px 0px;
+}
+
+/*------------------------------------------------------------------
+[ Input ]*/
+
+.wrap-input100 {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #e6e6e6;
+  padding: 20px 0;
+}
+
+.title-content {
+  font-weight: bold;
+  font-size: 22px !important;
+}
+
+.area-value {
+  height: 50px;
+  border-radius: 4px;
+  border-color: black;
+  border-width: 2px;
+}
+
+.input {
+  width: 100%;
+  text-align: right;
+  border-radius: 4px;
+  border-color: black;
+  border-width: 2px;
+  padding: 3px 5px;
+  height: 50px;
+  resize: none;
+}
+
+#barcodeType {
+  font-weight: bold;
+}
+
+.btn-area {
+  padding: 10px 0;
+}
+
+.area-input {
+  padding: 0px;
+}
+
+.drawingBuffer {
+  display: none;
+}
+
+#camera {
+  display: none;
+  margin-top: 3%;
+  position: relative;
+}
+
+#camera video {
+  width: -webkit-fill-available;
+}
+
+.select-role {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  z-index: 10;
+}
+
+.btn-menu {
+  background-color: transparent;
+}
+
+.btn-menu:hover {
+  background-color: transparent;
+}
+
+#userName {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+/* .dropdown-menu {
+  width: 30px !important;
+} */
+
+.dropdown-menu li {
+  padding: 3px 0;
+}
+
+.dropdown-item:hover {
+  background-color: rgb(234, 234, 234);
+}
+
+.value-dropdown {
+  font-size: 22px;
+}
+
+option {
+  text-align: center;
+}
+
+
+.modal.fade.show {
+  display: block;
+}
+
+#notificationLogin {
+  /* position:relative; */
+  background: rgb(0, 0, 0);
+  /* Fallback for older browsers without RGBA-support */
+  background: rgba(0, 0, 0, 0.7);
+}
+
+#notificationLogin>.modal-dialog {
+  top: 10%;
+  width: 70%;
+  margin: auto;
+}
+
+.modal-body {
+  padding-bottom: 0px;
+}
+
+.modal-footer {
+  border: none;
+  display: block;
+  padding: 10px 20px 20px 20px;
+}
+
+.btn-ok {
+  width: fit-content !important;
+  padding: 0px 10%;
+  float: right;
+  /* display: none; */
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+#closeButton:hover {
+  cursor: pointer;
+}
+
+
+
+@media screen and (min-width: 1500px) {
+  #camera video {
+    width: -webkit-fill-available;
+  }
+
+}
+
+@media screen and (max-width: 1500px) {
+
+  #camera video {
+    width: -webkit-fill-available;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+
+  .wrap-login100 {
+    width: 690;
+  }
+
+  #camera video {
+    width: -webkit-fill-available;
+  }
+
+  .icon {
+    height: 25px;
+    width: 25px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+
+  .wrap-login100 {
+    width: 590px;
+  }
+
+  .login100-form-title {
+    font-size: 28px;
+  }
+
+  .value {
+    font-size: 20px !important;
+  }
+
+  .btn-area {
+    padding: 10px 0;
+  }
+
+  .area-value {
+    min-height: 45px;
+  }
+
+  .btn {
+    font-size: 20px;
+    padding: 20px 0;
+  }
+
+  #camera video {
+    width: -webkit-fill-available;
+  }
+
+  .dropdown-menu {
+    width: 260px !important;
+  }
+
+  .icon {
+    height: 25px;
+    width: 25px;
+  }
+
+  #userName {
+    font-size: 20px;
+  }
+
+  .value-dropdown {
+    font-size: 20px;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+
+  .wrap-login100 {
+    width: 540px;
+  }
+
+  .login100-form-title {
+    font-size: 25px;
+  }
+
+  .value {
+    font-size: 18px !important;
+    padding: 0px;
+    padding-left: 12px;
+  }
+
+  .btn-area {
+    padding: 10px 0;
+  }
+
+  .area-value {
+    min-height: 40px;
+  }
+
+  .title-area {
+    padding: 0px;
+    padding-right: 12px;
+  }
+
+  .btn {
+    font-size: 18px;
+    padding: 20px 0;
+    height: 40px;
+  }
+
+  #camera video {
+    width: -webkit-fill-available;
+  }
+
+  .dropdown-menu {
+    max-width: 230px !important;
+  }
+
+  .icon {
+    height: 20px;
+    width: 20px;
+  }
+
+  #userName {
+    font-size: 18px;
+  }
+
+  .value-dropdown {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .wrap-login100 {
+    width: 390px;
+  }
+
+  .value {
+    font-size: 16px !important;
+  }
+
+  .login100-form-title {
+    font-size: 23px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 0px;
+    font-size: 16px;
+    height: 40px;
+  }
+
+  #camera video {
+    width: -webkit-fill-available;
+  }
+
+  .dropdown-menu li {
+    padding: 1px 0;
+  }
+
+  .dropdown-menu {
+    max-width: 230px !important;
+  }
+
+  .icon {
+    height: 18px;
+    width: 18px;
+  }
+
+  #userName {
+    font-size: 16px;
+  }
+
+  .value-dropdown {
+    font-size: 16px;
+  }
+}
+
+
+@media screen and (max-width: 450px) {
+  .wrap-login100 {
+    width: 320px;
+    padding: 20px 10px;
+  }
+
+  #camera video {
+    width: -webkit-fill-available;
+    height: 280px;
+    margin: auto;
+  }
+
+  .select-role {
+    top: 3%;
+    right: 5%;
+  }
+}
