@@ -65,6 +65,7 @@ var titleSign = "/title/";
 var titleSplit = "&&";
 var lineSign = "/nl/";
 var tabSign = "/t/";
+var spaceItem = " ";
 var titleDistance = "60";
 var subTitleDistance = "4";
 var lineDistance = "2";
@@ -93,7 +94,7 @@ function prepareDataPrint() {
 
 function prepareLine(subtile, value, unit) {
     let stringTitle = splitString(subtile) + tabSign + textLayout[0] + tabSign + textSize[0] + tabSign + subTitleDistance + lineSign;
-    let stringValue = "[" + tabSign + value + tabSign + unit + " ]" + tabSign + textLayout[0] + tabSign + textSize[0] + tabSign + lineDistance;
+    let stringValue = "[" + tabSign + value + spaceItem + unit + " ]" + tabSign + textLayout[0] + tabSign + textSize[0] + tabSign + lineDistance;
     let result = stringTitle +  stringValue;
     return result;
 }
