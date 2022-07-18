@@ -65,14 +65,17 @@ var titleSign = "/title/";
 var titleSplit = "&&";
 var lineSign = "/nl/";
 var tabSign = "/t/";
+var titleDistance = "60";
+var subTitleDistance = "4";
+var lineDistance = "2";
 
 //config
 var textSize = ["0", "1"];
 var textLayout = ["0", "1", "2"];
 
 function prepareDataPrint() {
-    let str = (document.getElementById("nameForm").innerText).trim() + titleSplit + "1" + titleSplit + "1" + titleSplit + "60" + titleSign +
-        splitString(document.getElementById("Combobox").options[document.getElementById("Combobox").selectedIndex].innerText.trim()) + tabSign + textLayout[0] + tabSign + textSize[0] + lineSign +
+    let str = (document.getElementById("nameForm").innerText).trim() + titleSplit + "1" + titleSplit + "1" + titleSplit + titleDistance + titleSign +
+        splitString(document.getElementById("Combobox").options[document.getElementById("Combobox").selectedIndex].innerText.trim()) + tabSign + textLayout[0] + tabSign + textSize[0] + tabSign + subTitleDistance + lineSign +
         prepareLine(document.getElementById("title1").innerText, document.getElementById("value1").value, document.getElementById("unit1").value) + lineSign +
         prepareLine(document.getElementById("title4").innerText, document.getElementById("value4").value, document.getElementById("unit4").value) + lineSign +
         prepareLine(document.getElementById("title3").innerText, document.getElementById("value3").value, document.getElementById("unit3").value) + lineSign +
@@ -89,8 +92,8 @@ function prepareDataPrint() {
 }
 
 function prepareLine(subtile, value, unit) {
-    let stringTitle = splitString(subtile) + tabSign + textLayout[0] + tabSign + textSize[0] + lineSign;
-    let stringValue = "[" + tabSign + value + tabSign + unit + " ]" + tabSign + textLayout[0] + tabSign + textSize[0];
+    let stringTitle = splitString(subtile) + tabSign + textLayout[0] + tabSign + textSize[0] + tabSign + subTitleDistance + lineSign;
+    let stringValue = "[" + tabSign + value + tabSign + unit + " ]" + tabSign + textLayout[0] + tabSign + textSize[0] + tabSign + lineDistance;
     let result = stringTitle +  stringValue;
     return result;
 }
