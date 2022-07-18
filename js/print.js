@@ -72,7 +72,7 @@ var textLayout = ["0", "1", "2"];
 
 function prepareDataPrint() {
     let str = (document.getElementById("nameForm").innerText).trim() + titleSplit + "1" + titleSplit + "1" + titleSplit + "60" + titleSign +
-        splitString(document.getElementById("Combobox").options[document.getElementById("Combobox").selectedIndex].innerText.trim()) + textLayout[0] + tabSign + textSize[0] + lineSign +
+        splitString(document.getElementById("Combobox").options[document.getElementById("Combobox").selectedIndex].innerText.trim()) + tabSign + textLayout[0] + tabSign + textSize[0] + lineSign +
         prepareLine(document.getElementById("title1").innerText, document.getElementById("value1").value, document.getElementById("unit1").value) + lineSign +
         prepareLine(document.getElementById("title4").innerText, document.getElementById("value4").value, document.getElementById("unit4").value) + lineSign +
         prepareLine(document.getElementById("title3").innerText, document.getElementById("value3").value, document.getElementById("unit3").value) + lineSign +
