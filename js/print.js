@@ -90,7 +90,7 @@ function prepareDataPrint() {
 
 function prepareLine(subtile, value, unit) {
     let stringTitle = splitString(subtile) + tabSign + textLayout[0] + tabSign + textSize[0] + lineSign;
-    let stringValue = splitString(subtile) + lineSign + "[" + tabSign + value + tabSign + unit + " ]" + tabSign + textLayout[0] + tabSign + textSize[0];
+    let stringValue = "[" + tabSign + value + tabSign + unit + " ]" + tabSign + textLayout[0] + tabSign + textSize[0];
     let result = stringTitle +  stringValue;
     return result;
 }
