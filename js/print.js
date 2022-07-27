@@ -122,7 +122,7 @@ function setInformation() {
     const inputValueEdit = document.getElementsByClassName("inputValueEdit");
     for (let i = 0; i < inputValue.length; i++) {
         console.log(inputValueEdit[i].value);
-        let value = inputValueEdit[i].value;
+        let value = inputValueEdit[i].value.trim.length == 0 ? "0" : inputValueEdit[i].value.trim;
         inputValue[i].innerHTML = value + " " + inputValue[i].textContent.trim();
     }
 }
