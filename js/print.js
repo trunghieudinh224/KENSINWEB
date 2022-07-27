@@ -92,9 +92,14 @@ function prepareDataPrint() {
     return str;
 }
 
+
+var coordinate0 = "2";
+var coordinate1 = "34";
+var maxLength13 = "13";
+var maxLength14 = "14";
 function prepareLine(subtile, value, unit) {
     let stringTitle = splitString(subtile) + tabSign + textLayout[0] + tabSign + textSize[0] + tabSign + subTitleDistance + lineSign;
-    let stringValue = "[" + tabSign + value + spaceItem + unit + " ]" + tabSign + textLayout[0] + tabSign + textSize[0] + tabSign + lineDistance;
+    let stringValue = "[" + tabSign + value + spaceItem + unit + " ]" + tabSign + coordinate0 + tabSign + coordinate1 + (value.includes("m3") ? maxLength14 : maxLength13)         + tabSign + textLayout[0] + tabSign + textSize[0] + tabSign + lineDistance;
     let result = stringTitle +  stringValue;
     return result;
 }
