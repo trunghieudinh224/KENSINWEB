@@ -1,10 +1,10 @@
 function checkLogin() {
-    var data = sessionStorage.getItem('username');
-    if (data == null || data == '') {
-        window.location.href = "/login_page.html";
-    } else {
-        document.getElementById("userName").textContent = data;
-    }
+    // var data = sessionStorage.getItem('username');
+    // if (data == null || data == '') {
+    //     window.location.href = "/login_page.html";
+    // } else {
+    //     document.getElementById("userName").textContent = data;
+    // }
 }
 window.onload = checkLogin;
 

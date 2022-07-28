@@ -366,6 +366,11 @@
   .value-dropdown {
     font-size: 18px;
   }
+
+  
+  .area-input {
+    padding-right: 15px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -385,7 +390,7 @@
     width: 100%;
     padding: 0px;
     font-size: 16px;
-    height: 40px;
+    height: 40px !important;
   }
 
   #camera video {
@@ -411,6 +416,11 @@
 
   .value-dropdown {
     font-size: 16px;
+  }
+
+  
+  .area-input {
+    padding: 0px;
   }
 }
 
