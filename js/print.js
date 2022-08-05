@@ -190,12 +190,23 @@ function isChrome() {
 
 
 
-function demo2() {
+function demover2() {
     // console.log(getBrowserName());
     let value = "領　収　書&&1&&1&&10/title/発行日　　2022年　3月 1日/t/0/t/0/t/4/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/5/t/10/nl/コード：　5015/t/0/t/0/t/2/nl/ディン ツーン ヒエウ/t/様/t/2/t/34/t/11/t/0/t/0/t/2/nl/Vo Van Kiet Q8/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/10/nl/今回請求額/t/0円/t/2/t/12/t/11/t/0/t/1/t/2/nl/調整額/t/100円/t/2/t/34/t/11/t/0/t/0/t/2/nl/本日入金額/t/6円/t/2/t/34/t/11/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/0/t/10/t/1/nl/s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/10/nl/差引残高/t/94円/t/2/t/12/t/12/t/0/t/1/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/ryoshu/spf/6円/t/50/t/10/t/0/t/100/t/400/t/173/t/70/t/180/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/コード：　5015/t/0/t/0/t/2/nl/コード：　5015/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/0/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/Tel 999-0001/t/(担当)/t/2/t/28/t/0/t/0/t/0/t/2/nl/Fax /t/Hieu ne/t/2/t/28/t/0/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/20";
     navigator.clipboard.writeText(value);
     try {
         window.location.href = "printermarutou://print";
+    }
+    catch (err) {
+        adddlert(err);
+    }
+}
+
+function demo2() {
+    let value = "領　収　書&&1&&1&&10/title/発行日　　2022年　3月 1日/t/0/t/0/t/4/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/5/t/10/nl/コード：　5015/t/0/t/0/t/2/nl/ディン ツーン ヒエウ/t/様/t/2/t/34/t/11/t/0/t/0/t/2/nl/Vo Van Kiet Q8/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/10/nl/今回請求額/t/0円/t/2/t/12/t/11/t/0/t/1/t/2/nl/調整額/t/100円/t/2/t/34/t/11/t/0/t/0/t/2/nl/本日入金額/t/6円/t/2/t/34/t/11/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/0/t/10/t/1/nl/s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/10/nl/差引残高/t/94円/t/2/t/12/t/12/t/0/t/1/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/ryoshu/spf/6円/t/50/t/10/t/0/t/100/t/400/t/173/t/70/t/180/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/コード：　5015/t/0/t/0/t/2/nl/コード：　5015/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/0/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/Tel 999-0001/t/(担当)/t/2/t/28/t/0/t/0/t/0/t/2/nl/Fax /t/Hieu ne/t/2/t/28/t/0/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/20";
+    navigator.clipboard.writeText(value);
+    try {
+        window.location.href = "http://printermarutou/Print";
     }
     catch (err) {
         adddlert(err);
