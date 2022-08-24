@@ -297,6 +297,7 @@ function sendImage() {
                 data => {
                     console.log(data)
                     navigator.clipboard.writeText(data);
+                    alert(data)
 
                     setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
                     window.scrollTo(0, 0);
