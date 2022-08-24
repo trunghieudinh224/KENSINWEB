@@ -293,23 +293,26 @@ function sendImage() {
         // window.saveAs(blob, "output.pdf");
         console.log(blob)
         const interval = setInterval(function() {
+            getBase64(blob).then(
+                data => {
+                    console.log(data)
+                    navigator.clipboard.writeText(data);
+
+                    setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
+                    window.scrollTo(0, 0);
+                    clearInterval(interval);
+                    try {
+                        window.location.href = "printermarutou://print&&1";
+                    }
+                    catch (err) {
+                        adddlert(err);
+                    }    
+                }
+            );
             // method to be executed;
-            setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
-            window.scrollTo(0, 0);
-            clearInterval(interval);
-            try {
-                window.location.href = "printermarutou://print&&1";
-            }
-            catch (err) {
-                adddlert(err);
-            }    
+            
           }, 10);
-        getBase64(blob).then(
-            data => {
-                console.log(data)
-                navigator.clipboard.writeText(data);
-            }
-        );
+        
     })
 }
 
