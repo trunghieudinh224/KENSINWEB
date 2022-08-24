@@ -8,27 +8,8 @@ function checkLogin() {
 }
 window.onload = checkLogin;
 
-function generatePDF() {
-    // document.getElementById("selectOne").style.border = "none";
-    // const titleContent = document.getElementsByClassName("title-content");
-    // for (let i = 0; i < titleContent.length; i++) {
-    //     titleContent[i].style.fontWeight = "normal";
-    // }
-    // const input = document.getElementsByClassName("input");
-    // for (let i = 0; i < input.length; i++) {
-    //     input[i].style.border = "none";
-    // }
 
-    // const element = document.getElementById("formPrint");
-    // html2pdf(element, {
-    //     jsPDF: { format: 'a6' }
-    // }).save();
-
-
-    notificationLogin?.classList.add("show");
-}
-
-function generatePDFFile() {
+// function generatePDF() {
     // window.scrollTo(0, 0);
     // setTimeout(function () {
     //     const element = document.getElementById("finalForm");
@@ -38,23 +19,25 @@ function generatePDFFile() {
     //         filename: 'myfile.pdf',
     //         image: { type: 'jpeg', quality: 0.98 },
     //         html2canvas: { scale: 1 },
-    //         jsPDF: { unit: 'in', format: 'a6', orientation: 'portrait' }
+    //         jsPDF: { unit: 'in', format: 'a6', orientation: 'portrait' },
+    //         pageBreak: { mode: 'css', after:'.break-page'}
     //     };
 
     //     // New Promise-based usage:
     //     html2pdf().from(element).set(opt).save();
     // }, 1000);
 
+    // notificationLogin?.classList.add("show");
+// }
 
+
+function sendCharacter() {
     console.log(getBrowserName());
-    // alert("printermarutou://print" + "&&" + prepareDataPrint());
-    /* Copy the text inside the text field */
     navigator.clipboard.writeText(prepareDataPrint());
     // navigator.clipboard.writeText("集　計　表&&1&&1/title/全 集 計 日/nl/検 針 件 数/nl/[/t/10000 /t/件 ]/nl/ガ ス 使 用 量/nl/[/t/200/t/m3 ]/nl/ガ ス 料 金/nl/[/t/10000/t/件 ]/nl/消 費 税/nl/[/t/100000/t/円 ]/nl/還 元 額/nl/[/t/10000/t/円 ]/nl/合 計/nl/[/t/20000/t/円 ]/nl/入 金 件 数/nl/[/t/1000/t/円 ]/nl/入 金 額/nl/[/t/7000/t/円 ]/nl/調 整 額/nl/[/t/1000/t/円 ]");
-    window.location.href = "printermarutou://print";
+    
     try {
-        // window.location.href ="printer://";
-        // window.open("scan://")
+        window.location.href = "printermarutou://print&&0";
     }
     catch (err) {
         adddlert(err);
@@ -130,11 +113,14 @@ function setInformation() {
 
 function hideView() {
     setInformation();
+    document.getElementById("closeButton").style.display = "block";
     document.getElementById("editView").style.display = "none";
     document.getElementById("printView").style.display = "block";
+    window.scrollTo(0, 0);
 }
 
 function backAction() {
+    document.getElementById("closeButton").style.display = "none";
     const inputValue = document.getElementsByClassName("inputValue");
     for (let i = 0; i < inputValue.length; i++) {
         let arr = inputValue[i].textContent.split(' ');
@@ -190,30 +176,19 @@ function isChrome() {
 
 
 
-function demover2() {
+function sendCharacter2() {
     // console.log(getBrowserName());
     let value = "領　収　書&&1&&1&&10/title/発行日　　2022年　3月 1日/t/0/t/0/t/4/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/5/t/10/nl/コード：　5015/t/0/t/0/t/2/nl/ディン ツーン ヒエウ/t/様/t/2/t/34/t/11/t/0/t/0/t/2/nl/Vo Van Kiet Q8/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/10/nl/今回請求額/t/0円/t/2/t/12/t/11/t/0/t/1/t/2/nl/調整額/t/100円/t/2/t/34/t/11/t/0/t/0/t/2/nl/本日入金額/t/6円/t/2/t/34/t/11/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/0/t/10/t/1/nl/s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/10/nl/差引残高/t/94円/t/2/t/12/t/12/t/0/t/1/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/ryoshu/spf/6円/t/50/t/10/t/0/t/100/t/400/t/173/t/70/t/180/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/コード：　5015/t/0/t/0/t/2/nl/コード：　5015/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/0/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/Tel 999-0001/t/(担当)/t/2/t/28/t/0/t/0/t/0/t/2/nl/Fax /t/Hieu ne/t/2/t/28/t/0/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/20";
     navigator.clipboard.writeText(value);
     try {
-        window.location.href = "printermarutou://print";
+        window.location.href = "printermarutou://print&&0";
     }
     catch (err) {
         adddlert(err);
     }
 }
 
-function demo2() {
-    let value = "領　収　書&&1&&1&&10/title/発行日　　2022年　3月 1日/t/0/t/0/t/4/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/5/t/10/nl/コード：　5015/t/0/t/0/t/2/nl/ディン ツーン ヒエウ/t/様/t/2/t/34/t/11/t/0/t/0/t/2/nl/Vo Van Kiet Q8/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/10/nl/今回請求額/t/0円/t/2/t/12/t/11/t/0/t/1/t/2/nl/調整額/t/100円/t/2/t/34/t/11/t/0/t/0/t/2/nl/本日入金額/t/6円/t/2/t/34/t/11/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/0/t/10/t/1/nl/s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/10/nl/差引残高/t/94円/t/2/t/12/t/12/t/0/t/1/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/ryoshu/spf/6円/t/50/t/10/t/0/t/100/t/400/t/173/t/70/t/180/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/コード：　5015/t/0/t/0/t/2/nl/コード：　5015/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/0/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/Tel 999-0001/t/(担当)/t/2/t/28/t/0/t/0/t/0/t/2/nl/Fax /t/Hieu ne/t/2/t/28/t/0/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/20";
-    navigator.clipboard.writeText(value);
-    try {
-        window.location.href = "https://www.example.com/print";
-    }
-    catch (err) {
-        adddlert(err);
-    }
-}
-
-function demo3() {
+function sendCharacter3() {
     // console.log(getBrowserName());
     let value = "検針伝票 (兼　領収書)&&1&&1&&10/title/" +
                         "毎度ありがとうございます。/t/1/t/0/t/2/nl/" +
@@ -293,9 +268,71 @@ function demo3() {
                         "e-rectangle/t/-1/t/0/t/573/t/1/t/15/t/20";
     navigator.clipboard.writeText(value);
     try {
-        window.location.href = "printermarutou://print";
+        window.location.href = "printermarutou://print&&0";
     }
     catch (err) {
         adddlert(err);
+    }
+}
+
+
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
+
+
+function sendImage() {
+    setupFormPrint("100vh", "650px", "60px", "28px", "32px", "28px", "32px");
+    domtoimage.toBlob(document.getElementById('shukeiForm'))
+    .then(function(blob){
+        // window.saveAs(blob, "output.pdf");
+        console.log(blob)
+        const interval = setInterval(function() {
+            // method to be executed;
+            setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
+            window.scrollTo(0, 0);
+            clearInterval(interval);
+            try {
+                window.location.href = "printermarutou://print&&1";
+            }
+            catch (err) {
+                adddlert(err);
+            }    
+          }, 10);
+        getBase64(blob).then(
+            data => {
+                console.log(data)
+                navigator.clipboard.writeText(data);
+            }
+        );
+    })
+}
+
+
+function setupFormPrint(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineHeightSingleLine, sizeItem, lineheightItem) {
+    document.getElementById('form').style.width = widthScreen;
+    const form = document.getElementsByClassName("wrap-login100");
+    form[0].style.width = widthForm
+
+    document.getElementById("shukeiTitle").style.fontSize = sizeTitle
+
+    const shukei_single_line = document.getElementsByClassName("shukei-single-line");
+    for (let i = 0; i < shukei_single_line.length; i++) {
+        console.log(shukei_single_line[i].value);
+        shukei_single_line[i].style.fontSize = sizeSingleLine
+        shukei_single_line[i].style.lineHeight = lineHeightSingleLine
+        shukei_single_line[i].style.fontWeight = "normal"
+    }
+
+    const item = document.getElementsByClassName("item");
+    for (let i = 0; i < item.length; i++) {
+        console.log(item[i].value);
+        item[i].style.fontSize = sizeItem
+        item[i].style.lineHeight = lineheightItem
     }
 }
