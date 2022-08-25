@@ -296,7 +296,7 @@ function sendImage() {
             getBase64(blob).then(
                 data => {
                     console.log(data)
-                    navigator.clipboard.writeText(data);
+                    navigator.clipboard.writeText(String(data));
                     alert(data)
 
                     setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
