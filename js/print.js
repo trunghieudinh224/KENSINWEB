@@ -113,10 +113,10 @@ function setInformation() {
 
 function hideView() {
     setInformation();
-    document.getElementById("closeButton").style.display = "block";
     document.getElementById("editView").style.display = "none";
     document.getElementById("printView").style.display = "block";
     createImage();
+    document.getElementById("closeButton").style.display = "block";
     window.scrollTo(0, 0);
 }
 
