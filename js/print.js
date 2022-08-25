@@ -290,24 +290,23 @@ function sendImage() {
     setupFormPrint("100vh", "650px", "60px", "28px", "32px", "28px", "32px");
     domtoimage.toBlob(document.getElementById('shukeiForm'))
     .then(function(blob){
-
         getBase64(blob).then(
             data => {
-                navigator.clipboard.writeText(data);
                 console.log(data)
-                // navigator.clipboard.writeText(String(data));
+                copyData(String(data));
 
-                setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
-                window.scrollTo(0, 0);
-                clearInterval(interval);
-                stringImage = String(data).split("data:image/png;base64,")
-                navigator.clipboard.writeText(stringImage[1]);
-                try {
-                    window.location.href = "printermarutou://print/marutou/" + stringImage[1];
-                }
-                catch (err) {
-                    adddlert(err);
-                }    
+                // setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
+                // window.scrollTo(0, 0);
+                // clearInterval(interval);
+                // stringImage = String(data).split("data:image/png;base64,")
+                // navigator.clipboard.writeText(stringImage[1]);
+                // alert(navigator.clipboard.readText())
+                // try {
+                //     window.location.href = "printermarutou://print/marutou/" + stringImage[1];
+                // }
+                // catch (err) {
+                //     adddlert(err);
+                // }    
             });
         
         // // window.saveAs(blob, "output.pdf");
@@ -335,6 +334,19 @@ function sendImage() {
         //   }, 1000);
         
     })
+}
+
+function copyData(data) {
+    navigator.clipboard.writeText(data);
+    navigator.clipboard.readText()
+    .then(text => {
+        console.log('Pasted content: ', text);
+        alert('Pasted content: ' + text);
+    })
+    .catch(err => {
+        console.error('Failed to read clipboard contents: ', err);
+        alert('Failed to read clipboard contents: ', err);
+    });
 }
 
 
