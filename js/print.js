@@ -286,6 +286,7 @@ function getBase64(file) {
 }
 
 
+var imgStr = ""
 function sendImage() {
     setupFormPrint("100vh", "650px", "60px", "28px", "32px", "28px", "32px");
     domtoimage.toBlob(document.getElementById('shukeiForm'))
@@ -296,6 +297,8 @@ function sendImage() {
             getBase64(blob).then(
                 data => {
                     navigator.clipboard.writeText("dinhtrunghieu");
+                    imgStr = String(data)
+                    navigator.clipboard.writeText(imgStr);
                     console.log(data)
                     // navigator.clipboard.writeText(String(data));
 
