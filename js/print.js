@@ -275,7 +275,7 @@ function sendCharacter3() {
     // }
 
     
-    // navigator.clipboard.writeText(x);
+    navigator.clipboard.writeText(x);
 }
 
 
@@ -340,12 +340,12 @@ function sendImage() {
             console.log(base64data);
             x = base64data;
             // navigator.clipboard.writeText("Hieu");
-    navigator.clipboard.writeText(x);
         }
         
 
         setTimeout(function() {
             navigator.clipboard.writeText(x);
+            alert(x);
           }, 5000);
         
     })
