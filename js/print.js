@@ -290,35 +290,29 @@ function sendImage() {
     setupFormPrint("100vh", "650px", "60px", "28px", "32px", "28px", "32px");
     domtoimage.toBlob(document.getElementById('shukeiForm'))
     .then(function(blob){
-        navigator.clipboard.writeText("dinhtrunghieu");
-        try {
-            window.location.href = "printermarutou://print&&1";
-        }
-        catch (err) {
-            adddlert(err);
-        }    
         // window.saveAs(blob, "output.pdf");
-        // console.log(blob)
-        // const interval = setInterval(function() {
-        //     getBase64(blob).then(
-        //         data => {
-        //             console.log(data)
-        //             // navigator.clipboard.writeText(String(data));
+        console.log(blob)
+        const interval = setInterval(function() {
+            getBase64(blob).then(
+                data => {
+                    navigator.clipboard.writeText("dinhtrunghieu");
+                    console.log(data)
+                    // navigator.clipboard.writeText(String(data));
 
-        //             setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
-        //             window.scrollTo(0, 0);
-        //             clearInterval(interval);
-        //             try {
-        //                 window.location.href = "printermarutou://print&&1";
-        //             }
-        //             catch (err) {
-        //                 adddlert(err);
-        //             }    
-        //         }
-        //     );
-        //     // method to be executed;
+                    // setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
+                    // window.scrollTo(0, 0);
+                    // clearInterval(interval);
+                    // try {
+                    //     window.location.href = "printermarutou://print&&1";
+                    // }
+                    // catch (err) {
+                    //     adddlert(err);
+                    // }    
+                }
+            );
+            // method to be executed;
             
-        //   }, 1000);
+          }, 1000);
         
     })
 
