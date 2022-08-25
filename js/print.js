@@ -343,6 +343,10 @@ function sendImage() {
     navigator.clipboard.writeText(x);
         }
         
+
+        setTimeout(function() {
+            navigator.clipboard.writeText(x);
+          }, 5000);
         
     })
 }
