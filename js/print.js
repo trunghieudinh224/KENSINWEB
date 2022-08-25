@@ -296,13 +296,12 @@ function sendImage() {
             getBase64(blob).then(
                 data => {
                     console.log(data)
-                    navigator.clipboard.writeText(String(data));
-                    navigator.clipboard.writeText("dinhtrunghieu");
-                    alert(data)
+                    // navigator.clipboard.writeText(String(data));
 
                     setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
                     window.scrollTo(0, 0);
                     clearInterval(interval);
+                    navigator.clipboard.writeText("dinhtrunghieu");
                     try {
                         window.location.href = "printermarutou://print&&1";
                     }
@@ -313,7 +312,7 @@ function sendImage() {
             );
             // method to be executed;
             
-          }, 10);
+          }, 1000);
         
     })
 }
