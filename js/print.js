@@ -290,28 +290,49 @@ function sendImage() {
     setupFormPrint("100vh", "650px", "60px", "28px", "32px", "28px", "32px");
     domtoimage.toBlob(document.getElementById('shukeiForm'))
     .then(function(blob){
-        // window.saveAs(blob, "output.pdf");
-        console.log(blob)
-        const interval = setInterval(function() {
-            getBase64(blob).then(
-                data => {
-                    navigator.clipboard.writeText(data);
-                    console.log(data)
-                    // navigator.clipboard.writeText(String(data));
 
-                    setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
-                    window.scrollTo(0, 0);
-                    clearInterval(interval);
-                    try {
-                        window.location.href = "printermarutou://print/marutou/" + String(data);
-                    }
-                    catch (err) {
-                        adddlert(err);
-                    }    
+        getBase64(blob).then(
+            data => {
+                navigator.clipboard.writeText(data);
+                console.log(data)
+                // navigator.clipboard.writeText(String(data));
+
+                setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
+                window.scrollTo(0, 0);
+                clearInterval(interval);
+                stringImage = String(data).split("data:image/png;base64,")
+                navigator.clipboard.writeText(stringImage[1]);
+                try {
+                    window.location.href = "printermarutou://print/marutou/" + stringImage[1];
                 }
-            );
+                catch (err) {
+                    adddlert(err);
+                }    
+            });
+        
+        // // window.saveAs(blob, "output.pdf");
+        // console.log(blob)
+        // const interval = setInterval(function() {
+        //     getBase64(blob).then(
+        //         data => {
+        //             navigator.clipboard.writeText(data);
+        //             console.log(data)
+        //             // navigator.clipboard.writeText(String(data));
+
+        //             setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
+        //             window.scrollTo(0, 0);
+        //             clearInterval(interval);
+        //             stringImage = String(data).split("data:image/png;base64,")
+        //             try {
+        //                 window.location.href = "printermarutou://print/marutou/" + stringImage[1];
+        //             }
+        //             catch (err) {
+        //                 adddlert(err);
+        //             }    
+        //         }
+        //     );
             
-          }, 1000);
+        //   }, 1000);
         
     })
 }
