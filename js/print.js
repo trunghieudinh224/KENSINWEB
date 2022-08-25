@@ -116,7 +116,6 @@ function hideView() {
     document.getElementById("editView").style.display = "none";
     document.getElementById("printView").style.display = "block";
     createImage();
-    document.getElementById("closeButton").style.display = "block";
     window.scrollTo(0, 0);
 }
 
@@ -315,6 +314,7 @@ function createImage() {
                     setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
                     window.scrollTo(0, 0);
                     clearInterval(interval);
+                    document.getElementById("closeButton").style.display = "block";
                 }
             );
             // method to be executed;
