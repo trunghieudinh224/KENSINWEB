@@ -323,12 +323,7 @@ function sendImage() {
         //   }, 1000);
 
 
-        //   const interval1 = setInterval(function() {
-        //     navigator.clipboard.writeText(String(x1));
-        //     console.log(x1)
-        //     clearInterval(interval1);
-            
-        //   }, 3000);
+        
 
         
         // var base64 = getBase64Image(blob);
@@ -346,7 +341,11 @@ function sendImage() {
             navigator.clipboard.writeText("Hieuclip");
         }
         
-        
+        const interval1 = setInterval(function() {
+            navigator.clipboard.writeText(x);
+            clearInterval(interval1);
+            
+          }, 4000);
     })
 }
 var x = "";
