@@ -177,102 +177,109 @@ function isChrome() {
 
 
 function sendCharacter2() {
-    // console.log(getBrowserName());
-    let value = "領　収　書&&1&&1&&10/title/発行日　　2022年　3月 1日/t/0/t/0/t/4/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/5/t/10/nl/コード：　5015/t/0/t/0/t/2/nl/ディン ツーン ヒエウ/t/様/t/2/t/34/t/11/t/0/t/0/t/2/nl/Vo Van Kiet Q8/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/10/nl/今回請求額/t/0円/t/2/t/12/t/11/t/0/t/1/t/2/nl/調整額/t/100円/t/2/t/34/t/11/t/0/t/0/t/2/nl/本日入金額/t/6円/t/2/t/34/t/11/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/0/t/10/t/1/nl/s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/10/nl/差引残高/t/94円/t/2/t/12/t/12/t/0/t/1/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/ryoshu/spf/6円/t/50/t/10/t/0/t/100/t/400/t/173/t/70/t/180/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/コード：　5015/t/0/t/0/t/2/nl/コード：　5015/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/0/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/Tel 999-0001/t/(担当)/t/2/t/28/t/0/t/0/t/0/t/2/nl/Fax /t/Hieu ne/t/2/t/28/t/0/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/20";
-    navigator.clipboard.writeText(value);
-    try {
-        window.location.href = "printermarutou://print&&0";
-    }
-    catch (err) {
-        adddlert(err);
-    }
+    // // console.log(getBrowserName());
+    // let value = "領　収　書&&1&&1&&10/title/発行日　　2022年　3月 1日/t/0/t/0/t/4/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/5/t/10/nl/コード：　5015/t/0/t/0/t/2/nl/ディン ツーン ヒエウ/t/様/t/2/t/34/t/11/t/0/t/0/t/2/nl/Vo Van Kiet Q8/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/10/nl/今回請求額/t/0円/t/2/t/12/t/11/t/0/t/1/t/2/nl/調整額/t/100円/t/2/t/34/t/11/t/0/t/0/t/2/nl/本日入金額/t/6円/t/2/t/34/t/11/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/0/t/10/t/1/nl/s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/10/nl/差引残高/t/94円/t/2/t/12/t/12/t/0/t/1/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/ryoshu/spf/6円/t/50/t/10/t/0/t/100/t/400/t/173/t/70/t/180/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/コード：　5015/t/0/t/0/t/2/nl/コード：　5015/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/0/nl/s-rectangle/t/-1/t/0/t/573/t/1/t/10/t/10/nl/Tel 999-0001/t/(担当)/t/2/t/28/t/0/t/0/t/0/t/2/nl/Fax /t/Hieu ne/t/2/t/28/t/0/t/0/t/0/t/2/nl/e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/20";
+    // navigator.clipboard.writeText(value);
+    // try {
+    //     window.location.href = "printermarutou://print&&0";
+    // }
+    // catch (err) {
+    //     adddlert(err);
+    // }
+
+    
+    navigator.clipboard.writeText("Hieu11111");
 }
 
 function sendCharacter3() {
     // console.log(getBrowserName());
-    let value = "検針伝票 (兼　領収書)&&1&&1&&10/title/" +
-                        "毎度ありがとうございます。/t/1/t/0/t/2/nl/" +
-                        "今月の検針は次の通りです。/t/1/t/0/t/2/nl/" +
-                        "検針日　　2022年　3月 1日/t/0/t/0/t/4/nl/" +
+    // let value = "検針伝票 (兼　領収書)&&1&&1&&10/title/" +
+    //                     "毎度ありがとうございます。/t/1/t/0/t/2/nl/" +
+    //                     "今月の検針は次の通りです。/t/1/t/0/t/2/nl/" +
+    //                     "検針日　　2022年　3月 1日/t/0/t/0/t/4/nl/" +
 
-                        "s-rectangle/t/-1/t/0/t/573/t/1/t/5/t/6/nl/" +
-                        "コード：　5015/t/0/t/0/t/2/nl/" +
-                        "ディン ツーン ヒエウ/t/様/t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
-                        "  Vo Van Kiet Q8/t/0/t/0/t/2/nl/" +
-                        "e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/6/nl/" +
+    //                     "s-rectangle/t/-1/t/0/t/573/t/1/t/5/t/6/nl/" +
+    //                     "コード：　5015/t/0/t/0/t/2/nl/" +
+    //                     "ディン ツーン ヒエウ/t/様/t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
+    //                     "  Vo Van Kiet Q8/t/0/t/0/t/2/nl/" +
+    //                     "e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/6/nl/" +
 
-                        "s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/0/nl/" +
-                        "今回指針/t/102.8　　 /t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
-                        "前回指針( 2/22)/t/52.8　　 /t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
-                        "使用量/t/50.0 m3/t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
-                        "e-rectangle/t/-1/t/0/t/573/t/0/t/10/t/0/nl/" +
+    //                     "s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/0/nl/" +
+    //                     "今回指針/t/102.8　　 /t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
+    //                     "前回指針( 2/22)/t/52.8　　 /t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
+    //                     "使用量/t/50.0 m3/t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
+    //                     "e-rectangle/t/-1/t/0/t/573/t/0/t/10/t/0/nl/" +
 
-                        "s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/0/nl/" +
-                        "前回使用量/t/50.0 m3/t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
-                        "e-rectangle/t/-1/t/0/t/573/t/0/t/10/t/0/nl/" +
+    //                     "s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/0/nl/" +
+    //                     "前回使用量/t/50.0 m3/t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
+    //                     "e-rectangle/t/-1/t/0/t/573/t/0/t/10/t/0/nl/" +
 
-                        "s-rectangle/t/-1/t/0/t/573/t/1/t/5/t/0/nl/" +
-                        "ガス料金/t/35,310円/t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
-                        "e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/0/nl/" +
+    //                     "s-rectangle/t/-1/t/0/t/573/t/1/t/5/t/0/nl/" +
+    //                     "ガス料金/t/35,310円/t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
+    //                     "e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/0/nl/" +
 
-                        "s-rectangle/t/-1/t/0/t/573/t/1/t/5/t/10/nl/" +
-                        "ガス料金総額/t/35,310円/t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
-                        "e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/0/nl/" +
+    //                     "s-rectangle/t/-1/t/0/t/573/t/1/t/5/t/10/nl/" +
+    //                     "ガス料金総額/t/35,310円/t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
+    //                     "e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/0/nl/" +
 
-                        "s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/0/nl/" +
-                        "今回請求額/t/35,310円/t/2/t/12/t/11/t/0/t/1/t/2/nl/" +
-                        "調整額/t/100円/t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
-                        "本日入金額/t/35,410円/t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
-                        "e-rectangle/t/-1/t/0/t/573/t/0/t/10/t/0/nl/" +
+    //                     "s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/0/nl/" +
+    //                     "今回請求額/t/35,310円/t/2/t/12/t/11/t/0/t/1/t/2/nl/" +
+    //                     "調整額/t/100円/t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
+    //                     "本日入金額/t/35,410円/t/2/t/34/t/11/t/0/t/0/t/2/nl/" +
+    //                     "e-rectangle/t/-1/t/0/t/573/t/0/t/10/t/0/nl/" +
 
-                        "s-rectangle/t/-1/t/0/t/573/t/1/t/3/t/1/nl/" +
-                        "ガス売上には3,210円の消費税が含まれます。/t/0/t/0/t/2/nl/" +
-                        "e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/5/nl/" +
+    //                     "s-rectangle/t/-1/t/0/t/573/t/1/t/3/t/1/nl/" +
+    //                     "ガス売上には3,210円の消費税が含まれます。/t/0/t/0/t/2/nl/" +
+    //                     "e-rectangle/t/-1/t/0/t/573/t/1/t/10/t/5/nl/" +
 
-                        "table/spf/" +
-                        "0/tbnl/" +
-                        "ガス料金内訳（消費税込み)/t/0/t/0/t/2/t/10/tbnl/" +
-                        "0/t/573/t/0/tbnl/" +
-                        "基本料金/t/1,760円  /t/13/t/ 0/t/0/t/true/t/2/t/34/t/12/tbnl/" +
-                        "0/t/385/t/573/t/0/tbnl/" +
-                        "従量料金/t/0/t/0/t/2/t/true/tbnl/" +
-                        "0.1→   10.0m3 単価 693.00円/t/6,930円  /t/2/t/34/t/26/t/13/t/0/t/0/t/2/t/true/tbnl/" +
-                        "10.1→   20.0m3 単価 682.00円/t/6,820円  /t/2/t/34/t/26/t/13/t/0/t/0/t/2/t/true/tbnl/" +
-                        "20.1→   30.0m3 単価 671.00円/t/6,710円  /t/2/t/34/t/26/t/13/t/0/t/0/t/2/t/true/tbnl/" +
-                        "40.1→99999.9m3 単価 649.00円/t/6,290円  /t/2/t/34/t/26/t/13/t/0/t/0/t/2/t/true/tbnl/" +
-                        "rectangle12/t/0/t/385/t/573/t/0/tbnl/" +
-                        "合計/t/35,310円  /t/2/t/34/t/0/t/13/t/0/t/0/t/2/t/true/tbnl/" +
-                        "rectangle0/t/573/t/1/t/12/nl/" +
+    //                     "table/spf/" +
+    //                     "0/tbnl/" +
+    //                     "ガス料金内訳（消費税込み)/t/0/t/0/t/2/t/10/tbnl/" +
+    //                     "0/t/573/t/0/tbnl/" +
+    //                     "基本料金/t/1,760円  /t/13/t/ 0/t/0/t/true/t/2/t/34/t/12/tbnl/" +
+    //                     "0/t/385/t/573/t/0/tbnl/" +
+    //                     "従量料金/t/0/t/0/t/2/t/true/tbnl/" +
+    //                     "0.1→   10.0m3 単価 693.00円/t/6,930円  /t/2/t/34/t/26/t/13/t/0/t/0/t/2/t/true/tbnl/" +
+    //                     "10.1→   20.0m3 単価 682.00円/t/6,820円  /t/2/t/34/t/26/t/13/t/0/t/0/t/2/t/true/tbnl/" +
+    //                     "20.1→   30.0m3 単価 671.00円/t/6,710円  /t/2/t/34/t/26/t/13/t/0/t/0/t/2/t/true/tbnl/" +
+    //                     "40.1→99999.9m3 単価 649.00円/t/6,290円  /t/2/t/34/t/26/t/13/t/0/t/0/t/2/t/true/tbnl/" +
+    //                     "rectangle12/t/0/t/385/t/573/t/0/tbnl/" +
+    //                     "合計/t/35,310円  /t/2/t/34/t/0/t/13/t/0/t/0/t/2/t/true/tbnl/" +
+    //                     "rectangle0/t/573/t/1/t/12/nl/" +
 
-                        "ryoshu/spf/6円/t/50/t/0/t/13/t/100/t/400/t/173/t/70/t/180/nl/" +
+    //                     "ryoshu/spf/6円/t/50/t/0/t/13/t/100/t/400/t/173/t/70/t/180/nl/" +
 
-                        "s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/0/nl/" +
-                        "* * * 保　安　点　検 * * */t/1/t/0/t/2/nl/" +
-                        "①容器設置場所　　[O]/t/②容器設置状況　　[O]/t/2/t/25/t/0/t/0/t/0/t/2/nl/" +
-                        "③火気禁止２ｍ　　[O]/t/④調整器　　　　　[O]/t/2/t/25/t/0/t/0/t/0/t/2/nl/" +
-                        "⑤配管状況　　　　[O]/t/⑥ガス栓　　　　　[O]/t/2/t/25/t/0/t/0/t/0/t/2/nl/" +
-                        "⑦危険標識　　　　[O]/t/⑧マイコンメーター[O]/t/2/t/25/t/0/t/0/t/0/t/2/nl/" +
-                        "e-rectangle/t/-1/t/0/t/573/t/0/t/20/t/0/nl/" +
+    //                     "s-rectangle/t/-1/t/0/t/573/t/0/t/5/t/0/nl/" +
+    //                     "* * * 保　安　点　検 * * */t/1/t/0/t/2/nl/" +
+    //                     "①容器設置場所　　[O]/t/②容器設置状況　　[O]/t/2/t/25/t/0/t/0/t/0/t/2/nl/" +
+    //                     "③火気禁止２ｍ　　[O]/t/④調整器　　　　　[O]/t/2/t/25/t/0/t/0/t/0/t/2/nl/" +
+    //                     "⑤配管状況　　　　[O]/t/⑥ガス栓　　　　　[O]/t/2/t/25/t/0/t/0/t/0/t/2/nl/" +
+    //                     "⑦危険標識　　　　[O]/t/⑧マイコンメーター[O]/t/2/t/25/t/0/t/0/t/0/t/2/nl/" +
+    //                     "e-rectangle/t/-1/t/0/t/573/t/0/t/20/t/0/nl/" +
 
-                        "　基準に適合しない場合には速やかに措置を/t/0/t/0/t/2/nl/" +
-                        "　講じる必要があります。/t/0/t/0/t/15/nl/" +
+    //                     "　基準に適合しない場合には速やかに措置を/t/0/t/0/t/2/nl/" +
+    //                     "　講じる必要があります。/t/0/t/0/t/15/nl/" +
 
-                        "s-rectangle/t/-1/t/0/t/573/t/1/t/0/t/10/nl/" +
-                        "コード：　5015/t/0/t/0/t/2/nl/" +
-                        "コード：　5015/t/0/t/0/t/2/nl/" +
-                        "e-rectangle/t/-1/t/0/t/573/t/1/t/20/t/0/nl/" +
+    //                     "s-rectangle/t/-1/t/0/t/573/t/1/t/0/t/10/nl/" +
+    //                     "コード：　5015/t/0/t/0/t/2/nl/" +
+    //                     "コード：　5015/t/0/t/0/t/2/nl/" +
+    //                     "e-rectangle/t/-1/t/0/t/573/t/1/t/20/t/0/nl/" +
 
-                        "s-rectangle/t/-1/t/0/t/573/t/1/t/0/t/10/nl/" +
-                        "Tel 999-0001/t/(担当)/t/2/t/28/t/0/t/0/t/0/t/2/nl/" +
-                        "Fax /t/Hieu ne/t/2/t/28/t/0/t/0/t/0/t/2/nl/" +
-                        "e-rectangle/t/-1/t/0/t/573/t/1/t/15/t/20";
-    navigator.clipboard.writeText(value);
-    try {
-        window.location.href = "printermarutou://print&&0";
-    }
-    catch (err) {
-        adddlert(err);
-    }
+    //                     "s-rectangle/t/-1/t/0/t/573/t/1/t/0/t/10/nl/" +
+    //                     "Tel 999-0001/t/(担当)/t/2/t/28/t/0/t/0/t/0/t/2/nl/" +
+    //                     "Fax /t/Hieu ne/t/2/t/28/t/0/t/0/t/0/t/2/nl/" +
+    //                     "e-rectangle/t/-1/t/0/t/573/t/1/t/15/t/20";
+    // navigator.clipboard.writeText(value);
+    // try {
+    //     window.location.href = "printermarutou://print&&0";
+    // }
+    // catch (err) {
+    //     adddlert(err);
+    // }
+
+    navigator.clipboard.writeText(x);
+    // console.log(x);
+    // alert(x);
 }
 
 
@@ -286,44 +293,26 @@ function getBase64(file) {
 }
 
 
+var x1 = ""
+
 function sendImage() {
     setupFormPrint("100vh", "650px", "60px", "28px", "32px", "28px", "32px");
     domtoimage.toBlob(document.getElementById('shukeiForm'))
     .then(function(blob){
-        getBase64(blob).then(
-            data => {
-                console.log(data)
-                copyData(String(data));
-
-                // setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
-                // window.scrollTo(0, 0);
-                // clearInterval(interval);
-                // stringImage = String(data).split("data:image/png;base64,")
-                // navigator.clipboard.writeText(stringImage[1]);
-                // alert(navigator.clipboard.readText())
-                // try {
-                //     window.location.href = "printermarutou://print/marutou/" + stringImage[1];
-                // }
-                // catch (err) {
-                //     adddlert(err);
-                // }    
-            });
-        
-        // // window.saveAs(blob, "output.pdf");
+        // window.saveAs(blob, "output.pdf");
         // console.log(blob)
         // const interval = setInterval(function() {
         //     getBase64(blob).then(
         //         data => {
-        //             navigator.clipboard.writeText(data);
-        //             console.log(data)
+        //             x1 = data
+        //             // console.log(data)
         //             // navigator.clipboard.writeText(String(data));
 
         //             setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
         //             window.scrollTo(0, 0);
         //             clearInterval(interval);
-        //             stringImage = String(data).split("data:image/png;base64,")
         //             try {
-        //                 window.location.href = "printermarutou://print/marutou/" + stringImage[1];
+        //                 window.location.href = "printermarutou://print/marutou/" + String(data);
         //             }
         //             catch (err) {
         //                 adddlert(err);
@@ -332,22 +321,56 @@ function sendImage() {
         //     );
             
         //   }, 1000);
+
+
+        //   const interval1 = setInterval(function() {
+        //     navigator.clipboard.writeText(String(x1));
+        //     console.log(x1)
+        //     clearInterval(interval1);
+            
+        //   }, 3000);
+
+        
+        // var base64 = getBase64Image(blob);
+        // console.log(base64);
+        // navigator.clipboard.writeText("Hieu");
+
+
+        console.log(blobToBase64(blob));
+        var reader = new FileReader();
+        reader.readAsDataURL(blob); 
+        reader.onloadend = function() {
+            var base64data = reader.result;                
+            console.log(base64data);
+            x = base64data;
+            navigator.clipboard.writeText("Hieuclip");
+        }
+        
         
     })
 }
+var x = "";
 
-function copyData(data) {
-    navigator.clipboard.writeText(data);
-    navigator.clipboard.readText()
-    .then(text => {
-        console.log('Pasted content: ', text);
-        alert('Pasted content: ' + text);
-    })
-    .catch(err => {
-        console.error('Failed to read clipboard contents: ', err);
-        alert('Failed to read clipboard contents: ', err);
+function blobToBase64(blob) {
+    return new Promise((resolve, _) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
     });
-}
+  }
+
+
+
+function getBase64Image(img) {
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    var dataURL = canvas.toDataURL("image/png");
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+  }
+  
 
 
 function setupFormPrint(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineHeightSingleLine, sizeItem, lineheightItem) {
