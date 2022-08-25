@@ -297,6 +297,7 @@ function sendImage() {
                 data => {
                     console.log(data)
                     navigator.clipboard.writeText(String(data));
+                    navigator.clipboard.writeText("dinhtrunghieu");
                     alert(data)
 
                     setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
