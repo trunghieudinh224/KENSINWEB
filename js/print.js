@@ -288,7 +288,7 @@ function getBase64(file) {
 
 
 function sendImage() {
-    stringImage.replace("data:image/png;base64,", "");
+    stringImage = stringImage.replace("data:image/png;base64,", "");
     navigator.clipboard.writeText(stringImage);
     try {
         window.location.href = "printermarutou://print&&1";
