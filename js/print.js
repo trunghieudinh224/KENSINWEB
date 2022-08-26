@@ -60,15 +60,15 @@ var textLayout = ["0", "1", "2"];
 function prepareDataPrint() {
     let str = (document.getElementById("nameForm").innerText).trim() + titleSplit + "1" + titleSplit + "1" + titleSplit + titleDistance + titleSign +
         splitString(document.getElementById("Combobox").options[document.getElementById("Combobox").selectedIndex].innerText.trim()) + tabSign + textLayout[0] + tabSign + textSize[0] + tabSign + subTitleDistance + lineSign +
-        prepareLine(document.getElementById("title1").innerText, document.getElementById("value1").value.trim().length == 0 ? "0" : document.getElementById("value1").value.trim(), document.getElementById("unit1").innerText) + lineSign +
-        prepareLine(document.getElementById("title4").innerText, document.getElementById("value4").value.trim().length == 0 ? "0" : document.getElementById("value4").value.trim(), document.getElementById("unit4").innerText) + lineSign +
-        prepareLine(document.getElementById("title3").innerText, document.getElementById("value3").value.trim().length == 0 ? "0" : document.getElementById("value3").value.trim(), document.getElementById("unit3").innerText) + lineSign +
-        prepareLine(document.getElementById("title5").innerText, document.getElementById("value5").value.trim().length == 0 ? "0" : document.getElementById("value5").value.trim(), document.getElementById("unit5").innerText) + lineSign +
-        prepareLine(document.getElementById("title6").innerText, document.getElementById("value6").value.trim().length == 0 ? "0" : document.getElementById("value6").value.trim(), document.getElementById("unit6").innerText) + lineSign +
-        prepareLine(document.getElementById("title7").innerText, document.getElementById("value7").value.trim().length == 0 ? "0" : document.getElementById("value7").value.trim(), document.getElementById("unit7").innerText) + lineSign +
-        prepareLine(document.getElementById("title2").innerText, document.getElementById("value2").value.trim().length == 0 ? "0" : document.getElementById("value2").value.trim(), document.getElementById("unit2").innerText) + lineSign +
-        prepareLine(document.getElementById("title8").innerText, document.getElementById("value8").value.trim().length == 0 ? "0" : document.getElementById("value8").value.trim(), document.getElementById("unit8").innerText) + lineSign +
-        prepareLine(document.getElementById("title9").innerText, document.getElementById("value9").value.trim().length == 0 ? "0" : document.getElementById("value9").value.trim(), document.getElementById("unit9").innerText);
+        prepareLine(document.getElementById("title1").innerText, document.getElementById("value1").value.trim().length == 0 ? "0" : document.getElementById("value1").value.trim(), document.getElementById("unit1").innerText.trim()) + lineSign +
+        prepareLine(document.getElementById("title4").innerText, document.getElementById("value4").value.trim().length == 0 ? "0" : document.getElementById("value4").value.trim(), document.getElementById("unit4").innerText.trim()) + lineSign +
+        prepareLine(document.getElementById("title3").innerText, document.getElementById("value3").value.trim().length == 0 ? "0" : document.getElementById("value3").value.trim(), document.getElementById("unit3").innerText.trim()) + lineSign +
+        prepareLine(document.getElementById("title5").innerText, document.getElementById("value5").value.trim().length == 0 ? "0" : document.getElementById("value5").value.trim(), document.getElementById("unit5").innerText.trim()) + lineSign +
+        prepareLine(document.getElementById("title6").innerText, document.getElementById("value6").value.trim().length == 0 ? "0" : document.getElementById("value6").value.trim(), document.getElementById("unit6").innerText.trim()) + lineSign +
+        prepareLine(document.getElementById("title7").innerText, document.getElementById("value7").value.trim().length == 0 ? "0" : document.getElementById("value7").value.trim(), document.getElementById("unit7").innerText.trim()) + lineSign +
+        prepareLine(document.getElementById("title2").innerText, document.getElementById("value2").value.trim().length == 0 ? "0" : document.getElementById("value2").value.trim(), document.getElementById("unit2").innerText.trim()) + lineSign +
+        prepareLine(document.getElementById("title8").innerText, document.getElementById("value8").value.trim().length == 0 ? "0" : document.getElementById("value8").value.trim(), document.getElementById("unit8").innerText.trim()) + lineSign +
+        prepareLine(document.getElementById("title9").innerText, document.getElementById("value9").value.trim().length == 0 ? "0" : document.getElementById("value9").value.trim(), document.getElementById("unit9").innerText.trim());
 
 
     console.log(str);
