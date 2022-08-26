@@ -305,22 +305,24 @@ function createImage() {
     .then(function(blob){
         // window.saveAs(blob, "output.pdf");
         console.log(blob)
-        const interval = setInterval(function() {
-            getBase64(blob).then(
-                data => {
-                    console.log(data)
-                    stringImage = data
-
-                    setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
-                    window.scrollTo(0, 0);
-                    clearInterval(interval);
-                    document.getElementById("closeButton").style.display = "block";
-                }
-            );
-            // method to be executed;
-            
-          }, 10);
         
+        
+          getBase64(blob).then(
+            data => {
+                console.log(data)
+                stringImage = data
+
+                window.scrollTo(0, 0);
+                document.getElementById("closeButton").style.display = "block";
+                const interval = setInterval(function() {
+            
+                    // method to be executed;
+                    setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
+                    
+                  }, 5000);
+                  clearInterval(interval);
+            }
+        );
     })
 }
 
