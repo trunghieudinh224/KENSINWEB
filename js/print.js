@@ -301,7 +301,7 @@ function sendImage() {
 var stringImage = "";
 function createImage() {
     setupFormPrint("100vh", "650px", "60px", "29px", "38px", "29px", "38px");
-    domtoimage.toBlob(document.getElementById('finalForm'))
+    domtoimage.toBlob(document.getElementById('shukeiForm'))
     .then(function(blob){
         // window.saveAs(blob, "output.pdf");
         console.log(blob)
