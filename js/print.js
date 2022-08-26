@@ -300,7 +300,7 @@ function sendImage() {
 
 var stringImage = "";
 function createImage() {
-    setupFormPrint("100vh", "650px", "60px", "29px", "33px", "29px", "33px");
+    setupFormPrint("100vh", "650px", "60px", "29px", "38px", "29px", "38px");
     domtoimage.toBlob(document.getElementById('finalForm'))
     .then(function(blob){
         // window.saveAs(blob, "output.pdf");
