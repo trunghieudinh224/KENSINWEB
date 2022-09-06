@@ -1,0 +1,438 @@
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+@font-face {
+  font-family: Ubuntu-Regular;
+  src: url('../fonts/ubuntu/Ubuntu-Regular.ttf');
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-size: 18px;
+  overflow: auto;
+}
+
+.value {
+  font-size: 22px;
+}
+
+.btn {
+  width: 100%;
+  height: 100%;
+  font-family: Ubuntu-Regular;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: auto;
+  margin-bottom: 5px;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+
+  background: #ec4897;
+  background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: linear-gradient(left, #a445b2, #d41872, #fa4299);
+  position: relative;
+  z-index: 1;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  border: none;
+}
+
+.btn::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  border-radius: 21px;
+  background-color: #555555;
+  top: 0;
+  left: 0;
+  opacity: 0;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+
+.container-login100 {
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.container-login100::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.wrap-login100 {
+  width: 650px;
+  margin-top: 50px;
+  border-radius: 10px;
+  overflow: hidden;
+  height: fit-content;
+  background: white;
+  padding: 30px 20px;
+}
+
+.login100-form {
+  width: 100%;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.login100-form-title {
+  font-family: Ubuntu-Regular;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  display: block;
+  margin: auto;
+  text-align: start;
+}
+
+.title-form {
+  text-align: center;
+}
+
+.content {
+  align-items: center;
+  margin: 10px 0px;
+}
+
+/*------------------------------------------------------------------
+[ Input ]*/
+
+.wrap-input100 {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #e6e6e6;
+  padding: 20px 0;
+}
+
+.title-content {
+  font-weight: bold;
+  font-size: 22px !important;
+}
+
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#BackgroundPage {
+  background-image: url('./images/bg-01.jpg');  
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.card-body {
+  padding: 10px !important;
+  overflow: hidden;
+}
+
+
+form {
+  overflow: hidden;
+}
+
+.input-group-text {
+  font-weight: bold !important; 
+}
+
+.igt-center {
+  display: block !important;
+  width: 100%; 
+  margin-right: auto; 
+  margin-left: auto; 
+}
+
+.mw160 {
+  min-width: 195px;
+}
+
+.mw145 {
+  min-width: 145px;
+}
+
+.mw125 {
+  min-width: 125px;
+}
+
+.mw80 {
+  min-width: 80px;
+}
+
+
+
+.form-group {
+  margin-bottom: 5px !important;
+  overflow: hidden;
+}
+
+.button-area {
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.title-cus {
+  font-size: 30px !important;
+}
+
+.btn {
+  font-size: 20px !important;
+}
+
+.text {
+  font-size: 20px !important;
+}
+
+#titleForm {
+  font-size: 50px !important;
+  font-weight: bold !important;
+  text-align: center;
+  display: block;
+  margin: 5px 0px 20px 0px;
+  text-shadow: 
+    1px 0px 1px #ccc, 0px 1px 1px #eee, 
+    2px 1px 1px #ccc, 1px 2px 1px #eee,
+    3px 2px 1px #ccc, 2px 3px 1px #eee,
+    4px 3px 1px #ccc, 3px 4px 1px #eee;
+}
+
+
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content-collapse {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+.card {
+  margin-bottom: 5px;
+}
+
+.card-header {
+  background: #e9ecee !important;
+}
+
+.card-link {
+  font-size: 20px !important;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+
+.card-link:hover {
+  cursor: pointer;
+}
+
+.unit {
+  background-color: #e9ecee !important; 
+  border-left: none !important; 
+  text-align: right; 
+  max-width: 60px;
+}
+
+.ta-l {
+  text-align: left;
+}
+
+.ta-r {
+  text-align: right;
+}
+
+.combobox {
+  height: auto !important;
+  text-align: center !important;
+}
+
+
+@media screen and (max-width: 1200px) {
+
+  .wrap-login100 {
+    width: 650px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+
+  .wrap-login100 {
+    width: 590px;
+  }
+
+  .login100-form-title {
+    font-size: 28px;
+  }
+
+  .btn {
+    font-size: 18px !important;
+  }
+  
+  .text {
+    font-size: 18px !important;
+  }
+  
+  .title-cus {
+    font-size: 26px !important;
+  }
+
+  #titleForm {
+    font-size: 40px !important;
+  }
+  
+  .card-link {
+    font-size: 23px !important;
+  }
+
+  .mw160 {
+    min-width: 180px;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+
+  .wrap-login100 {
+    width: 540px;
+  }
+
+  .login100-form-title {
+    font-size: 25px;
+  }
+
+  .mw145 {
+    min-width: 125px;
+  }
+
+  .mw125 {
+    min-width: 105px;
+  }
+  
+  .mw80 {
+    min-width: 80px;
+  }
+
+  .btn {
+    font-size: 16px !important;
+  }
+  
+  .text {
+    font-size: 16px !important;
+  }
+
+  #titleForm {
+    font-size: 38px !important;
+    margin: 5px 0px 15px 0px;
+  }
+  
+  .card-link {
+    font-size: 21px !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .wrap-login100 {
+    width: 400px;
+  }
+
+  .mw145 {
+    min-width: 115px;
+  }
+
+  .mw125 {
+    min-width: 100px;
+  }
+  
+  .mw80 {
+    min-width: 70px;
+  }
+  
+  .text {
+    font-size: 15px !important;
+    overflow: hidden;
+  }
+  
+  .title-cus {
+    font-size: 24px !important;
+  }
+
+  #titleForm {
+    font-size: 30px !important;
+    margin: 5px 0px 5px 0px;
+  }
+  
+  .card-link {
+    font-size: 20px !important;
+  }
+
+}
+
+
+@media screen and (max-width: 450px) {
+  .wrap-login100 {
+    width: 350px;
+    padding: 20px 10px;
+  }
+}
