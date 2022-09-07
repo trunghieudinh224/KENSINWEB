@@ -13,34 +13,38 @@
       <div class="search-detail">
         <div class="detail-form">
           <div class="detail-form-title">検索種別</div>
-          <select name="kindOfSearch" id="">
-            <option value="branch-code">顧客コード</option>
-            <option value="branch-code">顧客カナ</option>
-            <option value="branch-code">電話番号</option>
-            <option value="branch-code">メーター機番</option>
+          <select name="search-type" id="search-type">
+            <option value="0">顧客コード</option>
+            <option value="1">顧客カナ</option>
+            <option value="2">電話番号</option>
+            <option value="3">メーター機番</option>
           </select>
         </div>
         <div class="detail-form">
           <div class="detail-form-title">一致種別</div>
-          <select name="kindOfType" id="">
-            <option value="branch-code">前方一致</option>
-            <option value="branch-code">部分一致</option>
-            <option value="branch-code">後方一致</option>
+          <select name="search-part" id="search-part">
+            <option value="first-part">前方一致</option>
+            <option value="part">部分一致</option>
+            <option value="last-part">後方一致</option>
           </select>
         </div>
         <div class="detail-form">
           <div class="detail-form-title">検索キー</div>
-          <input type="text" />
+          <input type="text" id="search-key"/>
         </div>
         <div class="detail-form">
           <div class="detail-form-title">検索状態</div>
+          <!-- <div class="select">
+            <input type="radio" name="status">検針済</input>
+            <input type="radio" name="status">未検針</input>
+          </div> -->
           <div class="select">
             <span>
-              <input type="radio" name="finished" id="finished" />
+              <input type="radio" name="finished" id="finished"/>
               <label for="finished">検針済</label>
             </span>
             <span>
-              <input type="radio" name="finished" id="not-finish" />
+              <input type="radio" name="finished" id="not-finish" checked/>
               <label for="not-finish">未検針</label>
             </span>
           </div>
@@ -59,16 +63,18 @@
       </div>
       <div class="buttons">
         <div class="search-btn">先頭の未検針顧客</div>
-        <div class="search-btn">検索</div>
+        <div class="search-btn" id="kensaku">検索</div>
       </div>
       <table class="result-tb">
-        <tbody>
+        <thead>
           <tr>
             <th>顧客</th>
             <th>住所</th>
             <th>状態</th>
           </tr>
-          <tr>
+        </thead>
+        <tbody>
+          <!-- <tr>
             <td>山田</td>
             <td>〇森市△高町１ー１</td>
             <td>済</td>
@@ -82,7 +88,7 @@
             <td>高橋</td>
             <td>〇森市△高町１ー１</td>
             <td>済</td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
