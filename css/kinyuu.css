@@ -13,6 +13,10 @@
   overflow: auto;
 }
 
+body {
+  font-family: Ubuntu-Regular;
+}
+
 .value {
   font-size: 22px;
 }

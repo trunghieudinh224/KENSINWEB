@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="search-form">
-      <div class="title">検索</div>
+      <div class="title row justify-content-center">検索</div>
       <div class="search-detail">
         <div class="detail-form">
           <div class="detail-form-title">検索種別</div>
@@ -17,11 +17,8 @@
             <option value="branch-code">顧客コード</option>
             <option value="branch-code">顧客カナ</option>
             <option value="branch-code">電話番号</option>
+            <option value="branch-code">メーター機番</option>
           </select>
-        </div>
-        <div class="detail-form">
-          <div class="detail-form-title">検索キー</div>
-          <input type="text" />
         </div>
         <div class="detail-form">
           <div class="detail-form-title">一致種別</div>
@@ -30,6 +27,10 @@
             <option value="branch-code">部分一致</option>
             <option value="branch-code">後方一致</option>
           </select>
+        </div>
+        <div class="detail-form">
+          <div class="detail-form-title">検索キー</div>
+          <input type="text" />
         </div>
         <div class="detail-form">
           <div class="detail-form-title">検索状態</div>
@@ -45,16 +46,16 @@
           </div>
         </div>
         <div class="detail-form">
-            <div class="detail-form-title">検索順</div>
-            <select name="kindOfSoft" id="">
-              <option value="branch-code">検針地区順</option>
-              <option value="branch-code">保安地区順</option>
-              <option value="branch-code">配送地区順</option>
-              <option value="branch-code">顧客コード順</option>
-              <option value="branch-code">顧客カナ順</option>
-              <option value="branch-code">電話番号順</option>
-            </select>
-          </div>
+          <div class="detail-form-title">検索順</div>
+          <select name="kindOfSoft" id="">
+            <option value="branch-code">検針地区順</option>
+            <option value="branch-code">保安地区順</option>
+            <option value="branch-code">配送地区順</option>
+            <option value="branch-code">顧客コード順</option>
+            <option value="branch-code">顧客カナ順</option>
+            <option value="branch-code">電話番号順</option>
+          </select>
+        </div>
       </div>
       <div class="buttons">
         <div class="search-btn">先頭の未検針顧客</div>
@@ -62,24 +63,29 @@
       </div>
       <table class="result-tb">
         <tbody>
-            <tr>
-                <th>顧客</th>
-                <th>住所</th>
-            </tr>
-            <tr>
-                <td>山田</td>
-                <td>〇森市△高町１ー１</td>
-            </tr>
-            <tr>
-                <td>真由美</td>
-                <td>〇森市△高町１ー１</td>
-            </tr>
-            <tr>
-                <td>高橋</td>
-                <td>〇森市△高町１ー１</td>
-            </tr>
+          <tr>
+            <th>顧客</th>
+            <th>住所</th>
+            <th>状態</th>
+          </tr>
+          <tr>
+            <td>山田</td>
+            <td>〇森市△高町１ー１</td>
+            <td>済</td>
+          </tr>
+          <tr>
+            <td>真由美</td>
+            <td>〇森市△高町１ー１</td>
+            <td>済</td>
+          </tr>
+          <tr>
+            <td>高橋</td>
+            <td>〇森市△高町１ー１</td>
+            <td>済</td>
+          </tr>
         </tbody>
       </table>
     </div>
+    <script src="./js/search.js"></script>
   </body>
 </html>
