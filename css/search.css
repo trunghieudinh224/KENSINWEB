@@ -43,19 +43,28 @@ body::after {
 input[type="radio"] {
   margin-left: 10px;
 }
-
+#data-messages, #warning-message {
+  padding: 20px 20px 0;
+  color: #ff0000;
+  display: none;
+}
+#warning-message {
+  padding-top: 0 !important;
+  padding-bottom: 20px;
+  padding-left: 150px;
+}
 .table-container {
-  display: block;
+  display: none;
   max-height: 300px;
   overflow-y: scroll;
   margin: auto 0px;
+  border: 2px solid black;
 }
 table {
   display: table;
   position: relative;
   border-collapse: separate;
   border-spacing: 0;
-  border: 2px solid black;
   width: 100%;
   padding: 0 !important;
   overflow-y: scroll;
@@ -64,7 +73,7 @@ thead {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  background-color: #e9ecef;
+  background-color: #ffe5e5;
 }
 tbody {
   width: 100%;
@@ -73,7 +82,7 @@ tbody {
 th, td {
   text-align: left;
   padding: 8px;
-  border: 1px solid black;
+  border: 0.5px solid black;
 }
 th {
   text-align: center;
@@ -114,7 +123,8 @@ tr:nth-child(even) {
 .warning {
   animation: shake 0.2s ease-in-out 0s 2;
   color: red !important;
-  box-shadow: 0 0 0.5em red !important;
+  box-shadow: 0 0 .5em red !important;
+  border: 1px solid red;
 }
 .warning::placeholder {
   color: red;

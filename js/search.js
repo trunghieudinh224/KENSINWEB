@@ -5,26 +5,28 @@ const $$ = document.querySelectorAll.bind(document);
 
 const searchType = $("#search-type");
 const searchPart = $("#search-part");
+const searchOrder = $("#search-order");
 const searchKey = $("#search-key");
+const searchStatus = $("#search-status");
 const searchBtn = $("#kensaku");
+const warningMessage = $("#warning-message");
 const table = $(".result-tb");
-
+console.log(warningMessage)
 //--------------------Check valid value input-------------------------->
 searchKey.onfocus = function () {
   searchKey.classList.remove("warning");
-  searchKey.value = "";
+  warningMessage.textContent = "";
 };
 searchBtn.onclick = function () {
-  const checkKenShin = $("#finished").checked === true ? "済" : "未";
+  console.log(searchStatus.value);
+  const checkKenShin = searchStatus.value === "1" ? "済" : "未";
   const searchTypeValue = searchType.value;
   const searchKeyValue = searchKey.value;
   let isCheck = false;
   let errorMessage = "error";
 
-  console.log(checkKenShin)
-  //-----------------Show data------------------------>
-  // $(".result-tb").style.display = "block";
   // ----------------Check valid input --------------->
+
   switch (searchTypeValue) {
     case "0":
       isCheck = searchKeyValue.match(/^\d+$/) ? true : false;
@@ -53,13 +55,17 @@ searchBtn.onclick = function () {
   }
   if (searchKeyValue === "" || isCheck === false) {
     searchKey.classList.add("warning");
-    searchKey.value = errorMessage;
+    warningMessage.textContent = errorMessage;
+    warningMessage.style.display = "block";
   }
   //------------------------Call API---------------------------->
   const kcode = searchType.value;
+  const part = searchPart.value;
   const key = searchKey.value;
+  const status = searchStatus.value;
+  const order = searchOrder.value;
   fetch(
-    `http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=${kcode}&srch_string=${key}&match_kind=0&status=0&order_kind=0&login_id=7&login_pw=7`
+    `http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=${kcode}&srch_string=${key}&match_kind=${part}&status=${status}&order_kind=${order}&login_id=7&login_pw=7`
   )
     .then((res) => {
       const list = $(".result-tb tbody");
@@ -69,7 +75,6 @@ searchBtn.onclick = function () {
       return res.json();
     })
     .then((json) => {
-      console.log(json)
       json.cuslist.map((item) => {
         const newElement = document.createElement("tr");
         const newName = document.createElement("td");
@@ -88,5 +93,14 @@ searchBtn.onclick = function () {
           window.location.href = "/kokyaku_sentaku_page.html";
         }
       });
+      //-----------------Show data------------------------>
+      if($(".result-tb tbody").hasChildNodes()){
+        $(".table-container").style.display = "block";
+        $("#data-messages").style.display = "none";
+      }else{
+        $(".table-container").style.display = "none";
+        $("#data-messages").style.display = "block";
+      }
     });
+      
 };

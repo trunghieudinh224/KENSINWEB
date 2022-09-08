@@ -74,9 +74,9 @@
               <span class="input-group-text mw145 text">一致種別</span>
             </div>
             <select class="form-control ta-l text" name="search-part" id="search-part" style="height: 45.5px;">
-              <option value="first-part">前方一致</option>
-              <option value="part">部分一致</option>
-              <option value="last-part">後方一致</option>
+              <option value="0">前方一致</option>
+              <option value="1">部分一致</option>
+              <option value="2">後方一致</option>
             </select>
           </div>
         </div>
@@ -90,40 +90,37 @@
             <input type="text" class="form-control ta-l text" id="search-key"></input>
           </div> 
         </div>
-        <div class="col-12">
+        <div class="text" id="warning-message">Warning messages</div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-12">
           <div class="form-group input-group">
             <div class="input-group-prepend">
               <span class="input-group-text mw145 text">検針状態</span>
             </div>
-            <span class="form-control ta-l text-center">
-              <input type="radio" name="status" id="finished">
-                <span class="text">検針済</span>
-              </input>
-              <span class="divider">hahahaha</span>
-              <input type="radio" name="status" id="not-finish" checked>
-                <span class="text">未検針</span>
-              </input>
-            </span>
+            <select class="form-control ta-l text" name="search-status" id="search-status" style="height: 45.5px;">
+              <option value="0" selected>未検針</option>
+              <option value="1">検針済</option>
+            </select>
           </div> 
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
+        <div class="col-lg-6 col-12">
           <div class="form-group input-group">
             <div class="input-group-prepend">
               <span class="input-group-text mw145 text">検索順</span>
             </div>
-            <select class="form-control ta-l text" name="search-part" id="" style="height: 45.5px;">
-              <option value="">検針地区順</option>
-              <option value="">保安地区順</option>
-              <option value="">配送地区順</option>
-              <option value="">顧客コード順</option>
-              <option value="">顧客カナ順</option>
-              <option value="">電話番号順</option>
+            <select class="form-control ta-l text" name="search-order" id="search-order" style="height: 45.5px;">
+              <option value="0">検針地区順</option>
+              <option value="1">保安地区順</option>
+              <option value="2">配送地区順</option>
+              <option value="3">顧客コード順</option>
+              <option value="4">顧客カナ順</option>
+              <option value="5">電話番号順</option>
             </select>
           </div>
         </div>
       </div>
+      <div class="row text" id="data-messages">No data founded!!</div>
       <div class="row content button-area">
         <div class="col-6">
           <button type="button" class="btn btn-default text-center">先頭の未検針顧客</button>
