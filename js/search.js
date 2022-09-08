@@ -7,7 +7,6 @@ const searchType = $("#search-type");
 const searchPart = $("#search-part");
 const searchKey = $("#search-key");
 const searchBtn = $("#kensaku");
-const checkKenShin = $("#finished").value === true ? "済" : "未";
 const table = $(".result-tb");
 
 //--------------------Check valid value input-------------------------->
@@ -16,11 +15,13 @@ searchKey.onfocus = function () {
   searchKey.value = "";
 };
 searchBtn.onclick = function () {
+  const checkKenShin = $("#finished").checked === true ? "済" : "未";
   const searchTypeValue = searchType.value;
   const searchKeyValue = searchKey.value;
   let isCheck = false;
   let errorMessage = "error";
 
+  console.log(checkKenShin)
   //-----------------Show data------------------------>
   // $(".result-tb").style.display = "block";
   // ----------------Check valid input --------------->
@@ -68,6 +69,7 @@ searchBtn.onclick = function () {
       return res.json();
     })
     .then((json) => {
+      console.log(json)
       json.cuslist.map((item) => {
         const newElement = document.createElement("tr");
         const newName = document.createElement("td");
@@ -80,6 +82,11 @@ searchBtn.onclick = function () {
         newElement.appendChild(newAddress);
         newElement.appendChild(newStatus);
         $(".result-tb tbody").appendChild(newElement);
+        newElement.onclick = function(){
+          const cuslistData = Object.assign({}, item)
+          console.log(cuslistData)
+          localStorage.setItem("cuslist", JSON.stringify(cuslistData));
+        }
       });
     });
 };
