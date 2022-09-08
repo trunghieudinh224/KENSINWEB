@@ -84,8 +84,8 @@ searchBtn.onclick = function () {
         $(".result-tb tbody").appendChild(newElement);
         newElement.onclick = function(){
           const cuslistData = Object.assign({}, item)
-          console.log(cuslistData)
           localStorage.setItem("cuslist", JSON.stringify(cuslistData));
+          window.location.href = "/kokyaku_sentaku_page.html";
         }
       });
     });
