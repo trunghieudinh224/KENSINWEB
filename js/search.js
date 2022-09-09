@@ -3,6 +3,7 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+const firstCustomer = $("#first-customer");
 const searchType = $("#search-type");
 const searchPart = $("#search-part");
 const searchOrder = $("#search-order");
@@ -11,26 +12,55 @@ const searchStatus = $("#search-status");
 const searchBtn = $("#kensaku");
 const warningMessage = $("#warning-message");
 const table = $(".result-tb");
-console.log(warningMessage)
+const checkKenShin = searchStatus.value === "1" ? "済" : "未";
+
+//-------------------Direct to First Customer info page-------------->
+firstCustomer.onclick = function(){
+  window.location.href = "/kokyaku_sentaku_page.html";
+}
+
+//--------------------Show previous data------------------------------->
+const getCuslist = JSON.parse(localStorage.getItem("cuslist"));
+const previousCuslist = Object.values(getCuslist);
+if(previousCuslist.length !== 0){
+  previousCuslist.map((item) => {
+    const newElement = document.createElement("tr");
+    const newName = document.createElement("td");
+    const newAddress = document.createElement("td");
+    const newStatus = document.createElement("td");
+    newName.appendChild(document.createTextNode(item.name));
+    newAddress.appendChild(document.createTextNode(item.add_0));
+    newStatus.appendChild(document.createTextNode(checkKenShin));
+    newElement.appendChild(newName);
+    newElement.appendChild(newAddress);
+    newElement.appendChild(newStatus);
+    $(".result-tb tbody").appendChild(newElement);
+    newElement.onclick = function(){
+      const cusdat = Object.assign({}, item)
+      localStorage.setItem("cusdat", JSON.stringify(cusdat));
+      window.location.href = "/kokyaku_sentaku_page.html";
+    }
+  });
+  $(".table-container").style.display = "block";
+}
 //--------------------Check valid value input-------------------------->
 searchKey.onfocus = function () {
   searchKey.classList.remove("warning");
   warningMessage.textContent = "";
 };
 searchBtn.onclick = function () {
-  console.log(searchStatus.value);
   const checkKenShin = searchStatus.value === "1" ? "済" : "未";
   const searchTypeValue = searchType.value;
   const searchKeyValue = searchKey.value;
   let isCheck = false;
   let errorMessage = "error";
 
-  // ----------------Check valid input --------------->
+// ----------------Check valid input --------------->
 
   switch (searchTypeValue) {
     case "0":
       isCheck = searchKeyValue.match(/^\d+$/) ? true : false;
-      errorMessage = "not customer code";
+      errorMessage = "顧客コード正しくない";
       break;
     case "1":
       isCheck = searchKeyValue.match(
@@ -38,17 +68,17 @@ searchBtn.onclick = function () {
       )
         ? true
         : false;
-      errorMessage = "not customer name";
+      errorMessage = "日本語で入力して下さい";
       break;
     case "2":
       isCheck = searchKeyValue.match(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{4}$/)
         ? true
         : false;
-      errorMessage = "invalid phone number";
+      errorMessage = "電話番号入力してください";
       break;
     case "3":
       isCheck = searchKeyValue.match(/^\d+$/) ? true : false;
-      errorMessage = "invalid code";
+      errorMessage = "メーター機番が間違います。";
       break;
     default:
       console.log("ok");
@@ -57,7 +87,7 @@ searchBtn.onclick = function () {
     searchKey.classList.add("warning");
     warningMessage.textContent = errorMessage;
     warningMessage.style.display = "block";
-  }
+  }else{
   //------------------------Call API---------------------------->
   const kcode = searchType.value;
   const part = searchPart.value;
@@ -75,6 +105,8 @@ searchBtn.onclick = function () {
       return res.json();
     })
     .then((json) => {
+      const cuslist = Object.assign({}, json.cuslist);
+      localStorage.setItem("cuslist", JSON.stringify(cuslist));
       json.cuslist.map((item) => {
         const newElement = document.createElement("tr");
         const newName = document.createElement("td");
@@ -88,8 +120,8 @@ searchBtn.onclick = function () {
         newElement.appendChild(newStatus);
         $(".result-tb tbody").appendChild(newElement);
         newElement.onclick = function(){
-          const cuslistData = Object.assign({}, item)
-          localStorage.setItem("cuslist", JSON.stringify(cuslistData));
+          const cusdat = Object.assign({}, item)
+          localStorage.setItem("cusdat", JSON.stringify(cusdat));
           window.location.href = "/kokyaku_sentaku_page.html";
         }
       });
@@ -102,5 +134,5 @@ searchBtn.onclick = function () {
         $("#data-messages").style.display = "block";
       }
     });
-      
+  }
 };
