@@ -14,6 +14,7 @@ const searchOrder = $("#search-order");
 const searchKey = $("#search-key");
 const searchStatus = $("#search-status");
 const searchBtn = $("#kensaku");
+const searchBackBtn = $("#search-back-btn");
 const warningMessage = $("#warning-message");
 const table = $(".result-tb tbody");
 const checkKenShin = searchStatus.value === "1" ? "済" : "未";
@@ -149,4 +150,7 @@ searchBtn.onclick = function () {
 //-------------------Direct to First Customer info page-------------->
 firstCustomer.onclick = function(){
   window.location.href = "/kokyaku_sentaku_page.html";
+}
+searchBackBtn.onclick = function(){
+  window.location.href = "/menu_page.html";
 }

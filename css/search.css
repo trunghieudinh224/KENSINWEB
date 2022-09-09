@@ -37,12 +37,13 @@ body::after {
     1px 2px 1px #eee, 3px 2px 1px #ccc, 2px 3px 1px #eee, 4px 3px 1px #ccc,
     3px 4px 1px #eee;
 }
-#data-messages, #warning-message {
+#data-messages {
   padding: 20px 20px 0;
-  color: #ff0000;
   display: none;
 }
 #warning-message {
+  color: #ff0000;
+  display: none;
   padding: 0;
   margin-left: 30%;
   margin-bottom: 20px;
