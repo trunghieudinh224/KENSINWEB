@@ -189,12 +189,6 @@ form {
   min-width: 125px;
 }
 
-.mw80 {
-  min-width: 80px;
-}
-
-
-
 .form-group {
   margin-bottom: 5px !important;
 }
@@ -277,28 +271,9 @@ span {
 }
 
 
-
-
-@media screen and (min-width: 1500px) {
-  #camera video {
-    width: -webkit-fill-available;
-  }
-}
-
-@media screen and (max-width: 1500px) {
-  #camera video {
-    width: -webkit-fill-available;
-  }
-}
-
 @media screen and (max-width: 1200px) {
-
   .wrap-login100 {
     width: 650px;
-  }
-
-  #camera video {
-    width: -webkit-fill-available;
   }
 }
 
@@ -344,10 +319,6 @@ span {
   .mw125 {
     min-width: 105px;
   }
-  
-  .mw80 {
-    min-width: 80px;
-  }
 
   .btn {
     font-size: 16px !important;
@@ -370,10 +341,6 @@ span {
 
   .mw125 {
     min-width: 105px;
-  }
-  
-  .mw80 {
-    min-width: 70px;
   }
   
   span {

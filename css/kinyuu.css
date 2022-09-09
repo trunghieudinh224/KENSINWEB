@@ -11,6 +11,7 @@
   box-sizing: border-box;
   font-size: 18px;
   overflow: auto;
+  font-family: Ubuntu-Regular;
 }
 
 body {
@@ -201,7 +202,7 @@ form {
 }
 
 .mw145 {
-  min-width: 145px;
+  min-width: 155px;
 }
 
 .mw125 {
@@ -229,11 +230,11 @@ form {
 }
 
 .btn {
-  font-size: 20px !important;
+  font-size: 18px !important;
 }
 
 .text {
-  font-size: 20px !important;
+  font-size: 18px !important;
 }
 
 #titleForm {
@@ -259,7 +260,6 @@ form {
   border: none;
   text-align: left;
   outline: none;
-  font-size: 15px;
 }
 
 .active, .collapsible:hover {
@@ -310,6 +310,29 @@ form {
 .combobox {
   height: auto !important;
   text-align: center !important;
+}
+
+#status {
+  padding-left: 5px;
+  font-weight: bold;
+  color: red;
+}
+
+
+.custom-select {
+  background: none !important;
+  padding: 0px !important;
+  border-left: none !important;
+  text-align: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: -webkit-center !important;
+}
+
+
+.custom-select:hover {
+  cursor: pointer;
 }
 
 
@@ -402,11 +425,11 @@ form {
   }
 
   .mw145 {
-    min-width: 115px;
+    min-width: 120px;
   }
 
   .mw125 {
-    min-width: 100px;
+    min-width: 105px;
   }
   
   .mw80 {
