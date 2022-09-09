@@ -117,6 +117,7 @@ searchBtn.onclick = function () {
     .then((json) => {
       const cuslist = Object.assign({}, json.cuslist);
       localStorage.setItem("cuslist", JSON.stringify(cuslist));
+      localStorage.setItem("searchOrder", JSON.stringify(order));
       json.cuslist.map((item) => {
         const newElement = document.createElement("tr");
         const newName = document.createElement("td");
