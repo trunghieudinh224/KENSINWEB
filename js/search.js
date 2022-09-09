@@ -5,6 +5,7 @@ import * as constant from './Constant/message.js'
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+const selectTags = $$("select");
 const dataMessage = $("#data-messages");
 const firstCustomer = $("#first-customer");
 const searchType = $("#search-type");
@@ -14,16 +15,11 @@ const searchKey = $("#search-key");
 const searchStatus = $("#search-status");
 const searchBtn = $("#kensaku");
 const warningMessage = $("#warning-message");
-const table = $(".result-tb");
+const table = $(".result-tb tbody");
 const checkKenShin = searchStatus.value === "1" ? "済" : "未";
 
 //------------------Founded data message----------------------------->
 dataMessage.textContent = constant.E00005;
-
-//-------------------Direct to First Customer info page-------------->
-firstCustomer.onclick = function(){
-  window.location.href = "/kokyaku_sentaku_page.html";
-}
 
 //--------------------Show previous data------------------------------->
 const getCuslist = JSON.parse(localStorage.getItem("cuslist"));
@@ -52,6 +48,11 @@ if(getCuslist){
   }
 }
 //--------------------Check valid value input-------------------------->
+for(const input of selectTags){
+  input.onchange = function(){
+    searchKey.classList.remove("warning");
+  }
+}
 searchKey.onfocus = function () {
   searchKey.classList.remove("warning");
   warningMessage.textContent = "";
@@ -126,7 +127,7 @@ searchBtn.onclick = function () {
         newElement.appendChild(newName);
         newElement.appendChild(newAddress);
         newElement.appendChild(newStatus);
-        $(".result-tb tbody").appendChild(newElement);
+        table.appendChild(newElement);
         newElement.onclick = function(){
           const cusdat = Object.assign({}, item)
           localStorage.setItem("cusdat", JSON.stringify(cusdat));
@@ -134,7 +135,7 @@ searchBtn.onclick = function () {
         }
       });
       //-----------------Show data------------------------>
-      if($(".result-tb tbody").hasChildNodes()){
+      if(table.hasChildNodes()){
         $(".table-container").style.display = "block";
         $("#data-messages").style.display = "none";
       }else{
@@ -144,3 +145,8 @@ searchBtn.onclick = function () {
     });
   }
 };
+
+//-------------------Direct to First Customer info page-------------->
+firstCustomer.onclick = function(){
+  window.location.href = "/kokyaku_sentaku_page.html";
+}
