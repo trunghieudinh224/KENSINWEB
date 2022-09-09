@@ -1,8 +1,11 @@
+import * as constant from './Constant/message.js'
+
 "use strict";
 // http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=0&srch_string=0&match_kind=0&status=0&order_kind=0&login_id=7&login_pw=7
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+const dataMessage = $("#data-messages");
 const firstCustomer = $("#first-customer");
 const searchType = $("#search-type");
 const searchPart = $("#search-part");
@@ -14,6 +17,9 @@ const warningMessage = $("#warning-message");
 const table = $(".result-tb");
 const checkKenShin = searchStatus.value === "1" ? "済" : "未";
 
+//------------------Founded data message----------------------------->
+dataMessage.textContent = constant.E00005;
+
 //-------------------Direct to First Customer info page-------------->
 firstCustomer.onclick = function(){
   window.location.href = "/kokyaku_sentaku_page.html";
@@ -21,8 +27,8 @@ firstCustomer.onclick = function(){
 
 //--------------------Show previous data------------------------------->
 const getCuslist = JSON.parse(localStorage.getItem("cuslist"));
-const previousCuslist = Object.values(getCuslist);
-if(previousCuslist.length !== 0){
+if(getCuslist){
+  const previousCuslist = Object.values(getCuslist);
   previousCuslist.map((item) => {
     const newElement = document.createElement("tr");
     const newName = document.createElement("td");
@@ -41,7 +47,9 @@ if(previousCuslist.length !== 0){
       window.location.href = "/kokyaku_sentaku_page.html";
     }
   });
-  $(".table-container").style.display = "block";
+  if(previousCuslist.length !== 0){
+    $(".table-container").style.display = "block";
+  }
 }
 //--------------------Check valid value input-------------------------->
 searchKey.onfocus = function () {
@@ -60,7 +68,7 @@ searchBtn.onclick = function () {
   switch (searchTypeValue) {
     case "0":
       isCheck = searchKeyValue.match(/^\d+$/) ? true : false;
-      errorMessage = "顧客コード正しくない";
+      errorMessage = constant.E00001;
       break;
     case "1":
       isCheck = searchKeyValue.match(
@@ -68,17 +76,17 @@ searchBtn.onclick = function () {
       )
         ? true
         : false;
-      errorMessage = "日本語で入力して下さい";
+      errorMessage = constant.E00002;
       break;
     case "2":
       isCheck = searchKeyValue.match(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{4}$/)
         ? true
         : false;
-      errorMessage = "電話番号入力してください";
+      errorMessage = constant.E00003;
       break;
     case "3":
       isCheck = searchKeyValue.match(/^\d+$/) ? true : false;
-      errorMessage = "メーター機番が間違います。";
+      errorMessage = constant.E00004;
       break;
     default:
       console.log("ok");
