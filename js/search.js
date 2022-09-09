@@ -116,8 +116,9 @@ searchBtn.onclick = function () {
     })
     .then((json) => {
       const cuslist = Object.assign({}, json.cuslist);
+      const searchOrderText = ["検針地区順","保安地区順","配送地区順","顧客コード順","顧客カナ順","電話番号順"];
       localStorage.setItem("cuslist", JSON.stringify(cuslist));
-      localStorage.setItem("searchOrder", JSON.stringify(order));
+      localStorage.setItem("searchOrder", JSON.stringify(searchOrderText[order]));
       json.cuslist.map((item) => {
         const newElement = document.createElement("tr");
         const newName = document.createElement("td");
