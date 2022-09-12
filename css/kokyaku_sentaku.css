@@ -14,169 +14,9 @@
 }
 
 .value {
-  font-size: 22px;
+  font-size: 20px;
 }
 
-.btn {
-  width: 100%;
-  height: 100%;
-  font-family: Ubuntu-Regular;
-  color: white;
-  font-size: 22px;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin: auto;
-
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-
-  background: #ec4897;
-  background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: linear-gradient(left, #a445b2, #d41872, #fa4299);
-  position: relative;
-  z-index: 1;
-
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
-  border: none;
-}
-
-.btn::before {
-  content: "";
-  display: block;
-  position: absolute;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  border-radius: 21px;
-  background-color: #555555;
-  top: 0;
-  left: 0;
-  opacity: 0;
-
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
-}
-
-
-.container-login100 {
-  width: 100%;
-  min-height: 100vh;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  position: relative;
-  z-index: 1;
-}
-
-.container-login100::before {
-  content: "";
-  display: block;
-  position: absolute;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.65);
-}
-
-.wrap-login100 {
-  width: 650px;
-  margin-top: 50px;
-  border-radius: 10px;
-  overflow: hidden;
-  height: fit-content;
-  background: white;
-  padding: 30px 20px;
-}
-
-.login100-form {
-  width: 100%;
-  border-radius: 10px;
-  background-color: #fff;
-}
-
-.login100-form-title {
-  font-family: Ubuntu-Regular;
-  font-size: 30px;
-  font-weight: bold;
-  text-align: center;
-  text-transform: uppercase;
-  display: block;
-  margin: auto;
-  text-align: start;
-}
-
-.title-form {
-  text-align: center;
-}
-
-.content {
-  align-items: center;
-  margin: 10px 0px;
-}
-
-/*------------------------------------------------------------------
-[ Input ]*/
-
-.wrap-input100 {
-  width: 100%;
-  position: relative;
-  border-bottom: 1px solid #e6e6e6;
-  padding: 20px 0;
-}
-
-.title-content {
-  font-weight: bold;
-  font-size: 22px !important;
-}
-
-
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-#BackgroundPage {
-  background-image: url('./images/bg-01.jpg');  
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-
-form {
-  overflow: hidden;
-}
-
-.input-group-text {
-  font-weight: bold !important; 
-}
 
 .igt-center {
   display: block !important;
@@ -188,43 +28,6 @@ form {
 .mw125 {
   min-width: 125px;
 }
-
-.form-group {
-  margin-bottom: 5px !important;
-}
-
-.divider-text {
-  position: relative;
-  text-align: center;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  margin-left: 7%;
-  margin-right: 7%;
-  overflow: hidden;
-}
-
-.divider-text span {
-  padding: 7px;
-  padding-left: 4%;
-  padding-right: 4%;
-  font-size: 12px;
-  position: relative;   
-  z-index: 2;
-  background-color: #ffffff; 
-  font-weight: bold; 
-  font-size: 30px;
-}
-
-.divider-text:after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  border-bottom: 3px solid #ddd;
-  top: 55%;
-  left: 0;
-  z-index: 1;
-}
-
 
 .igValue {
   width:100%; 
@@ -240,128 +43,31 @@ form {
   min-height: 100px;
 }
 
-.button-area {
-  margin-top: 20px;
-  overflow: hidden;
+
+/******  MODAL  ******/
+/* Modal Content */
+.modal-content {
+  width: 80% !important;
 }
 
-.title-cus {
-  font-size: 30px !important;
+.button-modal {
+  color: white;
+  background-color: #eeb725;
 }
 
-.btn {
-  font-size: 20px !important;
-}
-
-span {
-  font-size: 20px !important;
-}
-
-#titleForm {
-  font-size: 50px !important;
-  font-weight: bold !important;
-  text-align: center;
-  display: block;
-  margin: 5px 0px 20px 0px;
-  text-shadow: 
-    1px 0px 1px #ccc, 0px 1px 1px #eee, 
-    2px 1px 1px #ccc, 1px 2px 1px #eee,
-    3px 2px 1px #ccc, 2px 3px 1px #eee,
-    4px 3px 1px #ccc, 3px 4px 1px #eee;
-}
-
-
-@media screen and (max-width: 1200px) {
-  .wrap-login100 {
-    width: 650px;
-  }
-}
-
-@media screen and (max-width: 900px) {
-
-  .wrap-login100 {
-    width: 590px;
-  }
-
-  .login100-form-title {
-    font-size: 28px;
-  }
-
-  .btn {
-    font-size: 18px !important;
-  }
-  
-  span {
-    font-size: 18px !important;
-  }
-  
-  .title-cus {
-    font-size: 26px !important;
-  }
-
-  #titleForm {
-    font-size: 40px !important;
-  }
-  
+.button-modal:hover {
+  background-color: #f0c44b;
 }
 
 
 @media screen and (max-width: 768px) {
-
-  .wrap-login100 {
-    width: 540px;
-  }
-
-  .login100-form-title {
-    font-size: 25px;
-  }
-
   .mw125 {
     min-width: 105px;
-  }
-
-  .btn {
-    font-size: 16px !important;
-  }
-  
-  span {
-    font-size: 16px !important;
-  }
-
-  #titleForm {
-    font-size: 38px !important;
-    margin: 5px 0px 10px 0px;
   }
 }
 
 @media screen and (max-width: 600px) {
-  .wrap-login100 {
-    width: 400px;
-  }
-
   .mw125 {
     min-width: 105px;
-  }
-  
-  span {
-    font-size: 15px !important;
-    overflow: hidden;
-  }
-  
-  .title-cus {
-    font-size: 24px !important;
-  }
-
-  #titleForm {
-    font-size: 30px !important;
-    margin: 5px 0px 5px 0px;
-  }
-}
-
-
-@media screen and (max-width: 450px) {
-  .wrap-login100 {
-    width: 350px;
-    padding: 20px 10px;
   }
 }

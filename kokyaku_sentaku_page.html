@@ -17,9 +17,10 @@
 
 	<!-- Latest compiled JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript"
-		src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+	<script type="text/javascript" src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<link rel="stylesheet" type="text/css" href="css/kokyaku_sentaku.css">
+	<link rel="stylesheet" type="text/css" href="css/modal.css">
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -27,15 +28,16 @@
 	<!------ Include the above in your HEAD tag ---------->
 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+		integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
+
 <body>
-	<div id="backgroundPage" style="background-image: url('images/bg-01.jpg');  background-repeat: no-repeat;background-size: cover;">
-	
+	<div id="backgroundPage"
+		style="background-image: url('images/bg-01.jpg');  background-repeat: no-repeat;background-size: cover;">
+
 		<div class="container-login100" id="form">
 
 			<div class="wrap-login100 p-t-30 p-b-40" style="background-color: white;">
@@ -46,110 +48,110 @@
 
 				<form>
 					<div class="row content">
-						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text mw125">実施日</span>
+									<span class="input-group-text text mw125">実施日</span>
 								</div>
-								
-								<span class="form-control">5月1日</span>
+
+								<span class="form-control text" id="jisshi-bi">5月1日</span>
 							</div> <!-- form-group// -->
 						</div>
 
-						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text mw125">対象</span>
+									<span class="input-group-text text mw125">対象</span>
 								</div>
-								
-								<span class="form-control">電話番昘順</span>
+
+								<span class="form-control text" id="taishoo"></span>
 							</div> <!-- form-group// -->
 						</div>
 					</div>
 
 					<p class="divider-text">
-						<span class="title-cus">顧客</span>
+						<span class="title-group">顧客</span>
 					</p>
 
 					<div class="row content">
-						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text mw125">顧客コード</span>
+									<span class="input-group-text text mw125">顧客コード</span>
 								</div>
-								
-								<span class="form-control">0010104045</span>
+
+								<span class="form-control text" id="kokyaku_kodo"></span>
 							</div> <!-- form-group// -->
 						</div>
 
-						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text mw125">顧客名</span>
+									<span class="input-group-text text mw125">顧客名</span>
 								</div>
-								
-								<span class="form-control">竹内勉</span>
+
+								<span class="form-control text" id="kokyaku-mei"></span>
 							</div> <!-- form-group// -->
 						</div>
 					</div>
 
 					<div class="row content">
-						<div class="col-12">
+						<div class="col-12 mb10">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text mw125">住所</span>
+									<span class="input-group-text text mw125">住所</span>
 								</div>
-								<span class="form-control address">O帆市^傘町2一4</span>
+								<span class="form-control text address" id="juusho"></span>
 							</div> <!-- form-group// -->
 						</div>
 					</div>
 
 					<div class="row content">
-						<div class="col-12">
+						<div class="col-12 mb10">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text mw125">電話番号</span>
+									<span class="input-group-text text mw125">電話番号</span>
 								</div>
-								<span class="form-control">999-0631</span>
-								<span class="form-control">40034344</span>
+								<span class="form-control text" id="denwabango"></span>
+								<span class="form-control text" id="mtban"></span>
 							</div> <!-- form-group// -->
 						</div>
 					</div>
 
 					<div class="row content">
-						<div class="col-4">
+						<div class="col-4 mb10">
 							<div class="form-group input-group">
 								<div class="input-group">
-									<span class="input-group-text igt-center">集計区分</span>
+									<span class="input-group-text text igt-center">集計区分</span>
 								</div>
 
 								<div class="input-group igValue">
-									<span class="form-control kubun">銀000</span>
+									<span class="form-control text kubun" id="shuukei"></span>
 								</div>
 							</div> <!-- form-group// -->
 						</div>
 
-						<div class="col-4">
+						<div class="col-4 mb10">
 							<div class="form-group input-group">
 								<div class="input-group">
-									<span class="input-group-text igt-center">供給区分</span>
+									<span class="input-group-text text igt-center">供給区分</span>
 								</div>
 
 								<div class="input-group igValue">
-									<span class="form-control kubun">ー般</span>
+									<span class="form-control text kubun" id="kyookyuu"></span>
 								</div>
 							</div> <!-- form-group// -->
 						</div>
 
 
-						<div class="col-4">
+						<div class="col-4 mb10">
 							<div class="form-group input-group">
 								<div class="input-group">
-									<span class="input-group-text igt-center">供給区分</span>
+									<span class="input-group-text text igt-center">供給区分</span>
 								</div>
 
 								<div class="input-group igValue">
-									<span class="form-control kubun">570</span>
+									<span class="form-control text kubun" id="ryookin"></span>
 								</div>
 							</div> <!-- form-group// -->
 						</div>
@@ -159,26 +161,51 @@
 					<div class="button-area">
 						<div class="row content">
 							<div class="col-4">
-								<button type="button" class="btn btn-default text-center"><span class="fas fa-arrow-alt-circle-left"></span><br>戻る</button>
+								<button type="button" class="btn btn-default text-center" onclick="history.back()"><span
+										class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
 							</div>
-	
+
 							<div class="col-4">
-								<button type="button" class="btn btn-default text-center"><span class="fas fa-hand-holding-usd"></span><br>入金</button>
+								<button type="button" class="btn btn-default text-center"><span
+										class="fas fa-hand-holding-usd ic-btn"></span><br>入金</button>
 							</div>
-	
+
 							<div class="col-4">
-								<button type="button" class="btn btn-default text-center"><span class="fas fa-play"></span><br>実行</button>
+								<button type="button" class="btn btn-default text-center"><span
+										class="fas fa-play ic-btn"></span><br>実行</button>
 							</div>
 						</div>
 					</div>
 				</form>
+			</div>
+
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+				<!-- Modal content -->
+				<div class="modal-content">
+					<!-- Modal image area -->
+					<div class="modal-image-area background-error-modal">
+						<span class="modal-close-button">X</span>
+						<img class="modal-image" src="./images/gif/gif_loading_data.gif">
+					</div>
+
+					<!-- Modal message area -->
+					<div class="modal-message">
+						<div class="modal-message-area">
+							<span class="title-modal text">題名</span>
+							<span class="modal-message-detail text">メッセージ</span>
+						</div>
+
+						<button class="button-modal btn-common button-confirm" role="button">確認</button>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
 
 	<script src="js/kokyaku_sentaku.js"></script>
 	<script src="js/menu.js"></script>
-
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
