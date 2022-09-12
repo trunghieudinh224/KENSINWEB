@@ -130,6 +130,7 @@ searchBtn.onclick = function () {
         newElement.appendChild(newStatus);
         table.appendChild(newElement);
         newElement.onclick = function(){
+          item.taishoo = searchOrderText[order];
           const cusdat = Object.assign({}, item)
           localStorage.setItem("cusdat", JSON.stringify(cusdat));
           window.location.href = "/kokyaku_sentaku_page.html";
@@ -154,3 +155,6 @@ firstCustomer.onclick = function(){
 searchBackBtn.onclick = function(){
   window.location.href = "/menu_page.html";
 }
+
+
+
