@@ -1,6 +1,6 @@
-import * as constant from './Constant/message.js'
+import * as constant from "./Constant/message.js";
 
-"use strict";
+("use strict");
 // http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=0&srch_string=0&match_kind=0&status=0&order_kind=0&login_id=7&login_pw=7
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -24,7 +24,7 @@ dataMessage.textContent = constant.E00005;
 
 //--------------------Show previous data------------------------------->
 const getCuslist = JSON.parse(localStorage.getItem("cuslist"));
-if(getCuslist){
+if (getCuslist) {
   const previousCuslist = Object.values(getCuslist);
   previousCuslist.map((item) => {
     const newElement = document.createElement("tr");
@@ -38,21 +38,21 @@ if(getCuslist){
     newElement.appendChild(newAddress);
     newElement.appendChild(newStatus);
     $(".result-tb tbody").appendChild(newElement);
-    newElement.onclick = function(){
-      const cusdat = Object.assign({}, item)
+    newElement.onclick = function () {
+      const cusdat = Object.assign({}, item);
       localStorage.setItem("cusdat", JSON.stringify(cusdat));
       window.location.href = "/kokyaku_sentaku_page.html";
-    }
+    };
   });
-  if(previousCuslist.length !== 0){
+  if (previousCuslist.length !== 0) {
     $(".table-container").style.display = "block";
   }
 }
 //--------------------Check valid value input-------------------------->
-for(const input of selectTags){
-  input.onchange = function(){
+for (const input of selectTags) {
+  input.onchange = function () {
     searchKey.classList.remove("warning");
-  }
+  };
 }
 searchKey.onfocus = function () {
   searchKey.classList.remove("warning");
@@ -65,7 +65,7 @@ searchBtn.onclick = function () {
   let isCheck = false;
   let errorMessage = "error";
 
-// ----------------Check valid input --------------->
+  // ----------------Check valid input --------------->
 
   switch (searchTypeValue) {
     case "0":
@@ -97,64 +97,73 @@ searchBtn.onclick = function () {
     searchKey.classList.add("warning");
     warningMessage.textContent = errorMessage;
     warningMessage.style.display = "block";
-  }else{
-  //------------------------Call API---------------------------->
-  const kcode = searchType.value;
-  const part = searchPart.value;
-  const key = searchKey.value;
-  const status = searchStatus.value;
-  const order = searchOrder.value;
-  fetch(
-    `http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=${kcode}&srch_string=${key}&match_kind=${part}&status=${status}&order_kind=${order}&login_id=7&login_pw=7`
-  )
-    .then((res) => {
-      const list = $(".result-tb tbody");
-      while (list.hasChildNodes()) {
-        list.removeChild(list.firstChild);
-      }
-      return res.json();
-    })
-    .then((json) => {
-      const cuslist = Object.assign({}, json.cuslist);
-      localStorage.setItem("cuslist", JSON.stringify(cuslist));
-      json.cuslist.map((item) => {
-        const newElement = document.createElement("tr");
-        const newName = document.createElement("td");
-        const newAddress = document.createElement("td");
-        const newStatus = document.createElement("td");
-        newName.appendChild(document.createTextNode(item.name));
-        newAddress.appendChild(document.createTextNode(item.add_0));
-        newStatus.appendChild(document.createTextNode(checkKenShin));
-        newElement.appendChild(newName);
-        newElement.appendChild(newAddress);
-        newElement.appendChild(newStatus);
-        table.appendChild(newElement);
-        newElement.onclick = function(){
-          item.taishoo = searchOrder[order].innerHTML;
-          const cusdat = Object.assign({}, item)
-          localStorage.setItem("cusdat", JSON.stringify(cusdat));
-          window.location.href = "/kokyaku_sentaku_page.html";
+  } else {
+    //------------------------Call API---------------------------->
+    const kcode = searchType.value;
+    const part = searchPart.value;
+    const key = searchKey.value;
+    const status = searchStatus.value;
+    const order = searchOrder.value;
+    fetch(
+      `http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=${kcode}&srch_string=${key}&match_kind=${part}&status=${status}&order_kind=${order}&login_id=7&login_pw=7`
+    )
+      .then((res) => {
+        const list = $(".result-tb tbody");
+        while (list.hasChildNodes()) {
+          list.removeChild(list.firstChild);
+        }
+        return res.json();
+      })
+      .then((json) => {
+        const cuslist = Object.assign({}, json.cuslist);
+        localStorage.setItem("cuslist", JSON.stringify(cuslist));
+        json.cuslist.map((item) => {
+          const newElement = document.createElement("tr");
+          const newName = document.createElement("td");
+          const newAddress = document.createElement("td");
+          const newStatus = document.createElement("td");
+          newName.appendChild(document.createTextNode(item.name));
+          newAddress.appendChild(document.createTextNode(item.add_0));
+          newStatus.appendChild(document.createTextNode(checkKenShin));
+          newElement.appendChild(newName);
+          newElement.appendChild(newAddress);
+          newElement.appendChild(newStatus);
+          table.appendChild(newElement);
+          newElement.onclick = function () {
+            item.taishoo = searchOrder[order].innerHTML;
+            const cusdat = Object.assign({}, item);
+            localStorage.setItem("cusdat", JSON.stringify(cusdat));
+            window.location.href = "/kokyaku_sentaku_page.html";
+          };
+        });
+        //-----------------Show data------------------------>
+        if (table.hasChildNodes()) {
+          $(".table-container").style.display = "block";
+          $("#data-messages").style.display = "none";
+        } else {
+          $(".table-container").style.display = "none";
+          $("#data-messages").style.display = "block";
         }
       });
-      //-----------------Show data------------------------>
-      if(table.hasChildNodes()){
-        $(".table-container").style.display = "block";
-        $("#data-messages").style.display = "none";
-      }else{
-        $(".table-container").style.display = "none";
-        $("#data-messages").style.display = "block";
-      }
-    });
   }
 };
-
 //-------------------Direct to First Customer info page-------------->
-firstCustomer.onclick = function(){
-  window.location.href = "/kokyaku_sentaku_page.html";
-}
-searchBackBtn.onclick = function(){
+firstCustomer.onclick = function () {
+    const kcode = searchType.value;
+    const part = searchPart.value;
+    const key = searchKey.value;
+    const order = searchOrder.value;
+    fetch(
+        `http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=${kcode || 0}&srch_string=${key || 0}&match_kind=${part || 0}&status=0&order_kind=${order || 0}&login_id=7&login_pw=7`
+    )
+    .then((res) => res.json())
+    .then((json) => {
+        const cusdat = Object.assign({}, json.cuslist[0]);
+        cusdat.taishoo = searchOrder[order].innerHTML;
+        localStorage.setItem("cusdat", JSON.stringify(cusdat));
+        window.location.href = "/kokyaku_sentaku_page.html";
+    })
+    }
+searchBackBtn.onclick = function () {
   window.location.href = "/menu_page.html";
-}
-
-
-
+};

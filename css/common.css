@@ -132,14 +132,14 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-#BackgroundPage {
+#backgroundPage {
   background-image: url('./images/bg-01.jpg');  
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 
-form {
+#form {
   overflow: hidden;
 }
 
