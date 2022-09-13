@@ -1,6 +1,6 @@
 import * as constant from "./Constant/message.js";
 
-("use strict");
+"use strict";
 // http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=0&srch_string=0&match_kind=0&status=0&order_kind=0&login_id=7&login_pw=7
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -16,13 +16,16 @@ const searchStatus = $("#search-status");
 const searchBtn = $("#kensaku");
 const searchBackBtn = $("#search-back-btn");
 const warningMessage = $("#warning-message");
+const warningField = $("#warning-field");
 const table = $(".result-tb");
 const checkKenShin = searchStatus.value === "1" ? "済" : "未";
 
 //------------------Founded data message----------------------------->
+
 dataMessage.textContent = constant.E00005;
 
 //--------------------Show previous data------------------------------->
+
 const getCuslist = JSON.parse(localStorage.getItem("cuslist"));
 if (getCuslist) {
   const previousCuslist = Object.values(getCuslist);
@@ -58,7 +61,9 @@ if (getCuslist) {
     $(".table-container").style.display = "block";
   }
 }
+
 //--------------------Check valid value input-------------------------->
+
 for (const input of selectTags) {
   input.onchange = function () {
     searchKey.classList.remove("warning");
@@ -105,10 +110,12 @@ searchBtn.onclick = function () {
   }
   if (searchKeyValue === "" || isCheck === false) {
     searchKey.classList.add("warning");
-    warningMessage.textContent = errorMessage;
-    warningMessage.style.display = "block";
+    warningField.classList.remove("hidden");
+    warningMessage.value = errorMessage;
   } else {
+
     //------------------------Call API---------------------------->
+
     const kcode = searchType.value;
     const part = searchPart.value;
     const key = searchKey.value;
@@ -149,7 +156,9 @@ searchBtn.onclick = function () {
             window.location.href = "/kokyaku_sentaku_page.html";
           };
         });
+
         //-----------------Show data------------------------>
+
         if (table.hasChildNodes()) {
           $(".table-container").style.display = "block";
           $("#data-messages").style.display = "none";
@@ -163,7 +172,9 @@ searchBtn.onclick = function () {
       });
   }
 };
+
 //-------------------Direct to First Customer info page-------------->
+
 firstCustomer.onclick = function () {
     const kcode = searchType.value;
     const part = searchPart.value;
@@ -180,6 +191,12 @@ firstCustomer.onclick = function () {
         window.location.href = "/kokyaku_sentaku_page.html";
     })
     }
+    
 searchBackBtn.onclick = function () {
   window.location.href = "/menu_page.html";
 };
+
+searchKey.onfocus = function(){
+  searchKey.classList.remove("warning");
+  warningField.classList.add("hidden");
+}

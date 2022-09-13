@@ -78,14 +78,18 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text mw130 text">検索キー</span>
                             </div>
-                            <input type="text" class="form-control ta-l text" id="search-key">
-                            </input>
+                            <input type="text" class="form-control ta-l text" id="search-key" />
                         </div>
-                        <div class="text" id="warning-message">Warning messages</div>
+                        <div class="form-group input-group hidden" id="warning-field">
+                            <div class="input-group-prepend" style="background-color: transparent;">
+                                <span id="warning-spacing" class="input-group-text mw130 text"></span>
+                            </div>
+                            <input id="warning-message" class="form-control ta-l text" value="asdasd" disabled/>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-12 mb10">
+                    <div class="col-lg-6 col-12">
                         <div class="form-group input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text mw130 text">検針状態</span>
@@ -97,7 +101,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-12 mb10">
+                    <div class="col-lg-6 col-12">
                         <div class="form-group input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text mw130 text">検索順</span>
