@@ -1,45 +1,34 @@
-.btn {
-  width: 100%;
-  height: 100%;
-  font-family: Ubuntu-Regular;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin: auto;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-
-  background-image: linear-gradient(to right, #ff7e5f 0%, #feb47b  61%, #fa5b34  100%);
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
-  background-size: 200% auto;
-  /* box-shadow: 0 0 20px #eee; */
-  border-radius: 10px;
-  display: block;
+/*
+  ******  CONSTANT  ******
+*/
+@font-face {
+  font-family: Cambria;
+  src: url('../fonts/cambria/Cambria.ttf');
 }
 
-.btn:hover {
-  background-position: right center;
-  color: rgb(236, 236, 236);
-  text-decoration: none;
+:root {
+  --primary-color: #fff0e5;
+  --button-color: linear-gradient(to right, #ff7e5f 0%, #feb47b 61%, #fa5b34 100%);;
 }
 
-.ic-btn {
-  padding-top: 2px;
-  padding-bottom: 2px;
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-size: 18px;
+  overflow: auto;
+  font-family: Cambria;
+}
+
+body {
+  font-family: Cambria;
 }
 
 
-.container-login100 {
+/*
+  ******  MAIN FORM  ******
+*/
+.container-mainform {
   width: 100%;
   min-height: 100vh;
   display: -webkit-box;
@@ -59,7 +48,7 @@
   z-index: 1;
 }
 
-.container-login100::before {
+.container-mainform::before {
   content: "";
   display: block;
   position: absolute;
@@ -71,7 +60,7 @@
   background-color: rgba(0, 0, 0, 0.65);
 }
 
-.wrap-login100 {
+.wrap-mainform {
   width: 650px;
   margin-top: 50px;
   border-radius: 10px;
@@ -81,78 +70,30 @@
   padding: 30px 20px;
 }
 
-.login100-form {
-  width: 100%;
-  border-radius: 10px;
-  background-color: #fff;
+form {
+  overflow: hidden;
 }
 
-.login100-form-title {
-  font-family: Ubuntu-Regular;
-  font-size: 30px;
-  font-weight: bold;
-  text-align: center;
-  text-transform: uppercase;
-  display: block;
-  margin: auto;
-  text-align: start;
-}
-
-.title-form {
-  text-align: center;
+#backgroundPage {
+  background-image: url('../images/bg-01.jpg');  
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .content {
   align-items: center;
 }
 
-.mb10 {
-  margin-bottom: 10px;
-}
-
-/*------------------------------------------------------------------
-[ Input ]*/
-
-.wrap-input100 {
-  width: 100%;
-  position: relative;
-  border-bottom: 1px solid #e6e6e6;
-  padding: 20px 0;
-}
-
-.title-content {
-  font-weight: bold;
-  font-size: 22px !important;
-}
-
 /* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-#backgroundPage {
-  background-image: url('./images/bg-01.jpg');  
-  background-repeat: no-repeat;
-  background-size: cover;
-}
 
-
-#form {
-  overflow: hidden;
-}
-
-.input-group-text {
-  font-weight: bold !important; 
-  background-color: #fff0e5 !important;
-}
-
-
-.form-group {
-  margin-bottom: 5px !important;
-}
-
+/*
+  ******  DIVIDER TEXT  ******
+*/
 .divider-text {
   position: relative;
   text-align: center;
@@ -185,11 +126,15 @@ input::-webkit-inner-spin-button {
   z-index: 1;
 }
 
-
 .title-group {
   font-size: 30px !important;
 }
 
+
+
+/*
+  ******  TITLE  ******
+*/
 #titleForm {
   font-size: 50px !important;
   font-weight: bold !important;
@@ -204,20 +149,128 @@ input::-webkit-inner-spin-button {
 }
 
 
-/* text */
+/*
+  ******  TEXT  ******
+*/
+.form-group {
+  margin-bottom: 5px !important;
+  overflow: hidden;
+}
+
+.input-group-text {
+  font-weight: bold !important; 
+  background-color: var(--primary-color) !important;
+}
+
 .text {
   font-size: 20px !important;
   min-height: 45.5px;
+  color: black;
 }
 
-.button-area {
-  margin-top: 20px;
-  overflow: hidden;
+.unit {
+  background-color: var(--primary-color) !important; 
+  border-left: none !important; 
+  text-align: right; 
+  max-width: 60px;
 }
 
 
 /*
-    ******  RESPONSIVE LAYOUT  ******
+  ******  BUTTON CSS  ******
+*/
+.button-area {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.btn {
+  width: 100%;
+  height: 100%;
+  font-family: Cambria;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: var(--button-color);
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  background-size: 200% auto;
+  border-radius: 8px !important;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.btn:hover {
+  background-position: right center;
+  color: rgb(236, 236, 236);
+  text-decoration: none;
+}
+
+.ic-btn {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+
+/*
+  ******  MIN WIDTH  ******
+*/
+.mw215 {
+  min-width: 215px;
+}
+
+.mw145 {
+  min-width: 155px;
+}
+
+.mw135 {
+  min-width: 135px;
+}
+
+.mw130 {
+  min-width: 130px;
+}
+
+.mw80 {
+  min-width: 80px;
+}
+
+
+/*
+  ******  TEXT-ALIGN  ******
+*/
+.ta-l {
+  text-align: left;
+}
+
+.ta-r {
+  text-align: right;
+}
+
+
+/*
+  ******  MARGIN  ******
+*/
+.mb10 {
+  margin-bottom: 10px;
+}
+
+
+/*
+  ******  RESPONSIVE LAYOUT  ******
 */
 @media screen and (max-width: 1200px) {
   .wrap-login100 {
@@ -252,6 +305,16 @@ input::-webkit-inner-spin-button {
     font-size: 40px !important;
   }
   
+  /*
+  ******  RESPONSIVE LAYOUT  ******
+  */
+  .mw215 {
+    min-width: 195px;
+  }
+
+  .mw130 {
+    min-width: 110px;
+  }
 }
 
 
@@ -277,6 +340,29 @@ input::-webkit-inner-spin-button {
     font-size: 38px !important;
     margin: 5px 0px 25px 0px;
   }
+
+  /*
+  ******  RESPONSIVE LAYOUT  ******
+  */
+  .mw215 {
+    min-width: 190px;
+  }
+
+  .mw145 {
+    min-width: 130px;
+  }
+
+  .mw135 {
+    min-width: 115px;
+  }
+  
+  .mw130 {
+    min-width: 100px;
+  }
+
+  .mw80 {
+    min-width: 80px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -297,6 +383,17 @@ input::-webkit-inner-spin-button {
   #titleForm {
     font-size: 30px !important;
     margin: 5px 0px 15px 0px;
+  }
+
+  /*
+  ******  RESPONSIVE LAYOUT  ******
+  */
+  .mw145 {
+    min-width: 125px;
+  }
+  
+  .mw80 {
+    min-width: 70px;
   }
 }
 
