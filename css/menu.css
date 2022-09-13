@@ -1,0 +1,352 @@
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+@font-face {
+  font-family: Ubuntu-Regular;
+  src: url('../fonts/ubuntu/Ubuntu-Regular.ttf');
+}
+
+
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-size: 22px;
+  overflow: auto;
+}
+
+.value {
+  font-size: 22px;
+}
+
+
+
+.btn::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  border-radius: 21px;
+  background-color: #555555;
+  top: 0;
+  left: 0;
+  opacity: 0;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+
+.list-form-title {
+  font-family: Ubuntu-Regular;
+  font-size: 50px;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: block;
+ 
+  padding: 6px 0px;
+  text-align: center;
+  border-style: groove;
+  background-color: #98FB98;
+}
+
+
+.content {
+  align-items: center;
+  padding: 5px;
+}
+
+.content-nomargin {
+  align-items: center;
+  margin: 0px;
+}
+
+.area-value {
+  height: 50px;
+  border-radius: 4px;
+  border-color: black;
+  border-width: 2px;
+}
+.button{
+  background-color: #FFD700;
+  text-align: center;
+}
+
+.input {
+  width: 100%;
+  text-align: right;
+  border-radius: 4px;
+  border-color: black;
+  border-width: 2px;
+  padding: 3px 5px;
+  height: 50px;
+  resize: none;
+}
+
+.btn-area {
+  padding: 10px 0;
+}
+
+.area-input {
+  padding: 0px;
+}
+
+
+
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+@media screen and (min-width: 1500px) {
+  #camera video {
+    width: -webkit-fill-available;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  #camera video {
+    width: -webkit-fill-available;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+
+  .wrap-login100 {
+    width: 650px;
+  }
+
+  #camera video {
+    width: -webkit-fill-available;
+  }
+
+  .icon {
+    height: 25px;
+    width: 25px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+
+  .wrap-login100 {
+    width: 590px;
+  }
+
+  .login100-form-title {
+    font-size: 28px;
+  }
+
+  .value {
+    font-size: 20px !important;
+  }
+
+  .btn-area {
+    padding: 10px 0;
+  }
+
+  .area-value {
+    min-height: 45px;
+  }
+
+  .btn {
+    font-size: 20px;
+    padding: 20px 0;
+  }
+
+  #camera video {
+    width: -webkit-fill-available;
+  }
+
+  .dropdown-menu {
+    width: 260px !important;
+  }
+
+  .icon {
+    height: 25px;
+    width: 25px;
+  }
+
+  #userName {
+    font-size: 20px;
+  }
+
+  .value-dropdown {
+    font-size: 20px;
+  }
+
+  #titleForm {
+    font-size: 40px !important;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+
+  .wrap-login100 {
+    width: 540px;
+  }
+
+  .login100-form-title {
+    font-size: 25px;
+  }
+
+  .value {
+    font-size: 18px !important;
+    padding: 0px;
+    padding-left: 12px;
+  }
+
+  .btn-area {
+    padding: 10px 0;
+  }
+
+  .area-value {
+    min-height: 40px;
+  }
+
+  .title-area {
+    padding: 0px;
+    padding-right: 12px;
+  }
+
+  .btn {
+    font-size: 18px;
+    padding: 20px 0;
+    height: 40px;
+  }
+
+  #camera video {
+    width: -webkit-fill-available;
+  }
+
+  .dropdown-menu {
+    max-width: 230px !important;
+  }
+
+  .icon {
+    height: 20px;
+    width: 20px;
+  }
+
+  #userName {
+    font-size: 18px;
+  }
+
+  .value-dropdown {
+    font-size: 18px;
+  }
+
+
+  #titleForm {
+    font-size: 38px !important;
+    margin: 5px 0px 15px 0px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .wrap-login100 {
+    width: 390px;
+  }
+
+  .value {
+    font-size: 16px !important;
+  }
+
+  .login100-form-title {
+    font-size: 23px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 0px;
+    font-size: 16px;
+    height: 40px;
+  }
+
+  #camera video {
+    width: -webkit-fill-available;
+  }
+
+  .dropdown-menu li {
+    padding: 1px 0;
+  }
+
+  .dropdown-menu {
+    max-width: 230px !important;
+  }
+
+  .icon {
+    height: 18px;
+    width: 18px;
+  }
+
+  #userName {
+    font-size: 16px;
+  }
+
+  .value-dropdown {
+    font-size: 16px;
+  }
+  #titleForm {
+    font-size: 30px !important;
+    margin: 5px 0px 5px 0px;
+  }
+}
+
+
+@media screen and (max-width: 450px) {
+  .wrap-login100 {
+    width: 320px;
+    padding: 20px 10px;
+  }
+
+  #camera video {
+    width: -webkit-fill-available;
+    height: 280px;
+    margin: auto;
+  }
+
+  .select-role {
+    top: 3%;
+    right: 5%;
+  }
+
+  #titleForm {
+    font-size: 30px !important;
+    margin: 5px 0px 5px 0px;
+  }
+}
+
+
+#titleForm {
+ 
+  font-weight: bold !important;
+  text-align: center;
+  display: block;
+  margin: 5px 0px 20px 0px;
+  text-shadow: 
+    1px 0px 1px #ccc, 0px 1px 1px #eee, 
+    2px 1px 1px #ccc, 1px 2px 1px #eee,
+    3px 2px 1px #ccc, 2px 3px 1px #eee,
+    4px 3px 1px #ccc, 3px 4px 1px #eee;
+}
+.card-header {
+  background: #e9ecee !important;
+}
+
+.card-link {
+  font-size: 20px !important;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+
+.card-link:hover {
+  cursor: pointer;
+}

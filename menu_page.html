@@ -13,53 +13,56 @@
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!------ Include the above in your HEAD tag ---------->
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+		integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
 	<!-- Latest compiled JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@6.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript"
 		src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<link rel="stylesheet" type="text/css" href="css/newindex.css">
-		<link rel="stylesheet" type="text/css" href="css/common.css">
+		
 
 </head>
 
 <body>
 	<div id="backgroundPage" style="background-image: url('images/bg-01.jpg');  background-repeat: no-repeat;background-size: cover;">
-		<div class="container-login100" id="form">
-			<div class="wrap-login100 p-t-30 p-b-40" style="background-color: white;">
 
-				<div class="row">
-        			<div class="tilte col-12">メインメニュー</div>
-      			</div>
+		<div class="container-mainform" id="form">
 
-				<div id="editView">
-					<div class="row" style="margin: 0px">
-						<div class="area-input">	
-						
+					<div class="wrap-mainform p-t-30 p-b-40" style="background-color: white;">
 
-							<div class="row content">						
-                                <div class="col-12 value">
-									<input type="submit" class="login100-form-btn btn"  onclick="searchclient()" value="顧客検索" style="text-align: center;" ></input>
-								</div>    
+						<span id="titleForm">
+							メインメニュー
+						</span>
+
+					<div class="button-area">
+						<div class="row content">
+							<div class="col-12">
+								<button type="button" class="btn btn-default text-center" onclick="searchclient()">顧客検索</button>
 							</div>
 
-							<div class="row content">						                               
-								<div class="col-12 value">
-									<input type="submit" class="login100-form-btn btn"   value="検針業務"  onclick="goto_kokyaku()" style="text-align: center;"></input>
-								</div>
+							<div class="col-12">
+								<button type="button" class="btn btn-default text-center" onclick="goto_kokyaku()">検針業務</button>
 							</div>
-						
-							<div class="row content">						                                                    
-								<div class="col-12 value">
-									<input type="submit" class="login100-form-btn btn"  onclick="goToSetting()" value="設定" style="text-align: center;"></input>
-								</div>
-							</div>    
 
+							<div class="col-12">
+								<button type="button" class="btn btn-default text-center" onclick="goToSetting()">設定</button>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+				
+					</div>
 		</div>
+
 	</div>
 
 	<script src="js/mainmenu.js"></script>
