@@ -305,9 +305,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     font-size: 40px !important;
   }
   
-  /*
-  ******  RESPONSIVE LAYOUT  ******
-  */
+  /* MIN WIDTH */
   .mw215 {
     min-width: 195px;
   }
@@ -341,9 +339,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     margin: 5px 0px 25px 0px;
   }
 
-  /*
-  ******  RESPONSIVE LAYOUT  ******
-  */
+  /* MIN WIDTH */
   .mw215 {
     min-width: 190px;
   }
@@ -385,9 +381,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     margin: 5px 0px 15px 0px;
   }
 
-  /*
-  ******  RESPONSIVE LAYOUT  ******
-  */
+  /* MIN WIDTH */
   .mw145 {
     min-width: 125px;
   }
@@ -404,3 +398,4 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     padding: 20px 10px;
   }
 }
+

@@ -16,7 +16,7 @@ const searchStatus = $("#search-status");
 const searchBtn = $("#kensaku");
 const searchBackBtn = $("#search-back-btn");
 const warningMessage = $("#warning-message");
-const table = $(".result-tb tbody");
+const table = $(".result-tb");
 const checkKenShin = searchStatus.value === "1" ? "済" : "未";
 
 //------------------Founded data message----------------------------->
@@ -26,19 +26,27 @@ dataMessage.textContent = constant.E00005;
 const getCuslist = JSON.parse(localStorage.getItem("cuslist"));
 if (getCuslist) {
   const previousCuslist = Object.values(getCuslist);
+  if (previousCuslist.length > 0) {
+    document.getElementById("countList").innerHTML = "検索件数：" + previousCuslist.length + "件";
+    document.getElementById("countList").style.display = "block";
+  }
   previousCuslist.map((item) => {
     const newElement = document.createElement("tr");
     const newName = document.createElement("td");
+    newName.className += " text";
     const newAddress = document.createElement("td");
+    newAddress.className += " text";
     const newStatus = document.createElement("td");
-    newName.appendChild(document.createTextNode(item.name));
-    newAddress.appendChild(document.createTextNode(item.add_0));
-    newStatus.appendChild(document.createTextNode(checkKenShin));
+    newStatus.className += " text";
+    newName.appendChild(document.createTextNode(item.name.trim()));
+    newAddress.appendChild(document.createTextNode(item.add_0.trim()));
+    newStatus.appendChild(document.createTextNode(checkKenShin.trim()));
     newElement.appendChild(newName);
     newElement.appendChild(newAddress);
     newElement.appendChild(newStatus);
-    $(".result-tb tbody").appendChild(newElement);
+    $(".result-tb").appendChild(newElement);
     newElement.onclick = function () {
+      item.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
       const cusdat = Object.assign({}, item);
       localStorage.setItem("cusdat", JSON.stringify(cusdat));
       window.location.href = "/kokyaku_sentaku_page.html";
@@ -108,7 +116,7 @@ searchBtn.onclick = function () {
       `http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=${kcode}&srch_string=${key}&match_kind=${part}&status=${status}&order_kind=${order}&login_id=7&login_pw=7`
     )
       .then((res) => {
-        const list = $(".result-tb tbody");
+        const list = $(".result-tb");
         while (list.hasChildNodes()) {
           list.removeChild(list.firstChild);
         }
@@ -116,21 +124,28 @@ searchBtn.onclick = function () {
       })
       .then((json) => {
         const cuslist = Object.assign({}, json.cuslist);
+        if (cuslist.length > 0) {
+          document.getElementById("countList").innerHTML = "検索件数：" + cuslist.length + "件";
+          document.getElementById("countList").style.display = "block";
+        }
         localStorage.setItem("cuslist", JSON.stringify(cuslist));
         json.cuslist.map((item) => {
           const newElement = document.createElement("tr");
           const newName = document.createElement("td");
+          newName.className += " text";
           const newAddress = document.createElement("td");
+          newAddress.className += " text";
           const newStatus = document.createElement("td");
-          newName.appendChild(document.createTextNode(item.name));
-          newAddress.appendChild(document.createTextNode(item.add_0));
-          newStatus.appendChild(document.createTextNode(checkKenShin));
+          newStatus.className += " text";
+          newName.appendChild(document.createTextNode(item.name.trim()));
+          newAddress.appendChild(document.createTextNode(item.add_0.trim()));
+          newStatus.appendChild(document.createTextNode(checkKenShin.trim()));
           newElement.appendChild(newName);
           newElement.appendChild(newAddress);
           newElement.appendChild(newStatus);
           table.appendChild(newElement);
           newElement.onclick = function () {
-            item.taishoo = searchOrder[order].innerHTML;
+            item.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
             const cusdat = Object.assign({}, item);
             localStorage.setItem("cusdat", JSON.stringify(cusdat));
             window.location.href = "/kokyaku_sentaku_page.html";
