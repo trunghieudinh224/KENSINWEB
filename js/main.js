@@ -1,3 +1,8 @@
+
+const user = document.querySelector("#user");
+const password = document.querySelector("#pass");
+const loginBtn = document.querySelector("#btnLogin");
+
 window.onload = async function () {
     var data = sessionStorage.getItem('username');
     if (data != null) {
@@ -11,7 +16,6 @@ window.onload = async function () {
         const user = document.getElementById("user").value;
         const pass = document.getElementById("pass").value;
 
-        console.log("check user");
         validate(user, pass);
         if (user && pass) {
             showDialog("./images/gif/gif_loading.gif", true, "しばらくお待ちください。。。", "black", false)
@@ -22,8 +26,7 @@ window.onload = async function () {
     const validate = (user, pass) => {
         const notificationLogin = document.getElementById("notificationLogin");
 
-        console.log(user, pass)
-        if (!user || !pass) {
+        if ((!user || !pass) && user !== "" && pass !== "") {
             showDialog("./images/gif/gif_fail.gif", true, "ユーザIDとパスワードを入力してください。", "red", true)
         }
     }
@@ -93,5 +96,26 @@ function updateDialog(iconSrc, mess, colorMess, showButton) {
         button.style.display = 'block';
     } else {
         button.style.display = 'none';
+    }
+}
+
+
+// ----------------Check input value------------------>
+loginBtn.onclick = function(){
+    if(user.value === ""){
+        user.classList.add("warning");
+    }
+    if(password.value === ""){
+        password.classList.add("warning");
+    }
+}
+user.onfocus = function(){
+    if(user.classList.contains("warning")){
+        user.classList.remove("warning");
+    }
+}
+password.onfocus = function(){
+    if(password.classList.contains("warning")){
+        password.classList.remove("warning");
     }
 }

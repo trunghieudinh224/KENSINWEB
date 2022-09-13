@@ -15,7 +15,10 @@
   src: url('../fonts/ubuntu/Ubuntu-Bold.ttf'); 
 }
 
-
+:root {
+  --primary-color: #fa5b34;
+  --button-color: linear-gradient(to right, #ff7e5f 0%, #feb47b 61%, #fa5b34 100%);
+}
 
 
 /*//////////////////////////////////////////////////////////////////
@@ -166,15 +169,17 @@ iframe {
 }
 
 .login100-form-title {
-  font-family: Ubuntu-Bold;
-  font-weight: bold;
-  font-size: 24px;
-  color: #fff;
-  line-height: 1.2;
+  color: #e6e6e6;
+  font-size: 50px;
+  font-weight: bold ;
   text-align: center;
-  text-transform: uppercase;
-  padding-bottom: 30px !important;
   display: block;
+  margin: 5px 0px 30px 0px;
+  text-shadow: 
+    1px 0px 1px #999999, 0px 1px 1px #555555, 
+    2px 1px 1px #999999, 1px 2px 1px #555555,
+    3px 2px 1px #999999, 2px 3px 1px #555555,
+    4px 3px 1px #999999, 3px 4px 1px #555555;
 }
 
 
@@ -230,11 +235,7 @@ iframe {
   -moz-transition: all 0.4s;
   transition: all 0.4s;
 
-  background: #d41872;
-  background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: var(--button-color);
 }
 
 .focus-input100::after {
@@ -262,7 +263,7 @@ iframe {
 
 .input100:focus + .focus-input100::after {
   left: 23px;
-  color: #d41872;
+  color: var(--button-color);
 }
 
 .input100:focus + .focus-input100::before {
@@ -271,7 +272,7 @@ iframe {
 
 .has-val.input100 + .focus-input100::after {
   left: 23px;
-  color: #d41872;
+  color: var(--button-color);
 }
 
 .has-val.input100 + .focus-input100::before {
@@ -315,11 +316,7 @@ iframe {
   align-items: center;
   border-radius: 5px;
 
-  background: #ec4897;
-  background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: var(--button-color);
   position: relative;
   z-index: 1;
 
@@ -354,7 +351,7 @@ iframe {
 
 .btn:active{
   outline: none;
-  background-image: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background-image: -webkit-linear-gradient(left, #feb47b, #ff7e5f, #fa5b34);
 }
 
 /*------------------------------------------------------------------
@@ -369,7 +366,7 @@ iframe {
   position: absolute;
   max-width: 70%;
   background-color: #fff;
-  border: 1px solid #c80000;
+  border: 1px solid var(--primary-color);
   border-radius: 2px;
   padding: 4px 25px 4px 10px;
   top: 50%;
@@ -382,7 +379,7 @@ iframe {
   pointer-events: none;
 
   font-family: Ubuntu-Bold;
-  color: #c80000;
+  color: var(--primary-color);
   font-size: 13px;
   line-height: 1.4;
   text-align: left;
@@ -400,7 +397,7 @@ iframe {
   content: "\f12a";
   font-family: FontAwesome;
   font-size: 16px;
-  color: #c80000;
+  color: var(--primary-color);
 
   display: block;
   position: absolute;
@@ -493,7 +490,11 @@ iframe {
   display: block;
   margin-bottom: 5%;
 }
-
+.warning {
+  animation: shake 0.2s ease-in-out 0s 2;
+  box-shadow: 0 0 .5em red !important;
+  border: 1px solid red;
+}
 
 
 @media screen and (min-width: 1500px) {
@@ -603,4 +604,18 @@ iframe {
     padding: 20px 10px;
   }
 } 
+@keyframes shake {
+  0% {
+    margin-left: 0rem;
+  }
+  25% {
+    margin-left: 0.5rem;
+  }
+  75% {
+    margin-left: -0.5rem;
+  }
+  100% {
+    margin-left: 0rem;
+  }
+}
 

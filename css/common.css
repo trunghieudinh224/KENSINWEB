@@ -8,7 +8,7 @@
 
 :root {
   --primary-color: #fff0e5;
-  --button-color: linear-gradient(to right, #ff7e5f 0%, #feb47b 61%, #fa5b34 100%);;
+  --button-color: linear-gradient(to right, #ff7e5f 0%, #feb47b 61%, #fa5b34 100%);
 }
 
 * {
