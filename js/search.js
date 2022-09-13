@@ -126,12 +126,6 @@ searchBtn.onclick = function () {
       })
       .then((json) => {
         const cuslist = Object.assign({}, json.cuslist);
-        if (cuslist.length > 0) {
-          document.getElementById("countList").innerHTML = "検索件数：" + cuslist.length + "件";
-          document.getElementById("countList").style.display = "block";
-        } else {
-          document.getElementById("countList").style.display = "none";
-        }
         localStorage.setItem("cuslist", JSON.stringify(cuslist));
         json.cuslist.map((item) => {
           const newElement = document.createElement("tr");
@@ -159,8 +153,11 @@ searchBtn.onclick = function () {
         if (table.hasChildNodes()) {
           $(".table-container").style.display = "block";
           $("#data-messages").style.display = "none";
+          $("#countList").innerHTML = "検索件数：" + table.childElementCount + "件";
+          $("#countList").style.display = "block";
         } else {
           $(".table-container").style.display = "none";
+          $("#countList").style.display = "none";
           $("#data-messages").style.display = "block";
         }
       });
