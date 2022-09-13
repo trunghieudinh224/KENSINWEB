@@ -29,6 +29,8 @@ if (getCuslist) {
   if (previousCuslist.length > 0) {
     document.getElementById("countList").innerHTML = "検索件数：" + previousCuslist.length + "件";
     document.getElementById("countList").style.display = "block";
+  } else {
+    document.getElementById("countList").style.display = "none";
   }
   previousCuslist.map((item) => {
     const newElement = document.createElement("tr");
@@ -127,6 +129,8 @@ searchBtn.onclick = function () {
         if (cuslist.length > 0) {
           document.getElementById("countList").innerHTML = "検索件数：" + cuslist.length + "件";
           document.getElementById("countList").style.display = "block";
+        } else {
+          document.getElementById("countList").style.display = "none";
         }
         localStorage.setItem("cuslist", JSON.stringify(cuslist));
         json.cuslist.map((item) => {
