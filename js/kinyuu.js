@@ -9,9 +9,9 @@ const wrapMainForm = document.querySelector(".overlay .container-mainform .wrap-
 
 closeBtn.onclick = function(){
     overlay.style.zIndex = "-1";
-    wrapMainForm.classList.remove("wrap-mainform-animate");
+    wrapMainForm.classList.remove("overlay-animate");
 }
 detail.onclick = function(){
     overlay.style.zIndex = "2";
-    wrapMainForm.classList.add("wrap-mainform-animate");
+    wrapMainForm.classList.add("overlay-animate");
 }

@@ -95,25 +95,26 @@ body {
 
 .overlay {
   position: absolute;
-  width: 100%;
+  inset: 0;
   height: 100%;
-  top: 0;
-  background: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,.6);
   z-index: -1;
 }
-.overlay .wrap-mainform{
-  padding-top: 60px;
-  width: 95%;
-  height: auto;
-  position: fixed;
-  max-width: 650px;
-  margin-top: 0;
-}
-.wrap-mainform-animate {
-  transform: translateY(-100%);
-  animation: fadeIn .5s forwards;
+
+.overlay-animate {
+  transform: translateY(100%);
+  animation: showDialog .5s forwards;
   animation-timing-function: linear;
 }
+.overlay .container-mainform {
+  height: 100%;
+}
+
+.overlay .container-mainform .wrap-mainform{
+  max-width: 500px;
+  position: relative;
+}
+
 #close-icon {
   font-size: 25px;
   position: absolute;
@@ -148,7 +149,7 @@ body {
   }
 }
 
-@keyframes fadeIn {
+@keyframes showDialog {
   to {
     transform: translateY(0);
   }
