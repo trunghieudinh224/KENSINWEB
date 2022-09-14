@@ -1,265 +1,64 @@
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
-@font-face {
-  font-family: Ubuntu-Regular;
-  src: url('../fonts/ubuntu/Ubuntu-Regular.ttf');
-}
-
-
-
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-  font-size: 22px;
-  overflow: auto;
-}
-
-.value {
-  font-size: 22px;
-}
-
-
-.btn::before {
-  content: "";
-  display: block;
-  position: absolute;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  border-radius: 21px;
-  background-color: #555555;
-  top: 0;
-  left: 0;
-  opacity: 0;
-
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
-}
-
-.content {
-  align-items: center;
-  margin: 10px 0px;
-}
-
-/*------------------------------------------------------------------
-[ Input ]*/
-
-.wrap-input100 {
-  width: 100%;
-  position: relative;
-  border-bottom: 1px solid #e6e6e6;
-  padding: 20px 0;
-}
-
-.title-content {
-  font-weight: bold;
-  font-size: 22px !important;
-  
-}
-
-.area-value {
-  height: 50px;
-  border-radius: 4px;
-  border-color: black;
-  border-width: 2px;
-}
-
-.input {
-  width: 100%;
-  text-align: right;
-  border-radius: 4px;
-  border-color: black;
-  border-width: 2px;
-  padding: 3px 5px;
-  height: 50px;
-  resize: none;
-}
-
-
-
-.btn-area {
-  padding: 10px 0;
-}
-
-.area-input {
-  padding: 0px;
-}
-
-
-
-option {
-  text-align: center;
-}
-
-
-.modal.fade.show {
-  display: block;
-}
-
-
-.modal-body {
-  padding-bottom: 0px;
-}
-
-.modal-footer {
-  border: none;
-  display: block;
-  padding: 10px 20px 20px 20px;
-}
-
-.btn-ok {
-  width: fit-content !important;
-  padding: 0px 10%;
-  float: right;
-  /* display: none; */
-}
-
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-
-
-#BackgroundPage {
-  background-image: url('./images/bg-01.jpg');  
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.unit {
-  align-items: center;
-  display: grid;
-  text-align: right;
-}
-
-
-
-
-.inputValue {
-  text-align: right; 
-  font-size: 20px; 
-  line-height: 25px;
-  background-color: white;
-  padding-right: 5px;
-}
-
-
-
 
 @media screen and (min-width: 1500px) {
-  #camera video {
-    width: -webkit-fill-available;
-  }
-
-  .date-picker .selected-date{
-    width:  100%;
-    height: 100%;
-    display: flex;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-
-    color: #313131;
-    font-size: 40px;  
-  }
-  .check-box-time{
+  .check-box-time {
     width: 23px;
     height: 23px;
   }
-  .check-box-tittle{
+  .check-box-tittle {
     font-size: 20px;
   }
 
-  .li-comment{
+  .li-comment {
     font-size: 20px;
     border-style: solid;
     border-radius: 5px;
     border-width: 2px;
     padding: 5px;
   }
+  .date_calendar {
+    background-color: #ffffff;
+    font-size: 25px;
+  }
 }
 
 @media screen and (max-width: 1500px) {
-  #camera video {
-    width: -webkit-fill-available;
-  }
-  .date-picker .selected-date{
-    width:  100%;
-    height: 100%;
-    display: flex;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-
-    color: #313131;
-    font-size: 40px;  
-  }
-
-  .check-box-time{
+  .check-box-time {
     width: 23px;
     height: 23px;
   }
-  .check-box-tittle{
+  .check-box-tittle {
     font-size: 20px;
   }
 
-  .li-comment{
+  .li-comment {
     font-size: 15px;
     border-style: solid;
     border-radius: 5px;
     border-width: 2px;
     padding: 5px;
   }
+  .date_calendar {
+    font-size: 30px;
+  }
 }
 
 @media screen and (max-width: 1200px) {
-
-  .wrap-login100 {
-    width: 650px;
+  .check-box-time {
+    width: 20px;
+    height: 20px;
   }
 
-  #camera video {
-    width: -webkit-fill-available;
-  }
-
-  .icon {
-    height: 25px;
-    width: 25px;
-  }
-
-  .date-picker .selected-date{
-    width:  100%;
-    height: 100%;
-    display: flex;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-
-    color: #313131;
-    font-size: 40px;  
-  }
-
-  .check-box-time{
-    width: 23px;
-    height: 23px;
-  }
-  .check-box-tittle{
+  .check-box-tittle {
     font-size: 20px;
   }
 
-  .li-comment{
+  .date_calendar {
+    font-size: 25px;
+  }
+
+  .li-comment {
     font-size: 15px;
     border-style: solid;
     border-radius: 5px;
@@ -269,73 +68,27 @@ input[type=number] {
 }
 
 @media screen and (max-width: 900px) {
-
-  .wrap-login100 {
-    width: 590px;
+  .date_calendar {
+    font-size: 18px;
   }
 
-  .login100-form-title {
-    font-size: 28px;
-  }
-
-  .value {
-    font-size: 20px !important;
-  }
-
-  .btn-area {
-    padding: 10px 0;
+  .date_calendar {
+    font-size: 25px;
   }
 
   .area-value {
     min-height: 45px;
   }
 
-  .btn {
-    font-size: 20px;
-    padding: 20px 0;
+  .check-box-time {
+    width: 20px;
+    height: 20px;
   }
-
-  #camera video {
-    width: -webkit-fill-available;
-  }
-
-  .dropdown-menu {
-    width: 260px !important;
-  }
-
-  .icon {
-    height: 25px;
-    width: 25px;
-  }
-
-  #userName {
+  .check-box-tittle {
     font-size: 20px;
   }
 
-  .value-dropdown {
-    font-size: 20px;
-  }
-
-  .date-picker .selected-date{
-    width:  100%;
-    height: 100%;
-    display: flex;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-
-    color: #313131;
-    font-size: 40px;  
-  }
-  .check-box-time{
-    width: 23px;
-    height: 23px;
-  }
-  .check-box-tittle{
-    font-size: 20px;
-  }
-  
-  .li-comment{
+  .li-comment {
     font-size: 10px;
     border-style: solid;
     border-radius: 5px;
@@ -344,83 +97,19 @@ input[type=number] {
   }
 }
 
-
 @media screen and (max-width: 768px) {
-
-  .wrap-login100 {
-    width: 540px;
-  }
-
-  .login100-form-title {
-    font-size: 25px;
-  }
-
-  .value {
-    font-size: 18px !important;
-    padding: 0px;
-    padding-left: 12px;
-  }
-
-  .btn-area {
-    padding: 10px 0;
-  }
-
-  .area-value {
-    min-height: 40px;
-  }
-
-  .title-area {
-    padding: 0px;
-    padding-right: 12px;
-  }
-
-  .btn {
-    font-size: 18px;
-    padding: 20px 0;
-    height: 40px;
-  }
-
-  #camera video {
-    width: -webkit-fill-available;
-  }
-
-  .dropdown-menu {
-    max-width: 230px !important;
-  }
-
-  .icon {
-    height: 20px;
-    width: 20px;
-  }
-
-  #userName {
-    font-size: 18px;
-  }
-
-  .value-dropdown {
-    font-size: 18px;
-  }
-
-  .date-picker .selected-date{
-    width:  100%;
-    height: 100%;
-    display: flex;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-
-    color: #313131;
-    font-size: 40px;  
-  }
-
-  .check-box-time{
+  .check-box-time {
     width: 17px;
     height: 17px;
   }
-  .check-box-tittle{
+  .check-box-tittle {
     font-size: 15px;
   }
-  .li-comment{
+
+  .date_calendar {
+    font-size: 22px;
+  }
+  .li-comment {
     font-size: 15px;
     border-style: solid;
     border-radius: 5px;
@@ -430,225 +119,121 @@ input[type=number] {
 }
 
 @media screen and (max-width: 600px) {
-  .wrap-login100 {
-    width: 390px;
+  .check-box-time {
+    width: 12px;
+    height: 12px;
+  }
+  .check-box-tittle {
+    font-size: 10px;
   }
 
-  .value {
-    font-size: 16px !important;
-  }
-
-  .login100-form-title {
-    font-size: 23px;
-  }
-
-  .btn {
-    width: 100%;
-    padding: 0px;
-    font-size: 16px;
-    height: 40px;
-  }
-
-  #camera video {
-    width: -webkit-fill-available;
-  }
-
-  .dropdown-menu li {
-    padding: 1px 0;
-  }
-
-  .dropdown-menu {
-    max-width: 230px !important;
-  }
-
-  .icon {
-    height: 18px;
-    width: 18px;
-  }
-
-  #userName {
-    font-size: 16px;
-  }
-
-  .value-dropdown {
-    font-size: 16px;
-  }
-
-  .date-picker .selected-date{
-    width:  100%;
-    height: 100%;
-    display: flex;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-
-    color: #313131;
-    font-size: 40px;  
-  }
-
-  .check-box-time{
-    width: 17px;
-    height: 17px;
-  }
-  .check-box-tittle{
-    font-size: 15px;
-  }
-
-  .li-comment{
+  .li-comment {
     font-size: 15px;
     border-style: solid;
     border-radius: 5px;
     border-width: 2px;
     padding: 5px;
   }
+  .date_calendar {
+    font-size: 18px;
+  }
 }
-
 
 @media screen and (max-width: 450px) {
-  .wrap-login100 {
-    width: 320px;
-    padding: 20px 10px;
+  .check-box-time {
+    width: 8px;
+    height: 8px;
+  }
+  .check-box-tittle {
+    font-size: 8px;
   }
 
-  #camera video {
-    width: -webkit-fill-available;
-    height: 280px;
-    margin: auto;
-  }
-
-  .select-role {
-    top: 3%;
-    right: 5%;
-  }
-
-  .date-picker .selected-date{
-    width:  100%;
-    height: 100%;
-    display: flex;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-
-    color: #313131;
-    font-size: 30px;  
-}
-
-  .check-box-time{
-    width: 17px;
-    height: 17px;
-  }
-  .check-box-tittle{
-    font-size: 15px;
-  } 
-
-  .li-comment{
+  .li-comment {
     font-size: 10px;
     border-style: solid;
     border-radius: 5px;
     border-width: 2px;
     padding: 5px;
   }
-}
-.radio-type{
-  font-size: 15px;
-}
 
-.radio{
-  width: 20px; 
-  height:20px;
-  margin: 0px 15px;
-}
+  .combobox {
+    font-size: 13px;
+  }
 
-.time-setting{
-  border-style: solid;
-  border-radius: 5px;
-  border-width: 2px;
+  .date_calendar {
+    font-size: 12px;
+  }
 }
 
-.date-picker{
-    position: relative;
-    width: 100%;
-    max-width: 320px;
-    height: 200px;
-    background-color: #FFF;
-    margin: 30px auto;
-    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    user-select: none;
+@media screen and (max-width: 400px) {
+  .check-box-time {
+    width: 6px;
+    height: 6px;
+  }
+  .check-box-tittle {
+    font-size: 6px;
+  }
+
+  .li-comment {
+    font-size: 10px;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 2px;
+    padding: 5px;
+  }
+
+  .combobox {
+    font-size: 13px;
+  }
+
+  .date_calendar {
+    font-size: 12px;
+  }
 }
 
-.date-picker:hover{
-    background-color: #F3F3F3;
-}
-
-
-
- .dates{
-    display: none;
-    position: sticky;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: #FFF;
-    height: 100%;
-}
-
- .dates.active{
-    display: block;
-}
-
- .dates .month{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #EEE;
-}
-
- .dates .month .arrows{
-    width: 35px;
-    height: 35px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #313131;
-    font-size: 20px;
-}
- .dates .month .arrows:hover {
-    background-color: #F3F3F3;
-
-}
-
- .dates .month .arrows :active{
-    background-color: #00CA85 ;
-}
-
- .dates .days{
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    height:  200px;
-
-}
- 
- .dates .days .day{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #313131;
-}
-
-.dates .day .day .selected{
-    background-color: #00CA85;
-    
-}
-
-.tilte {
-  font-size: 40px;
-  font-weight: bold;
+.date_calendar {
+  background-color: #ffffff;
   text-align: center;
-  margin: 5px 0px 20px 0px;
-  text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee, 2px 1px 1px #ccc,
-    1px 2px 1px #eee, 3px 2px 1px #ccc, 2px 3px 1px #eee, 4px 3px 1px #ccc,
-    3px 4px 1px #eee;
+  border: none;
+  width: 100%;
 }
 
+.check-box-tittle {
+  margin: 0px;
+}
+
+/******  MODAL  ******/
+/* Modal Content */
+.modal-content {
+  width: 80% !important;
+}
+
+.button-modal {
+  color: white;
+  background-color: #eeb725;
+}
+
+.button-modal:hover {
+  background-color: #f0c44b;
+}
+
+.modal-message {
+  background-color: #ffffff;
+}
+.form-control {
+  padding: 0px;
+  margin: 0px;
+}
+.item-combobox {
+  text-align: center;
+}
+
+.input-group-prepend {
+  overflow: hidden;
+  padding-right: 0px;
+}
+
+.form-time {
+  padding-left: 2px;
+  padding-right: 15px;
+}
