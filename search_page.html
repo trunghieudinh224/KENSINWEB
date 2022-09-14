@@ -37,10 +37,38 @@
 <body>
     <div id="backgroundPage">
         <div class="container-mainform" id="form">
-            <div class="wrap-mainform p-t-30 p-b-40" style="background-color: white;">
+            <div class="dropdown select-role">
+                <div class="btn-menu btn-secondary dropdown-toggle" type="button" id="dropdownSelectRole"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="text" id="userName"><i class="ic-dropdown fa-solid fa-user"></i></span>
+                </div>
+                <ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
+                    <li>
+                        <a class="dropdown-item notice-page" onclick="changePage('/menu_page.html')">
+                            <span class="text"><i class="ic-dropdown fa-solid fa-bars"></i>メニュー</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item print-page" onclick="changePage('/setting_page.html')">
+                            <span class="text"><i class="ic-dropdown fa-solid fa-gear"></i>設定</span>
+                        </a>
+                    </li>
+                    <li  style="padding: 0px !important;">
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item scan-page" onclick="changePage('logout')">
+                            <span class="text"><i class="ic-dropdown logout fa-solid fa-right-from-bracket"></i>ログアウト</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="wrap-mainform p-t-30 p-b-40">
                 <!-- Title// -->
                 <div class="row">
-                    <span id="titleForm" class="col-12">検索</span>
+                    <span id="titleForm" class="col-12">顧客検索</span>
                 </div>
                 <!-- Content -->
                 <div class="row content">
@@ -148,6 +176,18 @@
                     <table id="customers" class="result-tb">
                     </table>
                 </div>
+
+                <!-- <table id="customers">
+                    <tr id="title-table">
+                      <th class="text">顧客</th>
+                      <th class="text">住所</th>
+                      <th class="text">検針状態</th>
+                    </tr>
+                </table>
+                <div class="table-container">
+                    <table id="customers" class="result-tb">
+                    </table>
+                </div> -->
 
                 <div class="row text" id="data-messages"></div>
             </div>

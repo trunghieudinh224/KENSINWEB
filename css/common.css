@@ -8,6 +8,8 @@
 
 :root {
   --primary-color: #fff0e5;
+  --icon-color: #ff7e5f;
+  --gray-color: #9f9f9f;
   --button-color: linear-gradient(to right, #ff7e5f 0%, #feb47b 61%, #fa5b34 100%);
 }
 
@@ -16,7 +18,6 @@
   padding: 0px;
   box-sizing: border-box;
   font-size: 18px;
-  overflow: auto;
   font-family: Cambria;
 }
 
@@ -226,6 +227,56 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 
 /*
+  ******  DROPDOWN MENU  ******
+*/
+.select-role{
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  z-index: 2;
+}
+
+.btn-menu {
+  background-color: transparent;
+}
+
+.btn-menu:hover {
+  background-color: transparent;
+}
+
+#userName {
+  font-weight: bold;
+}
+
+.dropdown-menu.show {
+  background-color: hsl(0, 100%, 99%);
+}
+
+.dropdown-menu li {
+  padding: 3px 0;
+}
+
+.dropdown-item:hover {
+  background-color: rgb(215, 215, 215);
+  cursor: pointer;
+}
+
+.dropdown-divider-wrap {
+  padding: 0px;
+}
+
+.ic-dropdown {
+  font-size: 25px; 
+  margin-right: 20px; 
+  color: var(--icon-color);
+}
+
+.logout {
+  color: var(--gray-color);
+}
+
+
+/*
   ******  MIN WIDTH  ******
 */
 .mw215 {
@@ -273,25 +324,27 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   ******  RESPONSIVE LAYOUT  ******
 */
 @media screen and (max-width: 1200px) {
-  .wrap-login100 {
+  .wrap-mainform {
     width: 650px;
   }
 }
 
 @media screen and (max-width: 900px) {
-
-  .wrap-login100 {
+  /* MAIN FORM */
+  .wrap-mainform {
     width: 590px;
   }
 
-  .login100-form-title {
+  .mainform-form-title {
     font-size: 28px;
   }
 
+  /* BUTTON */
   .btn {
     font-size: 18px;
   }
   
+  /* TEXT */
   .text {
     font-size: 18px;
     min-height: 42.5px;
@@ -317,18 +370,27 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 
 @media screen and (max-width: 768px) {
-  .wrap-login100 {
+  /* DROPDOWN MENU */
+  .ic-dropdown {
+    font-size: 23px; 
+    margin-right: 15px; 
+  }
+  
+  /* MAIN FORM */
+  .wrap-mainform {
     width: 540px;
   }
 
-  .login100-form-title {
+  .mainform-form-title {
     font-size: 25px;
   }
 
+  /* BUTTON */
   .btn {
     font-size: 16px;
   }
   
+  /* TEXT */
   .text {
     font-size: 16px;
     min-height: 39.5px;
@@ -362,10 +424,12 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 600px) {
-  .wrap-login100 {
+  /* MAIN FORM */
+  .wrap-mainform {
     width: 400px;
   }
   
+  /* TEXT */
   .text {
     font-size: 15px;
     min-height: 38px;
@@ -393,7 +457,14 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 
 @media screen and (max-width: 450px) {
-  .wrap-login100 {
+  /* DROPDOWN MENU */
+  .ic-dropdown {
+    font-size: 20px; 
+    margin-right: 10px; 
+  }
+  
+  /* MAIN FORM */
+  .wrap-mainform {
     width: 350px;
     padding: 20px 10px;
   }
