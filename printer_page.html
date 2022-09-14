@@ -208,7 +208,7 @@
           </form>
           <!-- Button -->
           <div class="row content button-area">
-            <div class="col-sm-4 col-12">
+            <div class="col-sm-3 col-12">
               <button
                 type="button"
                 class="btn btn-default text-center"
@@ -216,7 +216,7 @@
                 <span class="fas fa-caret-left"></span><br />戻る
               </button>
             </div>
-            <div class="col-sm-4 col-12">
+            <div class="col-sm-3 col-12">
               <button
                 type="button"
                 class="btn btn-default text-center"
@@ -224,7 +224,15 @@
                 <span class="fas fa-calendar-alt"></span><br />全日集計
               </button>
             </div>
-            <div class="col-sm-4 col-12">
+            <div class="col-sm-3 col-12">
+              <button
+                type="button"
+                class="btn btn-default text-center"
+                id="nippou">
+                <span class="fas fa-calendar-alt"></span><br />日報
+              </button>
+            </div>
+            <div class="col-sm-3 col-12">
               <button
                 type="button"
                 class="btn btn-default text-center"
@@ -236,6 +244,43 @@
         </div>
       </div>
     </div>
+
+    <!-- Dialog -->
+    <div class="overlay">
+      <div class="container-mainform">
+        <div class="wrap-mainform p-t-30 p-b-40">
+          <span class="fa-sharp fa-solid fa-circle-xmark"></span>
+          <div class="row content button-area">
+            <div class="dialog-title">日報種類選択</div>
+            <div class="col-12">
+              <button
+                type="button"
+                class="btn btn-default text-center"
+                id="">
+                検針日報
+              </button>
+            </div>
+            <div class="col-12">
+              <button
+                type="button"
+                class="btn btn-default text-center"
+                id="first-customer">
+                集計日報
+              </button>
+            </div>
+            <div class="col-12">
+              <button
+                type="button"
+                class="btn btn-default text-center"
+                id="">
+                売上日報
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="./js/print.js"></script>
+    <script src="./js/shuukei.js"></script>
   </body>
 </html>

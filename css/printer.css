@@ -1,0 +1,41 @@
+body {
+    position: relative;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0,0,0,.6);
+    z-index: -1;
+}
+
+.overlay-animate {
+    transform: translateY(100%);
+    animation: showDialog .5s forwards;
+    animation-timing-function: linear;
+}
+
+.overlay .container-mainform .wrap-mainform{
+    max-width: 400px;
+    position: relative;
+}
+
+.overlay .container-mainform .wrap-mainform span {
+    position: absolute;
+    font-size: 30px;
+    top: 1rem;
+    right: 1rem;
+}
+
+.dialog-title {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0 0 1rem 1rem;
+}
+
+@keyframes showDialog {
+    to {
+        transform: translateY(0);
+    }
+}

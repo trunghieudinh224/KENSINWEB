@@ -107,6 +107,7 @@ body {
   height: auto;
   position: fixed;
   max-width: 650px;
+  margin-top: 0;
 }
 .wrap-mainform-animate {
   transform: translateY(-100%);
