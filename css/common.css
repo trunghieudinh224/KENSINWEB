@@ -214,6 +214,13 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   margin-bottom: 5px;
 }
 
+.btn:active,
+.btn:focus,
+.btn:focus:active {
+  outline: 0;
+  box-shadow: none;
+}
+
 .btn:hover {
   background-position: right center;
   color: rgb(236, 236, 236);

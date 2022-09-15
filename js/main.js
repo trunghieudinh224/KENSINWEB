@@ -20,7 +20,6 @@ window.onload = async function () {
         if (user && pass) {
             showDialog("./images/gif/gif_loading.gif", true, "しばらくお待ちください。。。", "black", false)
             sendAPI(user, pass);
-            // window.location.href = "/notice_page.html";
         }
     }
     const validate = (user, pass) => {
@@ -33,7 +32,7 @@ window.onload = async function () {
 
     const sendAPI = (username, password) => {
         $.ajax({
-            url: "http://192.168.200.218:8080/DemoWeb/compackr/loginchk?key=0582668301&login_id=" + username + "&login_pw=" + password,
+            url: "https://192.168.200.218/DemoWeb/compackr/loginchk?key=0582668301&login_id=" + username + "&login_pw=" + password,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
