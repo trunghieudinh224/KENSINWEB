@@ -9,7 +9,8 @@ function getInformation() {
     if (data != null) {
         setupModal("load", null, "データを読み込んでいます...", null, null);
         $.ajax({
-            url: "http://192.168.200.218:8080/Webkensin/compackr/readData?key=0582668301&cusrec=" + data.cusrec + "&login_id=7&login_pw=7",
+            // url: "http://192.168.200.218:8080/Webkensin/compackr/readData?key=0582668301&cusrec=" + data.cusrec + "&login_id=7&login_pw=7",
+            url: "http://192.168.200.218:8080/Webkensin/compackr/readData?key=0582668301&cusrec=3942&login_id=7&login_pw=7",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -42,7 +43,7 @@ function setInformation() {
     if (dataAPI != null) {
         getShuukei();
         getKyookyuu();
-        document.getElementById("ryookin").innerHTML = dataAPI.cusmastrDat.gasku;
+        getRyookin();
     }
 }
 
@@ -62,7 +63,7 @@ function getShuukei() {
         if (dataAPI.cusmastrDat.fkin != 0) {
             shuukei = "依頼中";
         } else {
-            shuukei = formatShuku(data.m_nBkcd)
+            shuukei = formatShuku(data.bkcd);
         }
     }
     document.getElementById("shuukei").innerHTML = shuukei;
@@ -97,7 +98,38 @@ function getKyookyuu() {
         default:
             result = "";
     }
-    return result;
+    document.getElementById("kyookyuu").innerHTML = result;
+}
+
+
+function getRyookin() {
+    if (dataAPI.cusmastrDat.gasku == 0) {
+        document.getElementById("ryookin").innerHTML = "未設定";
+        return;
+    }
+    var result = "";
+    switch (dataAPI.cusmastrDat.mSum) {
+        case 0:
+            result = "未設定";
+            break;
+        case 1:
+            result = "通常";
+            break;
+        case 2:
+            result = "簡ガス";
+            break;
+        case 3:
+            result = "契約";
+            break;
+        case 4:
+            result = "手入力";
+            break;
+        default:
+            result = "";
+            break;
+    }
+    result = result + ":" + dataAPI.cusmastrDat.gasku;
+    document.getElementById("ryookin").innerHTML = result;
 }
 
 

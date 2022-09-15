@@ -6,7 +6,7 @@ const loginBtn = document.querySelector("#btnLogin");
 window.onload = async function () {
     var data = sessionStorage.getItem('username');
     if (data != null) {
-        window.location.href = "/notice_page.html";
+        window.location.href = "/menu_page.html";
     }
 
     $("#btnLogin").click(() => {
@@ -33,7 +33,7 @@ window.onload = async function () {
 
     const sendAPI = (username, password) => {
         $.ajax({
-            url: "https://192.168.200.218/DemoWeb/compackr/loginchk?key=0582668301&login_id=" + username + "&login_pw=" + password,
+            url: "http://192.168.200.218:8080/DemoWeb/compackr/loginchk?key=0582668301&login_id=" + username + "&login_pw=" + password,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -43,7 +43,7 @@ window.onload = async function () {
                 if (JSON.parse(result).err_code == 0) {
                     sessionStorage.setItem('username', username);
                     sessionStorage.setItem('password', password);
-                    window.location.href = "/notice_page.html";
+                    window.location.href = "/menu_page.html";
                 } else {
                     updateDialog("./images/gif/gif_fail.gif", JSON.parse(result).err_msg, "red", true)
                 }

@@ -27,9 +27,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/common.css" />
     <link rel="stylesheet" href="./css/search.css" />
 </head>
@@ -40,7 +37,8 @@
             <div class="dropdown select-role">
                 <div class="btn-menu btn-secondary dropdown-toggle" type="button" id="dropdownSelectRole"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="text" id="userName"><i class="ic-dropdown fa-solid fa-user"></i></span>
+                    <span class="text" id="userName"><i class="ic-dropdown fa-solid fa-user"></i><a
+                            id="name"></a></span>
                 </div>
                 <ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
                     <li>
@@ -53,7 +51,7 @@
                             <span class="text"><i class="ic-dropdown fa-solid fa-gear"></i>設定</span>
                         </a>
                     </li>
-                    <li  style="padding: 0px !important;">
+                    <li style="padding: 0px !important;">
                         <hr class="dropdown-divider">
                     </li>
                     <li>
@@ -77,8 +75,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text mw130 text">検索種別</span>
                             </div>
-                            <select class="form-control ta-l text" name="search-type" id="search-type"
-                                style="height: 45.5px;">
+                            <select class="form-control ta-l text" name="search-type" id="search-type">
                                 <option value="0">顧客コード</option>
                                 <option value="1">顧客カナ</option>
                                 <option value="2">電話番号</option>
@@ -91,8 +88,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text mw130 text">一致種別</span>
                             </div>
-                            <select class="form-control ta-l text" name="search-part" id="search-part"
-                                style="height: 45.5px;">
+                            <select class="form-control ta-l text" name="search-part" id="search-part">
                                 <option value="0">前方一致</option>
                                 <option value="1">部分一致</option>
                                 <option value="2">後方一致</option>
@@ -112,24 +108,23 @@
                             <div class="input-group-prepend" style="background-color: transparent;">
                                 <span id="warning-spacing" class="input-group-text mw130 text"></span>
                             </div>
-                            <input id="warning-message" class="form-control ta-l text" value="asdasd" disabled/>
+                            <input id="warning-message" class="form-control ta-l text" disabled />
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-12">
+                    <div class="col-lg-6 col-12 mb10">
                         <div class="form-group input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text mw130 text">検針状態</span>
                             </div>
-                            <select class="form-control ta-l text" name="search-status" id="search-status"
-                                style="height: 45.5px;">
+                            <select class="form-control ta-l text" name="search-status" id="search-status">
                                 <option value="0" selected>未検針</option>
                                 <option value="1">検針済</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-12">
+                    <div class="col-lg-6 col-12 mb10">
                         <div class="form-group input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text mw130 text">検索順</span>
@@ -164,35 +159,24 @@
                     <span class="ta-r text" id="countList"></span>
                 </div>
 
-                
-                <div class="table-container">
-                    <table id="customers">
-                        <tr id="title-table">
-                          <th class="text">顧客</th>
-                          <th class="text">住所</th>
-                          <th class="text">検針状態</th>
-                        </tr>
-                    </table>
-                    <table id="customers" class="result-tb">
-                    </table>
-                </div>
 
-                <!-- <table id="customers">
+                <table id="customers">
                     <tr id="title-table">
-                      <th class="text">顧客</th>
-                      <th class="text">住所</th>
-                      <th class="text">検針状態</th>
+                        <th class="text">顧客</th>
+                        <th class="text">住所</th>
+                        <th class="text">検針状態</th>
                     </tr>
                 </table>
                 <div class="table-container">
                     <table id="customers" class="result-tb">
                     </table>
-                </div> -->
+                </div>
 
                 <div class="row text" id="data-messages"></div>
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="js/check_login.js"></script>
     <script type="module" src="./js/search.js"></script>
 </body>
 

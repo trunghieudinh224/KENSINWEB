@@ -244,8 +244,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   background-color: transparent;
 }
 
-#userName {
+#name {
   font-weight: bold;
+  color: white;
+  font-size: 25px;
 }
 
 .dropdown-menu.show {
@@ -349,6 +351,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     font-size: 18px;
     min-height: 42.5px;
   }
+
+  #name {
+    font-size: 23px;
+  }
   
   .title-group {
     font-size: 26px;
@@ -435,6 +441,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     min-height: 38px;
     overflow: hidden;
   }
+
+  #name {
+    font-size: 20px;
+  }
   
   .title-group {
     font-size: 24px;
@@ -461,6 +471,11 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   .ic-dropdown {
     font-size: 20px; 
     margin-right: 10px; 
+  }
+  
+  /* TEXT */
+  #name {
+    font-size: 18px;
   }
   
   /* MAIN FORM */

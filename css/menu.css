@@ -1,0 +1,48 @@
+/*
+  ******  RESPONSIVE LAYOUT  ******
+*/
+@media screen and (min-width: 1200px) {
+    .wrap-mainform {
+        width: 450px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .wrap-mainform {
+        width: 400px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+
+    /* MAIN FORM */
+    .wrap-mainform {
+        width: 350px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+
+    /* MAIN FORM */
+    .wrap-mainform {
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    /* MAIN FORM */
+    .wrap-mainform {
+        width: 350px;
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+
+    /* MAIN FORM */
+    .wrap-mainform {
+        width: 350px;
+    }
+}
