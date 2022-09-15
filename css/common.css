@@ -63,7 +63,8 @@ body {
 
 .wrap-mainform {
   width: 650px;
-  margin-top: 50px;
+  margin-top: 150px;
+  margin-bottom: 150px;
   border-radius: 10px;
   overflow: hidden;
   height: fit-content;
@@ -164,7 +165,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .text {
-  font-size: 20px;
+  font-size: 20px !important;
   min-height: 45.5px;
   color: black;
 }
@@ -358,7 +359,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   
   /* TEXT */
   .text {
-    font-size: 18px;
+    font-size: 18px !important;
     min-height: 42.5px;
   }
 
@@ -408,7 +409,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   
   /* TEXT */
   .text {
-    font-size: 16px;
+    font-size: 16px !important;
     min-height: 39.5px;
   }
 
@@ -447,7 +448,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   
   /* TEXT */
   .text {
-    font-size: 15px;
+    font-size: 15px !important;
     min-height: 38px;
     overflow: hidden;
   }

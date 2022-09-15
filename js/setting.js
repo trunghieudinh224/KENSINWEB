@@ -21,47 +21,47 @@ const user_name = document.getElementById("Combobox");
 const combobox_print_mode = document.getElementById("combobox_print_mode");
 let isDate = true;
 
-var date;
-if (time_kensin == null) {
-  date = new Date();
-} else {
-  date = new Date(time_kensin);
-}
+// var date;
+// if (time_kensin == null) {
+//   date = new Date();
+// } else {
+//   date = new Date(time_kensin);
+// }
 
-var nowDate = new Date();
+// var nowDate = new Date();
 
-// check user check checkbox time
-if (
-  nowDate.getDate() == date.getDate() &&
-  nowDate.getMonth() == date.getMonth() &&
-  nowDate.getFullYear() == date.getFullYear()
-) {
-  checkbox_format_date.checked = true;
-  date_select.type = "button";
-} else {
-  checkbox_format_date.checked = false;
-  date_select.type = "date";
-}
+// // check user check checkbox time
+// if (
+//   nowDate.getDate() == date.getDate() &&
+//   nowDate.getMonth() == date.getMonth() &&
+//   nowDate.getFullYear() == date.getFullYear()
+// ) {
+//   checkbox_format_date.checked = true;
+//   date_select.type = "button";
+// } else {
+//   checkbox_format_date.checked = false;
+//   date_select.type = "date";
+// }
 
-var ck = checkbox_format_date.checked;
+// var ck = checkbox_format_date.checked;
 
-//get day kensin
+// //get day kensin
 
-let day = date.getDate();
-let month = date.getMonth();
-let year = date.getFullYear();
+// let day = date.getDate();
+// let month = date.getMonth();
+// let year = date.getFullYear();
 
-let selectedDate = date;
-let selectedDay = day;
-let selectedMonth = month;
-let selectedYear = year;
-console.log(year + "-" + month + "-" + day);
+// let selectedDate = date;
+// let selectedDay = day;
+// let selectedMonth = month;
+// let selectedYear = year;
+// console.log(year + "-" + month + "-" + day);
 
-console.log(document.getElementById("myDate").value);
-date_select.value = year + "-0" + (month + 1) + "-" + day;
+// console.log(document.getElementById("myDate").value);
+// date_select.value = year + "-0" + (month + 1) + "-" + day;
 
 //show day kensin
-checkbox_format_date.addEventListener("click", setCheckBoxTime);
+// checkbox_format_date.addEventListener("click", setCheckBoxTime);
 
 // Calling that async function
 getapi(api_url);
@@ -155,6 +155,7 @@ function populateClient() {
   for (var i = 0; i <= username.length; i++) {
     var option = document.createElement("option");
     option.classList.add("item-combobox")
+    option.classList.add("text")
     if (user_reader == username[i]) {
       option.selected = true;
     }
@@ -163,138 +164,12 @@ function populateClient() {
 
     user_name.add(option);
   }
+
+  document.getElementById('Combobox').getElementsByTagName('option')[0].selected = 'selected'
 }
 
 function getUserItem(text) {
   console.log(text);
-}
-
-// select print date, current time or specified time
-function setCheckBoxTime() {
-  if (ck == true) {
-    date_select.type = "date";
-    checkbox_format_date.checked = false;
-  } else {
-    day = new Date();
-    if (day.getMonth() + 1 < 10) {
-      date_select.value =
-        day.getFullYear() + "-0" + (day.getMonth() + 1) + "-" + day.getDate();
-    } else {
-      date_select.value =
-        day.getFullYear() + "-" + (day.getMonth() + 1) + "-" + day.getDate();
-    }
-
-    checkbox_format_date.checked = true;
-    date_select.type = "button";
-  }
-  ck = checkbox_format_date.checked;
-}
-
-// check if user choose change date kensin, show calendar
-function toggDatePicker(e) {
-  if (isDate == true) {
-    isDate = false;
-  } else {
-    isDate = true;
-  }
-  if (!checkEventPathForClass(e.path, "dates")) {
-    dates_element.classList.toggle("active");
-  }
-}
-
-// get after month
-function goToNextMonth(e) {
-  month++;
-  if (month > 11) {
-    month = 0;
-    year++;
-  }
-  mth_element.textContent = months[month] + " " + year;
-
-  dates_element.classList.toggle("active");
-  populateDates();
-}
-
-// get before month
-function goToPrevMonth(e) {
-  month--;
-  if (month < 0) {
-    month = 11;
-    year--;
-  }
-  mth_element.textContent = months[month] + " " + year;
-  dates_element.classList.toggle("active");
-  populateDates();
-}
-
-// create calender to change day kensin
-function populateDates(e) {
-  days_element.innerHTML = "";
-  let amount_days = 30;
-
-  if (
-    month == 0 ||
-    month == 2 ||
-    month == 4 ||
-    month == 6 ||
-    month == 7 ||
-    month == 9 ||
-    month == 11
-  ) {
-    amount_days = 31;
-  } else if (month == 1) {
-    amount_days = 28;
-  }
-
-  for (let i = 0; i < amount_days; i++) {
-    const day_element = document.createElement("div");
-    day_element.classList.add("day");
-    day_element.textContent = i + 1;
-
-    if (
-      selectedDay == i + 1 &&
-      selectedMonth == month &&
-      selectedYear == year
-    ) {
-      day_element.classList.add("selected");
-    }
-    day_element.addEventListener("click", function () {
-      selectedDate = new Date(year + "-" + (month + 1) + "-" + (i + 1));
-      date = new Date(year + "-" + (month + 1) + "-" + (i + 1));
-      selectedDay = i + 1;
-      selectedMonth = month;
-      selectedYear = year;
-      selected_date_element.textContent = formatdate(selectedDate);
-      selected_date_element.dataset.value = selectedDate;
-
-      populateDates();
-    });
-    days_element.appendChild(day_element);
-  }
-}
-
-// check user click calender or not
-function checkEventPathForClass(path, selector) {
-  for (let i = 0; i < path.lenght; i++) {
-    if (path[i].classList && path[i].classList.contains(selector)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-// format date
-function formatdate(d) {
-  let day = d.getDate();
-  let month = d.getMonth() + 1;
-  let year = d.getFullYear();
-  if (day < 10) {
-    day = "0" + day;
-  }
-  if (month < 10) {
-    month = "0" + month;
-  }
-  return day + " / " + month + " / " + year;
 }
 
 function setupModal(status, title, message) {
@@ -323,3 +198,28 @@ function setupModal(status, title, message) {
         modal.style.display = "none";
     }
 }
+
+
+function checkboxDate() {
+  var checkBox = document.getElementById("checkbox");
+  var datepicker = document.getElementById("input");
+  if (checkBox.checked == true){
+    datepicker.disabled = true;
+  } else {
+     datepicker.disabled = false;
+  }
+}
+
+
+
+// var mindate = new Date();
+//     mindate.setDate(mindate.getDate() - 8);
+// var maxdate = new Date();
+//     maxdate.setDate(maxdate.getDate() - 1);
+// $('#minMaxExample').datepicker({
+//     language: 'en',
+// 		range : true,
+// 		minDate : mindate,
+// 		multipleDates: true,
+// 		multipleDatesSeparator: " - "
+// })
