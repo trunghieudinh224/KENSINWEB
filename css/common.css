@@ -212,6 +212,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   border-radius: 8px;
   display: block;
   margin-bottom: 5px;
+  margin-top: 4px;
+  transition: all 0.3s ease 0s;
 }
 
 .btn:active,
@@ -225,6 +227,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   background-position: right center;
   color: rgb(236, 236, 236);
   text-decoration: none;
+  transform: translateY(-4px);
 }
 
 .ic-btn {
