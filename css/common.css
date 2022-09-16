@@ -396,6 +396,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   /* MAIN FORM */
   .wrap-mainform {
     width: 540px;
+    margin-top: 50px;
+    margin-bottom: 50px;
   }
 
   .mainform-form-title {
