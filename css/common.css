@@ -32,6 +32,7 @@ body {
 .container-mainform {
   width: 100%;
   min-height: 100vh;
+  height: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -175,6 +176,11 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   border-left: none; 
   text-align: right; 
   max-width: 60px;
+}
+
+.ellipse {
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 

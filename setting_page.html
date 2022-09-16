@@ -2,12 +2,12 @@
 <html lang=en>
 
 <head>
-	<title>記入</title>
+	<title>検針くん</title>
 	<meta charset=UTF-8>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="format-detection" content="telephone=no" />
 	<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/ic_printer.png" />
+	<link rel="icon" type="image/png" href="images/icons/ic_setting.png" />
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
@@ -36,11 +36,6 @@
                         <span class="text"><i class="ic-dropdown fa-solid fa-bars"></i>メニュー</span>
                     </a>
                 </li>
-                <li>
-                    <a class="dropdown-item print-page" onclick="changePage('/setting_page.html')">
-                        <span class="text"><i class="ic-dropdown fa-solid fa-gear"></i>設定</span>
-                    </a>
-                </li>
                 <li class="dropdown-divider-wrap">
                     <hr class="dropdown-divider">
                 </li>
@@ -67,7 +62,9 @@
 									<span class="input-group-text mw135 text">コメント1</span>
 								</div>
 
-								<span class="form-control ta-l text" onclick="showComment(1)"></span>
+								<select class="custom-select combobox text" id="cbb_comment1">
+									<option value=""></option>
+								</select>
 							</div> <!-- form-group// -->
 						</div>
 					</div>
@@ -79,7 +76,9 @@
 									<span class="input-group-text mw135 text">コメント2</span>
 								</div>
 
-								<sppan class="form-control ta-l text" onclick="showComment(2)"></span>
+								<select class="custom-select combobox text" id="cbb_comment2">
+									<option value=""></option>
+								</select>
 							</div> <!-- form-group// -->
 						</div>
 					</div>
@@ -91,7 +90,7 @@
 									<span class="input-group-text mw135 text">検針担当</span>
 								</div>
 
-								<select class="custom-select combobox" id="Combobox">
+								<select class="custom-select combobox text" id="Combobox">
 								</select>
 							</div> <!-- form-group// -->
 						</div>
@@ -104,7 +103,7 @@
 									<span class="input-group-text mw135 text">印刷モード</span>
 								</div>
 
-								<select class="custom-select combobox" id="combobox_print_mode">
+								<select class="custom-select combobox text" id="combobox_print_mode">
 									<option value="0">画像印刷モード</option>
 									<option value="1">文字列印刷モード</option>
 								</select>
@@ -139,9 +138,8 @@
 				<div class="button-area">
 					<div class="row content">
 						<div class="col-6">
-							<button type="button" class="btn btn-default text-center"><span
-									class="fas fa-arrow-alt-circle-left ic-btn"
-									onclick="history.back()"></span><br>戻る</button>
+							<button type="button" class="btn btn-default text-center" onclick="history.back()"><span
+									class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
 						</div>
 
 						<div class="col-6">
@@ -179,7 +177,6 @@
 			</div>
 		</div>
 	</div>
-
 
 
 	<script type="text/javascript"

@@ -32,7 +32,7 @@ window.onload = async function () {
 
     const sendAPI = (username, password) => {
         $.ajax({
-            url: "https://192.168.200.218/DemoWeb/compackr/loginchk?key=0582668301&login_id=" + username + "&login_pw=" + password,
+            url: "http://192.168.200.218:8080/DemoWeb/compackr/loginchk?key=0582668301&login_id=" + username + "&login_pw=" + password,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },

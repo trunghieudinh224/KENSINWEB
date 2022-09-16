@@ -80,14 +80,16 @@ if (modePrint.localeCompare("画像印刷モード") == 0) {
 	combobox_print_mode.selectedIndex = 1;
 }
 
+var data_comment;
+var data_username;
 // Defining async function
 async function getapi(url) {
 	// Storing response
 	const response = await fetch(url);
 	// Storing data in form of JSON
 	var data = await response.json();
-	var data_comment = data.m_lstComment;
-	var data_username = data.m_lstTantName;
+	data_comment = data.m_lstComment;
+	data_username = data.m_lstTantName;
 
 	for (let r of data_comment) {
 		if (r.code == 1) {
@@ -102,6 +104,8 @@ async function getapi(url) {
 	}
 
 	populateClient();
+	setCommentCbb(1);
+	setCommentCbb(2);
 }
 
 //cancel button
@@ -152,7 +156,7 @@ function populateClient() {
 	if (user_reader == null) {
 	}
 	console.log(username.length);
-	for (var i = 0; i <= username.length; i++) {
+	for (var i = 0; i < username.length; i++) {
 		var option = document.createElement("option");
 		option.classList.add("text")
 		if (user_reader == username[i]) {
@@ -165,6 +169,21 @@ function populateClient() {
 	}
 
 	document.getElementById('Combobox').getElementsByTagName('option')[0].selected = 'selected'
+}
+
+
+// get user
+function setCommentCbb(cbb) {
+	if (data_comment != null) {
+		for (let item of data_comment) {
+			var option = document.createElement("option");
+			option.classList.add("text")
+			option.text = item.name;
+			option.value = item.name;
+			document.getElementById("cbb_comment" + cbb).add(option);
+		}
+		document.getElementById("cbb_comment" + cbb).getElementsByTagName('option')[0].selected = 'selected';
+	}
 }
 
 function getUserItem(text) {
@@ -212,3 +231,17 @@ function checkboxDate() {
 var date = new Date();
 var formattedDate = moment(date).format('YYYY-MM-DD');
 document.getElementById("input").defaultValue = formattedDate;
+
+
+"use strict";
+function commentDialog() {
+	const overlay = document.querySelector(".overlay");
+	overlay.style.zIndex = "2";
+	overlay.classList.add("overlay-animate");
+	const closeBtn = document.querySelector("ic-close");
+
+	closeBtn.onclick = function () {
+		overlay.style.zIndex = "-1";
+		overlay.classList.remove("overlay-animate");
+	}
+}
