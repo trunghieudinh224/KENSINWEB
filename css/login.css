@@ -1,41 +1,3 @@
-
-
-
-
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
-
-@font-face {
-  font-family: Ubuntu-Regular;
-  src: url('../fonts/ubuntu/Ubuntu-Regular.ttf'); 
-}
-
-@font-face {
-  font-family: Ubuntu-Bold;
-  src: url('../fonts/ubuntu/Ubuntu-Bold.ttf'); 
-}
-
-:root {
-  --primary-color: #fa5b34;
-  --button-color: linear-gradient(to right, #ff7e5f 0%, #feb47b 61%, #fa5b34 100%);
-}
-
-
-/*//////////////////////////////////////////////////////////////////
-[ RESTYLE TAG ]*/
-
-* {
-	margin: 0px; 
-	padding: 0px; 
-	box-sizing: border-box;
-}
-
-body, html {
-	height: 100%;
-	font-family: Ubuntu-Regular, sans-serif;
-}
-
-
 /*---------------------------------------------*/
 input {
 	outline: none;
@@ -100,7 +62,7 @@ iframe {
   margin: 0 auto;
 }
 
-.container-login100 {
+.container-mainform {
   width: 100%;  
   min-height: 100vh;
   display: -webkit-box;
@@ -120,7 +82,7 @@ iframe {
   z-index: 1;  
 }
 
-.container-login100::before {
+.container-mainform::before {
   content: "";
   display: block;
   position: absolute;
@@ -132,7 +94,7 @@ iframe {
   background-color: rgba(0,0,0,0.65);
 }
 
-.wrap-login100 {
+.wrap-mainform {
   width: 450px;
   border-radius: 10px;
   overflow: hidden;
@@ -144,13 +106,13 @@ iframe {
 /*------------------------------------------------------------------
 [ Form ]*/
 
-.login100-form {
+.mainform-form {
   width: 100%;
   border-radius: 10px;
   background-color: #fff;
 }
 
-.login100-form-logo {
+.mainform-form-logo {
   font-size: 60px; 
   color: #333333;
 
@@ -168,9 +130,9 @@ iframe {
   margin: 0 auto;
 }
 
-.login100-form-title {
+.mainform-form-title {
   color: #e6e6e6;
-  font-size: 40px;
+  font-size: 50px;
   font-weight: bold ;
   text-align: center;
   display: block;
@@ -286,7 +248,7 @@ iframe {
 
 /*------------------------------------------------------------------
 [ Button ]*/
-.container-login100-form-btn {
+.container-mainform-form-btn {
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -497,109 +459,19 @@ iframe {
 }
 
 
-@media screen and (min-width: 1500px) {
-  
-}
-
-@media screen and (max-width: 1500px) {
-
-  
-}
-
-@media screen and (max-width: 1200px) {
-
-  .wrap-login100 {
-    width: 400px;
-  }
-
-
-  .input100 {
-    font-size: 18px;
-  }
-
-  .btn-area {
-    padding: 10px 0;
-  }
-
-  .area-value {
-    min-height: 45px;
-  }
-
-  .btn {
-    font-size: 18px;
-  }
-}
-
 @media screen and (max-width: 900px) {
-
 }
 
 
 @media screen and (max-width: 768px) {
-
-
-
-
-  .btn-area {
-    padding: 10px 0;
-  }
-
-  .area-value {
-    min-height: 40px;
-  }
-
-  .title-area {
-    padding: 0px;
-    padding-right: 12px;
-  }
-
-  .btn {
-    font-size: 16px;
-    padding: 20px 0;
-    height: 40px;
+  .mainform-form-title {
+    font-size: 35px;
   }
 }
 
 @media screen and (max-width: 600px) {
-
-  .input100 {
-    font-size: 15px;
-  }
-
-  .btn {
-    padding: 0px;
-    font-size: 14px;
-    height: 40px;
-  }
-
-  #loadingGif {
-    height: 70px;
-    width: 70px;
-    margin: auto;
-  }
-
-  .btn-ok {
-    width: 100% !important;
-    padding: 0px 10%;
-  }
 }
 
-
-@media screen and (max-width: 450px) {
-  .container-login100 {
-    width: 100%;
-    min-height: 100vh;
-  }
-
-  .login100-form-title {
-    font-size: 30px;
-  }
-
-  .wrap-login100 {
-    width: 320px;
-    padding: 20px 10px;
-  }
-} 
 @keyframes shake {
   0% {
     margin-left: 0rem;
