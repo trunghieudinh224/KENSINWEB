@@ -4,8 +4,7 @@ var user_reader = sessionStorage.getItem("user_reader");
 
 var form_mode_print = document.getElementById("get_print");
 // api url
-const api_url =
-	"http://192.168.200.218:8080/Webkensin/compackr/getSetting?key=0582668301&login_id=7&login_pw=7";
+const api_url = "http://192.168.200.218:8080/Webkensin/compackr/getSetting?key=0582668301&login_id=7&login_pw=7";
 var comment_1 = new Array();
 var comment_2 = new Array();
 var username = new Array();
@@ -21,47 +20,18 @@ const user_name = document.getElementById("Combobox");
 const combobox_print_mode = document.getElementById("combobox_print_mode");
 let isDate = true;
 
-// var date;
-// if (time_kensin == null) {
-//   date = new Date();
-// } else {
-//   date = new Date(time_kensin);
-// }
 
-// var nowDate = new Date();
+var date = new Date();
+var formattedDate = moment(date).format('YYYY-MM-DD');
 
-// // check user check checkbox time
-// if (
-//   nowDate.getDate() == date.getDate() &&
-//   nowDate.getMonth() == date.getMonth() &&
-//   nowDate.getFullYear() == date.getFullYear()
-// ) {
-//   checkbox_format_date.checked = true;
-//   date_select.type = "button";
-// } else {
-//   checkbox_format_date.checked = false;
-//   date_select.type = "date";
-// }
-
-// var ck = checkbox_format_date.checked;
-
-// //get day kensin
-
-// let day = date.getDate();
-// let month = date.getMonth();
-// let year = date.getFullYear();
-
-// let selectedDate = date;
-// let selectedDay = day;
-// let selectedMonth = month;
-// let selectedYear = year;
-// console.log(year + "-" + month + "-" + day);
-
-// console.log(document.getElementById("myDate").value);
-// date_select.value = year + "-0" + (month + 1) + "-" + day;
-
-//show day kensin
-// checkbox_format_date.addEventListener("click", setCheckBoxTime);
+var settingData = {
+	comment1: 0,
+	comment2: 0,
+	tanto: 0,
+	insatsu_mode: 0,
+	kensin_date: formattedDate
+}
+var settingDefault = settingData;
 
 // Calling that async function
 getapi(api_url);
@@ -133,7 +103,7 @@ function showComment(abc) {
 	if (abc == 1) {
 
 		comment_1.forEach((item) => {
-			setupModal('load', item, "Ok");
+			setupModal('load', item, "Ok", null);
 		});
 
 	} else {
@@ -228,8 +198,7 @@ function checkboxDate() {
 	}
 }
 
-var date = new Date();
-var formattedDate = moment(date).format('YYYY-MM-DD');
+
 document.getElementById("input").defaultValue = formattedDate;
 
 
