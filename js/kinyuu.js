@@ -2,10 +2,23 @@
 
 import * as constant from './Constant/message.js'
 
+const mUserData = JSON.parse(localStorage.getItem("UserData"));
+
 const closeBtn = document.querySelector("#close-icon");
 const overlay = document.querySelector(".overlay");
 const detail = document.querySelector("#detail-btn");
 const wrapMainForm = document.querySelector(".overlay .container-mainform .wrap-mainform");
+
+window.onload = setDefaultCollapse;
+
+function setDefaultCollapse() {
+    var mode = sessionStorage.getItem('kinyuu_mode');
+    if (mode == 3) {
+        $('.collapseThree').collapse()
+    } else {
+        $('.collapseOne').collapse()
+    }
+}
 
 closeBtn.onclick = function(){
     overlay.style.zIndex = "-1";
@@ -92,3 +105,4 @@ function setAlignCombobox(value) {
 }
 
 setAlignCombobox(isIOS());
+
