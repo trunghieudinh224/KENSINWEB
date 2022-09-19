@@ -39,7 +39,8 @@ function checkUser(username, password) {
         },
         error: function (jqXHR, exception) {
             console.log(exception);
-        }
+        },
+        timeout: 10000
     });
 }
 
