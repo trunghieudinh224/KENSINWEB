@@ -20,4 +20,23 @@ const changePage = (page) => {
     }
 }
 
-window.onload = checkUser;
+function clearDataSearch() {
+    var path = window.location.pathname;
+    var page = path.split("/").pop().replace(".html", "");
+    console.log( page );
+    if (page != "search_page" && page != "kokyaku_sentaku_page" && page != "kinyuu_page") {
+        localStorage.removeItem("cuslist");
+    }
+}
+
+function clearDataCus() {
+    var path = window.location.pathname;
+    var page = path.split("/").pop().replace(".html", "");
+    if (page != "kinyuu_page" && page != "kokyaku_sentaku_page") {
+        localStorage.removeItem("cusdat");
+    }
+}
+
+checkUser();
+clearDataSearch();
+clearDataCus();
