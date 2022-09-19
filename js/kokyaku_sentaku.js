@@ -2,15 +2,11 @@ let storage = localStorage.getItem("cusdat");
 var data = JSON.parse(storage);
 var dataAPI;
 
-
-localStorage.removeItem("cusdat");
-
 function getInformation() {
     if (data != null) {
         setupModal("load", null, "データを読み込んでいます...", null, null);
         $.ajax({
-            // url: "http://192.168.200.218:8080/Webkensin/compackr/readData?key=0582668301&cusrec=" + data.cusrec + "&login_id=7&login_pw=7",
-            url: "http://192.168.200.218:8080/Webkensin/compackr/readData?key=0582668301&cusrec=3942&login_id=7&login_pw=7",
+            url: "http://192.168.200.218:8080/Webkensin/compackr/readData?key=0582668301&cusrec=" + data.cusrec + "&login_id=7&login_pw=7",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -23,6 +19,8 @@ function getInformation() {
                 console.log(exception);
             }
         });
+    } else {
+        history.back();
     }
 }
 
@@ -101,6 +99,14 @@ function getKyookyuu() {
     document.getElementById("kyookyuu").innerHTML = result;
 }
 
+function kinyuuMove(mode) {
+    if (dataAPI != null) {
+        const data = Object.assign({}, dataAPI);
+        localStorage.setItem("UserData", JSON.stringify(data));
+    }
+    sessionStorage.setItem('kinyuu_mode', mode);
+    changePage('/kinyuu_page.html');
+}
 
 function getRyookin() {
     if (dataAPI.cusmastrDat.gasku == 0) {
