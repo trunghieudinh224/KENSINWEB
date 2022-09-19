@@ -113,7 +113,7 @@
                                                         <span class="input-group-text mw135 text">今回指針</span>
                                                     </div>
 
-                                                    <input class="form-control ta-r text" type="text">
+                                                    <input class="form-control ta-r text" type="text" id="kenshin_data" onchange="changeValue()">
                                                     <span class="form-control unit text">m3</span>
                                                 </div> <!-- form-group// -->
                                             </div>
@@ -223,128 +223,126 @@
                                                         <span class="input-group-text mw215 text">@当月請求額</span>
                                                     </div>
 
-                                                    <select class="custom-select combobox">
-                                                        <option selected="">◯</option>
+                                                    <select class="custom-select combobox" id="combobox_total" onchange="setAllComboBox()">
+                                                        <option value="0">◯</option>
                                                         <option value="1">✕</option>
-                                                        <option value="2">ー</option>
+                                                        <option value="2" selected="">ー</option>
                                                     </select>
                                                 </div> <!-- form-group// -->
                                             </div>
                                         </div>
 
                                         <div class="row content">
-                                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text mw215 text">１:容器設置場所</span>
                                                     </div>
 
-                                                    <select class="custom-select combobox">
-                                                        <option selected="">◯</option>
+                                                    <select class="custom-select combobox" id="combobox_1">
+                                                        <option value="0">◯</option>
                                                         <option value="1">✕</option>
-                                                        <option value="2">ー</option>
+                                                        <option value="2" selected="">ー</option>
                                                     </select>
                                                 </div> <!-- form-group// -->
                                             </div>
 
-                                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text mw215 text">２:容器設置状況</span>
                                                     </div>
 
 
-                                                    <select class="custom-select combobox">
-                                                        <option selected="">◯</option>
+                                                    <select class="custom-select combobox" id="combobox_2">
+                                                        <option value="0">◯</option>
                                                         <option value="1">✕</option>
-                                                        <option value="2">ー</option>
+                                                        <option value="2" selected="">ー</option>
                                                     </select>
                                                 </div> <!-- form-group// -->
                                             </div>
 
-                                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text mw215 text">３:火気禁止２ｍ</span>
                                                     </div>
 
-                                                    <select class="custom-select combobox">
-                                                        <option selected="">◯</option>
+                                                    <select class="custom-select combobox" id="combobox_3">
+                                                        <option value="0">◯</option>
                                                         <option value="1">✕</option>
-                                                        <option value="2">ー</option>
+                                                        <option value="2" selected="">ー</option>
                                                     </select>
                                                 </div> <!-- form-group// -->
                                             </div>
 
-                                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text mw215 text">４:調整期</span>
                                                     </div>
 
 
-                                                    <select class="custom-select combobox">
-                                                        <option selected="">◯</option>
+                                                    <select class="custom-select combobox" id="combobox_4">
+                                                        <option value="0">◯</option>
                                                         <option value="1">✕</option>
-                                                        <option value="2">ー</option>
+                                                        <option value="2" selected="">ー</option>
                                                     </select>
                                                 </div> <!-- form-group// -->
                                             </div>
 
-                                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text mw215 text">５:配管状況</span>
                                                     </div>
 
-                                                    <select class="custom-select combobox">
-                                                        <option selected="">◯</option>
+                                                    <select class="custom-select combobox" id="combobox_5">
+                                                        <option value="0">◯</option>
                                                         <option value="1">✕</option>
-                                                        <option value="2">ー</option>
+                                                        <option value="2" selected="">ー</option>
                                                     </select>
                                                 </div> <!-- form-group// -->
                                             </div>
 
-                                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text mw215 text">６:ガス栓</span>
                                                     </div>
 
 
-                                                    <select class="custom-select combobox">
-                                                        <option selected="">◯</option>
+                                                    <select class="custom-select combobox" id="combobox_6">
+                                                        <option value="0">◯</option>
                                                         <option value="1">✕</option>
-                                                        <option value="2">ー</option>
+                                                        <option value="2" selected="">ー</option>
                                                     </select>
                                                 </div> <!-- form-group// -->
                                             </div>
 
-                                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text mw215 text">７:危険標識</span>
                                                     </div>
 
-                                                    <select class="custom-select combobox">
-                                                        <option selected="">◯</option>
+                                                    <select class="custom-select combobox" id="combobox_7">
+                                                        <option value="0">◯</option>
                                                         <option value="1">✕</option>
-                                                        <option value="2">ー</option>
+                                                        <option value="2" selected="">ー</option>
                                                     </select>
                                                 </div> <!-- form-group// -->
                                             </div>
 
-                                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text mw215 text">８:マイコンメーター</span>
                                                     </div>
-
-
-                                                    <select class="custom-select combobox">
-                                                        <option selected="">◯</option>
+                                                    <select class="custom-select combobox" id="combobox_8">
+                                                        <option value="0">◯</option>
                                                         <option value="1">✕</option>
-                                                        <option value="2">ー</option>
+                                                        <option value="2" selected="">ー</option>
                                                     </select>
                                                 </div> <!-- form-group// -->
                                             </div>
@@ -354,15 +352,15 @@
                                             <div class="row content">
                                                 <div class="col-4">
                                                     <button type="button"
-                                                        class="btn btn-default text-center">不要</button>
+                                                        class="btn btn-default text-center" id="unnecessary_btn" onclick="setDataforComboBoxSelect(2)">不要</button>
                                                 </div>
 
                                                 <div class="col-4">
-                                                    <button type="button" class="btn btn-default text-center">否</button>
+                                                    <button type="button" class="btn btn-default text-center" id="no_btn" onclick="setDataforComboBoxSelect(1)">否</button>
                                                 </div>
 
                                                 <div class="col-4">
-                                                    <button type="button" class="btn btn-default text-center">良</button>
+                                                    <button type="button" class="btn btn-default text-center" id="good_btn" onclick="setDataforComboBoxSelect(0)">良</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -665,6 +663,7 @@
     <script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
     <script type="text/javascript" src="js/check_login.js"></script>
     <script type="module" src="js/kinyuu.js"></script>
+    <script type="text/javascript" src="js/hoan_kinnyuu.js"></script>
 </body>
 
 </html>

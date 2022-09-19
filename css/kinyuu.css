@@ -131,7 +131,12 @@ body {
   font-size: 20px;
 }
 
-
+.combobox_select{
+  border-style: solid;
+  border-width: 5px;
+  border-color: aquamarine;
+  border-radius: 5px;
+}
 
 @media screen and (max-width: 1200px) {
 }
