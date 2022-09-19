@@ -18,6 +18,7 @@ const searchBackBtn = $("#search-back-btn");
 const warningMessage = $("#warning-message");
 const warningField = $("#warning-field");
 const table = $(".result-tb");
+const modal = document.getElementById("myModal");
 const checkKenShin = searchStatus.value === "1" ? "済" : "未";
 
 //------------------Founded data message----------------------------->
@@ -116,6 +117,7 @@ searchBtn.onclick = function () {
 
     //------------------------Call API---------------------------->
 
+    setupModal("load", null, "しばらくお待ちください。。。", null, null);
     const kcode = searchType.value;
     const part = searchPart.value;
     const key = searchKey.value;
@@ -159,6 +161,7 @@ searchBtn.onclick = function () {
 
         //-----------------Show data------------------------>
 
+        modal.style.display = "none";
         if (table.hasChildNodes()) {
           $(".table-container").style.display = "block";
           $("#data-messages").style.display = "none";
@@ -168,6 +171,7 @@ searchBtn.onclick = function () {
           $(".table-container").style.display = "none";
           $("#countList").style.display = "none";
           $("#data-messages").style.display = "block";
+          // setupModal("error", "顧客検索", "ログインに失敗しました", "確認", null);
         }
       });
   }
@@ -176,27 +180,75 @@ searchBtn.onclick = function () {
 //-------------------Direct to First Customer info page-------------->
 
 firstCustomer.onclick = function () {
+  if (getCuslist == null) {
+    setupModal("warning", "顧客検索", "顧客データはありません。", "確認", null);
+  } else {
     const kcode = searchType.value;
     const part = searchPart.value;
     const key = searchKey.value;
     const order = searchOrder.value;
     fetch(
-        `http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=${kcode || 0}&srch_string=${key || 0}&match_kind=${part || 0}&status=0&order_kind=${order || 0}&login_id=7&login_pw=7`
+      `http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=${kcode || 0}&srch_string=${key || 0}&match_kind=${part || 0}&status=0&order_kind=${order || 0}&login_id=7&login_pw=7`
     )
-    .then((res) => res.json())
-    .then((json) => {
+      .then((res) => res.json())
+      .then((json) => {
         const cusdat = Object.assign({}, json.cuslist[0]);
         cusdat.taishoo = searchOrder[order].innerHTML;
         localStorage.setItem("cusdat", JSON.stringify(cusdat));
         window.location.href = "/kokyaku_sentaku_page.html";
-    })
-    }
-    
+      })
+  }
+
+}
+
 searchBackBtn.onclick = function () {
   window.location.href = "/menu_page.html";
 };
 
-searchKey.onfocus = function(){
+searchKey.onfocus = function () {
   searchKey.classList.remove("warning");
   warningField.classList.add("hidden");
+}
+
+
+
+
+function setupModal(status, title, message, textButton1, textButton2) {
+  var imgModal = document.getElementsByClassName("modal-image")[0];
+  var titleModal = document.getElementsByClassName("title-modal")[0];
+  var messageModal = document.getElementsByClassName("modal-message-detail")[0];
+  var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
+  var closeButton = document.getElementsByClassName("modal-close-button")[0];
+
+  titleModal.innerHTML = title;
+  messageModal.innerHTML = message;
+
+  if (status == "load") {
+    imgModal.src = "../images/gif/gif_loading_data.gif";
+    titleModal.style.display = "none";
+    closeButton.style.display = "none";
+    buttonConfirm.style.display = "none";
+  } else {
+    if (status == "info") {
+
+    } else if (status == "warning") {
+      imgModal.src = "../images/gif/gif_warning.gif";
+    } else if (status == "error") {
+      imgModal.src = "../images/gif/gif_fail.gif";
+    }
+
+    if (textButton1 != null) {
+      buttonConfirm.style.display = "block";
+    }
+  }
+
+  buttonConfirm.onclick = function () {
+    modal.style.display = "none";
+  }
+  // When the user clicks on <span> (x), close the modal
+  closeButton.onclick = function () {
+    modal.style.display = "none";
+  }
+
+  modal.style.display = "block";
 }
