@@ -138,6 +138,15 @@ body {
   border-radius: 5px;
 }
 
+.hidden {
+  display: none;
+}
+
+#teisei-group {
+  background-color: #555;
+  padding: 20px 0;
+}
+
 @media screen and (max-width: 1200px) {
 }
 
