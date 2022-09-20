@@ -12,6 +12,22 @@ function closeDialog() {
 }
 
 
+var imgString = "";
+function createImageFile() {
+    document.getElementById('editView').style.display = "none";
+    document.getElementById('printView').style.display = "block";
+    domtoimage.toBlob(document.getElementById('printContentDetail'))
+    .then(function(blob){
+        getBase64(blob).then(
+            data => {
+                console.log(data)
+                imgString = data;
+                window.scrollTo(0, 0);
+            }
+        );
+    })
+}
+
 
 function getBase64(file) {
     return new Promise((resolve, reject) => {
@@ -24,30 +40,8 @@ function getBase64(file) {
 
 
 function sendImage() {
-    // setupFormPrint("100vh", "650px", "60px", "28px", "32px", "28px", "32px");
-    domtoimage.toBlob(document.getElementById('printContentDetail'))
-    .then(function(blob){
-        // window.saveAs(blob, "output.pdf");
-        console.log(blob)
-        const interval = setInterval(function() {
-            // method to be executed;
-            // setupFormPrint("100%", "600px", "45px", "20px", "25px", "20px", "25px")
-            window.scrollTo(0, 0);
-            clearInterval(interval);
-            try {
-                window.location.href = "printermarutou://print&&1";
-            }
-            catch (err) {
-                adddlert(err);
-            }    
-          }, 10);
-        getBase64(blob).then(
-            data => {
-                console.log(data)
-                navigator.clipboard.writeText(data);
-            }
-        );
-    })
+    navigator.clipboard.writeText(imgString);
+    window.location.href = "printermarutou://print&&1";
 }
 
 

@@ -2,6 +2,10 @@ body {
     position: relative;
 }
 
+#printView {
+    display: none;
+}
+
 .overlay {
     position: absolute;
     inset: 0;
