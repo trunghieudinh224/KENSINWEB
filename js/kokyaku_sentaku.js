@@ -100,10 +100,6 @@ function getKyookyuu() {
 }
 
 function kinyuuMove(mode) {
-    if (dataAPI != null) {
-        const data = Object.assign({}, dataAPI);
-        localStorage.setItem("UserData", JSON.stringify(data));
-    }
     sessionStorage.setItem('kinyuu_mode', mode);
     changePage('/kinyuu_page.html');
 }
