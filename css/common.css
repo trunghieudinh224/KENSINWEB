@@ -351,7 +351,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 
 /*
-  ******  TEXT-ALIGN  ******
+  ******  TEXT-ALIGN && FONT-WEIGHT ******
 */
 .ta-l {
   text-align: left;
@@ -359,6 +359,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 .ta-r {
   text-align: right;
+}
+
+.fw-b {
+  font-weight: bold;
 }
 
 
