@@ -22,7 +22,7 @@ function validate(user, pass) {
 
 function checkUser(username, password) {
     $.ajax({
-        url: "https://192.168.200.218/DemoWeb/compackr/loginchk?key=0582668301&login_id=" + username + "&login_pw=" + password,
+        url: "http://192.168.200.218:8080/DemoWeb/compackr/loginchk?key=0582668301&login_id=" + username + "&login_pw=" + password,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -32,7 +32,7 @@ function checkUser(username, password) {
             if (JSON.parse(result).err_code == 0) {
                 sessionStorage.setItem('username', username);
                 sessionStorage.setItem('password', password);
-                window.location.href = "/menu_page.html";
+                getInformation();
             } else {
                 setupModal("error", "ログイン", "ログインに失敗しました", "確認", null);
             }
@@ -70,6 +70,22 @@ password.onfocus = function () {
 }
 
 
+function getInformation() {
+    $.ajax({
+        url: "http://192.168.200.218:8080/Webkensin/compackr/readData?key=0582668301&cusrec=0&login_id=7&login_pw=7",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        success: function (result) {
+            systemDat = JSON.parse(result);
+            localStorage.setItem("UserData", JSON.stringify(systemDat));
+            window.location.href = "/menu_page.html";
+        },
+        error: function (jqXHR, exception) {
+            console.log(exception);
+        }
+    });
+}
 
 function setupModal(status, title, message, textButton1, textButton2) {
     var modal = document.getElementById("myModal");
