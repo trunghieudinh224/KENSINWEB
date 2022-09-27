@@ -180,25 +180,20 @@ searchBtn.onclick = function () {
 //-------------------Direct to First Customer info page-------------->
 
 firstCustomer.onclick = function () {
-  if (getCuslist == null) {
-    setupModal("warning", "顧客検索", "顧客データはありません。", "確認", null);
-  } else {
-    const kcode = searchType.value;
-    const part = searchPart.value;
-    const key = searchKey.value;
-    const order = searchOrder.value;
-    fetch(
-      `http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=${kcode || 0}&srch_string=${key || 0}&match_kind=${part || 0}&status=0&order_kind=${order || 0}&login_id=7&login_pw=7`
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        const cusdat = Object.assign({}, json.cuslist[0]);
-        cusdat.taishoo = searchOrder[order].innerHTML;
-        localStorage.setItem("cusdat", JSON.stringify(cusdat));
-        window.location.href = "/kokyaku_sentaku_page.html";
-      })
-  }
-
+  const kcode = searchType.value;
+  const part = searchPart.value;
+  const key = searchKey.value;
+  const order = searchOrder.value;
+  fetch(
+    `http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=${kcode || 0}&srch_string=${key || 0}&match_kind=${part || 0}&status=0&order_kind=${order || 0}&login_id=7&login_pw=7`
+  )
+    .then((res) => res.json())
+    .then((json) => {
+      const cusdat = Object.assign({}, json.cuslist[0]);
+      cusdat.taishoo = searchOrder[order].innerHTML;
+      localStorage.setItem("cusdat", JSON.stringify(cusdat));
+      window.location.href = "/kokyaku_sentaku_page.html";
+    })
 }
 
 searchBackBtn.onclick = function () {
