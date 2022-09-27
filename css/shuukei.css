@@ -43,3 +43,9 @@ body {
         transform: translateY(0);
     }
 }
+
+.date-area {
+    border: none; 
+    padding-top: 0px; 
+    padding-bottom: 0px;
+}
