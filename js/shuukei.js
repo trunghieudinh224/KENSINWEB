@@ -11,6 +11,51 @@ function closeDialog() {
     overlay.classList.remove("overlay-animate");
 }
 
+function backToEditView() {
+    document.getElementById('editView').style.display = "block";
+    document.getElementById('printView').style.display = "none";
+}
+
+var userData;
+function setupLayoutEditView() {
+    userData = JSON.parse(localStorage.getItem("UserData"));
+
+    if (userData.systemDat.FBUNRUI_3 == 0 && userData.systemDat.FHMCODE_3 == 0 && userData.systemDat.FHBCODE_3 == 0) {
+        document.getElementById("ShukeiToyuCnt").style.display = "none";
+        document.getElementById("ToyuTable").style.display = "none";
+    }
+}
+
+
+window.onload = setupLayoutEditView;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var imgString = "";
 function createImageFile() {
@@ -22,7 +67,7 @@ function createImageFile() {
             data => {
                 console.log(data)
                 imgString = data;
-                window.scrollTo(0, 0);
+                // window.scrollTo(0, 0);
             }
         );
     })

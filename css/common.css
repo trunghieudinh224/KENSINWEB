@@ -311,6 +311,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   justify-content: center !important;
   text-align: -webkit-center !important;
   text-align-last: center !important;
+  font-size: 20px;
 
 
   background: url("data:image/svg+xml,<svg height='10px' width='10px' viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") no-repeat;
@@ -371,10 +372,58 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 
 /*
-  ******  MARGIN  ******
+  ******  MARGIN && PADDING ******
 */
 .mb10 {
   margin-bottom: 10px;
+}
+
+.pd-t-0 {
+  padding-top: 0px;
+}
+
+.pd-b-0 {
+  padding-bottom: 0px;
+}
+
+.pd-l-0 {
+  padding-left: 0px;
+}
+
+.pd-r-0 {
+  padding-right: 0px;
+}
+
+.pd-l-2 {
+  padding-left: 2px;
+}
+
+.pd-r-2 {
+  padding-right: 2px;
+}
+
+
+/*
+  ******  BACKGROUND  ******
+*/
+.bg-w {
+  background-color: white;
+}
+
+
+/*
+  ******  BORDER  ******
+*/
+.bd-0 {
+  border: none;
+}
+
+
+/*
+  ******  DATE PICKER  ******
+*/
+.date-picker {
+  text-align: center;
 }
 
 
@@ -406,6 +455,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   .text {
     font-size: 18px !important;
     min-height: 42.5px;
+  }
+  
+  .custom-select {
+    font-size: 18px;
   }
 
   #name {
@@ -463,6 +516,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     font-size: 16px !important;
     min-height: 39.5px;
   }
+  
+  .custom-select {
+    font-size: 16px;
+  }
 
   #titleForm {
     font-size: 38px;
@@ -506,6 +563,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     font-size: 15px !important;
     min-height: 38px;
     overflow: hidden;
+  }
+  
+  .custom-select {
+    font-size: 15px;
   }
 
   #name {

@@ -62,31 +62,90 @@
 							<div class="col-12">
 								<div class="form-group input-group">
 									<div class="input-group-prepend">
-										<span class="input-group-text mw145 text">集計日</span>
+										<span class="input-group-text mw175 text">処理日</span>
 									</div>
-									<select class="form-control ta-l text">
-										<option value="0">全日集計</option>
+									<select class="custom-select combobox">
+										<option value="0" class="text">記入日</option>
+										<option value="1" class="text">伝票日付</option>
 									</select>
-								</div>
+								</div> <!-- form-group// -->
+							</div>
+
+							<div class="col-12">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text mw175 text">範囲指定</span>
+									</div>
+									<select class="custom-select combobox">
+										<option value="0" class="text">有り</option>
+										<option value="1" class="text">無し</option>
+									</select>
+								</div> <!-- form-group// -->
 							</div>
 						</div>
+
+
 						<div class="row content">
 							<div class="col-12">
 								<div class="form-group input-group">
 									<div class="input-group-prepend">
-										<span class="input-group-text mw145 text">検針件数</span>
+										<span class="mw175 text bg-w"></span>
+									</div>
+
+
+									<div class="form-control text pd-b-0 pd-t-0 bd-0">
+										<div class="row content" >
+											<div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5 pd-l-2 pd-r-2">
+												<input type="date" class="form-control ta-r text date-picker" id="date-start" data-date-format="yyyy/mm/dd" data-language='en'>
+											</div>
+	
+											<div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+												<span class="form-control ta-r text" style="border: none; text-align: center;">〜</span>
+											</div>
+	
+											<div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5 pd-l-2 pd-r-2">
+												<input type="date" class="form-control ta-r text date-picker" id="date-end" data-date-format="yyyy/mm/dd" data-language='en'>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+
+						<!-- Button -->
+						<div class="row content">
+							<div class="col-12">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="mw175 text bg-w"></span>
+									</div>
+
+									<div class="form-control text pd-l-0 pd-r-0 bd-0">
+										<button type="button" class="btn btn-default text-center" id="first-customer" style="margin: 0px;">実行</button>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="row content">
+							<div class="col-12">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text mw175 text">検針件数</span>
 									</div>
 
 									<span class="form-control ta-r text">04045</span>
 									<span class="form-control unit text">件</span>
 								</div>
 							</div>
-						</div>
-						<div class="row content">
-							<div class="col-12">
+							<div class="col-12" id="ShukeiToyuCnt">
 								<div class="form-group input-group">
 									<div class="input-group-prepend">
-										<span class="input-group-text mw145 text">入金件数</span>
+										<span class="input-group-text mw175 text">灯油件数</span>
 									</div>
 									<span class="form-control ta-r text">04045</span>
 									<span class="form-control unit text">件</span>
@@ -97,7 +156,30 @@
 							<div class="col-12">
 								<div class="form-group input-group">
 									<div class="input-group-prepend">
-										<span class="input-group-text mw145 text">ガス使用量</span>
+										<span class="input-group-text mw175 text">入金件数</span>
+									</div>
+									<span class="form-control ta-r text">04045</span>
+									<span class="form-control unit text">円</span>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text mw175 text">売上件数</span>
+									</div>
+									<span class="form-control ta-r text">04045</span>
+									<span class="form-control unit text">円</span>
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="row content">
+							<div class="col-12">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text mw175 text">ガス使用量</span>
 									</div>
 									<span class="form-control ta-r text">04045</span>
 									<span class="form-control unit text">m3</span>
@@ -106,7 +188,8 @@
 							<div class="col-12">
 								<div class="form-group input-group">
 									<div class="input-group-prepend">
-										<span class="input-group-text mw145 text">ガス料金</span>
+										<!-- <span class="input-group-text mw175 text" style="white-space: pre-line;">ガス&#10;料金</span> -->
+										<span class="input-group-text mw175 text">ガス料金</span>
 									</div>
 									<span class="form-control ta-r text">04045</span>
 									<span class="form-control unit text">円</span>
@@ -115,7 +198,7 @@
 							<div class="col-12">
 								<div class="form-group input-group">
 									<div class="input-group-prepend">
-										<span class="input-group-text mw145 text">消費税</span>
+										<span class="input-group-text mw175 text">消費税</span>
 									</div>
 									<span class="form-control ta-r text">04045</span>
 									<span class="form-control unit text">円</span>
@@ -124,7 +207,7 @@
 							<div class="col-12">
 								<div class="form-group input-group">
 									<div class="input-group-prepend">
-										<span class="input-group-text mw145 text">還元額</span>
+										<span class="input-group-text mw175 text">還元額</span>
 									</div>
 									<span class="form-control ta-r text">04045</span>
 									<span class="form-control unit text">円</span>
@@ -133,7 +216,29 @@
 							<div class="col-12">
 								<div class="form-group input-group">
 									<div class="input-group-prepend">
-										<span class="input-group-text mw145 text">合計</span>
+										<span class="input-group-text mw175 text">合計</span>
+									</div>
+									<span class="form-control ta-r text">04045</span>
+									<span class="form-control unit text">円</span>
+								</div>
+							</div>
+						</div>
+
+						<!-- toyu table -->
+						<div class="row content" id="ToyuTable">
+							<div class="col-12">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text mw175 text">灯油使用量</span>
+									</div>
+									<span class="form-control ta-r text">04045</span>
+									<span class="form-control unit text">L</span>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text mw175 text">灯油料金</span>
 									</div>
 									<span class="form-control ta-r text">04045</span>
 									<span class="form-control unit text">円</span>
@@ -142,7 +247,7 @@
 							<div class="col-12">
 								<div class="form-group input-group">
 									<div class="input-group-prepend">
-										<span class="input-group-text mw145 text">入金額</span>
+										<span class="input-group-text mw175 text">灯油消費税</span>
 									</div>
 									<span class="form-control ta-r text">04045</span>
 									<span class="form-control unit text">円</span>
@@ -151,7 +256,65 @@
 							<div class="col-12">
 								<div class="form-group input-group">
 									<div class="input-group-prepend">
-										<span class="input-group-text mw145 text">調整額</span>
+										<span class="input-group-text mw175 text">灯油合計</span>
+									</div>
+									<span class="form-control ta-r text">04045</span>
+									<span class="form-control unit text">円</span>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row content">
+							<div class="col-12">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text mw175 text">入金額</span>
+									</div>
+									<span class="form-control ta-r text">04045</span>
+									<span class="form-control unit text">円</span>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text mw175 text">調整額</span>
+									</div>
+									<span class="form-control ta-r text">04045</span>
+									<span class="form-control unit text">円</span>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text mw175 text">売上数量</span>
+									</div>
+									<span class="form-control ta-r text">04045</span>
+									<span class="form-control unit text">円</span>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text mw175 text">売上額(税抜き)</span>
+									</div>
+									<span class="form-control ta-r text">04045</span>
+									<span class="form-control unit text">円</span>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text mw175 text">消費税額</span>
+									</div>
+									<span class="form-control ta-r text">04045</span>
+									<span class="form-control unit text">円</span>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text mw175 text">合計金額</span>
 									</div>
 									<span class="form-control ta-r text">04045</span>
 									<span class="form-control unit text">円</span>
@@ -164,12 +327,14 @@
 							</div>
 						</div>
 					</form>
+
+
 					<!-- Button -->
 					<div class="row content button-area">
 						<div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
 							<button type="button" class="btn btn-default text-center" id="search-back-btn"
 								onclick="history.back()">
-								<span class="fas fa-caret-left"></span><br />戻る
+								<span class="fas fa-arrow-alt-circle-left"></span><br />戻る
 							</button>
 						</div>
 						<div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
@@ -325,8 +490,8 @@
 					<!-- Button -->
 					<div class="row content button-area">
 						<div class="col-6">
-							<button type="button" class="btn btn-default text-center" id="printBack">
-								<span class="fas fa-caret-left"></span><br />戻る
+							<button type="button" class="btn btn-default text-center" onclick="backToEditView()">
+								<span class="fas fa-arrow-alt-circle-left"></span><br />戻る
 							</button>
 						</div>
 						<div class="col-6">
