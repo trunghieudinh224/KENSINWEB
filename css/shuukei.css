@@ -45,7 +45,5 @@ body {
 }
 
 .date-area {
-    border: none; 
-    padding-top: 0px; 
-    padding-bottom: 0px;
+    margin-bottom: 20px;
 }

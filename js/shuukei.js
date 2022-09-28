@@ -1,5 +1,6 @@
 "use strict";
 const overlay = document.querySelector(".overlay");
+var userData = JSON.parse(localStorage.getItem("UserData"));;
 
 function nippou() {
     overlay.style.zIndex = "2";
@@ -16,28 +17,86 @@ function backToEditView() {
     document.getElementById('printView').style.display = "none";
 }
 
-var userData;
-function setupLayoutEditView() {
-    userData = JSON.parse(localStorage.getItem("UserData"));
 
+function initView() {
+    setupLayoutEditView();
+    setDefaultValueRangeDate();
+}
+
+function setupLayoutEditView() {
     if (userData.systemDat.FBUNRUI_3 == 0 && userData.systemDat.FHMCODE_3 == 0 && userData.systemDat.FHBCODE_3 == 0) {
         document.getElementById("ShukeiToyuCnt").style.display = "none";
         document.getElementById("ToyuTable").style.display = "none";
     }
 }
 
+function setDefaultValueRangeDate() {
+    if (userData != null) {
+        var startDay = String(userData.systemDat.HANSYSYM);
+        startDay = startDay.substring(0, 10);
+        document.getElementById("date-start").value = startDay;
 
-window.onload = setupLayoutEditView;
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
 
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("date-end").value = today;
+    }
+}
 
+function initRangeDateView() {
+    var selectDate = document.getElementById('rangeDateSelect');
+    var dateStartArea = document.getElementById("date-start-area");
+    var dateEndArea = document.getElementById("date-end-area");
+    if (selectDate.value == "1") {
+        dateStartArea.style.display = "none";
+        dateEndArea.classList.remove('col-sm-6');
+        dateEndArea.classList.remove('col-md-6');
+        dateEndArea.classList.remove('col-lg-6');
+        dateEndArea.classList.remove('col-xl-6');
 
+        document.getElementsByClassName("date-end-title")[0].innerHTML = "日付";
+    } else {
+        dateStartArea.style.display = "block";
+        dateEndArea.classList.add('col-sm-6');
+        dateEndArea.classList.add('col-md-6');
+        dateEndArea.classList.add('col-lg-6');
+        dateEndArea.classList.add('col-xl-6');
 
+        document.getElementsByClassName("date-end-title")[0].innerHTML = "終了";
+    }
+}
 
+window.onload = initView;
 
+function getData() {
+    var selectDate = document.getElementById('rangeDateSelect');
+    var urlString;
+    if (selectDate.value == "1") {
+        let date = document.getElementById("date-end").value;
+        urlString = "http://192.168.200.218:8080/Webkensin/compackr/readSyukei?key=0582668301&date1=" + date.replaceAll("-","/") +"&login_id=7&login_pw=7"
+    } else {
+        let dateStart = document.getElementById("date-start").value;
+        let dateEnd = document.getElementById("date-end").value;
+        urlString = "http://192.168.200.218:8080/Webkensin/compackr/readSyukei?key=0582668301&date1=" + dateStart.replaceAll("-","/") + "&date2=" + dateEnd.replaceAll("-","/") + "&login_id=7&login_pw=7"
+    }
 
+    $.ajax({
+        url: urlString,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        success: function (result) {
+            let dataAPI = JSON.parse(result);
 
-
-
+        },
+        error: function (jqXHR, exception) {
+            console.log(exception);
+        }
+    });
+}
 
 
 

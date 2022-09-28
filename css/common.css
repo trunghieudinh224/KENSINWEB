@@ -390,6 +390,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   margin: 0px;
 }
 
+.pd-0 {
+  padding: 0px;
+}
+
 .pd-t-0 {
   padding-top: 0px !important;
 }
