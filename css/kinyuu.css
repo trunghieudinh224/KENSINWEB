@@ -42,7 +42,7 @@ body {
 
 .card-header {
   /* background-image: linear-gradient(to right, #ff7e5f 0%, #feb47b  61%, #fa5b34  100%); */
-  background-color: #feb47b;
+  background-color: #7ab869;
 }
 
 .card-link {
@@ -132,7 +132,7 @@ body {
 }
 
 .combobox_select{
-  box-shadow: rgba(180, 253, 79, 0.25) 0px -50px 36px -28px inset;
+  box-shadow: rgba(91, 101, 79, 0.25) 0px -50px 36px -28px inset;
 }
 
 .hidden {
