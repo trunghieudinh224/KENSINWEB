@@ -61,115 +61,306 @@
 
 				<form>
 					<div class="row content">
+						<div class="col-12 text ta-r" id="recentTime">
+							現在の日時：
+						</div>
+					</div>
+					<div class="row content">
 						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text text mw135">実施日</span>
+									<span class="input-group-text text mw90">実施日</span>
 								</div>
 
-								<span class="form-control text" id="jisshi-bi">5月1日</span>
+								<input type="date" class="form-control text ta-c" id="jisshi-bi"
+									data-date-format="yyyy MM dd" data-language='en'>
 							</div> <!-- form-group// -->
 						</div>
 
 						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text text mw135">対象</span>
+									<span class="input-group-text text mw90">対象</span>
 								</div>
 
 								<span class="form-control text" id="taishoo"></span>
-							</div> <!-- form-group// -->
+							</div>
 						</div>
 					</div>
 
-					<p class="divider-text">
-						<span class="title-group">顧客</span>
-					</p>
 
-					<div class="row content">
-						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text text mw135">顧客コード</span>
+
+					<div id="collapseView">
+						<div id="accordion">
+							<div class="card">
+								<div class="card-header">
+									<span class="card-link" data-toggle="collapse" href="#collapseOne">
+										<div class="input-group">
+											<div class="item-collapse">
+												<span class="title-collapse">顧客情報</span>
+											</div>
+
+											<div class="item-collapse ic-dd-collapse">
+												<span class="arrow-ic fas fa-caret-down"></span>
+											</div>
+										</div> <!-- form-group// -->
+									</span>
 								</div>
+								<div id="collapseOne" class="collapse collapseOne" data-parent="#accordion">
+									<div class="card-body">
+										<div class="row content">
+											<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
+												<div class="form-group input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text text mw145">顧客コード</span>
+													</div>
 
-								<span class="form-control text" id="kokyaku_kodo"></span>
-							</div> <!-- form-group// -->
-						</div>
+													<span class="form-control text" id="kokyaku_kodo"></span>
+												</div> <!-- form-group// -->
+											</div>
 
-						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text text mw135">顧客名</span>
+											<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
+												<div class="form-group input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text text mw145">顧客名</span>
+													</div>
+
+													<span class="form-control text" id="kokyaku-mei"></span>
+												</div> <!-- form-group// -->
+											</div>
+										</div>
+
+										<table id="table-detail">
+											<tr id="title-table">
+												<th class="text mw145"></th>
+												<th class="text">地区</th>
+												<th class="text">順路</th>
+											</tr>
+											<tr>
+												<th class="text ta-c mw145 subtitle-table-detail">檢針</th>
+												<td class="text ccode"></td>
+												<td class="text juncd"></td>
+											</tr>
+											<tr>
+												<th class="text ta-c mw145 subtitle-table-detail">保安</th>
+												<td class="text ccode"></td>
+												<td class="text juncd"></td>
+											</tr>
+											<tr>
+												<th class="text ta-c mw145 subtitle-table-detail">配送</th>
+												<td class="text ccode"></td>
+												<td class="text juncd"></td>
+											</tr>
+										</table>
+
+										<div class="row content">
+											<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
+												<div class="form-group input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text text mw145">メーター機番</span>
+													</div>
+													<span class="form-control text" id="mtban"></span>
+												</div> <!-- form-group// -->
+											</div>
+
+
+											<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
+												<div class="form-group input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text text mw145">電話番号</span>
+													</div>
+													<span class="form-control text" id="denwabango"></span>
+												</div> <!-- form-group// -->
+											</div>
+										</div>
+
+
+
+
+										<div class="row content">
+											<div class="col-12 mb10">
+												<div class="form-group input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text text mw145">住所</span>
+													</div>
+													<span class="form-control text address" id="juusho"></span>
+												</div> <!-- form-group// -->
+											</div>
+										</div>
+
+										<div class="row content">
+											<div class="col-12 mb10">
+												<div class="form-group input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text text mw145">目標物</span>
+													</div>
+													<span class="form-control text" id="mokuhyoo"></span>
+												</div> <!-- form-group// -->
+											</div>
+										</div>
+
+										<div class="row content">
+											<div class="col-12 mb10">
+												<div class="form-group input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text text mw145">集計区分</span>
+													</div>
+
+													<span class="form-control text kubun" id="shuukei-mei"></span>
+												</div> <!-- form-group// -->
+											</div>
+
+											<div class="col-12 mb10">
+												<div class="form-group input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text text mw145">供給区分</span>
+													</div>
+
+													<span class="form-control text kubun" id="kyookyuu"></span>
+												</div> <!-- form-group// -->
+											</div>
+
+
+											<div class="col-12 mb10">
+												<div class="form-group input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text text mw145">料金区分</span>
+													</div>
+
+													<span class="form-control text kubun" id="ryookin"></span>
+												</div> <!-- form-group// -->
+											</div>
+										</div>
+
+									</div>
 								</div>
+							</div>
 
-								<span class="form-control text" id="kokyaku-mei"></span>
-							</div> <!-- form-group// -->
+							<div class="card">
+								<div class="card-header">
+									<span class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+										<div class="input-group">
+											<div class="item-collapse">
+												<span class="title-collapse">詳細情報</span>
+											</div>
+
+											<div class="item-collapse ic-dd-collapse">
+												<span class="arrow-ic fas fa-caret-down"></span>
+											</div>
+										</div> <!-- form-group// -->
+									</span>
+								</div>
+								<div id="collapseTwo" class="collapse collapseTwo" data-parent="#accordion">
+									<div class="card-body">
+
+										<div id="kenshin-joohoo-area">
+											<p class="divider-text">
+												<span class="title-group">検針情報</span>
+											</p>
+
+											<div class="row content">
+												<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
+													<div class="form-group input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text text mw145">前回検針日</span>
+														</div>
+
+														<span class="form-control text" id="kenshin-bii"></span>
+													</div> <!-- form-group// -->
+												</div>
+
+												<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
+													<div class="form-group input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text text mw145">前回指針</span>
+														</div>
+
+														<span class="form-control text" id="shishin"></span>
+													</div> <!-- form-group// -->
+												</div>
+
+												<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
+													<div class="form-group input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text text mw145">前回使用量</span>
+														</div>
+
+														<span class="form-control text" id="shiyoo-ryoo"></span>
+													</div> <!-- form-group// -->
+												</div>
+
+												<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
+													<div class="form-group input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text text mw145">ガス料金</span>
+														</div>
+
+														<span class="form-control text" id="gasu-ryookin"></span>
+													</div> <!-- form-group// -->
+												</div>
+											</div>
+										</div>
+
+										<div id="kenshin-haisoo-area">
+											<p class="divider-text">
+												<span class="title-group">配送情報</span>
+											</p>
+
+											<div class="row content">
+												<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
+													<div class="form-group input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text text mw145">前回配送日</span>
+														</div>
+
+														<span class="form-control text" id="haisoo-bi"></span>
+													</div> <!-- form-group// -->
+												</div>
+
+												<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
+													<div class="form-group input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text text mw145">前回指針</span>
+														</div>
+
+														<span class="form-control text" id="haisoo-shishin"></span>
+													</div> <!-- form-group// -->
+												</div>
+
+												<div class="col-12 mb10">
+													<div class="form-group input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text text mw145">前回使用量</span>
+														</div>
+
+														<span class="form-control text" id="haisoo-shiyoo-ryoo"></span>
+													</div> <!-- form-group// -->
+												</div>
+											</div>
+										</div>
+
+										<div id="memo-area">
+											<p class="divider-text">
+												<span class="title-group">メモ</span>
+											</p>
+
+											<div class="row content">
+												<div class="col-12 mb10">
+													<div class="form-group input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text text mw145">メモ内容</span>
+														</div>
+														<span class="form-control text " id="memo-naiyoo"></span>
+													</div> <!-- form-group// -->
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-
-					<div class="row content">
-						<div class="col-12 mb10">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text text mw135">住所</span>
-								</div>
-								<span class="form-control text address" id="juusho"></span>
-							</div> <!-- form-group// -->
-						</div>
-					</div>
-
-					<div class="row content">
-						<div class="col-12 mb10">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text text mw135">電話番号</span>
-								</div>
-								<span class="form-control text" id="denwabango"></span>
-								<span class="form-control text" id="mtban"></span>
-							</div> <!-- form-group// -->
-						</div>
-					</div>
-
-					<div class="row content">
-						<div class="col-4 mb10">
-							<div class="form-group input-group">
-								<div class="input-group">
-									<span class="input-group-text text igt-center">集計区分</span>
-								</div>
-
-								<div class="input-group igValue">
-									<span class="form-control text kubun" id="shuukei"></span>
-								</div>
-							</div> <!-- form-group// -->
-						</div>
-
-						<div class="col-4 mb10">
-							<div class="form-group input-group">
-								<div class="input-group">
-									<span class="input-group-text text igt-center">供給区分</span>
-								</div>
-
-								<div class="input-group igValue">
-									<span class="form-control text kubun" id="kyookyuu"></span>
-								</div>
-							</div> <!-- form-group// -->
-						</div>
-
-
-						<div class="col-4 mb10">
-							<div class="form-group input-group">
-								<div class="input-group">
-									<span class="input-group-text text igt-center">供給区分</span>
-								</div>
-
-								<div class="input-group igValue">
-									<span class="form-control text kubun" id="ryookin"></span>
-								</div>
-							</div> <!-- form-group// -->
-						</div>
-					</div>
-
 
 					<div class="button-area">
 						<div class="row content">
@@ -217,16 +408,18 @@
 		</div>
 	</div>
 
-	<script type="text/javascript"
-		src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
+    <script type="text/javascript"
+        src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+	<script src="vendor/daterangepicker/moment.min.js"></script>
 	<!--===============================================================================================-->
 	<script src="js/check_login.js"></script>
 	<script src="js/kokyaku_sentaku.js"></script>

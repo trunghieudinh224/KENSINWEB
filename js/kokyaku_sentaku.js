@@ -2,6 +2,62 @@ let storage = localStorage.getItem("cusdat");
 var data = JSON.parse(storage);
 var dataAPI;
 
+$('#collapseOne').on('show.bs.collapse', function (e) {
+    var mnb = document.getElementsByClassName("arrow-ic")[0];
+    mnb.classList.remove('fas');
+    mnb.classList.remove('fa-caret-down');
+    mnb.classList.add('fas');
+    mnb.classList.add('fa-caret-up');
+})
+
+$('#collapseOne').on('hidden.bs.collapse', function (e) {
+    var mnb = document.getElementsByClassName("arrow-ic")[0];
+    mnb.classList.remove('fas');
+    mnb.classList.remove('fa-caret-up');
+    mnb.classList.add('fas');
+    mnb.classList.add('fa-caret-down');
+})
+
+$('#collapseTwo').on('show.bs.collapse', function (e) {
+    var mnb = document.getElementsByClassName("arrow-ic")[1];
+    mnb.classList.remove('fas');
+    mnb.classList.remove('fa-caret-down');
+    mnb.classList.add('fas');
+    mnb.classList.add('fa-caret-up');
+})
+
+$('#collapseTwo').on('hidden.bs.collapse', function (e) {
+    var mnb = document.getElementsByClassName("arrow-ic")[1];
+    mnb.classList.remove('fas');
+    mnb.classList.remove('fa-caret-up');
+    mnb.classList.add('fas');
+    mnb.classList.add('fa-caret-down');
+})
+
+function setDefaultDate() {
+    document.getElementById("recentTime").innerText = "現在の日時：" + moment().format('YYYY/MM/DD HH:mm');
+    document.getElementById("jisshi-bi").value = moment().format('YYYY-MM-DD');
+}
+
+function initPage() {
+    setDefaultDate();
+    getInformation();
+}
+
+initPage();
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getInformation() {
     if (data != null) {
         setupModal("load", null, "データを読み込んでいます...", null, null);
@@ -39,9 +95,37 @@ function setInformation() {
     }
 
     if (dataAPI != null) {
+        setCustomerDetail();
         getShuukei();
         getKyookyuu();
         getRyookin();
+        if (dataAPI.cusmastrDat.mark != null) {
+            document.getElementById("mokuhyoo").innerHTML = dataAPI.cusmastrDat.mark;
+        }
+
+        if (dataAPI.koukanDat != null) {
+            showKenshinJoohoo();
+            showHaisooJoohoo();
+        }
+
+        showMemo();
+    }
+}
+
+
+function setCustomerDetail() {
+    if (dataAPI.cusmastrDat.ccode != null) {
+        var ccodeList = document.getElementsByClassName("ccode");
+        for (var i = 0; i < ccodeList.length; i++) {
+            ccodeList[i].innerHTML = dataAPI.cusmastrDat.ccode[i];
+        }
+    }
+
+    if (dataAPI.cusmastrDat.juncd != null) {
+        var juncdList = document.getElementsByClassName("juncd");
+        for (var i = 0; i < juncdList.length; i++) {
+            juncdList[i].innerHTML = dataAPI.cusmastrDat.juncd[i];
+        }
     }
 }
 
@@ -64,7 +148,7 @@ function getShuukei() {
             shuukei = formatShuku(data.bkcd);
         }
     }
-    document.getElementById("shuukei").innerHTML = shuukei;
+    document.getElementById("shuukei-mei").innerHTML = shuukei;
 }
 
 
@@ -98,6 +182,50 @@ function getKyookyuu() {
     }
     document.getElementById("kyookyuu").innerHTML = result;
 }
+
+
+function showKenshinJoohoo() {
+    if (dataAPI.koukanDat.HN_DENCNT > 0) {
+        document.getElementById("kenshin-joohoo-area").style.display = "block";
+        document.getElementById("kenshin-bii").innerText = String(dataAPI.koukanDat.HN_DENYMD).substring(0, 10).replaceAll("-", "/");
+        document.getElementById("shishin").innerText = dataAPI.koukanDat.HN_SISIN;
+        document.getElementById("shiyoo-ryoo").innerText = dataAPI.koukanDat.HN_SIYOURYO;
+        document.getElementById("gasu-ryookin").innerText = dataAPI.hndenpyoDat.zkn_kin;
+    } else {
+        document.getElementById("kenshin-joohoo-area").style.display = "none";
+    }
+}
+
+
+function showHaisooJoohoo() {
+    if (dataAPI.koukanDat.HA_DENCNT > 0) {
+        document.getElementById("kenshin-haisoo-area").style.display = "block";
+        document.getElementById("haisoo-bi").innerText = String(dataAPI.koukanDat.HA_DENYMD).substring(0, 10).replaceAll("-", "/");
+        document.getElementById("haisoo-shishin").innerText = dataAPI.koukanDat.HA_SISIN;
+        document.getElementById("haisoo-shiyoo-ryoo").innerText = dataAPI.koukanDat.HA_SIYOURYO;
+    } else {
+        document.getElementById("kenshin-haisoo-area").style.display = "none";
+    }
+}
+
+
+function showMemo() {
+    if (dataAPI.cusmastrDat.memo != null) {
+        if (dataAPI.cusmastrDat.memo.length > 0) {
+            document.getElementById("memo-area").style.display = "block";
+            var valueMemo = "";
+            for (var i = 0; i < dataAPI.cusmastrDat.memo.length; i++) {
+                valueMemo = valueMemo + dataAPI.cusmastrDat.memo[i] + "\n";
+            }
+            document.getElementById("memo-naiyoo").innerText = valueMemo;
+        } else {
+            document.getElementById("memo-area").style.display = "none";
+        }
+    } else {
+        document.getElementById("memo-area").style.display = "none";
+    }
+}
+
 
 function kinyuuMove(mode) {
     sessionStorage.setItem('kinyuu_mode', mode);
@@ -135,8 +263,6 @@ function getRyookin() {
 }
 
 
-window.onload = getInformation()
-
 
 function setupModal(status, title, message, textButton1, textButton2) {
     var modal = document.getElementById("myModal");
@@ -145,7 +271,7 @@ function setupModal(status, title, message, textButton1, textButton2) {
     var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
     var closeButton = document.getElementsByClassName("modal-close-button")[0];
 
-    
+
     titleModal.innerHTML = title;
     messageModal.innerHTML = message;
     if (buttonConfirm != null) {
