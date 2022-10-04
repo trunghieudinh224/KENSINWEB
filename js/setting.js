@@ -4,51 +4,25 @@ var user_reader = sessionStorage.getItem("user_reader");
 
 var form_mode_print = document.getElementById("get_print");
 // api url
+//http://192.168.200.218:8080/Webkensin/compackr/getSetting
 const api_url = "http://192.168.200.218:8080/Webkensin/compackr/getSetting?key=0582668301&login_id=7&login_pw=7";
 var comment_1 = new Array();
 var comment_2 = new Array();
 var username = new Array();
-var checkbox_format_date = document.getElementById("checkbox_format_date");
 
-const date_picker_element = document.querySelector(".date-picker");
-
-const dates_element = document.querySelector(".dates");
-const date_select = document.getElementById("myDate");
-
-const test = document.querySelector(".abcxyz");
 const user_name = document.getElementById("Combobox");
 const combobox_print_mode = document.getElementById("combobox_print_mode");
-let isDate = true;
-
-
-var date = new Date();
-var formattedDate = moment(date).format('YYYY-MM-DD');
 
 var settingData = {
 	comment1: 0,
 	comment2: 0,
 	tanto: 0,
 	insatsu_mode: 0,
-	kensin_date: formattedDate
 }
 var settingDefault = settingData;
 
 // Calling that async function
-getapi(api_url);
-
-if (modePrint == null) {
-	modePrint = "画像印刷モード";
-	sessionStorage.setItem("mode_print", modePrint);
-}
-
-var mode_image = document.getElementById("mode_image");
-var mode_charactor = document.getElementById("mode_charactor");
-
-if (modePrint.localeCompare("画像印刷モード") == 0) {
-	combobox_print_mode.selectedIndex = 0;
-} else {
-	combobox_print_mode.selectedIndex = 1;
-}
+// getapi(api_url);
 
 var data_comment;
 var data_username;
@@ -91,41 +65,16 @@ function resetTing() {
 		sessionStorage.setItem("mode_print", "文字列印刷モード");
 	}
 
-	date = new Date(date_select.value);
-	sessionStorage.setItem("time_kensin", date);
 	sessionStorage.setItem("user_reader", $("#Combobox option:selected").text());
 	history.back();
 }
 
-//show comment
-function showComment(abc) {
 
-	if (abc == 1) {
-
-		comment_1.forEach((item) => {
-			setupModal('load', item, "Ok", null);
-		});
-
-	} else {
-
-		comment_2.forEach((item) => {
-			setupModal('load', item, null, null);
-		});
-
-	}
-
-}
-
-//close Dialog
-function closeDialog() {
-	document.getElementById("notificationComment").classList.remove("show");
-}
 
 // get user
 function populateClient() {
 	if (user_reader == null) {
 	}
-	console.log(username.length);
 	for (var i = 0; i < username.length; i++) {
 		var option = document.createElement("option");
 		option.classList.add("text")
@@ -142,7 +91,7 @@ function populateClient() {
 }
 
 
-// get user
+// set comment
 function setCommentCbb(cbb) {
 	if (data_comment != null) {
 		for (let item of data_comment) {
@@ -154,10 +103,6 @@ function setCommentCbb(cbb) {
 		}
 		document.getElementById("cbb_comment" + cbb).getElementsByTagName('option')[0].selected = 'selected';
 	}
-}
-
-function getUserItem(text) {
-	console.log(text);
 }
 
 function setupModal(status, title, message) {
@@ -187,30 +132,25 @@ function setupModal(status, title, message) {
 	}
 }
 
-function checkboxDate() {
-	var checkBox = document.getElementById("checkbox");
-	var datepicker = document.getElementById("input");
-	if (checkBox.checked == true) {
-		datepicker.disabled = true;
-		document.getElementById("input").value = formattedDate;
-	} else {
-		datepicker.disabled = false;
-	}
-}
 
-
-document.getElementById("input").defaultValue = formattedDate;
-
-
-"use strict";
-function commentDialog() {
-	const overlay = document.querySelector(".overlay");
-	overlay.style.zIndex = "2";
-	overlay.classList.add("overlay-animate");
-	const closeBtn = document.querySelector("ic-close");
-
-	closeBtn.onclick = function () {
-		overlay.style.zIndex = "-1";
-		overlay.classList.remove("overlay-animate");
-	}
+function getInformation() {
+    if (data != null) {
+        setupModal("load", null, "データを読み込んでいます...", null, null);
+        $.ajax({
+            url: "http://192.168.200.218:8080/Webkensin/compackr/getSetting?key=0582668301&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            success: function (result) {
+                dataAPI = JSON.parse(result);
+                setInformation();
+                setupModal();
+            },
+            error: function (jqXHR, exception) {
+                console.log(exception);
+            }
+        });
+    } else {
+        history.back();
+    }
 }

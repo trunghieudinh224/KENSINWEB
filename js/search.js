@@ -104,7 +104,7 @@ function search() {
 
 	setupModal("load", null, "しばらくお待ちください。。。", null, null);
 	$.ajax({
-		url: "http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301" +
+		url: "https://192.168.200.218/Webkensin/compackr/cussearch?key=0582668301" +
 			"&srch_kind=" + String(searchType.value) +	//mặc định
 			"&srch_string=" + String(searchKey.value) +	//mặc định 
 			"&match_kind=" + String(searchPart.value) +	//mặc định
@@ -209,7 +209,7 @@ function firstCustomerAction() {
 	const key = searchKey.value;
 	const order = searchOrder.value;
 	fetch(
-		`http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=${kcode || 0}&srch_string=${key || 0}&match_kind=${part || 0}&status=0&order_kind=${order || 0}&login_id=7&login_pw=7`
+		`https://192.168.200.218/Webkensin/compackr/cussearch?key=0582668301&srch_kind=${kcode || 0}&srch_string=${key || 0}&match_kind=${part || 0}&status=0&order_kind=${order || 0}&login_id=7&login_pw=7`
 	)
 		.then((res) => res.json())
 		.then((json) => {

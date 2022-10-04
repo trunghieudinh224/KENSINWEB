@@ -23,7 +23,6 @@ const changePage = (page) => {
 function clearDataSearch() {
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
-    console.log( page );
     if (page != "search_page" && page != "kokyaku_sentaku_page" && page != "kinyuu_page") {
         localStorage.removeItem("cuslist");
     }

@@ -165,7 +165,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .form-control {
-  padding: 6.75px 9px !important;
+  padding: 6.75px 7px !important;
 }
 
 .text {
@@ -595,7 +595,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 @media screen and (max-width: 600px) {
   /* MAIN FORM */
   .wrap-mainform {
-    width: 400px;
+    width: 500px;
   }
 
   /* MARGIN && PADDING */
@@ -651,6 +651,13 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
   .unit {
     max-width: 45px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  /* MAIN FORM */
+  .wrap-mainform {
+    width: 400px;
   }
 }
 
