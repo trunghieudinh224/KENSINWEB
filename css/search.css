@@ -344,7 +344,7 @@ tr:nth-child(even) {
 
 @media screen and (max-width:450px) {
   .checkbox-in-ddl{
-    height: 35px;
+    height: 38px;
   }
 
   #title-table th {
