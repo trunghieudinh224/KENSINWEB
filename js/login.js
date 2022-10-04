@@ -22,7 +22,7 @@ function validate(user, pass) {
 
 function checkUser(username, password) {
     $.ajax({
-        url: "http://192.168.200.218:8080/DemoWeb/compackr/loginchk?key=0582668301&login_id=" + username + "&login_pw=" + password,
+        url: "https://192.168.200.218/DemoWeb/compackr/loginchk?key=0582668301&login_id=" + username + "&login_pw=" + password,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -72,7 +72,7 @@ password.onfocus = function () {
 
 function getInformation() {
     $.ajax({
-        url: "http://192.168.200.218:8080/Webkensin/compackr/readData?key=0582668301&cusrec=0&login_id=7&login_pw=7",
+        url: "https://192.168.200.218/Webkensin/compackr/readData?key=0582668301&cusrec=0&login_id=7&login_pw=7",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },

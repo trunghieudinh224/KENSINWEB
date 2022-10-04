@@ -104,19 +104,19 @@ function search() {
 
 	setupModal("load", null, "しばらくお待ちください。。。", null, null);
 	$.ajax({
-		url: "http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301" +
-			"&srch_kind=" + String(searchType.value) +
-			"&srch_string=" + String(searchKey.value) +
-			"&match_kind=" + String(searchPart.value) +
-			"&kenstat=" + kenstat +
-			"&shustat=" + shustat +
-			"&uristat=" + uristat +
+		url: "https://192.168.200.218/Webkensin/compackr/cussearch?key=0582668301" +
+			"&srch_kind=" + String(searchType.value) +	//mặc định
+			"&srch_string=" + String(searchKey.value) +	//mặc định 
+			"&match_kind=" + String(searchPart.value) +	//mặc định
+			"&kenstat=" + kenstat +	//2
+			"&shustat=" + shustat +	
+			"&uristat=" + uristat +	
 			"&hanku=" + hanku +
 			"&kentan=" + kentan +
 			"&shutan=" + shutan +
 			"&uritan=" + uritan +
 			"&shuku=" + shuku +
-			"&&order_kind=" + String(searchOrder.value) +
+			"&&order_kind=" + String(searchOrder.value) +	// mặc định trên màn hình
 			"&login_id=7" +
 			"&login_pw=7",
 		headers: {
