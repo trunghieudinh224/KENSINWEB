@@ -4,7 +4,7 @@ var user_reader = sessionStorage.getItem("user_reader");
 
 var form_mode_print = document.getElementById("get_print");
 // api url
-// http://192.168.200.218:8080/Webkensin/compackr/getSetting
+//http://192.168.200.218:8080/Webkensin/compackr/getSetting
 const api_url = "https://192.168.200.218/Webkensin/compackr/getSetting?key=0582668301&login_id=7&login_pw=7";
 var comment_1 = new Array();
 var comment_2 = new Array();
@@ -22,7 +22,7 @@ var settingData = {
 var settingDefault = settingData;
 
 // Calling that async function
-// getapi(api_url);
+getapi(api_url);
 
 var data_comment;
 var data_username;
@@ -130,27 +130,4 @@ function setupModal(status, title, message) {
 	buttonConfirm.onclick = function () {
 		modal.style.display = "none";
 	}
-}
-
-
-function getInformation() {
-    if (data != null) {
-        setupModal("load", null, "データを読み込んでいます...", null, null);
-        $.ajax({
-            url: "http://192.168.200.218:8080/Webkensin/compackr/getSetting?key=0582668301&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            success: function (result) {
-                dataAPI = JSON.parse(result);
-                setInformation();
-                setupModal();
-            },
-            error: function (jqXHR, exception) {
-                console.log(exception);
-            }
-        });
-    } else {
-        history.back();
-    }
 }
