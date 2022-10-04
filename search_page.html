@@ -2,12 +2,13 @@
 <html lang="en">
 
 <head>
-    <title>検針くん</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="format-detection" content="telephone=no" />
-    <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="images/icons/ic_search.png" />
+	<title>検針くん</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta name="format-detection" content="telephone=no" />
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/ic_search.png" />
+	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" id="bootstrap-css">
@@ -15,157 +16,339 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
 		integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" type="text/css" href="css/common.css" />
-    <link rel="stylesheet" type="text/css" href="css/search.css" />
-    <link rel="stylesheet" type="text/css" href="css/modal.css" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" href="css/search.css" />
+	<link rel="stylesheet" type="text/css" href="css/modal.css" />
 </head>
 
 <body>
-    <div id="backgroundPage">
-        <div class="container-mainform" id="form">
-            <div class="dropdown select-role">
-                <div class="btn-menu btn-secondary dropdown-toggle" type="button" id="dropdownSelectRole"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="text" id="userName"><i class="ic-dropdown fa-solid fa-user"></i><a
-                            id="name"></a></span>
-                </div>
-                <ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
-                    <li>
-                        <a class="dropdown-item notice-page" onclick="changePage('/menu_page.html')">
-                            <span class="text"><i class="ic-dropdown fa-solid fa-bars"></i>メニュー</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item print-page" onclick="changePage('/setting_page.html')">
-                            <span class="text"><i class="ic-dropdown fa-solid fa-gear"></i>設定</span>
-                        </a>
-                    </li>
-                    <li style="padding: 0px !important;">
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                        <a class="dropdown-item scan-page" onclick="changePage('logout')">
-                            <span class="text"><i class="ic-dropdown logout fa-solid fa-right-from-bracket"></i>ログアウト</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+	<div id="backgroundPage">
+		<div class="container-mainform" id="form">
+			<div class="dropdown select-role">
+				<div class="btn-menu btn-secondary dropdown-toggle" type="button" id="dropdownSelectRole"
+					data-bs-toggle="dropdown" aria-expanded="false">
+					<span class="text" id="userName"><i class="ic-dropdown fa-solid fa-user"></i><a
+							id="name"></a></span>
+				</div>
+				<ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
+					<li>
+						<a class="dropdown-item notice-page" onclick="changePage('/menu_page.html')">
+							<span class="text"><i class="ic-dropdown fa-solid fa-bars"></i>メニュー</span>
+						</a>
+					</li>
+					<li>
+						<a class="dropdown-item print-page" onclick="changePage('/setting_page.html')">
+							<span class="text"><i class="ic-dropdown fa-solid fa-gear"></i>設定</span>
+						</a>
+					</li>
+					<li style="padding: 0px !important;">
+						<hr class="dropdown-divider">
+					</li>
+					<li>
+						<a class="dropdown-item scan-page" onclick="changePage('logout')">
+							<span class="text"><i
+									class="ic-dropdown logout fa-solid fa-right-from-bracket"></i>ログアウト</span>
+						</a>
+					</li>
+				</ul>
+			</div>
 
 
-            <div class="wrap-mainform p-t-30 p-b-40">
-                <!-- Title// -->
-                <div class="row">
-                    <span id="titleForm" class="col-12">顧客検索</span>
-                </div>
-                <!-- Content -->
-                <div class="row content">
-                    <div class="col-lg-6 col-12 mb10">
-                        <div class="form-group input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text mw130 text">検索種別</span>
-                            </div>
-                            <select class="custom-select form-control ta-l text" name="search-type" id="search-type">
-                                <option value="0">顧客コード</option>
-                                <option value="1">顧客カナ</option>
-                                <option value="2">電話番号</option>
-                                <option value="3">メーター機番</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-12 mb10">
-                        <div class="form-group input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text mw130 text">一致種別</span>
-                            </div>
-                            <select class="custom-select form-control ta-l text" name="search-part" id="search-part">
-                                <option value="0">前方一致</option>
-                                <option value="1">部分一致</option>
-                                <option value="2">後方一致</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row content">
-                    <div class="col-12 mb10">
-                        <div class="form-group input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text mw130 text">検索キー</span>
-                            </div>
-                            <input type="text" class="form-control ta-l text" id="search-key" />
-                        </div>
-                        <div class="form-group input-group hidden" id="warning-field">
-                            <div class="input-group-prepend" style="background-color: transparent;">
-                                <span id="warning-spacing" class="input-group-text mw130 text"></span>
-                            </div>
-                            <input id="warning-message" class="form-control ta-l text" disabled />
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-12 mb10">
-                        <div class="form-group input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text mw130 text">検針状態</span>
-                            </div>
-                            <select class="custom-select form-control ta-l text" name="search-status" id="search-status">
-                                <option value="0" selected>未検針</option>
-                                <option value="1">検針済</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-12 mb10">
-                        <div class="form-group input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text mw130 text">検索順</span>
-                            </div>
-                            <select class="custom-select form-control ta-l text" name="search-order" id="search-order">
-                                <option value="0">検針地区順</option>
-                                <option value="1">保安地区順</option>
-                                <option value="2">配送地区順</option>
-                                <option value="3">顧客コード順</option>
-                                <option value="4">顧客カナ順</option>
-                                <option value="5">電話番号順</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="button-area">
-                    <div class="row content search-btn-wrapper">
-                        <div class="col-sm-4 col-12">
-                            <button type="button" id="search-back-btn" class="btn btn-default text-center">戻る</button>
-                        </div>
-                        <div class="col-sm-4 col-12">
-                            <button type="button" class="btn btn-default text-center"
-                                id="first-customer">先頭の未検針顧客</button>
-                        </div>
-                        <div class="col-sm-4 col-12">
-                            <button type="button" class="btn btn-default text-center" id="kensaku">検索</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <span class="ta-r text" id="countList"></span>
-                </div>
+			<div class="wrap-mainform p-t-30 p-b-40">
+				<!-- Title// -->
+				<div class="row">
+					<span id="titleForm" class="col-12">顧客検索</span>
+				</div>
+				<!-- Content -->
+				<div class="row content">
+					<div class="col-lg-6 col-12 mb10">
+						<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text mw130 text">検索種別</span>
+							</div>
+							<select class="custom-select form-control ta-l text" name="search-type" id="search-type">
+								<option value="0">顧客コード</option>
+								<option value="1">顧客カナ</option>
+								<option value="2">電話番号</option>
+								<option value="3">メーター機番</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-lg-6 col-12 mb10">
+						<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text mw130 text">一致種別</span>
+							</div>
+							<select class="custom-select form-control ta-l text" name="search-part" id="search-part">
+								<option value="0">前方一致</option>
+								<option value="1">部分一致</option>
+								<option value="2">後方一致</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row content">
+					<div class="col-12 mb10">
+						<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text mw130 text">検索キー</span>
+							</div>
+							<input type="text" class="form-control ta-l text" id="search-key" />
+						</div>
+						<div class="form-group input-group hidden" id="warning-field">
+							<div class="input-group-prepend" style="background-color: transparent;">
+								<span id="warning-spacing" class="input-group-text mw130 text"></span>
+							</div>
+							<input id="warning-message" class="form-control ta-l text" disabled />
+						</div>
+					</div>
+				</div>
+				<div class="row content">
+					<div class="col-lg-6 col-12 mb10">
+						<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text mw130 text">検針状態</span>
+							</div>
+							<select class="custom-select form-control ta-l text" name="search-status"
+								id="search-status">
+								<option value="0" selected>未検針</option>
+								<option value="1">検針済</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-lg-6 col-12 mb10">
+						<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text mw130 text">検索順</span>
+							</div>
+							<select class="custom-select form-control ta-l text" name="search-order" id="search-order">
+								<option value="0">検針地区順</option>
+								<option value="1">保安地区順</option>
+								<option value="2">配送地区順</option>
+								<option value="3">顧客コード順</option>
+								<option value="4">顧客カナ順</option>
+								<option value="5">電話番号順</option>
+							</select>
+						</div>
+					</div>
+				</div>
 
 
-                <table id="customers">
-                    <tr id="title-table">
-                        <th class="text">顧客</th>
-                        <th class="text">住所</th>
-                        <th class="text">検針状態</th>
-                    </tr>
-                </table>
-                <div class="table-container">
-                    <table id="customers" class="result-tb">
-                    </table>
-                </div>
+				<div id="collapseView">
+					<div id="accordion">
+						<div class="card">
+							<div class="card-header">
+								<span class="card-link" data-toggle="collapse" href="#collapseOne">
+									<div class="input-group">
+										<div class="item-collapse">
+											<span class="title-collapse">詳細検索</span>
+										</div>
 
-                <div class="row text" id="data-messages"></div>
-            </div>
-        </div>
+										<div class="item-collapse ic-dd-collapse">
+											<span class="arrow-ic fas fa-caret-down"></span>
+										</div>
+									</div> <!-- form-group// -->
+								</span>
+							</div>
+							<div id="collapseOne" class="collapse collapseOne" data-parent="#accordion">
+								<div class="card-body">
 
-        <!-- The Modal -->
+									<div class="row content">
+										<div class="col-4 mb10 chb-cbb">
+											<div class="btn-group">
+												<button type="button"
+													class="dropdown-checkbox btn-primary dropdown-toggle text"
+													data-toggle="dropdown">販売区分</button>
+												<ul class="dropdown-menu dropdown-hanku" role="menu">
+												</ul>
+											</div>
+										</div>
+
+										<div class="col-4 mb10 chb-cbb">
+											<div class="btn-group">
+												<button type="button"
+													class="dropdown-checkbox btn-primary dropdown-toggle text"
+													data-toggle="dropdown">集金区分</button>
+												<ul class="dropdown-menu dropdown-shuku" role="menu">
+												</ul>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="row content">
+										<div class="col-4 mb10 chb-cbb">
+											<div class="btn-group">
+												<button type="button"
+													class="dropdown-checkbox btn-primary dropdown-toggle text"
+													data-toggle="dropdown">検針担当</button>
+												<ul class="dropdown-menu dropdown-tantname" role="menu">
+												</ul>
+											</div>
+
+										</div>
+
+										<div class="col-4 mb10 chb-cbb">
+											<div class="btn-group">
+												<button type="button"
+													class="dropdown-checkbox btn-primary dropdown-toggle text"
+													data-toggle="dropdown">集金担当</button>
+												<ul class="dropdown-menu dropdown-tantname" role="menu">
+												</ul>
+											</div>
+										</div>
+
+										<div class="col-4 mb10 chb-cbb">
+											<div class="btn-group">
+												<button type="button"
+													class="dropdown-checkbox btn-primary dropdown-toggle text"
+													data-toggle="dropdown">売上担当</button>
+												<ul class="dropdown-menu l--30 dropdown-tantname" role="menu">
+												</ul>
+											</div>
+										</div>
+									</div>
+
+
+									<p class="divider-text">
+										<span class="title-group">状態</span>
+									</p>
+
+									<div class="row content">
+										<div class="col-4 mb10 chb-cbb">
+											<div class="btn-group">
+												<button type="button"
+													class="dropdown-checkbox btn-primary dropdown-toggle text"
+													data-toggle="dropdown">検針状態</button>
+												<ul class="dropdown-menu" role="menu">
+													<li class="checkbox-in-ddl">
+														<label class="text">
+															<input class="chb-item" type="radio" name="kenstat_radio" checked="checked"
+																value="0">すべて（検針）
+														</label>
+													</li>
+													<li class="checkbox-in-ddl">
+														<label class="text">
+															<input class="chb-item" type="radio" name="kenstat_radio"
+																value="1">検針済み
+														</label>
+													</li>
+													<li class="checkbox-in-ddl">
+														<label class="text">
+															<input class="chb-item" type="radio" name="kenstat_radio"
+																value="2">未検針
+														</label>
+													</li>
+												</ul>
+											</div>
+
+										</div>
+
+										<div class="col-4 mb10 chb-cbb">
+											<div class="btn-group">
+												<button type="button"
+													class="dropdown-checkbox btn-primary dropdown-toggle text"
+													data-toggle="dropdown">集金状態</button>
+												<ul class="dropdown-menu" role="menu">
+													<li class="checkbox-in-ddl">
+														<label class="text">
+															<input class="chb-item" type="radio" name="shustat_radio" checked="checked"
+																value="0">すべて（集金）
+														</label>
+													</li>
+													<li class="checkbox-in-ddl">
+														<label class="text">
+															<input class="chb-item" type="radio" name="shustat_radio"
+																value="1">集金済み
+														</label>
+													</li>
+													<li class="checkbox-in-ddl">
+														<label class="text">
+															<input class="chb-item" type="radio" name="shustat_radio"
+																value="2">未集金
+														</label>
+													</li>
+												</ul>
+											</div>
+										</div>
+
+										<div class="col-4 mb10 chb-cbb">
+											<div class="btn-group">
+												<button type="button"
+													class="dropdown-checkbox btn-primary dropdown-toggle text"
+													data-toggle="dropdown">売上状態</button>
+												<ul class="dropdown-menu l--30" role="menu">
+													<li class="checkbox-in-ddl">
+														<label class="text">
+															<input class="chb-item" type="radio" name="uristat_radio" checked="checked"
+															value="0">すべて（売上）
+														</label>
+													</li>
+													<li class="checkbox-in-ddl">
+														<label class="text">
+															<input class="chb-item" type="radio" name="uristat_radio"
+															value="1">売上済み
+														</label>
+													</li>
+													<li class="checkbox-in-ddl">
+														<label class="text">
+															<input class="chb-item" type="radio" name="uristat_radio"
+																value="2">未売上
+														</label>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+				<div class="button-area">
+					<div class="row content search-btn-wrapper">
+						<div class="col-sm-4 col-12">
+							<button type="button" id="search-back-btn" class="btn btn-default text-center">戻る</button>
+						</div>
+						<div class="col-sm-4 col-12">
+							<button type="button" class="btn btn-default text-center"
+								id="first-customer">先頭の未検針顧客</button>
+						</div>
+						<div class="col-sm-4 col-12">
+							<button type="button" class="btn btn-default text-center" id="kensaku" onclick="search()">検索</button>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<span class="ta-r text" id="countList"></span>
+				</div>
+
+				<table id="customers">
+					<tr id="title-table">
+						<th class="text">顧客</th>
+						<th class="text">住所</th>
+						<th class="text">検針</th>
+						<th class="text">集金</th>
+					</tr>
+				</table>
+				<div class="table-container">
+					<table id="customers" class="result-tb">
+					</table>
+				</div>
+
+				<div class="row text" id="data-messages"></div>
+			</div>
+		</div>
+
+		<!-- The Modal -->
 		<div id="myModal" class="modal">
 			<!-- Modal content -->
 			<div class="modal-content">
@@ -187,20 +370,24 @@
 			</div>
 
 		</div>
-    </div>
+	</div>
 
-	<script type="text/javascript"
-		src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
+    <script type="text/javascript"
+        src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/check_login.js"></script>
-    <script type="module" src="./js/search.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<!--===============================================================================================-->
+	<script type="text/javascript" src="js/check_login.js"></script>
+	<script type="text/javascript" src="js/search.js"></script>
+	<script type="text/javascript" src="js/collapse.js"></script>
 </body>
 
 </html>

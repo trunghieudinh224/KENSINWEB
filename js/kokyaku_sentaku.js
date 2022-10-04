@@ -2,61 +2,10 @@ let storage = localStorage.getItem("cusdat");
 var data = JSON.parse(storage);
 var dataAPI;
 
-$('#collapseOne').on('show.bs.collapse', function (e) {
-    var mnb = document.getElementsByClassName("arrow-ic")[0];
-    mnb.classList.remove('fas');
-    mnb.classList.remove('fa-caret-down');
-    mnb.classList.add('fas');
-    mnb.classList.add('fa-caret-up');
-})
-
-$('#collapseOne').on('hidden.bs.collapse', function (e) {
-    var mnb = document.getElementsByClassName("arrow-ic")[0];
-    mnb.classList.remove('fas');
-    mnb.classList.remove('fa-caret-up');
-    mnb.classList.add('fas');
-    mnb.classList.add('fa-caret-down');
-})
-
-$('#collapseTwo').on('show.bs.collapse', function (e) {
-    var mnb = document.getElementsByClassName("arrow-ic")[1];
-    mnb.classList.remove('fas');
-    mnb.classList.remove('fa-caret-down');
-    mnb.classList.add('fas');
-    mnb.classList.add('fa-caret-up');
-})
-
-$('#collapseTwo').on('hidden.bs.collapse', function (e) {
-    var mnb = document.getElementsByClassName("arrow-ic")[1];
-    mnb.classList.remove('fas');
-    mnb.classList.remove('fa-caret-up');
-    mnb.classList.add('fas');
-    mnb.classList.add('fa-caret-down');
-})
-
 function setDefaultDate() {
     document.getElementById("recentTime").innerText = "現在の日時：" + moment().format('YYYY/MM/DD HH:mm');
     document.getElementById("jisshi-bi").value = moment().format('YYYY-MM-DD');
 }
-
-function initPage() {
-    setDefaultDate();
-    getInformation();
-}
-
-initPage();
-
-
-
-
-
-
-
-
-
-
-
-
 
 function getInformation() {
     if (data != null) {
@@ -295,3 +244,11 @@ function setupModal(status, title, message, textButton1, textButton2) {
         modal.style.display = "none";
     }
 }
+
+
+function initPage() {
+    setDefaultDate();
+    getInformation();
+}
+
+initPage();

@@ -1,6 +1,28 @@
 "use strict";
 const overlay = document.querySelector(".overlay");
-var userData = JSON.parse(localStorage.getItem("UserData"));;
+var userData = JSON.parse(localStorage.getItem("UserData"));
+var selectDate = document.getElementById('rangeDateSelect');
+
+var shukeiItem = {
+    mKensu: 0,  /** 件数 */
+    mGsiyou: 0,  /** ガス使用量 */
+    mGryokin: 0,  /** ガス料金 */
+    mShohi: 0,  /** 消費税 */
+    mKang: 0,  /** 還元額 */
+    mTotal: 0,  /** 合計 */
+    mNyukin: 0,  /** 入金額 */
+    mChosei: 0,  /** 調整額 */
+    mNyucnt: 0,  /** 入金件数 */
+    mUricnt: 0,  /** 売上件数 */
+    mUrisur: 0,  /** 売上数量 */
+    mUrikin: 0,  /** 売上金額 */
+    mUritax: 0,  /** 売上消費税金額 */
+    mToyuCnt: 0,  /** 灯油検針件数 */
+    mToyuUse: 0,  /** 灯油使用量 */
+    mToyuKin: 0,  /** 灯油金額 */
+    mToyuTax: 0,  /** 灯油消費税 */
+    mToyuTotal: 0  /** 灯油金額合計 */
+};
 
 function nippou() {
     overlay.style.zIndex = "2";
@@ -47,7 +69,6 @@ function setDefaultValueRangeDate() {
 }
 
 function initRangeDateView() {
-    var selectDate = document.getElementById('rangeDateSelect');
     var dateStartArea = document.getElementById("date-start-area");
     var dateEndArea = document.getElementById("date-end-area");
     if (selectDate.value == "1") {
@@ -72,7 +93,6 @@ function initRangeDateView() {
 window.onload = initView;
 
 function getData() {
-    var selectDate = document.getElementById('rangeDateSelect');
     var urlString;
     if (selectDate.value == "1") {
         let date = document.getElementById("date-end").value;
@@ -90,6 +110,12 @@ function getData() {
         },
         success: function (result) {
             let dataAPI = JSON.parse(result);
+
+            if (selectDate.value == "0") {
+                
+            } else {
+                
+            }
 
         },
         error: function (jqXHR, exception) {

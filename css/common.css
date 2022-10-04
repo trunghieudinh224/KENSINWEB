@@ -164,6 +164,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   background-color: var(--primary-color);
 }
 
+.form-control {
+  padding: 6.75px 9px !important;
+}
+
 .text {
   font-size: 20px !important;
   min-height: 45.5px;
