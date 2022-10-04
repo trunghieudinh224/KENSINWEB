@@ -328,7 +328,7 @@ tr:nth-child(even) {
   }
 
   .chb-item {
-    transform: scale(1.3) !important;
+    transform: scale(1.2) !important;
   }
 }
 

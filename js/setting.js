@@ -4,8 +4,8 @@ var user_reader = sessionStorage.getItem("user_reader");
 
 var form_mode_print = document.getElementById("get_print");
 // api url
-//http://192.168.200.218:8080/Webkensin/compackr/getSetting
-const api_url = "http://192.168.200.218:8080/Webkensin/compackr/getSetting?key=0582668301&login_id=7&login_pw=7";
+// http://192.168.200.218:8080/Webkensin/compackr/getSetting
+const api_url = "https://192.168.200.218/Webkensin/compackr/getSetting?key=0582668301&login_id=7&login_pw=7";
 var comment_1 = new Array();
 var comment_2 = new Array();
 var username = new Array();
