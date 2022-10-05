@@ -39,7 +39,7 @@ function login() {
 */
 function checkUser(username, password) {
     $.ajax({
-        url: "http://192.168.200.218:8080/Webkensin/compackr/loginchk?key=0582668301&login_id=" + username + "&login_pw=" + password,
+        url: "https://192.168.200.218/Webkensin/compackr/loginchk?key=0582668301&login_id=" + username + "&login_pw=" + password,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -86,7 +86,7 @@ function setFocusInput() {
 */
 function getSystemDat() {
     $.ajax({
-        url: "http://192.168.200.218:8080/Webkensin/compackr/readData?key=0582668301&cusrec=0&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
+        url: "https://192.168.200.218/Webkensin/compackr/readData?key=0582668301&cusrec=0&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },

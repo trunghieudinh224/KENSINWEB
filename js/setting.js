@@ -16,7 +16,7 @@ var dataSetting;
 function getDataSetting() {
 	Common.setupModal("load", null, "データを保存しています。。。", null, null);
 	$.ajax({
-		url: "http://192.168.200.218:8080/Webkensin/compackr/getSetting?key=0582668301&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
+		url: "https://192.168.200.218/Webkensin/compackr/getSetting?key=0582668301&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded'
 		},
@@ -125,7 +125,7 @@ function saveDataSetting() {
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(prepareNewDataSetting()),
-		url: "http://192.168.200.218:8080/Webkensin/compackr/getSetting",
+		url: "https://192.168.200.218/Webkensin/compackr/getSetting",
 		contentType: "application/json",
 		timeout: 100000,
 		success: function (response) {
