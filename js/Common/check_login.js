@@ -1,3 +1,6 @@
+/* 
+	CHECK USER IS LOGIN
+*/
 function checkUser() {
     var data = sessionStorage.getItem('username');
     if (data == null || data == '') {
@@ -7,6 +10,10 @@ function checkUser() {
     }
 }
 
+
+/* 
+	MOVING TO ANOTHER PAGE
+*/
 const changePage = (page) => {
     if (page != 'logout') {
         window.location.href = page;
@@ -20,6 +27,10 @@ const changePage = (page) => {
     }
 }
 
+
+/* 
+	CLEAR DATA SEARCHING
+*/
 function clearDataSearch() {
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
@@ -28,6 +39,10 @@ function clearDataSearch() {
     }
 }
 
+
+/* 
+	SAVE DATA CUSTOMER
+*/
 function clearDataCus() {
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
@@ -36,6 +51,15 @@ function clearDataCus() {
     }
 }
 
-checkUser();
-clearDataSearch();
-clearDataCus();
+
+
+/* 
+	ONLOAD ACTION
+*/
+function onLoadAction() {
+	checkUser();
+    clearDataSearch();
+    clearDataCus();
+}
+
+window.onload = onLoadAction;
