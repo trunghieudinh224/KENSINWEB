@@ -1,4 +1,6 @@
 import * as Common from './Common/common_function.js'
+import * as StringCS from './Constant/strings.js'
+import * as ValueCS from './Constant/values.js'
 
 
 /* 
@@ -39,7 +41,8 @@ function login() {
 */
 function checkUser(username, password) {
     $.ajax({
-        url: "https://192.168.200.218/Webkensin/compackr/loginchk?key=0582668301&login_id=" + username + "&login_pw=" + password,
+        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_LOGIN + StringCS.PR_KEY + "&login_id=" + username + "&login_pw=" + password,
+        url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_LOGIN + StringCS.PR_KEY + "&login_id=" + username + "&login_pw=" + password,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -57,7 +60,7 @@ function checkUser(username, password) {
         error: function (jqXHR, exception) {
             console.log(exception);
         },
-        timeout: 10000
+        timeout: ValueCS.VL_SHORT_TIMEOUT
     });
 }
 
@@ -86,7 +89,8 @@ function setFocusInput() {
 */
 function getSystemDat() {
     $.ajax({
-        url: "https://192.168.200.218/Webkensin/compackr/readData?key=0582668301&cusrec=0&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
+        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
+        url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -98,7 +102,7 @@ function getSystemDat() {
         error: function (jqXHR, exception) {
             console.log(exception);
         }, 
-		timeout: 20000
+        timeout: ValueCS.VL_SHORT_TIMEOUT
     });
 }
 

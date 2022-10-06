@@ -96,11 +96,11 @@ function getData() {
     var urlString;
     if (selectDate.value == "1") {
         let date = document.getElementById("date-end").value;
-        urlString = "https://192.168.200.218/Webkensin/compackr/readSyukei?key=0582668301&date1=" + date.replaceAll("-","/") +"&login_id=7&login_pw=7"
+        urlString = "http://192.168.200.218:8080/Webkensin/compackr/readSyukei?key=0582668301&date1=" + date.replaceAll("-","/") +"&login_id=7&login_pw=7"
     } else {
         let dateStart = document.getElementById("date-start").value;
         let dateEnd = document.getElementById("date-end").value;
-        urlString = "https://192.168.200.218/Webkensin/compackr/readSyukei?key=0582668301&date1=" + dateStart.replaceAll("-","/") + "&date2=" + dateEnd.replaceAll("-","/") + "&login_id=7&login_pw=7"
+        urlString = "http://192.168.200.218:8080/Webkensin/compackr/readSyukei?key=0582668301&date1=" + dateStart.replaceAll("-","/") + "&date2=" + dateEnd.replaceAll("-","/") + "&login_id=7&login_pw=7"
     }
 
     $.ajax({

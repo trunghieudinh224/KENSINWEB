@@ -1,4 +1,6 @@
 import * as Common from './Common/common_function.js'
+import * as StringCS from './Constant/strings.js'
+import * as ValueCS from './Constant/values.js'
 
 /*****  VIEW VARIABLE  *****/
 /* modal */
@@ -16,7 +18,8 @@ var dataSetting;
 function getDataSetting() {
 	Common.setupModal("load", null, "データを保存しています。。。", null, null);
 	$.ajax({
-		url: "https://192.168.200.218/Webkensin/compackr/getSetting?key=0582668301&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
+        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
+        url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded'
 		},
@@ -30,8 +33,9 @@ function getDataSetting() {
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
+			Common.setupModal("error", null, "データが取得できませんでした。", "OK", null);
 		},
-		timeout: 10000
+        timeout: ValueCS.VL_SHORT_TIMEOUT
 	});
 }
 
@@ -125,9 +129,10 @@ function saveDataSetting() {
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(prepareNewDataSetting()),
-		url: "https://192.168.200.218/Webkensin/compackr/getSetting",
+        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
+        url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
 		contentType: "application/json",
-		timeout: 100000,
+        timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
 			console.log(response);
 			Common.setupModal("load", null, "データを保存しています。。。", null, null);
@@ -138,7 +143,6 @@ function saveDataSetting() {
 			} else {
 				console.log(textstatus)
 			}
-			// updateDialog("./images/gif/gif_fail.gif", "データ保存に失敗しました。", "red", true)
 			Common.setupModal("error", null, "データ保存に失敗しました。", "OK", null);
 		}
 	}).done(function (res) {

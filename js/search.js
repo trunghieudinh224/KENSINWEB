@@ -1,5 +1,3 @@
-
-"use strict";
 const firstCustomer = document.getElementById("first-customer");
 const searchType = document.getElementById("search-type");
 const searchPart = document.getElementById("search-part");
@@ -104,7 +102,7 @@ function search() {
 
 	setupModal("load", null, "しばらくお待ちください。。。", null, null);
 	$.ajax({
-		url: "https://192.168.200.218/Webkensin/compackr/cussearch?key=0582668301" +
+		url: "http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301" +
 			"&srch_kind=" + String(searchType.value) +	//mặc định
 			"&srch_string=" + String(searchKey.value) +	//mặc định 
 			"&match_kind=" + String(searchPart.value) +	//mặc định
