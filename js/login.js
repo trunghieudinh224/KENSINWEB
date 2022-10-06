@@ -3,6 +3,7 @@ import * as StringCS from './Constant/strings.js'
 import * as ValueCS from './Constant/values.js'
 
 
+/*****  FUNCTION  *****/
 /* 
 	CHECK ACCOUNT
 */

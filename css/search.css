@@ -36,7 +36,7 @@ body {
 
 .table-container {
   display: none;
-  max-height: 600px;
+  max-height: 480px;
   overflow-y: scroll;
   margin: auto 0px;
   position: relative;
@@ -237,6 +237,10 @@ tr:nth-child(even) {
 /*
   ******  COLLAPSE  ******
 */
+#collapseView {
+  margin-bottom: 10px;
+}
+
 .igt-center {
   display: block !important;
   width: 100%; 
@@ -273,6 +277,7 @@ tr:nth-child(even) {
 
 .card-header {
   background-color: #7ab869;
+  padding: 12px 22.5px;
 }
 
 .card-body {
@@ -330,6 +335,10 @@ tr:nth-child(even) {
   .chb-item {
     transform: scale(1.2) !important;
   }
+
+  .table-container {
+    max-height: 400px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -346,6 +355,11 @@ tr:nth-child(even) {
   .checkbox-in-ddl{
     height: 38px;
   }
+
+  .table-container {
+    max-height: 350px;
+  }
+
 
   #title-table th {
     padding: 10px 6px;
@@ -367,6 +381,14 @@ tr:nth-child(even) {
 
   .l--30 {
     left: -30px !important;
+  }
+
+  .card-header {
+    padding: 10px 22.5px;
+  }
+
+  #countList {
+    margin-top: 10px;
   }
 }
 

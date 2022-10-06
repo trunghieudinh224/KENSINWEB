@@ -21,3 +21,5 @@ export var PR_LOGIN = "loginchk?";
 export var PR_READDATA = "readData?";
 // getSetting
 export var PR_GETSETTING = "getSetting?";
+// get customer list
+export var PR_CUSSEARCH = "cussearch?";

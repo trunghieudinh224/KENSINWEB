@@ -1,17 +1,147 @@
-const firstCustomer = document.getElementById("first-customer");
-const searchType = document.getElementById("search-type");
-const searchPart = document.getElementById("search-part");
-const searchOrder = document.getElementById("search-order");
-const searchKey = document.getElementById("search-key");
-const searchStatus = document.getElementById("search-status");
-const searchBtn = document.getElementById("kensaku");
-const searchBackBtn = document.getElementById("search-back-btn");
-const warningField = document.getElementById("warning-field");
-const table = document.getElementsByClassName("result-tb")[0];
-const modal = document.getElementById("myModal");
-var userData = JSON.parse(localStorage.getItem("UserData"));
+import * as Common from './Common/common_function.js'
+import * as StringCS from './Constant/strings.js'
+import * as ValueCS from './Constant/values.js'
 
-//--------------------Show previous data------------------------------->
+/*****  VIEW VARIABLE  *****/
+/* searchType */
+const searchType = document.getElementById("search-type");
+/* searchPart */
+const searchPart = document.getElementById("search-part");
+/* searchOrder */
+const searchOrder = document.getElementById("search-order");
+/* searchKey */
+const searchKey = document.getElementById("search-key");
+/* resultTable */
+const table = document.getElementsByClassName("result-tb")[0];
+/* modal */
+const modal = document.getElementById("myModal");
+
+/*****  DATA VARIABLE  *****/
+/* data setting */
+var userData = JSON.parse(localStorage.getItem("UserData"));
+/* hanku list */
+var hankuList;
+/* shuku list */
+var shukuList;
+/* tantname list */
+var tantnameList;
+/* tantname item */
+var tantnameItem = ["kentan", "shutan", "uritan"];
+
+
+/*****  FUNCTION  *****/
+/* 
+	INITIALIZE COMBOBOX
+*/
+function initCombobox() {
+	hankuList = userData.lstHanku;
+	shukuList = userData.lstShuku;
+	tantnameList = userData.m_lstTantName;
+	setdataCbb("dropdown-hanku", hankuList, "hanku");
+	setdataCbb("dropdown-shuku", shukuList, "shuku");
+	setdataCbb("dropdown-tantname", tantnameList, null);
+}
+
+
+/* 
+	SET DATA FOR COMBOBOX
+	@param dropdownName
+	@param data
+	@param itemName
+*/
+function setdataCbb(dropdownName, data, itemName) {
+	const dropdownList = document.getElementsByClassName(dropdownName);
+	for (var idx = 0; idx < dropdownList.length; idx++) {
+		const dropdown = dropdownList[idx];
+		for (var i = 0; i < data.length; i++) {
+			const li = document.createElement("li");
+			li.className += "checkbox-in-ddl";
+			const label = document.createElement("label");
+			label.className += "text";
+			const input = document.createElement("input");
+			input.className += "chb-item";
+			if (dropdownList.length > 1) {
+				input.className += " " + tantnameItem[idx];
+			} else {
+				input.className += " " + itemName;
+			}
+
+			input.setAttribute("type", "checkbox");
+
+			li.appendChild(label);
+			label.appendChild(input);
+			input.after(data[i].name.trim());
+			dropdown.appendChild(li);
+		}
+	}
+}
+
+
+/* 
+	SET MAX LENGTH SEARCHING DATA
+*/
+function setMaxLengthInput() {
+	var searchInput = document.getElementById("search-key");
+	searchInput.value = "";
+	switch (searchType.value) {
+		case "0":
+			searchInput.maxLength = 6;
+			searchInput.type = "tel";
+			break;
+		case "1":
+			searchInput.maxLength = 20;
+			searchInput.type = "text";
+			break;
+		case "2":
+			searchInput.maxLength = 15;
+			searchInput.type = "tel";
+			break;
+		case "3":
+			searchInput.maxLength = 10;
+			searchInput.type = "text";
+			break;
+	}
+}
+
+
+
+/* 
+	GET VALUE RADIO
+	@param radioName
+*/
+function getValueRadio(radioName) {
+	var radio = document.getElementsByName(radioName);
+	for (var i = 0; i < radio.length; i++) {
+		if (radio[i].checked) {
+			return String(i);
+		}
+	}
+}
+
+
+/* 
+	GET VALUE CHECKBOX
+	@param checkboxName
+	@param data
+*/
+function getValueCheckbox(checkboxName, data) {
+	var result = "";
+	var checkbox = document.getElementsByClassName(checkboxName);
+	for (var i = 0; i < checkbox.length; i++) {
+		if (checkbox[i].checked == true) {
+			if (result.length > 0) {
+				result += ",";
+			}
+			result = result + String(data[i].code);
+		}
+	}
+	return result;
+}
+
+
+/* 
+	SHOW PREVIOUS DATA
+*/
 function checkPreviousData() {
 	const previousCuslist = JSON.parse(localStorage.getItem("cuslist"));
 	if (previousCuslist != null) {
@@ -57,38 +187,16 @@ function checkPreviousData() {
 		document.getElementsByClassName("table-container")[0].style.display = "block";
 	}
 }
-checkPreviousData();
 
 
-//--------------------  Search  -------------------------->
-function search() {
-	const searchTypeValue = searchType.value;
-	const searchKeyValue = searchKey.value;
-	let isCheck = false;
-
-	// ----------------Check valid input --------------->
-	switch (searchTypeValue) {
-		case "0":
-			isCheck = searchKeyValue.match(/^\d+$/) ? true : false;
-			break;
-		case "1":
-			isCheck = searchKeyValue.match(
-				/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/
-			)
-				? true
-				: false;
-			break;
-		case "2":
-			isCheck = searchKeyValue.match(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{4}$/)
-				? true
-				: false;
-			break;
-		case "3":
-			isCheck = searchKeyValue.match(/^\d+$/) ? true : false;
-			break;
-		default:
-			console.log("ok");
-	}
+/* 
+	SEARCH CUSTOMER
+*/
+function searchCus() {
+	let searchKindVal = String(searchType.value);
+	let searchKeyVal = String(searchKey.value);
+	let searchPartVal = String(searchPart.value);
+	let searchOrderVal = String(searchOrder.value);
 
 	let kenstat = getValueRadio("kenstat_radio");
 	let shustat = getValueRadio("shustat_radio");
@@ -100,23 +208,24 @@ function search() {
 	let shutan = getValueCheckbox("shutan", tantnameList);
 	let uritan = getValueCheckbox("uritan", tantnameList);
 
-	setupModal("load", null, "しばらくお待ちください。。。", null, null);
+	Common.setupModal("load", null, "しばらくお待ちください。。。", null, null);
 	$.ajax({
-		url: "http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301" +
-			"&srch_kind=" + String(searchType.value) +	//mặc định
-			"&srch_string=" + String(searchKey.value) +	//mặc định 
-			"&match_kind=" + String(searchPart.value) +	//mặc định
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+			"&srch_kind=" + searchKindVal +	//mặc định
+			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +	//mặc định 
+			"&match_kind=" + searchPartVal +	//mặc định
 			"&kenstat=" + kenstat +	//2
-			"&shustat=" + shustat +	
-			"&uristat=" + uristat +	
-			"&hanku=" + hanku +
-			"&kentan=" + kentan +
-			"&shutan=" + shutan +
-			"&uritan=" + uritan +
-			"&shuku=" + shuku +
-			"&&order_kind=" + String(searchOrder.value) +	// mặc định trên màn hình
-			"&login_id=7" +
-			"&login_pw=7",
+			"&shustat=" + shustat +
+			"&uristat=" + uristat +
+			(hanku != "" ? "&hanku=" + hanku : "") +
+			(kentan != "" ? "&kentan=" + kentan : "") +
+			(shutan != "" ? "&shutan=" + shutan : "") +
+			(uritan != "" ? "&uritan=" + uritan : "") +
+			(shuku != "" ? "&shuku=" + shuku : "") +
+			"&order_kind=" + searchOrderVal +	// mặc định trên màn hình
+			"&login_id=" + sessionStorage.getItem('username') +
+			"&login_pw=" + sessionStorage.getItem('password'),
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded'
 		},
@@ -126,210 +235,143 @@ function search() {
 			}
 
 			const data = JSON.parse(result);
-			localStorage.setItem("cuslist", JSON.stringify(data.cuslist));
-			for (var i = 0; i < data.cuslist.length; i++) {
-				const newElement = document.createElement("tr");
-				const newName = document.createElement("td");
-				newName.className += " text";
-				const newAddress = document.createElement("td");
-				newAddress.className += " text";
-				const newKenshin = document.createElement("td");
-				newKenshin.className += " text";
-				const newShuukin = document.createElement("td");
-				newShuukin.className += " text";
-				newName.appendChild(document.createTextNode(data.cuslist[i].name.trim()));
-				newAddress.appendChild(document.createTextNode(data.cuslist[i].add_0.trim()));
-				newKenshin.appendChild(document.createTextNode(data.cuslist[i].kenstat == 1 ? "済" : "未"));
-				newShuukin.appendChild(document.createTextNode(data.cuslist[i].shustat == 1 ? "済" : "未"));
-				newElement.appendChild(newName);
-				newElement.appendChild(newAddress);
-				newElement.appendChild(newKenshin);
-				newElement.appendChild(newShuukin);
-				table.appendChild(newElement);
-				var object = data.cuslist[i];
-				newElement.onclick = function () {
-					object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
-					const cusdat = Object.assign({}, object);
-					localStorage.setItem("cusdat", JSON.stringify(cusdat));
-					window.location.href = "/kokyaku_sentaku_page.html";
-				};
-			}
+			if (data.cuslist != null) {
+				if (data.cuslist.length > 0) {
+					localStorage.setItem("cuslist", JSON.stringify(data.cuslist));
+					for (var i = 0; i < data.cuslist.length; i++) {
+						const newElement = document.createElement("tr");
+						const newName = document.createElement("td");
+						newName.className += " text";
+						const newAddress = document.createElement("td");
+						newAddress.className += " text";
+						const newKenshin = document.createElement("td");
+						newKenshin.className += " text";
+						const newShuukin = document.createElement("td");
+						newShuukin.className += " text";
+						newName.appendChild(document.createTextNode(data.cuslist[i].name.trim()));
+						newAddress.appendChild(document.createTextNode(data.cuslist[i].add_0.trim()));
+						newKenshin.appendChild(document.createTextNode(data.cuslist[i].kenstat == 1 ? "済" : "未"));
+						newShuukin.appendChild(document.createTextNode(data.cuslist[i].shustat == 1 ? "済" : "未"));
+						newElement.appendChild(newName);
+						newElement.appendChild(newAddress);
+						newElement.appendChild(newKenshin);
+						newElement.appendChild(newShuukin);
+						table.appendChild(newElement);
+						var object = data.cuslist[i];
+						newElement.onclick = function () {
+							object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
+							const cusdat = Object.assign({}, object);
+							localStorage.setItem("cusdat", JSON.stringify(cusdat));
+							window.location.href = "/kokyaku_sentaku_page.html";
+						};
+					}
 
-			//-----------------Show data------------------------>
-
-			modal.style.display = "none";
-			if (table.hasChildNodes()) {
-				document.getElementsByClassName("table-container")[0].style.display = "block";
-				document.getElementById("data-messages").style.display = "none";
-				document.getElementById("countList").innerHTML = "検索件数：" + table.childElementCount + "件";
-				document.getElementById("countList").style.display = "block";
+					if (table.hasChildNodes()) {
+						document.getElementsByClassName("table-container")[0].style.display = "block";
+						document.getElementById("data-messages").style.display = "none";
+						document.getElementById("countList").innerHTML = "検索件数：" + table.childElementCount + "件";
+						document.getElementById("countList").style.display = "block";
+					} else {
+						document.getElementsByClassName("table-container")[0].style.display = "none";
+						document.getElementById("countList").style.display = "none";
+						document.getElementById("data-messages").style.display = "block";
+					}
+					modal.style.display = "none";
+				} else {
+					Common.setupModal("success", null, "検索条件に満たす顧客情報はありません", "OK", null);
+				}
 			} else {
-				document.getElementsByClassName("table-container")[0].style.display = "none";
-				document.getElementById("countList").style.display = "none";
-				document.getElementById("data-messages").style.display = "block";
-				// setupModal("error", "顧客検索", "ログインに失敗しました", "確認", null);
+				Common.setupModal("success", null, "検索条件に満たす顧客情報はありません", "OK", null);
 			}
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
-		}
+			Common.setupModal("error", null, "データが取得できませんでした。", "OK", null);
+		},
+		timeout: ValueCS.VL_LONG_TIMEOUT
 	});
 }
 
-function getValueRadio(radioName) {
-	var radio = document.getElementsByName(radioName);
-	for (var i = 0; i < radio.length; i++) {
-		if (radio[i].checked) {
-			return String(i);
-		}
-	}
-}
 
-function getValueCheckbox(checkboxName, data) {
-	var result = "";
-	var checkbox = document.getElementsByClassName(checkboxName);
-	for (var i = 0; i < checkbox.length; i++) {
-		if (checkbox[i].checked == true) {
-			if (result.length > 0) {
-				result += ",";
-			}
-			result = result + String(data[i].code);
-		}
-	}
-	return result;
-}
-
-
-//-------------------Direct to First Customer info page-------------->
+/* 
+	ACCESS FIRST CUSTOMER
+*/
 function firstCustomerAction() {
-	const kcode = searchType.value;
-	const part = searchPart.value;
-	const key = searchKey.value;
-	const order = searchOrder.value;
-	fetch(
-		`https://192.168.200.218/Webkensin/compackr/cussearch?key=0582668301&srch_kind=${kcode || 0}&srch_string=${key || 0}&match_kind=${part || 0}&status=0&order_kind=${order || 0}&login_id=7&login_pw=7`
-	)
-		.then((res) => res.json())
-		.then((json) => {
-			const cusdat = Object.assign({}, json.cuslist[0]);
-			cusdat.taishoo = searchOrder[order].innerHTML;
-			localStorage.setItem("cusdat", JSON.stringify(cusdat));
-			window.location.href = "/kokyaku_sentaku_page.html";
-		})
+	let searchKindVal = String(searchType.value);
+	let searchKeyVal = String(searchKey.value);
+	let searchPartVal = String(searchPart.value);
+	let searchOrderVal = String(searchOrder.value);
 
-	// $.ajax({
-	// 	url: "http://192.168.200.218:8080/Webkensin/compackr/cussearch?key=0582668301&srch_kind=0" +
-	// 																				"&srch_string=0" +
-	// 																				"&match_kind=0" +
-	// 																				"&kenstat=1" +
-	// 																				"&shustat=1" +
-	// 																				"&uristat=1" +
-	// 																				"&hanku=1" +
-	// 																				"&kentan=44,55" +
-	// 																				"&shutan=19,90" +
-	// 																				"&uritan=24" +
-	// 																				"&shuku=2,4" +
-	// 																				"&&order_kind=0" +
-	// 																				"&login_id=7" +
-	// 																				"&login_pw=7",
-	// 	headers: {
-	// 		'Content-Type': 'application/x-www-form-urlencoded'
-	// 	},
-	// 	success: function (result) {
+	let hanku = getValueCheckbox("hanku", hankuList);
+	let shuku = getValueCheckbox("shuku", shukuList);
+	let kentan = getValueCheckbox("kentan", tantnameList);
+	let shutan = getValueCheckbox("shutan", tantnameList);
+	let uritan = getValueCheckbox("uritan", tantnameList);
 
-	// 	},
-	// 	error: function (jqXHR, exception) {
-	// 		console.log(exception);
-	// 	}
-	// });
-}
-
-
-searchBackBtn.onclick = function () {
-	window.location.href = "/menu_page.html";
-};
-
-function setupModal(status, title, message, textButton1, textButton2) {
-	var imgModal = document.getElementsByClassName("modal-image")[0];
-	var titleModal = document.getElementsByClassName("title-modal")[0];
-	var messageModal = document.getElementsByClassName("modal-message-detail")[0];
-	var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
-	var closeButton = document.getElementsByClassName("modal-close-button")[0];
-
-	titleModal.innerHTML = title;
-	messageModal.innerHTML = message;
-
-	if (status == "load") {
-		imgModal.src = "../images/gif/gif_loading_data.gif";
-		titleModal.style.display = "none";
-		closeButton.style.display = "none";
-		buttonConfirm.style.display = "none";
-	} else {
-		if (status == "info") {
-
-		} else if (status == "warning") {
-			imgModal.src = "../images/gif/gif_warning.gif";
-		} else if (status == "error") {
-			imgModal.src = "../images/gif/gif_fail.gif";
-		}
-
-		if (textButton1 != null) {
-			buttonConfirm.style.display = "block";
-		}
-	}
-
-	buttonConfirm.onclick = function () {
-		modal.style.display = "none";
-	}
-	// When the user clicks on <span> (x), close the modal
-	closeButton.onclick = function () {
-		modal.style.display = "none";
-	}
-
-	modal.style.display = "block";
-}
-
-
-var hankuList;
-var shukuList;
-var tantnameList;
-var tantnameItem = ["kentan", "shutan", "uritan"];
-function initCombobox() {
-	hankuList = userData.lstHanku;
-	shukuList = userData.lstShuku;
-	tantnameList = userData.m_lstTantName;
-	setdataCbb("dropdown-hanku", hankuList, "hanku");
-	setdataCbb("dropdown-shuku", shukuList, "shuku");
-	setdataCbb("dropdown-tantname", tantnameList, null);
-}
-
-
-function setdataCbb(dropdownName, data, itemName) {
-	const dropdownList = document.getElementsByClassName(dropdownName);
-	for (var idx = 0; idx < dropdownList.length; idx++) {
-		const dropdown = dropdownList[idx];
-		for (var i = 0; i < data.length; i++) {
-			const li = document.createElement("li");
-			li.className += "checkbox-in-ddl";
-			const label = document.createElement("label");
-			label.className += "text";
-			const input = document.createElement("input");
-			input.className += "chb-item";
-			if (dropdownList.length > 1) {
-				input.className += " " + tantnameItem[idx];
+	Common.setupModal("load", null, "しばらくお待ちください。。。", null, null);
+	$.ajax({
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+			"&srch_kind=" + searchKindVal +
+			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +
+			"&match_kind=" + searchPartVal +
+			"&kenstat=2" +
+			"&shustat=0" +
+			"&uristat=0" +
+			(hanku != "" ? "&hanku=" + hanku : "") +
+			(kentan != "" ? "&kentan=" + kentan : "") +
+			(shutan != "" ? "&shutan=" + shutan : "") +
+			(uritan != "" ? "&uritan=" + uritan : "") +
+			(shuku != "" ? "&shuku=" + shuku : "") +
+			"&order_kind=" + searchOrderVal +
+			"&login_id=" + sessionStorage.getItem('username') +
+			"&login_pw=" + sessionStorage.getItem('password'),
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
+		success: function (result) {
+			const data = JSON.parse(result);
+			if (data.cuslist != null) {
+				if (data.cuslist.length > 0) {
+					const cusdat = Object.assign({}, data.cuslist[0]);
+					cusdat.taishoo = searchOrder.options[searchOrder.selectedIndex].text
+					localStorage.setItem("cusdat", JSON.stringify(cusdat));
+					window.location.href = "/kokyaku_sentaku_page.html";
+				} else {
+					Common.setupModal("success", null, "検索条件に満たす顧客情報はありません", "OK", null);
+				}
 			} else {
-				input.className += " " + itemName;
+				Common.setupModal("success", null, "検索条件に満たす顧客情報はありません", "OK", null);
 			}
 
-			input.setAttribute("type", "checkbox");
-
-			li.appendChild(label);
-			label.appendChild(input);
-			input.after(data[i].name.trim());
-			dropdown.appendChild(li);
-		}
-	}
+		},
+		error: function (jqXHR, exception) {
+			console.log(exception);
+			Common.setupModal("error", null, "データが取得できませんでした。", "OK", null);
+		},
+		timeout: ValueCS.VL_LONG_TIMEOUT
+	});
 }
 
 
-initCombobox();
+/* 
+	ONCLICK ACTION
+*/
+function onclickAction() {
+	document.getElementById("backPageButton").onclick = Common.backAction;
+	document.getElementById("kensakuButton").onclick = searchCus;
+	document.getElementById("firstCustomerButton").onclick = firstCustomerAction;
+}
+
+/* 
+	ONLOAD ACTION
+*/
+function onLoadAction() {
+	checkPreviousData();
+	initCombobox();
+	setMaxLengthInput();
+	onclickAction();
+}
+
+
+window.onload = onLoadAction;

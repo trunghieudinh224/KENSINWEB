@@ -11,7 +11,7 @@ const modal = document.getElementById("myModal");
 var dataSetting;
 
 
-
+/*****  FUNCTION  *****/
 /* 
 	GET DATA SETTING
 */

@@ -67,7 +67,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text mw130 text">検索種別</span>
 							</div>
-							<select class="custom-select form-control ta-l text" name="search-type" id="search-type">
+							<select class="custom-select form-control ta-l text" name="search-type" id="search-type" onchange="setMaxLengthInput()">
 								<option value="0">顧客コード</option>
 								<option value="1">顧客カナ</option>
 								<option value="2">電話番号</option>
@@ -89,35 +89,27 @@
 					</div>
 				</div>
 				<div class="row content">
-					<div class="col-12 mb10">
+					<div class="col-8 mb10 pd-r-0">
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text mw130 text">検索キー</span>
 							</div>
-							<input type="text" class="form-control ta-l text" id="search-key" />
+							<input type="text" class="form-control ta-l text" id="search-key"/>
 						</div>
-						<div class="form-group input-group hidden" id="warning-field">
-							<div class="input-group-prepend" style="background-color: transparent;">
-								<span id="warning-spacing" class="input-group-text mw130 text"></span>
+					</div>
+
+					<div class="col-4 mb10">
+						<div class="form-group input-group">
+							<div class="form-control text bd-0 pd-l-0 pd-r-0 pd-0">
+								<button type="button" class="btn btn-default text-center mg-0" id="kensakuButton">検索</button>
 							</div>
-							<input id="warning-message" class="form-control ta-l text" disabled />
 						</div>
 					</div>
 				</div>
+
+
 				<div class="row content">
-					<div class="col-lg-6 col-12 mb10">
-						<div class="form-group input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text mw130 text">検針状態</span>
-							</div>
-							<select class="custom-select form-control ta-l text" name="search-status"
-								id="search-status">
-								<option value="0" selected>未検針</option>
-								<option value="1">検針済</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-lg-6 col-12 mb10">
+					<div class="col-12 mb10">
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text mw130 text">検索順</span>
@@ -221,7 +213,7 @@
 												<button type="button"
 													class="dropdown-checkbox btn-primary dropdown-toggle text"
 													data-toggle="dropdown">検針状態</button>
-												<ul class="dropdown-menu" role="menu">
+												<ul class="dropdown-menu" role="menu" id="search-order">
 													<li class="checkbox-in-ddl">
 														<label class="text">
 															<input class="chb-item" type="radio" name="kenstat_radio" checked="checked"
@@ -308,25 +300,6 @@
 				</div>
 
 
-
-
-
-
-				<div class="button-area">
-					<div class="row content search-btn-wrapper">
-						<div class="col-sm-4 col-12">
-							<button type="button" id="search-back-btn" class="btn btn-default text-center">戻る</button>
-						</div>
-						<div class="col-sm-4 col-12">
-							<button type="button" class="btn btn-default text-center"
-								id="first-customer">先頭未検針</button>
-						</div>
-						<div class="col-sm-4 col-12">
-							<button type="button" class="btn btn-default text-center" id="kensaku" onclick="search()">検索</button>
-						</div>
-					</div>
-				</div>
-
 				<div>
 					<span class="ta-r text" id="countList"></span>
 				</div>
@@ -345,6 +318,20 @@
 				</div>
 
 				<div class="row text" id="data-messages"></div>
+
+				<div class="button-area">
+					<div class="row content search-btn-wrapper">
+						<div class="col-6">
+							<button type="button"  id="backPageButton" class="btn btn-default text-center"><span
+									class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
+						</div>
+						<div class="col-6">
+							<button type="button" id="firstCustomerButton" class="btn btn-default text-center"><span
+									class="fas fa-search ic-btn"></span><br>先頭未検針</button>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
 
@@ -386,7 +373,7 @@
 	<script src="vendor/daterangepicker/moment.min.js"></script>
 	<!--===============================================================================================-->
 	<script type="text/javascript" src="js/Common/check_login.js"></script>
-	<script type="text/javascript" src="js/search.js"></script>
+    <script type="module" src="./js/search.js"></script>
 	<script type="text/javascript" src="js/Common/collapse.js"></script>
 </body>
 

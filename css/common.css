@@ -394,7 +394,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .pd-0 {
-  padding: 0px;
+  padding: 0px !important;
 }
 
 .pd-t-0 {
@@ -549,7 +549,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   /* TEXT */
   .text {
     font-size: 16px !important;
-    min-height: 39.5px;
+    /* min-height: 39.5px; */
   }
   
   .custom-select {
