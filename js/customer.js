@@ -267,7 +267,7 @@ function getRyookin() {
 */
 function kinyuuMove(mode) {
     sessionStorage.setItem('kinyuu_mode', mode);
-    changePage('/meter_reading_fillout_page.html');
+    Common.movePage('/meter_reading_fillout_page.html');
 }
 
 
