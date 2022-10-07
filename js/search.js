@@ -178,7 +178,7 @@ function checkPreviousData() {
 				object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 				const cusdat = Object.assign({}, object);
 				localStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
-				window.location.href = "/kokyaku_sentaku_page.html";
+				window.location.href = "/customer_page.html";
 			};
 		}
 
@@ -264,7 +264,7 @@ function searchCus() {
 							object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 							const cusdat = Object.assign({}, object);
 							localStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
-							window.location.href = "/kokyaku_sentaku_page.html";
+							window.location.href = "/customer_page.html";
 						};
 					}
 
@@ -343,7 +343,7 @@ function firstCustomerAction() {
 					const cusdat = Object.assign({}, data.cuslist[0]);
 					cusdat.taishoo = searchOrder.options[searchOrder.selectedIndex].text
 					localStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
-					window.location.href = "/kokyaku_sentaku_page.html";
+					window.location.href = "/customer_page.html";
 					dataMessage.style.display = "none";
 					modal.style.display = "none";
 				} else {
