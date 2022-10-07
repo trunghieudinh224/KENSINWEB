@@ -92,7 +92,7 @@
 
 					<div id="collapseView">
 						<div id="accordion">
-							<div class="card">
+							<div class="card card-1">
 								<div class="card-header">
 									<span class="card-link" data-toggle="collapse" href="#collapseOne">
 										<div class="input-group">
@@ -236,7 +236,7 @@
 								</div>
 							</div>
 
-							<div class="card">
+							<div class="card card-2">
 								<div class="card-header">
 									<span class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
 										<div class="input-group">
@@ -365,17 +365,17 @@
 					<div class="button-area">
 						<div class="row content">
 							<div class="col-4">
-								<button type="button" class="btn btn-default text-center" onclick="history.back()"><span
+								<button type="button" class="btn btn-default text-center" id="backPageButton"><span
 										class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
 							</div>
 
 							<div class="col-4">
-								<button type="button" class="btn btn-default text-center" onclick="kinyuuMove(3)"><span
+								<button type="button" class="btn btn-default text-center" id="nyuukinButton"><span
 										class="fas fa-hand-holding-usd ic-btn"></span><br>入金</button>
 							</div>
 
 							<div class="col-4">
-								<button type="button" class="btn btn-default text-center" onclick="kinyuuMove(1)"><span
+								<button type="button" class="btn btn-default text-center" id="jikkoButton"><span
 										class="fas fa-play ic-btn"></span><br>実行</button>
 							</div>
 						</div>
@@ -422,7 +422,7 @@
 	<script src="vendor/daterangepicker/moment.min.js"></script>
 	<!--===============================================================================================-->
 	<script type="text/javascript" src="js/Common/check_login.js"></script>
-	<script type="text/javascript" src="js/kokyaku_sentaku.js"></script>
+    <script type="module" src="./js/kokyaku_sentaku.js"></script>
 	<script type="text/javascript" src="js/Common/collapse.js"></script>
 </body>
 

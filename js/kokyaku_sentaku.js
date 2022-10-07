@@ -1,60 +1,89 @@
-let storage = localStorage.getItem("cusdat");
-var data = JSON.parse(storage);
-var dataAPI;
+import * as Common from './Common/common_function.js'
+import * as StringCS from './Constant/strings.js'
+import * as ValueCS from './Constant/values.js'
 
+/*****  VIEW VARIABLE  *****/
+/* modal */
+const modal = document.getElementById("myModal");
+
+/*****  DATA VARIABLE  *****/
+/* customer data */
+var cusDat = JSON.parse(localStorage.getItem("cusdat"));
+/* customer detail data */
+var cusDetailData;
+
+
+/* 
+	SET DEFAULT DATE
+*/
 function setDefaultDate() {
     document.getElementById("recentTime").innerText = "現在の日時：" + moment().format('YYYY/MM/DD HH:mm');
     document.getElementById("jisshi-bi").value = moment().format('YYYY-MM-DD');
 }
 
+
+/* 
+	GET CUSTOMER INFORMATION
+*/
 function getInformation() {
-    if (data != null) {
-        setupModal("load", null, "データを読み込んでいます...", null, null);
+    if (cusDat != null) {
+        Common.setupModal("load", null, "しばらくお待ちください。。。", null, null);
         $.ajax({
-            url: "http://192.168.200.218:8080/Webkensin/compackr/readData?key=0582668301&cusrec=" + data.cusrec + "&login_id=7&login_pw=7",
+            url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
+		    // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             success: function (result) {
-                dataAPI = JSON.parse(result);
-                setInformation();
-                setupModal();
+                cusDetailData = JSON.parse(result);
+                if (cusDetailData != null) {
+                    setInformation();
+                }
+                modal.style.display = "none";
             },
             error: function (jqXHR, exception) {
                 console.log(exception);
-            }
+                Common.setupModal("error", null, "データが取得できませんでした。", "OK", null);
+            },
+            timeout: ValueCS.VL_LONG_TIMEOUT
         });
     } else {
-        history.back();
+        // history.back();
     }
 }
 
 
+/* 
+	SET CUSTOMER INFORMATION
+*/
 function setInformation() {
-    console.log(data);
-
-    if (data != null) {
-        document.getElementById("taishoo").innerHTML = data.taishoo;
-
-        document.getElementById("kokyaku_kodo").innerHTML = data.kcode.trim();
-        document.getElementById("kokyaku-mei").innerHTML = data.name.trim();
-        document.getElementById("juusho").innerHTML = data.add_0.trim() + "\n" + data.add_1.trim();
-        document.getElementById("denwabango").innerHTML = data.tel_0;
-        document.getElementById("mtban").innerHTML = dataAPI.cusmastrDat.mtban;
+    if (cusDat != null) {
+        document.getElementById("taishoo").innerHTML = cusDat.taishoo;
+        document.getElementById("kokyaku_kodo").innerHTML = cusDat.kcode.trim();
+        document.getElementById("kokyaku-mei").innerHTML = cusDat.name.trim();
+        document.getElementById("juusho").innerHTML = cusDat.add_0.trim() + "\n" + cusDat.add_1.trim();
+        document.getElementById("denwabango").innerHTML = cusDat.tel_0;
+        document.getElementById("mtban").innerHTML = cusDetailData.cusmastrDat.mtban;
     }
 
-    if (dataAPI != null) {
+    if (cusDetailData != null) {
         setCustomerDetail();
         getShuukei();
         getKyookyuu();
         getRyookin();
-        if (dataAPI.cusmastrDat.mark != null) {
-            document.getElementById("mokuhyoo").innerHTML = dataAPI.cusmastrDat.mark;
+        if (cusDetailData.cusmastrDat.mark != null) {
+            document.getElementById("mokuhyoo").innerHTML = cusDetailData.cusmastrDat.mark;
         }
 
-        if (dataAPI.koukanDat != null) {
+        if (cusDetailData.koukanDat != null) {
             showKenshinJoohoo();
             showHaisooJoohoo();
+        } 
+        
+        if (document.getElementById("kenshin-joohoo-area").style.display == "none" &&
+            document.getElementById("kenshin-haisoo-area").style.display == "none" &&
+            document.getElementById("memo-area").style.display == "none") {
+            document.getElementsByClassName("card-2")[0].style.display = "none";
         }
 
         showMemo();
@@ -62,45 +91,55 @@ function setInformation() {
 }
 
 
+/* 
+	SET CUSTOMER DETAIL INFORMATION
+*/
 function setCustomerDetail() {
-    if (dataAPI.cusmastrDat.ccode != null) {
+    if (cusDetailData.cusmastrDat.ccode != null) {
         var ccodeList = document.getElementsByClassName("ccode");
         for (var i = 0; i < ccodeList.length; i++) {
-            ccodeList[i].innerHTML = dataAPI.cusmastrDat.ccode[i];
+            ccodeList[i].innerHTML = cusDetailData.cusmastrDat.ccode[i];
         }
     }
 
-    if (dataAPI.cusmastrDat.juncd != null) {
+    if (cusDetailData.cusmastrDat.juncd != null) {
         var juncdList = document.getElementsByClassName("juncd");
         for (var i = 0; i < juncdList.length; i++) {
-            juncdList[i].innerHTML = dataAPI.cusmastrDat.juncd[i];
+            juncdList[i].innerHTML = cusDetailData.cusmastrDat.juncd[i];
         }
     }
 }
 
 
+/* 
+	SET SHUUKEI DATA
+*/
 function getShuukei() {
     var shuukei = "";
-    let listSyuku = dataAPI.lstShuku;
+    let listSyuku = cusDetailData.lstShuku;
 
     for (var idx = 0; idx < listSyuku.length; idx++) {
-        if (listSyuku[idx].code == dataAPI.cusmastrDat.shuku) {
+        if (listSyuku[idx].code == cusDetailData.cusmastrDat.shuku) {
             shuukei = listSyuku[idx].name.trim();
             break;
         }
     }
 
-    if (dataAPI.cusmastrDat.shuku == 0 || dataAPI.cusmastrDat.shuku == 4 || data.m_nBkcd != 0) {
-        if (dataAPI.cusmastrDat.fkin != 0) {
+    if (cusDetailData.cusmastrDat.shuku == 0 || cusDetailData.cusmastrDat.shuku == 4 || cusDat.m_nBkcd != 0) {
+        if (cusDetailData.cusmastrDat.fkin != 0) {
             shuukei = "依頼中";
         } else {
-            shuukei = formatShuku(data.bkcd);
+            shuukei = formatShuku(cusDat.bkcd);
         }
     }
     document.getElementById("shuukei-mei").innerHTML = shuukei;
 }
 
 
+/* 
+	FORMAT SHUKU DATA
+    @param value
+*/
 function formatShuku(value) {
     var result = "銀";
     if (value.toString().length == 1) {
@@ -114,9 +153,12 @@ function formatShuku(value) {
 }
 
 
+/* 
+	SET KYOOKYUU DATA
+*/
 function getKyookyuu() {
     var result = "";
-    switch (dataAPI.cusmastrDat.kyoku) {
+    switch (cusDetailData.cusmastrDat.kyoku) {
         case 1:
             result = "一般";
             break;
@@ -133,38 +175,47 @@ function getKyookyuu() {
 }
 
 
+/* 
+	SET KENSHIN JOOHOO DATA
+*/
 function showKenshinJoohoo() {
-    if (dataAPI.koukanDat.HN_DENCNT > 0) {
+    if (cusDetailData.koukanDat.HN_DENCNT > 0) {
         document.getElementById("kenshin-joohoo-area").style.display = "block";
-        document.getElementById("kenshin-bii").innerText = String(dataAPI.koukanDat.HN_DENYMD).substring(0, 10).replaceAll("-", "/");
-        document.getElementById("shishin").innerText = dataAPI.koukanDat.HN_SISIN;
-        document.getElementById("shiyoo-ryoo").innerText = dataAPI.koukanDat.HN_SIYOURYO;
-        document.getElementById("gasu-ryookin").innerText = dataAPI.hndenpyoDat.zkn_kin;
+        document.getElementById("kenshin-bii").innerText = String(cusDetailData.koukanDat.HN_DENYMD).substring(0, 10).replaceAll("-", "/");
+        document.getElementById("shishin").innerText = cusDetailData.koukanDat.HN_SISIN;
+        document.getElementById("shiyoo-ryoo").innerText = cusDetailData.koukanDat.HN_SIYOURYO;
+        document.getElementById("gasu-ryookin").innerText = cusDetailData.hndenpyoDat.zkn_kin;
     } else {
         document.getElementById("kenshin-joohoo-area").style.display = "none";
     }
 }
 
 
+/* 
+	SET HAISOO JOOHOO DATA
+*/
 function showHaisooJoohoo() {
-    if (dataAPI.koukanDat.HA_DENCNT > 0) {
+    if (cusDetailData.koukanDat.HA_DENCNT > 0) {
         document.getElementById("kenshin-haisoo-area").style.display = "block";
-        document.getElementById("haisoo-bi").innerText = String(dataAPI.koukanDat.HA_DENYMD).substring(0, 10).replaceAll("-", "/");
-        document.getElementById("haisoo-shishin").innerText = dataAPI.koukanDat.HA_SISIN;
-        document.getElementById("haisoo-shiyoo-ryoo").innerText = dataAPI.koukanDat.HA_SIYOURYO;
+        document.getElementById("haisoo-bi").innerText = String(cusDetailData.koukanDat.HA_DENYMD).substring(0, 10).replaceAll("-", "/");
+        document.getElementById("haisoo-shishin").innerText = cusDetailData.koukanDat.HA_SISIN;
+        document.getElementById("haisoo-shiyoo-ryoo").innerText = cusDetailData.koukanDat.HA_SIYOURYO;
     } else {
         document.getElementById("kenshin-haisoo-area").style.display = "none";
     }
 }
 
 
+/* 
+	SET MEMO DATA
+*/
 function showMemo() {
-    if (dataAPI.cusmastrDat.memo != null) {
-        if (dataAPI.cusmastrDat.memo.length > 0) {
+    if (cusDetailData.cusmastrDat.memo != null) {
+        if (cusDetailData.cusmastrDat.memo.length > 0) {
             document.getElementById("memo-area").style.display = "block";
             var valueMemo = "";
-            for (var i = 0; i < dataAPI.cusmastrDat.memo.length; i++) {
-                valueMemo = valueMemo + dataAPI.cusmastrDat.memo[i] + "\n";
+            for (var i = 0; i < cusDetailData.cusmastrDat.memo.length; i++) {
+                valueMemo = valueMemo + cusDetailData.cusmastrDat.memo[i] + "\n";
             }
             document.getElementById("memo-naiyoo").innerText = valueMemo;
         } else {
@@ -176,18 +227,16 @@ function showMemo() {
 }
 
 
-function kinyuuMove(mode) {
-    sessionStorage.setItem('kinyuu_mode', mode);
-    changePage('/kinyuu_page.html');
-}
-
+/* 
+	SET RYOOKIN DATA
+*/
 function getRyookin() {
-    if (dataAPI.cusmastrDat.gasku == 0) {
+    if (cusDetailData.cusmastrDat.gasku == 0) {
         document.getElementById("ryookin").innerHTML = "未設定";
         return;
     }
     var result = "";
-    switch (dataAPI.cusmastrDat.mSum) {
+    switch (cusDetailData.cusmastrDat.mSum) {
         case 0:
             result = "未設定";
             break;
@@ -207,48 +256,37 @@ function getRyookin() {
             result = "";
             break;
     }
-    result = result + ":" + dataAPI.cusmastrDat.gasku;
+    result = result + ":" + cusDetailData.cusmastrDat.gasku;
     document.getElementById("ryookin").innerHTML = result;
 }
 
 
-
-function setupModal(status, title, message, textButton1, textButton2) {
-    var modal = document.getElementById("myModal");
-    var titleModal = document.getElementsByClassName("title-modal")[0];
-    var messageModal = document.getElementsByClassName("modal-message-detail")[0];
-    var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
-    var closeButton = document.getElementsByClassName("modal-close-button")[0];
-
-
-    titleModal.innerHTML = title;
-    messageModal.innerHTML = message;
-    if (buttonConfirm != null) {
-        buttonConfirm.innerHTML = message;
-    }
-
-    if (status == "load") {
-        titleModal.style.display = "none";
-        closeButton.style.display = "none";
-        buttonConfirm.style.display = "none";
-    }
-
-    if (modal.style.display == "none" || modal.style.display == "") {
-        modal.style.display = "block";
-    } else {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    closeButton.onclick = function () {
-        modal.style.display = "none";
-    }
+/* 
+	MOVE TO KINYUU PAGE WITH MODE
+*/
+function kinyuuMove(mode) {
+    sessionStorage.setItem('kinyuu_mode', mode);
+    changePage('/kinyuu_page.html');
 }
 
 
-function initPage() {
+/* 
+	ONCLICK ACTION
+*/
+function onclickAction() {
+	document.getElementById("backPageButton").onclick = Common.backAction;
+	document.getElementById("nyuukinButton").onclick = function() { kinyuuMove(3);};
+	document.getElementById("jikkoButton").onclick = function() { kinyuuMove(1);};
+}
+
+/* 
+	ONLOAD ACTION
+*/
+function onLoadAction() {
     setDefaultDate();
     getInformation();
+	onclickAction();
 }
 
-initPage();
+
+window.onload = onLoadAction;

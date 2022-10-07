@@ -104,7 +104,6 @@ function setMaxLengthInput() {
 }
 
 
-
 /* 
 	GET VALUE RADIO
 	@param radioName
@@ -210,8 +209,8 @@ function searchCus() {
 
 	Common.setupModal("load", null, "しばらくお待ちください。。。", null, null);
 	$.ajax({
-		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY +
-		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + searchKindVal +	//mặc định
 			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +	//mặc định 
 			"&match_kind=" + searchPartVal +	//mặc định
@@ -310,8 +309,8 @@ function firstCustomerAction() {
 
 	Common.setupModal("load", null, "しばらくお待ちください。。。", null, null);
 	$.ajax({
-		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY +
-		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + searchKindVal +
 			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +
 			"&match_kind=" + searchPartVal +
@@ -362,6 +361,7 @@ function onclickAction() {
 	document.getElementById("kensakuButton").onclick = searchCus;
 	document.getElementById("firstCustomerButton").onclick = firstCustomerAction;
 }
+
 
 /* 
 	ONLOAD ACTION
