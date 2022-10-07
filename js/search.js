@@ -10,7 +10,7 @@ const searchPart = document.getElementById("search-part");
 /* searchOrder */
 const searchOrder = document.getElementById("search-order");
 /* searchKey */
-const searchKey = document.getElementById("data-messages");
+const searchKey = document.getElementById("search-key");
 /* resultTable */
 const table = document.getElementsByClassName("result-tb")[0];
 /* dataMessage */
