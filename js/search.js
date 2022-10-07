@@ -10,9 +10,11 @@ const searchPart = document.getElementById("search-part");
 /* searchOrder */
 const searchOrder = document.getElementById("search-order");
 /* searchKey */
-const searchKey = document.getElementById("search-key");
+const searchKey = document.getElementById("data-messages");
 /* resultTable */
 const table = document.getElementsByClassName("result-tb")[0];
+/* dataMessage */
+const dataMessage = document.getElementById("data-messages");
 /* modal */
 const modal = document.getElementById("myModal");
 
@@ -211,10 +213,10 @@ function searchCus() {
 	$.ajax({
 		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-			"&srch_kind=" + searchKindVal +	//mặc định
-			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +	//mặc định 
-			"&match_kind=" + searchPartVal +	//mặc định
-			"&kenstat=" + kenstat +	//2
+			"&srch_kind=" + searchKindVal +
+			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +	
+			"&match_kind=" + searchPartVal +	
+			"&kenstat=" + kenstat +	
 			"&shustat=" + shustat +
 			"&uristat=" + uristat +
 			(hanku != "" ? "&hanku=" + hanku : "") +
@@ -222,7 +224,7 @@ function searchCus() {
 			(shutan != "" ? "&shutan=" + shutan : "") +
 			(uritan != "" ? "&uritan=" + uritan : "") +
 			(shuku != "" ? "&shuku=" + shuku : "") +
-			"&order_kind=" + searchOrderVal +	// mặc định trên màn hình
+			"&order_kind=" + searchOrderVal +	
 			"&login_id=" + sessionStorage.getItem('username') +
 			"&login_pw=" + sessionStorage.getItem('password'),
 		headers: {
@@ -276,10 +278,15 @@ function searchCus() {
 						document.getElementById("data-messages").style.display = "block";
 					}
 					modal.style.display = "none";
+					dataMessage.style.display = "none";
 				} else {
+					dataMessage.innerText = "データありません。";
+					dataMessage.style.display = "block";
 					Common.setupModal("success", null, "検索条件に満たす顧客情報はありません", "OK", null);
 				}
 			} else {
+				dataMessage.innerText = "データありません。";
+				dataMessage.style.display = "block";
 				Common.setupModal("success", null, "検索条件に満たす顧客情報はありません", "OK", null);
 			}
 		},
@@ -336,10 +343,15 @@ function firstCustomerAction() {
 					cusdat.taishoo = searchOrder.options[searchOrder.selectedIndex].text
 					localStorage.setItem("cusdat", JSON.stringify(cusdat));
 					window.location.href = "/kokyaku_sentaku_page.html";
+					dataMessage.style.display = "none";
 				} else {
+					modal.style.display = "none";
+					dataMessage.style.display = "block";
 					Common.setupModal("success", null, "検索条件に満たす顧客情報はありません", "OK", null);
 				}
 			} else {
+				modal.style.display = "none";
+				dataMessage.style.display = "block";
 				Common.setupModal("success", null, "検索条件に満たす顧客情報はありません", "OK", null);
 			}
 
