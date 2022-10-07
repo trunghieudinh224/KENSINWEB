@@ -53,7 +53,7 @@ function checkUser(username, password) {
 
             if (JSON.parse(result).err_code == 0) {
                 sessionStorage.setItem(StringCS.USERNAME, username);
-                sessionStorage.setItem(StringCS.USERNAME, password);
+                sessionStorage.setItem(StringCS.PASSWORD, password);
                 getSystemDat();
             } else {
                 Common.setupModal("error", StringCS.LOGIN, Mess.E00002, StringCS.CONFIRM, null);
