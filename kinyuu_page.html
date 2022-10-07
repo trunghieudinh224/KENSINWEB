@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <!--===============================================================================================-->
+    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/kinyuu.css">
 </head>
@@ -27,17 +27,16 @@
         <div class="dropdown select-role">
             <div class="btn-menu btn-secondary dropdown-toggle" type="button" id="dropdownSelectRole"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="text" id="userName"><i class="ic-dropdown fa-solid fa-user"></i><a
-                        id="name"></a></span>
+                <span class="text" id="userName"><i class="ic-dropdown fa-solid fa-user"></i><a id="name"></a></span>
             </div>
             <ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
                 <li>
-                    <a class="dropdown-item notice-page" onclick="changePage('/menu_page.html')">
+                    <a class="dropdown-item notice-page" id="menuOption">
                         <span class="text"><i class="ic-dropdown fa-solid fa-bars"></i>メニュー</span>
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item print-page" onclick="changePage('/setting_page.html')">
+                    <a class="dropdown-item print-page" id="settingOption">
                         <span class="text"><i class="ic-dropdown fa-solid fa-gear"></i>設定</span>
                     </a>
                 </li>
@@ -45,7 +44,7 @@
                     <hr class="dropdown-divider">
                 </li>
                 <li>
-                    <a class="dropdown-item scan-page" onclick="changePage('logout')">
+                    <a class="dropdown-item scan-page" id="logoutOption">
                         <span class="text"><i class="ic-dropdown logout fa-solid fa-right-from-bracket"></i>ログアウト</span>
                     </a>
                 </li>
@@ -112,7 +111,8 @@
                                                         <span class="input-group-text mw135 text">今回指針</span>
                                                     </div>
 
-                                                    <input class="form-control ta-r text" type="text" id="kenshin_data" onchange="changeValue()">
+                                                    <input class="form-control ta-r text" type="text" id="kenshin_data"
+                                                        onchange="changeValue()">
                                                     <span class="form-control unit text">m3</span>
                                                 </div> <!-- form-group// -->
                                             </div>
@@ -222,7 +222,8 @@
                                                         <span class="input-group-text mw215 text">@当月請求額</span>
                                                     </div>
 
-                                                    <select class="custom-select combobox" id="combobox_total" onchange="setAllComboBox()">
+                                                    <select class="custom-select combobox" id="combobox_total"
+                                                        onchange="setAllComboBox()">
                                                         <option value="0">◯</option>
                                                         <option value="1">✕</option>
                                                         <option value="2" selected="">ー</option>
@@ -350,16 +351,19 @@
                                         <div class="button-area">
                                             <div class="row content">
                                                 <div class="col-4">
-                                                    <button type="button"
-                                                        class="btn btn-default text-center" id="unnecessary_btn" onclick="setDataforComboBoxSelect(2)">不要</button>
+                                                    <button type="button" class="btn btn-default text-center"
+                                                        id="unnecessary_btn"
+                                                        onclick="setDataforComboBoxSelect(2)">不要</button>
                                                 </div>
 
                                                 <div class="col-4">
-                                                    <button type="button" class="btn btn-default text-center" id="no_btn" onclick="setDataforComboBoxSelect(1)">否</button>
+                                                    <button type="button" class="btn btn-default text-center"
+                                                        id="no_btn" onclick="setDataforComboBoxSelect(1)">否</button>
                                                 </div>
 
                                                 <div class="col-4">
-                                                    <button type="button" class="btn btn-default text-center" id="good_btn" onclick="setDataforComboBoxSelect(0)">良</button>
+                                                    <button type="button" class="btn btn-default text-center"
+                                                        id="good_btn" onclick="setDataforComboBoxSelect(0)">良</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -469,7 +473,8 @@
                                                     <span class="input-group-text mw145 text">調整額</span>
                                                 </div>
 
-                                                <input class="form-control ta-r text" id="chouseigaku" type="text" value="0">
+                                                <input class="form-control ta-r text" id="chouseigaku" type="text"
+                                                    value="0">
                                             </div> <!-- form-group// -->
                                         </div>
                                     </div>
@@ -481,11 +486,12 @@
                                                     <span class="input-group-text mw145 text">預り金</span>
                                                 </div>
 
-                                                <input class="form-control ta-r text" id="azukari-kin" type="text" value="0">
+                                                <input class="form-control ta-r text" id="azukari-kin" type="text"
+                                                    value="0">
                                             </div> <!-- form-group// -->
                                         </div>
                                     </div>
-<!-- ----------------------------------------------------------------------- -->
+                                    <!-- ----------------------------------------------------------------------- -->
                                     <div class="row content" id="nyuukin-group">
                                         <div class="col-12">
                                             <div class="form-group input-group">
@@ -494,10 +500,10 @@
                                                 </div>
 
                                                 <span class="form-control ta-r text" id="nyuukin">0</span>
-                                            </div> 
+                                            </div>
                                         </div>
                                     </div>
-<!-- ------------------------------------------------------------------------- -->
+                                    <!-- ------------------------------------------------------------------------- -->
                                     <div class="row content hidden" id="teisei-group">
                                         <div class="col-12">
                                             <div class="form-group input-group">
@@ -505,8 +511,8 @@
                                                     <span class="input-group-text mw145 text">入金額</span>
                                                 </div>
 
-                                                <input class="form-control ta-r text" id="teisei-nyuukin" value="0"/>
-                                            </div> 
+                                                <input class="form-control ta-r text" id="teisei-nyuukin" value="0" />
+                                            </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group input-group">
@@ -514,13 +520,13 @@
                                                     <span class="input-group-text mw145 text">お釣り</span>
                                                 </div>
                                                 <span class="form-control ta-r text" id="otsuri">0</span>
-                                            </div> 
+                                            </div>
                                         </div>
                                         <div class="col-12 text-center">
                                             <button id="teisei-sumi" class="btn btn-default text-center">確認</button>
                                         </div>
                                     </div>
-<!-- ------------------------------------------------------------------------- -->
+                                    <!-- ------------------------------------------------------------------------- -->
                                     <div class="row content">
                                         <div class="col-12">
                                             <div class="form-group input-group">
@@ -537,7 +543,8 @@
                                     <div class="button-area">
                                         <div class="row content">
                                             <div class="col-6">
-                                                <button type="button" class="btn btn-default text-center" id="teisei"><span
+                                                <button type="button" class="btn btn-default text-center"
+                                                    id="teisei"><span
                                                         class="fas fa-pencil ic-btn"></span><br>訂正</button>
                                             </div>
 
@@ -576,102 +583,102 @@
         </div>
     </div>
 
-	<!-- 内訳ダイアログ  -->
-	<div class="overlay">
-		<div class="container-mainform">
-			<div class="wrap-mainform p-t-30 p-b-40" style="padding-top: 60px;">
-				<i class="fa-sharp fa-solid fa-circle-xmark" id="close-icon"></i>
-				<form action="" class="formKenshin kenshin">
-					<div class="row content">
-						<div class="col-12">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text mw145 text">顧客</span>
-								</div>
-								<span class="form-control ta-l text">山崎誠</span>
-							</div> <!-- form-group// -->
-						</div>
-					</div>
-					<div class="row content">
-						<div class="col-12">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text mw145 text">前月残高</span>
-								</div>
-								<span class="form-control ta-r text"></span>
-							</div> <!-- form-group// -->
-						</div>
-					</div>
-					<div class="row content">
-						<div class="col-12">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text mw145 text">ガス料金</span>
-								</div>
-								<span class="form-control ta-r text"></span>
-							</div> <!-- form-group// -->
-						</div>
-					</div>
-					<div class="row content">
-						<div class="col-12">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text mw145 text">ガス消費税</span>
-								</div>
-								<span class="form-control ta-r text"></span>
-							</div> <!-- form-group// -->
-						</div>
-					</div>
-					<div class="row content">
-						<div class="col-12">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text mw145 text">その他売上</span>
-								</div>
-								<span class="form-control ta-r text"></span>
-							</div> <!-- form-group// -->
-						</div>
-					</div>
-					<div class="row content">
-						<div class="col-12">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text mw145 text">その他消費税</span>
-								</div>	
-								<span class="form-control ta-r text"></span>
-							</div> <!-- form-group// -->
-						</div>
-					</div>
-					<div class="row content">
-						<div class="col-12">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text mw145 text">調整額</span>
-								</div>
-								<span class="form-control ta-r text"></span>
-							</div> 
-						</div>
-						<div class="col-12">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text mw145 text">入金額</span>
-								</div>
-								<span class="form-control ta-r text"></span>
-							</div> 
-						</div>
-						<div class="col-12">
-							<div class="form-group input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text mw145 text">＠当月請求額</span>
-								</div>
-								<span class="form-control ta-r text"></span>
-							</div> 
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+    <!-- 内訳ダイアログ  -->
+    <div class="overlay">
+        <div class="container-mainform">
+            <div class="wrap-mainform p-t-30 p-b-40" style="padding-top: 60px;">
+                <i class="fa-sharp fa-solid fa-circle-xmark" id="close-icon"></i>
+                <form action="" class="formKenshin kenshin">
+                    <div class="row content">
+                        <div class="col-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw145 text">顧客</span>
+                                </div>
+                                <span class="form-control ta-l text">山崎誠</span>
+                            </div> <!-- form-group// -->
+                        </div>
+                    </div>
+                    <div class="row content">
+                        <div class="col-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw145 text">前月残高</span>
+                                </div>
+                                <span class="form-control ta-r text"></span>
+                            </div> <!-- form-group// -->
+                        </div>
+                    </div>
+                    <div class="row content">
+                        <div class="col-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw145 text">ガス料金</span>
+                                </div>
+                                <span class="form-control ta-r text"></span>
+                            </div> <!-- form-group// -->
+                        </div>
+                    </div>
+                    <div class="row content">
+                        <div class="col-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw145 text">ガス消費税</span>
+                                </div>
+                                <span class="form-control ta-r text"></span>
+                            </div> <!-- form-group// -->
+                        </div>
+                    </div>
+                    <div class="row content">
+                        <div class="col-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw145 text">その他売上</span>
+                                </div>
+                                <span class="form-control ta-r text"></span>
+                            </div> <!-- form-group// -->
+                        </div>
+                    </div>
+                    <div class="row content">
+                        <div class="col-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw145 text">その他消費税</span>
+                                </div>
+                                <span class="form-control ta-r text"></span>
+                            </div> <!-- form-group// -->
+                        </div>
+                    </div>
+                    <div class="row content">
+                        <div class="col-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw145 text">調整額</span>
+                                </div>
+                                <span class="form-control ta-r text"></span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw145 text">入金額</span>
+                                </div>
+                                <span class="form-control ta-r text"></span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw145 text">＠当月請求額</span>
+                                </div>
+                                <span class="form-control ta-r text"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript"
         src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>

@@ -1,5 +1,5 @@
 "use strict"
-
+import * as Common from './Common/common_function.js'
 import * as constant from './Constant/message.js'
 
 const mUserData = JSON.parse(localStorage.getItem("UserData"));
@@ -57,3 +57,12 @@ function setAlignCombobox(value) {
 
 setAlignCombobox(isIOS());
 
+/* 
+	SETUP OPTION MENU
+*/
+function setOptionMenu() {
+    document.getElementById("menuOption").onclick = function() {Common.movePage('/menu_page.html')};
+    document.getElementById("settingOption").onclick = function() {Common.movePage('/setting_page.html')};
+    document.getElementById("logoutOption").onclick = function() {Common.movePage('logout')};
+}
+setOptionMenu();

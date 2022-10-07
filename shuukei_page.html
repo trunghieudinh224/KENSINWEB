@@ -31,12 +31,12 @@
 			</div>
 			<ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
 				<li>
-					<a class="dropdown-item notice-page" onclick="changePage('/menu_page.html')">
+					<a class="dropdown-item notice-page" id="menuOption">
 						<span class="text"><i class="ic-dropdown fa-solid fa-bars"></i>メニュー</span>
 					</a>
 				</li>
 				<li>
-					<a class="dropdown-item print-page" onclick="changePage('/setting_page.html')">
+					<a class="dropdown-item print-page" id="settingOption">
 						<span class="text"><i class="ic-dropdown fa-solid fa-gear"></i>設定</span>
 					</a>
 				</li>
@@ -44,7 +44,7 @@
 					<hr class="dropdown-divider">
 				</li>
 				<li>
-					<a class="dropdown-item scan-page" onclick="changePage('logout')">
+					<a class="dropdown-item scan-page" id="logoutOption">
 						<span class="text"><i class="ic-dropdown logout fa-solid fa-right-from-bracket"></i>ログアウト</span>
 					</a>
 				</li>
@@ -64,7 +64,8 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw90 text">範囲指定</span>
 									</div>
-									<select class="custom-select combobox" id="rangeDateSelect" onchange="initRangeDateView()">
+									<select class="custom-select combobox" id="rangeDateSelect"
+										onchange="initRangeDateView()">
 										<option value="0" class="text">有り</option>
 										<option value="1" class="text">無し</option>
 									</select>
@@ -74,7 +75,8 @@
 							<div class="col-4">
 								<div class="form-group input-group">
 									<div class="form-control text bd-0 pd-l-0 pd-r-0 pd-0">
-										<button type="button" class="btn btn-default text-center mg-0" id="getDataBtn" onclick="getData()">実行</button>
+										<button type="button" class="btn btn-default text-center mg-0" id="getDataBtn"
+											onclick="getData()">実行</button>
 									</div>
 								</div>
 							</div>
@@ -87,7 +89,8 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw90 text">開始</span>
 									</div>
-									<input type="date" class="form-control text ta-c" id="date-start" data-date-format="yyyy MM dd" data-language='en'>
+									<input type="date" class="form-control text ta-c" id="date-start"
+										data-date-format="yyyy MM dd" data-language='en'>
 								</div> <!-- form-group// -->
 							</div>
 
@@ -96,11 +99,12 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw90 text date-end-title">終了</span>
 									</div>
-									<input type="date" class="form-control text ta-c" id="date-end" data-date-format="yyyy/mm/dd" data-language='en'>
+									<input type="date" class="form-control text ta-c" id="date-end"
+										data-date-format="yyyy/mm/dd" data-language='en'>
 								</div> <!-- form-group// -->
 							</div>
 						</div>
-	
+
 						<div class="row content">
 							<div class="col-12">
 								<div class="form-group input-group">
@@ -317,7 +321,8 @@
 							</button>
 						</div>
 						<div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-							<button type="button" class="btn btn-default text-center" id="kensaku" onclick="createImageFile()">
+							<button type="button" class="btn btn-default text-center" id="kensaku"
+								onclick="createImageFile()">
 								<span class="fas fa-print"></span><br />印刷
 							</button>
 						</div>
@@ -514,7 +519,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
 	<!--===============================================================================================-->
-    <script type="module" src="./js/Common/check_login.js"></script>
+	<script type="module" src="./js/Common/check_login.js"></script>
 	<script src="./js/shuukei.js"></script>
 </body>
 

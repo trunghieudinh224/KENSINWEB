@@ -1,3 +1,5 @@
+import * as StringCS from '../Constant/strings.js'
+
 /* 
 	BACK ACTION
 */
@@ -6,7 +8,6 @@ function backAction() {
 }
 
 
-/*****  FUNCTION  *****/
 /* 
 	INITIALIZE MODAL
 	@param status
@@ -65,4 +66,20 @@ function setupModal(status, title, message, textButton1, textButton2) {
 }
 
 
-export {backAction, setupModal}
+/* 
+	MOVING TO ANOTHER PAGE
+*/
+function movePage(page) {
+    if (page != 'logout') {
+        window.location.href = page;
+    } else {
+        // Remove saved data from sessionStorage
+        sessionStorage.removeItem(StringCS.USERNAME);
+
+        // Remove all saved data from sessionStorage
+        sessionStorage.clear();
+        window.location.href = "/login_page.html";
+    }
+}
+
+export {backAction, setupModal, movePage}

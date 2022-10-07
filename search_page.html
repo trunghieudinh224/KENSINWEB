@@ -33,12 +33,12 @@
 				</div>
 				<ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
 					<li>
-						<a class="dropdown-item notice-page" onclick="changePage('/menu_page.html')">
+						<a class="dropdown-item notice-page" id="menuOption">
 							<span class="text"><i class="ic-dropdown fa-solid fa-bars"></i>メニュー</span>
 						</a>
 					</li>
 					<li>
-						<a class="dropdown-item print-page" onclick="changePage('/setting_page.html')">
+						<a class="dropdown-item print-page" id="settingOption">
 							<span class="text"><i class="ic-dropdown fa-solid fa-gear"></i>設定</span>
 						</a>
 					</li>
@@ -46,7 +46,7 @@
 						<hr class="dropdown-divider">
 					</li>
 					<li>
-						<a class="dropdown-item scan-page" onclick="changePage('logout')">
+						<a class="dropdown-item scan-page" id="logoutOption">
 							<span class="text"><i
 									class="ic-dropdown logout fa-solid fa-right-from-bracket"></i>ログアウト</span>
 						</a>
