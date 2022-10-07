@@ -1,6 +1,4 @@
-/*
-    ******  STRING  ******
-*/
+/*****  API LINK  *****/
 // https://
 export var PR_HTTPS = "https://";
 // http://
@@ -13,8 +11,11 @@ export var PR_PORT = ":8080";
 export var PR_WEBNAME = "/Webkensin/compackr/";
 // web key
 export var PR_KEY = "key=0582668301";
+// content-type
+export var PR_CONTENT_TYPE = "application/x-www-form-urlencoded";
 
 
+/*****  API OBJECT  *****/
 // loginchk
 export var PR_LOGIN = "loginchk?";
 // readData
@@ -23,3 +24,28 @@ export var PR_READDATA = "readData?";
 export var PR_GETSETTING = "getSetting?";
 // get customer list
 export var PR_CUSSEARCH = "cussearch?";
+
+
+/*****  VARIABLE  *****/
+// username
+export var USERNAME = "Username";
+// password
+export var PASSWORD = "Password";
+// userdata
+export var USERDATA = "UserData";
+// cuslist
+export var CUSTLIST = "CusList";
+// cusdat
+export var CUSDAT = "CusDat";
+
+
+/*****  CONTENT  *****/
+// login
+export var LOGIN = "ログイン";
+
+
+/*****  BUTTON  *****/
+// confirm button
+export var CONFIRM = "確認";
+// ok button
+export var OK = "OK";

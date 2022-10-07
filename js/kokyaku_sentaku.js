@@ -1,6 +1,7 @@
 import * as Common from './Common/common_function.js'
 import * as StringCS from './Constant/strings.js'
 import * as ValueCS from './Constant/values.js'
+import * as Mess from './Constant/message.js'
 
 /*****  VIEW VARIABLE  *****/
 /* modal */
@@ -8,7 +9,7 @@ const modal = document.getElementById("myModal");
 
 /*****  DATA VARIABLE  *****/
 /* customer data */
-var cusDat = JSON.parse(localStorage.getItem("cusdat"));
+var cusDat = JSON.parse(localStorage.getItem(StringCS.CUSDAT));
 /* customer detail data */
 var cusDetailData;
 
@@ -27,12 +28,12 @@ function setDefaultDate() {
 */
 function getInformation() {
     if (cusDat != null) {
-        Common.setupModal("load", null, "しばらくお待ちください。。。", null, null);
+        Common.setupModal("load", null, Mess.I00001, null, null);
         $.ajax({
-            url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
-		    // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
+            // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+		    url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': StringCS.PR_CONTENT_TYPE
             },
             success: function (result) {
                 cusDetailData = JSON.parse(result);
@@ -43,7 +44,7 @@ function getInformation() {
             },
             error: function (jqXHR, exception) {
                 console.log(exception);
-                Common.setupModal("error", null, "データが取得できませんでした。", "OK", null);
+                Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
             },
             timeout: ValueCS.VL_LONG_TIMEOUT
         });

@@ -1,6 +1,7 @@
 import * as Common from './Common/common_function.js'
 import * as StringCS from './Constant/strings.js'
 import * as ValueCS from './Constant/values.js'
+import * as Mess from './Constant/message.js'
 
 /*****  VIEW VARIABLE  *****/
 /* searchType */
@@ -144,7 +145,7 @@ function getValueCheckbox(checkboxName, data) {
 	SHOW PREVIOUS DATA
 */
 function checkPreviousData() {
-	const previousCuslist = JSON.parse(localStorage.getItem("cuslist"));
+	const previousCuslist = JSON.parse(localStorage.getItem(StringCS.CUSTLIST));
 	if (previousCuslist != null) {
 		if (previousCuslist.length > 0) {
 			document.getElementById("countList").innerHTML = "検索件数：" + previousCuslist.length + "件";
@@ -176,7 +177,7 @@ function checkPreviousData() {
 			newElement.onclick = function () {
 				object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 				const cusdat = Object.assign({}, object);
-				localStorage.setItem("cusdat", JSON.stringify(cusdat));
+				localStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
 				window.location.href = "/kokyaku_sentaku_page.html";
 			};
 		}
@@ -209,10 +210,10 @@ function searchCus() {
 	let shutan = getValueCheckbox("shutan", tantnameList);
 	let uritan = getValueCheckbox("uritan", tantnameList);
 
-	Common.setupModal("load", null, "しばらくお待ちください。。。", null, null);
+	Common.setupModal("load", null, Mess.I00001, null, null);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + searchKindVal +
 			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +	
 			"&match_kind=" + searchPartVal +	
@@ -225,10 +226,10 @@ function searchCus() {
 			(uritan != "" ? "&uritan=" + uritan : "") +
 			(shuku != "" ? "&shuku=" + shuku : "") +
 			"&order_kind=" + searchOrderVal +	
-			"&login_id=" + sessionStorage.getItem('username') +
-			"&login_pw=" + sessionStorage.getItem('password'),
+			"&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
+			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
+			'Content-Type': StringCS.PR_CONTENT_TYPE
 		},
 		success: function (result) {
 			while (table.hasChildNodes()) {
@@ -262,7 +263,7 @@ function searchCus() {
 						newElement.onclick = function () {
 							object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 							const cusdat = Object.assign({}, object);
-							localStorage.setItem("cusdat", JSON.stringify(cusdat));
+							localStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
 							window.location.href = "/kokyaku_sentaku_page.html";
 						};
 					}
@@ -280,19 +281,19 @@ function searchCus() {
 					modal.style.display = "none";
 					dataMessage.style.display = "none";
 				} else {
-					dataMessage.innerText = "データありません。";
+					dataMessage.innerText = Mess.E00001;
 					dataMessage.style.display = "block";
-					Common.setupModal("success", null, "検索条件に満たす顧客情報はありません", "OK", null);
+					Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
 				}
 			} else {
-				dataMessage.innerText = "データありません。";
+				dataMessage.innerText = Mess.E00001;
 				dataMessage.style.display = "block";
-				Common.setupModal("success", null, "検索条件に満たす顧客情報はありません", "OK", null);
+				Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
 			}
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
-			Common.setupModal("error", null, "データが取得できませんでした。", "OK", null);
+			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
 		},
 		timeout: ValueCS.VL_LONG_TIMEOUT
 	});
@@ -314,10 +315,10 @@ function firstCustomerAction() {
 	let shutan = getValueCheckbox("shutan", tantnameList);
 	let uritan = getValueCheckbox("uritan", tantnameList);
 
-	Common.setupModal("load", null, "しばらくお待ちください。。。", null, null);
+	Common.setupModal("load", null, Mess.I00001, null, null);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + searchKindVal +
 			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +
 			"&match_kind=" + searchPartVal +
@@ -330,10 +331,10 @@ function firstCustomerAction() {
 			(uritan != "" ? "&uritan=" + uritan : "") +
 			(shuku != "" ? "&shuku=" + shuku : "") +
 			"&order_kind=" + searchOrderVal +
-			"&login_id=" + sessionStorage.getItem('username') +
-			"&login_pw=" + sessionStorage.getItem('password'),
+			"&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
+			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
+			'Content-Type': StringCS.PR_CONTENT_TYPE
 		},
 		success: function (result) {
 			const data = JSON.parse(result);
@@ -341,24 +342,25 @@ function firstCustomerAction() {
 				if (data.cuslist.length > 0) {
 					const cusdat = Object.assign({}, data.cuslist[0]);
 					cusdat.taishoo = searchOrder.options[searchOrder.selectedIndex].text
-					localStorage.setItem("cusdat", JSON.stringify(cusdat));
+					localStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
 					window.location.href = "/kokyaku_sentaku_page.html";
 					dataMessage.style.display = "none";
-				} else {
 					modal.style.display = "none";
+				} else {
+					dataMessage.innerText = Mess.E00001;
 					dataMessage.style.display = "block";
-					Common.setupModal("success", null, "検索条件に満たす顧客情報はありません", "OK", null);
+					Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
 				}
 			} else {
-				modal.style.display = "none";
+				dataMessage.innerText = Mess.E00001;
 				dataMessage.style.display = "block";
-				Common.setupModal("success", null, "検索条件に満たす顧客情報はありません", "OK", null);
+				Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
 			}
 
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
-			Common.setupModal("error", null, "データが取得できませんでした。", "OK", null);
+			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
 		},
 		timeout: ValueCS.VL_LONG_TIMEOUT
 	});

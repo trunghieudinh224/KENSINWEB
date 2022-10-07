@@ -1,6 +1,7 @@
 import * as Common from './Common/common_function.js'
 import * as StringCS from './Constant/strings.js'
 import * as ValueCS from './Constant/values.js'
+import * as Mess from './Constant/message.js'
 
 /*****  VIEW VARIABLE  *****/
 /* modal */
@@ -16,12 +17,12 @@ var dataSetting;
 	GET DATA SETTING
 */
 function getDataSetting() {
-	Common.setupModal("load", null, "データを保存しています。。。", null, null);
+	Common.setupModal("load", null, Mess.I00002, null, null);
 	$.ajax({
-        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
-        // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
+        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
+        url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
+			'Content-Type': StringCS.PR_CONTENT_TYPE
 		},
 		success: function (result) {
 			dataSetting = JSON.parse(result);
@@ -33,7 +34,7 @@ function getDataSetting() {
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
-			Common.setupModal("error", null, "データが取得できませんでした。", "OK", null);
+			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
 		},
         timeout: ValueCS.VL_SHORT_TIMEOUT
 	});
@@ -114,8 +115,8 @@ function prepareNewDataSetting() {
 		comment1: comment1,
 		comment2: comment2,
 		m_nMode: dataSetting.wrt_tancd > 0 ? 1 : 0,
-		login_id: sessionStorage.getItem('username'),
-		login_pw: sessionStorage.getItem('password')
+		login_id: sessionStorage.getItem(StringCS.USERNAME),
+		login_pw: sessionStorage.getItem(StringCS.PASSWORD)
 	}
 	return newData;
 }
@@ -125,17 +126,17 @@ function prepareNewDataSetting() {
 	SAVE DATA SETTING
 */
 function saveDataSetting() {
-	Common.setupModal("load", null, "データを保存しています。。。", null, null);
+	Common.setupModal("load", null, Mess.I00002, null, null);
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(prepareNewDataSetting()),
-        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
-        // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
+        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
+        url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
 		contentType: "application/json",
         timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
 			console.log(response);
-			Common.setupModal("load", null, "データを保存しています。。。", null, null);
+			Common.setupModal("load", null, Mess.I00002, null, null);
 		},
 		error: function (xmlhttprequest, textstatus, message) {
 			if (textstatus === "timeout") {
@@ -143,11 +144,11 @@ function saveDataSetting() {
 			} else {
 				console.log(textstatus)
 			}
-			Common.setupModal("error", null, "データ保存に失敗しました。", "OK", null);
+			Common.setupModal("error", null, Mess.E00004, StringCS.OK, null);
 		}
 	}).done(function (res) {
 		console.log('res', res);
-		Common.setupModal("success", null, "データ保存に成功しました。", "OK", null);
+		Common.setupModal("success", null, Mess.I00003, StringCS.OK, null);
 	});
 }
 

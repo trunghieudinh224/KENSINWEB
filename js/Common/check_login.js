@@ -1,8 +1,11 @@
+import * as StringCS from '../Constant/strings.js'
+import * as Mess from '../Constant/message.js'
+
 /* 
 	CHECK USER IS LOGIN
 */
 function checkUser() {
-    var data = sessionStorage.getItem('username');
+    var data = sessionStorage.getItem(StringCS.USERNAME);
     if (data == null || data == '') {
         window.location.href = "/login_page.html";
     } else {
@@ -19,7 +22,7 @@ const changePage = (page) => {
         window.location.href = page;
     } else {
         // Remove saved data from sessionStorage
-        sessionStorage.removeItem('username');
+        sessionStorage.removeItem(StringCS.USERNAME);
 
         // Remove all saved data from sessionStorage
         sessionStorage.clear();
@@ -35,7 +38,7 @@ function clearDataSearch() {
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
     if (page != "search_page" && page != "kokyaku_sentaku_page" && page != "kinyuu_page") {
-        localStorage.removeItem("cuslist");
+        localStorage.removeItem(StringCS.CUSTLIST);
     }
 }
 
@@ -47,7 +50,7 @@ function clearDataCus() {
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
     if (page != "kinyuu_page" && page != "kokyaku_sentaku_page") {
-        localStorage.removeItem("cusdat");
+        localStorage.removeItem(StringCS.CUSDAT);
     }
 }
 

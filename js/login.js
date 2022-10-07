@@ -1,6 +1,7 @@
 import * as Common from './Common/common_function.js'
 import * as StringCS from './Constant/strings.js'
 import * as ValueCS from './Constant/values.js'
+import * as Mess from './Constant/message.js'
 
 
 /*****  FUNCTION  *****/
@@ -8,7 +9,7 @@ import * as ValueCS from './Constant/values.js'
 	CHECK ACCOUNT
 */
 function checkAccount() {
-    var data = sessionStorage.getItem('username');
+    var data = sessionStorage.getItem(StringCS.USERNAME);
     if (data != null) {
         window.location.href = "/menu_page.html";
     }
@@ -29,7 +30,7 @@ function login() {
             password.classList.add("warning");
         }
     } else {
-        Common.setupModal("load", null, "しばらくお待ちください。。。", null, null);
+        Common.setupModal("load", null, Mess.I00001, null, null);
         checkUser(user.value, password.value);
     }
 }
@@ -42,20 +43,20 @@ function login() {
 */
 function checkUser(username, password) {
     $.ajax({
-        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_LOGIN + StringCS.PR_KEY + "&login_id=" + username + "&login_pw=" + password,
-        // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_LOGIN + StringCS.PR_KEY + "&login_id=" + username + "&login_pw=" + password,
+        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_LOGIN + StringCS.PR_KEY + "&login_id=" + username + "&login_pw=" + password,
+        url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_LOGIN + StringCS.PR_KEY + "&login_id=" + username + "&login_pw=" + password,
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': StringCS.PR_CONTENT_TYPE
         },
         success: function (result) {
             console.log(result)
 
             if (JSON.parse(result).err_code == 0) {
-                sessionStorage.setItem('username', username);
-                sessionStorage.setItem('password', password);
+                sessionStorage.setItem(StringCS.USERNAME, username);
+                sessionStorage.setItem(StringCS.USERNAME, password);
                 getSystemDat();
             } else {
-                Common.setupModal("error", "ログイン", "ログインに失敗しました", "確認", null);
+                Common.setupModal("error", StringCS.LOGIN, Mess.E00002, StringCS.CONFIRM, null);
             }
         },
         error: function (jqXHR, exception) {
@@ -90,14 +91,14 @@ function setFocusInput() {
 */
 function getSystemDat() {
     $.ajax({
-        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
-        // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem('username') + "&login_pw=" + sessionStorage.getItem('password'),
+        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+        url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': StringCS.PR_CONTENT_TYPE
         },
         success: function (result) {
             let systemDat = JSON.parse(result);
-            localStorage.setItem("UserData", JSON.stringify(systemDat));
+            localStorage.setItem(StringCS.USERDATA, JSON.stringify(systemDat));
             window.location.href = "/menu_page.html";
         },
         error: function (jqXHR, exception) {
