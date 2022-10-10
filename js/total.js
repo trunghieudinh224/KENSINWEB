@@ -1,4 +1,4 @@
-"use strict";
+import * as Common from './Common/common_function.js'
 const overlay = document.querySelector(".overlay");
 var userData = JSON.parse(localStorage.getItem("UserData"));
 var selectDate = document.getElementById('rangeDateSelect');

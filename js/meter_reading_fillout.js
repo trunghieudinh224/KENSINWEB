@@ -1,6 +1,6 @@
 "use strict"
 import * as Common from './Common/common_function.js'
-import * as constant from './Constant/message.js'
+import * as StringCS from './Constant/strings.js'
 
 const mUserData = JSON.parse(localStorage.getItem("UserData"));
 
@@ -12,7 +12,7 @@ const wrapMainForm = document.querySelector(".overlay .container-mainform .wrap-
 window.onload = setDefaultCollapse;
 
 function setDefaultCollapse() {
-    var mode = sessionStorage.getItem('kinyuu_mode');
+    var mode = sessionStorage.getItem(StringCS.KINYUUMODE);
     if (mode == 3) {
         $('.collapseThree').collapse()
     } else {

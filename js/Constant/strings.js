@@ -37,6 +37,8 @@ export var USERDATA = "UserData";
 export var CUSTLIST = "CusList";
 // cusdat
 export var CUSDAT = "CusDat";
+// kinyuu mode
+export var KINYUUMODE = "KinyuuMode";
 
 
 /*****  CONTENT  *****/

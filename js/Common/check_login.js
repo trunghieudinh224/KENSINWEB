@@ -38,13 +38,6 @@ function clearDataCus() {
 
 
 
-/* 
-	ONLOAD ACTION
-*/
-function onLoadAction() {
-	checkUser();
-    clearDataSearch();
-    clearDataCus();
-}
-
-window.onload = onLoadAction;
+checkUser();
+clearDataSearch();
+clearDataCus();

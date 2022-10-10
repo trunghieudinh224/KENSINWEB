@@ -30,8 +30,8 @@ function getInformation() {
     if (cusDat != null) {
         Common.setupModal("load", null, Mess.I00001, null, null);
         $.ajax({
-            url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-		    // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+            // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+		    url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
             headers: {
                 'Content-Type': StringCS.PR_CONTENT_TYPE
             },
@@ -80,14 +80,14 @@ function setInformation() {
             showKenshinJoohoo();
             showHaisooJoohoo();
         } 
+
+        showMemo();
         
         if (document.getElementById("kenshin-joohoo-area").style.display == "none" &&
             document.getElementById("kenshin-haisoo-area").style.display == "none" &&
             document.getElementById("memo-area").style.display == "none") {
             document.getElementsByClassName("card-2")[0].style.display = "none";
         }
-
-        showMemo();
     }
 }
 
@@ -266,7 +266,7 @@ function getRyookin() {
 	MOVE TO KINYUU PAGE WITH MODE
 */
 function kinyuuMove(mode) {
-    sessionStorage.setItem('kinyuu_mode', mode);
+    sessionStorage.setItem(StringCS.KINYUUMODE, mode);
     Common.movePage('/meter_reading_fillout_page.html');
 }
 
