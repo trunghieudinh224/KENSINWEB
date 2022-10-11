@@ -33,7 +33,7 @@ if(tenkenDelta == 1){
 var combo_choose;
 
 list_combobox.forEach(item => {
-    item.addEventListener("click",function(){
+    item.addEventListener("change",function(){
         if(item.value == 1){
             combobox_total.value = item.value;
         }else{

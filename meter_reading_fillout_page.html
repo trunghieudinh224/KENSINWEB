@@ -66,7 +66,7 @@
                                 <span class="input-group-text mw145 text">顧客</span>
                             </div>
 
-                            <span class="form-control ta-l text">山崎誠</span>
+                            <span class="form-control ta-l text" id="txtKensinMainCusName">山崎誠</span>
                         </div> <!-- form-group// -->
                     </div>
                 </div>
@@ -96,10 +96,12 @@
                                             <div class="col-12">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text mw135 text">検針月日</span>
+                                                        <span class="input-group-text mw135 text"
+                                                            id="txtKensinMainKensinDate0">検針月日</span>
                                                     </div>
 
-                                                    <span class="form-control ta-l text">５月１日</span>
+                                                    <span class="form-control ta-l text"
+                                                        id="txtKensinMainKensinDate">５月１日</span>
                                                 </div> <!-- form-group// -->
                                             </div>
                                         </div>
@@ -108,12 +110,14 @@
                                             <div class="col-12">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text mw135 text">今回指針</span>
+                                                        <span class="input-group-text mw135 text"
+                                                            id="txtKensinMainNowMeter0">今回指針</span>
                                                     </div>
 
-                                                    <input class="form-control ta-r text" type="text" id="kenshin_data"
-                                                        onchange="changeValue()">
-                                                    <span class="form-control unit text">m3</span>
+                                                    <input class="form-control ta-r text" type="text"
+                                                        id="txtKensinMainNowMeter">
+                                                    <span class="form-control unit text"
+                                                        id="txtKensinMainMmm0">m3</span>
                                                 </div> <!-- form-group// -->
                                             </div>
                                         </div>
@@ -122,11 +126,14 @@
                                             <div class="col-12">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text mw135 text">前回指針</span>
+                                                        <span class="input-group-text mw135 text"
+                                                            id="txtKensinMainPrevMeter0">前回指針</span>
                                                     </div>
 
-                                                    <span class="form-control ta-r text">04045</span>
-                                                    <span class="form-control unit text">m3</span>
+                                                    <span class="form-control ta-r text"
+                                                        id="txtKensinMainPrevMeter">04045</span>
+                                                    <span class="form-control unit text"
+                                                        id="txtKensinMainMmm1">m3</span>
                                                 </div> <!-- form-group// -->
                                             </div>
                                         </div>
@@ -135,11 +142,14 @@
                                             <div class="col-12">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text mw135 text">使用量</span>
+                                                        <span class="input-group-text mw135 text"
+                                                            id="txtKensinMainNowSiyou0">使用量</span>
                                                     </div>
 
-                                                    <span class="form-control ta-r text">04045</span>
-                                                    <span class="form-control unit text">m3</span>
+                                                    <span class="form-control ta-r text"
+                                                        id="txtKensinMainNowSiyou">04045</span>
+                                                    <span class="form-control unit text"
+                                                        id="txtKensinMainMmm2">m3</span>
                                                 </div> <!-- form-group// -->
                                             </div>
                                         </div>
@@ -148,11 +158,30 @@
                                             <div class="col-12">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text mw135 text">前回使用量</span>
+                                                        <span class="input-group-text mw135 text"
+                                                            id="txtKensinMainPrevSiyou0">前回使用量</span>
                                                     </div>
 
-                                                    <span class="form-control ta-r text">04045</span>
-                                                    <span class="form-control unit text">m3</span>
+                                                    <span class="form-control ta-r text"
+                                                        id="txtKensinMainPrevSiyou">04045</span>
+                                                    <span class="form-control unit text"
+                                                        id="txtkensinMainMmm3">m3</span>
+                                                </div> <!-- form-group// -->
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row content">
+                                            <div class="col-12">
+                                                <div class="form-group input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text mw135 text"
+                                                            id="txtKensinMainGasRyokin0">ガス料金</span>
+                                                    </div>
+
+                                                    <span class="form-control ta-r text"
+                                                        id="txtKensinMainGasRyokin">04045</span>
+                                                    <span class="form-control unit text" id="txtKensinMainEn0">円</span>
                                                 </div> <!-- form-group// -->
                                             </div>
                                         </div>
@@ -161,11 +190,13 @@
                                             <div class="col-12">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text mw135 text">ガス料金</span>
+                                                        <span class="input-group-text mw135 text"
+                                                            id="txtKensinMainShohi0">消費税</span>
                                                     </div>
 
-                                                    <span class="form-control ta-r text">04045</span>
-                                                    <span class="form-control unit text">円</span>
+                                                    <span class="form-control ta-r text"
+                                                        id="txtKensinMainShohi">04045</span>
+                                                    <span class="form-control unit text" id="txtKensinMainEn1">円</span>
                                                 </div> <!-- form-group// -->
                                             </div>
                                         </div>
@@ -173,20 +204,7 @@
                                         <div class="row content">
                                             <div class="col-12">
                                                 <div class="form-group input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text mw135 text">消費税</span>
-                                                    </div>
-
-                                                    <span class="form-control ta-r text">04045</span>
-                                                    <span class="form-control unit text">円</span>
-                                                </div> <!-- form-group// -->
-                                            </div>
-                                        </div>
-
-                                        <div class="row content">
-                                            <div class="col-12">
-                                                <div class="form-group input-group">
-                                                    <span class="ta-l text" id="status">使用率チェック</span>
+                                                    <span class="ta-l text" id="txtkensinMainInfo">使用率チェック</span>
                                                 </div> <!-- form-group// -->
                                             </div>
                                         </div>
@@ -201,7 +219,7 @@
                                 <span class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
                                     <div class="input-group">
                                         <div class="item-collapse">
-                                            <span class="title-collapse">保安記入</span>
+                                            <span class="title-collapse" id="hoan_layout">保安記入</span>
                                         </div>
 
                                         <div class="item-collapse ic-dd-collapse">
@@ -379,7 +397,7 @@
                                 <span class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
                                     <div class="input-group">
                                         <div class="item-collapse">
-                                            <span class="title-collapse">入金記入</span>
+                                            <span class="title-collapse" id="niukin_layout">入金記入</span>
                                         </div>
 
                                         <div class="item-collapse ic-dd-collapse">
@@ -395,10 +413,12 @@
                                         <div class="col-12">
                                             <div class="form-group input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text mw145 text">@当月請求額</span>
+                                                    <span class="input-group-text mw145 text"
+                                                        id="txtKensinNyukinPreZandaka0">@当月請求額</span>
                                                 </div>
 
-                                                <span class="form-control ta-r text">108</span>
+                                                <span class="form-control ta-r text"
+                                                    id="txtKensinNyukinPreZandaka">108</span>
                                             </div> <!-- form-group// -->
                                         </div>
                                     </div>
@@ -407,10 +427,12 @@
                                         <div class="col-12">
                                             <div class="form-group input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text mw145 text">今回ガス料金</span>
+                                                    <span class="input-group-text mw145 text"
+                                                        id="txtKensinNyukinGasRyokin0">今回ガス料金</span>
                                                 </div>
 
-                                                <span class="form-control ta-r text">8370</span>
+                                                <span class="form-control ta-r text"
+                                                    id="txtKensinNyukinGasRyokin">8370</span>
                                             </div> <!-- form-group// -->
                                         </div>
                                     </div>
@@ -419,10 +441,54 @@
                                         <div class="col-12">
                                             <div class="form-group input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text mw145 text">ガス消費税</span>
+                                                    <span class="input-group-text mw145 text"
+                                                        id="txtKensinNyukinShohizei0">ガス消費税</span>
                                                 </div>
 
-                                                <span class="form-control ta-r text">660</span>
+                                                <span class="form-control ta-r text"
+                                                    id="txtKensinNyukinShohizei">660</span>
+                                            </div> <!-- form-group// -->
+                                        </div>
+                                    </div>
+
+                                    <div class="row content " id="tableKangen">
+                                        <div class="col-12">
+                                            <div class="form-group input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text mw145 text"
+                                                        id="txtKensinNyukinKangen">還元額</span>
+                                                </div>
+
+                                                <span class="form-control ta-r text"
+                                                    id="txtKensinNyukinKangenKin">0</span>
+                                            </div> <!-- form-group// -->
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row content" id="tableNebiki">
+                                        <div class="col-12">
+                                            <div class="form-group input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text mw145 text">値引き額</span>
+                                                </div>
+
+                                                <span class="form-control ta-r text" id="txtKensinNyukinNebiki">0</span>
+                                            </div> <!-- form-group// -->
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row content">
+                                        <div class="col-12">
+                                            <div class="form-group input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text mw145 text"
+                                                        id="txtKensinNyukinOtherUti0">その他売上</span>
+                                                </div>
+
+                                                <span class="form-control ta-r text"
+                                                    id="txtKensinNyukinOtherUri">0</span>
                                             </div> <!-- form-group// -->
                                         </div>
                                     </div>
@@ -431,10 +497,12 @@
                                         <div class="col-12">
                                             <div class="form-group input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text mw145 text">その他売上</span>
+                                                    <span class="input-group-text mw145 text"
+                                                        id="txtKensinNyukinOtherShohi0">その他消費税</span>
                                                 </div>
 
-                                                <span class="form-control ta-r text">0</span>
+                                                <span class="form-control ta-r text"
+                                                    id="txtKensinNyukinOtherShohi">0</span>
                                             </div> <!-- form-group// -->
                                         </div>
                                     </div>
@@ -443,36 +511,23 @@
                                         <div class="col-12">
                                             <div class="form-group input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text mw145 text">その他消費税</span>
+                                                    <span class="input-group-text mw145 text"
+                                                        id="TextView02">今回請求額</span>
                                                 </div>
-
-                                                <span class="form-control ta-r text">0</span>
-                                            </div> <!-- form-group// -->
-                                        </div>
-                                    </div>
-
-                                    <div class="row content">
-                                        <div class="col-12">
-                                            <div class="form-group input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text mw145 text">今回請求額</span>
-                                                </div>
-
+                                                <!-- id = txtKensinNyukinNowSeikyu -->
                                                 <span class="form-control ta-r text" id="seikyugaku">9138</span>
                                             </div> <!-- form-group// -->
                                         </div>
                                     </div>
 
-
-
-
                                     <div class="row content">
                                         <div class="col-12">
                                             <div class="form-group input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text mw145 text">調整額</span>
+                                                    <span class="input-group-text mw145 text"
+                                                        id="txtKensinNyukinChosei">調整額</span>
                                                 </div>
-
+                                                <!-- id = editKensinNyukinChosei -->
                                                 <input class="form-control ta-r text" id="chouseigaku" type="text"
                                                     value="0">
                                             </div> <!-- form-group// -->
@@ -483,9 +538,10 @@
                                         <div class="col-12">
                                             <div class="form-group input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text mw145 text">預り金</span>
+                                                    <span class="input-group-text mw145 text"
+                                                        id="txtKensinNyukinInput">預り金</span>
                                                 </div>
-
+                                                <!-- id = editKensinNyukinAzukari -->
                                                 <input class="form-control ta-r text" id="azukari-kin" type="text"
                                                     value="0">
                                             </div> <!-- form-group// -->
@@ -496,9 +552,10 @@
                                         <div class="col-12">
                                             <div class="form-group input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text mw145 text">入金額</span>
+                                                    <span class="input-group-text mw145 text"
+                                                        id="txtKensinNyukinNyukin">入金額</span>
                                                 </div>
-
+                                                <!-- id = editKensinNyukinNyukin -->
                                                 <span class="form-control ta-r text" id="nyuukin">0</span>
                                             </div>
                                         </div>
@@ -517,24 +574,50 @@
                                         <div class="col-12">
                                             <div class="form-group input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text mw145 text">お釣り</span>
+                                                    <span class="input-group-text mw145 text">差引残高</span>
                                                 </div>
-                                                <span class="form-control ta-r text" id="otsuri">0</span>
+                                                <span class="form-control ta-r text" id="Sashihiki_zandaka">0</span>
                                             </div>
                                         </div>
-                                        <div class="col-12 text-center">
-                                            <button id="teisei-sumi" class="btn btn-default text-center">確認</button>
+
+                                        <div class="row">
+                                            <div class="col-6 text-center">
+                                                <button id="teisei-sumi" class="btn btn-default text-center">確認</button>
+                                            </div>
+
+                                             <div class="col-6 text-center">
+                                                <button id="cancel" class="btn btn-default text-center">cancel</button>
+                                            </div>
                                         </div>
+                                       
                                     </div>
+
                                     <!-- ------------------------------------------------------------------------- -->
                                     <div class="row content">
                                         <div class="col-12">
                                             <div class="form-group input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text mw145 text">差引残高</span>
+                                                    <span class="input-group-text mw145 text"
+                                                        id="txtKensinNyukinZandaka0">差引残高</span>
                                                 </div>
 
                                                 <span class="form-control ta-r text" id="zandaka">04045</span>
+                                            </div> <!-- form-group// -->
+                                        </div>
+                                    </div>
+
+
+                                    <!-- ------------------------------------------------------------------------- -->
+                                    <div class="row content hidden" id="div_otsuri">
+                                        <div class="col-12">
+                                            <div class="form-group input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text mw145 text"
+                                                        id="txtKensinNyukinOtsuri0">おつり</span>
+                                                </div>
+
+                                                <span class="form-control ta-r text"
+                                                    id="txtKensinNyukinOtsuri">04045</span>
                                             </div> <!-- form-group// -->
                                         </div>
                                     </div>
@@ -551,7 +634,8 @@
                                             <div class="col-6">
                                                 <button type="button" id="detail-btn"
                                                     class="btn btn-default text-center"><span
-                                                        class="fas fa-pencil ic-btn"></span><br>内訳</button>
+                                                        class="fas fa-pencil ic-btn"
+                                                        id="btnKensinNyukinUchiwake"></span><br>内訳</button>
                                             </div>
                                         </div>
                                     </div>
@@ -589,79 +673,97 @@
             <div class="wrap-mainform p-t-30 p-b-40" style="padding-top: 60px;">
                 <i class="fa-sharp fa-solid fa-circle-xmark" id="close-icon"></i>
                 <form action="" class="formKenshin kenshin">
+
                     <div class="row content">
                         <div class="col-12">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text mw145 text">顧客</span>
                                 </div>
-                                <span class="form-control ta-l text">山崎誠</span>
+                                <span class="form-control ta-l text" id="txtKensinNaiyakuCusName">山崎誠</span>
                             </div> <!-- form-group// -->
                         </div>
                     </div>
+
                     <div class="row content">
                         <div class="col-12">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text mw145 text">前月残高</span>
                                 </div>
-                                <span class="form-control ta-r text"></span>
+                                <span class="form-control ta-r text" id="txtKensinNaiyakuZandaka"></span>
                             </div> <!-- form-group// -->
                         </div>
                     </div>
+
                     <div class="row content">
                         <div class="col-12">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text mw145 text">ガス料金</span>
                                 </div>
-                                <span class="form-control ta-r text"></span>
+                                <span class="form-control ta-r text" id="txtKensinNaiyakuGasRyokin"></span>
                             </div> <!-- form-group// -->
                         </div>
                     </div>
+
                     <div class="row content">
                         <div class="col-12">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text mw145 text">ガス消費税</span>
                                 </div>
-                                <span class="form-control ta-r text"></span>
+                                <span class="form-control ta-r text" id="txtKensinNaiyakuShohizei"></span>
                             </div> <!-- form-group// -->
                         </div>
                     </div>
+
+                    <div class="row content" id="nebiki">
+                        <div class="col-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw145 text">値引き額</span>
+                                </div>
+                                <span class="form-control ta-r text" id="txtKensinNaiyakuNebiki"></span>
+                            </div> <!-- form-group// -->
+                        </div>
+                    </div>
+
                     <div class="row content">
                         <div class="col-12">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text mw145 text">その他売上</span>
                                 </div>
-                                <span class="form-control ta-r text"></span>
+                                <span class="form-control ta-r text" id="txtKensinNaiyakuOtherUri"></span>
                             </div> <!-- form-group// -->
                         </div>
                     </div>
+
                     <div class="row content">
                         <div class="col-12">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text mw145 text">その他消費税</span>
                                 </div>
-                                <span class="form-control ta-r text"></span>
+                                <span class="form-control ta-r text" id="txtKensinNaiyakuOtherShohi"></span>
                             </div> <!-- form-group// -->
                         </div>
                     </div>
+
                     <div class="row content">
                         <div class="col-12">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text mw145 text">調整額</span>
                                 </div>
-                                <span class="form-control ta-r text"></span>
+                                <span class="form-control ta-r text" id="txtKensinNaiyakuChosei"></span>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text mw145 text">入金額</span>
+                                    <span class="input-group-text mw145 text" id="txtKensinNaiyakuNyukin">入金額</span>
                                 </div>
                                 <span class="form-control ta-r text"></span>
                             </div>
@@ -671,7 +773,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text mw145 text">＠当月請求額</span>
                                 </div>
-                                <span class="form-control ta-r text"></span>
+                                <span class="form-control ta-r text" id="txtKensinNaiyakuSeikyu"></span>
                             </div>
                         </div>
                     </div>
@@ -693,7 +795,8 @@
     <script type="module" src="./js/Common/check_login.js"></script>
     <script type="module" src="js/meter_reading_fillout.js"></script>
     <script type="text/javascript" src="js/hoan_kinnyuu.js"></script>
-    <script src="js/kinyuu-nyuukin.js"></script>
+
+    <script src="js/kensin_kinnyuu.js"></script>
 </body>
 
 </html>
