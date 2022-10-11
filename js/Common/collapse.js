@@ -15,7 +15,7 @@ $('#collapseOne').on('hidden.bs.collapse', function (e) {
 })
 
 $('#collapseTwo').on('show.bs.collapse', function (e) {
-    var mnb = document.getElementsByClassName("arrow-ic")[0];
+    var mnb = document.getElementsByClassName("arrow-ic")[1];
     mnb.classList.remove('fas');
     mnb.classList.remove('fa-caret-down');
     mnb.classList.add('fas');
@@ -23,7 +23,7 @@ $('#collapseTwo').on('show.bs.collapse', function (e) {
 })
 
 $('#collapseTwo').on('hidden.bs.collapse', function (e) {
-    var mnb = document.getElementsByClassName("arrow-ic")[0];
+    var mnb = document.getElementsByClassName("arrow-ic")[1];
     mnb.classList.remove('fas');
     mnb.classList.remove('fa-caret-up');
     mnb.classList.add('fas');
@@ -31,7 +31,7 @@ $('#collapseTwo').on('hidden.bs.collapse', function (e) {
 })
 
 $('#collapseThree').on('show.bs.collapse', function (e) {
-    var mnb = document.getElementsByClassName("arrow-ic")[0];
+    var mnb = document.getElementsByClassName("arrow-ic")[2];
     mnb.classList.remove('fas');
     mnb.classList.remove('fa-caret-down');
     mnb.classList.add('fas');
@@ -39,7 +39,7 @@ $('#collapseThree').on('show.bs.collapse', function (e) {
 })
 
 $('#collapseThree').on('hidden.bs.collapse', function (e) {
-    var mnb = document.getElementsByClassName("arrow-ic")[0];
+    var mnb = document.getElementsByClassName("arrow-ic")[2];
     mnb.classList.remove('fas');
     mnb.classList.remove('fa-caret-up');
     mnb.classList.add('fas');
