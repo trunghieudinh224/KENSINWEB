@@ -47,3 +47,7 @@ body {
 .date-area {
     margin-bottom: 20px;
 }
+
+#printContentDetail {
+    padding: 0px 20px !important;
+}

@@ -26,8 +26,12 @@ function setupModal(status, title, message, textButton1, textButton2) {
     var closeButton = document.getElementsByClassName("modal-close-button")[0];
 
 	// title and message
-    titleModal.innerHTML = title;
-    messageModal.innerHTML = message;
+    if (title != null) {
+        titleModal.innerHTML = title;
+    }
+    if (message != null) {
+        messageModal.innerHTML = message;
+    }
     if (buttonConfirm != null) {
         buttonConfirm.innerHTML = message;
     }
@@ -82,4 +86,21 @@ function movePage(page) {
     }
 }
 
-export {backAction, setupModal, movePage}
+
+function checkDevice() {
+	if (['iPhone Simulator', 'iPhone'].includes(navigator.platform) == true) {
+		// return "iphone";
+		return 0;
+	} else if (['iPad Simulator', 'iPad'].includes(navigator.platform) || (navigator.userAgent.includes("Mac") && "ontouchend" in document) == true) {
+		// return "ipad";
+		return 1;
+	} else if ((navigator.userAgent.includes("Mac") && "ontouchend" in document) == true) {
+		// return "mac";
+		return 2;
+	} else {
+		// return "window and android";
+		return 3;
+	}
+}
+
+export {backAction, setupModal, movePage, checkDevice}

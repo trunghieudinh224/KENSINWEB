@@ -19,6 +19,7 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="./css/common.css" />
 	<link rel="stylesheet" type="text/css" href="./css/total.css" />
+	<link rel="stylesheet" type="text/css" href="css/modal.css" />
 	<link rel="stylesheet" type="text/css" href="./css/print_common.css" />
 </head>
 
@@ -64,8 +65,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw90 text">範囲指定</span>
 									</div>
-									<select class="custom-select combobox" id="rangeDateSelect"
-										onchange="initRangeDateView()">
+									<select class="custom-select combobox" id="selectDate">
 										<option value="0" class="text">有り</option>
 										<option value="1" class="text">無し</option>
 									</select>
@@ -75,8 +75,8 @@
 							<div class="col-4">
 								<div class="form-group input-group">
 									<div class="form-control text bd-0 pd-l-0 pd-r-0 pd-0">
-										<button type="button" class="btn btn-default text-center mg-0" id="getDataBtn"
-											onclick="getData()">実行</button>
+										<button type="button" class="btn btn-default text-center mg-0"
+											id="getShuukeiDataButton">実行</button>
 									</div>
 								</div>
 							</div>
@@ -112,7 +112,7 @@
 										<span class="input-group-text mw175 text">検針件数</span>
 									</div>
 
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text kenCnt-edt"></span>
 									<span class="form-control unit text">件</span>
 								</div>
 							</div>
@@ -121,7 +121,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">灯油件数</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text toyuCnt-edt"></span>
 									<span class="form-control unit text">件</span>
 								</div>
 							</div>
@@ -132,7 +132,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">入金件数</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text nyuCnt-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -141,7 +141,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">売上件数</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text uriCnt-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -155,7 +155,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">ガス使用量</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text rowUses-edt"></span>
 									<span class="form-control unit text">m3</span>
 								</div>
 							</div>
@@ -164,7 +164,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">ガス料金</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text rowPay-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -173,7 +173,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">消費税</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text rowTax-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -182,7 +182,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">還元額</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text rowKang-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -191,7 +191,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">合計</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text rowTotal-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -204,7 +204,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">灯油使用量</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text toyuUse-edt"></span>
 									<span class="form-control unit text">L</span>
 								</div>
 							</div>
@@ -213,7 +213,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">灯油料金</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text toyuPay-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -222,7 +222,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">灯油消費税</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text toyuTax-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -231,7 +231,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">灯油合計</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text toyuTotal-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -244,7 +244,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">入金額</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text rowInput-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -253,7 +253,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">調整額</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text rowAdjust-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -262,7 +262,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">売上数量</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text rowUrisur-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -271,7 +271,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">売上額（税抜）</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text rowUrikin-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -280,7 +280,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">消費税額</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text rowUriTax-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -289,7 +289,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text mw175 text">合計金額</span>
 									</div>
-									<span class="form-control ta-r text"></span>
+									<span class="form-control ta-r text rowUriTotal-edt"></span>
 									<span class="form-control unit text">円</span>
 								</div>
 							</div>
@@ -304,25 +304,18 @@
 
 					<!-- Button -->
 					<div class="row content button-area">
-						<div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-							<button type="button" class="btn btn-default text-center" id="search-back-btn"
-								onclick="history.back()">
+						<div class="col-4">
+							<button type="button" class="btn btn-default text-center" id="backPageButton">
 								<span class="fas fa-arrow-alt-circle-left"></span><br />戻る
 							</button>
 						</div>
-						<div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-							<button type="button" class="btn btn-default text-center" id="first-customer">
-								<span class="fas fa-calendar-alt"></span><br />全日集計
-							</button>
-						</div>
-						<div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-							<button type="button" class="btn btn-default text-center" id="nippou" onclick="nippou()">
+						<div class="col-4">
+							<button type="button" class="btn btn-default text-center" id="nippouButton">
 								<span class="fas fa-calendar-alt"></span><br />日報
 							</button>
 						</div>
-						<div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-							<button type="button" class="btn btn-default text-center" id="kensaku"
-								onclick="createImageFile()">
+						<div class="col-4">
+							<button type="button" class="btn btn-default text-center" id="insatsuButton">
 								<span class="fas fa-print"></span><br />印刷
 							</button>
 						</div>
@@ -334,128 +327,186 @@
 					<!-- Content -->
 					<div id="printContent">
 						<div id="printContentDetail">
-							<div id="logoPrintArea">
-								<img id="logoPrint" src="./images/uketsuke_logo.png" alt="User Avatar">
-							</div>
 
-							<span class="col-12 title-printView wsp-title">集 計 表</span>
+							<span class="col-12 title-printView wsp-title" id="titlePrintView">集 計 表</span>
 
-							<div class="text-print ta-l fw-b wsp-text">全 集 計 日</div>
+							<div class="text-print ta-l fw-b wsp-text shukei-single-line">全 集 計 日</div>
 
-							<div class="text-print ta-l wsp-text">検 針 件 数</div>
+							<div class="text-print ta-l wsp-text item">検 針 件 数</div>
 							<div class="container pd-l-25">
 								<div class="row">
-									<div class="col-3 text-print ta-l wsp-text">[</div>
-									<div class="col-9 text-print ta-r wsp-text">件 <span
+									<div class="col-3 text-print ta-l wsp-text item">[</div>
+									<div class="col-9 text-print ta-r wsp-text item kenCnt-prt">件 <span
+											class="text-print bracket item">]</span></div>
+								</div>
+							</div>
+
+							<div class="text-print ta-l wsp-text item">ガ ス 使 用 量</div>
+							<div class="container pd-l-25">
+								<div class="row">
+									<div class="col-3 text-print ta-l wsp-text item">[</div>
+									<div class="col-9 text-print ta-r wsp-text item rowUses-prt">m３ <span
+											class="text-print bracket item">]</span></div>
+								</div>
+							</div>
+
+							<div class="text-print ta-l wsp-text item">ガ ス 料 金</div>
+							<div class="container pd-l-25">
+								<div class="row">
+									<div class="col-3 text-print ta-l wsp-text item">[</div>
+									<div class="col-9 text-print ta-r wsp-text item rowPay-prt">円 <span
+											class="text-print bracket item">]</span></div>
+								</div>
+							</div>
+
+							<div class="text-print ta-l wsp-text item">消 費 税</div>
+							<div class="container pd-l-25">
+								<div class="row">
+									<div class="col-3 text-print ta-l wsp-text item">[</div>
+									<div class="col-9 text-print ta-r wsp-text item rowTax-prt">円 <span
+											class="text-print bracket item">]</span></div>
+								</div>
+							</div>
+
+							<div class="text-print ta-l wsp-text item">還 元 額</div>
+							<div class="container pd-l-25">
+								<div class="row">
+									<div class="col-3 text-print ta-l wsp-text item">[</div>
+									<div class="col-9 text-print ta-r wsp-text item rowKang-prt">円 <span
+											class="text-print bracket item">]</span></div>
+								</div>
+							</div>
+
+							<div class="text-print ta-l wsp-text item">合 計</div>
+							<div class="container pd-l-25">
+								<div class="row">
+									<div class="col-3 text-print ta-l wsp-text item">[</div>
+									<div class="col-9 text-print ta-r wsp-text item rowTotal-prt">円 <span
+											class="text-print bracket item">]</span></div>
+								</div>
+							</div>
+
+
+
+							<div id="ToyuTablePrint">
+								<div class="text-print ta-l wsp-text item">灯 油 件 数</div>
+								<div class="container pd-l-25">
+									<div class="row">
+										<div class="col-3 text-print ta-l wsp-text item">[</div>
+										<div class="col-9 text-print ta-r wsp-text item toyuCnt-prt">件 <span
+												class="text-print bracket item">]</span></div>
+									</div>
+								</div>
+
+								<div class="text-print ta-l wsp-text item">灯 油 使 用 量</div>
+								<div class="container pd-l-25">
+									<div class="row">
+										<div class="col-3 text-print ta-l wsp-text item">[</div>
+										<div class="col-9 text-print ta-r wsp-text item toyuUse-prt">L <span
+												class="text-print bracket item">]</span></div>
+									</div>
+								</div>
+
+								<div class="text-print ta-l wsp-text item">灯 油 料 金</div>
+								<div class="container pd-l-25">
+									<div class="row">
+										<div class="col-3 text-print ta-l wsp-text item">[</div>
+										<div class="col-9 text-print ta-r wsp-text item toyuPay-prt">円 <span
+												class="text-print bracket item">]</span></div>
+									</div>
+								</div>
+
+								<div class="text-print ta-l wsp-text item">消 費 税</div>
+								<div class="container pd-l-25">
+									<div class="row">
+										<div class="col-3 text-print ta-l wsp-text item">[</div>
+										<div class="col-9 text-print ta-r wsp-text item toyuTax-prt">円 <span
+												class="text-print bracket item">]</span></div>
+									</div>
+								</div>
+
+								<div class="text-print ta-l wsp-text item">合 計</div>
+								<div class="container pd-l-25">
+									<div class="row">
+										<div class="col-3 text-print ta-l wsp-text item">[</div>
+										<div class="col-9 text-print ta-r wsp-text item toyuTotal-prt">円 <span
+												class="text-print bracket item">]</span></div>
+									</div>
+								</div>
+							</div>
+
+
+
+
+							<div class="text-print ta-l wsp-text item">入 金 件 数</div>
+							<div class="container pd-l-25">
+								<div class="row">
+									<div class="col-3 text-print ta-l wsp-text item">[</div>
+									<div class="col-9 text-print ta-r wsp-text item nyuCnt-prt">件 <span
+											class="text-print bracket item">]</span></div>
+								</div>
+							</div>
+
+							<div class="text-print ta-l wsp-text item">入 金 額</div>
+							<div class="container pd-l-25">
+								<div class="row">
+									<div class="col-3 text-print ta-l wsp-text item">[</div>
+									<div class="col-9 text-print ta-r wsp-text item rowInput-prt">円 <span
+											class="text-print bracket item">]</span></div>
+								</div>
+							</div>
+
+							<div class="text-print ta-l wsp-text item">調 整 額</div>
+							<div class="container pd-l-25">
+								<div class="row">
+									<div class="col-3 text-print ta-l wsp-text item">[</div>
+									<div class="col-9 text-print ta-r wsp-text item rowAdjust-prt">円 <span
+											class="text-print bracket item">]</span></div>
+								</div>
+							</div>
+
+							<div class="text-print ta-l wsp-text item">売 上 件 数</div>
+							<div class="container pd-l-25">
+								<div class="row">
+									<div class="col-3 text-print ta-l wsp-text item">[</div>
+									<div class="col-9 text-print ta-r wsp-text item uriCnt-prt">件 <span
+											class="text-print bracket item">]</span></div>
+								</div>
+							</div>
+
+							<div class="text-print ta-l wsp-text item">数 量</div>
+							<div class="container pd-l-25">
+								<div class="row">
+									<div class="col-3 text-print ta-l wsp-text item">[</div>
+									<div class="col-9 text-print ta-r wsp-text item rowUrisur-prt"> <span
+											class="text-print bracket item">]</span></div>
+								</div>
+							</div>
+
+							<div class="text-print ta-l wsp-text item">売 上 額（税抜き）</div>
+							<div class="container pd-l-25">
+								<div class="row">
+									<div class="col-3 text-print ta-l wsp-text item">[</div>
+									<div class="col-9 text-print ta-r wsp-text item rowUrikin-prt">円 <span
+											class="text-print bracket item">]</span></div>
+								</div>
+							</div>
+
+							<div class="text-print ta-l wsp-text item">消 費 税 額</div>
+							<div class="container pd-l-25">
+								<div class="row">
+									<div class="col-3 text-print ta-l wsp-text item">[</div>
+									<div class="col-9 text-print ta-r wsp-text item rowUriTax-prt">円 <span
 											class="text-print bracket">]</span></div>
 								</div>
 							</div>
 
-							<div class="text-print ta-l wsp-text">ガ ス 使 用 量</div>
+							<div class="text-print ta-l wsp-text item">合 計 金 額</div>
 							<div class="container pd-l-25">
 								<div class="row">
-									<div class="col-3 text-print ta-l wsp-text">[</div>
-									<div class="col-9 text-print ta-r wsp-text">m３ <span
-											class="text-print bracket">]</span></div>
-								</div>
-							</div>
-
-							<div class="text-print ta-l wsp-text">ガ ス 料 金</div>
-							<div class="container pd-l-25">
-								<div class="row">
-									<div class="col-3 text-print ta-l wsp-text">[</div>
-									<div class="col-9 text-print ta-r wsp-text">件 <span
-											class="text-print bracket">]</span></div>
-								</div>
-							</div>
-
-							<div class="text-print ta-l wsp-text">消 費 税</div>
-							<div class="container pd-l-25">
-								<div class="row">
-									<div class="col-3 text-print ta-l wsp-text">[</div>
-									<div class="col-9 text-print ta-r wsp-text">件 <span
-											class="text-print bracket">]</span></div>
-								</div>
-							</div>
-
-							<div class="text-print ta-l wsp-text">合 計</div>
-							<div class="container pd-l-25">
-								<div class="row">
-									<div class="col-3 text-print ta-l wsp-text">[</div>
-									<div class="col-9 text-print ta-r wsp-text">件 <span
-											class="text-print bracket">]</span></div>
-								</div>
-							</div>
-
-							<div class="text-print ta-l wsp-text">入 金 件 数</div>
-							<div class="container pd-l-25">
-								<div class="row">
-									<div class="col-3 text-print ta-l wsp-text">[</div>
-									<div class="col-9 text-print ta-r wsp-text">件 <span
-											class="text-print bracket">]</span></div>
-								</div>
-							</div>
-
-							<div class="text-print ta-l wsp-text">入 金 額</div>
-							<div class="container pd-l-25">
-								<div class="row">
-									<div class="col-3 text-print ta-l wsp-text">[</div>
-									<div class="col-9 text-print ta-r wsp-text">件 <span
-											class="text-print bracket">]</span></div>
-								</div>
-							</div>
-
-							<div class="text-print ta-l wsp-text">調 整 額</div>
-							<div class="container pd-l-25">
-								<div class="row">
-									<div class="col-3 text-print ta-l wsp-text">[</div>
-									<div class="col-9 text-print ta-r wsp-text">件 <span
-											class="text-print bracket">]</span></div>
-								</div>
-							</div>
-
-							<div class="text-print ta-l wsp-text">売 上 件 数</div>
-							<div class="container pd-l-25">
-								<div class="row">
-									<div class="col-3 text-print ta-l wsp-text">[</div>
-									<div class="col-9 text-print ta-r wsp-text">件 <span
-											class="text-print bracket">]</span></div>
-								</div>
-							</div>
-
-							<div class="text-print ta-l wsp-text">数 量</div>
-							<div class="container pd-l-25">
-								<div class="row">
-									<div class="col-3 text-print ta-l wsp-text">[</div>
-									<div class="col-9 text-print ta-r wsp-text">件 <span
-											class="text-print bracket">]</span></div>
-								</div>
-							</div>
-
-							<div class="text-print ta-l wsp-text">売 上 額（税抜き）</div>
-							<div class="container pd-l-25">
-								<div class="row">
-									<div class="col-3 text-print ta-l wsp-text">[</div>
-									<div class="col-9 text-print ta-r wsp-text">件 <span
-											class="text-print bracket">]</span></div>
-								</div>
-							</div>
-
-							<div class="text-print ta-l wsp-text">消 費 税 額</div>
-							<div class="container pd-l-25">
-								<div class="row">
-									<div class="col-3 text-print ta-l wsp-text">[</div>
-									<div class="col-9 text-print ta-r wsp-text">件 <span
-											class="text-print bracket">]</span></div>
-								</div>
-							</div>
-
-							<div class="text-print ta-l wsp-text">合 計 金 額</div>
-							<div class="container pd-l-25">
-								<div class="row">
-									<div class="col-3 text-print ta-l wsp-text">[</div>
-									<div class="col-9 text-print ta-r wsp-text">件 <span
-											class="text-print bracket">]</span></div>
+									<div class="col-3 text-print ta-l wsp-text item">[</div>
+									<div class="col-9 text-print ta-r wsp-text item rowUriTotal-prt">円 <span
+											class="text-print bracket item">]</span></div>
 								</div>
 							</div>
 						</div>
@@ -464,12 +515,12 @@
 					<!-- Button -->
 					<div class="row content button-area">
 						<div class="col-6">
-							<button type="button" class="btn btn-default text-center" onclick="backToEditView()">
+							<button type="button" class="btn btn-default text-center" id="backPrintButton">
 								<span class="fas fa-arrow-alt-circle-left"></span><br />戻る
 							</button>
 						</div>
 						<div class="col-6">
-							<button type="button" class="btn btn-default text-center" onclick="sendImage()">
+							<button type="button" class="btn btn-default text-center" id="sendToAppButton">
 								<span class="fas fa-print"></span><br />印刷
 							</button>
 						</div>
@@ -478,13 +529,36 @@
 
 			</div>
 		</div>
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<!-- Modal image area -->
+				<div class="modal-image-area background-error-modal">
+					<span class="modal-close-button">X</span>
+					<img id="imgStatusModal" class="modal-image">
+				</div>
+
+				<!-- Modal message area -->
+				<div class="modal-message">
+					<div class="modal-message-area">
+						<span class="title-modal text">題名</span>
+						<span class="modal-message-detail text">メッセージ</span>
+					</div>
+
+					<button class="button-modal btn-common button-confirm" role="button">確認</button>
+				</div>
+			</div>
+
+		</div>
 	</div>
 
-	<!-- Dialog -->
+	<!-- 内訳ダイアログ  -->
 	<div class="overlay">
 		<div class="container-mainform">
-			<div class="wrap-mainform p-t-30 p-b-40">
-				<span class="fa-sharp fa-solid fa-circle-xmark" onclick="closeDialog()"></span>
+			<div class="wrap-mainform p-t-30 p-b-40" style="padding-top: 60px;">
+				<span class="fa-sharp fa-solid fa-circle-xmark" id="closeNippouButton"></span>
 				<div class="row content button-area">
 					<div class="dialog-title">日報種類選択</div>
 					<div class="col-12">
@@ -506,6 +580,7 @@
 			</div>
 		</div>
 	</div>
+
 	<script type="text/javascript"
 		src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

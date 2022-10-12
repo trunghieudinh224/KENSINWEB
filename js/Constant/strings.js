@@ -24,6 +24,8 @@ export var PR_READDATA = "readData?";
 export var PR_GETSETTING = "getSetting?";
 // get customer list
 export var PR_CUSSEARCH = "cussearch?";
+// get shuukei data
+export var PR_READSYUKEI = "readSyukei?";
 
 
 /*****  VARIABLE  *****/
