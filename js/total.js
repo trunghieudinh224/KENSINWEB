@@ -291,7 +291,7 @@ function createImageFile() {
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
     setDataPrintForm();
-    setupPrintForm("100vh", "650px", "60px", "28px", "32px", "28px", "32px");
+    setupPrintForm("100vh", "650px", "60px", "30px", "35px", "30px", "35px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
