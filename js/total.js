@@ -291,7 +291,7 @@ function createImageFile() {
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
     setDataPrintForm();
-    setupPrintForm("100vh", "650px", "60px", "31px", "37px", "31px", "37px");
+    // setupPrintForm("100vh", "650px", "60px", "31px", "37px", "31px", "37px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
@@ -303,7 +303,7 @@ function createImageFile() {
                     const interval = setInterval(function () {
 
                         // method to be executed;
-                        setupPrintForm("100%", "600px", "45px", "20px", "25px", "20px", "25px")
+                        // setupPrintForm("100%", "600px", "45px", "20px", "25px", "20px", "25px")
                         
                         modal.style.display = "none";
                         document.getElementsByClassName('modal-content')[0].style.display = "block";
