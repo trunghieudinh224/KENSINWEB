@@ -84,3 +84,71 @@
 }
 
 
+/*
+  ******  RESPONSIVE LAYOUT  ******
+*/
+
+@media screen and (max-width: 900px) {
+
+	/* TEXT */
+	/* .title-printView {
+		font-size: 40px;
+	} */
+
+	.wsp-title {
+		word-spacing: 23px;
+	}
+
+
+	/* .text-print {
+		font-size: 18px !important;
+	} */
+}
+
+
+@media screen and (max-width: 768px) {
+
+	/* TEXT */
+	/* .title-printView {
+		font-size: 38px;
+	} */
+
+	.wsp-title {
+		word-spacing: 20px;
+	}
+/* 
+	.text-print {
+		font-size: 16px !important;
+	} */
+}
+
+@media screen and (max-width: 600px) {
+
+	/* TEXT */
+	/* .title-printView {
+		font-size: 35px;
+	} */
+
+	.wsp-title {
+		word-spacing: 15px;
+	}
+
+	/* .text-print {
+		font-size: 15px !important;
+	} */
+}
+
+@media screen and (max-width: 450px) {
+	#printContentDetail {
+		padding: 0px 10px !important;
+	}
+
+	/* TEXT */
+	/* .title-printView {
+		font-size: 30px;
+	} */
+
+	.wsp-title {
+		word-spacing: 12px;
+	}
+}
