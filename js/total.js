@@ -20,7 +20,7 @@ var shuukeiData;
 /* image string */
 var imgString = "";
 
-var defaultPrintSize = window.getComputedStyle(document.getElementsByClassName("text-print")[0]).fontSize;
+var defaultPrintSize = window.getComputedStyle(document.getElementsByClassName("text")[0]).fontSize;
 var defaultPaddingPrintForm = window.getComputedStyle(document.getElementById("printContentDetail"), null).getPropertyValue('padding');
 
 /* shuukei data */
@@ -315,11 +315,11 @@ function createImageFile() {
                     window.scrollTo(0, 0);
 
                     const interval = setInterval(function () {
-                        // setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", "0px", defaultPaddingPrintForm)
+                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", "0px", defaultPaddingPrintForm)
                         
-                        // document.getElementsByClassName('modal-content')[0].style.display = "block";
-                        // document.getElementById('myModal').style.backgroundColor = "rgba(0,0,0,0.4)";
-                        // clearInterval(interval);
+                        document.getElementsByClassName('modal-content')[0].style.display = "block";
+                        document.getElementById('myModal').style.backgroundColor = "rgba(0,0,0,0.4)";
+                        clearInterval(interval);
 
                         modal.style.display = "none";
                     }, 100);
@@ -375,8 +375,7 @@ function showKenshinNippou() {
     document.getElementById('printView').style.display = "block";
     document.getElementById('nippouArea').style.display = "block";
     document.getElementById('kensinForm').style.display = "block";
-    // setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", "50px", "20px");
-    setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", "50px", "20px");
+    setupPrintForm("100vh", "650px", "55px", "25px", "31px", "25px", "31px", "50px", "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
@@ -386,10 +385,10 @@ function showKenshinNippou() {
                     window.scrollTo(0, 0);
 
                     const interval = setInterval(function () {
-                        // setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", "0px", defaultPaddingPrintForm)
-                        // document.getElementsByClassName('modal-content')[0].style.display = "block";
-                        // document.getElementById('myModal').style.backgroundColor = "rgba(0,0,0,0.4)";
-                        // clearInterval(interval);
+                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", "0px", defaultPaddingPrintForm)
+                        document.getElementsByClassName('modal-content')[0].style.display = "block";
+                        document.getElementById('myModal').style.backgroundColor = "rgba(0,0,0,0.4)";
+                        clearInterval(interval);
                         
                         modal.style.display = "none";
                     }, 100);
