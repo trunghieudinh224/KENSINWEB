@@ -38,6 +38,22 @@ body {
     padding: 0 0 1rem 1rem;
 }
 
+.line-form {
+    background-color: black;
+}
+
+.lh-3 {
+    height: 3px;
+}
+
+.lh-1 {
+    height: 1px;
+}
+
+.day-detail, .kensin-total {
+    padding: 0px 10px;
+}
+
 @keyframes showDialog {
     to {
         transform: translateY(0);
@@ -48,6 +64,6 @@ body {
     margin-bottom: 20px;
 }
 
-#printContentDetail {
-    padding: 0px 20px !important;
+#shuukeiForm, #nippouArea {
+    display: none;
 }

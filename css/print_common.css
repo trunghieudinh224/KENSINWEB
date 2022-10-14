@@ -3,13 +3,18 @@
 */
 #printContent {
 	margin: 15px 5px 60px 5px;
-	padding: 40px 10px;box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+	padding: 40px 10px;
+	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 	border-radius: 4px;
 }
 
 #printContentDetail {
 	background-color: white;
 	padding: 5px;
+}
+
+.end-space {
+	height: 50px;
 }
 
 
@@ -43,7 +48,7 @@
   ******  TEXT  ******
 */
 .text-print {
-	font-size: 22px;
+	font-size: 20px;
 }
 
 .wsp-title {
@@ -66,4 +71,84 @@
 	margin-left: 10px;
 }
 
+#printContentDetail {
+	padding: 0px 20px !important;
+}
 
+
+/*
+  ******  PADDING && MARGIN  ******
+*/
+.bracket {
+	margin-left: 10px;
+}
+
+
+/*
+  ******  RESPONSIVE LAYOUT  ******
+*/
+
+@media screen and (max-width: 900px) {
+
+	/* TEXT */
+	.title-printView {
+		font-size: 40px;
+	}
+
+	.wsp-title {
+		word-spacing: 23px;
+	}
+
+
+	.text-print {
+		font-size: 18px !important;
+	}
+}
+
+
+@media screen and (max-width: 768px) {
+
+	/* TEXT */
+	.title-printView {
+		font-size: 38px;
+	}
+
+	.wsp-title {
+		word-spacing: 20px;
+	}
+
+	.text-print {
+		font-size: 16px !important;
+	}
+}
+
+@media screen and (max-width: 600px) {
+
+	/* TEXT */
+	.title-printView {
+		font-size: 35px;
+	}
+
+	.wsp-title {
+		word-spacing: 15px;
+	}
+
+	.text-print {
+		font-size: 15px !important;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	#printContentDetail {
+		padding: 0px 10px !important;
+	}
+
+	/* TEXT */
+	.title-printView {
+		font-size: 30px;
+	}
+
+	.wsp-title {
+		word-spacing: 12px;
+	}
+}

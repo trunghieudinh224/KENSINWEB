@@ -41,8 +41,8 @@ body {
 }
 
 .card-header {
-  /* background-image: linear-gradient(to right, #ff7e5f 0%, #feb47b  61%, #fa5b34  100%); */
   background-color: #7ab869;
+  padding: 10px 10px;
 }
 
 .card-link {
@@ -202,6 +202,12 @@ body {
 @media screen and (max-width: 600px) {
   .card-link {
     font-size: 20px !important;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .card-header {
+    padding: 7px 10px;
   }
 }
 
