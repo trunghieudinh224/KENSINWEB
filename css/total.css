@@ -42,12 +42,12 @@ body {
     background-color: black;
 }
 
-.lh-3 {
-    height: 3px;
+.lh-4 {
+    height: 4px;
 }
 
-.lh-1 {
-    height: 1px;
+.lh-2 {
+    height: 2px;
 }
 
 .day-detail, .kensin-total {
