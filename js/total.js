@@ -380,7 +380,7 @@ function showKenshinNippou() {
     document.getElementById('printView').style.display = "block";
     document.getElementById('nippouArea').style.display = "block";
     document.getElementById('kensinForm').style.display = "block";
-    setupPrintForm("100vh", "650px", "55px", "25px", "31px", "25px", "31px", true, "20px");
+    setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
