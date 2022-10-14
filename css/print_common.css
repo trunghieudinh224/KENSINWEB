@@ -14,7 +14,17 @@
 }
 
 .end-space {
-	height: 50px;
+	width: 100% !important;
+	padding-top: 100px !important;
+}
+
+.end-bill {
+	height: fit-content;
+	width: fit-content;
+	display: block;
+	margin: auto;
+	text-align: center;
+	bottom: 0;
 }
 
 

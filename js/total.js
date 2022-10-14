@@ -261,7 +261,7 @@ function getBase64(file) {
 /* 
     SETUP PRINT FORM
 */
-function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineHeightSingleLine, sizeItem, lineheightItem, endSpace, paddingForm) {
+function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineHeightSingleLine, sizeItem, lineheightItem, showEndPage, paddingForm) {
     if (Common.checkDevice() < 2) {
         document.getElementById('form').style.width = widthScreen;
         const form = document.getElementsByClassName("wrap-mainform");
@@ -287,9 +287,12 @@ function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineH
 
     var endspace = document.getElementsByClassName("end-space");
     for (let i = 0; i < endspace.length; i++) {
-        endspace[i].style.height = endSpace;
-        endspace[i].style.width = "100px";
-        endspace[i].style.backgroundColor = "white";
+        
+        if (showEndPage == true) {
+            endspace[i].style.display = "block";
+        } else {
+            endspace[i].style.display = "none";
+        }
     }
 
     document.getElementById("printContentDetail").padding = paddingForm;
@@ -307,7 +310,7 @@ function createImageFile() {
     document.getElementById('printView').style.display = "block";
     document.getElementById('shuukeiForm').style.display = "block";
     setDataPrintForm();
-    setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", "50px", "20px");
+    setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true``, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
@@ -317,7 +320,7 @@ function createImageFile() {
                     window.scrollTo(0, 0);
 
                     const interval = setInterval(function () {
-                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", "0px", defaultPaddingPrintForm)
+                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
                         
                         document.getElementsByClassName('modal-content')[0].style.display = "block";
                         document.getElementById('myModal').style.backgroundColor = "rgba(0,0,0,0.4)";
@@ -377,7 +380,7 @@ function showKenshinNippou() {
     document.getElementById('printView').style.display = "block";
     document.getElementById('nippouArea').style.display = "block";
     document.getElementById('kensinForm').style.display = "block";
-    setupPrintForm("100vh", "650px", "55px", "25px", "31px", "25px", "31px", "50px", "20px");
+    setupPrintForm("100vh", "650px", "55px", "25px", "31px", "25px", "31px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
@@ -387,7 +390,7 @@ function showKenshinNippou() {
                     window.scrollTo(0, 0);
 
                     const interval = setInterval(function () {
-                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", "0px", defaultPaddingPrintForm)
+                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
                         document.getElementsByClassName('modal-content')[0].style.display = "block";
                         document.getElementById('myModal').style.backgroundColor = "rgba(0,0,0,0.4)";
                         clearInterval(interval);
