@@ -288,6 +288,8 @@ function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineH
     var endspace = document.getElementsByClassName("end-space");
     for (let i = 0; i < endspace.length; i++) {
         endspace[i].style.height = endSpace;
+        endspace[i].style.width = "100px";
+        endspace[i].style.backgroundColor = "black";
     }
 
     document.getElementById("printContentDetail").padding = paddingForm;
