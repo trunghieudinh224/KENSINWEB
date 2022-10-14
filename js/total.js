@@ -304,7 +304,7 @@ function createImageFile() {
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
     document.getElementById('shuukeiForm').style.display = "block";
-    setDataPrintForm();
+    // setDataPrintForm();
     setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", "50px", "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
@@ -314,15 +314,15 @@ function createImageFile() {
                     imgString = data;
                     window.scrollTo(0, 0);
 
-                    const interval = setInterval(function () {
-                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", "0px", defaultPaddingPrintForm)
+                    // const interval = setInterval(function () {
+                    //     setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", "0px", defaultPaddingPrintForm)
                         
-                        modal.style.display = "none";
-                        document.getElementsByClassName('modal-content')[0].style.display = "block";
-                        document.getElementById('myModal').style.backgroundColor = "rgba(0,0,0,0.4)";
-                        clearInterval(interval);
+                    //     modal.style.display = "none";
+                    //     document.getElementsByClassName('modal-content')[0].style.display = "block";
+                    //     document.getElementById('myModal').style.backgroundColor = "rgba(0,0,0,0.4)";
+                    //     clearInterval(interval);
 
-                    }, 100);
+                    // }, 100);
                 }
             );
         })
