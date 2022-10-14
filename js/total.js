@@ -385,13 +385,12 @@ function showKenshinNippou() {
                     window.scrollTo(0, 0);
 
                     const interval = setInterval(function () {
-                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", "0px", defaultPaddingPrintForm)
+                        // setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", "0px", defaultPaddingPrintForm)
+                        // document.getElementsByClassName('modal-content')[0].style.display = "block";
+                        // document.getElementById('myModal').style.backgroundColor = "rgba(0,0,0,0.4)";
+                        // clearInterval(interval);
                         
                         modal.style.display = "none";
-                        document.getElementsByClassName('modal-content')[0].style.display = "block";
-                        document.getElementById('myModal').style.backgroundColor = "rgba(0,0,0,0.4)";
-                        clearInterval(interval);
-
                     }, 100);
                 }
             );
