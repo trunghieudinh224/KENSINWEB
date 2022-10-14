@@ -268,21 +268,21 @@ function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineH
         form[0].style.width = widthForm;
     }
 
-    document.getElementById("titlePrintView").style.fontSize = sizeTitle;
+    document.getElementById("titlePrintView").style.fontSize = sizeTitle + " !important";
 
     const shukei_single_line = document.getElementsByClassName("sg-line");
     for (let i = 0; i < shukei_single_line.length; i++) {
         console.log(shukei_single_line[i].value);
-        shukei_single_line[i].style.fontSize = sizeSingleLine;
-        shukei_single_line[i].style.lineHeight = lineHeightSingleLine;
+        shukei_single_line[i].style.fontSize = sizeSingleLine + " !important";
+        shukei_single_line[i].style.lineHeight = lineHeightSingleLine + " !important";
         shukei_single_line[i].style.fontWeight = "normal";
     }
 
     const item = document.getElementsByClassName("item");
     for (let i = 0; i < item.length; i++) {
         console.log(item[i].value);
-        item[i].style.fontSize = sizeItem;
-        item[i].style.lineHeight = lineheightItem;
+        item[i].style.fontSize = sizeItem + " !important";
+        item[i].style.lineHeight = lineheightItem + " !important";
     }
 
     var endspace = document.getElementsByClassName("end-space");
@@ -290,7 +290,7 @@ function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineH
         endspace[i].style.height = endSpace;
     }
 
-    document.getElementById("printContentDetail").padding = paddingForm;
+    document.getElementById("printContentDetail").padding = paddingForm + " !important";
 }
 
 
