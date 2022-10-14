@@ -91,9 +91,9 @@
 @media screen and (max-width: 900px) {
 
 	/* TEXT */
-	/* .title-printView {
+	.title-printView {
 		font-size: 40px;
-	} */
+	}
 
 	.wsp-title {
 		word-spacing: 23px;
@@ -109,9 +109,9 @@
 @media screen and (max-width: 768px) {
 
 	/* TEXT */
-	/* .title-printView {
+	.title-printView {
 		font-size: 38px;
-	} */
+	}
 
 	.wsp-title {
 		word-spacing: 20px;
@@ -125,9 +125,9 @@
 @media screen and (max-width: 600px) {
 
 	/* TEXT */
-	/* .title-printView {
+	.title-printView {
 		font-size: 35px;
-	} */
+	}
 
 	.wsp-title {
 		word-spacing: 15px;
@@ -144,9 +144,9 @@
 	}
 
 	/* TEXT */
-	/* .title-printView {
+	.title-printView {
 		font-size: 30px;
-	} */
+	}
 
 	.wsp-title {
 		word-spacing: 12px;
