@@ -388,11 +388,11 @@ function onclickAction() {
 
 
 function createImageKenshinNippouForm() {
+    closeNippouDialog();
     if (Common.checkPrintable() == false) {
         return;
     }
     setTitlePrintForm(0);
-    closeNippouDialog();
 
     Common.setupModal("load", null, Mess.I00001, null, null);
     Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
