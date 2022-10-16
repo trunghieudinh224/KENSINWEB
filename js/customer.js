@@ -14,8 +14,8 @@ var cusDat = JSON.parse(localStorage.getItem(StringCS.CUSDAT));
 var cusDetailData;
 
 
-/* 
-	SET DEFAULT DATE
+/**
+   * SET DEFAULT DATE
 */
 function setDefaultDate() {
     document.getElementById("recentTime").innerText = "現在の日時：" + moment().format('YYYY/MM/DD HH:mm');
@@ -23,12 +23,12 @@ function setDefaultDate() {
 }
 
 
-/* 
-	GET CUSTOMER INFORMATION
+/**
+   * GET CUSTOMER INFORMATION
 */
 function getInformation() {
     if (cusDat != null) {
-        Common.setupModal("load", null, Mess.I00001, null, null);
+        Common.setupModal("load", null, Mess.I00001, null);
         $.ajax({
             url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		    // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
@@ -44,7 +44,7 @@ function getInformation() {
             },
             error: function (jqXHR, exception) {
                 console.log(exception);
-                Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
+                Common.setupModal("error", null, Mess.E00003, StringCS.OK);
             },
             timeout: ValueCS.VL_LONG_TIMEOUT
         });
@@ -54,8 +54,8 @@ function getInformation() {
 }
 
 
-/* 
-	SET CUSTOMER INFORMATION
+/**
+   * SET CUSTOMER INFORMATION
 */
 function setInformation() {
     if (cusDat != null) {
@@ -92,8 +92,8 @@ function setInformation() {
 }
 
 
-/* 
-	SET CUSTOMER DETAIL INFORMATION
+/**
+   * SET CUSTOMER DETAIL INFORMATION
 */
 function setCustomerDetail() {
     if (cusDetailData.cusmastrDat.ccode != null) {
@@ -112,8 +112,9 @@ function setCustomerDetail() {
 }
 
 
-/* 
-	SET SHUUKEI DATA
+
+/**
+   * SET SHUUKEI DATA
 */
 function getShuukei() {
     var shuukei = "";
@@ -137,9 +138,10 @@ function getShuukei() {
 }
 
 
-/* 
-	FORMAT SHUKU DATA
-    @param value
+
+/**
+   * FORMAT SHUKU DATA
+   * @param value     [INT]
 */
 function formatShuku(value) {
     var result = "銀";
@@ -154,8 +156,8 @@ function formatShuku(value) {
 }
 
 
-/* 
-	SET KYOOKYUU DATA
+/**
+   * SET KYOOKYUU DATA
 */
 function getKyookyuu() {
     var result = "";
@@ -176,8 +178,8 @@ function getKyookyuu() {
 }
 
 
-/* 
-	SET KENSHIN JOOHOO DATA
+/**
+   * SET KENSHIN JOOHOO DATA
 */
 function showKenshinJoohoo() {
     if (cusDetailData.koukanDat.HN_DENCNT > 0) {
@@ -192,8 +194,8 @@ function showKenshinJoohoo() {
 }
 
 
-/* 
-	SET HAISOO JOOHOO DATA
+/**
+   * SET HAISOO JOOHOO DATA
 */
 function showHaisooJoohoo() {
     if (cusDetailData.koukanDat.HA_DENCNT > 0) {
@@ -207,8 +209,8 @@ function showHaisooJoohoo() {
 }
 
 
-/* 
-	SET MEMO DATA
+/**
+   * SET MEMO DATA
 */
 function showMemo() {
     if (cusDetailData.cusmastrDat.memo != null) {
@@ -228,8 +230,8 @@ function showMemo() {
 }
 
 
-/* 
-	SET RYOOKIN DATA
+/**
+   * SET RYOOKIN DATA
 */
 function getRyookin() {
     if (cusDetailData.cusmastrDat.gasku == 0) {
@@ -262,8 +264,8 @@ function getRyookin() {
 }
 
 
-/* 
-	MOVE TO KINYUU PAGE WITH MODE
+/**
+   * MOVE TO KINYUU PAGE WITH MODE
 */
 function kinyuuMove(mode) {
     sessionStorage.setItem(StringCS.KINYUUMODE, mode);
@@ -271,8 +273,8 @@ function kinyuuMove(mode) {
 }
 
 
-/* 
-	SETUP OPTION MENU
+/**
+   * SETUP OPTION MENU
 */
 function setOptionMenu() {
     document.getElementById("menuOption").onclick = function() {Common.movePage('/menu_page.html')};
@@ -281,8 +283,8 @@ function setOptionMenu() {
 }
 
 
-/* 
-	ONCLICK ACTION
+/**
+   * ONCLICK ACTION
 */
 function onclickAction() {
 	document.getElementById("backPageButton").onclick = Common.backAction;
@@ -290,8 +292,9 @@ function onclickAction() {
 	document.getElementById("jikkoButton").onclick = function() { kinyuuMove(1);};
 }
 
-/* 
-	ONLOAD ACTION
+
+/**
+   * ONLOAD ACTION
 */
 function onLoadAction() {
     setOptionMenu();

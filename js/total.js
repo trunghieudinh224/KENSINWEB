@@ -19,6 +19,8 @@ var userData = JSON.parse(localStorage.getItem("UserData"));
 var shuukeiData;
 /* image string */
 var imgString = "";
+/* view item list */
+var viewItemtList;
 /* default text size of printting form */
 var defaultPrintSize = window.getComputedStyle(document.getElementsByClassName("text")[0]).fontSize;
 /* default title size of printting form */
@@ -48,8 +50,8 @@ var shukeiItem = {
 
 
 
-/* 
-    SETUP LAYOUT EDIT VIEW
+/** 
+    * SETUP LAYOUT EDIT VIEW
 */
 function setupLayoutEditView() {
     if (userData.systemDat.FBUNRUI_3 == 0 && userData.systemDat.FHMCODE_3 == 0 && userData.systemDat.FHBCODE_3 == 0) {
@@ -60,8 +62,8 @@ function setupLayoutEditView() {
 }
 
 
-/* 
-    SET DEFAULT VALUE SELECT DATE
+/** 
+    * SET DEFAULT VALUE SELECT DATE
 */
 function setDefaultValueSelectDate() {
     if (userData != null) {
@@ -80,8 +82,8 @@ function setDefaultValueSelectDate() {
 }
 
 
-/* 
-    SETUP SELECT DATE VIEW
+/** 
+    * SETUP SELECT DATE VIEW
 */
 function setupSelectDateView() {
     selectDate.onchange = function () {
@@ -108,8 +110,8 @@ function setupSelectDateView() {
 }
 
 
-/* 
-    GET SHUUKEI DATA
+/** 
+    * GET SHUUKEI DATA
 */
 function getShuukeiData() {
     var urlString;
@@ -124,7 +126,7 @@ function getShuukeiData() {
         // urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
     }
 
-    Common.setupModal("load", null, Mess.I00001, null, null);
+    Common.setupModal("load", null, Mess.I00001, null);
     $.ajax({
         url: urlString,
         headers: {
@@ -132,31 +134,24 @@ function getShuukeiData() {
         },
         success: function (result) {
             shuukeiData = JSON.parse(result);
-
-            // if (shuukeiData != null) {
-            //     if (selectDate.value == "0") {
-
-            //     } else {
-
-            //     }
-            // }
-            viewList = setViewList("edt");
+            viewItemtList = setViewItemtList("edt");
             setShuukeiData();
             modal.style.display = "none";
 
         },
         error: function (jqXHR, exception) {
             console.log(exception);
-            Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
+            Common.setupModal("error", null, Mess.E00003, StringCS.OK);
         },
         timeout: ValueCS.VL_LONG_TIMEOUT
     });
 }
 
 
-var viewList;
-
-function setViewList(type) {
+/** 
+    * SET VIEW ITEM LIST
+*/
+function setViewItemtList(type) {
     var list = [
         document.getElementsByClassName("kenCnt-" + type)[0],
         document.getElementsByClassName("toyuCnt-" + type)[0],
@@ -182,42 +177,49 @@ function setViewList(type) {
     return list;
 }
 
+
+/** 
+    * SET SHUUKEI DATA
+*/
 function setShuukeiData() {
-    viewList[0].innerHTML = Other.KingakuFormat(shuukeiData.mKensu);
-    viewList[1].innerHTML = Other.KingakuFormat(shuukeiData.mToyuCnt);
-    viewList[2].innerHTML = Other.KingakuFormat(shuukeiData.mNyucnt);
-    viewList[3].innerHTML = Other.KingakuFormat(shuukeiData.mUricnt);
-    viewList[4].innerHTML = Other.Format(shuukeiData.mGsiyou, 1);
-    viewList[5].innerHTML = Other.KingakuFormat(shuukeiData.mGryokin);
-    viewList[6].innerHTML = Other.KingakuFormat(shuukeiData.mShohi);
-    viewList[7].innerHTML = Other.KingakuFormat(shuukeiData.mKang);
-    viewList[8].innerHTML = Other.KingakuFormat(shuukeiData.mTotal);
+    viewItemtList[0].innerHTML = Other.KingakuFormat(shuukeiData.mKensu);
+    viewItemtList[1].innerHTML = Other.KingakuFormat(shuukeiData.mToyuCnt);
+    viewItemtList[2].innerHTML = Other.KingakuFormat(shuukeiData.mNyucnt);
+    viewItemtList[3].innerHTML = Other.KingakuFormat(shuukeiData.mUricnt);
+    viewItemtList[4].innerHTML = Other.Format(shuukeiData.mGsiyou, 1);
+    viewItemtList[5].innerHTML = Other.KingakuFormat(shuukeiData.mGryokin);
+    viewItemtList[6].innerHTML = Other.KingakuFormat(shuukeiData.mShohi);
+    viewItemtList[7].innerHTML = Other.KingakuFormat(shuukeiData.mKang);
+    viewItemtList[8].innerHTML = Other.KingakuFormat(shuukeiData.mTotal);
 
-    viewList[9].innerHTML = Other.Format(shuukeiData.mToyuUse, 1);
-    viewList[10].innerHTML = Other.KingakuFormat(shuukeiData.mToyuKin);
-    viewList[11].innerHTML = Other.KingakuFormat(shuukeiData.mToyuTax);
-    viewList[12].innerHTML = Other.KingakuFormat(shuukeiData.mToyuTotal);
+    viewItemtList[9].innerHTML = Other.Format(shuukeiData.mToyuUse, 1);
+    viewItemtList[10].innerHTML = Other.KingakuFormat(shuukeiData.mToyuKin);
+    viewItemtList[11].innerHTML = Other.KingakuFormat(shuukeiData.mToyuTax);
+    viewItemtList[12].innerHTML = Other.KingakuFormat(shuukeiData.mToyuTotal);
 
-    viewList[13].innerHTML = Other.KingakuFormat(shuukeiData.mNyukin);
-    viewList[14].innerHTML = Other.KingakuFormat(shuukeiData.mChosei);
-    viewList[15].innerHTML = shuukeiData.mUrisur; //Other.Format("#,###,##0.00", shuukeiData.mUrisur, 2);
-    viewList[16].innerHTML = Other.KingakuFormat(shuukeiData.mUrikin);
-    viewList[17].innerHTML = Other.KingakuFormat(shuukeiData.mUritax);
-    viewList[18].innerHTML = Other.KingakuFormat(shuukeiData.mUrikin + shuukeiData.mUritax);
+    viewItemtList[13].innerHTML = Other.KingakuFormat(shuukeiData.mNyukin);
+    viewItemtList[14].innerHTML = Other.KingakuFormat(shuukeiData.mChosei);
+    viewItemtList[15].innerHTML = shuukeiData.mUrisur; //Other.Format("#,###,##0.00", shuukeiData.mUrisur, 2);
+    viewItemtList[16].innerHTML = Other.KingakuFormat(shuukeiData.mUrikin);
+    viewItemtList[17].innerHTML = Other.KingakuFormat(shuukeiData.mUritax);
+    viewItemtList[18].innerHTML = Other.KingakuFormat(shuukeiData.mUrikin + shuukeiData.mUritax);
 }
 
 
+/** 
+    * SET DATA SHUUKEI PRINT FORM
+*/
 function setDataPrintForm() {
-    let tempList = viewList;
-    viewList = setViewList("prt");
-    for (var i = 0; i < viewList.length; i++) {
-        viewList[i].innerHTML = tempList[i].textContent + viewList[i].textContent;
+    let tempList = viewItemtList;
+    viewItemtList = setViewItemtList("prt");
+    for (var i = 0; i < viewItemtList.length; i++) {
+        viewItemtList[i].innerHTML = tempList[i].textContent + viewItemtList[i].textContent;
     }
 }
 
 
-/* 
-    SHOW NIPPOU DIALOG
+/** 
+    * SHOW NIPPOU DIALOG
 */
 function showNippouDialog() {
     overlay.style.zIndex = "2";
@@ -225,8 +227,8 @@ function showNippouDialog() {
 }
 
 
-/* 
-    CLOSE NIPPOU DIALOG
+/** 
+    * CLOSE NIPPOU DIALOG
 */
 function closeNippouDialog() {
     overlay.style.zIndex = "-1";
@@ -234,8 +236,8 @@ function closeNippouDialog() {
 }
 
 
-/* 
-    BACK TO EDIT VIEW
+/** 
+    * BACK TO EDIT VIEW
 */
 function backToEditView() {
     document.getElementById('editView').style.display = "block";
@@ -246,6 +248,11 @@ function backToEditView() {
 }
 
 
+/** 
+    * SET TITLE PRINT FORM
+    * 
+    * @param type     [INT]
+*/
 function setTitlePrintForm(type) {
     var titleForm = "";
     switch (type) {
@@ -263,8 +270,8 @@ function setTitlePrintForm(type) {
 }
 
 
-/* 
-    CONVERT IMAGE TO BASE64
+/** 
+    * CONVERT IMAGE TO BASE64
 */
 function getBase64(file) {
     return new Promise((resolve, reject) => {
@@ -276,8 +283,18 @@ function getBase64(file) {
 }
 
 
-/* 
-    SETUP PRINT FORM
+/**
+   * SETUP PRINT FORM
+   *
+   * @param widthScreen     [STRING]
+   * @param widthForm     [STRING]
+   * @param sizeTitle     [STRING]
+   * @param sizeSingleLine     [STRING]
+   * @param lineHeightSingleLine     [STRING]
+   * @param sizeItem     [STRING]
+   * @param lineheightItem     [STRING]
+   * @param showEndPage     [STRING]
+   * @param paddingForm     [STRING]
 */
 function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineHeightSingleLine, sizeItem, lineheightItem, showEndPage, paddingForm) {
     if (Common.checkDevice() < 2) {
@@ -317,14 +334,50 @@ function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineH
 }
 
 
-/* 
-    CREATE IMAGE FILE
+/**
+   * SEND IMAGE TO PRINTER
+*/
+function sendImage() {
+    imgString = imgString.replace("data:image/png;base64,", "");
+    navigator.clipboard.writeText(imgString);
+    window.location.href = "printermarutou://print&&1";
+}
+
+
+/**
+   * SETUP OPTION MENU
+*/
+function setOptionMenu() {
+    document.getElementById("menuOption").onclick = function () { Common.movePage('/menu_page.html') };
+    document.getElementById("settingOption").onclick = function () { Common.movePage('/setting_page.html') };
+    document.getElementById("logoutOption").onclick = function () { Common.movePage('logout') };
+}
+
+
+/**
+    * ONCLICK ACTION
+*/
+function onclickAction() {
+    document.getElementById("backPageButton").onclick = Common.backAction;
+    document.getElementById("insatsuButton").onclick = createImageShuukeiForm;
+    document.getElementById("getShuukeiDataButton").onclick = getShuukeiData;
+    document.getElementById("backPrintButton").onclick = backToEditView;
+    document.getElementById("sendToAppButton").onclick = sendImage;
+
+    document.getElementById("nippouButton").onclick = showNippouDialog;
+    document.getElementById("closeNippouButton").onclick = closeNippouDialog;
+    document.getElementById("kenshinNippouButton").onclick = createImageKenshinNippouForm;
+}
+
+
+/** 
+    * CREATE IMAGE FILE OF SHUUKEI FORM
 */
 function createImageShuukeiForm() {
     if (Common.checkPrintable() == false) {
         return;
     }
-    Common.setupModal("load", null, Mess.I00001, null, null);
+    Common.setupModal("load", null, Mess.I00001, null);
     Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
@@ -351,42 +404,9 @@ function createImageShuukeiForm() {
 }
 
 
-/* 
-    SEND IMAGE
+/** 
+    * CREATE IMAGE FILE OF KENSHIN NIPPOU FORM
 */
-function sendImage() {
-    imgString = imgString.replace("data:image/png;base64,", "");
-    navigator.clipboard.writeText(imgString);
-    window.location.href = "printermarutou://print&&1";
-}
-
-
-/* 
-    SETUP OPTION MENU
-*/
-function setOptionMenu() {
-    document.getElementById("menuOption").onclick = function () { Common.movePage('/menu_page.html') };
-    document.getElementById("settingOption").onclick = function () { Common.movePage('/setting_page.html') };
-    document.getElementById("logoutOption").onclick = function () { Common.movePage('logout') };
-}
-
-
-/* 
-    ONCLICK ACTION
-*/
-function onclickAction() {
-    document.getElementById("backPageButton").onclick = Common.backAction;
-    document.getElementById("insatsuButton").onclick = createImageShuukeiForm;
-    document.getElementById("getShuukeiDataButton").onclick = getShuukeiData;
-    document.getElementById("backPrintButton").onclick = backToEditView;
-    document.getElementById("sendToAppButton").onclick = sendImage;
-
-    document.getElementById("nippouButton").onclick = showNippouDialog;
-    document.getElementById("closeNippouButton").onclick = closeNippouDialog;
-    document.getElementById("kenshinNippouButton").onclick = createImageKenshinNippouForm;
-}
-
-
 function createImageKenshinNippouForm() {
     closeNippouDialog();
     if (Common.checkPrintable() == false) {
@@ -394,7 +414,7 @@ function createImageKenshinNippouForm() {
     }
     setTitlePrintForm(0);
 
-    Common.setupModal("load", null, Mess.I00001, null, null);
+    Common.setupModal("load", null, Mess.I00001, null);
     Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
@@ -422,8 +442,8 @@ function createImageKenshinNippouForm() {
 }
 
 
-/* 
-    ONLOAD ACTION
+/** 
+    * ONLOAD ACTION
 */
 function onLoadAction() {
     setupLayoutEditView();

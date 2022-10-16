@@ -1,23 +1,23 @@
 import * as StringCS from '../Constant/strings.js'
 import * as Mess from '../Constant/message.js'
 
-/* 
-	BACK ACTION
+/** 
+   * BACK ACTION
 */
 function backAction() {
     history.back();
 }
 
 
-/* 
-	INITIALIZE MODAL
-	@param status
-	@param title
-	@param message
-	@param textButton1
-	@param textButton2
+/**
+   * INITIALIZE MODAL
+   *
+   * @param status     [STRING]
+   * @param title     [STRING]
+   * @param message     [STRING]
+   * @param textButton     [STRING]
 */
-function setupModal(status, title, message, textButton1, textButton2) {
+function setupModal(status, title, message, textButton) {
 	// init view
     var modal = document.getElementById("myModal");
     var imageModal = document.getElementsByClassName("modal-image")[0];
@@ -56,9 +56,9 @@ function setupModal(status, title, message, textButton1, textButton2) {
 	}
 
 	// button
-	if (textButton1 != null) {
+	if (textButton != null) {
 		buttonConfirm.style.display = "block";
-		buttonConfirm.innerHTML = textButton1;
+		buttonConfirm.innerHTML = textButton;
 		buttonConfirm.onclick = function () {
 			modal.style.display = "none";
 		}
@@ -71,8 +71,10 @@ function setupModal(status, title, message, textButton1, textButton2) {
 }
 
 
-/* 
-	MOVING TO ANOTHER PAGE
+/**
+   * MOVING TO ANOTHER PAGE
+   *
+   * @param page     [STRING]
 */
 function movePage(page) {
     if (page != 'logout') {
@@ -88,6 +90,12 @@ function movePage(page) {
 }
 
 
+/**
+   * CHECK DEVICE
+   *
+   * @param page     [STRING]
+   * @return [INT]
+*/
 function checkDevice() {
 	if (['iPhone Simulator', 'iPhone'].includes(navigator.platform) == true) {
 		// return "iphone";
@@ -105,15 +113,24 @@ function checkDevice() {
 }
 
 
+/**
+   * SET BACKGROUND DIALOG SCREEN
+   *
+   * @param display     [STRING]
+   * @param color     [STRING]
+*/
 function setBackgroundDialogScreen(display, color) {
     document.getElementsByClassName('modal-content')[0].style.display = display;
     document.getElementById('myModal').style.backgroundColor = color;
 }
 
 
+/**
+   * CHECK PRINT FUNCTION
+*/
 function checkPrintable() {
     if (checkDevice() != 0 && checkDevice() != 1) {
-        setupModal("error", null, Mess.E00006, StringCS.OK, null);
+        setupModal("error", null, Mess.E00006, StringCS.OK);
         return false;
     } else {
         return true;

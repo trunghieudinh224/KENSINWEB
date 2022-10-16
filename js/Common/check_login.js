@@ -1,7 +1,7 @@
 import * as StringCS from '../Constant/strings.js'
 
-/* 
-	CHECK USER IS LOGIN
+/**
+   * CHECK USER IS LOGIN
 */
 function checkUser() {
     var data = sessionStorage.getItem(StringCS.USERNAME);
@@ -13,8 +13,8 @@ function checkUser() {
 }
 
 
-/* 
-	CLEAR DATA SEARCHING
+/** 
+   * CLEAR DATA SEARCHING
 */
 function clearDataSearch() {
     var path = window.location.pathname;
@@ -25,8 +25,8 @@ function clearDataSearch() {
 }
 
 
-/* 
-	SAVE DATA CUSTOMER
+/** 
+   * SAVE DATA CUSTOMER
 */
 function clearDataCus() {
     var path = window.location.pathname;
@@ -35,7 +35,6 @@ function clearDataCus() {
         localStorage.removeItem(StringCS.CUSDAT);
     }
 }
-
 
 
 checkUser();

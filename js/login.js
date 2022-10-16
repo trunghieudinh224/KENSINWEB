@@ -3,10 +3,9 @@ import * as StringCS from './Constant/strings.js'
 import * as ValueCS from './Constant/values.js'
 import * as Mess from './Constant/message.js'
 
-
 /*****  FUNCTION  *****/
-/* 
-	CHECK ACCOUNT
+/**
+   * CHECK ACCOUNT
 */
 function checkAccount() {
     var data = sessionStorage.getItem(StringCS.USERNAME);
@@ -16,8 +15,8 @@ function checkAccount() {
 }
 
 
-/* 
-	LOGIN ACTION
+/**
+   * LOGIN ACTION
 */
 function login() {
     let user = document.getElementById("user"); 
@@ -30,16 +29,16 @@ function login() {
             password.classList.add("warning");
         }
     } else {
-        Common.setupModal("load", null, Mess.I00001, null, null);
+        Common.setupModal("load", null, Mess.I00001, null);
         checkUser(user.value, password.value);
     }
 }
 
 
-/* 
-	CHECK USER ACCOUNT
-    @param username
-    @param password
+/**
+   * CHECK USER ACCOUNT
+   * @param username     [INT]
+   * @param password     [INT]
 */
 function checkUser(username, password) {
     $.ajax({
@@ -56,7 +55,7 @@ function checkUser(username, password) {
                 sessionStorage.setItem(StringCS.PASSWORD, password);
                 getSystemDat();
             } else {
-                Common.setupModal("error", StringCS.LOGIN, Mess.E00002, StringCS.CONFIRM, null);
+                Common.setupModal("error", StringCS.LOGIN, Mess.E00002, StringCS.CONFIRM);
             }
         },
         error: function (jqXHR, exception) {
@@ -67,8 +66,8 @@ function checkUser(username, password) {
 }
 
 
-/* 
-	SET FOCUS INPUT
+/**
+   * SET FOCUS INPUT
 */
 function setFocusInput() {
     let user = document.getElementById("user"); 
@@ -86,8 +85,8 @@ function setFocusInput() {
 }
 
 
-/* 
-	GET SYSTEM DATA
+/**
+   * GET SYSTEM DATA
 */
 function getSystemDat() {
     $.ajax({
@@ -109,16 +108,16 @@ function getSystemDat() {
 }
 
 
-/* 
-	ONCLICK ACTION
+/**
+   * ONCLICK ACTION
 */
 function onclickAction() {
 	document.getElementById("loginButton").onclick = login;
 }
 
 
-/* 
-	ONLOAD ACTION
+/**
+   * ONLOAD ACTION
 */
 function onLoadAction() {
     checkAccount();

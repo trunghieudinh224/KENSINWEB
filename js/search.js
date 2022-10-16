@@ -33,8 +33,8 @@ var tantnameItem = ["kentan", "shutan", "uritan"];
 
 
 /*****  FUNCTION  *****/
-/* 
-	INITIALIZE COMBOBOX
+/**
+   * INITIALIZE COMBOBOX
 */
 function initCombobox() {
 	hankuList = userData.lstHanku;
@@ -46,11 +46,12 @@ function initCombobox() {
 }
 
 
-/* 
-	SET DATA FOR COMBOBOX
-	@param dropdownName
-	@param data
-	@param itemName
+/**
+   * SET DATA FOR COMBOBOX
+   *
+   * @param dropdownName     [STRING]
+   * @param data     [LIST]
+   * @param itemName     [STRING]
 */
 function setdataCbb(dropdownName, data, itemName) {
 	const dropdownList = document.getElementsByClassName(dropdownName);
@@ -80,8 +81,8 @@ function setdataCbb(dropdownName, data, itemName) {
 }
 
 
-/* 
-	SET MAX LENGTH SEARCHING DATA
+/**
+   * SET MAX LENGTH SEARCHING DATA
 */
 function setMaxLengthInput() {
 	var searchInput = document.getElementById("search-key");
@@ -107,9 +108,10 @@ function setMaxLengthInput() {
 }
 
 
-/* 
-	GET VALUE RADIO
-	@param radioName
+/**
+   * GET VALUE RADIO
+   *
+   * @param radioName     [STRING]
 */
 function getValueRadio(radioName) {
 	var radio = document.getElementsByName(radioName);
@@ -121,10 +123,11 @@ function getValueRadio(radioName) {
 }
 
 
-/* 
-	GET VALUE CHECKBOX
-	@param checkboxName
-	@param data
+/**
+   * GET VALUE CHECKBOX
+   *
+   * @param checkboxName     [STRING]
+   * @param data     [LIST]
 */
 function getValueCheckbox(checkboxName, data) {
 	var result = "";
@@ -141,8 +144,8 @@ function getValueCheckbox(checkboxName, data) {
 }
 
 
-/* 
-	SHOW PREVIOUS DATA
+/**
+   * SHOW PREVIOUS DATA
 */
 function checkPreviousData() {
 	const previousCuslist = JSON.parse(localStorage.getItem(StringCS.CUSTLIST));
@@ -191,8 +194,8 @@ function checkPreviousData() {
 }
 
 
-/* 
-	SEARCH CUSTOMER
+/**
+   * SEARCH CUSTOMER
 */
 function searchCus() {
 	let searchKindVal = String(searchType.value);
@@ -210,10 +213,10 @@ function searchCus() {
 	let shutan = getValueCheckbox("shutan", tantnameList);
 	let uritan = getValueCheckbox("uritan", tantnameList);
 
-	Common.setupModal("load", null, Mess.I00001, null, null);
+	Common.setupModal("load", null, Mess.I00001, null);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + searchKindVal +
 			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +	
 			"&match_kind=" + searchPartVal +	
@@ -283,25 +286,25 @@ function searchCus() {
 				} else {
 					dataMessage.innerText = Mess.E00001;
 					dataMessage.style.display = "block";
-					Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
+					Common.setupModal("success", null, Mess.E00005, StringCS.OK);
 				}
 			} else {
 				dataMessage.innerText = Mess.E00001;
 				dataMessage.style.display = "block";
-				Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
+				Common.setupModal("success", null, Mess.E00005, StringCS.OK);
 			}
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
-			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
+			Common.setupModal("error", null, Mess.E00003, StringCS.OK);
 		},
 		timeout: ValueCS.VL_LONG_TIMEOUT
 	});
 }
 
 
-/* 
-	ACCESS FIRST CUSTOMER
+/**
+   * ACCESS FIRST CUSTOMER
 */
 function firstCustomerAction() {
 	let searchKindVal = String(searchType.value);
@@ -315,10 +318,10 @@ function firstCustomerAction() {
 	let shutan = getValueCheckbox("shutan", tantnameList);
 	let uritan = getValueCheckbox("uritan", tantnameList);
 
-	Common.setupModal("load", null, Mess.I00001, null, null);
+	Common.setupModal("load", null, Mess.I00001, null);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + searchKindVal +
 			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +
 			"&match_kind=" + searchPartVal +
@@ -349,26 +352,26 @@ function firstCustomerAction() {
 				} else {
 					dataMessage.innerText = Mess.E00001;
 					dataMessage.style.display = "block";
-					Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
+					Common.setupModal("success", null, Mess.E00005, StringCS.OK);
 				}
 			} else {
 				dataMessage.innerText = Mess.E00001;
 				dataMessage.style.display = "block";
-				Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
+				Common.setupModal("success", null, Mess.E00005, StringCS.OK);
 			}
 
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
-			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
+			Common.setupModal("error", null, Mess.E00003, StringCS.OK);
 		},
 		timeout: ValueCS.VL_LONG_TIMEOUT
 	});
 }
 
 
-/* 
-	SETUP OPTION MENU
+/**
+   * SETUP OPTION MENU
 */
 function setOptionMenu() {
     document.getElementById("menuOption").onclick = function() {Common.movePage('/menu_page.html')};
@@ -377,8 +380,8 @@ function setOptionMenu() {
 }
 
 
-/* 
-	ONCLICK ACTION
+/**
+   * ONCLICK ACTION
 */
 function onclickAction() {
 	document.getElementById("backPageButton").onclick = Common.backAction;
@@ -387,8 +390,8 @@ function onclickAction() {
 }
 
 
-/* 
-	ONLOAD ACTION
+/**
+   * ONLOAD ACTION
 */
 function onLoadAction() {
 	setOptionMenu();

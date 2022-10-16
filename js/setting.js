@@ -13,14 +13,14 @@ var dataSetting;
 
 
 /*****  FUNCTION  *****/
-/* 
-	GET DATA SETTING
+/**
+   * GET DATA SETTING
 */
 function getDataSetting() {
-	Common.setupModal("load", null, Mess.I00001, null, null);
+	Common.setupModal("load", null, Mess.I00001, null);
 	$.ajax({
-        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-        // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+        url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		headers: {
 			'Content-Type': StringCS.PR_CONTENT_TYPE
 		},
@@ -34,16 +34,17 @@ function getDataSetting() {
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
-			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
+			Common.setupModal("error", null, Mess.E00003, StringCS.OK);
 		},
         timeout: ValueCS.VL_SHORT_TIMEOUT
 	});
 }
 
 
-/* 
-	SET DATA FOR COMMENT COMBOBOX
-	@param cbb
+/**
+   * SET DATA FOR COMMENT COMBOBOX
+   *
+   * @param cbb     [INT]
 */
 function setCommentCbb(cbb) {
 	if (dataSetting != null) {
@@ -65,8 +66,8 @@ function setCommentCbb(cbb) {
 }
 
 
-/* 
-	SET DATA FOR TANTNAME COMBOBOX
+/**
+   * SET DATA FOR TANTNAME COMBOBOX
 */
 function setTantnameCbb() {
 	if (dataSetting != null) {
@@ -86,8 +87,8 @@ function setTantnameCbb() {
 }
 
 
-/* 
-	SET DATA FOR PRINT MODE COMBOBOX
+/**
+   * SET DATA FOR PRINT MODE COMBOBOX
 */
 function setPrintModeCbb() {
 	if (dataSetting != null) {
@@ -100,8 +101,8 @@ function setPrintModeCbb() {
 }
 
 
-/* 
-	PREPARE NEW DATA SETTING
+/**
+   * PREPARE NEW DATA SETTING
 */
 function prepareNewDataSetting() {
 	let comment1 = document.getElementById("cbb_comment1").value;
@@ -122,21 +123,21 @@ function prepareNewDataSetting() {
 }
 
 
-/* 
-	SAVE DATA SETTING
+/**
+   * SAVE DATA SETTING
 */
 function saveDataSetting() {
-	Common.setupModal("load", null, Mess.I00002, null, null);
+	Common.setupModal("load", null, Mess.I00002, null);
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(prepareNewDataSetting()),
-        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
-        // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
+        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
+        url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
 		contentType: "application/json",
         timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
 			console.log(response);
-			Common.setupModal("load", null, Mess.I00002, null, null);
+			Common.setupModal("load", null, Mess.I00002, null);
 		},
 		error: function (xmlhttprequest, textstatus, message) {
 			if (textstatus === "timeout") {
@@ -144,17 +145,17 @@ function saveDataSetting() {
 			} else {
 				console.log(textstatus)
 			}
-			Common.setupModal("error", null, Mess.E00004, StringCS.OK, null);
+			Common.setupModal("error", null, Mess.E00004, StringCS.OK);
 		}
 	}).done(function (res) {
 		console.log('res', res);
-		Common.setupModal("success", null, Mess.I00003, StringCS.OK, null);
+		Common.setupModal("success", null, Mess.I00003, StringCS.OK);
 	});
 }
 
 
-/* 
-	SETUP OPTION MENU
+/**
+   * SETUP OPTION MENU
 */
 function setOptionMenu() {
     document.getElementById("menuOption").onclick = function() {Common.movePage('/menu_page.html')};
@@ -162,8 +163,8 @@ function setOptionMenu() {
 }
 
 
-/* 
-	ONCLICK ACTION
+/**
+   * ONCLICK ACTION
 */
 function onclickAction() {
 	document.getElementById("backPageButton").onclick = Common.backAction;
@@ -171,8 +172,8 @@ function onclickAction() {
 }
 
 
-/* 
-	ONLOAD ACTION
+/**
+   * ONLOAD ACTION
 */
 function onLoadAction() {
 	setOptionMenu();

@@ -1,15 +1,15 @@
 import * as Common from './Common/common_function.js'
 
-/* 
-	SETUP OPTION MENU
+/**
+   * SETUP OPTION MENU
 */
 function setOptionMenu() {
     document.getElementById("logoutOption").onclick = function() {Common.movePage('logout')};
 }
 
 
-/* 
-	ONCLICK ACTION
+/**
+   * ONCLICK ACTION
 */
 function onclickAction() {
     document.getElementById("gyoomuButton").onclick = function() {Common.movePage('/search_page.html')};
@@ -18,8 +18,8 @@ function onclickAction() {
 }
 
 
-/* 
-	ONLOAD ACTION
+/**
+   * ONLOAD ACTION
 */
 function onLoadAction() {
     setOptionMenu();
