@@ -113,7 +113,7 @@ function setBackgroundDialogScreen(display, color) {
 
 function checkPrintable() {
     if (checkDevice() != 0 && checkDevice() != 1) {
-        Common.setupModal("error", null, Mess.E00006, StringCS.OK, null);
+        setupModal("error", null, Mess.E00006, StringCS.OK, null);
         return false;
     } else {
         return true;
