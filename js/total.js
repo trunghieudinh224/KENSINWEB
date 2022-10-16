@@ -19,8 +19,9 @@ var userData = JSON.parse(localStorage.getItem("UserData"));
 var shuukeiData;
 /* image string */
 var imgString = "";
-
+/* default text size of printting form */
 var defaultPrintSize = window.getComputedStyle(document.getElementsByClassName("text")[0]).fontSize;
+/* default title size of printting form */
 var defaultPaddingPrintForm = window.getComputedStyle(document.getElementById("printContentDetail"), null).getPropertyValue('padding');
 
 /* shuukei data */
@@ -245,6 +246,23 @@ function backToEditView() {
 }
 
 
+function setTitlePrintForm(type) {
+    var titleForm = "";
+    switch (type) {
+        case 0:
+            titleForm = "検 針 日 報";
+            break;
+        case 1:
+            titleForm = "集 金 日 報";
+            break;
+        case 2:
+            titleForm = "売 上 日 報";
+            break;
+    }
+    document.getElementById("titlePrintView").innerHTML = titleForm;
+}
+
+
 /* 
     CONVERT IMAGE TO BASE64
 */
@@ -302,15 +320,17 @@ function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineH
 /* 
     CREATE IMAGE FILE
 */
-function createImageFile() {
+function createImageShuukeiForm() {
+    if (Common.checkPrintable() == false) {
+        return;
+    }
     Common.setupModal("load", null, Mess.I00001, null, null);
-    document.getElementsByClassName('modal-content')[0].style.display = "none";
-    document.getElementById('myModal').style.backgroundColor = "rgba(0,0,0,0.9)";
+    Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
     document.getElementById('shuukeiForm').style.display = "block";
     setDataPrintForm();
-    setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true``, "20px");
+    setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
@@ -321,11 +341,8 @@ function createImageFile() {
 
                     const interval = setInterval(function () {
                         setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
-                        
-                        document.getElementsByClassName('modal-content')[0].style.display = "block";
-                        document.getElementById('myModal').style.backgroundColor = "rgba(0,0,0,0.4)";
+                        Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
                         clearInterval(interval);
-
                         modal.style.display = "none";
                     }, 100);
                 }
@@ -359,28 +376,32 @@ function setOptionMenu() {
 */
 function onclickAction() {
     document.getElementById("backPageButton").onclick = Common.backAction;
-    document.getElementById("insatsuButton").onclick = createImageFile;
+    document.getElementById("insatsuButton").onclick = createImageShuukeiForm;
     document.getElementById("getShuukeiDataButton").onclick = getShuukeiData;
     document.getElementById("backPrintButton").onclick = backToEditView;
     document.getElementById("sendToAppButton").onclick = sendImage;
 
     document.getElementById("nippouButton").onclick = showNippouDialog;
     document.getElementById("closeNippouButton").onclick = closeNippouDialog;
-    document.getElementById("kenshinNippouButton").onclick = showKenshinNippou;
+    document.getElementById("kenshinNippouButton").onclick = createImageKenshinNippouForm;
 }
 
 
-function showKenshinNippou() {
+function createImageKenshinNippouForm() {
+    if (Common.checkPrintable() == false) {
+        return;
+    }
+    setTitlePrintForm(0);
     closeNippouDialog();
 
     Common.setupModal("load", null, Mess.I00001, null, null);
-    document.getElementsByClassName('modal-content')[0].style.display = "none";
-    document.getElementById('myModal').style.backgroundColor = "rgba(0,0,0,0.9)";
+    Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
     document.getElementById('nippouArea').style.display = "block";
     document.getElementById('kensinForm').style.display = "block";
-    setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", true, "20px");
+    // setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", true, "20px");
+    setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
@@ -391,10 +412,8 @@ function showKenshinNippou() {
 
                     const interval = setInterval(function () {
                         setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
-                        document.getElementsByClassName('modal-content')[0].style.display = "block";
-                        document.getElementById('myModal').style.backgroundColor = "rgba(0,0,0,0.4)";
+                        Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
                         clearInterval(interval);
-                        
                         modal.style.display = "none";
                     }, 100);
                 }

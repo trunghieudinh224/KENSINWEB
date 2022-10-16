@@ -1,4 +1,5 @@
 import * as StringCS from '../Constant/strings.js'
+import * as Mess from '../Constant/message.js'
 
 /* 
 	BACK ACTION
@@ -103,4 +104,20 @@ function checkDevice() {
 	}
 }
 
-export {backAction, setupModal, movePage, checkDevice}
+
+function setBackgroundDialogScreen(display, color) {
+    document.getElementsByClassName('modal-content')[0].style.display = display;
+    document.getElementById('myModal').style.backgroundColor = color;
+}
+
+
+function checkPrintable() {
+    if (checkDevice() != 0 && checkDevice() != 1) {
+        Common.setupModal("error", null, Mess.E00006, StringCS.OK, null);
+        return false;
+    } else {
+        return true;
+    }
+}
+
+export {backAction, setupModal, movePage, checkDevice, setBackgroundDialogScreen, checkPrintable}
