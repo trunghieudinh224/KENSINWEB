@@ -244,7 +244,8 @@ function backToEditView() {
     document.getElementById('printView').style.display = "none";
     document.getElementById('shuukeiForm').style.display = "none";
     document.getElementById('nippouArea').style.display = "none";
-    document.getElementById('kensinForm').style.display = "none";
+    document.getElementById('kensinNippouForm').style.display = "none";
+    document.getElementById('shuukeiNippouForm').style.display = "none";
 }
 
 
@@ -367,6 +368,7 @@ function onclickAction() {
     document.getElementById("nippouButton").onclick = showNippouDialog;
     document.getElementById("closeNippouButton").onclick = closeNippouDialog;
     document.getElementById("kenshinNippouButton").onclick = createImageKenshinNippouForm;
+    document.getElementById("shuukeiNippouButton").onclick = createImageShuukeiNippouForm;
 }
 
 
@@ -419,8 +421,45 @@ function createImageKenshinNippouForm() {
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
     document.getElementById('nippouArea').style.display = "block";
-    document.getElementById('kensinForm').style.display = "block";
+    document.getElementById('kensinNippouForm').style.display = "block";
     // setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", true, "20px");
+    setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
+    domtoimage.toBlob(document.getElementById('printContentDetail'))
+        .then(function (blob) {
+            getBase64(blob).then(
+                data => {
+                    console.log(data)
+                    imgString = data;
+                    window.scrollTo(0, 0);
+
+                    const interval = setInterval(function () {
+                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
+                        Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
+                        clearInterval(interval);
+                        modal.style.display = "none";
+                    }, 100);
+                }
+            );
+        })
+}
+
+
+/** 
+    * CREATE IMAGE FILE OF SHUUKEI NIPPOU FORM
+*/
+function createImageShuukeiNippouForm() {
+    closeNippouDialog();
+    if (Common.checkPrintable() == false) {
+        return;
+    }
+    setTitlePrintForm(1);
+
+    Common.setupModal("load", null, Mess.I00001, null);
+    Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
+    document.getElementById('editView').style.display = "none";
+    document.getElementById('printView').style.display = "block";
+    document.getElementById('nippouArea').style.display = "block";
+    document.getElementById('shuukeiNippouForm').style.display = "block";
     setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
