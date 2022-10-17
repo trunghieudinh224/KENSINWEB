@@ -304,7 +304,10 @@ function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineH
         form[0].style.width = widthForm;
     }
 
-    document.getElementById("titlePrintView").style.fontSize = sizeTitle;
+    var title = document.getElementsByClassName("title-printView");
+    for (let i = 0; i < title.length; i++) {
+        title[i].style.fontSize = sizeTitle;
+    }
 
     const shukei_single_line = document.getElementsByClassName("sg-line");
     for (let i = 0; i < shukei_single_line.length; i++) {
