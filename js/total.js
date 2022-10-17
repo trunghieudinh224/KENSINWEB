@@ -414,9 +414,9 @@ function createImageShuukeiForm() {
 */
 function createImageKenshinNippouForm() {
     closeNippouDialog();
-    if (Common.checkPrintable() == false) {
-        return;
-    }
+    // if (Common.checkPrintable() == false) {
+    //     return;
+    // }
     setTitlePrintForm(0);
 
     Common.setupModal("load", null, Mess.I00001, null);
@@ -426,8 +426,8 @@ function createImageKenshinNippouForm() {
     document.getElementById('nippouArea').style.display = "block";
     document.getElementById('kensinNippouForm').style.display = "block";
     document.getElementById('shuukeiNippouForm').style.display = "none";
-    // setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", true, "20px");
-    setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
+    setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", true, "20px");
+    // setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
@@ -437,9 +437,9 @@ function createImageKenshinNippouForm() {
                     window.scrollTo(0, 0);
 
                     const interval = setInterval(function () {
-                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
-                        Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
-                        clearInterval(interval);
+                        // setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
+                        // Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
+                        // clearInterval(interval);
                         modal.style.display = "none";
                     }, 100);
                 }
@@ -453,9 +453,9 @@ function createImageKenshinNippouForm() {
 */
 function createImageShuukeiNippouForm() {
     closeNippouDialog();
-    // if (Common.checkPrintable() == false) {
-    //     return;
-    // }
+    if (Common.checkPrintable() == false) {
+        return;
+    }
     setTitlePrintForm(1);
 
     Common.setupModal("load", null, Mess.I00001, null);
@@ -465,7 +465,8 @@ function createImageShuukeiNippouForm() {
     document.getElementById('nippouArea').style.display = "block";
     document.getElementById('shuukeiNippouForm').style.display = "block";
     document.getElementById('kensinNippouForm').style.display = "none";
-    setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
+    // setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
+    setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
