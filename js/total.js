@@ -414,9 +414,9 @@ function createImageShuukeiForm() {
 */
 function createImageKenshinNippouForm() {
     closeNippouDialog();
-    // if (Common.checkPrintable() == false) {
-    //     return;
-    // }
+    if (Common.checkPrintable() == false) {
+        return;
+    }
     setTitlePrintForm(0);
 
     Common.setupModal("load", null, Mess.I00001, null);
