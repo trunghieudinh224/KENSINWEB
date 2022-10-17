@@ -117,13 +117,13 @@ function getShuukeiData() {
     var urlString;
     if (selectDate.value == "1") {
         let date = document.getElementById("date-end").value;
-        urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
-        // urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        // urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
     } else {
         let dateStart = document.getElementById("date-start").value;
         let dateEnd = document.getElementById("date-end").value;
-        urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
-        // urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        // urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
     }
 
     Common.setupModal("load", null, Mess.I00001, null);
@@ -475,9 +475,9 @@ function createImageShuukeiNippouForm() {
                     window.scrollTo(0, 0);
 
                     const interval = setInterval(function () {
-                        // setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
-                        // Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
-                        // clearInterval(interval);
+                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
+                        Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
+                        clearInterval(interval);
                         modal.style.display = "none";
                     }, 100);
                 }
