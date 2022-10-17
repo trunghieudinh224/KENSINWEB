@@ -437,9 +437,9 @@ function createImageKenshinNippouForm() {
                     window.scrollTo(0, 0);
 
                     const interval = setInterval(function () {
-                        // setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
-                        // Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
-                        // clearInterval(interval);
+                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
+                        Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
+                        clearInterval(interval);
                         modal.style.display = "none";
                     }, 100);
                 }
