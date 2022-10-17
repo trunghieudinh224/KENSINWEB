@@ -422,6 +422,7 @@ function createImageKenshinNippouForm() {
     document.getElementById('printView').style.display = "block";
     document.getElementById('nippouArea').style.display = "block";
     document.getElementById('kensinNippouForm').style.display = "block";
+    document.getElementById('shuukeiNippouForm').style.display = "none";
     // setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", true, "20px");
     setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
@@ -460,6 +461,7 @@ function createImageShuukeiNippouForm() {
     document.getElementById('printView').style.display = "block";
     document.getElementById('nippouArea').style.display = "block";
     document.getElementById('shuukeiNippouForm').style.display = "block";
+    document.getElementById('kensinNippouForm').style.display = "none";
     setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
