@@ -267,7 +267,7 @@ function setTitlePrintForm(type) {
             titleForm = "売 上 日 報";
             break;
     }
-    document.getElementById("titlePrintView").innerHTML = titleForm;
+    document.getElementById("titleNippouPrintView").innerHTML = titleForm;
 }
 
 
@@ -453,9 +453,9 @@ function createImageKenshinNippouForm() {
 */
 function createImageShuukeiNippouForm() {
     closeNippouDialog();
-    if (Common.checkPrintable() == false) {
-        return;
-    }
+    // if (Common.checkPrintable() == false) {
+    //     return;
+    // }
     setTitlePrintForm(1);
 
     Common.setupModal("load", null, Mess.I00001, null);
