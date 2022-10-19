@@ -156,7 +156,7 @@ iframe {
 }
 
 .input100 {
-  font-family: Ubuntu-Regular;
+  font-family: sans-serif;
   font-size: 18px;
   color: #555555;
   line-height: 1.2;
@@ -262,7 +262,7 @@ iframe {
 .btn {
   width: 90%;
   height: 50px;
-  font-family: Ubuntu-Bold;
+  font-family: sans-serif;
   font-weight: bold;
   color: white;
   font-size: 22px;
@@ -340,7 +340,7 @@ iframe {
   right: 10px;
   pointer-events: none;
 
-  font-family: Ubuntu-Bold;
+  font-family: sans-serif;
   color: var(--primary-color);
   font-size: 13px;
   line-height: 1.4;

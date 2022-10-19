@@ -1,11 +1,6 @@
 /*
   ******  CONSTANT  ******
 */
-@font-face {
-  font-family: Cambria;
-  src: url('../fonts/cambria/Cambria.ttf');
-}
-
 :root {
   --primary-color: #e2ffda;
   --icon-color: #52c234;
@@ -18,11 +13,11 @@
   padding: 0px;
   box-sizing: border-box;
   font-size: 18px;
-  font-family: Cambria;
+  font-family: sans-serif;
 }
 
 body {
-  font-family: Cambria;
+  font-family: sans-serif;
 }
 
 
@@ -199,7 +194,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .btn {
   width: 100%;
   height: 100%;
-  font-family: Cambria;
+  font-family: sans-serif;
   color: white;
   font-size: 20px;
   font-weight: bold;
