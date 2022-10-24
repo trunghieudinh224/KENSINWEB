@@ -41,6 +41,10 @@ export var CUSTLIST = "CusList";
 export var CUSDAT = "CusDat";
 // kinyuu mode
 export var KINYUUMODE = "KinyuuMode";
+// kensin date
+export var KENSINDATE = "KensinDate";
+// setting data
+export var SETTINGDATA = "SettingData";
 
 
 /*****  CONTENT  *****/
