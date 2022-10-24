@@ -1,0 +1,211 @@
+#printView {
+    display: none;
+}
+
+#titleArea {
+    margin-bottom: 25px;
+}
+
+#cusInfoArea, #kinInfoArea, #seiKyuCommentArea, #gasryokinSikiArea, #ryoshuArea, #bankArea, #nyukinModeArea, #hmInfoArea, #commentArea, #hybCommentArea, #hybTblArea, #hoanInfoArea, #pointArea, #miyaPointArea, #cnCommentArea {
+    margin-bottom: 15px;
+}
+
+#uTaxCommentArea, #hoanTable {
+    margin-bottom: 5px;
+}
+
+#HiwariCommentArea {
+    margin-bottom: 25px;
+}
+
+#ryooOsamuShirushiArea {
+    height: 150px;
+    margin-top: -3px;
+}
+
+#ryoshuText {
+    margin-top: 5px;
+}
+
+.bd-1 {
+    border: 1.5px solid black;
+}
+
+.bd-3 {
+    border: 3px solid black;
+}
+
+.frames-common {
+    padding: 3px 10px
+}
+
+.valLine {
+    width: 85%;
+    float: left;
+}
+
+.unitLine {
+    width: 15%;
+    float: right;
+}
+
+.pl-15 {
+    padding-left: 15px;
+}
+
+.pl-30 {
+    padding-left: 30px;
+}
+
+.lg-text {
+    font-size: 22px !important;
+}
+
+.tb-item {
+    font-size: 22px !important;
+}
+
+.hybTable-item {
+    font-size: 22px !important;
+}
+
+.hoan-item {
+    font-size: 22px !important;
+}
+
+.hoan-val {
+    padding-left: 0px;
+}
+
+.hoan-title {
+    padding-right: 0px;
+}
+
+.hoan-title-r {
+    padding-left: 0px;
+}
+
+
+table {
+    width:100%; 
+    border: 1px solid black; 
+    border-collapse: collapse;
+}
+
+td {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
+.td-nm {
+    border: 1px solid black; 
+    width: 70%; 
+    padding: 1px 10px;
+}
+
+.td-r {
+    border-left: 1px solid black; 
+    width: 30%;
+}
+
+
+
+#hmInfoTable {
+    border: none;
+}
+
+.w16 {
+    width: 16%;
+}
+
+.w20 {
+    width: 20%;
+}
+
+.w24 {
+    width: 24%;
+}
+
+
+
+
+
+#hybTableHeader {
+    border: none; 
+    border-bottom: 1px solid black; 
+    margin-bottom: 15px;
+}
+
+.w33 {
+    width: 33%;
+}
+
+.w21 {
+    width: 21%;
+}
+
+.w25 {
+    width: 25%;
+}
+
+#hybTable {
+    border: none;
+}
+
+
+
+
+
+/*
+  ******  RESPONSIVE LAYOUT  ******
+*/
+
+@media screen and (max-width: 900px) {
+}
+
+
+@media screen and (max-width: 768px) {
+    .valLine {
+        width: 82%;
+    }
+
+    .unitLine {
+        width: 18%;
+    }}
+
+@media screen and (max-width: 600px) {
+    .valLine {
+        width: 79%;
+    }
+
+    .unitLine {
+        width: 21%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .frames-common {
+        padding: 3px 5px
+    }
+
+    .tb-item {
+        font-size: 13px !important;
+        margin: -2px !important;
+        padding: 0px !important;
+    }
+
+    #ryooOsamuShirushiArea {
+        height: 100px;
+    }
+
+    .hybTable-item {
+        font-size: 12px !important;
+        margin: -2px !important;
+        padding: 0px !important;
+    }
+
+    .hoan-item {
+        font-size: 12px !important;
+        padding: 0px;
+    }
+}
