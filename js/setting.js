@@ -18,26 +18,28 @@ var dataSetting;
 */
 function getDataSetting() {
 	Common.setupModal("load", null, Mess.I00001, null);
-	$.ajax({
-        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-        url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-		headers: {
-			'Content-Type': StringCS.PR_CONTENT_TYPE
-		},
-		success: function (result) {
-			dataSetting = JSON.parse(result);
-			setCommentCbb(1);
-			setCommentCbb(2);
-			setTantnameCbb();
-			setPrintModeCbb();
-			modal.style.display = "none";
-		},
-		error: function (jqXHR, exception) {
-			console.log(exception);
-			Common.setupModal("error", null, Mess.E00003, StringCS.OK);
-		},
-        timeout: ValueCS.VL_SHORT_TIMEOUT
-	});
+	/* user data */
+	dataSetting = JSON.parse(localStorage.getItem(StringCS.SETTINGDATA));setCommentCbb(1);
+	setCommentCbb(2);
+	setTantnameCbb();
+	setPrintModeCbb();
+	modal.style.display = "none";
+	// $.ajax({
+    //     url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+    //     // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+	// 	headers: {
+	// 		'Content-Type': StringCS.PR_CONTENT_TYPE
+	// 	},
+	// 	success: function (result) {
+	// 		dataSetting = JSON.parse(result);
+			
+	// 	},
+	// 	error: function (jqXHR, exception) {
+	// 		console.log(exception);
+	// 		Common.setupModal("error", null, Mess.E00003, StringCS.OK);
+	// 	},
+    //     timeout: ValueCS.VL_SHORT_TIMEOUT
+	// });
 }
 
 
@@ -131,8 +133,8 @@ function saveDataSetting() {
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(prepareNewDataSetting()),
-        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
-        url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
+        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
+        // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
 		contentType: "application/json",
         timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
