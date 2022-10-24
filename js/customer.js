@@ -269,6 +269,8 @@ function getRyookin() {
 */
 function kinyuuMove(mode) {
     sessionStorage.setItem(StringCS.KINYUUMODE, mode);
+    var kensinDate = document.getElementById("jisshi-bi").value;
+    sessionStorage.setItem(StringCS.KENSINDATE, kensinDate);
     Common.movePage('/meter_reading_fillout_page.html');
 }
 
