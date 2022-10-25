@@ -286,11 +286,13 @@ function searchCus() {
 				} else {
 					dataMessage.innerText = Mess.E00001;
 					dataMessage.style.display = "block";
+					document.getElementById("countList").style.display = "none";
 					Common.setupModal("success", null, Mess.E00005, StringCS.OK);
 				}
 			} else {
 				dataMessage.innerText = Mess.E00001;
 				dataMessage.style.display = "block";
+				document.getElementById("countList").style.display = "none";
 				Common.setupModal("success", null, Mess.E00005, StringCS.OK);
 			}
 		},
