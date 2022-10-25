@@ -6,7 +6,7 @@ import * as StringCS from '../Constant/strings.js'
 function checkUser() {
     var data = sessionStorage.getItem(StringCS.USERNAME);
     if (data == null || data == '') {
-        window.location.href = "/login_page.html";
+        Common.movePage('/login_page.html');
     } else {
         document.getElementById("name").innerText = data;
     }

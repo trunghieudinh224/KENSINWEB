@@ -123,7 +123,6 @@ function getDataSetting() {
 			let settingDat = JSON.parse(result);
             localStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(settingDat));
             Common.movePage('/menu_page.html');
-            
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
