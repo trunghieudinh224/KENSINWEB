@@ -18,6 +18,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/modal.css" />
     <link rel="stylesheet" type="text/css" href="css/meter_reading_fillout.css">
     <link rel="stylesheet" type="text/css" href="css/print_common.css">
     <link rel="stylesheet" type="text/css" href="css/kinyuu-print.css">
@@ -659,7 +660,7 @@
                             </div>
 
                             <div class="col-6">
-                                <button type="button" class="btn btn-default text-center"><span
+                                <button type="button" class="btn btn-default text-center" id="createPrintingFormButton"><span
                                         class="fas fa-play ic-btn"></span><br>確認</button>
                             </div>
                         </div>
@@ -1733,6 +1734,29 @@
                 </div>
 
             </div>
+
+            <!-- The Modal -->
+			<div id="myModal" class="modal">
+				<!-- Modal content -->
+				<div class="modal-content">
+					<!-- Modal image area -->
+					<div class="modal-image-area background-error-modal">
+						<span class="modal-close-button">X</span>
+						<img id="imgStatusModal" class="modal-image">
+					</div>
+
+					<!-- Modal message area -->
+					<div class="modal-message">
+						<div class="modal-message-area">
+							<span class="title-modal text">題名</span>
+							<span class="modal-message-detail text">メッセージ</span>
+						</div>
+
+						<button class="button-modal btn-common button-confirm" role="button">確認</button>
+					</div>
+				</div>
+
+			</div>
         </div>
     </div>
 
