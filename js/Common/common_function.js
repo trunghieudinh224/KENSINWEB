@@ -137,4 +137,19 @@ function checkPrintable() {
     }
 }
 
+// function detectBrowser() {
+// 	let userAgent = navigator.userAgent;
+// 	let browserName;
+
+// 	if (userAgent.match(/android/i)) {
+// 		browserName = "Android";
+// 	} else if (userAgent.match(/iphone/i)) {
+// 		browserName = "iPhone";
+// 	} else {
+// 		browserName = "desktop";
+// 	}
+
+// 	alert(browserName);
+// }
+
 export {backAction, setupModal, movePage, checkDevice, setBackgroundDialogScreen, checkPrintable}
