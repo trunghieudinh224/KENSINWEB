@@ -18,28 +18,27 @@ var dataSetting;
 */
 function getDataSetting() {
 	Common.setupModal("load", null, Mess.I00001, null);
-	/* user data */
-	dataSetting = JSON.parse(localStorage.getItem(StringCS.SETTINGDATA));setCommentCbb(1);
-	setCommentCbb(2);
-	setTantnameCbb();
-	setPrintModeCbb();
-	modal.style.display = "none";
-	// $.ajax({
-    //     url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-    //     // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-	// 	headers: {
-	// 		'Content-Type': StringCS.PR_CONTENT_TYPE
-	// 	},
-	// 	success: function (result) {
-	// 		dataSetting = JSON.parse(result);
+	$.ajax({
+        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+        // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+		headers: {
+			'Content-Type': StringCS.PR_CONTENT_TYPE
+		},
+		success: function (result) {
+			dataSetting = JSON.parse(result);
 			
-	// 	},
-	// 	error: function (jqXHR, exception) {
-	// 		console.log(exception);
-	// 		Common.setupModal("error", null, Mess.E00003, StringCS.OK);
-	// 	},
-    //     timeout: ValueCS.VL_SHORT_TIMEOUT
-	// });
+			dataSetting = JSON.parse(localStorage.getItem(StringCS.SETTINGDATA));setCommentCbb(1);
+			setCommentCbb(2);
+			setTantnameCbb();
+			setPrintModeCbb();
+			modal.style.display = "none";
+		},
+		error: function (jqXHR, exception) {
+			console.log(exception);
+			Common.setupModal("error", null, Mess.E00003, StringCS.OK);
+		},
+        timeout: ValueCS.VL_SHORT_TIMEOUT
+	});
 }
 
 
@@ -151,6 +150,7 @@ function saveDataSetting() {
 		}
 	}).done(function (res) {
 		console.log('res', res);
+		localStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(prepareNewDataSetting()));
 		Common.setupModal("success", null, Mess.I00003, StringCS.OK);
 	});
 }
