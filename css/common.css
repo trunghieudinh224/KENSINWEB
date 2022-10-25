@@ -482,10 +482,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   .btn {
     font-size: 18px;
   }
-
-  .btn-nomov {
-    font-size: 18px;
-  }
   
   /* TEXT */
   .text {
@@ -560,10 +556,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
   /* BUTTON */
   .btn {
-    font-size: 16px;
-  }
-
-  .btn-nomov {
     font-size: 16px;
   }
   

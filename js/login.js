@@ -10,7 +10,7 @@ import * as Mess from './Constant/message.js'
 function checkAccount() {
     var data = sessionStorage.getItem(StringCS.USERNAME);
     if (data != null) {
-        window.location.href = "/menu_page.html";
+        Common.movePage('/menu_page.html');
     }
 }
 
@@ -122,7 +122,8 @@ function getDataSetting() {
 		success: function (result) {
 			let settingDat = JSON.parse(result);
             localStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(settingDat));
-            window.location.href = "/menu_page.html";
+            Common.movePage('/menu_page.html');
+            
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
