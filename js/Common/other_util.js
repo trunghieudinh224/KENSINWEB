@@ -100,4 +100,62 @@ function getClearString(wkStr) {
 }
 
 
-export { Format, KingakuFormat, KingakuFormatLocal, isEmpty, cutStringSpace, nullToString, getClearString }
+/**
+   * 月と日から0無しでMM/dd形式で作成
+   * @param year [in] long       年
+   * @param month [in] long       月
+   * @param day   [in] long       日
+   * @param mask  [in] booelan    true: mm/dd, false: mm月dd日
+   * @return String   整形された日付文字列
+*/
+function DateFormat(year, month, day, mask) {
+	var _month;
+	var _day;
+	var ymd;
+	if (month < 10) {
+		_month = "0" + month;
+	} else {
+		_month = month;
+	}
+	if (day < 10) {
+		_day = "0" + day;
+	} else {
+		_day = day;
+	}
+	if (mask) {
+		ymd = _month + "/" + _day;
+	} else {
+		ymd = year + "年" + _month + "月" + _day + "日";
+	}
+	return ymd;
+}
+
+
+/**
+	* 差益還元の名称を取得.
+	*
+	* @param context   [in] {@link Context}    呼び出し元コンテキスト
+	* @param sy2fDat   [in] {@link Sy2fDat}    システム設定２データ
+	* @return  String  差益還元名称
+*/
+function getKangcontname(sy2fDat, mUserData) {
+	const strKang = "原料費調整";
+	// 差益還元額名称取得
+	if (sy2fDat.mKangHcd < 100) {
+		// 取引区分から取得
+		const busfDat = mUserData.getBusfDat(sy2fDat.mKangHcd, 0);		//Phần này thêm vô (Hiếu)
+		if (busfDat != null) {
+			strKang = busfDat.mName;
+		}
+	} else {
+		// 商品から取得
+		const busfDat = InputDat.getBusfDat(sy2fDat.mKangHcd, 1);
+		if (busfDat != null) {
+			strKang = busfDat.mName;
+		}
+	}
+	return getClearString(nullToString(strKang));
+}
+
+
+export { Format, KingakuFormat, KingakuFormatLocal, isEmpty, cutStringSpace, nullToString, getClearString, DateFormat }
