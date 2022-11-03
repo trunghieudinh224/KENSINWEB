@@ -43,7 +43,7 @@ function KingakuFormatLocal(wkFormat, value) {
 	}
 
 	kingaku = temp;
-	kingaku = kingaku.toLocaleString("en-US");
+	// kingaku = kingaku.toLocaleString("en-US");
     return kingaku;
 }
 
