@@ -29,7 +29,7 @@ function login() {
             password.classList.add("warning");
         }
     } else {
-        Common.setupModal("load", null, Mess.I00001, null);
+        Common.setupModal("load", null, Mess.I00001, null, null);
         checkUser(user.value, password.value);
     }
 }
@@ -55,7 +55,7 @@ function checkUser(username, password) {
                 sessionStorage.setItem(StringCS.PASSWORD, password);
                 getSystemDat();
             } else {
-                Common.setupModal("error", StringCS.LOGIN, Mess.E00002, StringCS.CONFIRM);
+                Common.setupModal("error", StringCS.LOGIN, Mess.E00002, StringCS.CONFIRM, null);
             }
         },
         error: function (jqXHR, exception) {
@@ -112,7 +112,7 @@ function getSystemDat() {
    * GET DATA SETTING
 */
 function getDataSetting() {
-	Common.setupModal("load", null, Mess.I00001, null);
+	Common.setupModal("load", null, Mess.I00001, null, null);
 	$.ajax({
         // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
         url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
@@ -126,7 +126,7 @@ function getDataSetting() {
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
-			Common.setupModal("error", null, Mess.E00003, StringCS.OK);
+			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
 		},
         timeout: ValueCS.VL_SHORT_TIMEOUT
 	});

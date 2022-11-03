@@ -3022,7 +3022,7 @@ function createImageShuukeiNippouForm() {
 	}
 	setTitlePrintForm(1);
 
-	Common.setupModal("load", null, Mess.I00001, null);
+	Common.setupModal("load", null, Mess.I00001, null, null);
 	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";

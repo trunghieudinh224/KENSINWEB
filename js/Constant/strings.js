@@ -57,3 +57,5 @@ export var LOGIN = "ログイン";
 export var CONFIRM = "確認";
 // ok button
 export var OK = "OK";
+// ok button
+export var BACK = "戻る";

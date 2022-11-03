@@ -74,7 +74,7 @@ setOptionMenu();
 */
 function onclickAction() {
 	document.getElementById("createPrintingFormButton").onclick = function () {
-		Common.setupModal("load", null, Mess.I00004, StringCS.OK);
+		Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
 	};
 }
 onclickAction();

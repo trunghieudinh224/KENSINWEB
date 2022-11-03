@@ -126,7 +126,7 @@ function getShuukeiData() {
         urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
     }
 
-    Common.setupModal("load", null, Mess.I00001, null);
+    Common.setupModal("load", null, Mess.I00001, null, null);
     $.ajax({
         url: urlString,
         headers: {
@@ -141,7 +141,7 @@ function getShuukeiData() {
         },
         error: function (jqXHR, exception) {
             console.log(exception);
-            Common.setupModal("error", null, Mess.E00003, StringCS.OK);
+            Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
         },
         timeout: ValueCS.VL_LONG_TIMEOUT
     });
@@ -379,7 +379,7 @@ function onclickAction() {
     * CREATE IMAGE FILE OF SHUUKEI FORM
 */
 function createImageShuukeiForm() {
-    Common.setupModal("load", null, Mess.I00004, StringCS.OK);
+    Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
     return;
     if (Common.checkPrintable() == false) {
         return;
@@ -416,7 +416,7 @@ function createImageShuukeiForm() {
 */
 function createImageKenshinNippouForm() {
     closeNippouDialog();
-    Common.setupModal("load", null, Mess.I00004, StringCS.OK);
+    Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
     return;
     if (Common.checkPrintable() == false) {
         return;
@@ -457,7 +457,7 @@ function createImageKenshinNippouForm() {
 */
 function createImageShuukeiNippouForm() {
     closeNippouDialog();
-    Common.setupModal("load", null, Mess.I00004, StringCS.OK);
+    Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
     return;
     if (Common.checkPrintable() == false) {
         return;

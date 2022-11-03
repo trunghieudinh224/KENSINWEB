@@ -213,7 +213,7 @@ function searchCus() {
 	let shutan = getValueCheckbox("shutan", tantnameList);
 	let uritan = getValueCheckbox("uritan", tantnameList);
 
-	Common.setupModal("load", null, Mess.I00001, null);
+	Common.setupModal("load", null, Mess.I00001, null, null);
 	$.ajax({
 		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
@@ -242,7 +242,7 @@ function searchCus() {
 			const data = JSON.parse(result);
 			if (data.cuslist != null) {
 				if (data.cuslist.length > 0) {
-					localStorage.setItem("cuslist", JSON.stringify(data.cuslist));
+					localStorage.setItem(StringCS.CUSTLIST, JSON.stringify(data.cuslist));
 					for (var i = 0; i < data.cuslist.length; i++) {
 						const newElement = document.createElement("tr");
 						const newName = document.createElement("td");
@@ -265,9 +265,20 @@ function searchCus() {
 						var object = data.cuslist[i];
 						newElement.onclick = function () {
 							object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
-							const cusdat = Object.assign({}, object);
-							localStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
-							Common.movePage('/customer_page.html');
+							if (object.kenstat == 1) {
+								Common.setupModal("success", null, Mess.E00005, StringCS.OK, StringCS.BACK);
+								var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
+								buttonConfirm.onclick = function () {
+									const cusdat = Object.assign({}, object);
+									localStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
+									Common.movePage('/customer_page.html');
+								}
+							} else {
+								const cusdat = Object.assign({}, object);
+								localStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
+								Common.movePage('/customer_page.html');
+							}
+							
 						};
 					}
 
@@ -287,18 +298,18 @@ function searchCus() {
 					dataMessage.innerText = Mess.E00001;
 					dataMessage.style.display = "block";
 					document.getElementById("countList").style.display = "none";
-					Common.setupModal("success", null, Mess.E00005, StringCS.OK);
+					Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
 				}
 			} else {
 				dataMessage.innerText = Mess.E00001;
 				dataMessage.style.display = "block";
 				document.getElementById("countList").style.display = "none";
-				Common.setupModal("success", null, Mess.E00005, StringCS.OK);
+				Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
 			}
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
-			Common.setupModal("error", null, Mess.E00003, StringCS.OK);
+			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
 		},
 		timeout: ValueCS.VL_LONG_TIMEOUT
 	});
@@ -320,7 +331,7 @@ function firstCustomerAction() {
 	let shutan = getValueCheckbox("shutan", tantnameList);
 	let uritan = getValueCheckbox("uritan", tantnameList);
 
-	Common.setupModal("load", null, Mess.I00001, null);
+	Common.setupModal("load", null, Mess.I00001, null, null);
 	$.ajax({
 		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
@@ -354,18 +365,18 @@ function firstCustomerAction() {
 				} else {
 					dataMessage.innerText = Mess.E00001;
 					dataMessage.style.display = "block";
-					Common.setupModal("success", null, Mess.E00005, StringCS.OK);
+					Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
 				}
 			} else {
 				dataMessage.innerText = Mess.E00001;
 				dataMessage.style.display = "block";
-				Common.setupModal("success", null, Mess.E00005, StringCS.OK);
+				Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
 			}
 
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
-			Common.setupModal("error", null, Mess.E00003, StringCS.OK);
+			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
 		},
 		timeout: ValueCS.VL_LONG_TIMEOUT
 	});
