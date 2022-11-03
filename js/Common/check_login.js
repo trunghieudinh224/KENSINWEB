@@ -1,5 +1,5 @@
+import * as Common from '../Common/common_function.js'
 import * as StringCS from '../Constant/strings.js'
-
 /**
    * CHECK USER IS LOGIN
 */
