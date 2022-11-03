@@ -6,7 +6,7 @@
     margin-bottom: 25px;
 }
 
-#cusInfoArea, #kinInfoArea, #seiKyuCommentArea, #gasryokinSikiArea, #ryoshuArea, #bankArea, #nyukinModeArea, #hmInfoArea, #commentArea, #hybCommentArea, #hybTblArea, #hoanInfoArea, #pointArea, #miyaPointArea, #cnCommentArea {
+#cusInfoArea, #kinInfoArea, #seiKyuCommentArea, #gasryokinSikiArea, #ryoshuArea, #bankArea, #nyukinModeArea, #hmInfoArea, #commentArea, #hybCommentArea, #hybTblArea, #hoanInfoArea, #pointArea, #miyaPointArea, #cnCommentArea, #GasryokinCommentArea {
     margin-bottom: 15px;
 }
 
@@ -39,6 +39,14 @@
     padding: 3px 10px
 }
 
+.mt--1 {
+    margin-top: -1px;
+}
+
+.mt--3 {
+    margin-top: -3px;
+}
+
 .valLine {
     width: 85%;
     float: left;
@@ -63,6 +71,8 @@
 
 .tb-item {
     font-size: 22px !important;
+    display: block;
+    float: right;
 }
 
 .hybTable-item {
@@ -108,10 +118,19 @@ td {
     width: 30%;
 }
 
+#ryoshuDetail {
+    margin: auto
+}
 
+.ryooshuuKingaku {
+    width: 100%; 
+    display: block; 
+    padding-left: 30px;
+}
 
-#hmInfoTable {
-    border: none;
+#hmInfoTable, #hmInfoTable td {
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 
 .w16 {
@@ -125,8 +144,6 @@ td {
 .w24 {
     width: 24%;
 }
-
-
 
 
 
@@ -148,12 +165,48 @@ td {
     width: 25%;
 }
 
+.w100 {
+    width: 100%;
+    display: block;
+}
+
 #hybTable {
     border: none;
 }
 
 
+.tbw-6{
+    width: 6%;
+    float: left;
+}
+.tbw-28{
+    width: 28%;
+    float: left;
+}
+.tbw-16{
+    width: 16%;
+    float: left;
+}
 
+.tbw-22{
+    width: 22%;
+    float: left;
+}
+
+.tbw-10{
+    width: 10%;
+    float: left;
+}
+
+.tbw-20{
+    width: 20%;
+    float: left;
+}
+
+.tbw-35{
+    width: 35%;
+    float: left;
+}
 
 
 /*
@@ -190,7 +243,7 @@ td {
 
     .tb-item {
         font-size: 13px !important;
-        margin: -2px !important;
+        /* margin: -2px !important; */
         padding: 0px !important;
     }
 
