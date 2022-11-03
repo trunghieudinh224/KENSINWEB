@@ -17,12 +17,13 @@ function backAction() {
    * @param message     [STRING]
    * @param textButton     [STRING]
 */
-function setupModal(status, title, message, textButton) {
+function setupModal(status, title, message, textButton, textButton2) {
 	// init view
     var modal = document.getElementById("myModal");
     var imageModal = document.getElementsByClassName("modal-image")[0];
     var titleModal = document.getElementsByClassName("title-modal")[0];
     var messageModal = document.getElementsByClassName("modal-message-detail")[0];
+    var buttonBack = document.getElementsByClassName("button-cancel")[0];
     var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
     var closeButton = document.getElementsByClassName("modal-close-button")[0];
 
@@ -62,7 +63,18 @@ function setupModal(status, title, message, textButton) {
 		buttonConfirm.onclick = function () {
 			modal.style.display = "none";
 		}
-	}
+	} 
+
+    if (textButton2 != null) {
+		buttonBack.style.display = "block";
+		buttonBack.innerHTML = textButton2;
+		buttonBack.onclick = function () {
+			modal.style.display = "none";
+		}
+	} else {
+		buttonBack.style.display = "none";
+    }
+
     closeButton.onclick = function () {
         modal.style.display = "none";
     }
@@ -130,7 +142,7 @@ function setBackgroundDialogScreen(display, color) {
 */
 function checkPrintable() {
     if (checkDevice() != 0 && checkDevice() != 1) {
-        setupModal("error", null, Mess.E00006, StringCS.OK);
+        setupModal("error", null, Mess.E00006, StringCS.OK, null);
         return false;
     } else {
         return true;
