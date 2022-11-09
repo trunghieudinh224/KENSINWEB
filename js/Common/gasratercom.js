@@ -256,6 +256,18 @@
     return wkUse;
   }
 
+      /**
+     * 基本料金の再計算
+     * @param sysfDat   [in] {@link SysfDat}    システムデータ
+     * @param kokfDat   [in] {@link KokfDat}    顧客データ
+     * @param gasfDat   [in] {@link GasfDat}    ガス料金データ
+     * @return  long ガス基本料金
+     */
+    function calcGasBase( sysfDat,  kokfDat,  gasfDat,  sy2fDat,  kouserDat){
+        calcGasBaseKin( sysfDat, gasfDat, kokfDat, sy2fDat, kouserDat);
+        return kokfDat.mKtpcdat.m_nBasekin / 10;
+    }
+
   /**
    * ガス基本料金の再計算
    *
@@ -1458,7 +1470,7 @@
   }
 
 
-  export { calcConTax, getKenTaxr, getGasSuryo, hasCom, calcGasUse, calcGasBaseKin, 
+  export { calcConTax, getKenTaxr, getGasSuryo, hasCom, calcGasUse, calcGasBaseKin, calcGasBase,
     checkSrpday, getSrpSuryo ,checkKgas , getKgasday,dailyGasrate,mathDayGasRate ,mathDayGasRateNormal_1,
     mathDayGasRateNormal,mathDayGasRateKgas,mathDayGasRateDay,mathGasRate,mathGasRateNormalG_1,mathGasRateNormalG
     ,calcNebiki,calcTotal,calcSeikyu,readPrebalance,calcZogenHiwari,calcGasKangen,calcEtcUri,calcEtcTax
