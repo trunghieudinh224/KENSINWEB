@@ -49,7 +49,6 @@ var shukeiItem = {
 };
 
 
-
 /** 
     * SETUP LAYOUT EDIT VIEW
 */
@@ -63,12 +62,35 @@ function setupLayoutEditView() {
 
 
 /** 
+    * SETUP DATEPICKER
+*/
+function setupDatePicker() {
+    $(document).ready(function() {
+        $("#date-start").datepicker({ 
+            format: 'yyyy/mm/dd'
+        });
+        $("#date-start").on("change", function () {
+            var fromdate = $(this).val();
+        });
+    
+        $("#date-end").datepicker({ 
+            format: 'yyyy/mm/dd'
+        });
+        $("#date-end").on("change", function () {
+            var fromdate = $(this).val();
+        });
+    }); 
+}
+
+
+/** 
     * SET DEFAULT VALUE SELECT DATE
 */
 function setDefaultValueSelectDate() {
     if (userData != null) {
         var startDay = String(userData.systemDat.HANSYSYM);
         startDay = startDay.substring(0, 10);
+        startDay = startDay.replaceAll("-", "/");
         document.getElementById("date-start").value = startDay;
 
         var today = new Date();
@@ -76,7 +98,7 @@ function setDefaultValueSelectDate() {
         var mm = String(today.getMonth() + 1).padStart(2, '0');
         var yyyy = today.getFullYear();
 
-        today = yyyy + '-' + mm + '-' + dd;
+        today = yyyy + '/' + mm + '/' + dd;
         document.getElementById("date-end").value = today;
     }
 }
@@ -498,6 +520,7 @@ function createImageShuukeiNippouForm() {
 */
 function onLoadAction() {
     setupLayoutEditView();
+    setupDatePicker();
     setOptionMenu();
     setDefaultValueSelectDate();
     setupSelectDateView();

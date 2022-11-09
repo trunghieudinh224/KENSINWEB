@@ -14,12 +14,27 @@ var cusDat = JSON.parse(localStorage.getItem(StringCS.CUSDAT));
 var cusDetailData;
 
 
+/** 
+    * SETUP DATEPICKER
+*/
+function setupDatePicker() {
+    $(document).ready(function() {
+        $("#jisshi-bi").datepicker({ 
+            format: 'yyyy/mm/dd'
+        });
+        $("#jisshi-bi").on("change", function () {
+            var fromdate = $(this).val();
+        });
+    }); 
+}
+
+
 /**
    * SET DEFAULT DATE
 */
 function setDefaultDate() {
     document.getElementById("recentTime").innerText = "現在の日時：" + moment().format('YYYY/MM/DD HH:mm');
-    document.getElementById("jisshi-bi").value = moment().format('YYYY-MM-DD');
+    document.getElementById("jisshi-bi").value = moment().format('YYYY/MM/DD');
 }
 
 
@@ -64,7 +79,7 @@ function setInformation() {
         document.getElementById("kokyaku-mei").innerHTML = cusDat.name.trim();
         document.getElementById("juusho").innerHTML = cusDat.add_0.trim() + "\n" + cusDat.add_1.trim();
         document.getElementById("denwabango").innerHTML = cusDat.tel_0;
-        document.getElementById("mtban").innerHTML = cusDetailData.cusmastrDat.mtban;
+        document.getElementById("mtban").innerHTML = cusDetailData.kokfDat.mtban;
     }
 
     if (cusDetailData != null) {
@@ -72,8 +87,8 @@ function setInformation() {
         getShuukei();
         getKyookyuu();
         getRyookin();
-        if (cusDetailData.cusmastrDat.mark != null) {
-            document.getElementById("mokuhyoo").innerHTML = cusDetailData.cusmastrDat.mark;
+        if (cusDetailData.kokfDat.mark != null) {
+            document.getElementById("mokuhyoo").innerHTML = cusDetailData.kokfDat.mark;
         }
 
         if (cusDetailData.koukanDat != null) {
@@ -96,17 +111,17 @@ function setInformation() {
    * SET CUSTOMER DETAIL INFORMATION
 */
 function setCustomerDetail() {
-    if (cusDetailData.cusmastrDat.ccode != null) {
+    if (cusDetailData.kokfDat.ccode != null) {
         var ccodeList = document.getElementsByClassName("ccode");
         for (var i = 0; i < ccodeList.length; i++) {
-            ccodeList[i].innerHTML = cusDetailData.cusmastrDat.ccode[i];
+            ccodeList[i].innerHTML = cusDetailData.kokfDat.mCCode[i];
         }
     }
 
-    if (cusDetailData.cusmastrDat.juncd != null) {
+    if (cusDetailData.kokfDat.juncd != null) {
         var juncdList = document.getElementsByClassName("juncd");
         for (var i = 0; i < juncdList.length; i++) {
-            juncdList[i].innerHTML = cusDetailData.cusmastrDat.juncd[i];
+            juncdList[i].innerHTML = cusDetailData.kokfDat.mJunCd[i];
         }
     }
 }
@@ -121,14 +136,14 @@ function getShuukei() {
     let listSyuku = cusDetailData.lstShuku;
 
     for (var idx = 0; idx < listSyuku.length; idx++) {
-        if (listSyuku[idx].code == cusDetailData.cusmastrDat.shuku) {
+        if (listSyuku[idx].code == cusDetailData.kokfDat.mShuku) {
             shuukei = listSyuku[idx].name.trim();
             break;
         }
     }
 
-    if (cusDetailData.cusmastrDat.shuku == 0 || cusDetailData.cusmastrDat.shuku == 4 || cusDat.m_nBkcd != 0) {
-        if (cusDetailData.cusmastrDat.fkin != 0) {
+    if (cusDetailData.kokfDat.mShuku == 0 || cusDetailData.kokfDat.mShuku == 4 || cusDat.m_nBkcd != 0) {
+        if (cusDetailData.kokfDat.fkin != 0) {
             shuukei = "依頼中";
         } else {
             shuukei = formatShuku(cusDat.bkcd);
@@ -161,7 +176,7 @@ function formatShuku(value) {
 */
 function getKyookyuu() {
     var result = "";
-    switch (cusDetailData.cusmastrDat.kyoku) {
+    switch (cusDetailData.kokfDat.mSupplyForm) {
         case 1:
             result = "一般";
             break;
@@ -213,12 +228,12 @@ function showHaisooJoohoo() {
    * SET MEMO DATA
 */
 function showMemo() {
-    if (cusDetailData.cusmastrDat.memo != null) {
-        if (cusDetailData.cusmastrDat.memo.length > 0) {
+    if (cusDetailData.kokfDat.memo != null) {
+        if (cusDetailData.kokfDat.memo.length > 0) {
             document.getElementById("memo-area").style.display = "block";
             var valueMemo = "";
-            for (var i = 0; i < cusDetailData.cusmastrDat.memo.length; i++) {
-                valueMemo = valueMemo + cusDetailData.cusmastrDat.memo[i] + "\n";
+            for (var i = 0; i < cusDetailData.kokfDat.memo.length; i++) {
+                valueMemo = valueMemo + cusDetailData.kokfDat.memo[i] + "\n";
             }
             document.getElementById("memo-naiyoo").innerText = valueMemo;
         } else {
@@ -234,12 +249,12 @@ function showMemo() {
    * SET RYOOKIN DATA
 */
 function getRyookin() {
-    if (cusDetailData.cusmastrDat.gasku == 0) {
+    if (cusDetailData.kokfDat.mGasDiv == 0) {
         document.getElementById("ryookin").innerHTML = "未設定";
         return;
     }
     var result = "";
-    switch (cusDetailData.cusmastrDat.mSum) {
+    switch (cusDetailData.kokfDat.mSum) {
         case 0:
             result = "未設定";
             break;
@@ -259,7 +274,7 @@ function getRyookin() {
             result = "";
             break;
     }
-    result = result + ":" + cusDetailData.cusmastrDat.gasku;
+    result = result + ":" + cusDetailData.kokfDat.mGasDiv;
     document.getElementById("ryookin").innerHTML = result;
 }
 
@@ -300,6 +315,7 @@ function onclickAction() {
 */
 function onLoadAction() {
     setOptionMenu();
+    setupDatePicker();
     setDefaultDate();
     getInformation();
 	onclickAction();
