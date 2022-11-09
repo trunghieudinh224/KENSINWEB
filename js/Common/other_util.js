@@ -54,7 +54,7 @@ function KingakuFormatLocal(wkFormat, value) {
 	* @return bBoolean
 */
 function isEmpty(strVal) {
-	return strVal == null || strVal.length() == 0;
+	return strVal == null || strVal.length == 0;
 }
 
 
@@ -69,7 +69,7 @@ function cutStringSpace(strTarget) {
 		return "";
 	}
 
-	var nLen = strTarget.length() - 1;
+	var nLen = strTarget.length - 1;
 	if (nLen < 0) {
 		return "";
 	}

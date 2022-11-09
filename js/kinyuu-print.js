@@ -331,7 +331,7 @@ class KnebDat {
 
 class BusfDat {
 	constructor(){
-		this.mUsef =  true
+		this.mUsef = true
 		this.mHinno = 2
 		this.mName = "調整"
 		this.mSign = 1
@@ -397,7 +397,14 @@ mUserData.mKouserDat = kouserDat;
 mUserData.mSy2fDat = sy2fDat;
 mUserData.mNyukinMode = false;
 mUserData.busfDat = busfDat;
+
+// hmefDat = null
+
+mUserData.mHmefDat = [];
+
+
 var kensinData = Dat.kensinData;
+var SysOption = Dat.SysOption; 	
 
 /* cus data */
 var cusData = getCusData();
@@ -1382,7 +1389,7 @@ function getChoTitle() {
 			// 商品
 			bFlag = 1;
 		}
-		const busfDat = mUserData.getBusfDat(sy2fDat.mSysfHmcd13, bFlag);
+		const busfDat = mUserData.busfDat;
 		if (busfDat != null) {
 			strChoTitle = Other.cutStringSpace(busfDat.mName).trim();
 		}
@@ -2384,7 +2391,7 @@ function createBank() {
 	}
 
 	// 依頼中
-	if (sy2fDat.mSysOption[SysOption.PRINT_JIFURI.getIdx()] != 0 && (kouserDat.m_nIraiStat == 1 || kouserDat.m_nIraiStat == 2 || kouserDat.m_nIraiStat == 3)) {
+	if (sy2fDat.mSysOption[SysOption.PRINT_JIFURI] != 0 && (kouserDat.m_nIraiStat == 1 || kouserDat.m_nIraiStat == 2 || kouserDat.m_nIraiStat == 3)) {
 		document.getElementById("iraiChuuArea").style.display = "block";
 
 		wkStr = Other.MonthDayFormat(kouserDat.m_nIraiMonth, kouserDat.m_nIraiDay);
@@ -2450,9 +2457,9 @@ function createFunouComment() {
 
 function createHmInfo_(userData) {
 	// 販売データ
-	var hmefList = userData.getHmef(0);
-	var hmefList1 = userData.getHmef(1);
-	var hmefList2 = userData.getHmef(2);
+	var hmefList = userData.mHmefDat;
+	var hmefList1 = userData.mHmefDat;
+	var hmefList2 = userData.mHmefDat;
 	var sysfDat = userData.mSysfDat;
 	var isTanka = userData.mSy2fDat.mSysOption[SysOption.PRINT_TANKA] == 1;	//SysOption.PRINT_TANKA.getIdx() = 33
 	var isUriage = isUriage_(hmefList, hmefList1, hmefList2, sysfDat);
