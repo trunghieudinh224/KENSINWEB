@@ -3427,7 +3427,7 @@ function sendImage() {
 */
 function onclickAction() {
 	document.getElementById("sendToAppButton").onclick = function () {
-		// sendImage();
+		sendImage();
 	};
 	document.getElementById("createPrintingFormButton").onclick = function () {
 		document.getElementById("editView").style.display = "none";
