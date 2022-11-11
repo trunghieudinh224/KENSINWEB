@@ -5,332 +5,333 @@ import * as ValueCS from './Constant/values.js'
 import * as Mess from './Constant/message.js'
 import * as GasRaterCom from './Common/gasratercom.js'
 import * as Dat from './Dat/dat.js'
+// import * as KensinKinyuu from './kensin_kinnyuu'
 
 class KokfDat {
-  constructor() {
-    /** 漢字氏名 */
-    this.mName = "安藤　秀丸"; // NAME
-    /** 検針月 */
-    this.mKMonth = 5;
-    /** 検針日 */
-    this.mKDate = 1;
-    /** 今回入力：ガス使用量 */
-    this.mGasUse = 250;
-    /** 顧客区分　 */
-    this.mGasKubun = 1;
-    /** 検針済み区分 */
-    this.mKenSumi = true;
-    /** 今回入力：今回指針 */
-    this.mNowMeter = 250;
-    /** 前回指針 */
-    this.mPreMeter = 0;
-    /** 前回検針日付:年 */
-    this.mPuseYear = 0;
-    /** 前回検針日付：月 */
-    this.mPuseMonth = 0;
-    /** 前回検針日付：日 */
-    this.mPuseDate = 0;
-    /** ガス料金No */
-    this.mGasDiv = 654;
-    /** 今回入力：消費税 */
-    this.mConTax = 1230;
-    /** 中間使用量(検針) */
-    this.mBetwMeter = 0;
-    /** 前回使用量 */
-    this.mPreUse = 0;
-    /** 今回入力：金額 */
-    this.mFee = 15450;
-    /** 日割り日数 */
-    this.mHiwari = 0;
-    /** 当月：消費税(分割) */
-    this.mTaxDiv = 0;
-    /** 締日処理フラグ */
-    this.mSimeF = 0;
-    /** 開栓日付：年 */
-    this.mKaiYear = 0;
-    /** 開栓日付：月 */
-    this.mKaiMonth = 0;
-    /** 開栓日付：日 */
-    this.mKaiDate = 0;
-    /** ガス料金内訳データ */
-    this.mKtpcdat = new KtpcDat(15000000, 139500000, 0);
-    /** 供給区分 */
-    this.mSupplyForm = 1;
-    /** 契約料金(基本) */
-    this.mGasBase = 0; // GASBASE
-    /** メーター桁数 */
-    this.mMtKeta = 4;  //MTKETA
-    /** 契約料金(単価) */
-    this.mGasUnit = 0;
-    /** ハイブリッド請求フラグ */
-    this.mHybseikyu = 0;
-    /** 今回入力：その他売上金額 */
-    this.mUrikin = 0;
-    /** 今回入力：その他売上消費税 */
-    this.mUriTax = 0;
-    /** 今回入力：還元額 */
-    this.mReduce = 0;
-    /** 今回入力：還元額の消費税 */
-    this.mReduceTax = 0;
-    /** 顧客灯油 */
-    var mKotfDat = null;
-    this.mKotfDat = mKotfDat;
-    /** 当月：遅収料金 */
-    this.mProcTisyuu = 0;
-    /** 当月：消費税(遅収料金) */
-    this.mTaxTisyuu = 0;
-    /** 前月残高 */
-    this.mPreBalance = 4620;
-    /** 当月：調整額 */
-    this.mTAdjust = 0;
-    /** 当月：入金額 */
-    this.mTReceipt = 0;
-    /** 当月：売上額(リース) */
-    this.mProcLease = 0;
-    /** 当月：消費税(リース) */
-    this.mTaxLease = 0;
-    /** 当月：売上額(分割金) */
-    this.mProcDiv = 0;
-    /** 当月：売上額(灯油) */
-    this.mProcLoil = 0;
-    /** 当月：消費税(灯油) */
-    this.mTaxLoil = 0;
-    /** 当月：売上額(その他) */
-    this.mProcEtc = 0;
-    /** 当月：消費税(その他) */
-    this.mTaxEtc = 0;
-    /** 当月：売上額(ガス) */
-    this.mProcGas = 0;
-    /** 当月：消費税(ガス) */
-    this.mTaxGas = 0;
-    /** 当月：遅収料金 */
-    this.mProcTisyuu = 0;
-    /** 当月：消費税(遅収料金) */
-    this.mTaxTisyuu = 0;
-    /** 今回入力：入金額 */
-    this.mReceipt = 0; 
-    /** 今回入力：調整額 */
-    this.mAdjust = 1000;
+	constructor() {
+		/** 漢字氏名 */
+		this.mName = "安藤　秀丸"; // NAME
+		/** 検針月 */
+		this.mKMonth = 5;
+		/** 検針日 */
+		this.mKDate = 1;
+		/** 今回入力：ガス使用量 */
+		this.mGasUse = 250;
+		/** 顧客区分　 */
+		this.mGasKubun = 1;
+		/** 検針済み区分 */
+		this.mKenSumi = true;
+		/** 今回入力：今回指針 */
+		this.mNowMeter = 250;
+		/** 前回指針 */
+		this.mPreMeter = 0;
+		/** 前回検針日付:年 */
+		this.mPuseYear = 0;
+		/** 前回検針日付：月 */
+		this.mPuseMonth = 0;
+		/** 前回検針日付：日 */
+		this.mPuseDate = 0;
+		/** ガス料金No */
+		this.mGasDiv = 654;
+		/** 今回入力：消費税 */
+		this.mConTax = 1230;
+		/** 中間使用量(検針) */
+		this.mBetwMeter = 0;
+		/** 前回使用量 */
+		this.mPreUse = 0;
+		/** 今回入力：金額 */
+		this.mFee = 15450;
+		/** 日割り日数 */
+		this.mHiwari = 0;
+		/** 当月：消費税(分割) */
+		this.mTaxDiv = 0;
+		/** 締日処理フラグ */
+		this.mSimeF = 0;
+		/** 開栓日付：年 */
+		this.mKaiYear = 0;
+		/** 開栓日付：月 */
+		this.mKaiMonth = 0;
+		/** 開栓日付：日 */
+		this.mKaiDate = 0;
+		/** ガス料金内訳データ */
+		this.mKtpcdat = new KtpcDat(15000000, 139500000, 0);
+		/** 供給区分 */
+		this.mSupplyForm = 1;
+		/** 契約料金(基本) */
+		this.mGasBase = 0; // GASBASE
+		/** メーター桁数 */
+		this.mMtKeta = 4;  //MTKETA
+		/** 契約料金(単価) */
+		this.mGasUnit = 0;
+		/** ハイブリッド請求フラグ */
+		this.mHybseikyu = 0;
+		/** 今回入力：その他売上金額 */
+		this.mUrikin = 0;
+		/** 今回入力：その他売上消費税 */
+		this.mUriTax = 0;
+		/** 今回入力：還元額 */
+		this.mReduce = 0;
+		/** 今回入力：還元額の消費税 */
+		this.mReduceTax = 0;
+		/** 顧客灯油 */
+		var mKotfDat = null;
+		this.mKotfDat = mKotfDat;
+		/** 当月：遅収料金 */
+		this.mProcTisyuu = 0;
+		/** 当月：消費税(遅収料金) */
+		this.mTaxTisyuu = 0;
+		/** 前月残高 */
+		this.mPreBalance = 4620;
+		/** 当月：調整額 */
+		this.mTAdjust = 0;
+		/** 当月：入金額 */
+		this.mTReceipt = 0;
+		/** 当月：売上額(リース) */
+		this.mProcLease = 0;
+		/** 当月：消費税(リース) */
+		this.mTaxLease = 0;
+		/** 当月：売上額(分割金) */
+		this.mProcDiv = 0;
+		/** 当月：売上額(灯油) */
+		this.mProcLoil = 0;
+		/** 当月：消費税(灯油) */
+		this.mTaxLoil = 0;
+		/** 当月：売上額(その他) */
+		this.mProcEtc = 0;
+		/** 当月：消費税(その他) */
+		this.mTaxEtc = 0;
+		/** 当月：売上額(ガス) */
+		this.mProcGas = 0;
+		/** 当月：消費税(ガス) */
+		this.mTaxGas = 0;
+		/** 当月：遅収料金 */
+		this.mProcTisyuu = 0;
+		/** 当月：消費税(遅収料金) */
+		this.mTaxTisyuu = 0;
+		/** 今回入力：入金額 */
+		this.mReceipt = 0;
+		/** 今回入力：調整額 */
+		this.mAdjust = 1000;
 
-	//bien moi
-	this.mAdd = "○武市△冬町３－２";
-	this.mCusCode = "0010000375";
-	this.mSName0 = "" ;
-	this.mSName1 = "安藤　秀丸";
-	this.mKName = "様";
+		//bien moi
+		this.mAdd = "○武市△冬町３－２";
+		this.mCusCode = "0010000375";
+		this.mSName0 = "";
+		this.mSName1 = "安藤　秀丸";
+		this.mKName = "様";
 
-	this.mZyksDat = Dat.mZyksDat;
+		this.mZyksDat = Dat.mZyksDat;
 
-  }
+	}
 }
 
 class Ko2fDat {
-  constructor() {
-    /** ハイブリッド料金区分 */
-    this.mGashyb;
-    /** カウント値引:税区分 */
-    this.mChoTaxku;
-    /** カウント値引消費税 */
-    this.mChoTax;
-    /** カウンタ使用料 */
-    this.mUseKin;
-    /** カウンター使用料:税区分 */
-    this.mUseTaxku;
-    /** カウンタ使用料消費税 */
-    this.mUseTax;
-    /** カウント値引 */
-    this.mChoKin;
-  }
+	constructor() {
+		/** ハイブリッド料金区分 */
+		this.mGashyb;
+		/** カウント値引:税区分 */
+		this.mChoTaxku;
+		/** カウント値引消費税 */
+		this.mChoTax;
+		/** カウンタ使用料 */
+		this.mUseKin;
+		/** カウンター使用料:税区分 */
+		this.mUseTaxku;
+		/** カウンタ使用料消費税 */
+		this.mUseTax;
+		/** カウント値引 */
+		this.mChoKin;
+	}
 }
 
 class KtpcDat {
-  constructor(m_nBasekin, m_nAddkin, m_nFacilitykin) {
-    this.m_nBasekin = m_nBasekin;
-    this.m_nAddkin = m_nAddkin;
-    this.m_nFacilitykin = m_nFacilitykin;
-  }
+	constructor(m_nBasekin, m_nAddkin, m_nFacilitykin) {
+		this.m_nBasekin = m_nBasekin;
+		this.m_nAddkin = m_nAddkin;
+		this.m_nFacilitykin = m_nFacilitykin;
+	}
 }
 
 class Sy2fDat {
-  constructor() {
-    /** 中圧係数での使用量端数処理(0:切り捨て, 1:四捨五入, 2:切り上げ) */
-    this.mCaHas = 0;
-    /** 中圧ガス料金計算有無 */
-    this.mCaFlg = 0;
-    /** 差益還元品番コード */
-    this.mKangHbcd = 0;
-    /** 差益還元コード */
-    this.mKangHcd = 0;
-    /** 入金・調整取引区分設定フラグ */
-    this.mNyucho = 0;
-    /** ハイブリッド料金区分 */
-    this.mGashyb;
-    /** オプション3 */
-    var mSysOption = [
-      1, 1, -1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1,0,1,1,1,1,1,1,1,0,0,0,0,0,5,0,0,0,0
-    ];
-    this.mSysOption = mSysOption;
-	this.mSysfHmcd13 = 2;
+	constructor() {
+		/** 中圧係数での使用量端数処理(0:切り捨て, 1:四捨五入, 2:切り上げ) */
+		this.mCaHas = 0;
+		/** 中圧ガス料金計算有無 */
+		this.mCaFlg = 0;
+		/** 差益還元品番コード */
+		this.mKangHbcd = 0;
+		/** 差益還元コード */
+		this.mKangHcd = 0;
+		/** 入金・調整取引区分設定フラグ */
+		this.mNyucho = 0;
+		/** ハイブリッド料金区分 */
+		this.mGashyb;
+		/** オプション3 */
+		var mSysOption = [
+			1, 1, -1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0
+		];
+		this.mSysOption = mSysOption;
+		this.mSysfHmcd13 = 2;
 
-	
 
-  }
+
+	}
 }
 
 class SysfDat {
-  constructor() {
-    /** 管ガス:最低検針日数 */
-    this.mKgasDays0 = 25;
-    /** 管ガス:最大検針日数 */
-    this.mKgasDays1 = 35;
-    /** 管ガス:閉開栓時日数 */
-    this.mKgasDays2 = 29;
-    /** 消費税変更日付 */
-    this.mTax_yy = 1970;
-    this.mTax_mm = 1;
-    this.mTax_dd = 1;
-    /** 消費税率 */
-    this.mConsumTax = 80;
-    /** 消費税変更旧税率 */
-    this.mTaxr_old = 50;
-    this.mTaxr_new = 80;
-    /** ガス料金透明化対応フラグ */
-    this.mVisibleGas = 1;
-    /** ガス料金透明化設備料金対応フラグ */
-    this.mVisibleFacility = 0;
-    /** リース計上機能有無 */
-    this.mLesUmu = 1;
-    /** 売上用端数処理:加算 */
-    this.mFracAddKin = 0;
-    /** 売上用端数処理:乗算 */
-    this.mFracMulKin = 1000;
-    /** 消費税:端数処理(加算) */
-    this.mFracAddTax = 0;
-    /** 消費税:端数処理(乗算) */
-    this.mFracMulTax = 1000;
-    //
-    this.mFracAddMult = null;
-    /** システム年 */
-    this.mSysYear = 2019;
-    /** 処理日付(月) */
-    this.mMonth = 5;
-    /** 処理日付(日) */
-    this.mDate = 1;
-    /** 差益還元:有無 */
-    this.mIfReduce = false;
-    /** 商品消費税の使用依頼 */
-    this.mShoTaxcom = 0;
-    /** 入力有無:保安点検 */
-    this.mCheckHoan = true;
-    /** 入力有無:入金 */
-    this.mIfMoney = true;
-    /** 簡ガス日常点検有無 */
-    this.mTenkenKgas = 0;
-    /** 灯油検針フラグ */
-    this.m_isToyukeninFlg = false;
-    /** 使用率チェック:倍率 */
-    this.mSrChkr = [50, 250, 50, 200, 60, 180];
-    /** 使用率チェック:使用率 */
-    this.mSrChkm = [20, 60];
-    /** 値引きシステムフラグ */
-    this.mKnebFlg = 0;
-    /** 伝票出力フラグ:入金・調整 */
-    this.mIfAdjust = true;
-    /** 伝票出力フラグ:警報機リース */
-    this.mIfAlarm = true;
-    /** 伝票出力フラグ:分割金 */
-    this.mIfDiv = true;
-    /** 伝票出力フラグ:灯油 */
-    this.mIfLampoil = true;
-    /** 伝票出力フラグ:その他売上 */
-    this.mIfProceeds = true;
-    /** 伝票出力フラグ:前月請求額 */
-    this.mIfDemand = true;
+	constructor() {
+		/** 管ガス:最低検針日数 */
+		this.mKgasDays0 = 25;
+		/** 管ガス:最大検針日数 */
+		this.mKgasDays1 = 35;
+		/** 管ガス:閉開栓時日数 */
+		this.mKgasDays2 = 29;
+		/** 消費税変更日付 */
+		this.mTax_yy = 1970;
+		this.mTax_mm = 1;
+		this.mTax_dd = 1;
+		/** 消費税率 */
+		this.mConsumTax = 80;
+		/** 消費税変更旧税率 */
+		this.mTaxr_old = 50;
+		this.mTaxr_new = 80;
+		/** ガス料金透明化対応フラグ */
+		this.mVisibleGas = 1;
+		/** ガス料金透明化設備料金対応フラグ */
+		this.mVisibleFacility = 0;
+		/** リース計上機能有無 */
+		this.mLesUmu = 1;
+		/** 売上用端数処理:加算 */
+		this.mFracAddKin = 0;
+		/** 売上用端数処理:乗算 */
+		this.mFracMulKin = 1000;
+		/** 消費税:端数処理(加算) */
+		this.mFracAddTax = 0;
+		/** 消費税:端数処理(乗算) */
+		this.mFracMulTax = 1000;
+		//
+		this.mFracAddMult = null;
+		/** システム年 */
+		this.mSysYear = 2019;
+		/** 処理日付(月) */
+		this.mMonth = 5;
+		/** 処理日付(日) */
+		this.mDate = 1;
+		/** 差益還元:有無 */
+		this.mIfReduce = false;
+		/** 商品消費税の使用依頼 */
+		this.mShoTaxcom = 0;
+		/** 入力有無:保安点検 */
+		this.mCheckHoan = true;
+		/** 入力有無:入金 */
+		this.mIfMoney = true;
+		/** 簡ガス日常点検有無 */
+		this.mTenkenKgas = 0;
+		/** 灯油検針フラグ */
+		this.m_isToyukeninFlg = false;
+		/** 使用率チェック:倍率 */
+		this.mSrChkr = [50, 250, 50, 200, 60, 180];
+		/** 使用率チェック:使用率 */
+		this.mSrChkm = [20, 60];
+		/** 値引きシステムフラグ */
+		this.mKnebFlg = 0;
+		/** 伝票出力フラグ:入金・調整 */
+		this.mIfAdjust = true;
+		/** 伝票出力フラグ:警報機リース */
+		this.mIfAlarm = true;
+		/** 伝票出力フラグ:分割金 */
+		this.mIfDiv = true;
+		/** 伝票出力フラグ:灯油 */
+		this.mIfLampoil = true;
+		/** 伝票出力フラグ:その他売上 */
+		this.mIfProceeds = true;
+		/** 伝票出力フラグ:前月請求額 */
+		this.mIfDemand = true;
 
 
-	//them moi
-	this.mGtpcDat = Dat.mGtpc;
+		//them moi
+		this.mGtpcDat = Dat.mGtpc;
 
-	this.mHtOption = [0 , 0 , -1 , 1 , 1 , 1 , 1 , 1 , 5 , 1];
-	this.mSnvalue = 100;
-  }
+		this.mHtOption = [0, 0, -1, 1, 1, 1, 1, 1, 5, 1];
+		this.mSnvalue = 100;
+	}
 }
 
 class KouserDat {
-  constructor() {
-    /** 中圧係数 */
-    this.m_nChuatu = 0;
-    /** 個別検針顧客 */
-    this.m_nKoubetsu = 0;
-    /** ハイブリッドカウンター有無 */
-    this.mHyc5 = 0;
-    /** 調整取引区分 */
-    this.m_sChocode = 0;
-    /** 入金取引区分 */
-    this.m_sNyucode = 0;
-  }
+	constructor() {
+		/** 中圧係数 */
+		this.m_nChuatu = 0;
+		/** 個別検針顧客 */
+		this.m_nKoubetsu = 0;
+		/** ハイブリッドカウンター有無 */
+		this.mHyc5 = 0;
+		/** 調整取引区分 */
+		this.m_sChocode = 0;
+		/** 入金取引区分 */
+		this.m_sNyucode = 0;
+	}
 }
 
 class GasfDat {
-  constructor(m_lstGstpDat) {
-    /** 計算方法 */
-    this.mSum = 1;
-    /** 料金表種別 */
-    this.mSyu = 0;
-    /** 端数処理1：加算 */
-    this.mFrac1Add = 0;
-    /** 端数処理2:加算 */
-    this.mFrac2Add = 0;
-    /** 端数処理1:乗算 */
-    this.mFrac1Mult = 1000;
-    /** 端数処理2:乗算 */
-    this.mFrac2Mult = 10000;
-    /** 増減率 */
-    this.mRiseFall = 0;
-    /** ガス料金ステップデータ */
-    this.m_lstGstpDat = m_lstGstpDat;
-    /** 消費税区分 */
-    this.mTaxDiv = 3;
-    /** 消費税端数処理：加算 */
-    this.mTaxAdd = 0;
-    /** 消費税端数処理：乗算 */
-    this.mTaxMult = 10000;
-    /** 調整単価 */
-    this.mChoTanka = 0;
-    /** ガス料金拡張データ */
-    var mGextDat = new GextDat();
-    this.mGextDat = mGextDat;
-  }
+	constructor(m_lstGstpDat) {
+		/** 計算方法 */
+		this.mSum = 1;
+		/** 料金表種別 */
+		this.mSyu = 0;
+		/** 端数処理1：加算 */
+		this.mFrac1Add = 0;
+		/** 端数処理2:加算 */
+		this.mFrac2Add = 0;
+		/** 端数処理1:乗算 */
+		this.mFrac1Mult = 1000;
+		/** 端数処理2:乗算 */
+		this.mFrac2Mult = 10000;
+		/** 増減率 */
+		this.mRiseFall = 0;
+		/** ガス料金ステップデータ */
+		this.m_lstGstpDat = m_lstGstpDat;
+		/** 消費税区分 */
+		this.mTaxDiv = 3;
+		/** 消費税端数処理：加算 */
+		this.mTaxAdd = 0;
+		/** 消費税端数処理：乗算 */
+		this.mTaxMult = 10000;
+		/** 調整単価 */
+		this.mChoTanka = 0;
+		/** ガス料金拡張データ */
+		var mGextDat = new GextDat();
+		this.mGextDat = mGextDat;
+	}
 }
 
 class GstpDat {
-  constructor(mUplimit, mAdd, mBase) {
-    /** 上限値 */
-    this.mUplimit = mUplimit;
-    /** 加算値 */
-    this.mAdd = mAdd;
-    /** 基準料金 */
-    this.mBase = mBase;
-  }
+	constructor(mUplimit, mAdd, mBase) {
+		/** 上限値 */
+		this.mUplimit = mUplimit;
+		/** 加算値 */
+		this.mAdd = mAdd;
+		/** 基準料金 */
+		this.mBase = mBase;
+	}
 }
 
 class KnebDat {
-  constructor() {
-    /** コード */
-    this.m_nCode;
-    /** 有無 */
-    this.m_nUmu;
-    /** 結果 */
-    this.m_nRes;
-    /** 金額 */
-    this.m_nKin;
-    /** 消費税 */
-    this.m_nTax;
-  }
+	constructor() {
+		/** コード */
+		this.m_nCode;
+		/** 有無 */
+		this.m_nUmu;
+		/** 結果 */
+		this.m_nRes;
+		/** 金額 */
+		this.m_nKin;
+		/** 消費税 */
+		this.m_nTax;
+	}
 }
 
 class BusfDat {
-	constructor(){
+	constructor() {
 		this.mUsef = true
 		this.mHinno = 2
 		this.mName = "調整"
@@ -340,18 +341,18 @@ class BusfDat {
 }
 
 class HmefDat {
-  constructor() {
-    /** 使用有無 */
-    this.mUsef;
-    /** 明細種別 0:締後、1:締前、9:ﾊﾝﾃﾞｨ、2：残高明細 */
-    this.mHmeKind;
-    /** リース明細かどうか */
-    this.mLeasKind;
-    /** 金額 */
-    this.mKin;
-    /** 消費税額 */
-    this.mTax;
-  }
+	constructor() {
+		/** 使用有無 */
+		this.mUsef;
+		/** 明細種別 0:締後、1:締前、9:ﾊﾝﾃﾞｨ、2：残高明細 */
+		this.mHmeKind;
+		/** リース明細かどうか */
+		this.mLeasKind;
+		/** 金額 */
+		this.mKin;
+		/** 消費税額 */
+		this.mTax;
+	}
 }
 
 /*****  VIEW VARIABLE  *****/
@@ -360,18 +361,14 @@ const modal = document.getElementById("myModal");
 
 /*****  DATA VARIABLE  *****/
 /* setting data */
-var settingData = JSON.parse(localStorage.getItem(StringCS.SETTINGDATA));
+var settingData = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
 
 /* kensin date */
-var kensinDate = localStorage.getItem(StringCS.KENSINDATE);
+var kensinDate = sessionStorage.getItem(StringCS.KENSINDATE);
 
 
 /** 日常点検項目 */
 var HOAN_ITEMS = ["①容器設置場所", "②容器設置状況", "③火気禁止２ｍ", "④調整器", "⑤配管状況", "⑥ガス栓", "⑦危険標識", "⑧マイコンメーター"];
-/* default text size of printting form */
-var defaultPrintSize = window.getComputedStyle(document.getElementsByClassName("text")[0]).fontSize;
-/* default title size of printting form */
-var defaultPaddingPrintForm = window.getComputedStyle(document.getElementById("printContentDetail"), null).getPropertyValue('padding');
 
 var mUserData;
 var ko2fDat;
@@ -382,14 +379,14 @@ var sysfDat = new SysfDat();
 var kouserDat = new KouserDat();
 var sy2fDat = new Sy2fDat();
 var gstpDat1 = new GstpDat(1, 0, 0);
-var gstpDat2 = new GstpDat(50,15600000,6000000);
-var gstpDat3 = new GstpDat(100,45000000,5700000);
-var gstpDat4 = new GstpDat(250,73500000,5400000);
-var gstpDat5 = new GstpDat(999999,154500000,5100000);
+var gstpDat2 = new GstpDat(50, 15600000, 6000000);
+var gstpDat3 = new GstpDat(100, 45000000, 5700000);
+var gstpDat4 = new GstpDat(250, 73500000, 5400000);
+var gstpDat5 = new GstpDat(999999, 154500000, 5100000);
 // var gstpDat6 = new GstpDat(999999,3000000,198000000);
-var gasfDatlist = [gstpDat1,gstpDat2,gstpDat3,gstpDat4,gstpDat5];
+var gasfDatlist = [gstpDat1, gstpDat2, gstpDat3, gstpDat4, gstpDat5];
 var gasfDat = new GasfDat(gasfDatlist);
-var busfDat = new  BusfDat();
+var busfDat = new BusfDat();
 mUserData.mKokfDat = kokfDat;
 mUserData.mSysfDat = sysfDat;
 mUserData.mGasfDat = gasfDat;
@@ -397,6 +394,7 @@ mUserData.mKouserDat = kouserDat;
 mUserData.mSy2fDat = sy2fDat;
 mUserData.mNyukinMode = false;
 mUserData.busfDat = busfDat;
+mUserData.mKo2fDat = null;
 
 // hmefDat = null
 
@@ -404,21 +402,47 @@ mUserData.mHmefDat = [];
 
 
 var kensinData = Dat.kensinData;
-var SysOption = Dat.SysOption; 	
+var SysOption = Dat.SysOption;
 
 /* cus data */
 var cusData = getCusData();
 
 
+
+/****  print   ****/
+/* image string */
+var imgString = "";
+/* default title size of printting form */
+var defaultPaddingPrintForm = window.getComputedStyle(document.getElementById("printContentDetail"), null).getPropertyValue('padding');
+
+var itemTS = window.getComputedStyle(document.getElementsByClassName("item")[0]).fontSize;
+var lgTextTS = window.getComputedStyle(document.getElementsByClassName("lg-text")[0]).fontSize;
+var tbItemTS = window.getComputedStyle(document.getElementsByClassName("tb-item")[0]).fontSize;
+var ryooshuuTextTS = window.getComputedStyle(document.getElementsByClassName("ryooshuu-text")[0]).fontSize;
+var hmInfoTableItemTS = window.getComputedStyle(document.getElementsByClassName("hmInfoTable-item")[0]).fontSize;
+var hybTableItemTS = window.getComputedStyle(document.getElementsByClassName("hybTable-item")[0]).fontSize;
+var hoanItemTS = window.getComputedStyle(document.getElementsByClassName("hoan-item")[0]).fontSize;
+
+var itemLH = window.getComputedStyle(document.getElementsByClassName("item")[0]).lineHeight;
+var lgTextLH = window.getComputedStyle(document.getElementsByClassName("lg-text")[0]).lineHeight;
+var tbItemLH = window.getComputedStyle(document.getElementsByClassName("tb-item")[0]).lineHeight;
+var ryooshuuTextLH = window.getComputedStyle(document.getElementsByClassName("ryooshuu-text")[0]).lineHeight;
+var hmInfoTableItemLH = window.getComputedStyle(document.getElementsByClassName("hmInfoTable-item")[0]).lineHeight;
+var hybTableItemLH = window.getComputedStyle(document.getElementsByClassName("hybTable-item")[0]).lineHeight;
+var hoanItemLH = window.getComputedStyle(document.getElementsByClassName("hoan-item")[0]).lineHeight;
+
+
+
+
 /**
-    * 印刷データを作成する
+	* 印刷データを作成する
 */
 function createPrintData(printStatus, isHybseikyu, isHikae) {
 	var sysfDat = mUserData.mSysfDat;
 	var kokfDat = mUserData.mKokfDat;
 	setTitlePrintForm(printStatus.m_lReceipt != 0, isHikae);
 	createCusInfo(getCusData());
-	
+
 	var wkKensinData = setKensinData(mUserData, isHybseikyu, printStatus.m_isPrintKensin, printStatus.m_isPrintToyu);
 	// sysfDat.m_isToyukeninFlg = mUserData.systemDat.FBUNRUI_3 == 0 && mUserData.systemDat.FHMCODE_3 == 0 && mUserData.systemDat.FHBCODE_3 == 0
 	if (sysfDat.m_isToyukeninFlg) {
@@ -553,7 +577,7 @@ function setTitlePrintForm(isNyukin, isHikae) {
 */
 function getCusData() {
 	var kokfDat = mUserData.mKokfDat;
-	var date = moment(kensinDate).format('YYYY/MM/DD日');
+	var date = moment(kensinDate).format('YYYY年 MM月 DD日');
 	var data = {
 		m_strDate: date,
 		m_strKcode: kokfDat.mCusCode,
@@ -573,7 +597,8 @@ function getCusData() {
 	* @param cusData     [Object]
 */
 function createCusInfo(cusData) {
-	document.getElementById("hakkooBiKenshinBi").innerHTML = (mUserData.mNyukinMode ? "発行日　　" : "検針日　　") + cusData.m_strDate;
+	document.getElementById("hakkooBiKenshinBiTitle").innerHTML = mUserData.mNyukinMode ? "発行日　　" : "検針日　　";
+	document.getElementById("hakkooBiKenshinBi").innerHTML = cusData.m_strDate;
 
 	document.getElementById("codeVal").innerHTML = cusData.m_strKcode;
 
@@ -606,7 +631,7 @@ function createCusInfo(cusData) {
 	* @param isPrintToyu     [Boolean]
 */
 function setKensinData(userData, isHybSeikyu, isPrintKensin, isPrintToyu) {
-	
+
 	const kokfDat = userData.mKokfDat;
 	const sysfDat = userData.mSysfDat;
 	const sy2fDat = userData.mSy2fDat;
@@ -705,7 +730,7 @@ function setKensinData(userData, isHybSeikyu, isPrintKensin, isPrintToyu) {
 	}
 
 	// 前回使用量印字フラグを設定
-		var	mPrnZensr = kokfDat.mKaiYear <= kokfDat.mPuseYear && kokfDat.mKaiMonth <= kokfDat.mPuseMonth && kokfDat.mKaiDate <= kokfDat.mPuseDate;
+	kensinData.mPrnZensr = kokfDat.mKaiYear <= kokfDat.mPuseYear && kokfDat.mKaiMonth <= kokfDat.mPuseMonth && kokfDat.mKaiDate <= kokfDat.mPuseDate;
 
 	if (sysfDat.mHtOption[7] == 1 && kensinData.m_GasfDat != null && kensinData.m_GasfDat.mSum != 4) {
 		kensinData.mPrnGasBaseKin = true;
@@ -855,13 +880,13 @@ function calcTotalKin() {
 
 function createKensinInfo(kensinData) {
 	if (mUserData.mKokfDat.mKenSumi && !mUserData.mNyukinMode && kensinData.m_isPrintKensin) {
-		document.getElementById("KensinInfoArea").style.display = "block";
+		// document.getElementById("KensinInfoArea").style.display = "block";
 		document.getElementById("ToyuKensinInfoArea").style.display = "none";
 		createKensinInfoBase(kensinData);
 	}
 	const kotfDat = kensinData.mKotfDat;
 	if (kotfDat != null && kotfDat.m_bKen_sumi == 1 && !mUserData.mNyukinMode && kensinData.m_isPrintToyu) {
-		document.getElementById("ToyuKensinInfoArea").style.display = "block";
+		// document.getElementById("ToyuKensinInfoArea").style.display = "block";
 		document.getElementById("KensinInfoArea").style.display = "none";
 		createToyuKensinInfoBase(kensinData);
 	}
@@ -918,7 +943,7 @@ function createKensinInfoBase(kensinData) {
 			strLine = "(" + Other.DateFormat(kensinData.m_KensinPrevMonth, kensinData.m_KensinPrevDay, true) + ")";
 		}
 	}
-	if(strLine.length>0){
+	if (strLine.length > 0) {
 		const toritsukjJiZenkaiSSDate = document.getElementById("toritsukjJiZenkaiSSDate");
 		toritsukjJiZenkaiSSDate.innerHTML = strLine;
 	}
@@ -947,11 +972,16 @@ function createKensinInfoBase(kensinData) {
 
 	// 矩形印字
 	if (kensinData.mPrnZensr) {
+		// document.getElementById("zenkaiShiyooRyooArea").style.display = "block";
 		const zenkaiShiyooRyooVal = document.getElementById("zenkaiShiyooRyooVal");
 		zenkaiShiyooRyooVal.innerHTML = Other.Format(kensinData.m_PreUse, 1);
+	} else {
+		document.getElementById("zenkaiShiyooRyooArea").style.display = "none";
 	}
 	if (kensinData.m_bPrintZenYearKenSr) {
 		createZenYearkenSr(kensinData);
+	} else {
+		document.getElementById("zenYearkenSrArea").style.display = "none";
 	}
 
 	if (kensinData.m_bChgMeter) {
@@ -978,11 +1008,17 @@ function createKensinInfoBase(kensinData) {
 		document.getElementById("torihazuZenkaiSSArea").style.display = "none";
 	}
 
+	if (document.getElementById("zenkaiShiyooRyooArea").style.display == "none" &&
+		document.getElementById("zenYearkenSrArea").style.display == "none" &&
+		document.getElementById("torihazuZenkaiSSArea").style.display == "none") {
+
+	}
+
 
 	//ガス料金
 	//通常料金
-	const zenkaiShiyooRyooVal = document.getElementById("zenkaiShiyooRyooVal");
-	zenkaiShiyooRyooVal.innerHTML = Other.KingakuFormat(kensinData.m_GasPay);
+	const gasuRyookinVal = document.getElementById("gasuRyookinVal");
+	gasuRyookinVal.innerHTML = Other.KingakuFormat(kensinData.m_GasPay);
 
 	var ko2fDat = kensinData.mKo2fDat;
 	var hybfDat = kensinData.mHybfDat;
@@ -993,16 +1029,18 @@ function createKensinInfoBase(kensinData) {
 		kihonRyookinVal.innerHTML = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000);
 
 		if (kensinData.m_isHybrid && ko2fDat.mGashyb > 0) {
-			document.getElementById("tsuujooJuuryooRyookinArea").style.display = "block";
+			// document.getElementById("tsuujooJuuryooRyookinArea").style.display = "block";
 			document.getElementById("juuryooRyookinArea").style.display = "none";
 			//通常従量料金
 			const tsuujooJuuryooRyookinVal = document.getElementById("tsuujooJuuryooRyookinVal");
 			tsuujooJuuryooRyookinVal.innerHTML = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000)
 		} else {
-			document.getElementById("juuryooRyookinArea").style.display = "block";
+			// document.getElementById("juuryooRyookinArea").style.display = "block";
 			document.getElementById("tsuujooJuuryooRyookinArea").style.display = "none";
 			//従量料金
 			strLine = Other.KingakuFormat(kensinData.m_GasPay - kensinData.mGasBaseKin / 1000 - kensinData.m_nFacilityKin / 1000);
+			const juuryooRyookinVal = document.getElementById("juuryooRyookinVal");
+			juuryooRyookinVal.innerHTML = strLine;
 		}
 
 		if (kensinData.m_isHybrid && ko2fDat.mGashyb > 0) {
@@ -1049,19 +1087,23 @@ function createKensinInfoBase(kensinData) {
 			} else {
 				document.getElementById("counterNameArea").style.display = "none";
 			}
+		} else {
+			document.getElementById("counterNameArea").style.display = "none";
 		}
 	}
 
 	if (kensinData.m_isHybrid) {
 		//カウンター使用料 (nType is unnecessary, let it be zero)
 		printCounterUseKin(ko2fDat, hybfDat);
+	} else {
+		document.getElementById("counterUseKinArea").style.display = "none";
 	}
 
 	// 消費税有り
 	var gasfDat = mUserData.mGasfDat;
 	if (gasfDat != null) {
 		if (gasfDat.mTaxDiv == 3 && kensinData.m_GasTax != 0) {
-			document.getElementById("gasuShoohizeiArea").style.display = "block";
+			// document.getElementById("gasuShoohizeiArea").style.display = "block";
 			const gasuShoohizeiVal = document.getElementById("gasuShoohizeiVal");
 			gasuShoohizeiVal.innerHTML = Other.KingakuFormat(kensinData.m_GasTax);
 		} else {
@@ -1094,6 +1136,8 @@ function createKensinInfoBase(kensinData) {
 		} else {
 			document.getElementById("hinNameArea").style.display = "none";
 		}
+	} else {
+		document.getElementById("hinNameArea").style.display = "none";
 	}
 
 	// 還元額有り
@@ -1125,7 +1169,7 @@ function createZenYearkenSr(kensinData) {
 		document.getElementById("zenYearkenSrArea").style.display = "none";
 		return;
 	}
-	document.getElementById("zenYearkenSrArea").style.display = "block";
+	// document.getElementById("zenYearkenSrArea").style.display = "block";
 
 	const zenYearkenSrVal = document.getElementById("zenYearkenSrVal");
 	zenYearkenSrVal.innerHTML = Other.Format(kensinData.m_nZenYearKenSr, 1);
@@ -1133,8 +1177,8 @@ function createZenYearkenSr(kensinData) {
 
 
 function createGasryokinTotal(kensinData) {
-	const kauntaRyookinVal = document.getElementById("kauntaRyookinVal");
-	kauntaRyookinVal.innerHTML = Other.KingakuFormat(kensinData.m_nGasTotalKin);
+	const gasuRyookinSoogakuVal = document.getElementById("gasuRyookinSoogakuVal");
+	gasuRyookinSoogakuVal.innerHTML = Other.KingakuFormat(kensinData.m_nGasTotalKin);
 }
 
 
@@ -1870,31 +1914,31 @@ function printGasRyokinStep_A(dLowLimit, dUpLimit, dAddKin, dTotalKin, areaName)
 	var area = document.getElementById(areaName);
 
 	const td = document.createElement("td");
-	td.className = "text-print ta-r wsp-text item";
+	td.className = "text-print ta-r wsp-text";
 
 	const dLowLimitStepA = document.createElement("span");
-	dLowLimitStepA.className = "text-print ta-r wsp-text item tb-item tbw-16";
+	dLowLimitStepA.className = "text-print ta-r wsp-text tb-item tbw-16";
 	dLowLimitStepA.appendChild(document.createTextNode(Other.printformat(parseInt(dLowLimit), "####0.0", 1)));
 
 
 	const arrow = document.createElement("span");
-	arrow.className = "text-print ta-r wsp-text item tb-item tbw-6";
+	arrow.className = "text-print ta-r wsp-text tb-item tbw-6";
 	arrow.appendChild(document.createTextNode("→"));
 
 	const dUpLimitStepA = document.createElement("span");
-	dUpLimitStepA.className = "text-print ta-r wsp-text item tb-item tbw-22";
+	dUpLimitStepA.className = "text-print ta-r wsp-text tb-item tbw-22";
 	dUpLimitStepA.appendChild(document.createTextNode(Other.printformat(parseInt(dUpLimit), "####0.0", 1)));
 
 	const tanka = document.createElement("span");
-	tanka.className = "text-print ta-r wsp-text item tb-item tbw-28";
+	tanka.className = "text-print ta-r wsp-text tb-item tbw-28";
 	tanka.appendChild(document.createTextNode("m3 単価"));
 
 	const dAddKinStepA = document.createElement("span");
-	dAddKinStepA.className = "text-print ta-r wsp-text item tb-item tbw-22";
+	dAddKinStepA.className = "text-print ta-r wsp-text tb-item tbw-22";
 	dAddKinStepA.appendChild(document.createTextNode(Other.format("#,##0.00", dAddKin, 4)));
 
 	const unitRow = document.createElement("span");
-	unitRow.className = "text-print ta-r wsp-text item tb-item tbw-6";
+	unitRow.className = "text-print ta-r wsp-text tb-item tbw-6";
 	unitRow.appendChild(document.createTextNode("円"));
 
 	td.appendChild(dLowLimitStepA);
@@ -1908,11 +1952,11 @@ function printGasRyokinStep_A(dLowLimit, dUpLimit, dAddKin, dTotalKin, areaName)
 	const tdRight = document.createElement("td");
 	tdRight.className = "text-print item td-r";
 	const divTotal = document.createElement("div");
-	divTotal.className = "text-print ta-r wsp-text item tb-item";
+	divTotal.className = "text-print ta-r wsp-text tb-item";
 	divTotal.appendChild(document.createTextNode(Other.KingakuFormat(dTotalKin)));
 
 	const spanTotal = document.createElement("span");
-	spanTotal.className = "text-print ta-r wsp-text item tb-item";
+	spanTotal.className = "text-print ta-r wsp-text tb-item";
 	spanTotal.appendChild(document.createTextNode("円"));
 	divTotal.after(spanTotal);
 	tdRight.appendChild(divTotal);
@@ -2610,16 +2654,16 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		strPrint = (hmefDat.mDenm < 10 ? " " + hmefDat.mDenm : hmefDat.mDenm) + "/"
 			+ (hmefDat.mDend < 10 ? " " + hmefDat.mDend : hmefDat.mDend);
 		const date = document.createElement("td");
-		date.className = "text-print ta-c item w-16";
+		date.className = "text-print ta-c w-16 hmInfoTable-item";
 		date.appendChild(document.createTextNode(strPrint));
 
 
 		// 品目
 		strPrint = Other.getClearString(hmefDat.mHmName);
 		const name = document.createElement("td");
-		name.className = "text-print ta-c item w-20";
+		name.className = "text-print ta-c w-20 hmInfoTable-item";
 		const hmName = document.createElement("span");
-		hmName.className = "text-print ta-l item w100";
+		hmName.className = "text-print ta-l w100 hmInfoTable-item";
 		hmName.appendChild(document.createTextNode(strPrint));
 		name.appendChild(hmName);
 
@@ -2632,13 +2676,13 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 			strPrint = " ";
 		}
 		const suryo = document.createElement("td");
-		suryo.className = "text-print ta-c item w-20";
+		suryo.className = "text-print ta-c w-20 hmInfoTable-item";
 		suryo.appendChild(document.createTextNode(strPrint));
 
 
 
 		const tanka = document.createElement("td");
-		tanka.className = "text-print ta-c item w-20";
+		tanka.className = "text-print ta-c w-20 hmInfoTable-item";
 		if (isTanka && hmefDat.mTanka != 0) {
 			// 単価印字有り
 			if (hmefDat.mTanka % 100 == 0) {
@@ -2669,7 +2713,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		}
 		nTax += hmefDat.mTax;
 		const kin = document.createElement("td");
-		kin.className = "text-print ta-c item w-24";
+		kin.className = "text-print ta-c w-24 hmInfoTable-item";
 		kin.appendChild(document.createTextNode(strPrint));
 
 
@@ -2686,7 +2730,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 			//伝票日付
 			//品目名
 			const hbName = document.createElement("span");
-			hbName.className = "text-print ta-l item w100";
+			hbName.className = "text-print ta-l w100 hmInfoTable-item";
 			hbName.appendChild(document.createTextNode(strPrint));
 			hmName.after(hbName);
 			//数量
@@ -2961,21 +3005,21 @@ function createHybTblPrint(kensinData) {
 			//カウンタ名称
 			strLine = kensinData.getCounterName(nIdx);
 			const countername = document.createElement("td");
-			countername.className = "text-print ta-l item hybTable-item";
+			countername.className = "text-print ta-l hybTable-item";
 			countername.appendChild(document.createTextNode(strLine));
 
 			//----------------------------------------------------------------
 			// 今回指針
 			strLine = Other.printformat(ko2fDat.mNowMeter[nIdx], "#,##0.0", 1) + "m3";
 			const nowMeter = document.createElement("td");
-			nowMeter.className = "text-print ta-l item hybTable-item";
+			nowMeter.className = "text-print ta-l hybTable-item";
 			nowMeter.appendChild(document.createTextNode(strLine));
 
 			//----------------------------------------------------------------
 			// 前回指針
 			strLine = Other.printformat(ko2fDat.mPreMeter[nIdx], "#,##0.0", 1) + "m3";
 			const preMeter = document.createElement("td");
-			preMeter.className = "text-print ta-l item hybTable-item";
+			preMeter.className = "text-print ta-l hybTable-item";
 			preMeter.appendChild(document.createTextNode(strLine));
 
 
@@ -2983,7 +3027,7 @@ function createHybTblPrint(kensinData) {
 			// 使用量
 			strLine = Other.printformat(kensinData.m_nHybGasUse[nIdx], "#,##0.0", 1) + "m3";
 			const hybGasUse = document.createElement("td");
-			hybGasUse.className = "text-print ta-l item hybTable-item";
+			hybGasUse.className = "text-print ta-l hybTable-item";
 			hybGasUse.appendChild(document.createTextNode(strLine));
 
 			row.appendChild(countername);
@@ -3118,7 +3162,7 @@ function createCnComment(kensinData) {
 			cnpCmtListArea.style.display = "block";
 			for (var i = 0; i < i < lstCmt.length; i++) {
 				var strCmt = lstCmt[i];
-				
+
 				const hybGasUse = document.createElement("div");
 				hybGasUse.className = "col-12 text-print ta-l wsp-text item";
 				hybGasUse.appendChild(document.createTextNode(strCmt));
@@ -3170,9 +3214,9 @@ const byteSize = str => new Blob([str]).size;
 
 
 /**
-    * 店舗情報の印刷データを作成する。
-    *
-    * @param hanfDat [in] HanfDat    店舗データ
+	* 店舗情報の印刷データを作成する。
+	*
+	* @param hanfDat [in] HanfDat    店舗データ
 */
 function createUserInfo(hanfDat, strTantname) {
 	var wkStr;
@@ -3208,14 +3252,14 @@ function createUserInfo(hanfDat, strTantname) {
 	//tantnameFaxVal
 	const tantnameFaxVal = document.getElementById("tantnameFaxVal");
 	tantnameFaxVal.innerHTML = strTantname;
-	
+
 
 	var strBkinfo;
 	var hanf2Dat = hanfDat;;
-	if(Other.getBytesLen(Other.getClearString(hanf2Dat.mBkname_0).trim()) > 0){
+	if (Other.getBytesLen(Other.getClearString(hanf2Dat.mBkname_0).trim()) > 0) {
 		// 銀行１名称有り
 		strBkinfo = Other.getClearString(hanf2Dat.mBkname_0).trim();
-		if(Other.getBytesLen(Other.getClearString(hanf2Dat.mBkshiten_0).trim()) > 0){
+		if (Other.getBytesLen(Other.getClearString(hanf2Dat.mBkshiten_0).trim()) > 0) {
 			// 銀行１支店名有り
 			strBkinfo += "/" + Other.getClearString(hanf2Dat.mBkshiten_0).trim();
 		}
@@ -3224,13 +3268,13 @@ function createUserInfo(hanfDat, strTantname) {
 
 
 		strBkinfo = "";
-		if(Other.getBytesLen(Other.getClearString(hanf2Dat.mBkkubun_0).trim()) > 0){
+		if (Other.getBytesLen(Other.getClearString(hanf2Dat.mBkkubun_0).trim()) > 0) {
 			// 銀行１区分有り
 			strBkinfo = Other.getClearString(hanf2Dat.mBkkubun_0).trim();
 		}
-		if(Other.getBytesLen(Other.getClearString(hanf2Dat.mBkban_0).trim()) > 0){
+		if (Other.getBytesLen(Other.getClearString(hanf2Dat.mBkban_0).trim()) > 0) {
 			// 銀行１口座番号有り
-			if(strBkinfo.length != 0){
+			if (strBkinfo.length != 0) {
 				// 区分有りの場合
 				strBkinfo += "/";
 			}
@@ -3238,17 +3282,17 @@ function createUserInfo(hanfDat, strTantname) {
 		}
 
 		const bkKubun0Ban0 = document.getElementById("bkKubun0&Ban0");
-		if(strBkinfo.length != 0){
+		if (strBkinfo.length != 0) {
 			bkKubun0Ban0.innerHTML = strBkinfo;
 			bkKubun0Ban0.style.display = "block";
 		} else {
 			bkKubun0Ban0.style.display = "none";
 		}
 	}
-	if(Other.getBytesLen(Other.getClearString(hanf2Dat.mBkname_1).trim()) > 0){
+	if (Other.getBytesLen(Other.getClearString(hanf2Dat.mBkname_1).trim()) > 0) {
 		// 銀行２名称有り
 		strBkinfo = Other.getClearString(hanf2Dat.mBkname_1).trim();
-		if(Other.getBytesLen(Other.getClearString(hanf2Dat.mBkshiten_1).trim()) > 0){
+		if (Other.getBytesLen(Other.getClearString(hanf2Dat.mBkshiten_1).trim()) > 0) {
 			// 銀行２支店名有り
 			strBkinfo += "/" + Other.getClearString(hanf2Dat.mBkshiten_1).trim();
 		}
@@ -3257,13 +3301,13 @@ function createUserInfo(hanfDat, strTantname) {
 
 
 		strBkinfo = "";
-		if(Other.getBytesLen(Other.getClearString(hanf2Dat.mBkkubun_1).trim()) > 0){
+		if (Other.getBytesLen(Other.getClearString(hanf2Dat.mBkkubun_1).trim()) > 0) {
 			// 銀行２区分有り
 			strBkinfo = Other.getClearString(hanf2Dat.mBkkubun_1).trim();
 		}
-		if(Other.getBytesLen(Other.getClearString(hanf2Dat.mBkban_1).trim()) > 0){
+		if (Other.getBytesLen(Other.getClearString(hanf2Dat.mBkban_1).trim()) > 0) {
 			// 銀行２口座番号有り
-			if(strBkinfo.length() != 0){
+			if (strBkinfo.length() != 0) {
 				// 区分有りの場合
 				strBkinfo += "/";
 			}
@@ -3271,14 +3315,14 @@ function createUserInfo(hanfDat, strTantname) {
 		}
 
 		const bkKubun1Ban1 = document.getElementById("bkKubun1&Ban1");
-		if(strBkinfo.length != 0){
+		if (strBkinfo.length != 0) {
 			bkKubun1Ban1.innerHTML = strBkinfo;
 			bkKubun1Ban1.style.display = "block";
 		} else {
 			bkKubun1Ban1.style.display = "none";
 		}
 	}
-	
+
 }
 
 
@@ -3310,7 +3354,7 @@ function getBase64(file) {
    * @param paddingForm     [STRING]
 */
 function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineHeightSingleLine, sizeItem, lineheightItem, showEndPage, paddingForm) {
-	if (Common.checkDevice() < 2) {
+	if (true) {		//Common.checkDevice() < 2
 		document.getElementById('form').style.width = widthScreen;
 		const form = document.getElementsByClassName("wrap-mainform");
 		form[0].style.width = widthForm;
@@ -3351,27 +3395,58 @@ function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineH
 
 
 /**
+   * SETUP PRINT FORM
+   *
+   * @param sizeSingleLine     [STRING]
+   * @param lineHeightSingleLine     [STRING]
+*/
+function setupTextSizeDetail(nameItem, textSize, lineHeight, fontWeight) {
+	// setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", true, "20px");
+	const element = document.getElementsByClassName(nameItem);
+	for (let i = 0; i < element.length; i++) {
+		element[i].style.setProperty("font-size", textSize, "important")
+		// element[i].style.fontSize = textSize;
+		// element[i].style.setAttribute('style', 'font-size:' + textSize + 'px' + '!important')
+		element[i].style.lineHeight = lineHeight;
+		element[i].style.fontWeight = fontWeight;
+	}
+}
+
+
+/**
    * SEND IMAGE TO PRINTER
 */
 function sendImage() {
 	imgString = imgString.replace("data:image/png;base64,", "");
 	navigator.clipboard.writeText(imgString);
-	window.location.href = "printermarutou://print&&1";
+	// window.location.href = "printermarutou://print&&1";
 }
 
 /**
 	* ONCLICK ACTION
 */
 function onclickAction() {
-	document.getElementById("sendToAppButton").onclick = kinyuuPrintTesting;
+	document.getElementById("sendToAppButton").onclick = function () {
+		// sendImage();
+	alert(imgString);
+	};
+	document.getElementById("createPrintingFormButton").onclick = function () {
+		document.getElementById("editView").style.display = "none";
+		document.getElementById("printView").style.display = "block";
+		//lấy 2 biến receipt vs zandaka bên file kensin_kinyuu.js Hieu
+		//isToyu (biến cuối) xem lại ko đc set cứng Hieu
+		// getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, false);
+		// mUserData.mSysfDat.is_m_isToyukeninFlg = false;
+		// createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
+		createImageKensinForm();
+	};
 }
 
 /** 
-    * ONLOAD ACTION
+	* ONLOAD ACTION
 */
 function onLoadAction() {
-    onclickAction();
-	kinyuuPrintTesting();
+	onclickAction();
 }
 
 
@@ -3381,32 +3456,36 @@ window.onload = onLoadAction;
 /** 
 	* CREATE IMAGE FILE OF SHUUKEI NIPPOU FORM
 */
-function createImageShuukeiNippouForm() {
-	closeNippouDialog();
-	if (Common.checkPrintable() == false) {
-		return;
-	}
-	setTitlePrintForm(1);
-
+function createImageKensinForm() {
 	Common.setupModal("load", null, Mess.I00001, null);
 	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
-	document.getElementById('nippouArea').style.display = "block";
-	document.getElementById('shuukeiNippouForm').style.display = "block";
-	document.getElementById('kensinNippouForm').style.display = "none";
-	// setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
-	setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", true, "20px");
+	setupPrintForm("100vh", "650px", "55px", "27px", "35px", "27px", "35px", true, "20px");
+	setupTextSizeDetail("lg-text", "30px", "40px", "bold");
+	setupTextSizeDetail("tb-item", "24px", "35px", "normal");
+	setupTextSizeDetail("ryooshuu-text", "38px", "49px", "bold");
+	setupTextSizeDetail("hmInfoTable-item", "24px", "35px", "normal");
+	setupTextSizeDetail("hybTable-item", "24px", "35px", "normal");
+	setupTextSizeDetail("hoan-item", "24px", "35px", "normal");
 	domtoimage.toBlob(document.getElementById('printContentDetail'))
 		.then(function (blob) {
 			getBase64(blob).then(
 				data => {
 					console.log(data)
 					imgString = data;
+					alert(imgString);
 					window.scrollTo(0, 0);
 
 					const interval = setInterval(function () {
-						setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
+						setupPrintForm("100%", "600px", "45px", itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
+						setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
+						setupTextSizeDetail("tb-item", tbItemTS, tbItemLH, "normal");
+						setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
+						setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
+						setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
+						setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
+
 						Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
 						clearInterval(interval);
 						modal.style.display = "none";
@@ -3416,22 +3495,12 @@ function createImageShuukeiNippouForm() {
 		})
 }
 
-
-function kinyuuPrintTesting() {
-	document.getElementById("editView").style.display = "none";
-	document.getElementById("printView").style.display = "block";
-
-	getPrintStatus(mUserData.mKokfDat,mUserData.mSysfDat, false , 0 , 0 , false , false);
-	mUserData.mSysfDat.is_m_isToyukeninFlg = false;
-	createPrintData(printStatus , mUserData.mSysfDat.is_m_isToyukeninFlg , false);
-}
-
-function getPrintStatus(kokfDat , sysfDat, isPrintNyukin,lReceipt , lZandaka,isPrintKensin , isToyu){
-	   	var isPrintHoan = sysfDat.mCheckHoan && (kokfDat.mGasKubun != 2 || kokfDat.mTenkenKgas == 1);
-	   	printStatus.m_isPrintHoan = isPrintHoan;
-		printStatus.m_isPrintNyukin = isPrintNyukin;
-		printStatus.m_lReceipt = lReceipt;
-		printStatus.lZandaka = lZandaka;
-		printStatus.m_isPrintKensin = isPrintKensin;
-		printStatus.m_isPrintToyu = isToyu;	
+function getPrintStatus(kokfDat, sysfDat, isPrintNyukin, lReceipt, lZandaka, isPrintKensin, isToyu) {
+	var isPrintHoan = sysfDat.mCheckHoan && (kokfDat.mGasKubun != 2 || kokfDat.mTenkenKgas == 1);
+	printStatus.m_isPrintHoan = isPrintHoan;
+	printStatus.m_isPrintNyukin = isPrintNyukin;
+	printStatus.m_lReceipt = lReceipt;
+	printStatus.lZandaka = lZandaka;
+	printStatus.m_isPrintKensin = isPrintKensin;
+	printStatus.m_isPrintToyu = isToyu;
 }

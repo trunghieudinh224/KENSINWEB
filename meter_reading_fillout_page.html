@@ -679,7 +679,8 @@
 
 
                             <div id="cusInfoArea">
-                                <div class="text-print ta-l wsp-text sg-line">発行日　
+                                <div class="text-print ta-l wsp-text sg-line">
+                                    <span class="text-print item" id="hakkooBiKenshinBiTitle">発行日</span>
                                     <span class="text-print item" id="hakkooBiKenshinBi">2022年 10月 13日</span>
                                 </div>
 
@@ -739,7 +740,7 @@
                                 </div>
 
                                 <div class="frames-common bd-1 mt--1">
-                                    <div class="row">
+                                    <div class="row" id="zenkaiShiyooRyooArea">
                                         <div class="col-6 text-print ta-l wsp-text item">前回使用量</div>
                                         <div class="col-6">
                                             <div class="text-print ta-r wsp-text item valLine" id="zenkaiShiyooRyooVal">
@@ -787,7 +788,7 @@
                                         <div class="col-6 text-print ta-l fw-b wsp-text item">ガス料金</div>
                                         <div class="col-6">
                                             <div class="text-print ta-r fw-b wsp-text item valLine"
-                                                id="zenkaiShiyooRyooVal">308,700</div>
+                                                id="gasuRyookinVal">308,700</div>
                                             <div class="text-print ta-r fw-b wsp-text item unitLine">円</div>
                                         </div>
                                     </div>
@@ -978,7 +979,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="row" id="tsuujooJuuryooRyookinArea">
+                                        <div class="row" id="juuryooRyookinArea">
                                             <div class="col-6 text-print ta-l wsp-text pl-30 item">従量料金(単価
                                                 <span class="text-print item" id="loilUnitVal"></span>
                                                 円)
@@ -1155,7 +1156,7 @@
                                             <tr>
                                                 <td class="text-print item td-nm">基本料金</td>
                                                 <td class="text-print item td-nm td-r ta-r">
-                                                    <div class="text-print ta-r wsp-text" id="gasBaseKinTBVal">600.0
+                                                    <div class="text-print item ta-r wsp-text" id="gasBaseKinTBVal">600.0
                                                         <span class="text-print item unitLine">円</span>
                                                     </div>
                                                 </td>
@@ -1163,7 +1164,7 @@
                                             <tr id="facilityKinTBArea">
                                                 <td class="text-print item td-nm">設備料金</td>
                                                 <td class="text-print item td-nm td-r ta-r">
-                                                    <div class="text-print ta-r wsp-text" id="facilityKinTBVal">600.0
+                                                    <div class="text-print item ta-r wsp-text" id="facilityKinTBVal">600.0
                                                         <span class="text-print item unitLine">円</span>
                                                     </div>
                                                 </td>
@@ -1223,15 +1224,15 @@
                                                             </div>
                                                         </td> -->
 
-                                                        <td class="text-print ta-r wsp-text item">
-                                                            <span class="text-print ta-r wsp-text item tb-item tbw-35" id="dLowLimitHybrid">0.1</span>
-                                                            <span class="text-print ta-r wsp-text item tb-item tbw-20">m3 ～</span>
-                                                            <span class="text-print ta-r wsp-text item tb-item tbw-35" id="dUpLimitHybrid">123</span>
-                                                            <span class="text-print ta-r wsp-text item tb-item tbw-10">m3</span>
+                                                        <td class="text-print ta-r wsp-text">
+                                                            <span class="text-print ta-r wsp-text tb-item tbw-35" id="dLowLimitHybrid">0.1</span>
+                                                            <span class="text-print ta-r wsp-text tb-item tbw-20">m3 ～</span>
+                                                            <span class="text-print ta-r wsp-text tb-item tbw-35" id="dUpLimitHybrid">123</span>
+                                                            <span class="text-print ta-r wsp-text tb-item tbw-10">m3</span>
                                                         </td>
 
                                                         <td class="text-print item td-r">
-                                                            <div class="text-print ta-r wsp-text" id="addKinHybrid">
+                                                            <div class="text-print item ta-r wsp-text" id="addKinHybrid">
                                                                 600.0
                                                                 <span class="text-print item unitLine">円</span>
                                                             </div>
@@ -1256,14 +1257,14 @@
 
                                                 <tr id="singleStepValArea">
                                                     <td class="text-print item">
-                                                        <span class="text-print ta-r wsp-text item tb-item tbw-35" id="dLowLimitSingleStepVal">0.1</span>
-                                                        <span class="text-print ta-r wsp-text item tb-item tbw-20">m3 ～</span>
-                                                        <span class="text-print ta-r wsp-text item tb-item tbw-35" id="dUpLimitSingleStepVal">123</span>
-                                                        <span class="text-print ta-r wsp-text item tb-item tbw-10">m3</span>
+                                                        <span class="text-print ta-r wsp-text tb-item tbw-35" id="dLowLimitSingleStepVal">0.1</span>
+                                                        <span class="text-print ta-r wsp-text tb-item tbw-20">m3 ～</span>
+                                                        <span class="text-print ta-r wsp-text tb-item tbw-35" id="dUpLimitSingleStepVal">123</span>
+                                                        <span class="text-print ta-r wsp-text tb-item tbw-10">m3</span>
                                                     </td>
 
                                                     <td class="text-print item td-r">
-                                                        <div class="text-print ta-r wsp-text" id="addKinSingleStepVal">
+                                                        <div class="text-print item ta-r wsp-text" id="addKinSingleStepVal">
                                                             600.0
                                                             <span class="text-print item unitLine">円</span>
                                                         </div>
@@ -1282,20 +1283,20 @@
                                                     </tr>
 
                                                     <tr id="gasryokinHybrid_Val">
-                                                        <td class="text-print ta-r wsp-text item">
-                                                            <span class="text-print ta-r wsp-text item tb-item"
+                                                        <td class="text-print ta-r wsp-text">
+                                                            <span class="text-print ta-r wsp-text tb-item"
                                                                 id="dLowLimitHybrid">0.1</span>
-                                                            <span class="text-print ta-r wsp-text item tb-item">→</span>
-                                                            <span class="text-print ta-r wsp-text item tb-item"
+                                                            <span class="text-print ta-r wsp-text tb-item">→</span>
+                                                            <span class="text-print ta-r wsp-text tb-item"
                                                                 id="dUpLimitHybrid">999</span>
-                                                            <span class="text-print ta-r wsp-text item tb-item">m3
+                                                            <span class="text-print ta-r wsp-text tb-item">m3
                                                                 単価</span>
-                                                            <span class="text-print ta-r wsp-text item tb-item"
+                                                            <span class="text-print ta-r wsp-text tb-item"
                                                                 id="dAddKinHybrid">200.0</span>
-                                                            <span class="text-print ta-r wsp-text item tb-item">円</span>
+                                                            <span class="text-print ta-r wsp-text tb-item">円</span>
                                                         </td>
                                                         <td class="text-print item td-r">
-                                                            <div class="text-print ta-r wsp-text" id="dTotalKinHybrid">
+                                                            <div class="text-print item ta-r wsp-text" id="dTotalKinHybrid">
                                                                 600.0
                                                                 <span class="text-print item unitLine">円</span>
                                                             </div>
@@ -1307,7 +1308,7 @@
                                             <tr id="counterUseKinArea">
                                                 <td class="text-print item td-nm">カウンタ使用料</td>
                                                 <td class="text-print item td-nm td-r ta-r">
-                                                    <div class="text-print ta-r wsp-text" id="counterUseKinVal">60.0
+                                                    <div class="text-print item ta-r wsp-text" id="counterUseKinVal">60.0
                                                         <span class="text-print item unitLine">円</span>
                                                     </div>
                                                 </td>
@@ -1316,7 +1317,7 @@
                                             <tr id="gasTotalKinWithoutTaxArea">
                                                 <td class="text-print item td-nm" id="gasTotalKinWithoutTaxVal">合計</td>
                                                 <td class="text-print item td-nm td-r ta-r">
-                                                    <div class="text-print ta-r wsp-text">60.0
+                                                    <div class="text-print item ta-r wsp-text">60.0
                                                         <span class="text-print item unitLine">円</span>
                                                     </div>
                                                 </td>
@@ -1347,9 +1348,9 @@
 
                             <div id="ryoshuArea">
                                 <div class="row">
-                                    <div class="col-8 text-print ta-l wsp-text item" id="ryoshuDetail">
-                                        <span class="text-print ta-l fw-b wsp-text item lg-text ryooshuuKingaku">領収金額</span>
-                                        <span class="text-print ta-l fw-b wsp-text item lg-text ryooshuuKingaku" id="ryooshuuKingakuVal">600,00円</span>
+                                    <div class="col-8 text-print ta-l wsp-text" id="ryoshuDetail">
+                                        <span class="text-print ta-l fw-b wsp-text ryooshuu-text ryooshuuKingaku">領収金額</span>
+                                        <span class="text-print ta-l fw-b wsp-text ryooshuu-text ryooshuuKingaku" id="ryooshuuKingakuVal">600,00円</span>
                                     </div>
                                     <div class="col-4">
                                         <div class="bd-3 text-print ta-c wsp-text item">
@@ -1449,27 +1450,27 @@
 
                                     <div id="hmInfoTableItem">
                                         <tr>            <!-- remove -->
-                                            <td class="text-print ta-c item w-16">20/10</td>
-                                            <td class="text-print ta-l item w-20">
-                                                <span class="text-print ta-l item w100">HmName</span>
-                                                <span class="text-print ta-l item w100">HbName</span>
+                                            <td class="text-print ta-c w-16 hmInfoTable-item">20/10</td>
+                                            <td class="text-print ta-l w-20 hmInfoTable-item">
+                                                <span class="text-print ta-l w100 hmInfoTable-item">HmName</span>
+                                                <span class="text-print ta-l w100 hmInfoTable-item">HbName</span>
                                             </td>
-                                            <td class="text-print ta-r item w-20">22.04</td>
-                                            <td class="text-print ta-r item w-20">20</td>
-                                            <td class="text-print ta-r item w-24">1,023</td>
+                                            <td class="text-print ta-r w-20 hmInfoTable-item">22.04</td>
+                                            <td class="text-print ta-r w-20 hmInfoTable-item">20</td>
+                                            <td class="text-print ta-r w-24 hmInfoTable-item">1,023</td>
                                         </tr>
                                     </div>
 
                                     <tr class="hmInfoHeader" id="hmInfoTotal">
-                                        <td class="text-print ta-c item w-16">
+                                        <td class="text-print ta-c w-16 hmInfoTable-item">
                                         </td>
-                                        <td class="text-print ta-l item w-20">
+                                        <td class="text-print ta-l w-20">
                                             消費税</td>
-                                        <td class="text-print ta-c item w-20">
+                                        <td class="text-print ta-c w-20 hmInfoTable-item">
                                         </td>
-                                        <td class="text-print ta-c item w-20">
+                                        <td class="text-print ta-c w-20 hmInfoTable-item">
                                         </td>
-                                        <td class="text-print ta-c item w-24" id="nTaxVal">
+                                        <td class="text-print ta-r w-24 hmInfoTable-item" id="nTaxVal">
                                             12,012</td>
                                     </tr>
                                 </table>
@@ -1521,32 +1522,32 @@
                             <div class="bd-3" id="hybTblArea">
                                 <table id="hybTableHeader">
                                     <tr>
-                                        <td class="text-print ta-c item hybTable-item w-33">ご使用量の内訳</td>
-                                        <td class="text-print ta-c item hybTable-item w-21">今回指針</td>
-                                        <td class="text-print ta-c item hybTable-item w-21">前回指針</td>
-                                        <td class="text-print ta-c item hybTable-item w-25">今回使用量</td>
+                                        <td class="text-print ta-c hybTable-item w-33">ご使用量の内訳</td>
+                                        <td class="text-print ta-r hybTable-item w-21">今回指針</td>
+                                        <td class="text-print ta-r hybTable-item w-21">前回指針</td>
+                                        <td class="text-print ta-c hybTable-item w-25">今回使用量</td>
                                     </tr>
                                 </table>
 
                                 <table id="hybTable">
                                     <tr>
-                                        <td class="text-print ta-l item hybTable-item w-33">ご使用量合計</td>
-                                        <td class="text-print ta-r item hybTable-item w-21" id="hybTableSisin">10,000.0m3</td>
-                                        <td class="text-print ta-r item hybTable-item w-21" id="hybTableSisinPrev">20.0m3</td>
-                                        <td class="text-print ta-r item hybTable-item w-25" id="hybTableNowUse">10,000.0m3</td>
+                                        <td class="text-print ta-l hybTable-item w-33">ご使用量合計</td>
+                                        <td class="text-print ta-r hybTable-item w-21" id="hybTableSisin">10,000.0m3</td>
+                                        <td class="text-print ta-r hybTable-item w-21" id="hybTableSisinPrev">20.0m3</td>
+                                        <td class="text-print ta-r hybTable-item w-25" id="hybTableNowUse">10,000.0m3</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-print ta-l item hybTable-item">通常使用量</td>
-                                        <td class="text-print ta-r item hybTable-item"></td>
-                                        <td class="text-print ta-r item hybTable-item"></td>
-                                        <td class="text-print ta-r item hybTable-item" id="sisinHybTableVal">20.0m3</td>
+                                        <td class="text-print ta-l hybTable-item">通常使用量</td>
+                                        <td class="text-print ta-r hybTable-item"></td>
+                                        <td class="text-print ta-r hybTable-item"></td>
+                                        <td class="text-print ta-r hybTable-item" id="sisinHybTableVal">20.0m3</td>
                                     </tr>
 
                                     <tr id="hybTableRow">           <!-- remove -->
-                                        <td class="text-print ta-l item hybTable-item">countername</td>
-                                        <td class="text-print ta-r item hybTable-item">20.0m3</td>
-                                        <td class="text-print ta-r item hybTable-item">20.0m3</td>
-                                        <td class="text-print ta-r item hybTable-item">20.0m3</td>
+                                        <td class="text-print ta-l hybTable-item">countername</td>
+                                        <td class="text-print ta-r hybTable-item">20.0m3</td>
+                                        <td class="text-print ta-r hybTable-item">20.0m3</td>
+                                        <td class="text-print ta-r hybTable-item">20.0m3</td>
                                     </tr>
                                 </table>
                             </div>
@@ -1555,7 +1556,7 @@
                             <div id="hoanInfoArea">
                                 <div class="frames-common bd-1" id="hoanTable">
                                     <div class="row">
-                                        <div class="col-12 text-print ta-c fw-b wsp-text item">* * * 保　安　点　検 * * *</div>
+                                        <div class="col-12 text-print ta-c fw-b wsp-text item lg-text">* * * 保　安　点　検 * * *</div>
                                     </div>
 
                                     <div class="row mg-0">

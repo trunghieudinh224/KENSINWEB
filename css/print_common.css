@@ -10,7 +10,7 @@
 
 #printContentDetail {
 	background-color: white;
-	padding: 5px;
+	padding: 0px 20px !important;
 }
 
 .end-space {
@@ -58,7 +58,7 @@
   ******  TEXT  ******
 */
 .text-print {
-	font-size: 20px;
+	font-size: 22px;
 }
 
 .wsp-title {
@@ -79,10 +79,6 @@
 
 .bracket {
 	margin-left: 10px;
-}
-
-#printContentDetail {
-	padding: 0px 20px !important;
 }
 
 
@@ -128,7 +124,7 @@
 	}
 
 	.text-print {
-		font-size: 16px !important;
+		font-size: 16px;
 	}
 }
 
@@ -139,16 +135,25 @@
 		font-size: 35px;
 	}
 
+	#printContentDetail {
+		background-color: white;
+		padding: 0px 10px !important;
+	}
+
 	.wsp-title {
 		word-spacing: 15px;
 	}
 
 	.text-print {
-		font-size: 15px !important;
+		font-size: 15px;
 	}
 }
 
 @media screen and (max-width: 450px) {
+	#printContent {
+		padding: 40px 4px;
+	}
+
 	#printContentDetail {
 		padding: 0px 10px !important;
 	}

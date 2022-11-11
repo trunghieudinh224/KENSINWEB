@@ -14,6 +14,10 @@
     margin-bottom: 5px;
 }
 
+#hoanTable {
+    padding: 3px 0px;
+}
+
 #HiwariCommentArea {
     margin-bottom: 25px;
 }
@@ -66,21 +70,30 @@
 }
 
 .lg-text {
-    font-size: 22px !important;
+    font-size: 24px;
+}
+
+.ryooshuu-text {
+    font-size: 30px;
 }
 
 .tb-item {
-    font-size: 22px !important;
+    font-size: 22px;
     display: block;
     float: right;
 }
 
 .hybTable-item {
-    font-size: 22px !important;
+    font-size: 22px;
+}
+
+.hmInfoTable-item {
+    font-size: 22px;
 }
 
 .hoan-item {
-    font-size: 22px !important;
+    padding-right: 0px;
+    font-size: 22px;
 }
 
 .hoan-val {
@@ -214,17 +227,69 @@ td {
 */
 
 @media screen and (max-width: 900px) {
+    .lg-text {
+        font-size: 22px;
+    }
+
+    .ryooshuu-text {
+        font-size: 28px;
+    }
+    
+    .tb-item {
+        font-size: 20px ;
+    }
+    
+    .hybTable-item {
+        font-size: 20px;
+    }
+
+    .hmInfoTable-item {
+        font-size: 20px;
+    }
+    
+    .hoan-item {
+        font-size: 20px;
+    }
 }
 
 
 @media screen and (max-width: 768px) {
+    .frames-common {
+        padding: 3px 4px
+    }
+
     .valLine {
         width: 82%;
     }
 
     .unitLine {
         width: 18%;
-    }}
+    }
+
+    .lg-text {
+        font-size: 18px;
+    }
+
+    .ryooshuu-text {
+        font-size: 26px;
+    }
+    
+    .tb-item {
+        font-size: 16px;
+    }
+    
+    .hybTable-item {
+        font-size: 16px;
+    }
+
+    .hmInfoTable-item {
+        font-size: 16px;
+    }
+    
+    .hoan-item {
+        font-size: 16px;
+    }
+}
 
 @media screen and (max-width: 600px) {
     .valLine {
@@ -234,11 +299,57 @@ td {
     .unitLine {
         width: 21%;
     }
+
+    #ryooOsamuShirushiArea {
+        height: 120px;
+    }
+
+    #hoanTable {
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-left: -4px;
+        margin-right: -4px;
+    }
+
+    .lg-text {
+        font-size: 16px !important;
+    }
+
+    .ryooshuu-text {
+        font-size: 22px !important;
+    }
+    
+    .tb-item {
+        font-size: 14px !important;
+    }
+    
+    .hybTable-item {
+        font-size: 13px !important;
+    }
+
+    .hmInfoTable-item {
+        font-size: 13px !important;
+    }
+    
+    .hoan-item {
+        font-size: 13px !important;
+    }
 }
 
 @media screen and (max-width: 450px) {
     .frames-common {
-        padding: 3px 5px
+        padding: 3px 4px
+    }
+
+    #hoanTable {
+        padding-left: 3px;
+        padding-right: 3px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .ryooshuu-text {
+        font-size: 18px !important;
     }
 
     .tb-item {
@@ -255,6 +366,10 @@ td {
         font-size: 12px !important;
         margin: -2px !important;
         /* padding: 0px !important; */
+    }
+
+    .hmInfoTable-item {
+        font-size: 13px !important;
     }
 
     .hoan-item {
