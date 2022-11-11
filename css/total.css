@@ -54,6 +54,12 @@ body {
     padding: 0px 10px;
 }
 
+
+th {
+	background-color: var(--primary-color);
+  }
+
+  
 @keyframes showDialog {
     to {
         transform: translateY(0);
