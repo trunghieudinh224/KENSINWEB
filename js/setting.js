@@ -149,7 +149,7 @@ function saveDataSetting() {
 		}
 	}).done(function (res) {
 		console.log('res', res);
-		localStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(prepareNewDataSetting()));
+		sessionStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(prepareNewDataSetting()));
 		Common.setupModal("success", null, Mess.I00003, StringCS.OK, null);
 	});
 }

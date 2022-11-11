@@ -20,7 +20,7 @@ function clearDataSearch() {
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
     if (page != "search_page" && page != "customer_page" && page != "meter_reading_fillout_page") {
-        localStorage.removeItem(StringCS.CUSTLIST);
+        sessionStorage.removeItem(StringCS.CUSTLIST);
     }
 }
 
@@ -32,7 +32,7 @@ function clearDataCus() {
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
     if (page != "meter_reading_fillout_page" && page != "customer_page") {
-        localStorage.removeItem(StringCS.CUSDAT);
+        sessionStorage.removeItem(StringCS.CUSDAT);
     }
 }
 

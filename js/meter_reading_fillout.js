@@ -3,7 +3,7 @@ import * as Common from './Common/common_function.js'
 import * as StringCS from './Constant/strings.js'
 import * as Mess from './Constant/message.js'
 
-const mUserData = JSON.parse(localStorage.getItem("UserData"));
+const mUserData = JSON.parse(sessionStorage.getItem("UserData"));
 
 const closeBtn = document.querySelector("#close-icon");
 const overlay = document.querySelector(".overlay");
@@ -73,8 +73,8 @@ setOptionMenu();
 	* ONCLICK ACTION
 */
 function onclickAction() {
-	document.getElementById("createPrintingFormButton").onclick = function () {
-		Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
-	};
+	// document.getElementById("createPrintingFormButton").onclick = function () {
+	// 	Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
+	// };
 }
 onclickAction();

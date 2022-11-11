@@ -2199,7 +2199,6 @@ class GasRaterCom {
     } else {
       wkKingaku = 0;
     }
-    MLog.INFO(ctx, TAG, "前残:" + wkKingaku);
     return wkKingaku;
   }
 
@@ -2378,7 +2377,7 @@ const mTxtNameUser = document.getElementById("txtKensinMainCusName");
 
 //import * as constant from './Constant/message.js'
 
-const mUserData = JSON.parse(localStorage.getItem("UserData"));
+const mUserData = JSON.parse(sessionStorage.getItem("UserData"));
 
 const closeBtn = document.querySelector("#close-icon");
 const overlay = document.querySelector(".overlay");

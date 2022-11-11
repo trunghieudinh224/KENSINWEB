@@ -9,7 +9,7 @@ const modal = document.getElementById("myModal");
 
 /*****  DATA VARIABLE  *****/
 /* customer data */
-var cusDat = JSON.parse(localStorage.getItem(StringCS.CUSDAT));
+var cusDat = JSON.parse(sessionStorage.getItem(StringCS.CUSDAT));
 /* customer detail data */
 var cusDetailData;
 
@@ -283,10 +283,10 @@ function getRyookin() {
    * MOVE TO KINYUU PAGE WITH MODE
 */
 function kinyuuMove(mode) {
-    sessionStorage.setItem(StringCS.KINYUUMODE, mode);
     var kensinDate = document.getElementById("jisshi-bi").value;
-    sessionStorage.setItem(StringCS.KENSINDATE, kensinDate);
+    sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
     Common.movePage('/meter_reading_fillout_page.html');
+    sessionStorage.setItem(StringCS.KINYUUMODE, mode);
 }
 
 

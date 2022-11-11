@@ -21,7 +21,7 @@ const modal = document.getElementById("myModal");
 
 /*****  DATA VARIABLE  *****/
 /* data setting */
-var userData = JSON.parse(localStorage.getItem("UserData"));
+var userData = JSON.parse(sessionStorage.getItem("UserData"));
 /* hanku list */
 var hankuList;
 /* shuku list */
@@ -148,7 +148,7 @@ function getValueCheckbox(checkboxName, data) {
    * SHOW PREVIOUS DATA
 */
 function checkPreviousData() {
-	const previousCuslist = JSON.parse(localStorage.getItem(StringCS.CUSTLIST));
+	const previousCuslist = JSON.parse(sessionStorage.getItem(StringCS.CUSTLIST));
 	if (previousCuslist != null) {
 		if (previousCuslist.length > 0) {
 			document.getElementById("countList").innerHTML = "検索件数：" + previousCuslist.length + "件";
@@ -180,7 +180,7 @@ function checkPreviousData() {
 			newElement.onclick = function () {
 				object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 				const cusdat = Object.assign({}, object);
-				localStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
+				sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
 				Common.movePage('/customer_page.html');
 			};
 		}
@@ -242,7 +242,7 @@ function searchCus() {
 			const data = JSON.parse(result);
 			if (data.cuslist != null) {
 				if (data.cuslist.length > 0) {
-					localStorage.setItem(StringCS.CUSTLIST, JSON.stringify(data.cuslist));
+					sessionStorage.setItem(StringCS.CUSTLIST, JSON.stringify(data.cuslist));
 					for (var i = 0; i < data.cuslist.length; i++) {
 						const newElement = document.createElement("tr");
 						const newName = document.createElement("td");
@@ -270,12 +270,12 @@ function searchCus() {
 								var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
 								buttonConfirm.onclick = function () {
 									const cusdat = Object.assign({}, object);
-									localStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
+									sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
 									Common.movePage('/customer_page.html');
 								}
 							} else {
 								const cusdat = Object.assign({}, object);
-								localStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
+								sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
 								Common.movePage('/customer_page.html');
 							}
 							
@@ -358,7 +358,7 @@ function firstCustomerAction() {
 				if (data.cuslist.length > 0) {
 					const cusdat = Object.assign({}, data.cuslist[0]);
 					cusdat.taishoo = searchOrder.options[searchOrder.selectedIndex].text
-					localStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
+					sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
 					Common.movePage('/customer_page.html');
 					dataMessage.style.display = "none";
 					modal.style.display = "none";

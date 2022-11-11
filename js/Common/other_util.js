@@ -6,8 +6,8 @@
    * @return  String  フォーマット後の文字列
 */
 function Format(value, keta) {
-	var temp;
-	temp = value / Math.pow(10, keta);
+	var temp = 0.0;
+	temp = (parseFloat(value) / Math.pow(10, keta)).toFixed(1);
 	return temp;
 }
 
@@ -37,13 +37,13 @@ function KingakuFormatLocal(wkFormat, value) {
 	var temp = value;
 	if (temp < 0) {
 		temp = Math.abs(temp);
-		// format = new DecimalFormat("-" + wkFormat);		kiem tra lai Hieu
+		format = new DecimalFormat("-" + wkFormat);	
 	} else {
-		format = wkFormat;		//new DecimalFormat(wkFormat)		kiem tra lai Hieu
+		format = wkFormat;		
 	}
 
 	kingaku = temp;
-	// kingaku = kingaku.toLocaleString("en-US");
+	kingaku = kingaku.toLocaleString("en-US");
     return kingaku;
 }
 

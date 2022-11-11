@@ -14,7 +14,7 @@ const modal = document.getElementById("myModal");
 
 /*****  DATA VARIABLE  *****/
 /* user data */
-var userData = JSON.parse(localStorage.getItem(StringCS.USERDATA));
+var userData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 /* shuukei data */
 var shuukeiData;
 /* image string */

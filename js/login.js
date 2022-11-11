@@ -97,7 +97,7 @@ function getSystemDat() {
         },
         success: function (result) {
             let systemDat = JSON.parse(result);
-            localStorage.setItem(StringCS.USERDATA, JSON.stringify(systemDat));
+            sessionStorage.setItem(StringCS.USERDATA, JSON.stringify(systemDat));
             getDataSetting();
         },
         error: function (jqXHR, exception) {
@@ -121,7 +121,7 @@ function getDataSetting() {
 		},
 		success: function (result) {
 			let settingDat = JSON.parse(result);
-            localStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(settingDat));
+            sessionStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(settingDat));
             Common.movePage('/menu_page.html');
 		},
 		error: function (jqXHR, exception) {
