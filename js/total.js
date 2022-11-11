@@ -411,7 +411,7 @@ function createImageShuukeiForm() {
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
     document.getElementById('shuukeiForm').style.display = "block";
-    setDataPrintForm();
+    // setDataPrintForm();
     setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
