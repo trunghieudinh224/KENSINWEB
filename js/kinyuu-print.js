@@ -3419,7 +3419,7 @@ function setupTextSizeDetail(nameItem, textSize, lineHeight, fontWeight) {
 function sendImage() {
 	imgString = imgString.replace("data:image/png;base64,", "");
 	navigator.clipboard.writeText(imgString);
-	// window.location.href = "printermarutou://print&&1";
+	window.location.href = "printermarutou://print&&1";
 }
 
 /**
@@ -3428,7 +3428,6 @@ function sendImage() {
 function onclickAction() {
 	document.getElementById("sendToAppButton").onclick = function () {
 		// sendImage();
-	alert(imgString);
 	};
 	document.getElementById("createPrintingFormButton").onclick = function () {
 		document.getElementById("editView").style.display = "none";
@@ -3474,7 +3473,7 @@ function createImageKensinForm() {
 				data => {
 					console.log(data)
 					imgString = data;
-					alert(imgString);
+					// alert(imgString);
 					window.scrollTo(0, 0);
 
 					const interval = setInterval(function () {
