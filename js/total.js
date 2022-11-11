@@ -401,11 +401,11 @@ function onclickAction() {
     * CREATE IMAGE FILE OF SHUUKEI FORM
 */
 function createImageShuukeiForm() {
-    Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
-    return;
-    if (Common.checkPrintable() == false) {
-        return;
-    }
+    // Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
+    // return;
+    // if (Common.checkPrintable() == false) {
+    //     return;
+    // }
     Common.setupModal("load", null, Mess.I00001, null);
     Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
     document.getElementById('editView').style.display = "none";
