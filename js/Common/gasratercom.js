@@ -1511,5 +1511,5 @@ export {
 	calcConTax, getKenTaxr, getGasSuryo, hasCom, calcGasUse, calcGasBaseKin, calcGasBase,
 	checkSrpday, getSrpSuryo, checkKgas, getKgasday, dailyGasrate, mathDayGasRate, mathDayGasRateNormal_1,
 	mathDayGasRateNormal, mathDayGasRateKgas, mathDayGasRateDay, mathGasRate, mathGasRateNormalG_1, mathGasRateNormalG
-	, calcNebiki, calcTotal, calcSeikyu, readPrebalance, calcZogenHiwari, calcGasKangen, calcEtcUri, calcEtcTax
+	, calcNebiki, calcTotal, calcSeikyu, readPrebalance, calcZogenHiwari, calcGasKangen, calcEtcUri, calcEtcTax , calcPrebalance
 }
