@@ -3724,13 +3724,12 @@ var kouserDat = new KouserDat();
 var sysfDat = new SysfDat();
 var ko2fDat = null;
 
-var gstpDat1 = new GstpDat(99999, 3400000, 15000000);
-// var gstpDat2 = new GstpDat(100,4400000,46750000);
-// var gstpDat3 = new GstpDat(300,3850000,68750000);
-// var gstpDat4 = new GstpDat(999999,3300000,145750000);
-// var gstpDat5 = new GstpDat(500,3200000,134000000);
-// var gstpDat6 = new GstpDat(999999,3000000,198000000);
-var gasfDatlist = [gstpDat1];
+var gstpDat1 = new GstpDat(1, 0, 0);
+var gstpDat2 = new GstpDat(50, 15600000, 6000000);
+var gstpDat3 = new GstpDat(100, 45000000, 5700000);
+var gstpDat4 = new GstpDat(250, 73500000, 5400000);
+var gstpDat5 = new GstpDat(999999, 154500000, 5100000);
+var gasfDatlist = [gstpDat1, gstpDat2, gstpDat3, gstpDat4, gstpDat5];
 
 var gasfDat = new GasfDat(gasfDatlist);
 var kensin_date = new Date("2019/5/1");
@@ -4727,22 +4726,28 @@ function checkValue(){
         kokfDat.mInpReceipt = getLongValue(mEditInputReceipt.value); // 13.02.12       
         console.log(kokfDat.mAdjust);
         console.log(kokfDat.mReceipt);
-
     }
 
-
-
-function onLoadAction() {
-   
-    onclickAction();
- 
+export {  
+  kokfDat,
+  sy2fDat, 
+  kouserDat,
+  sysfDat,
+  ko2fDat,
+  gstpDat1, 
+  gstpDat2,
+  gstpDat3,
+  gstpDat4,
+  gstpDat5,
+  gasfDatlist,
+  gasfDat,
+  kensin_date,
+  m_nGasuse,
+  mDays,
+  mTotal,
+  lstKnebDat,
+  lstLeasHmefDat,
+  bdChosei,
+  bdNyukin,
+  m_lstKnebDat
 }
- 
-
-function onclickAction() {
-    
-   // createPrintingFormButton.onclick =  updatePrintData;
-}
-
-
-window.onload = onLoadAction;
