@@ -3756,7 +3756,6 @@ var bdChosei = new BusfDat();
 var bdNyukin = new BusfDat();
 /** 顧客値引きデータ */
 var m_lstKnebDat = new Array();
-var mditreciept ;
 
 // kensin_layout.addEventListener("click",openKensinLayout);
 // hoan_layout.addEventListener("click",openHoanLayout);
@@ -4631,9 +4630,6 @@ mEditInputReceipt.onchange = function () {
   }
 };
 
-mEditReceipt.onchange = function (){
-  mditreciept = mEditReceipt.textContent;
-}
 
 //--------------Teisei button event--------------------->
 
@@ -4725,5 +4721,3 @@ function checkValue(){
         mEditReceipt.textContent = moneyUserGet;
     }
 }
-
-// export{mZandaka, mditreciept};
