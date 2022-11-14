@@ -1457,6 +1457,8 @@ class GextDat {
     this.m_nBasekin = 0;
     /** ガス設備料 */
     this.m_nFacilitykin = 0;
+    //can tim hieu cach doc bien nay
+    this.m_nPrintGasryokinSiki = 0;
   }
 }
 
@@ -4355,7 +4357,7 @@ function setZandaka() {
 
   var lAdjust  = getLongValue(mEditAdjust.value); // 調整額
   var lAzukari = getLongValue(mEditInputReceipt.value); // 預かり金
-  var lReceipt = getLongValue(mEditReceipt.value); // 入金額
+  var lReceipt = getLongValue(mEditReceipt.textContent); // 入金額
 
 
   //   console.log("  入金額: " + lReceipt + ", 調整額: " + lAdjust + ", 預かり金: " + lAzukari);
@@ -4713,13 +4715,8 @@ function setOtsuri() {
 function checkValue(){
     var moneyGasUse = Number(OtherUtil.getNumFromString(txtKensinNyukinNowSeikyu.textContent));
     var moneyBonus = Number(mEditAdjust.value);
-    var moneyUserGet = Number(OtherUtil.getNumFromString(mEditReceipt.value));
-    var tienNhap = Number(OtherUtil.getNumFromString(mEditInputReceipt.value));
-
-    console.log(moneyGasUse);
-    console.log(moneyBonus);
-    console.log(moneyUserGet);
-    console.log(tienNhap);
+    var moneyUserGet = Number(OtherUtil.getNumFromString(mEditReceipt.textContent));
+    var tienNhap = Number(OtherUtil.getNumFromString(mEditInputReceipt.textContent));
     if(moneyGasUse + moneyBonus > tienNhap){
         moneyUserGet = tienNhap;
         mEditReceipt.textContent = moneyUserGet;
@@ -4729,4 +4726,4 @@ function checkValue(){
     }
 }
 
-export{mZandaka, mditreciept};
+// export{mZandaka, mditreciept};
