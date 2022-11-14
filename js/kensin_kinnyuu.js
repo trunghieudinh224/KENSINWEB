@@ -4710,7 +4710,7 @@ function setOtsuri() {
 
 function checkValue(){
     var moneyGasUse = Number(OtherUtil.getNumFromString(txtKensinNyukinNowSeikyu.textContent));
-    var moneyBonus = Number(mEditAdjust.value);
+    var moneyBonus = Number(OtherUtil.getNumFromString(mEditAdjust.value));
     var moneyUserGet = Number(OtherUtil.getNumFromString(mEditReceipt.textContent));
     var tienNhap = Number(OtherUtil.getNumFromString(mEditInputReceipt.textContent));
     if(moneyGasUse + moneyBonus > tienNhap){
