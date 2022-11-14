@@ -4607,6 +4607,7 @@ mEditAdjust.onchange = function () {
  //   setZandaka1(chousei, azukari);
    // calCutaleTotal();
     setZandaka();
+	updatePrintData();
   }else{
     console.log("value err");
   }
@@ -4621,6 +4622,7 @@ mEditInputReceipt.onchange = function () {
  //   setZandaka1(zakanda, nyuukin);
   //  calCutaleTotal();
     setZandaka();
+	updatePrintData();
 
   }
 };
@@ -4659,6 +4661,7 @@ teiseiSumi.onclick = function () {
     // calCutaleTotal();
     mTeiseiFlg = true;
     setZandaka();
+	updatePrintData();
   }
 };
 
@@ -4738,7 +4741,7 @@ function onLoadAction() {
 
 function onclickAction() {
     
-    createPrintingFormButton.onclick =  updatePrintData;
+   // createPrintingFormButton.onclick =  updatePrintData;
 }
 
 
