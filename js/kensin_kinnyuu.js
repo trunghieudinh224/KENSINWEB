@@ -1801,16 +1801,9 @@ class OtherUtil {
    * @return  String  3桁毎","を取り除いた文字列
    */
   static getNumFromString(wkStr) {
-    var wkStrArray = wkStr.split(",");
-    var wkStrBuilder = "";
-    if (wkStrArray.length == 0) {
-      wkStrBuilder = wkStr;
-    } else {
-      for (let i = 0; i < wkStrArray.length; i++) {
-        wkStrBuilder = wkStrBuilder + wkStrArray[i];
-      }
-    }
-    return wkStrBuilder;
+	var stringBuilder = wkStr + "";
+    var wkStrArray = stringBuilder.replace(",","");  
+    return wkStrArray;
   }
 
   /**
@@ -3707,6 +3700,8 @@ const btnKensinNyukinUchiwake = document.getElementById("btnKensinNyukinUchiwake
 const div_otsuri = document.getElementById("div_otsuri");
 const txtKensinNyukinOtsuri = document.getElementById("txtKensinNyukinOtsuri");
 
+const createPrintingFormButton = document.getElementById("createPrintingFormButton");
+
 //const mEditAdjust = document.querySelector("#chouseigaku");
 //const mEditInputReceipt = document.querySelector("#azukari-kin");
 //const mEditReceipt = document.querySelector("#nyuukin");
@@ -4621,7 +4616,7 @@ mEditInputReceipt.onchange = function () {
   if (isValidNumber(mEditInputReceipt.value)) {
     // const zakanda = Number(mEditAdjust.value);
     nyuukin = Number(mEditInputReceipt.value);
-    mEditReceipt.textContent = nyuukin;
+    mEditReceipt.textContent = OtherUtil.KingakuFormat(nyuukin);
     Sashihiki_zandaka.textContent = nyuukin;
  //   setZandaka1(zakanda, nyuukin);
   //  calCutaleTotal();
@@ -4666,6 +4661,7 @@ teiseiSumi.onclick = function () {
     setZandaka();
   }
 };
+
 
 
 // -------------check valid string----------------------->
@@ -4721,3 +4717,29 @@ function checkValue(){
         mEditReceipt.textContent = moneyUserGet;
     }
 }
+
+    function updatePrintData()   {
+        kokfDat.mAdjust = getLongValue(mEditAdjust.value);
+        kokfDat.mReceipt = getLongValue(mEditReceipt.textContent);
+        kokfDat.mInpReceipt = getLongValue(mEditInputReceipt.value); // 13.02.12       
+        console.log(kokfDat.mAdjust);
+        console.log(kokfDat.mReceipt);
+
+    }
+
+
+
+function onLoadAction() {
+   
+    onclickAction();
+ 
+}
+ 
+
+function onclickAction() {
+    
+    createPrintingFormButton.onclick =  updatePrintData;
+}
+
+
+window.onload = onLoadAction;
