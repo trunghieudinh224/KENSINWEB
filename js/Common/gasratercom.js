@@ -1,4 +1,4 @@
-
+import * as Other from '../Common/other_util.js'
   /** 端数処理：加算 */
    export var HASADD = [
     0, 50000, 0, 99000, 20000, 0, 49000, 5000, 0, 9000, 2000, 0, 4000, 500, 0,
@@ -22,7 +22,7 @@
   function calcConTax(kin, kokfDat, gasfDat, sysfDat) {
     var tax;
     var wkConTax = 0;
-    if (gasfDat.mTaxDiv == 3) {tax =kin *GasRaterCom.getKenTaxr(
+    if (gasfDat.mTaxDiv == 3) {tax =kin *getKenTaxr(
           kokfDat,
           sysfDat,
           sysfDat.mTax_yy,
@@ -34,7 +34,7 @@
         );
       console.log(tax);
       wkConTax =
-        OtherUtil.hasCom(tax, gasfDat.mTaxAdd, gasfDat.mTaxMult, 1000) / 1000;
+        Other.hasCom(tax, gasfDat.mTaxAdd, gasfDat.mTaxMult, 1000) / 1000;
       console.log(wkConTax);
     }
     return wkConTax;
@@ -154,7 +154,7 @@
       switch (sysf2.mCaHas) {
         case 1: //四捨五入
           nGasSur =
-            OtherUtil.hasCom(
+            Other.hasCom(
               dValue,
               HASADD[13],
               [13],
@@ -163,17 +163,17 @@
           break;
         case 2: //切上げ
           nGasSur =
-            OtherUtil.hasCom(
+            Other.hasCom(
               dValue,
-              GasRaterCom.HASADD[15],
-              GasRaterCom.HASMUL[15],
+              HASADD[15],
+              HASMUL[15],
               10000
             ) / 10000;
           break;
         case 0: //切捨て
         default: //切捨て
           nGasSur =
-            OtherUtil.hasCom(
+            Other.hasCom(
               dValue,
               HASADD[14],
               HASMUL[14],
@@ -332,7 +332,7 @@
         nBaseKin -= nFacilityKin;
       }
     }
-    GasRaterCom.calcZogenHiwari(
+    calcZogenHiwari(
       kokf.mKtpcdat,
       kokf.mFee,
       nBaseKin,
@@ -392,7 +392,7 @@
       it = 1; /* 除算エラー対策 */
     }
     new1_srpday =
-      (GasRaterCom.getSrpSuryo(siyou, sy2fDat, kouserDat) * sysf.mSanki) / it;
+      (getSrpSuryo(siyou, sy2fDat, kouserDat) * sysf.mSanki) / it;
     new1_srpday = new1_srpday / 10;
     var mSrChkm = sysf.mSrChkm;
     var mSrChkr = sysf.mSrChkr;
@@ -435,7 +435,7 @@
       //中圧係数後での料金計算
       var dValue = nGasUse * kouserDat.m_nChuatu;
       nGasSur =
-        GasRaterCom.hasCom(dValue, HASADD[14], HASMUL[14], 10000) / 10000;
+        hasCom(dValue, HASADD[14], HASMUL[14], 10000) / 10000;
     } else {
       //指針の差での料金計算
       nGasSur = nGasUse;
@@ -503,7 +503,7 @@
     }
 
     // チェック対象の日付データ生成
-    var chkYmd = OtherUtil.parseDate(wky + "/" + wkm + "/" + wkd);
+    var chkYmd = Other.parseDate(wky + "/" + wkm + "/" + wkd);
 
     var t_pre = 0;
     var t_start = 0;
@@ -536,10 +536,10 @@
     }
 
     // 前回検針日もしくは供給開始日から日付データ生成
-    var wrkYMD = OtherUtil.parseDate(chky + "/" + chkm + "/" + chkd);
+    var wrkYMD = Other.parseDate(chky + "/" + chkm + "/" + chkd);
 
     // 前回検針日もしくは供給開始日から今回検針日までの日数を計算
-    var ts = OtherUtil.betweenDays(chkYmd, wrkYMD);
+    var ts = Other.betweenDays(chkYmd, wrkYMD);
 
     if (t_pre < t_start || kokfDat.mPuseMonth == 0) {
       // 供給開始日の方が新しいか前回検針無し
@@ -573,11 +573,11 @@
       if (day != 0) {
         // 日割り計算有
         console.log("if day !=0");
-        wkRyokin = GasRaterCom.mathDayGasRate(day, siyou, kokfDat, gasfDat);
+        wkRyokin = mathDayGasRate(day, siyou, kokfDat, gasfDat);
       } else {
         // 日割り無し
         console.log("if day ==0");
-        wkRyokin = GasRaterCom.mathGasRate(siyou, kokfDat, gasfDat);
+        wkRyokin = mathGasRate(siyou, kokfDat, gasfDat);
       }
     } catch (err) {
       console.log(err);
@@ -601,17 +601,17 @@
       case 1: // 通常
         if (gasfDat.mSyu == 1) {
           // 表形式
-          wkRyoukin = GasRaterCom.mathDayGasRateNormal_1(day, siyou, gasfDat);
+          wkRyoukin = mathDayGasRateNormal_1(day, siyou, gasfDat);
         } else {
           //ステップ形式
-          wkRyoukin = GasRaterCom.mathDayGasRateNormal(day, siyou, gasfDat); // 13.07.09
+          wkRyoukin = mathDayGasRateNormal(day, siyou, gasfDat); // 13.07.09
         }
         break;
       case 2: // 簡ガス
-        wkRyoukin = GasRaterCom.mathDayGasRateKgas(day, siyou, gasfDat); // 13.07.09
+        wkRyoukin = mathDayGasRateKgas(day, siyou, gasfDat); // 13.07.09
         break;
       case 3: // 契約単価
-        wkRyoukin = GasRaterCom.mathDayGasRateDay(day, siyou, gasfDat, kokfDat);
+        wkRyoukin = mathDayGasRateDay(day, siyou, gasfDat, kokfDat);
         break;
 
       default:
@@ -668,14 +668,14 @@
       }
     }
 
-    dbRate = OtherUtil.hasCom(
+    dbRate = Other.hasCom(
       dbRate,
       gasfDat.mFrac1Add,
       gasfDat.mFrac1Mult,
       10000
     );
     dbRate *= 1000 + gasfDat.mRiseFall;
-    dbRate = OtherUtil.hasCom(
+    dbRate = Other.hasCom(
       dbRate,
       gasfDat.mFrac2Add,
       gasfDat.mFrac2Mult,
@@ -745,14 +745,14 @@
       dbRate = 0;
     }
 
-    dbRate = OtherUtil.hasCom(
+    dbRate = Other.hasCom(
       dbRate,
       gasfDat.mFrac1Add,
       gasfDat.mFrac1Mult,
       10000
     );
     dbRate *= 1000 + gasfDat.mRiseFall;
-    dbRate = OtherUtil.hasCom(dbRate,gasfDat.mFrac2Add,gasfDat.mFrac2Mult,10000000);
+    dbRate = Other.hasCom(dbRate,gasfDat.mFrac2Add,gasfDat.mFrac2Mult,10000000);
     console.log("ステップ形式日割り料金計算[終了][ガス料金:" + dbRate / 10000000 + "]");
     return long(dbRate / 10000000);
   }
@@ -812,14 +812,14 @@
     if (dbRate > 0 && dSubSur > dSubChoSur) {
       dbRate += (dSubSur - dSubChoSur) * gasfDat.mChoTanka;
     }
-    dbRate = OtherUtil.hasCom(
+    dbRate = Other.hasCom(
       dbRate,
       gasfDat.mFrac1Add,
       gasfDat.mFrac1Mult,
       10000
     );
     dbRate *= 1000 + gasfDat.mRiseFall;
-    dbRate = OtherUtil.hasCom(
+    dbRate = Other.hasCom(
       dbRate,
       gasfDat.mFrac2Add,
       gasfDat.mFrac2Mult,
@@ -849,9 +849,9 @@
     wkGr1 = (wkGr * day) / 30; // 基本料金の日割計算
     var dbRate = wkGr1 + wkGr2;
     if (dbRate != 0) {
-      dbRate = OtherUtil.hasCom(dbRate,gasfDat.mFrac1Add,gasfDat.mFrac1Mult,10000);
+      dbRate = Other.hasCom(dbRate,gasfDat.mFrac1Add,gasfDat.mFrac1Mult,10000);
       dbRate = dbRate * (1000 + gasfDat.mRiseFall);
-      dbRate = OtherUtil.hasCom(
+      dbRate = Other.hasCom(
         dbRate,
         gasfDat.mFrac2Add,
         gasfDat.mFrac2Mult,
@@ -879,10 +879,10 @@
         console.log(gasfDat.mSyu);
         if (gasfDat.mSyu == 1) {
           // 表形式
-          wkRyoukin = GasRaterCom.mathGasRateNormalG_1(siyou, gasfDat);
+          wkRyoukin = mathGasRateNormalG_1(siyou, gasfDat);
         } else {
           //ステップ形式
-          wkRyoukin = GasRaterCom.mathGasRateNormalG(siyou, gasfDat);
+          wkRyoukin = mathGasRateNormalG(siyou, gasfDat);
         }
         console.log("ガス料金: " + wkRyoukin);
         break;
@@ -893,14 +893,14 @@
       case 3: // 契約単価
         var dbRate = siyou * kokfDat.mGasUnit + kokfDat.mGasBase * 10;
         // 端数処理
-        dbRate = OtherUtil.hasCom(
+        dbRate = Other.hasCom(
           dbRate,
           gasfDat.mFrac1Add,
           gasfDat.mFrac1Mult,
           10000
         );
         dbRate = dbRate * (1000 + gasfDat.mRiseFall);
-        dbRate = OtherUtil.hasCom(dbRate,gasfDat.mFrac2Add,gasfDat.mFrac2Mult,10000000);
+        dbRate = Other.hasCom(dbRate,gasfDat.mFrac2Add,gasfDat.mFrac2Mult,10000000);
         wkRyoukin = dbRate / 10000000;
         break;
       default:
@@ -939,11 +939,11 @@
     }
 
     if (dbRate > 0) {
-      dbRate = OtherUtil.hasCom(
+      dbRate = Other.hasCom(
         dbRate,
         gasfDat.mFrac1Add,gasfDat.mFrac1Mult,10000);
       dbRate *= 1000 + gasfDat.mRiseFall;
-      dbRate = OtherUtil.hasCom(
+      dbRate = Other.hasCom(
         dbRate,
         gasfDat.mFrac2Add,
         gasfDat.mFrac2Mult,
@@ -995,14 +995,14 @@
     if (dbRate != 0 && gstpDat.mAdd != 0) {
       dbRate += ((nSubSur - nSubChoSur) / 10) * gasfDat.mChoTanka;
     }
-    dbRate = OtherUtil.hasCom(
+    dbRate = Other.hasCom(
       dbRate,
       gasfDat.mFrac1Add,
       gasfDat.mFrac1Mult,
       10000
     );
     dbRate *= 1000 + gasfDat.mRiseFall;
-    dbRate = OtherUtil.hasCom(
+    dbRate = Other.hasCom(
       dbRate,
       gasfDat.mFrac2Add,
       gasfDat.mFrac2Mult,
@@ -1047,14 +1047,14 @@
     if (dbRate != 0 && gstpdat.mAdd != 0) {
       dbRate += ((siyou - nSubChoSur) / 10) * gasfDat.mChoTanka;
     }
-    dbRate = OtherUtil.hasCom(
+    dbRate = Other.hasCom(
       dbRate,
       gasfDat.mFrac1Add,
       gasfDat.mFrac1Mult,
       10000
     );
     dbRate = dbRate * (1000 + gasfDat.mRiseFall);
-    dbRate = OtherUtil.hasCom(
+    dbRate = Other.hasCom(
       dbRate,
       gasfDat.mFrac2Add,
       gasfDat.mFrac2Mult,
@@ -1106,7 +1106,7 @@
     m_lstKnebDat,
     isIrai
   ) {
-    var wkRyokin = GasRaterCom.calcSeikyu(sysfDat, kokfDat, sy2fDat, isIrai);
+    var wkRyokin = calcSeikyu(sysfDat, kokfDat, sy2fDat, isIrai);
     console.log(wkRyokin);
     // その他売上加算
     wkRyokin += kokfDat.mUrikin + kokfDat.mUriTax;
@@ -1133,7 +1133,7 @@
     var nNebiki = 0;
     if (sysfDat.mKnebFlg == 1) {
       // 漢の値引き有り
-      nNebiki = GasRaterCom.calcNebiki(sysfDat, userData.getKnebiDat());
+      nNebiki = calcNebiki(sysfDat, userData.getKnebiDat());
     }
     var isHybrid;
     if (
@@ -1226,13 +1226,13 @@
       nBaseKin = (nBaseKin * nHiwari) / 30;
       nFacilityKin = (nFacilityKin * nHiwari) / 30;
     }
-    nBaseKin = OtherUtil.hasCom(
+    nBaseKin = Other.hasCom(
       nBaseKin,
       gasf.mFrac1Add,
       gasf.mFrac1Mult,
       10000
     );
-    nFacilityKin = OtherUtil.hasCom(
+    nFacilityKin = Other.hasCom(
       nFacilityKin,
       gasf.mFrac1Add,
       gasf.mFrac1Mult,
@@ -1241,10 +1241,10 @@
     nBaseKin *= 1000 + gasf.mRiseFall;
     nFacilityKin *= 1000 + gasf.mRiseFall;
     nBaseKin =
-      OtherUtil.hasCom(nBaseKin, gasf.mFrac2Add, gasf.mFrac2Mult, 10000000) /
+      Other.hasCom(nBaseKin, gasf.mFrac2Add, gasf.mFrac2Mult, 10000000) /
       1000;
     nFacilityKin =
-      OtherUtil.hasCom(
+      Other.hasCom(
         nFacilityKin,
         gasf.mFrac2Add,
         gasf.mFrac2Mult,
@@ -1277,7 +1277,7 @@
     if (sysfDat.mIfDemand) {
       // console.log( "前月残高あり");
       wkUrizan += isIrai
-        ? GasRaterCom.readPrebalance(sysfDat, kokfDat, sy2fDat)
+        ? readPrebalance(sysfDat, kokfDat, sy2fDat)
         : kokfDat.mPreBalance; // 前月残高
       // console.log( "    -> " + wkUrizan);
     }
@@ -1348,13 +1348,13 @@
     if (gasfDat.mRedDiv == 1) {
       wkKin = kokfDat.mFee * gasfDat.mRedReduce;
       kokfDat.mReduce =
-        OtherUtil.hasCom(wkKin, gasfDat.mRedAdd, gasfDat.mRedMult, 1000) / 1000;
+        Other.hasCom(wkKin, gasfDat.mRedAdd, gasfDat.mRedMult, 1000) / 1000;
     } else if (gasfDat.mRedDiv == 2) {
       wkKin =
-        GasRaterCom.getGasSuryo(kokfDat.mGasUse, sy2fDat, kouserDat) *
+        getGasSuryo(kokfDat.mGasUse, sy2fDat, kouserDat) *
         gasfDat.mRedMred;
       kokfDat.mReduce =
-        OtherUtil.hasCom(wkKin, gasfDat.mRedAdd, gasfDat.mRedMult, 10000) /
+        Other.hasCom(wkKin, gasfDat.mRedAdd, gasfDat.mRedMult, 10000) /
         10000;
     }
 
@@ -1387,7 +1387,7 @@
 
       if (sysfDat.mShoTaxcom == 0) {
         kokfDat.mReduceTax =
-          OtherUtil.hasCom(
+          Other.hasCom(
             wkKin,
             sysfDat.mFracAddTax,
             sysfDat.mFracMulTax,
@@ -1395,7 +1395,7 @@
           ) / 1000;
       } else {
         kokfDat.mReduceTax =
-          OtherUtil.hasCom(
+          Other.hasCom(
             wkKin,
             shofDat.mFracAddTax,
             shofDat.mFracAddMult,
