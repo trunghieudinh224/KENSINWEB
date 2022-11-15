@@ -375,7 +375,7 @@ function formatLocal(wkFormat, wkValue, wkMulti) {
 	var retStr = "";
 
 	try {
-		wkValue = calcMultiValue(wkValue, (byte)(wkMulti * -1)); // 倍数を逆算する。
+		wkValue = calcMultiValue(wkValue, wkMulti * -1); // 倍数を逆算する。
 		// retStr = new DecimalFormat(wkFormat).format(wkValue);	//not done hieu
 		retStr = KingakuFormat(wkValue);
 	}
