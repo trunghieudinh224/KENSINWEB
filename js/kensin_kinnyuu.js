@@ -1458,7 +1458,7 @@ class GextDat {
     /** ガス設備料 */
     this.m_nFacilitykin = 0;
     //can tim hieu cach doc bien nay
-    this.m_nPrintGasryokinSiki = 0;
+    this.m_nPrintGasryokinSiki = 1;
   }
 }
 
@@ -1624,13 +1624,13 @@ class GasfDat {
 }
 
 class GstpDat {
-  constructor(mUplimit, mAdd, mBase) {
+  constructor(mUplimit, mBase, mAdd) {
     /** 上限値 */
     this.mUplimit = mUplimit;
-    /** 加算値 */
-    this.mAdd = mAdd;
     /** 基準料金 */
     this.mBase = mBase;
+    /** 加算値 */
+    this.mAdd = mAdd;
   }
 }
 
@@ -1671,6 +1671,12 @@ class HmefDat {
     this.mKin;
     /** 消費税額 */
     this.mTax;
+
+    //Hieu
+    /** 使用有無 */
+    this.mUsef;
+    /** 品目No >=100 */
+    this.mHmCode;
   }
 }
 
