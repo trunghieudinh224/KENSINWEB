@@ -1,3 +1,6 @@
+ import * as KensinKinyuu from './kensin_kinnyuu.js'
+
+
 const combobox_total = document.getElementById("combobox_total");
 const combobox_1 = document.getElementById("combobox_1");
 const combobox_2 = document.getElementById("combobox_2");
@@ -11,8 +14,26 @@ const unnecessary_btn = document.getElementById("unnecessary_btn");
 const no_btn = document.getElementById("no_btn");
 const good_btn = document.getElementById("good_btn");
 
+export var hoanString = KensinKinyuu.kokfDat.mHoan;
+var listHoanData = hoanString.split("");
+
 var pos_combobox = 0;
 const list_combobox = [combobox_1,combobox_2,combobox_3,combobox_4,combobox_5,combobox_6,combobox_7,combobox_8]; 
+for (let i = 0; i < list_combobox.length; i++) {
+    if(listHoanData[i] == "o"){
+        list_combobox[i].value = "0";
+    }
+    else if(listHoanData[i] == "-"){
+        list_combobox[i].value = "2";
+    }
+    else if(listHoanData[i] == "x"){
+        list_combobox[i].value = "1";
+    }
+
+  //  list_combobox[i].value = listHoanData[i];
+    
+}
+
 list_combobox[pos_combobox].classList.add("combobox_select");
 
 var  tenkenDelta = 1;
@@ -42,6 +63,8 @@ list_combobox.forEach(item => {
     });
 });
 
+combobox_total.onchange = setAllComboBox;
+
 
 function setAllComboBox(){
    
@@ -51,16 +74,14 @@ function setAllComboBox(){
             });
         }else{
             var list = getHoan();
-
-            console.log(list[7].value);
-
             //console.log(list.length);
             list.forEach(item => {
                // console.log(item.code + " - "+ item.value + "\n");
             });
 
-            isFirst = true;
+         //   isFirst = true;
         } 
+        setHoanKinnyuu();
     }
 
 function setComboBoxTotal(item){
@@ -94,6 +115,7 @@ function setDataforComboBoxSelect(value){
         pos_combobox = 0;
     }
     list_combobox[pos_combobox].classList.add("combobox_select");
+    setHoanKinnyuu();
 
 }
 
@@ -127,3 +149,24 @@ const kenshin_data = document.getElementById("kenshin_data");
 function changeValue(){
     console.log(kenshin_data.value);
 }
+
+function setHoanKinnyuu(){
+    hoanString = "";
+    for (let i = 0; i < list_combobox.length; i++) {
+       hoanString = hoanString + list_combobox[i].options[list_combobox[i].selectedIndex].text;        
+    }
+}
+
+good_btn.addEventListener("click" ,function (){
+     setDataforComboBoxSelect(0);
+    
+}) ;
+unnecessary_btn.addEventListener("click" ,function (){
+     setDataforComboBoxSelect(2);
+    
+}) ;
+no_btn.addEventListener("click" ,function (){
+     setDataforComboBoxSelect(1);
+   
+}) ;
+

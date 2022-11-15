@@ -1311,6 +1311,7 @@
 
 // }
 import * as Dat from './Dat/dat.js'
+ import * as HoanKinnyuu from './hoan_kinnyuu.js'
 class KokfDat {
   constructor() {
     /** 漢字氏名 */
@@ -1429,6 +1430,7 @@ class KokfDat {
 	this.mKName = "様";
 
 	this.mZyksDat = Dat.mZyksDat;
+  this.mHoan = "ox-ox-ox-��";
 
   }
 }
