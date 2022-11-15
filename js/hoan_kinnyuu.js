@@ -14,7 +14,7 @@ const unnecessary_btn = document.getElementById("unnecessary_btn");
 const no_btn = document.getElementById("no_btn");
 const good_btn = document.getElementById("good_btn");
 
-export var hoanString = KensinKinyuu.kokfDat.mHoan;
+export var hoanString = KensinKinyuu.kokfDat.mHoan.substring(0,8);;
 var listHoanData = hoanString.split("");
 
 var pos_combobox = 0;
