@@ -3733,6 +3733,7 @@ var sy2fDat = new Sy2fDat();
 var kouserDat = new KouserDat();
 var sysfDat = new SysfDat();
 var ko2fDat = null;
+var busfDat = new BusfDat();
 
 // var gstpDat1 = new GstpDat(1, 0, 0);
 // var gstpDat2 = new GstpDat(50, 15600000, 6000000);
@@ -4759,5 +4760,6 @@ export {
   lstLeasHmefDat,
   bdChosei,
   bdNyukin,
-  m_lstKnebDat
+  m_lstKnebDat,
+  busfDat
 }
