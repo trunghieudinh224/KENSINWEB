@@ -1698,6 +1698,17 @@ class HmefDat {
   }
 }
 
+class HanfDat{
+  constructor(){
+    this.mName = "マルトウガス";
+    this.mTel  = "999-0001";
+    this.mFax  = null;
+    this.mAdd1 =  "○本市△川町２２"
+    this.mAdd2 = null;
+    this.Add3  = null;
+  }
+}
+
 class OtherUtil {
   /**
    * 端数処理
@@ -3754,6 +3765,7 @@ var hmefList1 = [hmefDat0 , hmefDat1];
 var hmefList = [];
 var hmefList2 = [];
 var tntDat_name = "本社１課　中山";
+var hanfDat = new  HanfDat();
 
 // var gstpDat1 = new GstpDat(1, 0, 0);
 // var gstpDat2 = new GstpDat(50, 15600000, 6000000);
@@ -4785,5 +4797,6 @@ export {
   hmefList1,
   hmefList,
   hmefList2,
-  tntDat_name
-}
+  tntDat_name,
+  hanfDat
+} 
