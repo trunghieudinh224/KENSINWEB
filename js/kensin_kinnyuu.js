@@ -1579,6 +1579,7 @@ class SysfDat {
 
 	this.mHtOption = [0 , 0 , -1 , 1 , 1 , 1 , 1 , 1 , 5 , 1];
 	this.mSnvalue = 100;
+  this.mIfChitUser =  true;
   }
 }
 
@@ -1673,25 +1674,25 @@ class BusfDat {
 class HmefDat {
   constructor(mUsef, mHmeKind , mLeasKind , mKin , mHmCode, mTax , mTaxKu , mTaxR , mHbCode) {
     /** 使用有無 */
-    this.mUsef;
+    this.mUsef = mUsef;
     /** 明細種別 0:締後、1:締前、9:ﾊﾝﾃﾞｨ、2：残高明細 */
-    this.mHmeKind;
+    this.mHmeKind = mHmeKind;
     /** リース明細かどうか */
-    this.mLeasKind;
+    this.mLeasKind = mLeasKind;
     /** 金額 */
-    this.mKin;
+    this.mKin = mKin;
     /** 消費税額 */
    
     //Hieu
     
     /** 品目No >=100 */
-    this.mHmCode;
-    this.mTax;
+    this.mHmCode = mHmCode;
+    this.mTax = mTax;
 
-    this.mTaxKu
+    this.mTaxKu = mTaxKu;
 
-    this.mTaxR
-    this.mHbCode
+    this.mTaxR = mTaxR;
+    this.mHbCode = mHbCode;
 
   }
 }
