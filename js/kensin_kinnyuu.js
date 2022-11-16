@@ -1671,7 +1671,7 @@ class BusfDat {
 }
 
 class HmefDat {
-  constructor() {
+  constructor(mUsef, mHmeKind , mLeasKind , mKin , mHmCode, mTax , mTaxKu , mTaxR , mHbCode) {
     /** 使用有無 */
     this.mUsef;
     /** 明細種別 0:締後、1:締前、9:ﾊﾝﾃﾞｨ、2：残高明細 */
@@ -1681,13 +1681,18 @@ class HmefDat {
     /** 金額 */
     this.mKin;
     /** 消費税額 */
-    this.mTax;
-
+   
     //Hieu
-    /** 使用有無 */
-    this.mUsef;
+    
     /** 品目No >=100 */
     this.mHmCode;
+    this.mTax;
+
+    this.mTaxKu
+
+    this.mTaxR
+    this.mHbCode
+
   }
 }
 
@@ -3741,6 +3746,11 @@ var kouserDat = new KouserDat();
 var sysfDat = new SysfDat();
 var ko2fDat = null;
 var busfDat = new BusfDat();
+var hmefDat0 = new HmefDat(true , 1 , 1 , 100 , 2314 , 8 , 3 , 80 , 0 );
+var hmefDat1 = new HmefDat(true , 1 , 0 , 20000 , 3001 , 1600 , 3 , 80 , 0);
+var hmefList1 = [hmefDat0 , hmefDat1];
+var hmefList = [];
+var hmefList2 = [];
 
 // var gstpDat1 = new GstpDat(1, 0, 0);
 // var gstpDat2 = new GstpDat(50, 15600000, 6000000);
@@ -4768,5 +4778,8 @@ export {
   bdChosei,
   bdNyukin,
   m_lstKnebDat,
-  busfDat
+  busfDat,
+  hmefList1,
+  hmefList,
+  hmefList2
 }
