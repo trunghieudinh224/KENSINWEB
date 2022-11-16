@@ -1499,6 +1499,7 @@ class Sy2fDat {
     // them moi
 
 	  this.mJifuriNext = 1;  
+    this.mSyskeigen = 0;
 
   }
 }
@@ -3752,6 +3753,7 @@ var hmefDat1 = new HmefDat(true , 1 , 0 , 20000 , 3001 , 1600 , 3 , 80 , 0);
 var hmefList1 = [hmefDat0 , hmefDat1];
 var hmefList = [];
 var hmefList2 = [];
+var tntDat_name = "本社１課　中山";
 
 // var gstpDat1 = new GstpDat(1, 0, 0);
 // var gstpDat2 = new GstpDat(50, 15600000, 6000000);
