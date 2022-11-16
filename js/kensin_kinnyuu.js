@@ -1386,7 +1386,7 @@ class KokfDat {
     /** 当月：消費税(遅収料金) */
     this.mTaxTisyuu = 0;
     /** 前月残高 */
-    this.mPreBalance = 4620;
+    this.mPreBalance = 14884;
     /** 当月：調整額 */
     this.mTAdjust = 0;
     /** 当月：入金額 */
@@ -4744,10 +4744,10 @@ export {
   kouserDat,
   sysfDat,
   ko2fDat,
-  gstpDat1, 
-  gstpDat2,
-  gstpDat3,
-  gstpDat4,
+  // gstpDat1, 
+  // gstpDat2,
+  // gstpDat3,
+  // gstpDat4,
   gstpDat5,
   gasfDatlist,
   gasfDat,
