@@ -1673,7 +1673,8 @@ class BusfDat {
 }
 
 class HmefDat {
-  constructor(mUsef, mHmeKind , mLeasKind , mKin , mHmCode, mTax , mTaxKu , mTaxR , mHbCode) {
+  constructor(mUsef, mHmeKind , mLeasKind , mKin , mHmCode, mTax , mTaxKu , mTaxR , mHbCode , mDenm , mDend , mHmName , mSuryo , 
+    mTanka , mKeigenKubun , mHbnmPrn , mHbName) {
     /** 使用有無 */
     this.mUsef = mUsef;
     /** 明細種別 0:締後、1:締前、9:ﾊﾝﾃﾞｨ、2：残高明細 */
@@ -1694,6 +1695,14 @@ class HmefDat {
 
     this.mTaxR = mTaxR;
     this.mHbCode = mHbCode;
+    this.mDenm = mDenm;
+    this.mDend = mDend;
+    this.mHmName = mHmName;
+    this.mSuryo = mSuryo;
+    this.mTanka = mTanka;
+    this.mKeigenKubun  = mKeigenKubun;
+    this.mHbnmPrn = mHbnmPrn;
+    this.mHbName = mHbName;
 
   }
 }
@@ -3759,8 +3768,8 @@ var kouserDat = new KouserDat();
 var sysfDat = new SysfDat();
 var ko2fDat = null;
 var busfDat = new BusfDat();
-var hmefDat0 = new HmefDat(true , 1 , 1 , 100 , 2314 , 8 , 3 , 80 , 0 );
-var hmefDat1 = new HmefDat(true , 1 , 0 , 20000 , 3001 , 1600 , 3 , 80 , 0);
+var hmefDat0 = new HmefDat(true , 1 , 1 , 100 , 2314 , 8 , 3 , 80 , 0 , 5 , 1 , "警報器リース" , 100 , 10000 , 0 , 0 , "YF-005N");
+var hmefDat1 = new HmefDat(true , 1 , 0 , 20000 , 3001 , 1600 , 3 , 80 , 0 , 5 , 15 , "ガスコンロ" , 100 , 0 , 0 , 0 , "abv");
 var hmefList1 = [hmefDat0 , hmefDat1];
 var hmefList = [];
 var hmefList2 = [];
