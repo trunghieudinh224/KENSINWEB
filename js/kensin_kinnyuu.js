@@ -1494,9 +1494,11 @@ class Sy2fDat {
       1, 1, -1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1,0,1,1,1,1,1,1,1,0,0,0,0,0,5,0,0,0,0
     ];
     this.mSysOption = mSysOption;
-	this.mSysfHmcd13 = 2;
+	  this.mSysfHmcd13 = 2;
 
-	
+    // them moi
+
+	  this.mJifuriNext = 1;  
 
   }
 }
@@ -1592,6 +1594,11 @@ class KouserDat {
     this.m_sChocode = 0;
     /** 入金取引区分 */
     this.m_sNyucode = 0;
+
+    //them moi
+	this.m_nNextTransYear  = 2019;
+	this.m_nNextTransMonth  = 3;
+ 	this.m_nNextTransDay  = 15;
   }
 }
 
