@@ -261,7 +261,7 @@ function hasCom(suu, add, multi, keta) {
 	* @return  String  変換後文字列
 */
 function printformat(wkValue, wkFormat, wkMulti) {
-	return printformatLocal(wkFormat, parseFloat(wkValue), wkMulti);
+	return printformatLocal(wkFormat, parseFloat(wkValue).toFixed(1), wkMulti);
 }
 
 
@@ -334,9 +334,6 @@ function printformatLocal(wkFormat, wkValue, wkMulti) {
 				tailCnt = wkMulti + 1;
 			}
 			wkStr += (createMultiString(" ", tailCnt));
-		}
-		for (var i = wkStr.length; i < wkLen; i++) {
-			retBui += " "; // 先頭から半角空白を追加する。
 		}
 		retBui += wkStr; // 最後にフォーマットされた文字列を追加する。
 
@@ -485,7 +482,12 @@ function getBytesLen(wkStr) {
 }
 
 
+function formatLocalJS(value, numBehindDot, wkMulti) {
+	return parseFloat(parseFloat(value) / calcMulti(wkMulti)).toFixed(numBehindDot); 
+}
+
+
 export {
 	Format, KingakuFormat, KingakuFormatLocal, isEmpty, cutStringSpace, nullToString, getClearString, DateFormat, MonthDayFormat, getKangcontname, hasCom,
-	printformat, printformatLocal, calcMulti, format, formatLocal, getUriTaxr, getBytesLen
+	printformat, printformatLocal, calcMulti, format, formatLocal, getUriTaxr, getBytesLen, formatLocalJS
 }
