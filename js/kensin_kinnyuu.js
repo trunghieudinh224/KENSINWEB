@@ -1431,7 +1431,9 @@ class KokfDat {
 
 	this.mZyksDat = Dat.mZyksDat;
   this.mHoan = "ox-ox-ox-��";
-
+  this.mBankCode = 0;
+  this.mNoKensin = true;
+  
   }
 }
 
