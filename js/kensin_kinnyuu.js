@@ -1315,37 +1315,37 @@ import * as Dat from './Dat/dat.js'
 class KokfDat {
   constructor() {
     /** 漢字氏名 */
-    this.mName = "安藤　秀丸"; // NAME
+    this.mName = "野村　洋子"; // NAME
     /** 検針月 */
     this.mKMonth = 5;
     /** 検針日 */
     this.mKDate = 1;
     /** 今回入力：ガス使用量 */
-    this.mGasUse = 250;
+    this.mGasUse = 440;
     /** 顧客区分　 */
     this.mGasKubun = 1;
     /** 検針済み区分 */
     this.mKenSumi = true;
     /** 今回入力：今回指針 */
-    this.mNowMeter = 250;
+    this.mNowMeter = 9990;
     /** 前回指針 */
-    this.mPreMeter = 0;
+    this.mPreMeter = 9550;
     /** 前回検針日付:年 */
-    this.mPuseYear = 0;
+    this.mPuseYear = 2019;
     /** 前回検針日付：月 */
-    this.mPuseMonth = 0;
+    this.mPuseMonth = 2;
     /** 前回検針日付：日 */
-    this.mPuseDate = 0;
+    this.mPuseDate = 7;
     /** ガス料金No */
-    this.mGasDiv = 654;
+    this.mGasDiv = 570;
     /** 今回入力：消費税 */
-    this.mConTax = 1230;
+    this.mConTax = 1830;
     /** 中間使用量(検針) */
     this.mBetwMeter = 0;
     /** 前回使用量 */
-    this.mPreUse = 0;
+    this.mPreUse = 319;
     /** 今回入力：金額 */
-    this.mFee = 15450;
+    this.mFee = 22920;
     /** 日割り日数 */
     this.mHiwari = 0;
     /** 当月：消費税(分割) */
@@ -1359,7 +1359,7 @@ class KokfDat {
     /** 開栓日付：日 */
     this.mKaiDate = 0;
     /** ガス料金内訳データ */
-    this.mKtpcdat = new KtpcDat(15000000, 139500000, 0);
+    this.mKtpcdat = new KtpcDat(18000000, 211200000, 0);
     /** 供給区分 */
     this.mSupplyForm = 1;
     /** 契約料金(基本) */
@@ -1392,9 +1392,9 @@ class KokfDat {
     /** 当月：入金額 */
     this.mTReceipt = 0;
     /** 当月：売上額(リース) */
-    this.mProcLease = 0;
+    this.mProcLease = 100;
     /** 当月：消費税(リース) */
-    this.mTaxLease = 0;
+    this.mTaxLease = 8;
     /** 当月：売上額(分割金) */
     this.mProcDiv = 0;
     /** 当月：売上額(灯油) */
@@ -1402,9 +1402,9 @@ class KokfDat {
     /** 当月：消費税(灯油) */
     this.mTaxLoil = 0;
     /** 当月：売上額(その他) */
-    this.mProcEtc = 0;
+    this.mProcEtc = 20000;
     /** 当月：消費税(その他) */
-    this.mTaxEtc = 0;
+    this.mTaxEtc = 1600;
     /** 当月：売上額(ガス) */
     this.mProcGas = 0;
     /** 当月：消費税(ガス) */
@@ -1423,15 +1423,15 @@ class KokfDat {
     this.mInpReceipt = 0 ;
 
 	//bien moi
-	this.mAdd = "○武市△冬町３－２";
+	this.mAdd = "○児市△貫町３－３";
 	this.mCusCode = "0010000375";
 	this.mSName0 = "" ;
-	this.mSName1 = "安藤　秀丸";
+	this.mSName1 = "野村　洋子";
 	this.mKName = "様";
 
 	this.mZyksDat = Dat.mZyksDat;
-  this.mHoan = "ox-ox-ox-��";
-  this.mBankCode = 0;
+  this.mHoan = "---------��";
+  this.mBankCode = 44;
   this.mNoKensin = true;
   
   }
@@ -1655,11 +1655,11 @@ class KnebDat {
 
 class BusfDat {
 	constructor(){
-		this.mUsef = true
-		this.mHinno = 2
-		this.mName = "調整"
-		this.mSign = 1
-		this.mKind = 3
+		this.mUsef = true;
+		this.mHinno = 2;
+		this.mName = "調整";
+		this.mSign = 1;
+		this.mKind = 3;
 	}
 }
 
@@ -3734,12 +3734,12 @@ var kouserDat = new KouserDat();
 var sysfDat = new SysfDat();
 var ko2fDat = null;
 
-var gstpDat1 = new GstpDat(1, 0, 0);
-var gstpDat2 = new GstpDat(50, 15600000, 6000000);
-var gstpDat3 = new GstpDat(100, 45000000, 5700000);
-var gstpDat4 = new GstpDat(250, 73500000, 5400000);
-var gstpDat5 = new GstpDat(999999, 154500000, 5100000);
-var gasfDatlist = [gstpDat1, gstpDat2, gstpDat3, gstpDat4, gstpDat5];
+// var gstpDat1 = new GstpDat(1, 0, 0);
+// var gstpDat2 = new GstpDat(50, 15600000, 6000000);
+// var gstpDat3 = new GstpDat(100, 45000000, 5700000);
+// var gstpDat4 = new GstpDat(250, 73500000, 5400000);
+var gstpDat5 = new GstpDat(999999, 18000000, 4800000);
+var gasfDatlist = [ gstpDat5];
 
 var gasfDat = new GasfDat(gasfDatlist);
 var kensin_date = new Date("2019/5/1");

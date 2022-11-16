@@ -200,13 +200,13 @@ export var mGtpc = {
 
 export var mZyksDat = {
 	/** 使用量 */
-	m_nSr: 0,
+	m_nSr: 261,
 	/** 伝票日付(年) */
-	m_nDenymd_year: 0,
+	m_nDenymd_year: 2018,
 	/** 伝票日付(月) */
-	m_nDenymd_month: 0,
+	m_nDenymd_month: 5,
 	/** 伝票日付(日) */
-	m_nDenymd_day: 0
+	m_nDenymd_day: 8
 }
 
 
