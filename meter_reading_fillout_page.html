@@ -376,19 +376,17 @@
                                                 <div class="row content">
                                                     <div class="col-4">
                                                         <button type="button" class="btn btn-default text-center"
-                                                            id="unnecessary_btn"
-                                                            onclick="setDataforComboBoxSelect(2)">不要</button>
+                                                            id="unnecessary_btn">不要</button>
                                                     </div>
 
                                                     <div class="col-4">
                                                         <button type="button" class="btn btn-default text-center"
-                                                            id="no_btn" onclick="setDataforComboBoxSelect(1)">否</button>
+                                                            id="no_btn">否</button>
                                                     </div>
 
                                                     <div class="col-4">
                                                         <button type="button" class="btn btn-default text-center"
-                                                            id="good_btn"
-                                                            onclick="setDataforComboBoxSelect(0)">良</button>
+                                                            id="good_btn">良</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1112,7 +1110,7 @@
                             </div>
 
 
-                            <div id="uTaxCommentArea mt--3">
+                            <div id="uTaxCommentArea">
                                 <div class="frames-common bd-3 mt--3">
                                     <div class="row" id="uTaxComment1Area">
                                         <div class="col-12 text-print ta-l wsp-text item">
@@ -1193,11 +1191,7 @@
                                                     </td> -->
                                                 </tr>
 
-                                                <div id="gasryokinAList">
-
-                                                </div>
-
-                                                <div id="gasryokinHybridAArea">
+                                                <!-- <div id="gasryokinHybridAArea">
                                                     <tr>
                                                         <td class="text-print item" id="gasryokinHybridText">
                                                             countername-tb0</td>
@@ -1205,7 +1199,7 @@
                                                     </tr>
 
                                                     <tr id="gasryokinHybrid_Val">
-                                                        <!-- <td class="text-print ta-r wsp-text item">
+                                                        <td class="text-print ta-r wsp-text item">
                                                             <span class="text-print ta-r wsp-text item tb-item stepO-w20"
                                                                 id="dLowLimitHybrid">0.1</span>
                                                             <span class="text-print ta-r wsp-text item tb-item">→</span>
@@ -1222,7 +1216,7 @@
                                                                 600.0
                                                                 <span class="text-print item unitLine">円</span>
                                                             </div>
-                                                        </td> -->
+                                                        </td>
 
                                                         <td class="text-print ta-r wsp-text">
                                                             <span class="text-print ta-r wsp-text tb-item tbw-35" id="dLowLimitHybrid">0.1</span>
@@ -1238,24 +1232,24 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                </div>
+                                                </div> -->
                                             </div>
 
 
-                                            <div id="gasryokinOArea">
-                                                <tr>
+                                            <div id="gasryokinOArea" style="display: none;">
+                                                <tr style="display: none;">
                                                     <td class="text-print item" id="gasryokinOText">通常使用分従量料金</td>
                                                     <td class="text-print item td-r"></td>
                                                 </tr>
 
-                                                <tr id="singleStepArea">
+                                                <tr id="singleStepArea" style="display: none;">
                                                     <td class="text-print item">
                                                         <span class="text-print ta-l wsp-text item">一律</span>
                                                     </td>
                                                     <td class="text-print item td-r"></td>
                                                 </tr>
 
-                                                <tr id="singleStepValArea">
+                                                <tr id="singleStepValArea" style="display: none;">
                                                     <td class="text-print item">
                                                         <span class="text-print ta-r wsp-text tb-item tbw-35" id="dLowLimitSingleStepVal">0.1</span>
                                                         <span class="text-print ta-r wsp-text tb-item tbw-20">m3 ～</span>
@@ -1271,18 +1265,18 @@
                                                     </td>
                                                 </tr>
 
-                                                <div id="gasryokinOList">
+                                                <div id="gasryokinOList" style="display: none;">
 
                                                 </div>
 
-                                                <div id="gasryokinHybridOArea">
-                                                    <tr>
+                                                <div id="gasryokinHybridOArea" style="display: none;">
+                                                    <tr style="display: none;">
                                                         <td class="text-print item" id="gasryokinHybridText">
                                                             countername-tb0</td>
                                                         <td class="text-print item td-r"></td>
                                                     </tr>
 
-                                                    <tr id="gasryokinHybrid_Val">
+                                                    <tr id="gasryokinHybrid_Val" style="display: none;">
                                                         <td class="text-print ta-r wsp-text">
                                                             <span class="text-print ta-r wsp-text tb-item"
                                                                 id="dLowLimitHybrid">0.1</span>
@@ -1305,7 +1299,7 @@
                                                 </div>
                                             </div>
 
-                                            <tr id="counterUseKinArea">
+                                            <tr id="counterUseKinArea" style="display: none;">
                                                 <td class="text-print item td-nm">カウンタ使用料</td>
                                                 <td class="text-print item td-nm td-r ta-r">
                                                     <div class="text-print item ta-r wsp-text" id="counterUseKinVal">60.0
@@ -1315,11 +1309,9 @@
                                             </tr>
 
                                             <tr id="gasTotalKinWithoutTaxArea">
-                                                <td class="text-print item td-nm" id="gasTotalKinWithoutTaxVal">合計</td>
+                                                <td class="text-print item td-nm">合計</td>
                                                 <td class="text-print item td-nm td-r ta-r">
-                                                    <div class="text-print item ta-r wsp-text">60.0
-                                                        <span class="text-print item unitLine">円</span>
-                                                    </div>
+                                                    <div class="text-print item ta-r wsp-text" id="gasTotalKinWithoutTaxVal"></div>
                                                 </td>
                                             </tr>
                                         </table>
@@ -1888,11 +1880,11 @@
     <script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
     <script type="module" src="./js/Common/check_login.js"></script>
     <script type="module" src="js/meter_reading_fillout.js"></script>
+    <script type="module" src="js/hoan_kinnyuu.js"></script>
+    <script type="module" src="js/kensin_kinnyuu.js"></script>
     <script type="module" src="js/kinyuu-print.js"></script>
-    <script type="text/javascript" src="js/hoan_kinnyuu.js"></script>
     <script type="text/javascript" src="js/Common/collapse.js"></script>
 
-    <script type="module" src="js/kensin_kinnyuu.js"></script>
 </body>
 
 </html>
