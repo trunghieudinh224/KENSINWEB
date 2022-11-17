@@ -73,6 +73,10 @@
     font-size: 24px;
 }
 
+.konkaiSeikyuuGaku-text {
+    font-size: 28px;
+}
+
 .ryooshuu-text {
     font-size: 30px;
 }
@@ -97,6 +101,7 @@
 }
 
 .hoan-val {
+    font-family: monospace !important;
     padding-left: 0px;
 }
 
@@ -231,6 +236,10 @@ td {
         font-size: 22px;
     }
 
+    .konkaiSeikyuuGaku-text {
+        font-size: 26px;
+    }
+
     .ryooshuu-text {
         font-size: 28px;
     }
@@ -268,6 +277,10 @@ td {
 
     .lg-text {
         font-size: 18px;
+    }
+
+    .konkaiSeikyuuGaku-text {
+        font-size: 24px;
     }
 
     .ryooshuu-text {
@@ -313,6 +326,10 @@ td {
 
     .lg-text {
         font-size: 16px !important;
+    }
+
+    .konkaiSeikyuuGaku-text {
+        font-size: 20px;
     }
 
     .ryooshuu-text {
