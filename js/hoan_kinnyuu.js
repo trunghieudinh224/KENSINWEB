@@ -153,7 +153,11 @@ function changeValue(){
 function setHoanKinnyuu(){
     hoanString = "";
     for (let i = 0; i < list_combobox.length; i++) {
-       hoanString = hoanString + list_combobox[i].options[list_combobox[i].selectedIndex].text;        
+        var hoanVal = list_combobox[i].options[list_combobox[i].selectedIndex].text;
+        if (hoanVal == "ー") {
+            hoanVal = "-";
+        }
+       hoanString = hoanString + hoanVal;        
     }
 }
 
