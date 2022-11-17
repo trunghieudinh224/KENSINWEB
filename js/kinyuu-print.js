@@ -80,6 +80,7 @@ var hybTableItemTS = window.getComputedStyle(document.getElementsByClassName("hy
 var hoanItemTS = window.getComputedStyle(document.getElementsByClassName("hoan-item")[0]).fontSize;
 var hoanValTS = window.getComputedStyle(document.getElementsByClassName("hoan-val")[0]).fontSize;
 var konkaiSeikyuuGakuTS = window.getComputedStyle(document.getElementsByClassName("konkaiSeikyuuGaku-text")[0]).fontSize;
+var titlePrintViewTS = window.getComputedStyle(document.getElementsByClassName("titlePrintView")[0]).fontSize;
 
 
 var itemLH = window.getComputedStyle(document.getElementsByClassName("item")[0]).lineHeight;
@@ -91,6 +92,7 @@ var hybTableItemLH = window.getComputedStyle(document.getElementsByClassName("hy
 var hoanItemLH = window.getComputedStyle(document.getElementsByClassName("hoan-item")[0]).lineHeight;
 var hoanValLH = window.getComputedStyle(document.getElementsByClassName("hoan-val")[0]).lineHeight;
 var konkaiSeikyuuGakuLH = window.getComputedStyle(document.getElementsByClassName("konkaiSeikyuuGaku-text")[0]).lineHeight;
+var titlePrintViewLH = window.getComputedStyle(document.getElementsByClassName("titlePrintView")[0]).lineHeight;
 
 
 
@@ -3158,6 +3160,7 @@ function sendImage() {
 	window.location.href = "printermarutou://print&&1";
 }
 
+
 /**
 	* ONCLICK ACTION
 */
@@ -3168,7 +3171,6 @@ function onclickAction() {
 	document.getElementById("createPrintingFormButton").onclick = function () {
 		document.getElementById("editView").style.display = "none";
 		document.getElementById("printView").style.display = "block";
-		//lấy 2 biến receipt vs zandaka bên file kensin_kinyuu.js Hieu
 		//isToyu (biến cuối) xem lại ko đc set cứng Hieu
 		let mReciept = parseInt(document.getElementById("nyuukin").textContent);
 		let mZandaka = parseInt(document.getElementById("zandaka").textContent.replace(",", ""));
@@ -3217,7 +3219,7 @@ function createImageKensinForm() {
 					window.scrollTo(0, 0);
 
 					const interval = setInterval(function () {
-						setupPrintForm("100%", "600px", "45px", itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
+						setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
 						setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
 						setupTextSizeDetail("tb-item", tbItemTS, tbItemLH, "normal");
 						setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
