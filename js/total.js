@@ -110,6 +110,7 @@ class KokfDat {
     this.mReceipt = 0; 
     /** 今回入力：調整額 */
     this.mAdjust = 1000;
+    this.mCusCode = "0010000375";
   }
 }
 
@@ -1006,6 +1007,7 @@ function setShukeiDateList() {
                 kotfDat = kokfDat.mKotfDat;
             }
             if (kokfDat.mKenSumi || kokfDat.mSyuSumi || (kotfDat != null && kotfDat.m_bKen_sumi == 1)) {
+                // date kensin
                 var strKey = kokfDat.mKMonth + "/" + kokfDat.mKDate;
                 var lstKensinData;
                 if(m_mapKensinData.has(strKey)){
@@ -1015,13 +1017,12 @@ function setShukeiDateList() {
                     }
                 }
                 else {
-                    lstKensinData = new Array();
-                    m_mapKensinData.set(strKey, lstKensinData);
+                    lstKensinData = [];
                 }
                 let kensinData = Dat.kensinData;          
-                lstKensinData.push(kensinData);
                
-                kensinData._m_strKcode = kokfDat.mCusCode;
+               
+                kensinData.m_strKcode = kokfDat.mCusCode;
                 kensinData.m_strName = kokfDat.mName;
                 kensinData.m_isKensin = kokfDat.mKenSumi;
                 kensinData.m_nSs  = kokfDat.mNowMeter;
@@ -1045,6 +1046,8 @@ function setShukeiDateList() {
                     mItemList.set(strKey, shukeiItem);
                 }
                 addShukeiData(shukeiItem, kokfDat, sysfDat, sy2fDat, kouserDat);
+                lstKensinData.push(kensinData);
+                m_mapKensinData.set(strKey, lstKensinData);
             }
             // if(kokfDat.mUriSumi){
             //     HmefDat hmefDat = InputDat.getHmefDat(this, kokfDat.mHmew0Srec - 1,  2);
@@ -1078,8 +1081,8 @@ function setShukeiDateList() {
             //         }
             //     }
             // }
-                 shuukeiData = shukeiItem;       
-        }
+                 shuukeiData = shukeiItem;                 
+            }
         
     }
 
