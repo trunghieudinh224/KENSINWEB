@@ -3197,7 +3197,7 @@ function createImageKensinForm() {
 	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
-	setupPrintForm("100vh", "650px", "55px", "29px", "39px", "29px", "39px", true, "0px");
+	setupPrintForm("100vh", "670px", "55px", "29px", "39px", "29px", "39px", true, "20px");
 	setupTextSizeDetail("lg-text", "34px", "44px", "bold");
 	setupTextSizeDetail("tb-item", "24px", "34px", "normal");
 	setupTextSizeDetail("konkaiSeikyuuGaku-text", "45px", "55px", "bold");
