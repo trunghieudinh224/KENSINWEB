@@ -80,6 +80,7 @@ var hybTableItemTS = window.getComputedStyle(document.getElementsByClassName("hy
 var hoanItemTS = window.getComputedStyle(document.getElementsByClassName("hoan-item")[0]).fontSize;
 var hoanValTS = window.getComputedStyle(document.getElementsByClassName("hoan-val")[0]).fontSize;
 var konkaiSeikyuuGakuTS = window.getComputedStyle(document.getElementsByClassName("konkaiSeikyuuGaku-text")[0]).fontSize;
+var titlePrintViewTS = window.getComputedStyle(document.getElementsByClassName("titlePrintView")[0]).fontSize;
 
 
 var itemLH = window.getComputedStyle(document.getElementsByClassName("item")[0]).lineHeight;
@@ -91,6 +92,7 @@ var hybTableItemLH = window.getComputedStyle(document.getElementsByClassName("hy
 var hoanItemLH = window.getComputedStyle(document.getElementsByClassName("hoan-item")[0]).lineHeight;
 var hoanValLH = window.getComputedStyle(document.getElementsByClassName("hoan-val")[0]).lineHeight;
 var konkaiSeikyuuGakuLH = window.getComputedStyle(document.getElementsByClassName("konkaiSeikyuuGaku-text")[0]).lineHeight;
+var titlePrintViewLH = window.getComputedStyle(document.getElementsByClassName("titlePrintView")[0]).lineHeight;
 
 
 
@@ -3137,12 +3139,9 @@ function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineH
    * @param lineHeightSingleLine     [STRING]
 */
 function setupTextSizeDetail(nameItem, textSize, lineHeight, fontWeight) {
-	// setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", true, "20px");
 	const element = document.getElementsByClassName(nameItem);
 	for (let i = 0; i < element.length; i++) {
 		element[i].style.setProperty("font-size", textSize, "important")
-		// element[i].style.fontSize = textSize;
-		// element[i].style.setAttribute('style', 'font-size:' + textSize + 'px' + '!important')
 		element[i].style.lineHeight = lineHeight;
 		element[i].style.fontWeight = fontWeight;
 	}
@@ -3158,6 +3157,7 @@ function sendImage() {
 	window.location.href = "printermarutou://print&&1";
 }
 
+
 /**
 	* ONCLICK ACTION
 */
@@ -3168,7 +3168,6 @@ function onclickAction() {
 	document.getElementById("createPrintingFormButton").onclick = function () {
 		document.getElementById("editView").style.display = "none";
 		document.getElementById("printView").style.display = "block";
-		//lấy 2 biến receipt vs zandaka bên file kensin_kinyuu.js Hieu
 		//isToyu (biến cuối) xem lại ko đc set cứng Hieu
 		let mReciept = parseInt(document.getElementById("nyuukin").textContent);
 		let mZandaka = parseInt(document.getElementById("zandaka").textContent.replace(",", ""));
@@ -3198,15 +3197,15 @@ function createImageKensinForm() {
 	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
-	setupPrintForm("100vh", "670px", "55px", "27px", "35px", "27px", "35px", true, "20px");
-	setupTextSizeDetail("lg-text", "30px", "40px", "bold");
-	setupTextSizeDetail("tb-item", "24px", "35px", "normal");
-	setupTextSizeDetail("konkaiSeikyuuGaku-text", "39px", "50px", "bold");
-	setupTextSizeDetail("ryooshuu-text", "38px", "49px", "bold");
-	setupTextSizeDetail("hmInfoTable-item", "24px", "35px", "normal");
-	setupTextSizeDetail("hybTable-item", "24px", "35px", "normal");
-	setupTextSizeDetail("hoan-item", "24px", "35px", "normal");
-	setupTextSizeDetail("hoan-val", "27px", "35px", "normal");
+	setupPrintForm("100vh", "670px", "55px", "29px", "39px", "29px", "39px", true, "20px");
+	setupTextSizeDetail("lg-text", "34px", "44px", "bold");
+	setupTextSizeDetail("tb-item", "24px", "34px", "normal");
+	setupTextSizeDetail("konkaiSeikyuuGaku-text", "45px", "55px", "bold");
+	setupTextSizeDetail("ryooshuu-text", "50px", "60px", "bold");
+	setupTextSizeDetail("hmInfoTable-item", "24px", "34px", "normal");
+	setupTextSizeDetail("hybTable-item", "24px", "34px", "normal");
+	setupTextSizeDetail("hoan-item", "24px", "34px", "normal");
+	setupTextSizeDetail("hoan-val", "27px", "37px", "normal");
 	domtoimage.toBlob(document.getElementById('printContentDetail'))
 		.then(function (blob) {
 			getBase64(blob).then(
@@ -3217,15 +3216,15 @@ function createImageKensinForm() {
 					window.scrollTo(0, 0);
 
 					const interval = setInterval(function () {
-						setupPrintForm("100%", "600px", "45px", itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
-						setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
-						setupTextSizeDetail("tb-item", tbItemTS, tbItemLH, "normal");
-						setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
-						setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
-						setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
-						setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
-						setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
-						setupTextSizeDetail("hoan-val", hoanValTS, hoanValLH, "normal");
+						// setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
+						// setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
+						// setupTextSizeDetail("tb-item", tbItemTS, tbItemLH, "normal");
+						// setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
+						// setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
+						// setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
+						// setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
+						// setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
+						// setupTextSizeDetail("hoan-val", hoanValTS, hoanValLH, "normal");
 
 						Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
 						clearInterval(interval);
@@ -3243,7 +3242,5 @@ function getPrintStatus(kokfDat, sysfDat, isPrintNyukin, lReceipt, lZandaka, isP
 	printStatus.m_lReceipt = lReceipt;
 	printStatus.m_lZandaka = lZandaka;
 	printStatus.m_isPrintKensin = isPrintKensin;
-	printStatus.m_isPrintToyu = isToyu;
-		printStatus.m_isPrintToyu = isToyu;	
 	printStatus.m_isPrintToyu = isToyu;
 }

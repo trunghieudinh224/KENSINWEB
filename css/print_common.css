@@ -151,7 +151,7 @@
 
 @media screen and (max-width: 450px) {
 	#printContent {
-		padding: 40px 4px;
+		padding: 0px 30px;
 	}
 
 	#printContentDetail {
@@ -160,10 +160,10 @@
 
 	/* TEXT */
 	.title-printView {
-		font-size: 30px;
+		font-size: 28px;
 	}
 
 	.wsp-title {
-		word-spacing: 12px;
+		word-spacing: 6px;
 	}
 }
