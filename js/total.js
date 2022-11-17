@@ -5,6 +5,7 @@ import * as ValueCS from './Constant/values.js'
 import * as Mess from './Constant/message.js'
 import * as Dat from './Dat/dat.js'
 import * as GasRaterCom from './Common/gasratercom.js'
+// import * as KensinKinyuu from './kensin_kinnyuu.js'
 class KokfDat {
   constructor() {
     /** 漢字氏名 */
@@ -463,6 +464,17 @@ let m_mapUriageData = new Map();
 var sysfDat = new SysfDat();
 var sy2fDat = new Sy2fDat();
 var kouserDat = new KouserDat();
+var kokfDat1 = new KokfDat();
+var kokfDat2 = new KokfDat();
+kokfDat2.mCusCode = "0010000370";
+kokfDat2.mName = "xyz";
+var kokfDat3 = new KokfDat(); 
+kokfDat3.mKDate = 7;
+var kokfDat4 = new KokfDat();
+kokfDat4.mKDate = 7;
+kokfDat4.mCusCode = "0010000370";
+kokfDat4.mName = "xyz";
+
 /* shuukei data */
 var shukeiItem = {
     mKensu: 0,  /** 件数 */
@@ -576,13 +588,13 @@ function getShuukeiData() {
     var urlString;
     if (selectDate.value == "1") {
         let date = document.getElementById("date-end").value;
-       urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
-        //  urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+       // urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+         urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
     } else {
         let dateStart = document.getElementById("date-start").value;
         let dateEnd = document.getElementById("date-end").value;
-        urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
-        //  urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        //urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+         urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
     }
     shuukeiData = Dat.shukeiItem;
    // console.log(shuukeiData.mKensu + " abc");
@@ -863,7 +875,7 @@ function createImageShuukeiForm() {
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
     document.getElementById('shuukeiForm').style.display = "block";
-    // setDataPrintForm();
+    setDataPrintForm();
     setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
@@ -991,10 +1003,9 @@ function setShukeiDateList() {
         var sysfDat = new SysfDat();
         var sy2fDat = new Sy2fDat();
         var kouserDat = new KouserDat();
-        var cuslist = [new KokfDat()];
+        var cuslist = [kokfDat1 , kokfDat2 , kokfDat3 , kokfDat4];
 
    
-
         for (var i = 0; i < cuslist.length; i++) {
             // 顧客データ取得
             // nSearchNo = sysfDat.mSearchNo;
@@ -1013,7 +1024,7 @@ function setShukeiDateList() {
                 if(m_mapKensinData.has(strKey)){
                     lstKensinData = m_mapKensinData.get(strKey);
                     if(lstKensinData == null){
-                        lstKensinData = new Array();
+                        lstKensinData = [];
                     }
                 }
                 else {
