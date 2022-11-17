@@ -3139,12 +3139,9 @@ function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineH
    * @param lineHeightSingleLine     [STRING]
 */
 function setupTextSizeDetail(nameItem, textSize, lineHeight, fontWeight) {
-	// setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", true, "20px");
 	const element = document.getElementsByClassName(nameItem);
 	for (let i = 0; i < element.length; i++) {
 		element[i].style.setProperty("font-size", textSize, "important")
-		// element[i].style.fontSize = textSize;
-		// element[i].style.setAttribute('style', 'font-size:' + textSize + 'px' + '!important')
 		element[i].style.lineHeight = lineHeight;
 		element[i].style.fontWeight = fontWeight;
 	}
@@ -3209,7 +3206,7 @@ function createImageKensinForm() {
 	setupTextSizeDetail("hybTable-item", "24px", "34px", "normal");
 	setupTextSizeDetail("hoan-item", "24px", "34px", "normal");
 	setupTextSizeDetail("hoan-val", "27px", "37px", "normal");
-	domtoimage.toBlob(document.getElementById('printView'))
+	domtoimage.toBlob(document.getElementById('printContentDetail'))
 		.then(function (blob) {
 			getBase64(blob).then(
 				data => {

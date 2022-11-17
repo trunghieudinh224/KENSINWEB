@@ -65,7 +65,7 @@ body {
   overflow: hidden;
   height: fit-content;
   background: white;
-  padding: 30px 00px;
+  padding: 30px 20px;
 }
 
 form {
@@ -694,11 +694,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   
   /* MAIN FORM */
   .wrap-mainform {
-    background-color: white;
     width: 380px;
     margin-top: 80px;
     margin-bottom: 80px;
-    padding: 20px 0px;
+    padding: 20px 10px;
   }
 }
 
