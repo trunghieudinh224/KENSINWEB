@@ -126,7 +126,7 @@ function getClearString(wkStr) {
    * @param mask  [in] booelan    true: mm/dd, false: mm月dd日
    * @return String   整形された日付文字列
 */
-function DateFormat(year, month, day, mask) {
+function DateFormat(month, day, mask) {
 	var _month;
 	var _day;
 	var ymd;
@@ -143,7 +143,7 @@ function DateFormat(year, month, day, mask) {
 	if (mask) {
 		ymd = _month + "/" + _day;
 	} else {
-		ymd = year + "年" + _month + "月" + _day + "日";
+		ymd = _month + "月" + _day + "日";
 	}
 	return ymd;
 }
@@ -482,12 +482,33 @@ function getBytesLen(wkStr) {
 }
 
 
+/**
+	* FORMAT DECIMAL NUMBER WITH DOT
+	* 
+	* @param value [in] String
+	* @param numBehindDot [in] int
+	* @param wkMulti [in] int
+	* @return double
+*/
 function formatLocalJS(value, numBehindDot, wkMulti) {
 	return parseFloat(parseFloat(value) / calcMulti(wkMulti)).toFixed(numBehindDot); 
 }
 
 
+/**
+	* FORMAT DECIMAL NUMBER
+	* 
+	* @param wkVal [in] String
+	* @return String
+*/
+function formatDecial(wkVal) {
+	let number = parseInt(wkVal);
+	let nf = new Intl.NumberFormat('en-US');
+	return nf.format(number);
+}
+
+
 export {
 	Format, KingakuFormat, KingakuFormatLocal, isEmpty, cutStringSpace, nullToString, getClearString, DateFormat, MonthDayFormat, getKangcontname, hasCom,
-	printformat, printformatLocal, calcMulti, format, formatLocal, getUriTaxr, getBytesLen, formatLocalJS
+	printformat, printformatLocal, calcMulti, format, formatLocal, getUriTaxr, getBytesLen, formatLocalJS, formatDecial
 }
