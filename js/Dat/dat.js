@@ -311,3 +311,36 @@ export class HmefDat {
 		this.mHmCode;
 	}
 }
+
+export var kensinData = {
+	 /** 顧客コード */
+      m_strKcode : "",
+    /** 顧客名 */
+      m_strName : "",
+    /** 今回指針 */
+      m_nSs : 0,
+    /** 今回使用量 */
+      m_nSr : 0,
+    /** ガス料金 */
+      m_nKin : 0,
+    /** 消費税 */
+      m_nTax : 0,
+    /** 還元額 */
+      m_nKng : 0,
+    /** 灯油指針 */
+      m_nToyuSs : 0,
+    /** 灯油使用量 */
+      m_nToyuSr : 0,
+    /** 灯油金額 */
+      m_lToyuKin : 0,
+    /** 灯油消費税 */
+      m_lToyuTax : 0,
+    /** 灯油検針有無 */
+      m_isToyu : false,
+    /** ガス検針有無 */
+      m_isKensin : false,
+    /** 入金額 */
+      m_lNyu : 0,
+    /** 調整額 */
+      m_lCho : 0
+}
