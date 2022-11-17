@@ -3244,6 +3244,4 @@ function getPrintStatus(kokfDat, sysfDat, isPrintNyukin, lReceipt, lZandaka, isP
 	printStatus.m_lZandaka = lZandaka;
 	printStatus.m_isPrintKensin = isPrintKensin;
 	printStatus.m_isPrintToyu = isToyu;
-		printStatus.m_isPrintToyu = isToyu;	
-	printStatus.m_isPrintToyu = isToyu;
 }
