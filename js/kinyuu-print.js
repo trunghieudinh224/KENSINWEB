@@ -3203,8 +3203,8 @@ function createImageKensinForm() {
 	setupPrintForm("100vh", "670px", "55px", "29px", "39px", "29px", "39px", true, "0px");
 	setupTextSizeDetail("lg-text", "34px", "44px", "bold");
 	setupTextSizeDetail("tb-item", "24px", "34px", "normal");
-	setupTextSizeDetail("konkaiSeikyuuGaku-text", "42px", "52px", "bold");
-	setupTextSizeDetail("ryooshuu-text", "45px", "55px", "bold");
+	setupTextSizeDetail("konkaiSeikyuuGaku-text", "45px", "55px", "bold");
+	setupTextSizeDetail("ryooshuu-text", "50px", "60px", "bold");
 	setupTextSizeDetail("hmInfoTable-item", "24px", "34px", "normal");
 	setupTextSizeDetail("hybTable-item", "24px", "34px", "normal");
 	setupTextSizeDetail("hoan-item", "24px", "34px", "normal");
