@@ -6,431 +6,7 @@ import * as Mess from './Constant/message.js'
 import * as Dat from './Dat/dat.js'
 import * as GasRaterCom from './Common/gasratercom.js'
 // import * as KensinKinyuu from './kensin_kinnyuu.js'
-class KokfDat {
-  constructor() {
-    /** 漢字氏名 */
-    this.mName = "安藤　秀丸"; // NAME
-    /** 検針月 */
-    this.mKMonth = 5;
-    /** 検針日 */
-    this.mKDate = 1;
-    /** 今回入力：ガス使用量 */
-    this.mGasUse = 250;
-    /** 顧客区分　 */
-    this.mGasKubun = 1;
-    /** 検針済み区分 */
-    this.mKenSumi = true;
-    /** 今回入力：今回指針 */
-    this.mNowMeter = 250;
-    /** 前回指針 */
-    this.mPreMeter = 0;
-    /** 前回検針日付:年 */
-    this.mPuseYear = 0;
-    /** 前回検針日付：月 */
-    this.mPuseMonth = 0;
-    /** 前回検針日付：日 */
-    this.mPuseDate = 0;
-    /** ガス料金No */
-    this.mGasDiv = 654;
-    /** 今回入力：消費税 */
-    this.mConTax = 1230;
-    /** 中間使用量(検針) */
-    this.mBetwMeter = 0;
-    /** 前回使用量 */
-    this.mPreUse = 0;
-    /** 今回入力：金額 */
-    this.mFee = 15450;
-    /** 日割り日数 */
-    this.mHiwari = 0;
-    /** 当月：消費税(分割) */
-    this.mTaxDiv = 0;
-    /** 締日処理フラグ */
-    this.mSimeF = 0;
-    /** 開栓日付：年 */
-    this.mKaiYear = 0;
-    /** 開栓日付：月 */
-    this.mKaiMonth = 0;
-    /** 開栓日付：日 */
-    this.mKaiDate = 0;
-    /** ガス料金内訳データ */
-    this.mKtpcdat = new KtpcDat(15000000, 139500000, 0);
-    /** 供給区分 */
-    this.mSupplyForm = 1;
-    /** 契約料金(基本) */
-    this.mGasBase = 0; // GASBASE
-    /** メーター桁数 */
-    this.mMtKeta = 4;  //MTKETA
-    /** 契約料金(単価) */
-    this.mGasUnit = 0;
-    /** ハイブリッド請求フラグ */
-    this.mHybseikyu = 0;
-    /** 今回入力：その他売上金額 */
-    this.mUrikin = 0;
-    /** 今回入力：その他売上消費税 */
-    this.mUriTax = 0;
-    /** 今回入力：還元額 */
-    this.mReduce = 0;
-    /** 今回入力：還元額の消費税 */
-    this.mReduceTax = 0;
-    /** 顧客灯油 */
-    var mKotfDat = null;
-    this.mKotfDat = mKotfDat;
-    /** 当月：遅収料金 */
-    this.mProcTisyuu = 0;
-    /** 当月：消費税(遅収料金) */
-    this.mTaxTisyuu = 0;
-    /** 前月残高 */
-    this.mPreBalance = 4620;
-    /** 当月：調整額 */
-    this.mTAdjust = 0;
-    /** 当月：入金額 */
-    this.mTReceipt = 0;
-    /** 当月：売上額(リース) */
-    this.mProcLease = 0;
-    /** 当月：消費税(リース) */
-    this.mTaxLease = 0;
-    /** 当月：売上額(分割金) */
-    this.mProcDiv = 0;
-    /** 当月：売上額(灯油) */
-    this.mProcLoil = 0;
-    /** 当月：消費税(灯油) */
-    this.mTaxLoil = 0;
-    /** 当月：売上額(その他) */
-    this.mProcEtc = 0;
-    /** 当月：消費税(その他) */
-    this.mTaxEtc = 0;
-    /** 当月：売上額(ガス) */
-    this.mProcGas = 0;
-    /** 当月：消費税(ガス) */
-    this.mTaxGas = 0;
-    /** 当月：遅収料金 */
-    this.mProcTisyuu = 0;
-    /** 当月：消費税(遅収料金) */
-    this.mTaxTisyuu = 0;
-    /** 今回入力：入金額 */
-    this.mReceipt = 0; 
-    /** 今回入力：調整額 */
-    this.mAdjust = 1000;
-    this.mCusCode = "0010000375";
-  }
-}
 
-class Ko2fDat {
-  constructor() {
-    /** ハイブリッド料金区分 */
-    this.mGashyb;
-    /** カウント値引:税区分 */
-    this.mChoTaxku;
-    /** カウント値引消費税 */
-    this.mChoTax;
-    /** カウンタ使用料 */
-    this.mUseKin;
-    /** カウンター使用料:税区分 */
-    this.mUseTaxku;
-    /** カウンタ使用料消費税 */
-    this.mUseTax;
-    /** カウント値引 */
-    this.mChoKin;
-  }
-}
-
-class KtpcDat {
-  constructor(m_nBasekin, m_nAddkin, m_nFacilitykin) {
-    this.m_nBasekin = m_nBasekin;
-    this.m_nAddkin = m_nAddkin;
-    this.m_nFacilitykin = m_nFacilitykin;
-  }
-}
-
-class Sy2fDat {
-  constructor() {
-    /** 中圧係数での使用量端数処理(0:切り捨て, 1:四捨五入, 2:切り上げ) */
-    this.mCaHas = 0;
-    /** 中圧ガス料金計算有無 */
-    this.mCaFlg = 0;
-    /** 差益還元品番コード */
-    this.mKangHbcd = 0;
-    /** 差益還元コード */
-    this.mKangHcd = 0;
-    /** 入金・調整取引区分設定フラグ */
-    this.mNyucho = 0;
-    /** ハイブリッド料金区分 */
-    this.mGashyb;
-    /** オプション3 */
-    var mSysOption = [
-      1, 1, -1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 5, 0, 0,
-    ];
-    this.mSysOption = mSysOption;
-  }
-}
-
-class SysfDat {
-  constructor() {
-    /** 管ガス:最低検針日数 */
-    this.mKgasDays0 = 25;
-    /** 管ガス:最大検針日数 */
-    this.mKgasDays1 = 35;
-    /** 管ガス:閉開栓時日数 */
-    this.mKgasDays2 = 29;
-    /** 消費税変更日付 */
-    this.mTax_yy = 1970;
-    this.mTax_mm = 1;
-    this.mTax_dd = 1;
-    /** 消費税率 */
-    this.mConsumTax = 80;
-    /** 消費税変更旧税率 */
-    this.mTaxr_old = 50;
-    this.mTaxr_new = 80;
-    /** ガス料金透明化対応フラグ */
-    this.mVisibleGas = 1;
-    /** ガス料金透明化設備料金対応フラグ */
-    this.mVisibleFacility = 0;
-    /** リース計上機能有無 */
-    this.mLesUmu = 1;
-    /** 売上用端数処理:加算 */
-    this.mFracAddKin = 0;
-    /** 売上用端数処理:乗算 */
-    this.mFracMulKin = 1000;
-    /** 消費税:端数処理(加算) */
-    this.mFracAddTax = 0;
-    /** 消費税:端数処理(乗算) */
-    this.mFracMulTax = 1000;
-    //
-    this.mFracAddMult = null;
-    /** システム年 */
-    this.mSysYear = 2019;
-    /** 処理日付(月) */
-    this.mMonth = 5;
-    /** 処理日付(日) */
-    this.mDate = 1;
-    /** 差益還元:有無 */
-    this.mIfReduce = false;
-    /** 商品消費税の使用依頼 */
-    this.mShoTaxcom = 0;
-    /** 入力有無:保安点検 */
-    this.mCheckHoan = true;
-    /** 入力有無:入金 */
-    this.mIfMoney = true;
-    /** 簡ガス日常点検有無 */
-    this.mTenkenKgas = 0;
-    /** 灯油検針フラグ */
-    this.m_isToyukeninFlg = false;
-    /** 使用率チェック:倍率 */
-    this.mSrChkr = [50, 250, 50, 200, 60, 180];
-    /** 使用率チェック:使用率 */
-    this.mSrChkm = [20, 60];
-    /** 値引きシステムフラグ */
-    this.mKnebFlg = 0;
-    /** 伝票出力フラグ:入金・調整 */
-    this.mIfAdjust = true;
-    /** 伝票出力フラグ:警報機リース */
-    this.mIfAlarm = true;
-    /** 伝票出力フラグ:分割金 */
-    this.mIfDiv = true;
-    /** 伝票出力フラグ:灯油 */
-    this.mIfLampoil = true;
-    /** 伝票出力フラグ:その他売上 */
-    this.mIfProceeds = true;
-    /** 伝票出力フラグ:前月請求額 */
-    this.mIfDemand = true;
-
-  }
-}
-
-class KouserDat {
-  constructor() {
-    /** 中圧係数 */
-    this.m_nChuatu = 0;
-    /** 個別検針顧客 */
-    this.m_nKoubetsu = 0;
-    /** ハイブリッドカウンター有無 */
-    this.mHyc5 = 0;
-    /** 調整取引区分 */
-    this.m_sChocode = 0;
-    /** 入金取引区分 */
-    this.m_sNyucode = 0;
-  }
-}
-
-class GasfDat {
-  constructor(m_lstGstpDat) {
-    /** 計算方法 */
-    this.mSum = 1;
-    /** 料金表種別 */
-    this.mSyu = 0;
-    /** 端数処理1：加算 */
-    this.mFrac1Add = 0;
-    /** 端数処理2:加算 */
-    this.mFrac2Add = 0;
-    /** 端数処理1:乗算 */
-    this.mFrac1Mult = 1000;
-    /** 端数処理2:乗算 */
-    this.mFrac2Mult = 10000;
-    /** 増減率 */
-    this.mRiseFall = 0;
-    /** ガス料金ステップデータ */
-    this.m_lstGstpDat = m_lstGstpDat;
-    /** 消費税区分 */
-    this.mTaxDiv = 3;
-    /** 消費税端数処理：加算 */
-    this.mTaxAdd = 0;
-    /** 消費税端数処理：乗算 */
-    this.mTaxMult = 10000;
-    /** 調整単価 */
-    this.mChoTanka = 0;
-    /** ガス料金拡張データ */
-    var mGextDat = new GextDat();
-    this.mGextDat = mGextDat;
-  }
-}
-
-class GstpDat {
-  constructor(mUplimit, mAdd, mBase) {
-    /** 上限値 */
-    this.mUplimit = mUplimit;
-    /** 加算値 */
-    this.mAdd = mAdd;
-    /** 基準料金 */
-    this.mBase = mBase;
-  }
-}
-
-class KnebDat {
-  constructor() {
-    /** コード */
-    this.m_nCode;
-    /** 有無 */
-    this.m_nUmu;
-    /** 結果 */
-    this.m_nRes;
-    /** 金額 */
-    this.m_nKin;
-    /** 消費税 */
-    this.m_nTax;
-  }
-}
-
-class HmefDat {
-  constructor() {
-    /** 使用有無 */
-    this.mUsef;
-    /** 明細種別 0:締後、1:締前、9:ﾊﾝﾃﾞｨ、2：残高明細 */
-    this.mHmeKind;
-    /** リース明細かどうか */
-    this.mLeasKind;
-    /** 金額 */
-    this.mKin;
-    /** 消費税額 */
-    this.mTax;
-  }
-}
-
-class BusfDat {
-  constructor() {}
-}
-
-class KotfDat {
-  constructor() {
-    /** 灯油検針済み区分(0:未, 1:済) */
-    this.m_bKen_sumi;
-    /** 灯油料金 */
-    this.m_nFee;
-    /** 灯油消費税額 */
-    this.m_nCon_tax;
-  }
-}
-
-class GextDat {
-  constructor() {
-    /** ガス基本料金 */
-    this.m_nBasekin = 0;
-    /** ガス設備料 */
-    this.m_nFacilitykin = 0;
-  }
-}
-
-
-class ShukeiKensinData{
-        // constructor(m_strKcode,m_strName,m_nSs,m_nSr,m_nKin,m_nTax,m_nKng,m_nToyuSs,m_nToyuSr,m_lToyuKin,m_lToyuTax,m_isToyu,m_isKensin,m_lNyu,m_lCho){
-        //     // this.m_strKcode = m_strKcode;
-        //     // this.m_strName  = m_strName;
-        //     // this.m_nSs = m_nSs;
-        //     // this.m_nSr = m_nSr;
-        //     // this.m_nKin = m_nKin;
-        //     // this.m_nTax = m_nTax;
-        //     // this.m_nKng = m_nKng;
-        //     // this.m_nToyuSs = m_nToyuSs;
-        //     // this.m_nToyuSr = m_nToyuSr;
-        //     // this.m_lToyuKin = m_lToyuKin;
-        //     // this.m_lToyuTax = m_lToyuTax;
-            
-        // }
-        constructor(){}
-
-        get get_m_strKcode(){
-            return this.m_strKcode;
-        }
-
-        set set_m_strKcode(m_strKcode){
-            this.m_strKcode = m_strKcode;
-        }
-
-        get get_m_strName(){
-            return this.m_strName;
-        }
-
-        get get_m_nSs(){
-            return this.m_nSs;
-        }
-
-        get get_m_nSs(){
-            return this.m_nSs;
-        }
-
-        get get_m_nSs(){
-            return this.m_nSs;
-        }
-
-        get get_m_nSs(){
-            return this.m_nSs;
-        }
-
-        get get_m_nSs(){
-            return this.m_nSs;
-        }
-
-        get get_m_strKcode(){
-            return this.m_strKcode;
-        }
-
-        get get_m_strName(){
-            return this.m_strName;
-        }
-
-        get get_m_nSs(){
-            return this.m_nSs;
-        }
-
-        get get_m_nSs(){
-            return this.m_nSs;
-        }
-
-        get get_m_nSs(){
-            return this.m_nSs;
-        }
-
-        get get_m_nSs(){
-            return this.m_nSs;
-        }
-
-        get get_m_nSs(){
-            return this.m_nSs;
-        }
-
-        get get_m_nSs(){
-            return this.m_nSs;
-        }
-}
 /*****  VIEW VARIABLE  *****/
 /* dialog */
 const overlay = document.getElementsByClassName("overlay")[0];
@@ -441,12 +17,38 @@ const modal = document.getElementById("myModal");
 
 /*****  DATA VARIABLE  *****/
 /* user data */
-var userData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
+var systemDat = JSON.parse(sessionStorage.getItem(StringCS.SYSTEMDAT));
+/* setting data */
+var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
 /* shuukei data */
-var shuukeiData = Dat.shukeiItem;
+var shuukeiData = new Dat.ShukeiItem();
 /* shuukei data all*/
-var shukeiItemAll;
+var shukeiItemAll = new Dat.ShukeiItem();
 
+let mItemList = new Map();
+let m_mapKensinData = new Map();
+let m_mapUriageData = new Map();
+var sysfDat = new Dat.SysfDat().setValue(25, 35, 29, 1970, 1, 1, 80, 50, 80, 1, 0, 1, 0, 1000, 0, 1000, 2019, 5, 1, false, 0, true, true, 0,
+                                        false, [50, 250, 50, 200, 60, 180], [20, 60], 0, true, true, true, true, true, true);
+var sy2fDat = new Dat.Sy2fDat().setValue(0, 0, 0, 0, 0, [1, 1, -1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 5, 0, 0]);
+var kouserDat = new Dat.KouserDat();
+var kokfDat1 = new Dat.KokfDat().setValue("野村　洋子", 5, 1, 440, 1, true, 9990, 9550, 2019, 2, 7, 570, 1830, 0, 319, 22920, 0,
+                                            0, 0, 0, 0, 0, new Dat.KtpcDat().setValue(18000000, 211200000, 0), 1, 0, 4, 0, 0, 0,
+                                            0, 0, 0, null, 0, 0, 14884, 0, 0, 100, 8, 0, 0, 0, 20000, 1600, 0, 0, 0, 0, 0, 1000,
+                                            true, 0, "○児市△貫町３－３", "0010000375",  "", "野村　洋子", "様", new Dat.ZyksDat().setValue(261, 2018, 5, 8),
+                                            "---------��", 44, true);
+var kokfDat2 = kokfDat1;
+kokfDat2.mCusCode = "0010000370";
+kokfDat2.mName = "xyz";
+var kokfDat3 = kokfDat1;
+kokfDat3.mKDate = 7;
+var kokfDat4 = kokfDat1;
+kokfDat4.mKDate = 7;
+kokfDat4.mCusCode = "0010000370";
+kokfDat4.mName = "xyz";
+
+
+/*****  PRINT VARIABLE  *****/
 /* image string */
 var imgString = "";
 /* view item list */
@@ -455,54 +57,13 @@ var viewItemtList;
 var defaultPrintSize = window.getComputedStyle(document.getElementsByClassName("text")[0]).fontSize;
 /* default title size of printting form */
 var defaultPaddingPrintForm = window.getComputedStyle(document.getElementById("printContentDetail"), null).getPropertyValue('padding');
-var dateStartArea = document.getElementById("date-start-area");
-        var dateEndArea = document.getElementById("date-end-area");
-
-let mItemList = new Map();
-let m_mapKensinData = new Map();
-let m_mapUriageData = new Map();
-var sysfDat = new SysfDat();
-var sy2fDat = new Sy2fDat();
-var kouserDat = new KouserDat();
-var kokfDat1 = new KokfDat();
-var kokfDat2 = new KokfDat();
-kokfDat2.mCusCode = "0010000370";
-kokfDat2.mName = "xyz";
-var kokfDat3 = new KokfDat(); 
-kokfDat3.mKDate = 7;
-var kokfDat4 = new KokfDat();
-kokfDat4.mKDate = 7;
-kokfDat4.mCusCode = "0010000370";
-kokfDat4.mName = "xyz";
-
-/* shuukei data */
-var shukeiItem = {
-    mKensu: 0,  /** 件数 */
-    mGsiyou: 0,  /** ガス使用量 */
-    mGryokin: 0,  /** ガス料金 */
-    mShohi: 0,  /** 消費税 */
-    mKang: 0,  /** 還元額 */
-    mTotal: 0,  /** 合計 */
-    mNyukin: 0,  /** 入金額 */
-    mChosei: 0,  /** 調整額 */
-    mNyucnt: 0,  /** 入金件数 */
-    mUricnt: 0,  /** 売上件数 */
-    mUrisur: 0,  /** 売上数量 */
-    mUrikin: 0,  /** 売上金額 */
-    mUritax: 0,  /** 売上消費税金額 */
-    mToyuCnt: 0,  /** 灯油検針件数 */
-    mToyuUse: 0,  /** 灯油使用量 */
-    mToyuKin: 0,  /** 灯油金額 */
-    mToyuTax: 0,  /** 灯油消費税 */
-    mToyuTotal: 0  /** 灯油金額合計 */
-};
 
 
 /** 
     * SETUP LAYOUT EDIT VIEW
 */
 function setupLayoutEditView() {
-    if (userData.systemDat.FBUNRUI_3 == 0 && userData.systemDat.FHMCODE_3 == 0 && userData.systemDat.FHBCODE_3 == 0) {
+    if (systemDat.systemDat.FBUNRUI_3 == 0 && systemDat.systemDat.FHMCODE_3 == 0 && systemDat.systemDat.FHBCODE_3 == 0) {
         document.getElementById("ShukeiToyuCnt").style.display = "none";
         document.getElementById("ToyuTable").style.display = "none";
         document.getElementById("ToyuTablePrint").style.display = "none";
@@ -514,21 +75,21 @@ function setupLayoutEditView() {
     * SETUP DATEPICKER
 */
 function setupDatePicker() {
-    $(document).ready(function() {
-        $("#date-start").datepicker({ 
+    $(document).ready(function () {
+        $("#date-start").datepicker({
             format: 'yyyy/mm/dd'
         });
         $("#date-start").on("change", function () {
             var fromdate = $(this).val();
         });
-    
-        $("#date-end").datepicker({ 
+
+        $("#date-end").datepicker({
             format: 'yyyy/mm/dd'
         });
         $("#date-end").on("change", function () {
             var fromdate = $(this).val();
         });
-    }); 
+    });
 }
 
 
@@ -536,8 +97,8 @@ function setupDatePicker() {
     * SET DEFAULT VALUE SELECT DATE
 */
 function setDefaultValueSelectDate() {
-    if (userData != null) {
-        var startDay = String(userData.systemDat.HANSYSYM);
+    if (systemDat != null) {
+        var startDay = String(systemDat.systemDat.HANSYSYM);
         startDay = startDay.substring(0, 10);
         startDay = startDay.replaceAll("-", "/");
         document.getElementById("date-start").value = startDay;
@@ -588,16 +149,15 @@ function getShuukeiData() {
     var urlString;
     if (selectDate.value == "1") {
         let date = document.getElementById("date-end").value;
-       // urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
-         urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        // urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
     } else {
         let dateStart = document.getElementById("date-start").value;
         let dateEnd = document.getElementById("date-end").value;
         //urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
-         urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
     }
-    shuukeiData = Dat.shukeiItem;
-   // console.log(shuukeiData.mKensu + " abc");
+    shuukeiData = new Dat.ShukeiItem();
     Common.setupModal("load", null, Mess.I00001, null);
     $.ajax({
         url: urlString,
@@ -609,17 +169,18 @@ function getShuukeiData() {
             viewItemtList = setViewItemtList("edt");
 
             if (shukeiData != null) {
-		        if (shukeiData.m_lstShukeiDat != null) {
-			        for (var i = 0; i < shukeiData.m_lstShukeiDat.length; i++) {
+                if (shukeiData.m_lstShukeiDat != null) {
+                    for (var i = 0; i < shukeiData.m_lstShukeiDat.length; i++) {
+                        var shukeiItem = new Dat.ShukeiItem();
                         shukeiItem.mGsiyou = shukeiData.m_lstShukeiDat[i].h_siyouryo;
                         shukeiItem.mGryokin = shukeiData.m_lstShukeiDat[i].h_kin;
                         shukeiItem.mKang = shukeiData.m_lstShukeiDat[i].u_kin + shukeiData.m_lstShukeiDat[i].u_tax;
                         shukeiItem.mShohi = shukeiData.m_lstShukeiDat[i].h_utax;
                         shukeiItem.mTotal = shukeiItem.mKang + shukeiItem.mTotal;
-                        addShukeiData(shukeiItem ,sysfDat , sy2fDat, kouserDat);
-			        }
-		        }       
-	        }
+                        addShukeiData(shukeiItem, sysfDat, sy2fDat, kouserDat);
+                    }
+                }
+            }
 
             setShuukeiData();
             modal.style.display = "none";
@@ -731,7 +292,7 @@ function backToEditView() {
     document.getElementById('shuukeiForm').style.display = "none";
     document.getElementById('nippouArea').style.display = "none";
     document.getElementById('kensinNippouForm').style.display = "none";
-    document.getElementById('shuukeiNippouForm').style.display = "none";
+    document.getElementById('shuukinNippouForm').style.display = "none";
 }
 
 
@@ -784,7 +345,7 @@ function getBase64(file) {
    * @param paddingForm     [STRING]
 */
 function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineHeightSingleLine, sizeItem, lineheightItem, showEndPage, paddingForm) {
-    if (Common.checkDevice() < 2) {
+    if (true) { //Common.checkDevice() < 2
         document.getElementById('form').style.width = widthScreen;
         const form = document.getElementsByClassName("wrap-mainform");
         form[0].style.width = widthForm;
@@ -812,7 +373,7 @@ function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineH
 
     var endspace = document.getElementsByClassName("end-space");
     for (let i = 0; i < endspace.length; i++) {
-        
+
         if (showEndPage == true) {
             endspace[i].style.display = "block";
         } else {
@@ -857,7 +418,7 @@ function onclickAction() {
     document.getElementById("nippouButton").onclick = showNippouDialog;
     document.getElementById("closeNippouButton").onclick = closeNippouDialog;
     document.getElementById("kenshinNippouButton").onclick = createImageKenshinNippouForm;
-    document.getElementById("shuukeiNippouButton").onclick = createImageShuukeiNippouForm;
+    document.getElementById("shuukinNippouButton").onclick = createImageShuukinNippouForm;
 }
 
 
@@ -865,18 +426,13 @@ function onclickAction() {
     * CREATE IMAGE FILE OF SHUUKEI FORM
 */
 function createImageShuukeiForm() {
-    // Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
-    // return;
-    // if (Common.checkPrintable() == false) {
-    //     return;
-    // }
     Common.setupModal("load", null, Mess.I00001, null);
     Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
     document.getElementById('shuukeiForm').style.display = "block";
     setDataPrintForm();
-    setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
+    setupPrintForm("100vh", "670px", "55px", "31px", "37px", "31px", "37px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
@@ -902,11 +458,6 @@ function createImageShuukeiForm() {
 */
 function createImageKenshinNippouForm() {
     closeNippouDialog();
-    Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
-    return;
-    if (Common.checkPrintable() == false) {
-        return;
-    }
     setTitlePrintForm(0);
 
     Common.setupModal("load", null, Mess.I00001, null);
@@ -915,9 +466,10 @@ function createImageKenshinNippouForm() {
     document.getElementById('printView').style.display = "block";
     document.getElementById('nippouArea').style.display = "block";
     document.getElementById('kensinNippouForm').style.display = "block";
-    document.getElementById('shuukeiNippouForm').style.display = "none";
-    setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", true, "20px");
-    // setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
+    document.getElementById('shuukinNippouForm').style.display = "none";
+    createPrintDataKenshinNippou(m_mapKensinData, sysfDat.m_isToyukeninFlg);
+    // setupPrintForm("100vh", "670px", "55px", "27px", "33px", "27px", "33px", true, "20px");
+    setupPrintForm("100vh", "670px", "55px", "31px", "37px", "31px", "37px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
@@ -941,13 +493,13 @@ function createImageKenshinNippouForm() {
 /** 
     * CREATE IMAGE FILE OF SHUUKEI NIPPOU FORM
 */
-function createImageShuukeiNippouForm() {
+function createImageShuukinNippouForm() {
     closeNippouDialog();
-    Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
-    return;
-    if (Common.checkPrintable() == false) {
-        return;
-    }
+    // Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
+    // return;
+    // if (Common.checkPrintable() == false) {
+    //     return;
+    // }
     setTitlePrintForm(1);
 
     Common.setupModal("load", null, Mess.I00001, null);
@@ -955,10 +507,11 @@ function createImageShuukeiNippouForm() {
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
     document.getElementById('nippouArea').style.display = "block";
-    document.getElementById('shuukeiNippouForm').style.display = "block";
+    document.getElementById('shuukinNippouForm').style.display = "block";
     document.getElementById('kensinNippouForm').style.display = "none";
-    // setupPrintForm("100vh", "650px", "55px", "31px", "37px", "31px", "37px", true, "20px");
-    setupPrintForm("100vh", "650px", "55px", "27px", "33px", "27px", "33px", true, "20px");
+    createPrintDataShuukinNippou(m_mapKensinData);
+    setupPrintForm("100vh", "670px", "55px", "31px", "37px", "31px", "37px", true, "20px");
+    // setupPrintForm("100vh", "670px", "55px", "27px", "33px", "27px", "33px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
@@ -980,204 +533,677 @@ function createImageShuukeiNippouForm() {
 
 
 
-   /**
-     * 集計データ一覧の設定.
-     *
-     * @throws MException   エラーがあった場合に発生.
-     */
+/**
+  * 集計データ一覧の設定.
+  *
+  * @throws MException   エラーがあった場合に発生.
+  */
 function setShukeiDateList() {
-        var shukeiItem = null;
-        // var nSearchNo;
-        // var nIdx;
-        var kokfDat;
-        // var idxfDat;
-        mItemList = new Map();
-        m_mapKensinData = new Map();
-        m_mapUriageData = new Map();
+    var shukeiItem = null;
+    // var nSearchNo;
+    // var nIdx;
+    var kokfDat;
+    // var idxfDat;
+    mItemList = new Map();
+    m_mapKensinData = new Map();
+    m_mapUriageData = new Map();
 
-        // var sysfDat = userData.sysfDat;
-        // var sy2fDat = userData.sy2fDat;
-        // var kouserDat = userData.kouserDat;
-        // var cuslist = userData.cuslist;
+    // var sysfDat = userData.sysfDat;
+    // var sy2fDat = userData.sy2fDat;
+    // var kouserDat = userData.kouserDat;
+    // var cuslist = userData.cuslist;
 
-        var sysfDat = new SysfDat();
-        var sy2fDat = new Sy2fDat();
-        var kouserDat = new KouserDat();
-        var cuslist = [kokfDat1 , kokfDat2 , kokfDat3 , kokfDat4];
+    var cuslist = [kokfDat1, kokfDat2, kokfDat3, kokfDat4];
 
-   
-        for (var i = 0; i < cuslist.length; i++) {
-            // 顧客データ取得
-            // nSearchNo = sysfDat.mSearchNo;
-            // idxfDat = this.mUserData.getIdxfDat().get(nSearchNo);
-            // nIdx = Objects.requireNonNull(idxfDat).mRecId[i];
-                kokfDat = cuslist[i];
-            
-            var kotfDat = null;
-            if(sysfDat.m_isToyukeninFlg){
-                kotfDat = kokfDat.mKotfDat;
-            }
-            if (kokfDat.mKenSumi || kokfDat.mSyuSumi || (kotfDat != null && kotfDat.m_bKen_sumi == 1)) {
-                // date kensin
-                var strKey = kokfDat.mKMonth + "/" + kokfDat.mKDate;
-                var lstKensinData;
-                if(m_mapKensinData.has(strKey)){
-                    lstKensinData = m_mapKensinData.get(strKey);
-                    if(lstKensinData == null){
-                        lstKensinData = [];
-                    }
-                }
-                else {
+
+    for (var i = 0; i < cuslist.length; i++) {
+        // 顧客データ取得
+        // nSearchNo = sysfDat.mSearchNo;
+        // idxfDat = this.mUserData.getIdxfDat().get(nSearchNo);
+        // nIdx = Objects.requireNonNull(idxfDat).mRecId[i];
+        kokfDat = cuslist[i];
+
+        var kotfDat = null;
+        if (sysfDat.m_isToyukeninFlg) {
+            kotfDat = kokfDat.mKotfDat;
+        }
+        if (kokfDat.mKenSumi || kokfDat.mSyuSumi || (kotfDat != null && kotfDat.m_bKen_sumi == 1)) {
+            // date kensin
+            var strKey = kokfDat.mKMonth + "/" + kokfDat.mKDate;
+            var lstKensinData;
+            if (m_mapKensinData.has(strKey)) {
+                lstKensinData = m_mapKensinData.get(strKey);
+                if (lstKensinData == null) {
                     lstKensinData = [];
                 }
-                let kensinData = Dat.kensinData;          
-               
-               
-                kensinData.m_strKcode = kokfDat.mCusCode;
-                kensinData.m_strName = kokfDat.mName;
-                kensinData.m_isKensin = kokfDat.mKenSumi;
-                kensinData.m_nSs  = kokfDat.mNowMeter;
-                kensinData.m_nSr  = kokfDat.mGasUse;
-                kensinData.m_nKin = kokfDat.mFee;
-                kensinData.m_nTax = kokfDat.mConTax;
-                kensinData.m_nKng = kokfDat.mReduce + kokfDat.mReduceTax;
-                kensinData.m_lNyu = kokfDat.mReceipt;
-                kensinData.m_lCho = kokfDat.mAdjust;
-                if(kotfDat != null && kotfDat.m_bKen_sumi == 1){
-                    kensinData.m_isToyu = true;
-                    kensinData.m_nToyuSs =  kotfDat.m_nNow_meter;
-                    kensinData.m_nToyuSr =  kotfDat.m_nLoil_use;
-                    kensinData.m_lToyuKin = kotfDat.m_nFee;
-                    kensinData.m_lToyuTax = kotfDat.m_nCon_tax;
-                }
-                if (mItemList.has(strKey))
-                    shukeiItem = mItemList.get(strKey);
-                else {
-                    shukeiItem = Dat.shukeiItem;
-                    mItemList.set(strKey, shukeiItem);
-                }
-                addShukeiData(shukeiItem, kokfDat, sysfDat, sy2fDat, kouserDat);
-                lstKensinData.push(kensinData);
-                m_mapKensinData.set(strKey, lstKensinData);
             }
-            // if(kokfDat.mUriSumi){
-            //     HmefDat hmefDat = InputDat.getHmefDat(this, kokfDat.mHmew0Srec - 1,  2);
-            //     if(hmefDat != null) {
-                  
-            //         String strKey = hmefDat.mDenm + "/" + hmefDat.mDend;
-            //         addShukeiUriageData(strKey, kokfDat, hmefDat);
-            //         if(mItemList.containsKey(strKey)){
-            //             shukeiItem = mItemList.get(strKey);
-            //         }
-            //         else {
-            //             shukeiItem = new ShukeiItem();
-            //             mItemList.put(strKey, shukeiItem);
-            //         }
-            //         addUriageShukeiData(shukeiItem, hmefDat);
-            //         while (hmefDat.mNxtHrec != 0) {
-            //             hmefDat = InputDat.getHmefDat(this, hmefDat.mNxtHrec - 1, (byte) 2);
-            //             if(hmefDat == null){
-            //                 break;
-            //             }
-            //             strKey = hmefDat.mDenm + "/" + hmefDat.mDend;
-            //             addShukeiUriageData(strKey, kokfDat, hmefDat);
-            //             if(mItemList.containsKey(strKey)){
-            //                 shukeiItem = mItemList.get(strKey);
-            //             }
-            //             else {
-            //                 shukeiItem = new ShukeiItem();
-            //                 mItemList.put(strKey, shukeiItem);
-            //             }
-            //             addUriageShukeiData(shukeiItem, hmefDat);
-            //         }
-            //     }
-            // }
-                 shuukeiData = shukeiItem;                 
+            else {
+                lstKensinData = [];
             }
-        
-    }
+            let kensinData = new Dat.ShukeiKensinData();
 
 
-    /**
-     * 集計データの計上.
-     *
-     * @param shukeiItem    [in] {@link ShukeiItem} 集計データ
-     * @param kokfDat       [in] {@link KokfDat}    顧客データ
-     * @param sysfDat       [in] {@link SysfDat}    システムデータ
-     * @param sy2fDat       [in] {@link Sy2fDat}    システム2データ
-     * @param kouserDat     [in] {@link KouserDat}  顧客拡張データ
-     */
-    function addShukeiData(shukeiItem,   sysfDat,  sy2fDat,  kouserDat) {
-   
-            shuukeiData.mKensu+= 1 ;
-            shuukeiData.mGsiyou += GasRaterCom.getGasSuryo(shukeiItem.mGsiyou, sy2fDat, kouserDat);
-            shuukeiData.mGryokin += shuukeiData.mGryokin;
-            shuukeiData.mKang += shukeiItem.mKang;
-            shuukeiData.mShohi += shukeiItem.mShohi;          
-            shukeiItem.mTotal += shukeiItem.mTotal;
-        
-        // if(sysfDat.m_isToyukeninFlg){
-        //     var kotfDat = kokfDat.mKotfDat;
-        //     if(kotfDat != null && kotfDat.m_bKen_sumi == 1){
-        //         shukeiItem.mToyuCnt++;
-        //         shukeiItem.mToyuUse += kotfDat.m_nLoil_use;
-        //         shukeiItem.mToyuKin += kotfDat.m_nFee;
-        //         shukeiItem.mToyuTax += kotfDat.m_nCon_tax;
-        //         shukeiItem.mToyuTotal += kotfDat.m_nFee + kotfDat.m_nCon_tax;
+            kensinData.m_strKcode = kokfDat.mCusCode;
+            kensinData.m_strName = kokfDat.mName;
+            kensinData.m_isKensin = kokfDat.mKenSumi;
+            kensinData.m_nSs = kokfDat.mNowMeter;
+            kensinData.m_nSr = kokfDat.mGasUse;
+            kensinData.m_nKin = kokfDat.mFee;
+            kensinData.m_nTax = kokfDat.mConTax;
+            kensinData.m_nKng = kokfDat.mReduce + kokfDat.mReduceTax;
+            kensinData.m_lNyu = kokfDat.mReceipt;
+            kensinData.m_lCho = kokfDat.mAdjust;
+            if (kotfDat != null && kotfDat.m_bKen_sumi == 1) {
+                kensinData.m_isToyu = true;
+                kensinData.m_nToyuSs = kotfDat.m_nNow_meter;
+                kensinData.m_nToyuSr = kotfDat.m_nLoil_use;
+                kensinData.m_lToyuKin = kotfDat.m_nFee;
+                kensinData.m_lToyuTax = kotfDat.m_nCon_tax;
+            }
+            if (mItemList.has(strKey))
+                shukeiItem = mItemList.get(strKey);
+            else {
+                shukeiItem = new Dat.ShukeiItem();
+                mItemList.set(strKey, shukeiItem);
+            }
+            addShukeiData(shukeiItem, kokfDat, sysfDat, sy2fDat, kouserDat);
+            lstKensinData.push(kensinData);
+            m_mapKensinData.set(strKey, lstKensinData);
+        }
+        // if(kokfDat.mUriSumi){
+        //     HmefDat hmefDat = InputDat.getHmefDat(this, kokfDat.mHmew0Srec - 1,  2);
+        //     if(hmefDat != null) {
+
+        //         String strKey = hmefDat.mDenm + "/" + hmefDat.mDend;
+        //         addShukeiUriageData(strKey, kokfDat, hmefDat);
+        //         if(mItemList.containsKey(strKey)){
+        //             shukeiItem = mItemList.get(strKey);
+        //         }
+        //         else {
+        //             shukeiItem = new ShukeiItem();
+        //             mItemList.put(strKey, shukeiItem);
+        //         }
+        //         addUriageShukeiData(shukeiItem, hmefDat);
+        //         while (hmefDat.mNxtHrec != 0) {
+        //             hmefDat = InputDat.getHmefDat(this, hmefDat.mNxtHrec - 1, (byte) 2);
+        //             if(hmefDat == null){
+        //                 break;
+        //             }
+        //             strKey = hmefDat.mDenm + "/" + hmefDat.mDend;
+        //             addShukeiUriageData(strKey, kokfDat, hmefDat);
+        //             if(mItemList.containsKey(strKey)){
+        //                 shukeiItem = mItemList.get(strKey);
+        //             }
+        //             else {
+        //                 shukeiItem = new ShukeiItem();
+        //                 mItemList.put(strKey, shukeiItem);
+        //             }
+        //             addUriageShukeiData(shukeiItem, hmefDat);
+        //         }
         //     }
         // }
-        // shukeiItem.mNyukin += kokfDat.mReceipt;
-        // shukeiItem.mChosei += kokfDat.mAdjust;
-        // if (kokfDat.mReceipt != 0) {
-        //     shukeiItem.mNyucnt++;
-        // }
+        shuukeiData = shukeiItem;
     }
 
-    /**
-     * 集計データの計上.
-     */
-    function  addAllShukeiData() {
+}
 
-        var keylist = mItemList.values();
-        for (let i = 0; i < mItemList.size; i++) {
-            shuukeiData = keylist.next().value;
-        }
 
-        if (mItemList.size != 0) {
-            for (var i = 0; i < mItemList.size; i++) {
-                if (keylist.next().value != null) {
-                 
-                    mSelectCal[nCnt++] = strKey;
-                  
-                    var shukeiItem = keylist.next().value;
-                    if(shukeiItem == null){
-                        continue;
-                    }
-                    shukeiItemAll.mKensu += shukeiItem.mKensu;
-                    shukeiItemAll.mGsiyou += shukeiItem.mGsiyou;
-                    shukeiItemAll.mGryokin += shukeiItem.mGryokin;
-                    shukeiItemAll.mKang += shukeiItem.mKang;
-                    shukeiItemAll.mShohi += shukeiItem.mShohi;
-                    shukeiItemAll.mTotal += shukeiItem.mTotal;
-                    shukeiItemAll.mNyukin += shukeiItem.mNyukin;
-                    shukeiItemAll.mChosei += shukeiItem.mChosei;
-                    shukeiItemAll.mNyucnt += shukeiItem.mNyucnt;
-                    shukeiItemAll.mUricnt += shukeiItem.mUricnt;
-                    shukeiItemAll.mUrisur += shukeiItem.mUrisur;
-                    shukeiItemAll.mUrikin += shukeiItem.mUrikin;
-                    shukeiItemAll.mUritax += shukeiItem.mUritax;
-                    shukeiItemAll.mToyuCnt += shukeiItem.mToyuCnt;
-                    shukeiItemAll.mToyuUse += shukeiItem.mToyuUse;
-                    shukeiItemAll.mToyuKin += shukeiItem.mToyuKin;
-                    shukeiItemAll.mToyuTax += shukeiItem.mToyuTax;
-                    shukeiItemAll.mToyuTotal += shukeiItem.mToyuTotal;
+/**
+ * 集計データの計上.
+ *
+ * @param shukeiItem    [in] {@link ShukeiItem} 集計データ
+ * @param kokfDat       [in] {@link KokfDat}    顧客データ
+ * @param sysfDat       [in] {@link SysfDat}    システムデータ
+ * @param sy2fDat       [in] {@link Sy2fDat}    システム2データ
+ * @param kouserDat     [in] {@link KouserDat}  顧客拡張データ
+ */
+function addShukeiData(shukeiItem, sysfDat, sy2fDat, kouserDat) {
+
+    shuukeiData.mKensu += 1;
+    shuukeiData.mGsiyou += GasRaterCom.getGasSuryo(shukeiItem.mGsiyou, sy2fDat, kouserDat);
+    shuukeiData.mGryokin += shuukeiData.mGryokin;
+    shuukeiData.mKang += shukeiItem.mKang;
+    shuukeiData.mShohi += shukeiItem.mShohi;
+    shukeiItem.mTotal += shukeiItem.mTotal;
+
+    // if(sysfDat.m_isToyukeninFlg){
+    //     var kotfDat = kokfDat.mKotfDat;
+    //     if(kotfDat != null && kotfDat.m_bKen_sumi == 1){
+    //         shukeiItem.mToyuCnt++;
+    //         shukeiItem.mToyuUse += kotfDat.m_nLoil_use;
+    //         shukeiItem.mToyuKin += kotfDat.m_nFee;
+    //         shukeiItem.mToyuTax += kotfDat.m_nCon_tax;
+    //         shukeiItem.mToyuTotal += kotfDat.m_nFee + kotfDat.m_nCon_tax;
+    //     }
+    // }
+    // shukeiItem.mNyukin += kokfDat.mReceipt;
+    // shukeiItem.mChosei += kokfDat.mAdjust;
+    // if (kokfDat.mReceipt != 0) {
+    //     shukeiItem.mNyucnt++;
+    // }
+}
+
+/**
+ * 集計データの計上.
+ */
+function addAllShukeiData() {
+
+    var keylist = mItemList.values();
+    for (let i = 0; i < mItemList.size; i++) {
+        shuukeiData = keylist.next().value;
+    }
+
+    if (mItemList.size != 0) {
+        for (var i = 0; i < mItemList.size; i++) {
+            if (keylist.next().value != null) {
+
+                mSelectCal[nCnt++] = strKey;
+
+                var shukeiItem = keylist.next().value;
+                if (shukeiItem == null) {
+                    continue;
                 }
+                shukeiItemAll.mKensu += shukeiItem.mKensu;
+                shukeiItemAll.mGsiyou += shukeiItem.mGsiyou;
+                shukeiItemAll.mGryokin += shukeiItem.mGryokin;
+                shukeiItemAll.mKang += shukeiItem.mKang;
+                shukeiItemAll.mShohi += shukeiItem.mShohi;
+                shukeiItemAll.mTotal += shukeiItem.mTotal;
+                shukeiItemAll.mNyukin += shukeiItem.mNyukin;
+                shukeiItemAll.mChosei += shukeiItem.mChosei;
+                shukeiItemAll.mNyucnt += shukeiItem.mNyucnt;
+                shukeiItemAll.mUricnt += shukeiItem.mUricnt;
+                shukeiItemAll.mUrisur += shukeiItem.mUrisur;
+                shukeiItemAll.mUrikin += shukeiItem.mUrikin;
+                shukeiItemAll.mUritax += shukeiItem.mUritax;
+                shukeiItemAll.mToyuCnt += shukeiItem.mToyuCnt;
+                shukeiItemAll.mToyuUse += shukeiItem.mToyuUse;
+                shukeiItemAll.mToyuKin += shukeiItem.mToyuKin;
+                shukeiItemAll.mToyuTax += shukeiItem.mToyuTax;
+                shukeiItemAll.mToyuTotal += shukeiItem.mToyuTotal;
             }
         }
     }
+}
 
 
+/**
+   * KENSIN NIPPOU PRINT INITIALIZATION
+   *
+   * @param mapKensinData     [MAP]
+   * @param isPrintToyu     [INT]
+ */
+function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
+    var time = moment().format('YYYY年 MM月 dd日 HH:mm:ss');
+    document.getElementById("insatsuBiNP").innerHTML = time;
 
+    var tantname = "";
+    for (var i = 0; i < dataSetting.m_lstTantName.length; i++) {
+        if (dataSetting.m_lstTantName[i].code == dataSetting.tancd) {
+            tantname = dataSetting.m_lstTantName[i].name;
+            break;
+        }
+    }
+    // 担当
+    document.getElementById("tantNameNP").innerHTML = tantname;
+
+    const keys = mapKensinData.keys();
+    var nCnt = 0;
+    var nToyuCnt = 0;
+    var footerKensinData = new Dat.ShukeiKensinData();
+    var listKensin = document.getElementById("listKensin");
+    for (var idx = 0; idx < mapKensinData.size; idx++) {
+        var keyVal = keys.next().value;
+        console.log(keyVal);
+
+        //Khởi tạo ngày
+        var listItemList = document.createElement("div");
+        listItemList.className = "list-item";
+        listItemList.id = "listItemKS" + idx;
+        listKensin.appendChild(listItemList);
+        var dateAreaKS = document.createElement("div");
+        dateAreaKS.className = "text-print ta-l wsp-text sg-line";
+        dateAreaKS.id = "dateAreaKS" + idx;
+        dateAreaKS.innerHTML = "検針日";
+
+        var dateVal = document.createElement("span");
+        dateVal.className = "text-print item mr-5";
+        dateVal.innerHTML = keyVal;
+
+        dateAreaKS.appendChild(dateVal);
+        listItemList.appendChild(dateAreaKS);
+
+
+        //list
+        for (var i = 0; i < mapKensinData.get(keyVal).length; i++) {
+            var kensinData = mapKensinData.get(keyVal)[i];
+
+            //show phần name
+            var listItemDetail = document.createElement("div");
+            listItemDetail.className = "list-item-detail";
+            listItemDetail.id = "listItemDetail_KS" + i;
+            dateAreaKS.appendChild(listItemDetail);
+            var shortLine = createShortLine(i);
+            listItemDetail.appendChild(shortLine);
+
+            var dayDetail = document.createElement("div");
+            dayDetail.className = "day-detail";
+            dayDetail.id = "dayDetail" + i;
+            shortLine.after(dayDetail);
+
+            var rowName = document.createElement("div");
+            rowName.className = "row";
+            dayDetail.appendChild(rowName);
+
+            var kcode = document.createElement("div");
+            kcode.className = "col-5 text-print ta-l wsp-text item codeVal-KS";
+            kcode.innerHTML = kensinData.m_strKcode.trim();
+
+            var name = document.createElement("div");
+            name.className = "col-7 text-print ta-l wsp-text item NameVal-KS";
+            name.innerHTML = kensinData.m_strName.trim();
+
+            rowName.appendChild(kcode);
+            kcode.after(name);
+
+            var row1 = document.createElement("div");
+            row1.className = "row";
+            if (kensinData.m_isKensin) {
+                nCnt++;
+
+                var shishinText = document.createElement("div");
+                shishinText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shishinText.innerHTML = "指針";
+
+                var shishinVal = document.createElement("div");
+                shishinVal.className = "col-3 sm-text ta-r wsp-text item";
+                shishinVal.innerHTML = Other.formatLocalJS(kensinData.m_nSs, 1, 1) + "m3";
+
+                var shiyouRyouText = document.createElement("div");
+                shiyouRyouText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shiyouRyouText.innerHTML = "使用量";
+
+                var shiyouRyouVal = document.createElement("div");
+                shiyouRyouVal.className = "col-3 sm-text ta-r wsp-text item";
+                shiyouRyouVal.innerHTML = Other.formatLocalJS(kensinData.m_nSr, 1, 1) + "m3";
+
+                var gasuRyoukinText = document.createElement("div");
+                gasuRyoukinText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                gasuRyoukinText.innerHTML = "ガス料金";
+
+                var gasuRyoukinVal = document.createElement("div");
+                gasuRyoukinVal.className = "col-3 sm-text ta-r wsp-text item";
+                gasuRyoukinVal.innerHTML = Other.formatDecial(kensinData.m_nKin) + "円";
+
+                var shouhizeiGakuText = document.createElement("div");
+                shouhizeiGakuText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shouhizeiGakuText.innerHTML = "消費税額";
+
+                var shouhizeiGakuVal = document.createElement("div");
+                shouhizeiGakuVal.className = "col-3 sm-text ta-r wsp-text item";
+                shouhizeiGakuVal.innerHTML = Other.formatDecial(kensinData.m_nTax) + "円";
+
+                row1.appendChild(shishinText);
+                shishinText.after(shishinVal);
+                shishinVal.after(shiyouRyouText);
+                shiyouRyouText.after(shiyouRyouVal);
+                shiyouRyouVal.after(gasuRyoukinText);
+                gasuRyoukinText.after(gasuRyoukinVal);
+                gasuRyoukinVal.after(shouhizeiGakuText);
+                shouhizeiGakuText.after(shouhizeiGakuVal);
+                rowName.after(row1);
+            }
+
+            var row2 = document.createElement("div");
+            row2.className = "row";
+            if (kensinData.m_nKng != 0) {
+                var kangenGakuText = document.createElement("div");
+                kangenGakuText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                kangenGakuText.innerHTML = "還元額";
+
+                var kangenGakuVal = document.createElement("div");
+                kangenGakuVal.className = "col-3 sm-text ta-r wsp-text item";
+                kangenGakuVal.innerHTML = Other.formatDecial(kensinData.m_nKng) + "円";
+                row2.appendChild(kangenGakuText);
+                kangenGakuText.after(kangenGakuVal);
+                row1.after(row2);
+            }
+
+            var row3 = document.createElement("div");
+            row3.className = "row";
+            if (isPrintToyu && kensinData.m_isToyu) {
+                nToyuCnt++;
+                var toyu = document.createElement("div");
+                toyu.className = "col-12 sm-text ta-l wsp-text item";
+                toyu.innerHTML = "灯油";
+                row3.appendChild(toyu);
+
+                var shishinText = document.createElement("div");
+                shishinText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shishinText.innerHTML = "指針";
+
+                var shishinVal = document.createElement("div");
+                shishinVal.className = "col-3 sm-text ta-r wsp-text item";
+                shishinVal.innerHTML = Other.formatDecial(kensinData.m_nToyuSs) + "m3";
+
+                var shiyouRyouText = document.createElement("div");
+                shiyouRyouText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shiyouRyouText.innerHTML = "使用量";
+
+                var shiyouRyouVal = document.createElement("div");
+                shiyouRyouVal.className = "col-3 sm-text ta-r wsp-text item";
+                shiyouRyouVal.innerHTML = Other.formatDecial(kensinData.m_nToyuSr) + "m3";
+
+                var gasuRyoukinText = document.createElement("div");
+                gasuRyoukinText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                gasuRyoukinText.innerHTML = "ガス料金";
+
+                var gasuRyoukinVal = document.createElement("div");
+                gasuRyoukinVal.className = "col-3 sm-text ta-r wsp-text item";
+                gasuRyoukinVal.innerHTML = Other.formatDecial(kensinData.m_lToyuKin) + "円";
+
+                var shouhizeiGakuText = document.createElement("div");
+                shouhizeiGakuText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shouhizeiGakuText.innerHTML = "消費税額";
+
+                var shouhizeiGakuVal = document.createElement("div");
+                shouhizeiGakuVal.className = "col-3 sm-text ta-r wsp-text item";
+                shouhizeiGakuVal.innerHTML = Other.formatDecial(kensinData.m_lToyuTax) + "円";
+
+                toyu.after(shishinText);
+                shishinText.after(shishinVal);
+                shishinVal.after(shiyouRyouText);
+                shiyouRyouText.after(shiyouRyouVal);
+                shiyouRyouVal.after(gasuRyoukinText);
+                gasuRyoukinText.after(gasuRyoukinVal);
+                gasuRyoukinVal.after(shouhizeiGakuText);
+                shouhizeiGakuText.after(shouhizeiGakuVal);
+                row2.after(row3);
+            }
+
+            // footerKensinData.push(kensinData);
+            footerKensinData.add(kensinData);
+        }
+
+
+        var longline = createStrongLine(i);
+        listItemList.appendChild(longline);
+    }
+
+    var totalDiv = document.createElement("div");
+    totalDiv.className = "kensin-total";
+    listKensin.after(totalDiv);
+
+    var rowTotal = document.createElement("div");
+    rowTotal.className = "row";
+    totalDiv.appendChild(rowTotal);
+
+    var kenshinKensuuText = document.createElement("div");
+    kenshinKensuuText.className = "col-6 text-print ta-l wsp-text item";
+    kenshinKensuuText.innerHTML = "検針件数";
+
+    var kenshinKensuuVal = document.createElement("div");
+    kenshinKensuuVal.className = "col-6 text-print ta-r wsp-text item";
+    kenshinKensuuVal.innerHTML = Other.formatDecial(nCnt) + "件";
+
+    var gasuShiyouRyouText = document.createElement("div");
+    gasuShiyouRyouText.className = "col-6 text-print ta-l wsp-text item";
+    gasuShiyouRyouText.innerHTML = "ガス使用量";
+
+    var gasuShiyouRyouVal = document.createElement("div");
+    gasuShiyouRyouVal.className = "col-6 text-print ta-r wsp-text item";
+    gasuShiyouRyouVal.innerHTML = Other.formatLocalJS(footerKensinData.m_nSr, 1, 1) + "m3";
+
+    var gasuRyoukinText = document.createElement("div");
+    gasuRyoukinText.className = "col-6 text-print ta-l wsp-text item";
+    gasuRyoukinText.innerHTML = "ガス料金";
+
+    var gasuRyoukinVal = document.createElement("div");
+    gasuRyoukinVal.className = "col-6 text-print ta-r wsp-text item";
+    gasuRyoukinVal.innerHTML = Other.formatDecial(footerKensinData.m_nKin) + "円";
+
+    var shouhizeiGakuText = document.createElement("div");
+    shouhizeiGakuText.className = "col-6 text-print ta-l wsp-text item";
+    shouhizeiGakuText.innerHTML = "消費税額";
+
+    var shouhizeiGakuVal = document.createElement("div");
+    shouhizeiGakuVal.className = "col-6 text-print ta-r wsp-text item";
+    shouhizeiGakuVal.innerHTML = Other.formatDecial(footerKensinData.m_nTax) + "円";
+
+    var kangenGakuText = document.createElement("div");
+    kangenGakuText.className = "col-6 text-print ta-l wsp-text item";
+    kangenGakuText.innerHTML = "消費税額";
+
+    var kangenGakuVal = document.createElement("div");
+    kangenGakuVal.className = "col-6 text-print ta-r wsp-text item";
+    kangenGakuVal.innerHTML = Other.formatDecial(footerKensinData.m_nKng) + "円";
+
+    rowTotal.appendChild(kenshinKensuuText);
+    kenshinKensuuText.after(kenshinKensuuVal);
+    kenshinKensuuVal.after(gasuShiyouRyouText);
+    gasuShiyouRyouText.after(gasuShiyouRyouVal);
+    gasuShiyouRyouVal.after(gasuRyoukinText);
+    gasuRyoukinText.after(gasuRyoukinVal);
+    gasuRyoukinVal.after(shouhizeiGakuText);
+    shouhizeiGakuText.after(shouhizeiGakuVal);
+    shouhizeiGakuVal.after(kangenGakuText);
+    kangenGakuText.after(kangenGakuVal);
+
+    if (isPrintToyu && nToyuCnt != 0) {
+        var touyuKensuuText = document.createElement("div");
+        touyuKensuuText.className = "col-6 text-print ta-l wsp-text item";
+        touyuKensuuText.innerHTML = "灯油件数";
+
+        var touyuKensuuVal = document.createElement("div");
+        touyuKensuuVal.className = "col-6 text-print ta-r wsp-text item";
+        touyuKensuuVal.innerHTML = Other.formatDecial(nToyuCnt) + "件";
+
+        var touyuShiyouRyouText = document.createElement("div");
+        touyuShiyouRyouText.className = "col-6 text-print ta-l wsp-text item";
+        touyuShiyouRyouText.innerHTML = "灯油使用量";
+
+        var touyuShiyouRyouVal = document.createElement("div");
+        touyuShiyouRyouVal.className = "col-6 text-print ta-r wsp-text item";
+        touyuShiyouRyouVal.innerHTML = Other.formatLocalJS(footerKensinData.m_nToyuSr, 1, 1) + "m3";
+
+        var touyuRyoukinText = document.createElement("div");
+        touyuRyoukinText.className = "col-6 text-print ta-l wsp-text item";
+        touyuRyoukinText.innerHTML = "灯油料金";
+
+        var touyuRyoukinVal = document.createElement("div");
+        touyuRyoukinVal.className = "col-6 text-print ta-r wsp-text item";
+        touyuRyoukinVal.innerHTML = Other.formatDecial(footerKensinData.m_lToyuKin) + "円";
+
+        var shouhizeiGakuText = document.createElement("div");
+        shouhizeiGakuText.className = "col-6 text-print ta-l wsp-text item";
+        shouhizeiGakuText.innerHTML = "消費税額";
+
+        var shouhizeiGakuVal = document.createElement("div");
+        shouhizeiGakuVal.className = "col-6 text-print ta-r wsp-text item";
+        shouhizeiGakuVal.innerHTML = Other.formatDecial(footerKensinData.m_lToyuTax) + "円";
+
+        kangenGakuVal.after(touyuKensuuText);
+        touyuKensuuText.after(touyuKensuuVal);
+        touyuKensuuVal.after(touyuShiyouRyouText);
+        touyuShiyouRyouText.after(touyuShiyouRyouVal);
+        touyuShiyouRyouVal.after(touyuRyoukinText);
+        touyuRyoukinText.after(touyuRyoukinVal);
+        touyuRyoukinVal.after(shouhizeiGakuText);
+        shouhizeiGakuText.after(shouhizeiGakuVal);
+    }
+}
+
+
+/**
+   * SHUUKIN NIPPOU PRINT INITIALIZATION
+   *
+   * @param mapKensinData     [MAP]
+ */
+ function createPrintDataShuukinNippou(mapKensinData) {
+    var time = moment().format('YYYY年 MM月 dd日 HH:mm:ss');
+    document.getElementById("insatsuBiNP").innerHTML = time;
+
+    var tantname = "";
+    for (var i = 0; i < dataSetting.m_lstTantName.length; i++) {
+        if (dataSetting.m_lstTantName[i].code == dataSetting.tancd) {
+            tantname = dataSetting.m_lstTantName[i].name;
+            break;
+        }
+    }
+    // 担当
+    document.getElementById("tantNameNP").innerHTML = tantname;
+
+    const keys = mapKensinData.keys();
+    var nCnt = 0;
+    var footerKensinData = new Dat.ShukeiKensinData();
+    var listShuukin = document.getElementById("listShuukin");
+    for (var idx = 0; idx < mapKensinData.size; idx++) {
+        var keyVal = keys.next().value;
+        console.log(keyVal);
+
+        //Khởi tạo ngày
+        var listItemList = document.createElement("div");
+        listItemList.className = "list-item";
+        listItemList.id = "listItemKS" + idx;
+        listShuukin.appendChild(listItemList);
+        var dateAreaKS = document.createElement("div");
+        dateAreaKS.className = "text-print ta-l wsp-text sg-line";
+        dateAreaKS.id = "dateAreaKS" + idx;
+        dateAreaKS.innerHTML = "集金日";
+
+        var dateVal = document.createElement("span");
+        dateVal.className = "text-print item mr-5";
+        dateVal.innerHTML = keyVal;
+
+        dateAreaKS.appendChild(dateVal);
+        listItemList.appendChild(dateAreaKS);
+
+
+        //list
+        for (var i = 0; i < mapKensinData.get(keyVal).length; i++) {
+            var kensinData = mapKensinData.get(keyVal)[i];
+            if (kensinData.m_lNyu == 0 && kensinData.m_lCho == 0) {
+                continue;
+            }
+
+            //show phần name
+            var listItemDetail = document.createElement("div");
+            listItemDetail.className = "list-item-detail";
+            listItemDetail.id = "listItemDetail_KS" + i;
+            dateAreaKS.appendChild(listItemDetail);
+            var shortLine = createShortLine(i);
+            listItemDetail.appendChild(shortLine);
+
+            var dayDetail = document.createElement("div");
+            dayDetail.className = "day-detail";
+            dayDetail.id = "dayDetail" + i;
+            shortLine.after(dayDetail);
+
+            var rowName = document.createElement("div");
+            rowName.className = "row";
+            dayDetail.appendChild(rowName);
+
+            var kcode = document.createElement("div");
+            kcode.className = "col-5 text-print ta-l wsp-text item codeVal-KS";
+            kcode.innerHTML = kensinData.m_strKcode.trim();
+
+            var name = document.createElement("div");
+            name.className = "col-7 text-print ta-l wsp-text item NameVal-KS";
+            name.innerHTML = kensinData.m_strName.trim();
+
+            rowName.appendChild(kcode);
+            kcode.after(name);
+
+            var row1 = document.createElement("div");
+            row1.className = "row";
+            if (kensinData.m_isKensin) {
+                nCnt++;
+
+                var shishinText = document.createElement("div");
+                shishinText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shishinText.innerHTML = "指針";
+
+                var shishinVal = document.createElement("div");
+                shishinVal.className = "col-3 sm-text ta-r wsp-text item";
+                shishinVal.innerHTML = Other.formatLocalJS(kensinData.m_nSs, 1, 1) + "m3";
+
+                var shiyouRyouText = document.createElement("div");
+                shiyouRyouText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shiyouRyouText.innerHTML = "使用量";
+
+                var shiyouRyouVal = document.createElement("div");
+                shiyouRyouVal.className = "col-3 sm-text ta-r wsp-text item";
+                shiyouRyouVal.innerHTML = Other.formatLocalJS(kensinData.m_nSr, 1, 1) + "m3";
+
+
+                row1.appendChild(shishinText);
+                shishinText.after(shishinVal);
+                shishinVal.after(shiyouRyouText);
+                shiyouRyouText.after(shiyouRyouVal);
+                rowName.after(row1);
+            }
+
+            footerKensinData.add(kensinData);
+        }
+
+
+        var longline = createStrongLine(i);
+        listItemList.appendChild(longline);
+    }
+
+    var totalDiv = document.createElement("div");
+    totalDiv.className = "shuukin-total";
+    listShuukin.after(totalDiv);
+
+    var rowTotal = document.createElement("div");
+    rowTotal.className = "row";
+    totalDiv.appendChild(rowTotal);
+
+    var kenshinKensuuText = document.createElement("div");
+    kenshinKensuuText.className = "col-6 text-print ta-l wsp-text item";
+    kenshinKensuuText.innerHTML = "集金件数";
+
+    var kenshinKensuuVal = document.createElement("div");
+    kenshinKensuuVal.className = "col-6 text-print ta-r wsp-text item";
+    kenshinKensuuVal.innerHTML = Other.formatDecial(nCnt) + "件";
+
+    var gasuShiyouRyouText = document.createElement("div");
+    gasuShiyouRyouText.className = "col-6 text-print ta-l wsp-text item";
+    gasuShiyouRyouText.innerHTML = "入金額";
+
+    var gasuShiyouRyouVal = document.createElement("div");
+    gasuShiyouRyouVal.className = "col-6 text-print ta-r wsp-text item";
+    gasuShiyouRyouVal.innerHTML = Other.formatDecial(footerKensinData.m_lNyu) + "円";
+
+    var gasuRyoukinText = document.createElement("div");
+    gasuRyoukinText.className = "col-6 text-print ta-l wsp-text item";
+    gasuRyoukinText.innerHTML = "調整額";
+
+    var gasuRyoukinVal = document.createElement("div");
+    gasuRyoukinVal.className = "col-6 text-print ta-r wsp-text item";
+    gasuRyoukinVal.innerHTML = Other.formatDecial(footerKensinData.m_lCho) + "円";
+
+    rowTotal.appendChild(kenshinKensuuText);
+    kenshinKensuuText.after(kenshinKensuuVal);
+    kenshinKensuuVal.after(gasuShiyouRyouText);
+    gasuShiyouRyouText.after(gasuShiyouRyouVal);
+    gasuShiyouRyouVal.after(gasuRyoukinText);
+    gasuRyoukinText.after(gasuRyoukinVal);
+}
+
+
+function createStrongLine() {
+    var line = document.createElement("div");
+    line.className = "line-form mg-0 mt-20 lh-4";
+    return line;
+}
+
+function createShortLine(countLine) {
+    var line = document.createElement("div");
+    line.className = "line-form mt-20 mb-0 lh-2";
+    line.id = "line" + countLine;
+    return line;
+}
 
 
 /** 
