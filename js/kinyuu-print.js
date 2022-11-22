@@ -20,37 +20,27 @@ var kensinDate = sessionStorage.getItem(StringCS.KENSINDATE);
 /** 日常点検項目 */
 var HOAN_ITEMS = ["①容器設置場所", "②容器設置状況", "③火気禁止２ｍ", "④調整器", "⑤配管状況", "⑥ガス栓", "⑦危険標識", "⑧マイコンメーター"];
 
-var mUserData;
 var ko2fDat;
 var printStatus = Dat.printStatus;
-var mUserData = Dat.mUserData;
+var mUserData = new Dat.UserData();
 var kokfDat = KensinKinyuu.kokfDat;
 var sysfDat = KensinKinyuu.sysfDat;
 var kouserDat = KensinKinyuu.kouserDat;
 var sy2fDat = KensinKinyuu.sy2fDat;
-var gstpDat1 = KensinKinyuu.gstpDat1;
-var gstpDat2 = KensinKinyuu.gstpDat2;
-var gstpDat3 = KensinKinyuu.gstpDat3;
-var gstpDat4 = KensinKinyuu.gstpDat4;
-var gstpDat5 = KensinKinyuu.gstpDat5;
 
-var gasfDatlist = [gstpDat1, gstpDat2, gstpDat3, gstpDat4, gstpDat5];
 var gasfDat = KensinKinyuu.gasfDat;
-var busfDat = KensinKinyuu.busfDat;
 mUserData.mKokfDat = kokfDat;
 mUserData.mSysfDat = sysfDat;
 mUserData.mGasfDat = gasfDat;
 mUserData.mKouserDat = kouserDat;
 mUserData.mSy2fDat = sy2fDat;
 mUserData.mNyukinMode = false;
-mUserData.busfDat = busfDat;
 mUserData.mKo2fDat = null;
 mUserData.m_lstLeasHmefDat = null;
-mUserData.mBusfdat = KensinKinyuu.busfDat; 
+mUserData.mBusfdat = KensinKinyuu.busfDat;
 mUserData.getHmef0 = KensinKinyuu.hmefList;
 mUserData.getHmef1 = KensinKinyuu.hmefList1;
 mUserData.getHmef2 = KensinKinyuu.hmefList2;
-mUserData.tntDat_name = KensinKinyuu.tntDat_name;
 mUserData.mHanfDat = KensinKinyuu.hanfDat;
 
 
@@ -59,9 +49,6 @@ var SysOption = Dat.SysOption;
 
 /* setting data */
 var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
-
-/* cus data */
-var cusData = getCusData();
 
 
 
@@ -126,10 +113,10 @@ function createPrintData(printStatus, isHybseikyu, isHikae) {
 		if (printStatus.m_lReceipt > 0) {
 			createRyoshu(Other.KingakuFormat(printStatus.m_lReceipt));
 		} else {
-			document.getElementById("ryoshuArea").style.display ="none";
+			document.getElementById("ryoshuArea").style.display = "none";
 		}
 	} else {
-		document.getElementById("ryoshuArea").style.display ="none";
+		document.getElementById("ryoshuArea").style.display = "none";
 	}
 
 	var wkSy2fDat = mUserData.mSy2fDat;
@@ -193,7 +180,14 @@ function createPrintData(printStatus, isHybseikyu, isHikae) {
 		// 	nTancd = mUserData.mKokfDat.mTanCd;
 		// }
 		// var wkTan = mUserData.getTntfDat(mUserData.mSysfDat.mTanKen);
-		createUserInfo(mUserData.mHanfDat, mUserData.tntDat_name);
+		var tantname = "";
+		for (var i = 0; i < dataSetting.m_lstTantName.length; i++) {
+			if (dataSetting.m_lstTantName[i].code == dataSetting.tancd) {
+				tantname = dataSetting.m_lstTantName[i].name;
+				break;
+			}
+		}
+		createUserInfo(mUserData.mHanfDat, tantname);
 	}
 }
 
@@ -347,7 +341,7 @@ function setKensinData(userData, isHybSeikyu, isPrintKensin, isPrintToyu) {
 	kensinData.m_isHybrid = kouserDat.mHyc5 == 1 && isHybSeikyu;
 	if (kensinData.m_isHybrid) {
 		// ハイブリッドカウンタの名称取得
-		kensinData.mCounterName = new Array(ko2fDat.kHyb_MAX);		//ko2fDat
+		kensinData.mCounterName = new Array(mUserData.ko2fDat.kHyb_MAX);		//ko2fDat
 		for (var i = 0; i < kensinData.mCounterName.length; i++) {
 			kensinData.mCounterName[i] = getCounterName(context, i);
 		}
@@ -362,8 +356,8 @@ function setKensinData(userData, isHybSeikyu, isPrintKensin, isPrintToyu) {
 		}
 
 		kensinData.m_nNorSr = GasRaterCom.getGasSuryo(parseInt(kensinData.mKo2fDat.mNorSr), sy2fDat, kouserDat);
-		kensinData.m_nHybGasUse = new Array[ko2fDat.kHyb_MAX];
-		for (var i = 0; i < ko2fDat.kHyb_MAX; i++) {
+		kensinData.m_nHybGasUse = new Array[kensinData.mKo2fDat.kHyb_MAX];
+		for (var i = 0; i < kensinData.mKo2fDat.kHyb_MAX; i++) {
 			kensinData.m_nHybGasUse[i] = GasRaterCom.getGasSuryo(parseInt(kensinData.mKo2fDat.mGasUse[i]), sy2fDat, kouserDat);
 		}
 	}
@@ -534,7 +528,7 @@ function getCounterName(nCounterNo) {
 function calcTotalKin() {
 	if (kensinData.m_isHybrid && kensinData.mKo2fDat.mGashyb > 0) {
 		kensinData.m_GasPay = parseInt(kensinData.mKo2fDat.mNorKin);
-		for (var i = 0; i < ko2fDat.kHyb_MAX; i++) {
+		for (var i = 0; i < kensinData.mKo2fDat.kHyb_MAX; i++) {
 			if (kensinData.mHybfDat.mCusef[i] == 1 && kensinData.mKo2fDat.mFee[i] != 0) {
 				kensinData.m_GasPay += kensinData.mKo2fDat.mFee[i];
 			}
@@ -735,7 +729,7 @@ function createKensinInfoBase(kensinData) {
 			var str;
 			var nGasTotal;
 			var hasData = false;
-			for (var j = 0; j < 4; j++) {		//Ko2fDat.kHyb_MAX = 4
+			for (var j = 0; j < ko2fDat.kHyb_MAX; j++) {
 				if (hybfDat.mCusef[j] == 1 && ko2fDat.mFee[j] != 0) {
 
 					//カウンタ名称
@@ -1190,7 +1184,7 @@ function createUTaxComment(wkKensinData) {
 */
 function Calc_UchiZei(wkKensinData, isHybSeikyu) {
 	//初期化
-	var wTaxdat = Dat.TaxDat;	// wTaxdat
+	var wTaxdat = new Dat.TaxDat(0, 0);	// wTaxdat
 	var flo;
 	var i;
 	var wk_taxr;
@@ -1216,7 +1210,7 @@ function Calc_UchiZei(wkKensinData, isHybSeikyu) {
 			if (wkKo2f.mChoKin != 0 || wkKo2f.mChoTax != 0) {//値引きが発生しないときには、通常料金とする。
 				//ハイブリッド料金
 				wk_kin = wkKo2f.mNorKin;
-				for (var j = 0; j < 4; j++) {	////Ko2fDat.kHyb_MAX = 4
+				for (var j = 0; j < ko2fDat.kHyb_MAX; j++) {
 					if (wkHybf.mCusef[j] == 1 && wkKo2f.mFee[j] != 0) {
 						wk_kin += wkKo2f.mFee[j];
 					}
@@ -1792,7 +1786,7 @@ function printGasryokin_Hybrid(kensinData, nType, previouRowId) {
 		var bSingleStep;
 		var str;
 
-		for (var j = 0; j < 4; j++) {	//Ko2fDat.kHyb_MAX = 4 Hieu
+		for (var j = 0; j < ko2fDat.kHyb_MAX; j++) {
 			var area = document.getElementById(previouRowId);
 			if (hybf.mCusef[j] == 1 && ko2fDat.mFee[j] != 0) {
 				nStep = 0;
@@ -2723,7 +2717,7 @@ function createHybTblPrint(kensinData) {
 	//----------------------------------------------------------------
 	// ハイブリッドのカウンター
 	const hybTable = document.getElementById("hybTable");
-	for (var nIdx = 0; nIdx < 4; nIdx++) {		//Ko2fDat.kHyb_MAX = 4 Hieu
+	for (var nIdx = 0; nIdx < ko2fDat.kHyb_MAX; nIdx++) {
 		if (hybfDat.mCusef[nIdx] == 1 && ko2fDat.mFee[nIdx] != 0) {
 			const row = document.createElement("tr");
 			row.id = "hybTableRow" + String(i);
@@ -3064,6 +3058,19 @@ function createUserInfo(hanfDat, strTantname) {
 }
 
 
+/** 
+	* GET PRINT STATUS
+*/
+function getPrintStatus(kokfDat, sysfDat, isPrintNyukin, lReceipt, lZandaka, isPrintKensin, isToyu) {
+	var isPrintHoan = sysfDat.mCheckHoan && (kokfDat.mGasKubun != 2 || kokfDat.mTenkenKgas == 1);
+	printStatus.m_isPrintHoan = isPrintHoan;
+	printStatus.m_isPrintNyukin = isPrintNyukin;
+	printStatus.m_lReceipt = lReceipt;
+	printStatus.m_lZandaka = lZandaka;
+	printStatus.m_isPrintKensin = isPrintKensin;
+	printStatus.m_isPrintToyu = isToyu;
+}
+
 
 /** 
 	* CONVERT IMAGE TO BASE64
@@ -3178,16 +3185,6 @@ function onclickAction() {
 	};
 }
 
-/** 
-	* ONLOAD ACTION
-*/
-function onLoadAction() {
-	onclickAction();
-}
-
-
-
-window.onload = onLoadAction;
 
 /** 
 	* CREATE IMAGE FILE OF SHUUKEI NIPPOU FORM
@@ -3212,19 +3209,18 @@ function createImageKensinForm() {
 				data => {
 					console.log(data)
 					imgString = data;
-					// alert(imgString);
 					window.scrollTo(0, 0);
 
 					const interval = setInterval(function () {
-						// setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
-						// setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
-						// setupTextSizeDetail("tb-item", tbItemTS, tbItemLH, "normal");
-						// setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
-						// setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
-						// setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
-						// setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
-						// setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
-						// setupTextSizeDetail("hoan-val", hoanValTS, hoanValLH, "normal");
+						setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
+						setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
+						setupTextSizeDetail("tb-item", tbItemTS, tbItemLH, "normal");
+						setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
+						setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
+						setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
+						setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
+						setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
+						setupTextSizeDetail("hoan-val", hoanValTS, hoanValLH, "normal");
 
 						Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
 						clearInterval(interval);
@@ -3235,12 +3231,14 @@ function createImageKensinForm() {
 		})
 }
 
-function getPrintStatus(kokfDat, sysfDat, isPrintNyukin, lReceipt, lZandaka, isPrintKensin, isToyu) {
-	var isPrintHoan = sysfDat.mCheckHoan && (kokfDat.mGasKubun != 2 || kokfDat.mTenkenKgas == 1);
-	printStatus.m_isPrintHoan = isPrintHoan;
-	printStatus.m_isPrintNyukin = isPrintNyukin;
-	printStatus.m_lReceipt = lReceipt;
-	printStatus.m_lZandaka = lZandaka;
-	printStatus.m_isPrintKensin = isPrintKensin;
-	printStatus.m_isPrintToyu = isToyu;
+
+/** 
+	* ONLOAD ACTION
+*/
+function onLoadAction() {
+	onclickAction();
 }
+
+
+
+window.onload = onLoadAction;
