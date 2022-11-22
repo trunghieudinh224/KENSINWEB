@@ -20,8 +20,8 @@ const dataMessage = document.getElementById("data-messages");
 const modal = document.getElementById("myModal");
 
 /*****  DATA VARIABLE  *****/
-/* data setting */
-var userData = JSON.parse(sessionStorage.getItem("UserData"));
+/* systemdat */
+var systemDat = JSON.parse(sessionStorage.getItem(StringCS.SYSTEMDAT));
 /* hanku list */
 var hankuList;
 /* shuku list */
@@ -37,9 +37,9 @@ var tantnameItem = ["kentan", "shutan", "uritan"];
    * INITIALIZE COMBOBOX
 */
 function initCombobox() {
-	hankuList = userData.lstHanku;
-	shukuList = userData.lstShuku;
-	tantnameList = userData.m_lstTantName;
+	hankuList = systemDat.lstHanku;
+	shukuList = systemDat.lstShuku;
+	tantnameList = systemDat.m_lstTantName;
 	setdataCbb("dropdown-hanku", hankuList, "hanku");
 	setdataCbb("dropdown-shuku", shukuList, "shuku");
 	setdataCbb("dropdown-tantname", tantnameList, null);
@@ -176,8 +176,8 @@ function checkPreviousData() {
 			newElement.appendChild(newKenshin);
 			newElement.appendChild(newShuukin);
 			table.appendChild(newElement);
-			var object = previousCuslist[i];
 			newElement.onclick = function () {
+				var object = previousCuslist[this.rowIndex];
 				object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 				const cusdat = Object.assign({}, object);
 				sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
@@ -215,8 +215,8 @@ function searchCus() {
 
 	Common.setupModal("load", null, Mess.I00001, null, null);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + searchKindVal +
 			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +	
 			"&match_kind=" + searchPartVal +	
@@ -262,8 +262,8 @@ function searchCus() {
 						newElement.appendChild(newKenshin);
 						newElement.appendChild(newShuukin);
 						table.appendChild(newElement);
-						var object = data.cuslist[i];
 						newElement.onclick = function () {
+							var object = data.cuslist[this.rowIndex];
 							object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 							if (object.kenstat == 1) {
 								Common.setupModal("success", null, Mess.E00005, StringCS.OK, StringCS.BACK);
@@ -333,8 +333,8 @@ function firstCustomerAction() {
 
 	Common.setupModal("load", null, Mess.I00001, null, null);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + searchKindVal +
 			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +
 			"&match_kind=" + searchPartVal +
