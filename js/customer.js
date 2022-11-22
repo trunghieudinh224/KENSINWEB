@@ -2,6 +2,7 @@ import * as Common from './Common/common_function.js'
 import * as StringCS from './Constant/strings.js'
 import * as ValueCS from './Constant/values.js'
 import * as Mess from './Constant/message.js'
+import * as Dat from './Dat/dat.js'
 
 /*****  VIEW VARIABLE  *****/
 /* modal */
@@ -12,6 +13,8 @@ const modal = document.getElementById("myModal");
 var cusDat = JSON.parse(sessionStorage.getItem(StringCS.CUSDAT));
 /* customer detail data */
 var cusDetailData;
+
+var mUserData;
 
 
 /** 
@@ -45,13 +48,15 @@ function getInformation() {
     if (cusDat != null) {
         Common.setupModal("load", null, Mess.I00001, null, null);
         $.ajax({
-            url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-		    // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+            // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+		    url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
             headers: {
                 'Content-Type': StringCS.PR_CONTENT_TYPE
             },
             success: function (result) {
                 cusDetailData = JSON.parse(result);
+                mUserData = new Dat.UserData().setValue(cusDetailData);
+                
                 if (cusDetailData != null) {
                     setInformation();
                 }
@@ -287,6 +292,9 @@ function kinyuuMove(mode) {
     sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
     Common.movePage('/meter_reading_fillout_page.html');
     sessionStorage.setItem(StringCS.KINYUUMODE, mode);
+
+    mUserData.mKensinDate = String(kensinDate);
+    sessionStorage.setItem(StringCS.USERDATA, JSON.stringify(mUserData));
 }
 
 
