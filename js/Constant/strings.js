@@ -33,6 +33,8 @@ export var PR_READSYUKEI = "readSyukei?";
 export var USERNAME = "Username";
 // password
 export var PASSWORD = "Password";
+// SYSTEMDAT
+export var SYSTEMDAT = "SystemDat";
 // userdata
 export var USERDATA = "UserData";
 // cuslist
