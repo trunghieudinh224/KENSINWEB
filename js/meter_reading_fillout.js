@@ -1,17 +1,9 @@
-"use strict"
 import * as Common from './Common/common_function.js'
 import * as StringCS from './Constant/strings.js'
-import * as Mess from './Constant/message.js'
 
-const mUserData = JSON.parse(sessionStorage.getItem("UserData"));
-
-const closeBtn = document.querySelector("#close-icon");
-const overlay = document.querySelector(".overlay");
-const detail = document.querySelector("#detail-btn");
-const wrapMainForm = document.querySelector(".overlay .container-mainform .wrap-mainform");
-
-window.onload = setDefaultCollapse;
-
+/* 
+	* SET DEFAULT COLLAPSE
+*/
 function setDefaultCollapse() {
 	var mode = sessionStorage.getItem(StringCS.KINYUUMODE);
 	if (mode == 3) {
@@ -21,15 +13,10 @@ function setDefaultCollapse() {
 	}
 }
 
-closeBtn.onclick = function () {
-	overlay.style.zIndex = "-1";
-	wrapMainForm.classList.remove("overlay-animate");
-}
-detail.onclick = function () {
-	overlay.style.zIndex = "2";
-	wrapMainForm.classList.add("overlay-animate");
-}
 
+/* 
+	* CHECK OPERATING SYSTEM
+*/
 function isIOS() {
 	if (['iPhone Simulator', 'iPhone'].includes(navigator.platform) == true) {
 		// return "iphone";
@@ -46,6 +33,9 @@ function isIOS() {
 	}
 }
 
+/* 
+	* SET ALIGN COMBOBOX
+*/
 function setAlignCombobox(value) {
 	if (value > 0) {
 		var cbb = document.getElementsByClassName("combobox");
@@ -56,7 +46,6 @@ function setAlignCombobox(value) {
 	}
 }
 
-setAlignCombobox(isIOS());
 
 /* 
 	SETUP OPTION MENU
@@ -66,15 +55,8 @@ function setOptionMenu() {
 	document.getElementById("settingOption").onclick = function () { Common.movePage('/setting_page.html') };
 	document.getElementById("logoutOption").onclick = function () { Common.movePage('logout') };
 }
+
+
+setAlignCombobox(isIOS());
+setDefaultCollapse();
 setOptionMenu();
-
-
-/**
-	* ONCLICK ACTION
-*/
-function onclickAction() {
-	// document.getElementById("createPrintingFormButton").onclick = function () {
-	// 	Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
-	// };
-}
-onclickAction();

@@ -5,10 +5,6 @@ import * as StringCS from './Constant/strings.js'
 import * as HoanKinnyuu from './hoan_kinnyuu.js'
 
 //kensin layout
-const kensin_layout = document.getElementById("kensin_layout");
-const hoan_layout = document.getElementById("hoan_layout");
-const niukin_layout = document.getElementById("niukin_layout");
-const mBtnCheck = document.getElementById("btnKensinMainCheck");
 const mTxtDate = document.getElementById("txtKensinMainKensinDate");
 const mTxtNowMeter = document.getElementById("txtKensinMainNowMeter");
 const mTxtPreMeter = document.getElementById("txtKensinMainPrevMeter");
@@ -21,16 +17,11 @@ const mTxtCmt = document.getElementById("txtkensinMainInfo");
 const mTxtNameUser = document.getElementById("txtKensinMainCusName");
 const mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 
-const closeBtn = document.querySelector("#close-icon");
-const overlay = document.querySelector(".overlay");
-const detail = document.querySelector("#detail-btn");
-const wrapMainForm = document.querySelector(".overlay .container-mainform .wrap-mainform");
 const mEditAdjust = document.getElementById("chouseigaku");
 const mEditInputReceipt = document.getElementById("azukari-kin"); // 預かり金
 const mEditReceipt = document.getElementById("nyuukin"); // 入金
 const mTxtZandakaLabel = document.getElementById("txtKensinNyukinZandaka0");
 const mTxtZandaka = document.getElementById("zandaka");
-const btnHyCUchiwake = document.getElementById("btnKensinNyukinHycUchiwake");
 const tableKangen = document.getElementById("tableKangen");
 const tableNebiki = document.getElementById("tableNebiki");
 const txtKensinNyukinNowSeikyu = document.getElementById("seikyugaku");
@@ -44,16 +35,8 @@ const txtKensinNyukinOtherUri = document.getElementById("txtKensinNyukinOtherUri
 const txtKensinNyukinOtherShohi = document.getElementById("txtKensinNyukinOtherShohi");
 const txtKensinNyukinChosei = document.getElementById("txtKensinNyukinChosei");
 const txtKensinNyukinNyukin = document.getElementById("txtKensinNyukinNyukin");
-const btnKensinNyukinUchiwake = document.getElementById("btnKensinNyukinUchiwake");
 const div_otsuri = document.getElementById("div_otsuri");
 const txtKensinNyukinOtsuri = document.getElementById("txtKensinNyukinOtsuri");
-
-const createPrintingFormButton = document.getElementById("createPrintingFormButton");
-
-//const mEditAdjust = document.querySelector("#chouseigaku");
-//const mEditInputReceipt = document.querySelector("#azukari-kin");
-//const mEditReceipt = document.querySelector("#nyuukin");
-//const mTxtZandaka = document.querySelector("#zandaka");
 
 const teiseiBtn = document.querySelector("#teisei");
 const cancelBtn = document.querySelector("#cancel");
@@ -62,30 +45,29 @@ const nyuukinGroup = document.querySelector("#nyuukin-group");
 const teiseiNyuukin = document.querySelector("#teisei-nyuukin");
 const Sashihiki_zandaka = document.querySelector("#Sashihiki_zandaka");
 const teiseiSumi = document.querySelector("#teisei-sumi");
-// const txtKensinNyukinOtsuri = document.querySelector("#txtKensinNyukinOtsuri");
 
-var mTeiseiFlg = false;
+
 
 var kokfDat = new Dat.KokfDat().setValue("野村　洋子", 5, 1, 440, 1, true, 9990, 9550, 2019, 2, 7, 570, 1830, 0, 319, 22920, 0,
-                                        0, 0, 0, 0, 0, new Dat.KtpcDat().setValue(18000000, 211200000, 0), 1, 0, 4, 0, 0, 0,
-                                        0, 0, 0, null, 0, 0, 14884, 0, 0, 100, 8, 0, 0, 0, 20000, 1600, 0, 0, 0, 1000,
-                                        true, 0, "○児市△貫町３－３", "0010000375",  "", "野村　洋子", "様", new Dat.ZyksDat().setValue(261, 2018, 5, 8),
-                                        "---------��", 44, true);
-var sy2fDat = new Dat.Sy2fDat().setValue(0, 0, 0, 0, 0, 
-										[1, 1, -1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1,0,1,1,1,1,1,1,1,0,0,0,0,0,5,0,0,0,0],
-										2, 1, 0);
+  0, 0, 0, 0, 0, new Dat.KtpcDat().setValue(18000000, 211200000, 0), 1, 0, 4, 0, 0, 0,
+  0, 0, 0, null, 0, 0, 14884, 0, 0, 100, 8, 0, 0, 0, 20000, 1600, 0, 0, 0, 1000,
+  true, 0, "○児市△貫町３－３", "0010000375", "", "野村　洋子", "様", new Dat.ZyksDat().setValue(261, 2018, 5, 8),
+  "---------��", 44, true);
+var sy2fDat = new Dat.Sy2fDat().setValue(0, 0, 0, 0, 0,
+  [1, 1, -1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0],
+  2, 1, 0);
 var kouserDat = new Dat.KouserDat().setValue(0, 0, 0, 0, 0, 2019, 3, 15);
 var sysfDat = new Dat.SysfDat().setValue(25, 35, 29, 1970, 1, 1, 80, 50, 80, 1, 0, 1, 0, 1000, 0, 1000, 2019, 5, 1, false, 0, true, true, 0, false,
-										[50, 250, 50, 200, 60, 180], [20, 60], 0, true, true, true, true, true, true, 
-										new Dat.GtpcDat().setValue(0, 0, 0, null, null, 0, null, null, null, null, 0), [0 , 0 , -1 , 1 , 1 , 1 , 1 , 1 , 5 , 1], 100, true);
+  [50, 250, 50, 200, 60, 180], [20, 60], 0, true, true, true, true, true, true,
+  new Dat.GtpcDat().setValue(0, 0, 0, null, null, 0, null, null, null, null, 0), [0, 0, -1, 1, 1, 1, 1, 1, 5, 1], 100, true);
 var ko2fDat = null;
 var busfDat = new Dat.BusfDat().setValue(true, 2, "調整", 1, 3);
-var hmefDat0 = new Dat.HmefDat().setValue(true , 1 , 1 , 100 , 2314 , 8 , 3 , 80 , 0 , 5 , 1 , "警報器リース" , 100 , 10000 , 0 , 0 , "YF-005N");
-var hmefDat1 = new Dat.HmefDat().setValue(true , 1 , 0 , 20000 , 3001 , 1600 , 3 , 80 , 0 , 5 , 15 , "ガスコンロ" , 100 , 0 , 0 , 0 , "abv");
-var hmefList1 = [hmefDat0 , hmefDat1];
+var hmefDat0 = new Dat.HmefDat().setValue(true, 1, 1, 100, 2314, 8, 3, 80, 0, 5, 1, "警報器リース", 100, 10000, 0, 0, "YF-005N");
+var hmefDat1 = new Dat.HmefDat().setValue(true, 1, 0, 20000, 3001, 1600, 3, 80, 0, 5, 15, "ガスコンロ", 100, 0, 0, 0, "abv");
+var hmefList1 = [hmefDat0, hmefDat1];
 var hmefList = [];
 var hmefList2 = [];
-var hanfDat = new  Dat.HanfDat().setValue("マルトウガス", "999-0001", null, "○本市△川町２２", null, null);
+var hanfDat = new Dat.HanfDat().setValue("マルトウガス", "999-0001", null, "○本市△川町２２", null, null);
 
 // var gstpDat1 = new Dat.GstpDat(1, 0, 0);
 // var gstpDat2 = new Dat.GstpDat(50, 15600000, 6000000);
@@ -114,10 +96,9 @@ var bdNyukin = new Dat.BusfDat().setValue(true, 2, "調整", 1, 3)
 /** 顧客値引きデータ */
 var m_lstKnebDat = new Array();
 
+/** 訂正フラグ */
+var mTeiseiFlg = false;
 
-openKensinLayout();
-setdataNiukinLayout();
-setdataUchiWake();
 
 function openKensinLayout() {
   setCusInfo();
@@ -127,7 +108,6 @@ function openKensinLayout() {
 function setdataNiukinLayout() {
   initComponents();
   init();
-  btnKensinNyukinUchiwake.addEventListener("click", setdataUchiWake);
 }
 
 /**
@@ -258,7 +238,11 @@ function setCusInfo() {
   }
 }
 
-//check gas now is a number?
+
+/**
+ * check gas now is a number?
+ *
+ */
 function checkNowGas() {
   var strSisin = mTxtNowMeter.value;
   if (isNaN(strSisin)) {
@@ -271,6 +255,7 @@ function checkNowGas() {
     setdataNiukinLayout();
   }
 }
+
 
 /**
  * * 入力された今回指針から使用量、ガス料金を表示する。
@@ -407,16 +392,14 @@ function setGasInfo() {
       //     }
       // });
       // wkDlg.show();
-      console.log("if day out lenght");
     } else {
-      console.log("if day  not out lenght");
       setGasPay(m_nGasuse, 0, kokfDat, gasfDat, sysfDat, sy2fDat, kouserDat);
     }
   } else {
-    console.log("if check gas false");
     setGasPay(m_nGasuse, 0, kokfDat, gasfDat, sysfDat, sy2fDat, kouserDat);
   }
 }
+
 
 /**
  * ガス料金を出力する
@@ -440,17 +423,13 @@ function setGasPay(
   var lGasFee;
   var nGasTax;
   mDays = nDays;
-  console.log("Days: " + nDays);
 
   // 数量は中圧係数考慮
   nSiyou = GasRaterCom.getGasSuryo(nSiyou, sy2fDat, kouserDat);
-  console.log("Siyou: " + nSiyou);
 
   lGasFee = GasRaterCom.dailyGasrate(nSiyou, nDays, kokfDat, gasfDat);
-  console.log("GasFee: " + lGasFee);
 
   nGasTax = GasRaterCom.calcConTax(lGasFee, kokfDat, gasfDat, sysfDat);
-  console.log("GasTax: " + nGasTax);
 
   // ガス料金設定
   if (nDays > 0) {
@@ -480,9 +459,6 @@ function setGasPay(
   kokfDat.mKtpcdat.m_nBasekin = 0;
   kokfDat.mKtpcdat.m_nFacilitykin = 0;
   kokfDat.mKtpcdat.m_nAddkin = 0;
-  console.log(
-    GasRaterCom.calcGasBaseKin(sysfDat, gasfDat, kokfDat, sy2fDat, kouserDat)
-  );
   //    findViewById(R.id.btnKensinMainUchiwake).setEnabled(true);
 }
 
@@ -522,9 +498,9 @@ function initComponents() {
   }
 
   if (nVisible == 1) {
-    tableNebiki.classList.remove(         "hidden"          );
+    tableNebiki.classList.remove("hidden");
   } else {
-    tableNebiki.classList.add(            "hidden"          );
+    tableNebiki.classList.add("hidden");
   }
 
   // btnHyCUchiwake.setOnClickListener(this);
@@ -558,14 +534,12 @@ function init() {
     false
   );
   txtKensinNyukinNowSeikyu.innerHTML = Other.KingakuFormat(nRyokin);
-  console.log("nRyokin: " + nRyokin);
 
   mTotal = nRyokin;
 
   // @当月請求
   nRyokin = GasRaterCom.calcSeikyu(sysfDat, kokfDat, sy2fDat, false);
   txtKensinNyukinPreZandaka.innerHTML = Other.KingakuFormat(nRyokin);
-  console.log("nRyokin: " + nRyokin);
 
   // 当月ガス売上
   nRyokin = kokfDat.mFee;
@@ -574,13 +548,11 @@ function init() {
     nKangen = kokfDat.mReduce;
   }
 
-  // console.log( "  ガス料金: " + kokfDat.mFee + ", 還元額: " + kokfDat.mReduce);
   txtKensinNyukinGasRyokin.innerHTML = Other.KingakuFormat(nRyokin);
   //txtKensinNyukinGasRyokin.innerHTML = nRyokin;
 
   // 消費税
   // その他消費税
-  console.log(kokfDat.mConTax);
 
   if (gasfDat != null) {
     if (gasfDat.mTaxDiv == 3) {
@@ -592,7 +564,6 @@ function init() {
       }
       tvTax.innerHTML = Other.KingakuFormat(nRyokin);
       //tvTax.innerHTML = (nRyokin);
-      console.log("nRyokin: " + nRyokin);
     } else {
       tvTax.innerHTML = "***";
     }
@@ -649,8 +620,8 @@ function init() {
     // 検針済み or 再入力の場合は入力して編集不可
     mEditAdjust.value = Other.KingakuFormat(kokfDat.mAdjust);
     mEditInputReceipt.innerHTML = Other.KingakuFormat(kokfDat.mInpReceipt);
-    mEditReceipt.innerHTML = Other.KingakuFormat(kokfDat.mReceipt);
-   // mTeiseiFlg = getLongValue(mEditInputReceipt) != getLongValue(mEditReceipt);
+    mEditReceipt.innerHTML = Other.formatDecial(kokfDat.mReceipt);
+    // mTeiseiFlg = getLongValue(mEditInputReceipt) != getLongValue(mEditReceipt);
     // mEditAdjust.innerHTML = ((kokfDat.mAdjust));
     // mEditInputReceipt.innerHTML = ((kokfDat.mInpReceipt));
     // mEditReceipt.innerHTML = ((kokfDat.mReceipt));
@@ -658,7 +629,7 @@ function init() {
   } else {
     mEditAdjust.innerHTML = Other.KingakuFormat(0); // 調整額
     mEditInputReceipt.innerHTML = Other.KingakuFormat(0); // 預かり金
-    mEditReceipt.innerHTML = Other.KingakuFormat(0); // 入金額
+    mEditReceipt.innerHTML = Other.formatDecial(0); // 入金額
     // mEditAdjust.value = "0";// 調整額
     // mEditInputReceipt.value = "0";// 預かり金
     // mEditReceipt.value = "0";// 入金額
@@ -689,17 +660,14 @@ function init() {
  */
 function setZandaka() {
   // const txtKensinNyukinNowSeikyu = document.getElementById("seikyugaku");
-//   const mEditAdjust = document.getElementById("chouseigaku");
-// const mEditInputReceipt = document.getElementById("azukari-kin"); // 預かり金
-// const mEditReceipt = document.getElementById("nyuukin"); // 入金
+  //   const mEditAdjust = document.getElementById("chouseigaku");
+  // const mEditInputReceipt = document.getElementById("azukari-kin"); // 預かり金
+  // const mEditReceipt = document.getElementById("nyuukin"); // 入金
 
-  var lAdjust  = getLongValue(mEditAdjust.value); // 調整額
+  var lAdjust = getLongValue(mEditAdjust.value); // 調整額
   var lAzukari = getLongValue(mEditInputReceipt.value); // 預かり金
   var lReceipt = getLongValue(mEditReceipt.textContent); // 入金額
 
-
-  //   console.log("  入金額: " + lReceipt + ", 調整額: " + lAdjust + ", 預かり金: " + lAzukari);
-  console.log(mTeiseiFlg);
   if (!mTeiseiFlg) {
     lReceipt = lAzukari;
     if (lReceipt != 0) {
@@ -707,17 +675,11 @@ function setZandaka() {
         lReceipt = mTotal + lAdjust;
       }
     }
-    mEditReceipt.innerHTML = Other.KingakuFormat(lReceipt);
+    mEditReceipt.innerHTML = Other.formatDecial(lReceipt);
     // mEditReceipt.innerHTML = (lReceipt);
   }
 
   var mZandaka = mTotal + lAdjust - lReceipt; // 13.02.12
-  console.log(mZandaka);
-
-  console.log(mTotal);
-  console.log(lAdjust);
-  console.log(lAzukari);
-  console.log(lReceipt);
   if (lAzukari == lReceipt) {
     mTxtZandakaLabel.innerHTML = "差引残高";
     mTxtZandaka.innerHTML = Other.KingakuFormat(mZandaka);
@@ -728,7 +690,7 @@ function setZandaka() {
     txtKensinNyukinOtsuri.innerHTML = Other.KingakuFormat(lAzukari - lReceipt);
     // mTxtZandakaLabel.innerHTML = "おつり";
     // mTxtZandaka.innerHTML = (Other.KingakuFormat(lAzukari - lReceipt));
-    mTxtZandaka.innerHTML =  Other.KingakuFormat(mZandaka);
+    mTxtZandaka.innerHTML = Other.KingakuFormat(mZandaka);
   }
   if (mTeiseiFlg) {
     mTeiseiFlg = false;
@@ -883,8 +845,6 @@ function afterCheckLease() {
 }
 
 function setdataUchiWake() {
-  console.log("hello world");
-
   document.getElementById("txtKensinNaiyakuCusName").innerHTML =
     Other.getClearString(kokfDat.mName);
   var nKin = 0;
@@ -946,31 +906,62 @@ let nyuukin = 0;
 //-------------------Enter Input Sting event--------------------------------->
 
 mEditAdjust.onchange = function () {
-    console.log("adjust in change");
-  if (isValidNumber(mEditAdjust.value)) {
- //   setZandaka1(chousei, azukari);
-   // calCutaleTotal();
+  if (isValidNumber(Other.getNumFromString(mEditAdjust.value))) {
+    //   setZandaka1(chousei, azukari);
+    // calCutaleTotal();
     setZandaka();
-	updatePrintData();
-  }else{
+    updatePrintData();
+    mEditAdjust.value = Other.formatDecial(Other.getNumFromString(mEditAdjust.value));
+  } else {
     console.log("value err");
   }
-};
+};  
+mEditAdjust.addEventListener('keypress', event => {
+  if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]{0,9}$/)) {
+      // block the input if result does not match
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+  }
+});
 
 mEditInputReceipt.onchange = function () {
-  if (isValidNumber(mEditInputReceipt.value)) {
+  if (isValidNumber(Other.getNumFromString(mEditInputReceipt.value))) {
     // const zakanda = Number(mEditAdjust.value);
     nyuukin = Number(mEditInputReceipt.value);
-    mEditReceipt.textContent = Other.KingakuFormat(nyuukin);
-    Sashihiki_zandaka.textContent = nyuukin;
- //   setZandaka1(zakanda, nyuukin);
-  //  calCutaleTotal();
+    mEditReceipt.textContent = Other.formatDecial(nyuukin);
+    Sashihiki_zandaka.textContent = Other.formatDecial(nyuukin);
+    //   setZandaka1(zakanda, nyuukin);
+    //  calCutaleTotal();
     setZandaka();
-	updatePrintData();
-
+    updatePrintData();
+    mEditInputReceipt.value = Other.formatDecial(Other.getNumFromString(mEditInputReceipt.value));
   }
 };
 
+mEditInputReceipt.addEventListener('keypress', event => {
+  if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]{0,9}$/)) {
+      // block the input if result does not match
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+  }
+});
+
+teiseiNyuukin.onchange = function () {
+  if (isValidNumber(Other.getNumFromString(teiseiNyuukin.value))) {
+    teiseiNyuukin.value = Other.formatDecial(Other.getNumFromString(teiseiNyuukin.value));
+  }
+};
+
+teiseiNyuukin.addEventListener('keypress', event => {
+  if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]{0,9}$/)) {
+      // block the input if result does not match
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+  }
+});
 
 //--------------Teisei button event--------------------->
 
@@ -990,13 +981,12 @@ cancelBtn.onclick = function () {
 };
 
 teiseiSumi.onclick = function () {
-  if (isValidNumber(teiseiNyuukin.value)) {
+  var teiseiNyuukinVal = Other.getNumFromString(teiseiNyuukin.value);
+  if (isValidNumber(teiseiNyuukinVal)) {
     const chousei = Number(mEditAdjust.value);
-    nyuukin = Number(teiseiNyuukin.value);
-    console.log(nyuukin);
-    mEditReceipt.textContent = nyuukin;
-    txtKensinNyukinOtsuri.textContent = Number(Other.getNumFromString(mEditInputReceipt.value)) - nyuukin  ;
-    console.log(txtKensinNyukinOtsuri.textContent);
+    nyuukin = Number(teiseiNyuukinVal);
+    mEditReceipt.textContent = Other.formatDecial(String(nyuukin));
+    txtKensinNyukinOtsuri.textContent = Number(Other.getNumFromString(mEditInputReceipt.value)) - nyuukin;
     //  setZandaka(chousei, nyuukin);
     // nyuukinGaku.textContent = nyuukin;
     teiseiGroup.classList.add("hidden");
@@ -1005,7 +995,7 @@ teiseiSumi.onclick = function () {
     // calCutaleTotal();
     mTeiseiFlg = true;
     setZandaka();
-	updatePrintData();
+    updatePrintData();
   }
 };
 
@@ -1019,63 +1009,59 @@ function isValidNumber(inputString) {
 }
 
 function calCutaleTotal() {
-    checkValue();
+  checkValue();
   var total;
   var first = Number(Other.getNumFromString(txtKensinNyukinNowSeikyu.textContent));
   var second = Number(mEditAdjust.value);
   var third = Number(Other.getNumFromString(mEditReceipt.textContent));
-  
-    if(third >= (first + second)){
-        console.log("if");       
-        div_otsuri.classList.remove("hidden");
-        txtKensinNyukinOtsuri.textContent = third - (first + second);      
-    }else{
-        console.log("else");
- 
-        div_otsuri.classList.add("hidden");
-        total = Number(first) + Number(second) - Number(third);
-        mTxtZandaka.textContent = total;
-    }
+
+  if (third >= (first + second)) {
+    div_otsuri.classList.remove("hidden");
+    txtKensinNyukinOtsuri.textContent = third - (first + second);
+  } else {
+
+    div_otsuri.classList.add("hidden");
+    total = Number(first) + Number(second) - Number(third);
+    mTxtZandaka.textContent = total;
+  }
 
 }
 
 function setOtsuri() {
   var nyuukin = teiseiNyuukin.value;
-  var zakanda = Sashihiki_zandaka.textContent;
+  var zakanda = Other.getNumFromString(Sashihiki_zandaka.textContent);
   if (isValidNumber(nyuukin)) {
-    if (nyuukin < zakanda) {     
-        div_otsuri.classList.remove("hidden");
-        txtKensinNyukinOtsuri.textContent = zakanda - nyuukin;
-        mEditReceipt.textContent = nyuukin;    
+    if (nyuukin < zakanda) {
+      div_otsuri.classList.remove("hidden");
+      txtKensinNyukinOtsuri.textContent = zakanda - nyuukin;
+      mEditReceipt.textContent = nyuukin;
     }
   }
 }
 
-function checkValue(){
-    var moneyGasUse = Number(Other.getNumFromString(txtKensinNyukinNowSeikyu.textContent));
-    var moneyBonus = Number(Other.getNumFromString(mEditAdjust.value));
-    var moneyUserGet = Number(Other.getNumFromString(mEditReceipt.textContent));
-    var tienNhap = Number(Other.getNumFromString(mEditInputReceipt.textContent));
-    if(moneyGasUse + moneyBonus > tienNhap){
-        moneyUserGet = tienNhap;
-        mEditReceipt.textContent = moneyUserGet;
-    }else{
-        moneyUserGet = moneyBonus + moneyGasUse;
-        mEditReceipt.textContent = moneyUserGet;
-    }
+function checkValue() {
+  var moneyGasUse = Number(Other.getNumFromString(txtKensinNyukinNowSeikyu.textContent));
+  var moneyBonus = Number(Other.getNumFromString(mEditAdjust.value));
+  var moneyUserGet = Number(Other.getNumFromString(mEditReceipt.textContent));
+  var tienNhap = Number(Other.getNumFromString(mEditInputReceipt.textContent));
+  if (moneyGasUse + moneyBonus > tienNhap) {
+    moneyUserGet = tienNhap;
+    mEditReceipt.textContent = Other.formatDecial(moneyUserGet);
+  } else {
+    moneyUserGet = moneyBonus + moneyGasUse;
+    mEditReceipt.textContent = Other.formatDecial(moneyUserGet);
+  }
 }
 
-    function updatePrintData()   {
-        kokfDat.mAdjust = getLongValue(mEditAdjust.value);
-        kokfDat.mReceipt = getLongValue(mEditReceipt.textContent);
-        kokfDat.mInpReceipt = getLongValue(mEditInputReceipt.value); // 13.02.12       
-        console.log(kokfDat.mAdjust);
-        console.log(kokfDat.mReceipt);
-    }
+function updatePrintData() {
+  kokfDat.mAdjust = getLongValue(mEditAdjust.value);
+  kokfDat.mReceipt = getLongValue(mEditReceipt.textContent);
+  kokfDat.mInpReceipt = getLongValue(mEditInputReceipt.value);
+}
 
-export {  
+export {
   kokfDat,
-  sy2fDat, 
+  sy2fDat,
   kouserDat,
   sysfDat,
   ko2fDat,
@@ -1101,3 +1087,36 @@ export {
   hmefList2,
   hanfDat
 } 
+
+
+/**
+   * ONCLICK ACTION
+*/
+function onclickAction() {
+  var overlay = document.querySelector(".overlay");
+  var wrapMainForm = document.querySelector(".overlay .container-mainform .wrap-mainform");
+	document.getElementById("btnKensinNyukinUchiwake").onclick = setdataUchiWake;
+  document.getElementById("close-icon").onclick = function() {
+    overlay.style.zIndex = "-1";
+    wrapMainForm.classList.remove("overlay-animate");
+  };
+
+  document.getElementById("detail-btn").onclick = function() {
+    overlay.style.zIndex = "2";
+    wrapMainForm.classList.remove("overlay-animate");
+  };
+}
+
+
+/**
+   * ONLOAD ACTION
+*/
+function onLoadAction() {
+  openKensinLayout();
+  setdataNiukinLayout();
+  setdataUchiWake();
+  onclickAction();
+}
+
+
+onLoadAction();

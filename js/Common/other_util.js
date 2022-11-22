@@ -515,7 +515,7 @@ function formatDecial(wkVal) {
  */
 function getNumFromString(wkStr) {
 	var stringBuilder = wkStr + "";
-	var wkStrArray = stringBuilder.replace(",", "");
+	var wkStrArray = stringBuilder.replaceAll(",", "").replaceAll(".", "");
 	return wkStrArray;
 }
 

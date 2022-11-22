@@ -2099,7 +2099,7 @@ function createHiwariComment(kensinData) {
 */
 function createRyoshu(strInpReceipt) {
 	var wkStr;
-	wkStr = strInpReceipt + "円";
+	wkStr = Other.formatDecial(strInpReceipt) + "円";
 	const ryooshuuKingakuVal = document.getElementById("ryooshuuKingakuVal");
 	ryooshuuKingakuVal.innerHTML = wkStr;
 }
@@ -3176,8 +3176,8 @@ function onclickAction() {
 		document.getElementById("editView").style.display = "none";
 		document.getElementById("printView").style.display = "block";
 		//isToyu (biến cuối) xem lại ko đc set cứng Hieu
-		let mReciept = parseInt(document.getElementById("nyuukin").textContent);
-		let mZandaka = parseInt(document.getElementById("zandaka").textContent.replace(",", ""));
+		let mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
+		let mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
 		getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, false);
 		mUserData.mSysfDat.is_m_isToyukeninFlg = false;
 		createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
