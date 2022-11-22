@@ -137,61 +137,78 @@ function getKenTaxr(
 
 
 /**
- * ガス使用量の取得.
- *
- * @param nGasUse   [in] int                ガス使用量
- * @param sysf2     [in] {@link Sy2fDat}    システム2データ
- * @param kouser    [in] {@link KouserDat}  顧客拡張データ
- * @param isNebiki  [in] boolean            値引きフラグ
- * @return  int ガス使用量
- */
-function getGasSuryo(nGasUse, sysf2, kouser) {
-	//ガス料金で使用する使用量（中圧係数対応）
-	var isNebiki = false;
-	var nGasSur;
-	if (sysf2.mCaFlg == 1 && kouser.m_nChuatu > 0) {
-		//中圧係数後での料金計算
-		var dValue = nGasUse * kouser.m_nChuatu * 10;
-		console.log(dValue);
-		switch (sysf2.mCaHas) {
-			case 1: //四捨五入
-				nGasSur =
-					Other.hasCom(
-						dValue,
-						HASADD[13],
-						[13],
-						10000
-					) / 10000;
-				break;
-			case 2: //切上げ
-				nGasSur =
-					Other.hasCom(
-						dValue,
-						HASADD[15],
-						HASMUL[15],
-						10000
-					) / 10000;
-				break;
-			case 0: //切捨て
-			default: //切捨て
-				nGasSur =
-					Other.hasCom(
-						dValue,
-						HASADD[14],
-						HASMUL[14],
-						10000
-					) / 10000;
-				break;
-		}
-	} else if (isNebiki && kouser.m_nChuatu > 0) {
-		nGasSur = hasCom(nGasUse * kouser.m_nChuatu * 10, HASADD[14], HASMUL[14], 10000) / 10000;
-	} else {
-		//指針の差での料金計算
-		console.log(nGasUse);
-		nGasSur = nGasUse;
-	}
-	return nGasSur;
-}
+   * ガス使用量の取得.
+   *
+   * @param nGasUse   [in] int                使用量
+   * @param sy2f      [in] {@link Sy2fDat}    システム2データ
+   * @param kouser    [in] {@link KouserDat}  顧客拡張データ
+   * @return int 中圧係数、
+   */
+ function getGasSuryo(nGasUse, sy2f, kouser) {
+    return getGasSuryo_(nGasUse, sy2f, kouser, false);
+  }
+
+  /**
+   * ガス使用量の取得.
+   *
+   * @param nGasUse   [in] int                ガス使用量
+   * @param sysf2     [in] {@link Sy2fDat}    システム2データ
+   * @param kouser    [in] {@link KouserDat}  顧客拡張データ
+   * @param isNebiki  [in] boolean            値引きフラグ
+   * @return  int ガス使用量
+   */
+   function getGasSuryo_(nGasUse, sysf2, kouser, isNebiki) {
+    //ガス料金で使用する使用量（中圧係数対応）
+    var nGasSur;
+    if (sysf2.mCaFlg == 1 && kouser.m_nChuatu > 0) {
+      //中圧係数後での料金計算
+      var dValue = nGasUse * kouser.m_nChuatu * 10;
+      console.log(dValue);
+      switch (sysf2.mCaHas) {
+        case 1: //四捨五入
+          nGasSur =
+            OtherUtil.hasCom(
+              dValue,
+              GasRaterCom.HASADD[13],
+              GasRaterCom.HASMUL[13],
+              10000
+            ) / 10000;
+          break;
+        case 2: //切上げ
+          nGasSur =
+            OtherUtil.hasCom(
+              dValue,
+              GasRaterCom.HASADD[15],
+              GasRaterCom.HASMUL[15],
+              10000
+            ) / 10000;
+          break;
+        case 0: //切捨て
+        default: //切捨て
+          nGasSur =
+            OtherUtil.hasCom(
+              dValue,
+              GasRaterCom.HASADD[14],
+              GasRaterCom.HASMUL[14],
+              10000
+            ) / 10000;
+          break;
+      }
+    } else if (isNebiki && kouser.m_nChuatu > 0) {
+      nGasSur =
+        GasRaterCom.hasCom(
+          nGasUse * kouser.m_nChuatu * 10,
+          GasRaterCom.HASADD[14],
+          GasRaterCom.HASMUL[14],
+          10000
+        ) / 10000;
+    } else {
+      //指針の差での料金計算
+      console.log(nGasUse);
+      nGasSur = nGasUse;
+    }
+    return nGasSur;
+  }
 
 /**
  * 端数処理
@@ -1173,6 +1190,60 @@ function calcTotal(
 }
 
 
+/**
+ * 売掛残高の計算
+ *
+ * @param sysfDat       [in]    SysfDat システムデータ
+ * @param kokfDat       [in]    KokfDat 顧客データ
+ * @param sy2fDat       [in]    Sy2fDat システム2データ
+ * @param isIrai        [in] boolean    依頼中前残計上フラグ
+ * @return  int 売掛残高
+ */
+ function calcSeikyu(sysfDat, kokfDat, sy2fDat, isIrai) {
+	var wkUrizan; // 売掛残高
+	wkUrizan = kokfDat.mProcTisyuu + kokfDat.mTaxTisyuu; // 遅収料金
+	if (sysfDat.mIfDemand) {
+		// console.log( "前月残高あり");
+		wkUrizan += isIrai
+			? readPrebalance(sysfDat, kokfDat, sy2fDat)
+			: kokfDat.mPreBalance; // 前月残高
+		// console.log( "    -> " + wkUrizan);
+	}
+	if (sysfDat.mIfAdjust) {
+		// console.log( "入金調整あり");
+		wkUrizan += kokfDat.mTAdjust - kokfDat.mTReceipt; // 入金調整額
+		// console.log( "    -> " + wkUrizan);
+	}
+	if (sysfDat.mIfAlarm) {
+		// console.log( "リース加算あり");
+		wkUrizan += kokfDat.mProcLease + kokfDat.mTaxLease; // リース 加算
+		// console.log( "    -> " + wkUrizan);
+	}
+	if (sysfDat.mIfDiv) {
+		// console.log( "分割金あり");
+		wkUrizan += kokfDat.mProcDiv + kokfDat.mTaxDiv; // 分割金 加算
+		// console.log( "    -> " + wkUrizan);
+	}
+	if (sysfDat.mIfLampoil) {
+		// console.log( "灯油あり");
+		wkUrizan += kokfDat.mProcLoil + kokfDat.mTaxLoil; // 灯油　加算
+		// console.log( "    -> " + wkUrizan);
+	}
+	if (sysfDat.mIfProceeds) {
+		// console.log( "その他、ガス残高、遅収料金あり");
+		wkUrizan +=
+			kokfDat.mProcEtc +
+			kokfDat.mTaxEtc + // その他 加算
+			kokfDat.mProcGas +
+			kokfDat.mTaxGas - // ガス残高
+			(kokfDat.mProcTisyuu + kokfDat.mTaxTisyuu); // 遅収料金
+		// console.log( "    -> " + wkUrizan);
+	}
+	// console.log( "請求金額:" + wkUrizan);
+	return wkUrizan;
+}
+
+
 
 /**
  * 振替依頼中を考慮した前月残高計算
@@ -1262,59 +1333,6 @@ function calcZogenHiwari(ktpc, nFee, nBaseKin, nFacilityKin, gasf, nHiwari) {
 		ktpc.m_nFacilitykin = nFacilityKin;
 		ktpc.m_nAddkin = nFee * 10000 - nBaseKin - nFacilityKin;
 	}
-}
-
-/**
- * 売掛残高の計算
- *
- * @param sysfDat       [in]    SysfDat システムデータ
- * @param kokfDat       [in]    KokfDat 顧客データ
- * @param sy2fDat       [in]    Sy2fDat システム2データ
- * @param isIrai        [in] boolean    依頼中前残計上フラグ
- * @return  int 売掛残高
- */
-function calcSeikyu(sysfDat, kokfDat, sy2fDat, isIrai) {
-	var wkUrizan; // 売掛残高
-	wkUrizan = kokfDat.mProcTisyuu + kokfDat.mTaxTisyuu; // 遅収料金
-	if (sysfDat.mIfDemand) {
-		// console.log( "前月残高あり");
-		wkUrizan += isIrai
-			? readPrebalance(sysfDat, kokfDat, sy2fDat)
-			: kokfDat.mPreBalance; // 前月残高
-		// console.log( "    -> " + wkUrizan);
-	}
-	if (sysfDat.mIfAdjust) {
-		// console.log( "入金調整あり");
-		wkUrizan += kokfDat.mTAdjust - kokfDat.mTReceipt; // 入金調整額
-		// console.log( "    -> " + wkUrizan);
-	}
-	if (sysfDat.mIfAlarm) {
-		// console.log( "リース加算あり");
-		wkUrizan += kokfDat.mProcLease + kokfDat.mTaxLease; // リース 加算
-		// console.log( "    -> " + wkUrizan);
-	}
-	if (sysfDat.mIfDiv) {
-		// console.log( "分割金あり");
-		wkUrizan += kokfDat.mProcDiv + kokfDat.mTaxDiv; // 分割金 加算
-		// console.log( "    -> " + wkUrizan);
-	}
-	if (sysfDat.mIfLampoil) {
-		// console.log( "灯油あり");
-		wkUrizan += kokfDat.mProcLoil + kokfDat.mTaxLoil; // 灯油　加算
-		// console.log( "    -> " + wkUrizan);
-	}
-	if (sysfDat.mIfProceeds) {
-		// console.log( "その他、ガス残高、遅収料金あり");
-		wkUrizan +=
-			kokfDat.mProcEtc +
-			kokfDat.mTaxEtc + // その他 加算
-			kokfDat.mProcGas +
-			kokfDat.mTaxGas - // ガス残高
-			(kokfDat.mProcTisyuu + kokfDat.mTaxTisyuu); // 遅収料金
-		// console.log( "    -> " + wkUrizan);
-	}
-	// console.log( "請求金額:" + wkUrizan);
-	return wkUrizan;
 }
 
 

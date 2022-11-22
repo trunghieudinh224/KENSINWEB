@@ -37,14 +37,14 @@ function KingakuFormatLocal(wkFormat, value) {
 	var temp = value;
 	if (temp < 0) {
 		temp = Math.abs(temp);
-		format = new DecimalFormat("-" + wkFormat);	
+		format = new DecimalFormat("-" + wkFormat);
 	} else {
-		format = wkFormat;		
+		format = wkFormat;
 	}
 
 	kingaku = temp;
 	kingaku = kingaku.toLocaleString("en-US");
-    return kingaku;
+	return kingaku;
 }
 
 
@@ -463,11 +463,11 @@ function getUriTaxr(
 */
 function getBytesLen(wkStr) {
 	if (wkStr == null || wkStr == "") return 0;
-        // return wkStr.getBytes().length; // 正しい文字バイト数を取得できない。 // 2011.05.11
+	// return wkStr.getBytes().length; // 正しい文字バイト数を取得できない。 // 2011.05.11
 
-        var ret = 0;
-        var ch;
-        var len = wkStr.length;
+	var ret = 0;
+	var ch;
+	var len = wkStr.length;
 	for (var i = 0; i < len; i++) {
 		ch = wkStr.charAt(i);		//Hiếu kiểm tra lại
 		// Unicodeｶﾅの範囲以外は２バイト
@@ -491,7 +491,7 @@ function getBytesLen(wkStr) {
 	* @return double
 */
 function formatLocalJS(value, numBehindDot, wkMulti) {
-	return parseFloat(parseFloat(value) / calcMulti(wkMulti)).toFixed(numBehindDot); 
+	return parseFloat(parseFloat(value) / calcMulti(wkMulti)).toFixed(numBehindDot);
 }
 
 
@@ -508,7 +508,135 @@ function formatDecial(wkVal) {
 }
 
 
+/**
+ * 3桁毎の区切り(,)を取り除く
+ * @param wkStr [in] String 対象文字列
+ * @return  String  3桁毎","を取り除いた文字列
+ */
+function getNumFromString(wkStr) {
+	var stringBuilder = wkStr + "";
+	var wkStrArray = stringBuilder.replace(",", "");
+	return wkStrArray;
+}
+
+
+/**
+   * 日付文字列を指定フォーマットの型に合わせて作成し、日付型を取得します。
+   * @param wkFormat  [in] String フォーマット
+   * <p>
+   * 指定フォーマット<br>
+   * 指定文字列 : 変換結果 (以下の例は、"2000/01/02 14:25:36.789"をもとにしています。)<br>
+   * yyyy(年)   : 2000<br>
+   * yy  (年2桁): 00<br>
+   * MM  (月)   : 01<br>
+   * dd  (日)   : 02<br>
+   * hh  (時12) : 02<br>
+   * HH  (時24) : 14<br>
+   * mm  (分)   : 25<br>
+   * ss  (秒)   : 36<br>
+   * SSS (ﾐﾘ秒) : 789
+   * </p>
+   * @param wkStr [in] String 日付文字列(例:"2000/01/02 14:25:36.789")
+   * @return {@link java.util.Date}   指定フォーマットの型に合わせて作成された日付型
+   */
+function parseDate(wkStr) {
+	var retDate = null;
+	// 日付型を変換する。
+	// 極力インスタンスを生成しないように、毎回チェックする。// 2011.02.10
+	// wkFormat2 = wkFormat;
+	// if (wkFormat.includes("#Y")) {
+	//     wkFormat2 = wkFormat2.replace("#Y", "yy");
+	// }
+	// if (wkFormat.includes("YY")) {
+	//     wkFormat2 = wkFormat2.replace("YY", "yy");
+	// }
+	// if (wkFormat.includes("#M")) {
+	//     wkFormat2 = wkFormat2.replace("#M", "MM");
+	// }
+	// if (wkFormat.includes("#d")) {
+	//     wkFormat2 = wkFormat2.replace("#d", "dd");
+	// }
+	// // retDate = new SimpleDateFormat(wkFormat2, Locale.JAPANESE).parse(wkStr);
+	// console.log(wkFormat);
+	// var year = wkStr.substring(0,4);
+	// var month = wkStr.substring(4,2);
+	// var day = wkStr.substring(6,2);
+	// console.log(year + " " + month + " " + day);
+	retDate = new Date(wkStr);
+	return retDate;
+}
+
+
+/**
+   * 基準日付から日付を引いた差分日数を取得します。
+   * @param wkDateA   [in] {@link java.util.Date} 基準日付
+   * @param wkDateB   [in] {@link java.util.Date} 基準日付から引く日付
+   * @return  int
+   * <p>
+   * 差分日数 = 基準日付 - 日付 = wkDateA - wkDateB<br>
+   * 基準日付よりも日付が未来の場合は、差分日数はマイナス値となります。<br>
+   * 日付のどちらかがnull値の場合は、差分日数は０となります。<br>
+   * COMPACKのgetBetweenとは引数の順番が逆となります。
+   * </p>
+   */
+function betweenDays(wkDateA, wkDateB) {
+	var retValue = 0;
+	var calendarA = wkDateA;
+	var calendarB = wkDateB;
+	console.log(
+		wkDateA.getDate() +
+		"/" +
+		(wkDateA.getMonth() + 1) +
+		"/" +
+		wkDateA.getFullYear()
+	);
+	console.log(
+		wkDateB.getDate() +
+		"/" +
+		(wkDateB.getMonth() + 1) +
+		"/" +
+		wkDateB.getFullYear()
+	);
+
+	try {
+		if (wkDateA == null || wkDateB == null) {
+			return retValue;
+		}
+
+		// 基準日付
+
+		// calendarA = Calendar.getInstance();
+		// calendarA.setTime(wkDateA);
+		// calendarA.add(Calendar.HOUR, 0);
+		// calendarA.add(Calendar.MINUTE, 0);
+		// calendarA.add(Calendar.SECOND, 0);
+		// calendarA.add(Calendar.MILLISECOND, 0);
+
+		// // 基準日付から引く日付
+		// calendarB = Calendar.getInstance();
+		// calendarB.setTime(wkDateB);
+		// calendarB.add(Calendar.HOUR, 0);
+		// calendarB.add(Calendar.MINUTE, 0);
+		// calendarB.add(Calendar.SECOND, 0);
+		// calendarB.add(Calendar.MILLISECOND, 0);
+
+		var wkValue = calendarA.getTime() - calendarB.getTime();
+		wkValue /= 1000; // MILLISECOND
+		wkValue /= 60; // SECOND
+		wkValue /= 60; // MINUTE
+		wkValue /= 24; // HOUR
+		retValue = wkValue;
+		console.log(retValue);
+	} catch (err) {
+		console.log(err);
+	}
+
+	return retValue;
+}
+
+
 export {
 	Format, KingakuFormat, KingakuFormatLocal, isEmpty, cutStringSpace, nullToString, getClearString, DateFormat, MonthDayFormat, getKangcontname, hasCom,
-	printformat, printformatLocal, calcMulti, format, formatLocal, getUriTaxr, getBytesLen, formatLocalJS, formatDecial
+	printformat, printformatLocal, calcMulti, format, formatLocal, getUriTaxr, getBytesLen, formatLocalJS, formatDecial, getNumFromString, parseDate,
+	betweenDays
 }
