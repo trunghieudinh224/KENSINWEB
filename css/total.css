@@ -9,7 +9,7 @@ body {
 .overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba(0,0,0,.6);
+    background-color: rgba(0, 0, 0, .6);
     z-index: -1;
 }
 
@@ -19,7 +19,7 @@ body {
     animation-timing-function: linear;
 }
 
-.overlay .container-mainform .wrap-mainform{
+.overlay .container-mainform .wrap-mainform {
     max-width: 400px;
     position: relative;
 }
@@ -50,16 +50,21 @@ body {
     height: 2px;
 }
 
-.day-detail, .kensin-total {
+.day-detail,
+.kensin-total {
     padding: 0px 10px;
 }
 
 
 th {
-	background-color: var(--primary-color);
-  }
+    background-color: var(--primary-color);
+}
 
-  
+
+.mr-5 {
+    margin-right: 5px;
+}
+
 @keyframes showDialog {
     to {
         transform: translateY(0);
@@ -70,6 +75,44 @@ th {
     margin-bottom: 20px;
 }
 
-#shuukeiForm, #nippouArea {
+#shuukeiForm,
+#nippouArea {
     display: none;
+}
+
+.sm-text {
+    font-size: 20px;
+}
+
+.pr-0 {
+    padding-right: 0px;
+}
+
+/*
+  ******  RESPONSIVE LAYOUT  ******
+*/
+
+@media screen and (max-width: 900px) {
+    .sm-text {
+        font-size: 18px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .sm-text {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .sm-text {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 450px) { 
+    .sm-text {
+        font-size: 13px;
+    }
 }
