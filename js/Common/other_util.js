@@ -634,9 +634,41 @@ function betweenDays(wkDateA, wkDateB) {
 	return retValue;
 }
 
+/**
+     * 年と月と日から0無しでyyyy/mm/dd形式で作成
+     * 
+     * @param year  [in] int        年
+     * @param month [in] int        月
+     * @param day   [in] int        日
+     * @param mask  [in] boolean    true: yyyy/mm/dd, false: yyyy年mm月dd日
+     * @return  String  整形された日付文字列
+     */
+function DateFormatYMD(year, month, day, mask) {
+	var _year = year;
+	var _month = month;
+	var _day = day;
+	var ymd = "";
+
+	if (month < 10) {
+		_month = " " + _month;
+	}
+	if (day < 10) {
+		_day = " " + _day;
+	}
+
+	if (mask) {
+		ymd = _year + "/" + _month + "/" + _day;
+	}
+	else {
+		ymd = _year + "年" + _month + "月" + _day + "日";
+	}
+
+	return ymd;
+}
+
 
 export {
 	Format, KingakuFormat, KingakuFormatLocal, isEmpty, cutStringSpace, nullToString, getClearString, DateFormat, MonthDayFormat, getKangcontname, hasCom,
 	printformat, printformatLocal, calcMulti, format, formatLocal, getUriTaxr, getBytesLen, formatLocalJS, formatDecial, getNumFromString, parseDate,
-	betweenDays
+	betweenDays, DateFormatYMD
 }
