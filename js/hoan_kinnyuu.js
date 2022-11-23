@@ -1,6 +1,8 @@
  import * as KensinKinyuu from './kensin_kinnyuu.js'
 
 
+export var m_bRes;
+export var m_lLawItem = [];
 const combobox_total = document.getElementById("combobox_total");
 const combobox_1 = document.getElementById("combobox_1");
 const combobox_2 = document.getElementById("combobox_2");
@@ -14,7 +16,7 @@ const unnecessary_btn = document.getElementById("unnecessary_btn");
 const no_btn = document.getElementById("no_btn");
 const good_btn = document.getElementById("good_btn");
 
-export var hoanString = KensinKinyuu.kokfDat.mHoan.substring(0,8);;
+export var hoanString = KensinKinyuu.kokfDat.mHoan.substring(0,8);
 var listHoanData = hoanString.split("");
 
 var pos_combobox = 0;
@@ -116,6 +118,7 @@ function setDataforComboBoxSelect(value){
     }
     list_combobox[pos_combobox].classList.add("combobox_select");
     setHoanKinnyuu();
+    setLawItem();
 
 }
 
@@ -174,3 +177,23 @@ no_btn.addEventListener("click" ,function (){
    
 }) ;
 
+
+
+
+function getValueOfHoanItem(value){
+    if(value == 0){
+        return 1;
+    }else if(value == 1){
+        return 2;
+    }else if(value == 2){
+        return 4;
+    }
+}
+
+function setLawItem(){
+    m_lLawItem = [];
+    for (let i = 0; i < list_combobox.length; i++) {
+        var item =   new LawItemDat(i , getValueOfHoanItem(list_combobox[i].value));
+        m_lLawItem.push(item);     
+    }
+}

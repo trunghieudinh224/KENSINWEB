@@ -52,14 +52,14 @@ var kokfDat = new Dat.KokfDat().setValue("野村　洋子", 5, 1, 440, 1, true, 
 	0, 0, 0, 0, 0, new Dat.KtpcDat().setValue(18000000, 211200000, 0), 1, 0, 4, 0, 0, 0,
 	0, 0, 0, null, 0, 0, 14884, 0, 0, 100, 8, 0, 0, 0, 20000, 1600, 0, 0, 0, 1000,
 	true, 0, "○児市△貫町３－３", "0010000375", "", "野村　洋子", "様", new Dat.ZyksDat().setValue(261, 2018, 5, 8),
-	"---------��", 44, true);
+	"---------��", 44, true , 420);
 var sy2fDat = new Dat.Sy2fDat().setValue(0, 0, 0, 0, 0,
 	[1, 1, -1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0],
 	2, 1, 0);
 var kouserDat = new Dat.KouserDat().setValue(0, 0, 0, 0, 0, 2019, 3, 15);
 var sysfDat = new Dat.SysfDat().setValue(25, 35, 29, 1970, 1, 1, 80, 50, 80, 1, 0, 1, 0, 1000, 0, 1000, 2019, 5, 1, false, 0, true, true, 0, false,
 	[50, 250, 50, 200, 60, 180], [20, 60], 0, true, true, true, true, true, true,
-	new Dat.GtpcDat().setValue(0, 0, 0, null, null, 0, null, null, null, null, 0), [0, 0, -1, 1, 1, 1, 1, 1, 5, 1], 100, true);
+	new Dat.GtpcDat().setValue(0, 0, 0, null, null, 0, null, null, null, null, 0), [0, 0, -1, 1, 1, 1, 1, 1, 5, 1], 100, true , 5);
 var ko2fDat = null;
 var busfDat = new Dat.BusfDat().setValue(true, 2, "調整", 1, 3);
 var hmefDat0 = new Dat.HmefDat().setValue(true, 1, 1, 100, 2314, 8, 3, 80, 0, 5, 1, "警報器リース", 100, 10000, 0, 0, "YF-005N");
@@ -1058,6 +1058,32 @@ function updatePrintData() {
 	kokfDat.mReceipt = getLongValue(mEditReceipt.textContent);
 	kokfDat.mInpReceipt = getLongValue(mEditInputReceipt.value);
 }
+
+    
+
+
+function sendDataToServer(){
+      var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
+      var kensinDate_ss = sessionStorage.getItem(StringCS.KENSINDATE);
+      var kensinDate = new Date(kensinDate);
+      var m_oMetMeisaiDat = new Dat.MetMeisaiDat();
+      var cusRec = kokfDat.mCusRec;
+      var dtSeiymd = kensinDate;
+      var sysDate = new Date(sysfDat.mSysYear + "-" + sysfDat.mSysMonth + "-1");
+      var dtSysymd = sysDate;
+      var nOld_ss = kokfDat.mPreMeter;
+      var nNew_ss = kokfDat.mNowMeter;
+      var nKenmsr = kokfDat.mBetwMeter;
+      var nTancd = dataSetting.tancd;
+      var strTanname = dataSetting.tanname;
+      var nWrt_tancd = dataSetting.wrt_tancd;
+      var dtWrt_ymd = kensinDate;
+
+      m_oMetMeisaiDat.setValue(cusRec , dtSeiymd , dtSysymd , nOld_ss , nNew_ss , nKenmsr , nTancd , strTanname , 
+        nWrt_tancd , dtWrt_ymd);
+
+
+    }
 
 export {
 	kokfDat,

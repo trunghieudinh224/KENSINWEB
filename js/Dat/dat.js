@@ -200,6 +200,8 @@ export class KokfDat {
 		this.mBankCode = 0;
 		/** 検針対象区分 */
 		this.mNoKensin = true;
+		/** 顧客レコード */
+    	this.mCusRec = 0;
 	}
 
 	setValue(Name, KMonth, KDate, GasUse, GasKubun, KenSumi, NowMeter, PreMeter, PuseYear, PuseMonth, PuseDate,
@@ -207,7 +209,7 @@ export class KokfDat {
 		SupplyForm, GasBase, MtKeta, GasUnit, Hybseikyu, Urikin, UriTax, Reduce, ReduceTax, KotfDat, ProcTisyuu,
 		TaxTisyuu, PreBalance, TAdjust, TReceipt, ProcLease, TaxLease, ProcDiv, ProcLoil, TaxLoil, ProcEtc,
 		TaxEtc, ProcGas, TaxGas, Receipt, Adjust, SyuSumi, InpReceipt, Add, CusCode, SName0,
-		SName1, KName, ZyksDat, Hoan, BankCode, NoKensin) {
+		SName1, KName, ZyksDat, Hoan, BankCode, NoKensin, mCusRec) {
 
 		var data = new KokfDat();
 
@@ -271,6 +273,7 @@ export class KokfDat {
 		data.mHoan = Hoan;
 		data.mBankCode = BankCode;
 		data.mNoKensin = NoKensin;
+		data.mCusRec = mCusRec;
 
 		return data
 	}
@@ -352,11 +355,13 @@ export class SysfDat {
 		this.mSnvalue = 0;
 		/** 伝票出力フラグ:ユーザー名(店舗名) */
 		this.mIfChitUser = false;
+		/** システム月 */
+    	this.mSysMonth = 0;  // Sys.hansysym
 	}
 
 	setValue(mKgasDays0, mKgasDays1, mKgasDays2, mTax_yy, mTax_mm, mTax_dd, mConsumTax, mTaxr_old, mTaxr_new, mVisibleGas, mVisibleFacility, mLesUmu,
 		mFracAddKin, mFracMulKin, mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas,
-		m_isToyukeninFlg, mSrChkr, mSrChkm, mKnebFlg, mIfAdjust, mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser) {
+		m_isToyukeninFlg, mSrChkr, mSrChkm, mKnebFlg, mIfAdjust, mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser , mSysMonth) {
 		var data = new SysfDat();
 
 		data.mKgasDays0 = mKgasDays0;
@@ -397,6 +402,7 @@ export class SysfDat {
 		data.mHtOption = mHtOption;
 		data.mSnvalue = mSnvalue;
 		data.mIfChitUser = mIfChitUser;
+		data.mSysMonth = mSysMonth;
 		return data;
 	}
 }
@@ -1293,3 +1299,85 @@ export class ShukeiKensinData {
 		this.m_lCho += data.m_lCho;
 	}
 }
+
+
+export class MetMeisaiDat{
+    constructor(){
+    /** 顧客管理コード */
+	this.m_nCusrec = 0;
+	/** 請求月度 */	
+	this.m_dtSeiymd = null;
+	/** システム月度 */	
+	this.m_dtSysymd = null;
+    /** 旧メーター指針 */
+	this.m_nOld_ss = 0;
+	/** 新メーター指針 */
+	this.m_nNew_ss = 0;
+	/** 中間使用量（検針） */
+	this.m_nKenmsr = 0;
+    /** 担当者 */
+	this.m_nTancd = 0;
+	/** 担当者名称 */
+	this.m_strTanname = null;
+    /** 記入担当者 */
+	this.m_nWrt_tancd = 0;
+	/** 記入日付 */
+	this.m_dtWrt_ymd = null;
+    }
+
+
+	setValue(nCusrec , dtSeiymd , dtSysymd , nOld_ss , nNew_ss , nKenmsr , nTancd , strTanname , nWrt_tancd , dtWrt_ymd){
+		var data = new MetMeisaiDat();
+		data.m_nCusrec = nCusrec;
+		data.m_dtSeiymd = dtSeiymd;
+		data.m_dtSysymd = dtSysymd;
+		data.m_nOld_ss = nOld_ss;
+		data.m_nNew_ss = nNew_ss;
+		data.m_nKenmsr = nKenmsr;
+		data.m_nTancd = nTancd;
+		data.m_strTanname = strTanname;
+		data.m_nWrt_tancd = nWrt_tancd;
+		data.m_dtWrt_ymd = dtWrt_ymd;	
+		return data;	
+	}
+ }
+
+export  class SeclawDat{
+    constructor(){
+        /** 顧客管理コード */
+	    this.m_nCusrec = 0;
+        /** 調査点検日付 */      
+        this.m_dtEntymd = null;
+        /** 総合結果 */
+        this.m_bRes = 0;   
+        this.m_strTanname;
+        this.m_sTancd;
+    }
+
+	setValue(nCusrec,dtEnt_ymd , bRes, strTanname ,nTancd ){
+		var data = new SeclawDat();
+		data.m_nCusrec = nCusrec;
+		data.m_dtEntymd = dtEnt_ymd;
+		data.m_bRes = bRes;
+		data.m_strTanname = strTanname;
+		data.m_sTancd = nTancd;
+		return data;
+	}
+ }
+
+export class LawItemDat{
+    constructor(){
+        /** コード */
+	    this.m_nCode = nCode;
+	    /** 値 */
+        this.m_nValue = nValue;
+    }
+
+	setValue(nCode , nValue){
+		var data = new LawItemDat();
+		data.m_nCode = nCode;
+		data.m_nValue = nValue;
+		return data;
+	}
+ }
+
