@@ -55,7 +55,7 @@ function getInformation() {
             },
             success: function (result) {
                 cusDetailData = JSON.parse(result);
-                mUserData = new Dat.UserData().setValue(cusDetailData);
+                mUserData = new Dat.UserData().parseData(cusDetailData);
                 
                 if (cusDetailData != null) {
                     setInformation();
@@ -84,7 +84,7 @@ function setInformation() {
         document.getElementById("kokyaku-mei").innerHTML = cusDat.name.trim();
         document.getElementById("juusho").innerHTML = cusDat.add_0.trim() + "\n" + cusDat.add_1.trim();
         document.getElementById("denwabango").innerHTML = cusDat.tel_0;
-        document.getElementById("mtban").innerHTML = cusDetailData.kokfDat.mtban;
+        document.getElementById("mtban").innerHTML = cusDetailData.mKokfDat.mtban;
     }
 
     if (cusDetailData != null) {
@@ -92,8 +92,8 @@ function setInformation() {
         getShuukei();
         getKyookyuu();
         getRyookin();
-        if (cusDetailData.kokfDat.mark != null) {
-            document.getElementById("mokuhyoo").innerHTML = cusDetailData.kokfDat.mark;
+        if (cusDetailData.mKokfDat.mark != null) {
+            document.getElementById("mokuhyoo").innerHTML = cusDetailData.mKokfDat.mark;
         }
 
         if (cusDetailData.koukanDat != null) {
@@ -116,17 +116,17 @@ function setInformation() {
    * SET CUSTOMER DETAIL INFORMATION
 */
 function setCustomerDetail() {
-    if (cusDetailData.kokfDat.ccode != null) {
+    if (cusDetailData.mKokfDat.ccode != null) {
         var ccodeList = document.getElementsByClassName("ccode");
         for (var i = 0; i < ccodeList.length; i++) {
-            ccodeList[i].innerHTML = cusDetailData.kokfDat.mCCode[i];
+            ccodeList[i].innerHTML = cusDetailData.mKokfDat.mCCode[i];
         }
     }
 
-    if (cusDetailData.kokfDat.juncd != null) {
+    if (cusDetailData.mKokfDat.juncd != null) {
         var juncdList = document.getElementsByClassName("juncd");
         for (var i = 0; i < juncdList.length; i++) {
-            juncdList[i].innerHTML = cusDetailData.kokfDat.mJunCd[i];
+            juncdList[i].innerHTML = cusDetailData.mKokfDat.mJunCd[i];
         }
     }
 }
@@ -141,14 +141,14 @@ function getShuukei() {
     let listSyuku = cusDetailData.lstShuku;
 
     for (var idx = 0; idx < listSyuku.length; idx++) {
-        if (listSyuku[idx].code == cusDetailData.kokfDat.mShuku) {
+        if (listSyuku[idx].code == cusDetailData.mKokfDat.mShuku) {
             shuukei = listSyuku[idx].name.trim();
             break;
         }
     }
 
-    if (cusDetailData.kokfDat.mShuku == 0 || cusDetailData.kokfDat.mShuku == 4 || cusDat.m_nBkcd != 0) {
-        if (cusDetailData.kokfDat.fkin != 0) {
+    if (cusDetailData.mKokfDat.mShuku == 0 || cusDetailData.mKokfDat.mShuku == 4 || cusDat.m_nBkcd != 0) {
+        if (cusDetailData.mKokfDat.fkin != 0) {
             shuukei = "依頼中";
         } else {
             shuukei = formatShuku(cusDat.bkcd);
@@ -181,7 +181,7 @@ function formatShuku(value) {
 */
 function getKyookyuu() {
     var result = "";
-    switch (cusDetailData.kokfDat.mSupplyForm) {
+    switch (cusDetailData.mKokfDat.mSupplyForm) {
         case 1:
             result = "一般";
             break;
@@ -233,12 +233,12 @@ function showHaisooJoohoo() {
    * SET MEMO DATA
 */
 function showMemo() {
-    if (cusDetailData.kokfDat.memo != null) {
-        if (cusDetailData.kokfDat.memo.length > 0) {
+    if (cusDetailData.mKokfDat.memo != null) {
+        if (cusDetailData.mKokfDat.memo.length > 0) {
             document.getElementById("memo-area").style.display = "block";
             var valueMemo = "";
-            for (var i = 0; i < cusDetailData.kokfDat.memo.length; i++) {
-                valueMemo = valueMemo + cusDetailData.kokfDat.memo[i] + "\n";
+            for (var i = 0; i < cusDetailData.mKokfDat.memo.length; i++) {
+                valueMemo = valueMemo + cusDetailData.mKokfDat.memo[i] + "\n";
             }
             document.getElementById("memo-naiyoo").innerText = valueMemo;
         } else {
@@ -254,12 +254,12 @@ function showMemo() {
    * SET RYOOKIN DATA
 */
 function getRyookin() {
-    if (cusDetailData.kokfDat.mGasDiv == 0) {
+    if (cusDetailData.mKokfDat.mGasDiv == 0) {
         document.getElementById("ryookin").innerHTML = "未設定";
         return;
     }
     var result = "";
-    switch (cusDetailData.kokfDat.mSum) {
+    switch (cusDetailData.mKokfDat.mSum) {
         case 0:
             result = "未設定";
             break;
@@ -279,7 +279,7 @@ function getRyookin() {
             result = "";
             break;
     }
-    result = result + ":" + cusDetailData.kokfDat.mGasDiv;
+    result = result + ":" + cusDetailData.mKokfDat.mGasDiv;
     document.getElementById("ryookin").innerHTML = result;
 }
 
@@ -290,11 +290,11 @@ function getRyookin() {
 function kinyuuMove(mode) {
     var kensinDate = document.getElementById("jisshi-bi").value;
     sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
-    Common.movePage('/meter_reading_fillout_page.html');
     sessionStorage.setItem(StringCS.KINYUUMODE, mode);
 
     mUserData.mKensinDate = String(kensinDate);
     sessionStorage.setItem(StringCS.USERDATA, JSON.stringify(mUserData));
+    Common.movePage('/meter_reading_fillout_page.html');
 }
 
 
