@@ -125,7 +125,7 @@ export class KokfDat {
 		/** 開栓日付：日 */
 		this.mKaiDate = 0;
 		/** ガス料金内訳データ */
-		this.mKtpcdat = null;
+		this.mKtpcdat = new KtpcDat();
 		/** 供給区分 */
 		this.mSupplyForm = 0;
 		/** 契約料金(基本) */
@@ -145,7 +145,7 @@ export class KokfDat {
 		/** 今回入力：還元額の消費税 */
 		this.mReduceTax = 0;
 		/** 顧客灯油 */
-		this.mKotfDat = null;
+		this.mKotfDat = new KotfDat();
 		/** 当月：遅収料金 */
 		this.mProcTisyuu = 0;
 		/** 当月：消費税(遅収料金) */
@@ -182,8 +182,10 @@ export class KokfDat {
 		this.mSyuSumi = true;
 		/** 預かり金 */
 		this.mInpReceipt = 0;
-		/** 住所 */
-		this.mAdd = "";
+		/** 住所1 */
+		this.mAdd_0 = "";
+		/** 住所2 */
+		this.mAdd_1 = "";
 		/** 顧客コード */
 		this.mCusCode = "";
 		/** 伝票用氏名1 */
@@ -193,7 +195,7 @@ export class KokfDat {
 		/** 呼称 */
 		this.mKName = "";
 		/** 前年同月使用量データ */
-		this.mZyksDat = null;
+		this.mZyksDat = new ZyksDat();
 		/** 今回入力：保安点検 */
 		this.mHoan = "";
 		/** 振替:銀行コード */
@@ -201,79 +203,164 @@ export class KokfDat {
 		/** 検針対象区分 */
 		this.mNoKensin = true;
 		/** 顧客レコード */
-    	this.mCusRec = 0;
+		this.mCusRec = 0;
+		/** 使用率 */
+		this.mPuseSrpDay = 0;
 	}
 
-	setValue(Name, KMonth, KDate, GasUse, GasKubun, KenSumi, NowMeter, PreMeter, PuseYear, PuseMonth, PuseDate,
-		GasDiv, ConTax, BetwMeter, PreUse, Fee, Hiwari, TaxDiv, SimeF, KaiYear, KaiMonth, KaiDate, Ktpcdat,
-		SupplyForm, GasBase, MtKeta, GasUnit, Hybseikyu, Urikin, UriTax, Reduce, ReduceTax, KotfDat, ProcTisyuu,
-		TaxTisyuu, PreBalance, TAdjust, TReceipt, ProcLease, TaxLease, ProcDiv, ProcLoil, TaxLoil, ProcEtc,
-		TaxEtc, ProcGas, TaxGas, Receipt, Adjust, SyuSumi, InpReceipt, Add, CusCode, SName0,
-		SName1, KName, ZyksDat, Hoan, BankCode, NoKensin, mCusRec) {
+	setValue(mName, mKMonth, mKDate, mGasUse, mGasKubun, mKenSumi, mNowMeter, mPreMeter, mPuseYear, mPuseMonth, mPuseDate,
+		mGasDiv, mConTax, mBetwMeter, mPreUse, mFee, mHiwari, mTaxDiv, mSimeF, mKaiYear, mKaiMonth, mKaiDate, mKtpcdat,
+		mSupplyForm, mGasBase, mMtKeta, mGasUnit, mHybseikyu, mUrikin, mUriTax, mReduce, mReduceTax, mKotfDat, mProcTisyuu,
+		mTaxTisyuu, mPreBalance, mTAdjust, mTReceipt, mProcLease, mTaxLease, mProcDiv, mProcLoil, mTaxLoil, mProcEtc,
+		mTaxEtc, mProcGas, mTaxGas, mReceipt, mAdjust, mSyuSumi, mInpReceipt, mAdd_0, mAdd_1, mCusCode, mSName0,
+		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusRec, mPuseSrpDay) {
 
 		var data = new KokfDat();
 
-		data.mName = Name;
-		data.mKMonth = KMonth;
-		data.mKDate = KDate;
-		data.mGasUse = GasUse;
-		data.mGasKubun = GasKubun;
-		data.mKenSumi = KenSumi;
-		data.mNowMeter = NowMeter;
-		data.mPreMeter = PreMeter;
-		data.mPuseYear = PuseYear;
-		data.mPuseMonth = PuseMonth;
-		data.mPuseDate = PuseDate;
-		data.mGasDiv = GasDiv;
-		data.mConTax = ConTax;
-		data.mBetwMeter = BetwMeter;
-		data.mPreUse = PreUse;
-		data.mFee = Fee;
-		data.mHiwari = Hiwari;
-		data.mTaxDiv = TaxDiv;
-		data.mSimeF = SimeF;
-		data.mKaiYear = KaiYear;
-		data.mKaiMonth = KaiMonth;
-		data.mKaiDate = KaiDate;
-		data.mKtpcdat = Ktpcdat;
-		data.mSupplyForm = SupplyForm;
-		data.mGasBase = GasBase;
-		data.mMtKeta = MtKeta;
-		data.mGasUnit = GasUnit;
-		data.mHybseikyu = Hybseikyu;
-		data.mUrikin = Urikin;
-		data.mUriTax = UriTax;
-		data.mReduce = Reduce;
-		data.mReduceTax = ReduceTax;
-		data.mKotfDat = KotfDat;
-		data.mProcTisyuu = ProcTisyuu;
-		data.mTaxTisyuu = TaxTisyuu;
-		data.mPreBalance = PreBalance;
-		data.mTAdjust = TAdjust;
-		data.mTReceipt = TReceipt;
-		data.mProcLease = ProcLease;
-		data.mTaxLease = TaxLease;
-		data.mProcDiv = ProcDiv;
-		data.mProcLoil = ProcLoil;
-		data.mTaxLoil = TaxLoil;
-		data.mProcEtc = ProcEtc;
-		data.mTaxEtc = TaxEtc;
-		data.mProcGas = ProcGas;
-		data.mTaxGas = TaxGas;
-		data.mReceipt = Receipt;
-		data.mAdjust = Adjust;
-		data.mSyuSumi = SyuSumi;
-		data.mInpReceipt = InpReceipt;
-		data.mAdd = Add;
-		data.mCusCode = CusCode;
-		data.mSName0 = SName0;
-		data.mSName1 = SName1;
-		data.mKName = KName;
-		data.mZyksDat = ZyksDat;
-		data.mHoan = Hoan;
-		data.mBankCode = BankCode;
-		data.mNoKensin = NoKensin;
+		data.mName = mName;
+		data.mKMonth = mKMonth;
+		data.mKDate = mKDate;
+		data.mGasUse = mGasUse;
+		data.mGasKubun = mGasKubun;
+		data.mKenSumi = mKenSumi;
+		data.mNowMeter = mNowMeter;
+		data.mPreMeter = mPreMeter;
+		data.mPuseYear = mPuseYear;
+		data.mPuseMonth = mPuseMonth;
+		data.mPuseDate = mPuseDate;
+		data.mGasDiv = mGasDiv;
+		data.mConTax = mConTax;
+		data.mBetwMeter = mBetwMeter;
+		data.mPreUse = mPreUse;
+		data.mFee = mFee;
+		data.mHiwari = mHiwari;
+		data.mTaxDiv = mTaxDiv;
+		data.mSimeF = mSimeF;
+		data.mKaiYear = mKaiYear;
+		data.mKaiMonth = mKaiMonth;
+		data.mKaiDate = mKaiDate;
+		if (mKtpcdat != null) {
+			data.mKtpcdat = mKtpcdat;
+		}
+		data.mSupplyForm = mSupplyForm;
+		data.mGasBase = mGasBase;
+		data.mMtKeta = mMtKeta;
+		data.mGasUnit = mGasUnit;
+		data.mHybseikyu = mHybseikyu;
+		data.mUrikin = mUrikin;
+		data.mUriTax = mUriTax;
+		data.mReduce = mReduce;
+		data.mReduceTax = mReduceTax;
+		data.mKotfDat = mKotfDat;
+		data.mProcTisyuu = mProcTisyuu;
+		data.mTaxTisyuu = mTaxTisyuu;
+		data.mPreBalance = mPreBalance;
+		data.mTAdjust = mTAdjust;
+		data.mTReceipt = mTReceipt;
+		data.mProcLease = mProcLease;
+		data.mTaxLease = mTaxLease;
+		data.mProcDiv = mProcDiv;
+		data.mProcLoil = mProcLoil;
+		data.mTaxLoil = mTaxLoil;
+		data.mProcEtc = mProcEtc;
+		data.mTaxEtc = mTaxEtc;
+		data.mProcGas = mProcGas;
+		data.mTaxGas = mTaxGas;
+		data.mReceipt = mReceipt;
+		data.mAdjust = mAdjust;
+		data.mSyuSumi = mSyuSumi;
+		data.mInpReceipt = mInpReceipt;
+		data.mAdd_0 = mAdd_0;
+		data.mAdd_1 = mAdd_1;
+		data.mCusCode = mCusCode;
+		data.mSName0 = mSName0;
+		data.mSName1 = mSName1;
+		data.mKName = mKName;
+		if (mZyksDat != null) {
+			data.mZyksDat = mZyksDat;
+		}
+		data.mHoan = mHoan;
+		data.mBankCode = mBankCode;
+		data.mNoKensin = mNoKensin;
 		data.mCusRec = mCusRec;
+		data.mPuseSrpDay = mPuseSrpDay;
+
+		return data
+	}
+
+	parseData(responeData) {
+		var data = new KokfDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mName = responeData.mName;
+		data.mKMonth = responeData.mKMonth;
+		data.mKDate = responeData.mKDate;
+		data.mGasUse = responeData.mGasUse;
+		data.mGasKubun = responeData.mGasKubun;
+		data.mKenSumi = responeData.mKenSumi;
+		data.mNowMeter = responeData.mNowMeter;
+		data.mPreMeter = responeData.mPreMeter;
+		data.mPuseYear = responeData.mPuseYear;
+		data.mPuseMonth = responeData.mPuseMonth;
+		data.mPuseDate = responeData.mPuseDate;
+		data.mGasDiv = responeData.mGasDiv;
+		data.mConTax = responeData.mConTax;
+		data.mBetwMeter = responeData.mBetwMeter;
+		data.mPreUse = responeData.mPreUse;
+		data.mFee = responeData.mFee;
+		data.mHiwari = responeData.mHiwari;
+		data.mTaxDiv = responeData.mTaxDiv;
+		data.mSimeF = responeData.mSimeF;
+		data.mKaiYear = responeData.mKaiYear;
+		data.mKaiMonth = responeData.mKaiMonth;
+		data.mKaiDate = responeData.mKaiDate;
+		if (data.mKtpcdat != null) {
+			data.mKtpcdat = responeData.mKtpcdat;
+		}
+		data.mSupplyForm = responeData.mSupplyForm;
+		data.mGasBase = responeData.mGasBase;
+		data.mMtKeta = responeData.mMtKeta;
+		data.mGasUnit = responeData.mGasUnit;
+		data.mHybseikyu = responeData.mHybseikyu;
+		data.mUrikin = responeData.mUrikin;
+		data.mUriTax = responeData.mUriTax;
+		data.mReduce = responeData.mReduce;
+		data.mReduceTax = responeData.mReduceTax;
+		data.mKotfDat = responeData.mKotfDat;
+		data.mProcTisyuu = responeData.mProcTisyuu;
+		data.mTaxTisyuu = responeData.mTaxTisyuu;
+		data.mPreBalance = responeData.mPreBalance;
+		data.mTAdjust = responeData.mTAdjust;
+		data.mTReceipt = responeData.mTReceipt;
+		data.mProcLease = responeData.mProcLease;
+		data.mTaxLease = responeData.mTaxLease;
+		data.mProcDiv = responeData.mProcDiv;
+		data.mProcLoil = responeData.mProcLoil;
+		data.mTaxLoil = responeData.mTaxLoil;
+		data.mProcEtc = responeData.mProcEtc;
+		data.mTaxEtc = responeData.mTaxEtc;
+		data.mProcGas = responeData.mProcGas;
+		data.mTaxGas = responeData.mTaxGas;
+		data.mReceipt = responeData.mReceipt;
+		data.mAdjust = responeData.mAdjust;
+		data.mSyuSumi = responeData.mSyuSumi;
+		data.mInpReceipt = responeData.mInpReceipt;
+		data.mAdd_0 = responeData.mAdd_0;
+		data.mAdd_1 = responeData.mAdd_1;
+		data.mCusCode = responeData.mCusCode;
+		data.mSName0 = responeData.mSName0;
+		data.mSName1 = responeData.mSName1;
+		data.mKName = responeData.mKName;
+		if (data.mZyksDat != null) {
+			data.mZyksDat = responeData.mZyksDat;
+		}
+		data.mHoan = responeData.mHoan;
+		data.mBankCode = responeData.mBankCode;
+		data.mNoKensin = responeData.mNoKensin;
+		data.mCusRec = responeData.mCusRec;
+		data.mPuseSrpDay = responeData.mPuseSrpDay;
 
 		return data
 	}
@@ -356,12 +443,12 @@ export class SysfDat {
 		/** 伝票出力フラグ:ユーザー名(店舗名) */
 		this.mIfChitUser = false;
 		/** システム月 */
-    	this.mSysMonth = 0;  // Sys.hansysym
+		this.mSysMonth = 0;  // Sys.hansysym
 	}
 
 	setValue(mKgasDays0, mKgasDays1, mKgasDays2, mTax_yy, mTax_mm, mTax_dd, mConsumTax, mTaxr_old, mTaxr_new, mVisibleGas, mVisibleFacility, mLesUmu,
 		mFracAddKin, mFracMulKin, mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas,
-		m_isToyukeninFlg, mSrChkr, mSrChkm, mKnebFlg, mIfAdjust, mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser , mSysMonth) {
+		m_isToyukeninFlg, mSrChkr, mSrChkm, mKnebFlg, mIfAdjust, mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser, mSysMonth) {
 		var data = new SysfDat();
 
 		data.mKgasDays0 = mKgasDays0;
@@ -405,6 +492,54 @@ export class SysfDat {
 		data.mSysMonth = mSysMonth;
 		return data;
 	}
+
+	parseData(responeData) {
+		var data = new SysfDat();
+		if (responeData == null) {
+			return data;
+		}
+		
+		data.mKgasDays0 = responeData.mKgasDays0;
+		data.mKgasDays1 = responeData.mKgasDays1;
+		data.mKgasDays2 = responeData.mKgasDays2;
+		data.mTax_yy = responeData.mTax_yy;
+		data.mTax_mm = responeData.mTax_mm;
+		data.mTax_dd = responeData.mTax_dd;
+		data.mConsumTax = responeData.mConsumTax;
+		data.mTaxr_old = responeData.mTaxr_old;
+		data.mTaxr_new = responeData.mTaxr_new;
+		data.mVisibleGas = responeData.mVisibleGas;
+		data.mVisibleFacility = responeData.mVisibleFacility;
+		data.mLesUmu = responeData.mLesUmu;
+		data.mFracAddKin = responeData.mFracAddKin;
+		data.mFracMulKin = responeData.mFracMulKin;
+		data.mFracAddTax = responeData.mFracAddTax;
+		data.mFracMulTax = responeData.mFracMulTax;
+		data.mSysYear = responeData.mSysYear;
+		data.mMonth = responeData.mMonth;
+		data.mDate = responeData.mDate;
+		data.mIfReduce = responeData.mIfReduce;
+		data.mShoTaxcom = responeData.mShoTaxcom;
+		data.mCheckHoan = responeData.mCheckHoan;
+		data.mIfMoney = responeData.mIfMoney;
+		data.mTenkenKgas = responeData.mTenkenKgas;
+		data.m_isToyukeninFlg = responeData.m_isToyukeninFlg;
+		data.mSrChkr = responeData.mSrChkr;
+		data.mSrChkm = responeData.mSrChkm;
+		data.mKnebFlg = responeData.mKnebFlg;
+		data.mIfAdjust = responeData.mIfAdjust;
+		data.mIfAlarm = responeData.mIfAlarm;
+		data.mIfDiv = responeData.mIfDiv;
+		data.mIfLampoil = responeData.mIfLampoil;
+		data.mIfProceeds = responeData.mIfProceeds;
+		data.mIfDemand = responeData.mIfDemand;
+		data.mGtpcDat = responeData.mGtpcDat;
+		data.mHtOption = responeData.mHtOption;
+		data.mSnvalue = responeData.mSnvalue;
+		data.mIfChitUser = responeData.mIfChitUser;
+		data.mSysMonth = responeData.mSysMonth;
+		return data
+	}
 }
 
 
@@ -444,12 +579,30 @@ export class Sy2fDat {
 		data.mSyskeigen = mSyskeigen;
 		return data;
 	}
+
+	parseData(responeData) {
+		var data = new Sy2fDat();
+		if (responeData == null) {
+			return data;
+		}
+		
+		data.mCaHas = responeData.mCaHas;
+		data.mCaFlg = responeData.mCaFlg;
+		data.mKangHbcd = responeData.mKangHbcd;
+		data.mKangHcd = responeData.mKangHcd;
+		data.mNyucho = responeData.mNyucho;
+		data.mSysOption = responeData.mSysOption;
+		data.mSysfHmcd13 = responeData.mSysfHmcd13;
+		data.mJifuriNext = responeData.mJifuriNext;
+		data.mSyskeigen = responeData.mSyskeigen;
+		return data
+	}
 }
 
 
 export class Ko2fDat {
-    /** ハイブリッドカウンタ数 */
-    kHyb_MAX = 4;
+	/** ハイブリッドカウンタ数 */
+	kHyb_MAX = 4;
 
 	constructor() {
 		/** ハイブリッド料金区分 */
@@ -479,6 +632,22 @@ export class Ko2fDat {
 		data.mUseTax = mUseTax;
 		data.mChoKin = mChoKin;
 		return data;
+	}
+
+	parseData(responeData) {
+		var data = new Ko2fDat();
+		if (responeData == null) {
+			return data;
+		}
+		
+		data.mGashyb = responeData.mGashyb;
+		data.mChoTaxku = responeData.mChoTaxku;
+		data.mChoTax = responeData.mChoTax;
+		data.mUseKin = responeData.mUseKin;
+		data.mUseTaxku = responeData.mUseTaxku;
+		data.mUseTax = responeData.mUseTax;
+		data.mChoKin = responeData.mChoKin;
+		return data
 	}
 }
 
@@ -517,6 +686,23 @@ export class KouserDat {
 		data.m_nNextTransDay = m_nNextTransDay;
 		return data;
 	}
+
+	parseData(responeData) {
+		var data = new KouserDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.m_nChuatu = responeData.m_nChuatu;
+		data.m_nKoubetsu = responeData.m_nKoubetsu;
+		data.mHyc5 = responeData.mHyc5;
+		data.m_sChocode = responeData.m_sChocode;
+		data.m_sNyucode = responeData.m_sNyucode;
+		data.m_nNextTransYear = responeData.m_nNextTransYear;
+		data.m_nNextTransMonth = responeData.m_nNextTransMonth;
+		data.m_nNextTransDay = responeData.m_nNextTransDay;
+		return data
+	}
 }
 
 
@@ -531,13 +717,25 @@ export class KtpcDat {
 	}
 
 
-	setValue(Basekin, Addkin, Facilitykin) {
+	setValue(m_nBasekin, m_nAddkin, m_nFacilitykin) {
 		var data = new KtpcDat();
 
-		data.m_nBasekin = Basekin;
-		data.m_nAddkin = Addkin;
-		data.m_nFacilitykin = Facilitykin;
+		data.m_nBasekin = m_nBasekin;
+		data.m_nAddkin = m_nAddkin;
+		data.m_nFacilitykin = m_nFacilitykin;
 		return data;
+	}
+
+	parseData(responeData) {
+		var data = new KtpcDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.m_nBasekin = responeData.m_nBasekin;
+		data.m_nAddkin = responeData.m_nAddkin;
+		data.m_nFacilitykin = responeData.m_nFacilitykin;
+		return data
 	}
 }
 
@@ -575,33 +773,42 @@ export class GasfDat {
 	setValue(mSum, mSyu, mFrac1Add, mFrac2Add, mFrac1Mult, mFrac2Mult, mRiseFall, m_lstGstpDat, mTaxDiv, mTaxAdd, mTaxMult, mChoTanka, mGextDat) {
 		var data = new GasfDat();
 
-		/** 計算方法 */
 		data.mSum = mSum;
-		/** 料金表種別 */
 		data.mSyu = mSyu;
-		/** 端数処理1：加算 */
 		data.mFrac1Add = mFrac1Add;
-		/** 端数処理2:加算 */
 		data.mFrac2Add = mFrac2Add;
-		/** 端数処理1:乗算 */
 		data.mFrac1Mult = mFrac1Mult;
-		/** 端数処理2:乗算 */
 		data.mFrac2Mult = mFrac2Mult;
-		/** 増減率 */
 		data.mRiseFall = mRiseFall;
-		/** ガス料金ステップデータ */
 		data.m_lstGstpDat = m_lstGstpDat;
-		/** 消費税区分 */
 		data.mTaxDiv = mTaxDiv;
-		/** 消費税端数処理：加算 */
 		data.mTaxAdd = mTaxAdd;
-		/** 消費税端数処理：乗算 */
 		data.mTaxMult = mTaxMult;
-		/** 調整単価 */
 		data.mChoTanka = mChoTanka;
-		/** ガス料金拡張データ */
 		data.mGextDat = mGextDat;
 		return data;
+	}
+
+	parseData(responeData) {
+		var data = new GasfDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mSum = responeData.mSum;
+		data.mSyu = responeData.mSyu;
+		data.mFrac1Add = responeData.mFrac1Add;
+		data.mFrac2Add = responeData.mFrac2Add;
+		data.mFrac1Mult = responeData.mFrac1Mult;
+		data.mFrac2Mult = responeData.mFrac2Mult;
+		data.mRiseFall = responeData.mRiseFall;
+		data.m_lstGstpDat = responeData.m_lstGstpDat;
+		data.mTaxDiv = responeData.mTaxDiv;
+		data.mTaxAdd = responeData.mTaxAdd;
+		data.mTaxMult = responeData.mTaxMult;
+		data.mChoTanka = responeData.mChoTanka;
+		data.mGextDat = responeData.mGextDat;
+		return data
 	}
 }
 
@@ -611,18 +818,30 @@ export class GstpDat {
 		/** 上限値 */
 		this.mUplimit = 0;
 		/** 加算値 */
-		this.mAdd = 0;
+		this.m_nAddp = 0;
 		/** 基準料金 */
-		this.mBase = 0;
+		this.m_nBase = 0;
 	}
 
-	setValue(mUplimit, mAdd, mBase) {
+	setValue(mUplimit, m_nAddp, m_nBase) {
 		var data = new GstpDat();
 
 		data.mUplimit = mUplimit;
-		data.mAdd = mAdd;
-		data.mBase = mBase;
+		data.m_nAddp = m_nAddp;
+		data.m_nBase = m_nBase;
 		return data;
+	}
+
+	parseData(responeData) {
+		var data = new GstpDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mUplimit = responeData.mUplimit;
+		data.m_nAddp = responeData.m_nAddp;
+		data.m_nBase = responeData.m_nBase;
+		return data
 	}
 }
 
@@ -640,10 +859,10 @@ export class HanfDat {
 		/** 住所2 */
 		this.mAdd2 = null;
 		/** 住所3 */
-		this.Add3 = null;
+		this.mAdd3 = null;
 	}
 
-	setValue(mName, mTel, mFax, mAdd1, mAdd2, Add3) {
+	setValue(mName, mTel, mFax, mAdd1, mAdd2, mAdd3) {
 		var data = new HanfDat();
 
 		data.mName = mName;
@@ -651,8 +870,23 @@ export class HanfDat {
 		data.mFax = mFax;
 		data.mAdd1 = mAdd1;
 		data.mAdd2 = mAdd2;
-		data.Add3 = Add3;
+		data.mAdd3 = mAdd3;
 		return data;
+	}
+
+	parseData(responeData) {
+		var data = new HanfDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mName = responeData.mName;
+		data.mTel = responeData.mTel;
+		data.mFax = responeData.mFax;
+		data.mAdd1 = responeData.mAdd1;
+		data.mAdd2 = responeData.mAdd2;
+		data.mAdd3 = responeData.mAdd3;
+		return data
 	}
 }
 
@@ -680,6 +914,20 @@ export class KnebDat {
 		data.m_nKin = m_nKin;
 		data.m_nTax = m_nTax;
 		return data;
+	}
+
+	parseData(responeData) {
+		var data = new KnebDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.m_nCode = responeData.m_nCode;
+		data.m_nUmu = responeData.m_nUmu;
+		data.m_nRes = responeData.m_nRes;
+		data.m_nKin = responeData.m_nKin;
+		data.m_nTax = responeData.m_nTax;
+		return data
 	}
 }
 
@@ -745,6 +993,32 @@ export class HmefDat {
 		data.mHbName = mHbName;
 		return data;
 	}
+
+	parseData(responeData) {
+		var data = new HmefDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mUsef = responeData.mUsef;
+		data.mHmeKind = responeData.mHmeKind;
+		data.mLeasKind = responeData.mLeasKind;
+		data.mKin = responeData.mKin;
+		data.mTax = responeData.mTax;
+		data.mHmCode = responeData.mHmCode;
+		data.mTaxKu = responeData.mTaxKu;
+		data.mTaxR = responeData.mTaxR;
+		data.mHbCode = responeData.mHbCode;
+		data.mDenm = responeData.mDenm;
+		data.mDend = responeData.mDend;
+		data.mHmName = responeData.mHmName;
+		data.mSuryo = responeData.mSuryo;
+		data.mTanka = responeData.mTanka;
+		data.mKeigenKubun = responeData.mKeigenKubun;
+		data.mHbnmPrn = responeData.mHbnmPrn;
+		data.mHbName = responeData.mHbName;
+		return data
+	}
 }
 
 
@@ -765,6 +1039,18 @@ export class KotfDat {
 		data.m_nFee = m_nFee;
 		data.m_nCon_tax = m_nCon_tax;
 		return data;
+	}
+
+	parseData(responeData) {
+		var data = new KotfDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.m_bKen_sumi = responeData.m_bKen_sumi;
+		data.m_nFee = responeData.m_nFee;
+		data.m_nCon_tax = responeData.m_nCon_tax;
+		return data
 	}
 }
 
@@ -813,6 +1099,26 @@ export class GtpcDat {
 		data.m_nPrintGastablePtn = m_nPrintGastablePtn;
 		return data;
 	}
+
+	parseData(responeData) {
+		var data = new GtpcDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.m_nPrintGasRyokinSiki = responeData.m_nPrintGasRyokinSiki;
+		data.m_nPrintGasRyokinTotal = responeData.m_nPrintGasRyokinTotal;
+		data.m_nPrintHiwariComment = responeData.m_nPrintHiwariComment;
+		data.m_strHiwariComment_0 = responeData.m_strHiwariComment_0;
+		data.m_strHiwariComment_1 = responeData.m_strHiwariComment_1;
+		data.m_nPrintZenyearkensr = responeData.m_nPrintZenyearkensr;
+		data.m_strTitle_0 = responeData.m_strTitle_0;
+		data.m_strTitle_1 = responeData.m_strTitle_1;
+		data.m_strTitle_2 = responeData.m_strTitle_2;
+		data.m_strTitle_3 = responeData.m_strTitle_3;
+		data.m_nPrintGastablePtn = responeData.m_nPrintGastablePtn;
+		return data
+	}
 }
 
 
@@ -836,6 +1142,19 @@ export class ZyksDat {
 		data.m_nDenymd_month = m_nDenymd_month;
 		data.m_nDenymd_day = m_nDenymd_day;
 		return data;
+	}
+
+	parseData(responeData) {
+		var data = new ZyksDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.m_nSr = responeData.m_nSr;
+		data.m_nDenymd_year = responeData.m_nDenymd_year;
+		data.m_nDenymd_month = responeData.m_nDenymd_month;
+		data.m_nDenymd_day = responeData.m_nDenymd_day;
+		return data
 	}
 }
 
@@ -864,6 +1183,20 @@ export class BusfDat {
 		data.mKind = mKind;
 		return data;
 	}
+
+	parseData(responeData) {
+		var data = new BusfDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mUsef = responeData.mUsef;
+		data.mHinno = responeData.mHinno;
+		data.mName = responeData.mName;
+		data.mSign = responeData.mSign;
+		data.mKind = responeData.mKind;
+		return data;
+	}
 }
 
 
@@ -873,18 +1206,28 @@ export class GextDat {
 		this.m_nBasekin = 0;
 		/** ガス設備料 */
 		this.m_nFacilitykin = 0;
-		/** ガス料金式印字フラグ */   				//can tim hieu cach doc bien nay
+		/** ガス料金式印字フラグ */ 
 		this.m_nPrintGasryokinSiki = 1;
 	}
 
-	setValue(mUsef, mHinno, mName, mSign, mKind) {
+	setValue(m_nBasekin, m_nFacilitykin, m_nPrintGasryokinSiki) {
 		var data = new GextDat();
 
-		data.mUsef = mUsef;
-		data.mHinno = mHinno;
-		data.mName = mName;
-		data.mSign = mSign;
-		data.mKind = mKind;
+		data.m_nBasekin = m_nBasekin;
+		data.m_nFacilitykin = m_nFacilitykin;
+		data.m_nPrintGasryokinSiki = m_nPrintGasryokinSiki;
+		return data;
+	}
+
+	parseData(responeData) {
+		var data = new GextDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.m_nBasekin = responeData.m_nBasekin;
+		data.m_nFacilitykin = responeData.m_nFacilitykin;
+		data.m_nPrintGasryokinSiki = responeData.m_nPrintGasryokinSiki;
 		return data;
 	}
 }
@@ -903,6 +1246,17 @@ export class TaxDat {
 
 		data.mGUchiZei = mGUchiZei;
 		data.mUchiZei = mUchiZei;
+		return data;
+	}
+
+	parseData(responeData) {
+		var data = new TaxDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mGUchiZei = responeData.mGUchiZei;
+		data.mUchiZei = responeData.mUchiZei;
 		return data;
 	}
 }
@@ -1167,24 +1521,12 @@ export class ShukeiItem {
 };
 
 
-
-
-
-export var printStatus = {
-	m_isPrintHoan: false,
-	m_isPrintNyukin: false,
-	m_lReceipt: 0,
-	m_lZandaka: 0,
-	m_isPrintKensin: false,
-	m_isPrintToyu: false,
-}
-
-export var mUserData = {}
-
 export class UserData {
 	constructor() {
 		/** システム設定情報 */
 		this.mSysfDat = null;
+		/** システムデータクラス */
+		this.mSy2fDat = null;
 		/** 検針日 */
 		this.mKensinDate = "";
 		/** 顧客データ */
@@ -1217,14 +1559,35 @@ export class UserData {
 
 	setValue(inputData) {
 		var data = new UserData();
-		data = inputData;
+		return data;
+	}
+
+	parseData(responeData) {
+		if (responeData == null) {
+			return null;
+		}
+		var data = new UserData();
+
+		data.mSysfDat = responeData.mSysfDat;
+		data.mSy2fDat = responeData.mSy2fDat;
+		data.mKensinDate = responeData.mKensinDate;
+		data.mKokfDat = responeData.mKokfDat;
+		data.mKo2fDat = responeData.mKo2fDat;
+		data.mGasfDat = responeData.mGasfDat;
+		data.mHmefList = responeData.mHmefList;
+		data.mHanfDat = responeData.mHanfDat;
+		data.mNyukinMode = responeData.mNyukinMode;
+		data.mNyukinOnly = responeData.mNyukinOnly;
+		data.mKouserDat = responeData.mKouserDat;
+		data.m_lstKnebDat = responeData.m_lstKnebDat;
+		data.m_lstLeasHmefDat = responeData.m_lstLeasHmefDat;
+		data.mBusfdat = responeData.mBusfdat;
+		data.getHmef0 = responeData.getHmef0;
+		data.getHmef1 = responeData.getHmef1;
+		data.getHmef2 = responeData.getHmef2;
 		return data;
 	}
 }
-
-
-
-
 
 
 
@@ -1301,32 +1664,98 @@ export class ShukeiKensinData {
 }
 
 
-export class MetMeisaiDat{
-    constructor(){
-    /** 顧客管理コード */
-	this.m_nCusrec = 0;
-	/** 請求月度 */	
-	this.m_dtSeiymd = null;
-	/** システム月度 */	
-	this.m_dtSysymd = null;
-    /** 旧メーター指針 */
-	this.m_nOld_ss = 0;
-	/** 新メーター指針 */
-	this.m_nNew_ss = 0;
-	/** 中間使用量（検針） */
-	this.m_nKenmsr = 0;
-    /** 担当者 */
-	this.m_nTancd = 0;
-	/** 担当者名称 */
-	this.m_strTanname = null;
-    /** 記入担当者 */
-	this.m_nWrt_tancd = 0;
-	/** 記入日付 */
-	this.m_dtWrt_ymd = null;
-    }
+export class PrintStatus {
+	constructor() {
+		/** 保安点検印刷フラグ */
+		this.m_isPrintHoan = false;
+		/** 入金印刷フラグ */
+		this.m_isPrintNyukin = false;
+		/** 領収印刷フラグ */
+		this.m_lReceipt = 0;
+		/** 残高 */
+		this.m_lZandaka = 0;
+		/** 検針印刷フラグ */
+		this.m_isPrintKensin = false;
+		/** 灯油印刷フラグ */
+		this.m_isPrintToyu = false;
+	}
+
+	setValue(m_isPrintHoan, m_isPrintNyukin, m_lReceipt, m_lZandaka, m_isPrintKensin, m_isPrintToyu) {
+		var data = new PrintStatus();
+
+		data.m_isPrintHoan = m_isPrintHoan;
+		data.m_isPrintNyukin = m_isPrintNyukin;
+		data.m_lReceipt = m_lReceipt;
+		data.m_lZandaka = m_lZandaka;
+		data.m_isPrintKensin = m_isPrintKensin;
+		data.m_isPrintToyu = m_isPrintToyu;
+		return data;
+	}
+}
 
 
-	setValue(nCusrec , dtSeiymd , dtSysymd , nOld_ss , nNew_ss , nKenmsr , nTancd , strTanname , nWrt_tancd , dtWrt_ymd){
+export class WriteDataDat {
+	constructor() {
+		/** 調査点検実績情報 */
+		this.m_oSecLawDat = null;
+		/** 点検結果一覧 */
+		this.m_lLawItem = null;
+		/** 販売の伝票と明細 */
+		this.m_oDenpyoMeisaiDat = null;
+		/** メーター指針 */
+		this.m_oMetMeisaiDat = null;
+		/** ガス料金計算結果 */
+		this.m_oGasraterDat = null;
+		/** モード（0:新規追加、1:修正、2:削除） */
+		this.m_nMode = 0;
+		/** ログインID */
+		this.login_id = 0;
+		/** ログインパスワード */
+		this.login_pw = 0;
+	}
+
+	setValue(m_oSecLawDat, m_lLawItem, m_oDenpyoMeisaiDat, m_oMetMeisaiDat, m_oGasraterDat, m_nMode, login_id, login_pw) {
+		var data = new WriteDataDat();
+
+		data.m_oSecLawDat = m_oSecLawDat;
+		data.m_lLawItem = m_lLawItem;
+		data.m_oDenpyoMeisaiDat = m_oDenpyoMeisaiDat;
+		data.m_oMetMeisaiDat = m_oMetMeisaiDat;
+		data.m_oGasraterDat = m_oGasraterDat;
+		data.m_nMode = m_nMode;
+		data.login_id = login_id;
+		data.login_pw = login_pw;
+		return data;
+	}
+}
+
+
+export class MetMeisaiDat {
+	constructor() {
+		/** 顧客管理コード */
+		this.m_nCusrec = 0;
+		/** 請求月度 */
+		this.m_dtSeiymd = null;
+		/** システム月度 */
+		this.m_dtSysymd = null;
+		/** 旧メーター指針 */
+		this.m_nOld_ss = 0;
+		/** 新メーター指針 */
+		this.m_nNew_ss = 0;
+		/** 中間使用量（検針） */
+		this.m_nKenmsr = 0;
+		/** 担当者 */
+		this.m_nTancd = 0;
+		/** 担当者名称 */
+		this.m_strTanname = null;
+		/** 記入担当者 */
+		this.m_nWrt_tancd = 0;
+		/** 記入日付 */
+		this.m_dtWrt_ymd = null;
+	}
+
+
+	setValue(nCusrec, dtSeiymd, dtSysymd, nOld_ss, nNew_ss, nKenmsr, nTancd, strTanname, nWrt_tancd, dtWrt_ymd) {
 		var data = new MetMeisaiDat();
 		data.m_nCusrec = nCusrec;
 		data.m_dtSeiymd = dtSeiymd;
@@ -1337,24 +1766,24 @@ export class MetMeisaiDat{
 		data.m_nTancd = nTancd;
 		data.m_strTanname = strTanname;
 		data.m_nWrt_tancd = nWrt_tancd;
-		data.m_dtWrt_ymd = dtWrt_ymd;	
-		return data;	
+		data.m_dtWrt_ymd = dtWrt_ymd;
+		return data;
 	}
- }
+}
 
-export  class SeclawDat{
-    constructor(){
-        /** 顧客管理コード */
-	    this.m_nCusrec = 0;
-        /** 調査点検日付 */      
-        this.m_dtEntymd = null;
-        /** 総合結果 */
-        this.m_bRes = 0;   
-        this.m_strTanname;
-        this.m_sTancd;
-    }
+export class SeclawDat {
+	constructor() {
+		/** 顧客管理コード */
+		this.m_nCusrec = 0;
+		/** 調査点検日付 */
+		this.m_dtEntymd = null;
+		/** 総合結果 */
+		this.m_bRes = 0;
+		this.m_strTanname;
+		this.m_sTancd;
+	}
 
-	setValue(nCusrec,dtEnt_ymd , bRes, strTanname ,nTancd ){
+	setValue(nCusrec, dtEnt_ymd, bRes, strTanname, nTancd) {
 		var data = new SeclawDat();
 		data.m_nCusrec = nCusrec;
 		data.m_dtEntymd = dtEnt_ymd;
@@ -1363,21 +1792,127 @@ export  class SeclawDat{
 		data.m_sTancd = nTancd;
 		return data;
 	}
- }
+}
 
-export class LawItemDat{
-    constructor(){
-        /** コード */
-	    this.m_nCode = nCode;
-	    /** 値 */
-        this.m_nValue = nValue;
-    }
+export class LawItemDat {
+	constructor() {
+		/** コード */
+		this.m_nCode = nCode;
+		/** 値 */
+		this.m_nValue = nValue;
+	}
 
-	setValue(nCode , nValue){
+	setValue(nCode, nValue) {
 		var data = new LawItemDat();
 		data.m_nCode = nCode;
 		data.m_nValue = nValue;
 		return data;
 	}
- }
+}
 
+
+export class HnDenMeiDat {
+	constructor() {
+		/** 伝票：顧客内部管理コード */
+		this.d_cusrec = 0;
+		/** 伝票：顧客請求月度（値がnullの場合は、エラーとなります。） */
+		this.d_seiymd = 0;
+		/** 伝票：システム月度（値がnullの場合は、今現在の販売システム年月が割り当てられます。） */
+		this.sysymd = 0;
+		/** 伝票：伝票番号 */
+		this.entymd = 0;
+		/** 伝票：伝票日付 */
+		this.d_denymd = 0;
+		/** 伝票：伝票区分 0:前月残高, 1:通常, 2:割賦 */
+		this.d_denku = 0;
+		/** 伝票：商品取引区分 0:売上, 1:返品 */
+		this.d_torku = 0;
+		/** 伝票：伝票番号（処理時、値が-1である場合は、自動的に順序キーが割り当てられます。） */
+		this.d_denno = 0;
+		/** 明細：削除フラグ */
+		this.m_delflg = 0;
+		/** 伝票：金額 */
+		this.d_kin = 0;
+		/** 伝票：内税 */
+		this.utax = 0;
+		/** 伝票：外税 */
+		this.d_stax = 0;
+		/** 伝票：消費税端数処理計算方法 */
+		this.d_taxcom = 0;
+		/** 伝票：消費税端数処理 */
+		this.d_taxhas = 0;
+		/** 伝票：担当者コード */
+		this.d_tancd = 0;
+		/** 伝票：担当者名称 */
+		this.d_tanname = 0;
+		/** 伝票：指針 */
+		this.d_sisin = 0;
+		/** 伝票：使用量 */
+		this.d_siyouryo = 0;
+		/** 伝票：検針期間 */
+		this.d_days = 0;
+		/** 伝票：検針使用率 */
+		this.d_srpday = 0;
+		/** 伝票：検針区分 */
+		this.d_kenku = 0;
+		/** 伝票：データ発送フラグ（主に検針データ発送向け） */
+		this.d_sendf = 0;
+		/** 伝票：データ発送日付（主に検針データ発送向け） */
+		this.d_sendymd = 0;
+		/** 伝票：データ発送フラグ２（主に売上データ発送向け） */
+		this.d_send2f = 0;
+		/** 伝票：データ発送日付２（主に売上データ発送向け） */
+		this.d_send2ymd = 0;
+		/** 伝票：伝票が割賦扱いとなった場合のリンクコード */
+		this.d_kapcnt = 0;
+		/** 伝票：リース伝票とリンクします。 */
+		this.d_les_key = 0;
+		/** 伝票：伝票が分割金である場合、もととなる割賦伝票の内部管理コード */
+		this.d_kap_key = 0;
+		/** 伝票：記入する時に連動元となった伝票の内部管理コード(連動元は0, 連動対象は連動元のdencnt) */
+		this.d_lnk_dencnt = 0;
+		/** 伝票：記入担当者コード（デフォルトは、other.DB.userNo） */
+		this.d_wrt_tancd = 0;
+		/** 明細：記入プログラムコード */
+		this.m_wrt_prg = 0;
+	}
+
+	setValue(d_cusrec, d_seiymd, sysymd, entymd, d_denymd, d_denku, d_torku, d_denno, m_delflg, d_kin, utax, 
+			d_stax, d_taxcom, d_taxhas, d_tancd, d_tanname, d_sisin, d_siyouryo, d_days, d_srpday, d_kenku, 
+			d_sendf, d_sendymd, d_send2f, d_send2ymd, d_kapcnt, d_les_key, d_kap_key, d_lnk_dencnt, d_wrt_tancd, m_wrt_prg) {
+		var data = new HnDenMeiDat();
+
+		data.d_cusrec = d_cusrec;
+		data.d_seiymd = d_seiymd;
+		data.sysymd = sysymd;
+		data.entymd = entymd;
+		data.d_denymd = d_denymd;
+		data.d_denku = d_denku;
+		data.d_torku = d_torku;
+		data.d_denno = d_denno;
+		data.m_delflg = m_delflg;
+		data.d_kin = d_kin;
+		data.utax = utax;
+		data.d_stax = d_stax;
+		data.d_taxcom = d_taxcom;
+		data.d_taxhas = d_taxhas;
+		data.d_tancd = d_tancd;
+		data.d_tanname = d_tanname;
+		data.d_sisin = d_sisin;
+		data.d_siyouryo = d_siyouryo;
+		data.d_days = d_days;
+		data.d_srpday = d_srpday;
+		data.d_kenku = d_kenku;
+		data.d_sendf = d_sendf;
+		data.d_sendymd = d_sendymd;
+		data.d_send2f = d_send2f;
+		data.d_send2ymd = d_send2ymd;
+		data.d_kapcnt = d_kapcnt;
+		data.d_les_key = d_les_key;
+		data.d_kap_key = d_kap_key;
+		data.d_lnk_dencnt = d_lnk_dencnt;
+		data.d_wrt_tancd = d_wrt_tancd;
+		data.m_wrt_prg = m_wrt_prg;
+		return data;
+	}
+}
