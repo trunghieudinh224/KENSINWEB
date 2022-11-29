@@ -34,10 +34,8 @@ function calcConTax(kin, kokfDat, gasfDat, sysfDat) {
 			sysfDat.mTaxr_old,
 			sysfDat.mTaxr_new
 		);
-		console.log(tax);
 		wkConTax =
 			Other.hasCom(tax, gasfDat.mTaxAdd, gasfDat.mTaxMult, 1000) / 1000;
-		console.log(wkConTax);
 	}
 	return wkConTax;
 }
@@ -163,7 +161,6 @@ function getKenTaxr(
     if (sysf2.mCaFlg == 1 && kouser.m_nChuatu > 0) {
       //中圧係数後での料金計算
       var dValue = nGasUse * kouser.m_nChuatu * 10;
-      console.log(dValue);
       switch (sysf2.mCaHas) {
         case 1: //四捨五入
           nGasSur =
@@ -204,7 +201,6 @@ function getKenTaxr(
         ) / 10000;
     } else {
       //指針の差での料金計算
-      console.log(nGasUse);
       nGasSur = nGasUse;
     }
     return nGasSur;
@@ -319,27 +315,27 @@ function calcGasBaseKin(sysf, gasf, kokf, sy2fDat, kouserDat) {
 		// 予め最後の料金式を設定
 		gstpDat = lstGstpDat[lstGstpDat.length - 1];
 		for (tmpGstpDat in lstGstpDat) {
-			if (tmpGstpDat.mUplimit > nSur) {
+			if (tmpgstpdat.m_nUpLimit > nSur) {
 				// 基本料金確定
 				gstpDat = tmpGstpDat;
 				break;
 			}
 			nStartStep++;
 		}
-		nBaseKin = gstpDat.mBase;
+		nBaseKin = gstpDat.m_nBase;
 	} else {
 		// ガス料金の基本料金
 		var prevGstpDat = null;
 		gstpDat = lstGstpDat[0];
-		if (lstGstpDat.length > 1 && lstGstpDat[0].mUplimit <= 1) {
+		if (lstGstpDat.length > 1 && lstGstpDat[0].m_nUpLimit <= 1) {
 			prevGstpDat = lstGstpDat[0];
 			gstpDat = lstGstpDat[1];
 		}
 		if (prevGstpDat == null) {
-			nBaseKin = gstpDat.mBase;
+			nBaseKin = gstpDat.m_nBase;
 		} else {
 			nStartStep = 1;
-			nBaseKin = gstpDat.mBase - (gstpDat.mAdd * prevGstpDat.mUplimit) / 10;
+			nBaseKin = gstpDat.m_nBase - (gstpDat.m_nAddp * prevgstpdat.m_nUpLimit) / 10;
 		}
 		var gext = gasf.mGextDat;
 		if (sysf.mVisibleGas == 1 && gext.m_nBasekin != 0) {
@@ -417,7 +413,7 @@ function checkSrpday(
 	var mSrChkr = sysf.mSrChkr;
 
 	if (old_srpday == 0) {
-		ret = false;
+		ret = true;
 	} else if (old_srpday < mSrChkm[0] * 100) {
 		ret =
 			mSrChkr[0] * old_srpday >= new1_srpday * 100 &&
@@ -436,7 +432,7 @@ function checkSrpday(
 				sysf.mSrChkr[5] * old_srpday <= new1_srpday * 100;
 		}
 	}
-	return ret;
+	return !ret;
 }
 
 /**
@@ -591,11 +587,9 @@ function dailyGasrate(siyou, day, kokfDat, gasfDat) {
 	try {
 		if (day != 0) {
 			// 日割り計算有
-			console.log("if day !=0");
 			wkRyokin = mathDayGasRate(day, siyou, kokfDat, gasfDat);
 		} else {
 			// 日割り無し
-			console.log("if day ==0");
 			wkRyokin = mathGasRate(siyou, kokfDat, gasfDat);
 		}
 	} catch (err) {
@@ -652,9 +646,9 @@ function mathDayGasRateNormal_1(day, siyou, gasfDat) {
 
 	if (gasfDat.m_lstGstpDat.size() - 2 < siyou) {
 		// 表形式で設定されている上限超過時
-		var max_50_kin = gasfDat.m_lstGstpDat.get(gasfDat.m_lstGstpDat.size() - 2).mBase; // 50.0m3の料金
-		var lmt_over_add = gasfDat.m_lstGstpDat.get(gasfDat.m_lstGstpDat.size() - 1).mBase; // 0.1m3の従量料金
-		var base_tanka = gasfDat.m_lstGstpDat.get(0).mBase; // 基本料金
+		var max_50_kin = gasfDat.m_lstGstpDat.get(gasfDat.m_lstGstpDat.size() - 2).m_nBase; // 50.0m3の料金
+		var lmt_over_add = gasfDat.m_lstGstpDat.get(gasfDat.m_lstGstpDat.size() - 1).m_nBase; // 0.1m3の従量料金
+		var base_tanka = gasfDat.m_lstGstpDat.get(0).m_nBase; // 基本料金
 
 		// 従量料金50.1～
 		var add_sum = 0;
@@ -675,10 +669,10 @@ function mathDayGasRateNormal_1(day, siyou, gasfDat) {
 		//超過時の基本料金のみ日割り
 		dbRate = (base_tanka * day) / 30 + add_sum;
 	} else {
-		var base_tanka = gasfDat.m_lstGstpDat.get(0).mBase; // 基本料金
+		var base_tanka = gasfDat.m_lstGstpDat.get(0).m_nBase; // 基本料金
 		dbRate =
 			(base_tanka * day) / 30 +
-			gasfDat.m_lstGstpDat.get(siyou).mBase -
+			gasfDat.m_lstGstpDat.get(siyou).m_nBase -
 			base_tanka;
 
 		//	日割り計算した結果がマイナス時、ガス料金を０円とする。
@@ -721,19 +715,19 @@ function mathDayGasRateNormal(day, siyou, gasfDat) {
 	var nLimit;
 	var wk_gr = 0;
 
-	if (gasfDat.mLine > 0 && gasfDat.m_lstGstpDat.get(0).mBase > 0) {
-		wk_gr = gasfDat.m_lstGstpDat.get(0).mBase; // 基本料金
+	if (gasfDat.mLine > 0 && gasfDat.m_lstGstpDat.get(0).m_nBase > 0) {
+		wk_gr = gasfDat.m_lstGstpDat.get(0).m_nBase; // 基本料金
 	} else if (gasfDat.mLine > 1) {
 		// 基本料金 - 従量料金
 		wk_gr =
-			gasfDat.m_lstGstpDat.get(1).mBase -
-			(gasfDat.m_lstGstpDat.get(0).mUplimit *
-				gasfDat.m_lstGstpDat.get(1).mAdd) /
+			gasfDat.m_lstGstpDat.get(1).m_nBase -
+			(gasfDat.m_lstGstpDat.get(0).m_nUpLimit *
+				gasfDat.m_lstGstpDat.get(1).m_nAddp) /
 			10;
 	}
 
 	for (var i = 0; i < gasfDat.m_lstGstpDat.size(); i++) {
-		nLimit = gasfDat.m_lstGstpDat.get(i).mUplimit;
+		nLimit = gasfDat.m_lstGstpDat.get(i).m_nUpLimit;
 		if (nLimit > siyou) {
 			nStep = i;
 			break;
@@ -743,18 +737,18 @@ function mathDayGasRateNormal(day, siyou, gasfDat) {
 		}
 	}
 	if (nStep >= gasfDat.m_lstGstpDat.size()) {
-		console.log("入力値が不正です");
+		// console.log("入力値が不正です");
 	}
 	var gstpDat = gasfDat.m_lstGstpDat.get(nStep);
 	if (nStep == 0) {
-		wkGr1 = gstpDat.mBase; // 基本料金
+		wkGr1 = gstpdat.m_nBase; // 基本料金
 	} else {
 		// 対象となる料金設定の手前まで使用量を引く
 		wkGr1 =
-			gstpDat.mBase -
-			gasfDat.m_lstGstpDat.get(nStep - 1).mUplimit * (gstpDat.mAdd / 10);
+			gstpdat.m_nBase -
+			gasfDat.m_lstGstpDat.get(nStep - 1).m_nUpLimit * (gstpdat.m_nAddp / 10);
 	}
-	wkGr2 = siyou * (gstpDat.mAdd / 10);
+	wkGr2 = siyou * (gstpdat.m_nAddp / 10);
 	//従量料金
 	wkGr2 = wkGr1 + wkGr2 - wk_gr;
 	//基本料金の日割＋従量料金
@@ -772,7 +766,6 @@ function mathDayGasRateNormal(day, siyou, gasfDat) {
 	);
 	dbRate *= 1000 + gasfDat.mRiseFall;
 	dbRate = Other.hasCom(dbRate, gasfDat.mFrac2Add, gasfDat.mFrac2Mult, 10000000);
-	console.log("ステップ形式日割り料金計算[終了][ガス料金:" + dbRate / 10000000 + "]");
 	return long(dbRate / 10000000);
 }
 
@@ -786,7 +779,6 @@ function mathDayGasRateNormal(day, siyou, gasfDat) {
  * @throws Exception    ガス料金計算でエラーがあった場合に発生
  */
 function mathDayGasRateKgas(day, siyou, gasfDat) {
-	console.log("簡ガス日割りガス料金計算[開始]");
 	var wkSr; // １ヵ月(30日)での予測使用量
 	var wkGr; // １ヵ月(30日)での予測使用量
 	var wkGr1; // １ヵ月(30日)での予測使用量
@@ -806,7 +798,7 @@ function mathDayGasRateKgas(day, siyou, gasfDat) {
 	var iStep = 0;
 	var limit;
 	for (var i = 0; i < gasfDat.m_lstGstpDat.size(); i++) {
-		limit = gasfDat.m_lstGstpDat.get(i).mUplimit;
+		limit = gasfDat.m_lstGstpDat.get(i).m_nUpLimit;
 		if (limit > wkSr) {
 			iStep = i;
 			break;
@@ -814,7 +806,7 @@ function mathDayGasRateKgas(day, siyou, gasfDat) {
 		if (limit > 0) {
 			iStep = i;
 		}
-		if (gasfDat.m_lstGstpDat.get(i).mAdd != 0) {
+		if (gasfDat.m_lstGstpDat.get(i).m_nAddp != 0) {
 			dSubChoSur = limit;
 		}
 	}
@@ -822,8 +814,8 @@ function mathDayGasRateKgas(day, siyou, gasfDat) {
 		throw new Exception("入力値が不正です");
 	}
 	var gstpDat = gasfDat.m_lstGstpDat.get(iStep);
-	wkGr = gstpDat.mBase; // 基本料金
-	wkGr2 = (siyou / 10) * gstpDat.mAdd; // 使用量＊（加算額＋調整単価）
+	wkGr = gstpdat.m_nBase; // 基本料金
+	wkGr2 = (siyou / 10) * gstpdat.m_nAddp; // 使用量＊（加算額＋調整単価）
 	dSubSur = dSubSur / 10;
 	dSubChoSur = dSubChoSur / 10; // 基本料金の日割計算
 	wkGr1 = (wkGr * day) / 30;
@@ -844,7 +836,6 @@ function mathDayGasRateKgas(day, siyou, gasfDat) {
 		gasfDat.mFrac2Mult,
 		10000000
 	);
-	console.log("簡ガス日割りガス料金計算[終了][簡ガス日割りガス料金:" + dbRate / 10000000 + "]");
 	return long(dbRate / 10000000);
 }
 
@@ -877,7 +868,6 @@ function mathDayGasRateDay(day, siyou, gasfDat, kokfDat) {
 			10000000
 		);
 	}
-	console.log("契約単価日割り料金計算[終了][ガス料金:" + dbRate / 10000000 + "]");
 	return dbRate / 10000000;
 }
 
@@ -892,10 +882,8 @@ function mathDayGasRateDay(day, siyou, gasfDat, kokfDat) {
  */
 function mathGasRate(siyou, kokfDat, gasfDat) {
 	var wkRyoukin;
-	console.log(gasfDat.mSum);
 	switch (gasfDat.mSum) {
 		case 1: // 通常
-			console.log(gasfDat.mSyu);
 			if (gasfDat.mSyu == 1) {
 				// 表形式
 				wkRyoukin = mathGasRateNormalG_1(siyou, gasfDat);
@@ -903,11 +891,9 @@ function mathGasRate(siyou, kokfDat, gasfDat) {
 				//ステップ形式
 				wkRyoukin = mathGasRateNormalG(siyou, gasfDat);
 			}
-			console.log("ガス料金: " + wkRyoukin);
 			break;
 		case 2: // 簡ガス
 			wkRyoukin = mathGasRateKgasG(ctx, siyou, gasfDat);
-			console.log("簡ガス料金: " + wkRyoukin);
 			break;
 		case 3: // 契約単価
 			var dbRate = siyou * kokfDat.mGasUnit + kokfDat.mGasBase * 10;
@@ -937,15 +923,15 @@ function mathGasRate(siyou, kokfDat, gasfDat) {
  * @return  long ガス料金
  */
 function mathGasRateNormalG_1(siyou, gasfDat) {
-	console.log("表形式ガス料金計算[開始]");
+	// console.log("表形式ガス料金計算[開始]");
 	var dbRate;
 
 	if (gasfDat.m_lstGstpDat.length - 2 < siyou) {
 		// 表形式で設定されている上限超過時
 		var base_tanka =
-			gasfDat.m_lstGstpDat[gasfDat.m_lstGstpDat.length - 2].mBase;
+			gasfDat.m_lstGstpDat[gasfDat.m_lstGstpDat.length - 2].m_nBase;
 		var lmt_over_add =
-			gasfDat.m_lstGstpDat[gasfDat.m_lstGstpDat.length - 1].mBase;
+			gasfDat.m_lstGstpDat[gasfDat.m_lstGstpDat.length - 1].m_nBase;
 
 		var add_sum = 0;
 		if (lmt_over_add > 0) {
@@ -954,7 +940,7 @@ function mathGasRateNormalG_1(siyou, gasfDat) {
 
 		dbRate = base_tanka + add_sum;
 	} else {
-		dbRate = gasfDat.m_lstGstpDat[siyou].mBase;
+		dbRate = gasfDat.m_lstGstpDat[siyou].m_nBase;
 	}
 
 	if (dbRate > 0) {
@@ -969,7 +955,7 @@ function mathGasRateNormalG_1(siyou, gasfDat) {
 			10000000
 		);
 	}
-	console.log("表形式ガス料金計算[終了][ガス料金:" + dbRate / 10000000 + "]");
+	// console.log("表形式ガス料金計算[終了][ガス料金:" + dbRate / 10000000 + "]");
 	return dbRate / 10000000;
 }
 
@@ -982,15 +968,15 @@ function mathGasRateNormalG_1(siyou, gasfDat) {
  * @throws Exception    ガス料金計算でエラーがあった場合に発生
  */
 function mathGasRateNormalG(siyou, gasfDat) {
-	console.log("ステップ形式ガス料金計算[開始]");
+	// console.log("ステップ形式ガス料金計算[開始]");
 	var gstpDat;
 	var nStep = 0;
 	var nLimit;
 	var nSubChoSur = 0;
 	var nSubSur = siyou;
-	console.log(gasfDat.m_lstGstpDat.length);
+	// console.log(gasfDat.m_lstGstpDat.length);
 	for (var i = 0; i < gasfDat.m_lstGstpDat.length; i++) {
-		nLimit = gasfDat.m_lstGstpDat[i].mUplimit;
+		nLimit = gasfDat.m_lstGstpDat[i].m_nUpLimit;
 		if (nLimit > siyou) {
 			nStep = i;
 			break;
@@ -998,20 +984,20 @@ function mathGasRateNormalG(siyou, gasfDat) {
 		if (nLimit > 0) {
 			nStep = i;
 		}
-		if (gasfDat.m_lstGstpDat[i].mAdd == 0) {
+		if (gasfDat.m_lstGstpDat[i].m_nAddp == 0) {
 			nSubChoSur = nLimit;
 		}
 	}
 	if (nStep >= gasfDat.m_lstGstpDat.length) {
-		console.log("ガス通常料金：入力値が不正です。");
+		// console.log("ガス通常料金：入力値が不正です。");
 	}
 	// 対象となる料金設定のためまでの使用量を引く
 	if (nStep > 0) {
-		siyou = siyou - gasfDat.m_lstGstpDat[nStep - 1].mUplimit;
+		siyou = siyou - gasfDat.m_lstGstpDat[nStep - 1].m_nUpLimit;
 	}
 	gstpDat = gasfDat.m_lstGstpDat[nStep];
-	var dbRate = (siyou / 10) * gstpDat.mAdd + gstpDat.mBase;
-	if (dbRate != 0 && gstpDat.mAdd != 0) {
+	var dbRate = (siyou / 10) * gstpDat.m_nAddp + gstpDat.m_nBase;
+	if (dbRate != 0 && gstpDat.m_nAddp != 0) {
 		dbRate += ((nSubSur - nSubChoSur) / 10) * gasfDat.mChoTanka;
 	}
 	dbRate = Other.hasCom(
@@ -1040,13 +1026,12 @@ function mathGasRateNormalG(siyou, gasfDat) {
  * @throws Exception    Exception   ガス料金計算でエラーがあった場合に発生
  */
 function mathGasRateKgasG(siyou, gasfDat) {
-	console.log("簡ガス料金計算[開始]");
 	var gstpdat;
 	var nStep = 0;
 	var nLimit;
 	var nSubChoSur = 0;
 	for (var i = 0; i < gasfDat.m_lstGstpDat.length; i++) {
-		nLimit = gasfDat.m_lstGstpDat[i].mUplimit;
+		nLimit = gasfDat.m_lstGstpDat[i].m_nUpLimit;
 		if (nLimit > siyou) {
 			nStep = i;
 			break;
@@ -1054,16 +1039,16 @@ function mathGasRateKgasG(siyou, gasfDat) {
 		if (nLimit > 0) {
 			nStep = i;
 		}
-		if (gasfDat.m_lstGstpDat[i].mAdd == 0) {
+		if (gasfDat.m_lstGstpDat[i].m_nAddp == 0) {
 			nSubChoSur = nLimit;
 		}
 	}
 	if (nStep >= gasfDat.m_lstGstpDat.length) {
-		console.log("簡ガス料金：入力値が不正です");
+		// console.log("簡ガス料金：入力値が不正です");
 	}
 	gstpdat = gasfDat.m_lstGstpDat.get(nStep);
-	var dbRate = (siyou / 10) * gstpdat.mAdd + gstpdat.mBase;
-	if (dbRate != 0 && gstpdat.mAdd != 0) {
+	var dbRate = (siyou / 10) * gstpdat.m_nAddp + gstpdat.m_nBase;
+	if (dbRate != 0 && gstpdat.m_nAddp != 0) {
 		dbRate += ((siyou - nSubChoSur) / 10) * gasfDat.mChoTanka;
 	}
 	dbRate = Other.hasCom(
@@ -1079,7 +1064,6 @@ function mathGasRateKgasG(siyou, gasfDat) {
 		gasfDat.mFrac2Mult,
 		10000000
 	);
-	console.log("簡ガス料金計算[終了][簡ガス料金:" + dbRate / 10000000 + "]");
 	return dbRate / 10000000;
 }
 
@@ -1126,16 +1110,12 @@ function calcTotal(
 	isIrai
 ) {
 	var wkRyokin = calcSeikyu(sysfDat, kokfDat, sy2fDat, isIrai);
-	console.log(wkRyokin);
 	// その他売上加算
 	wkRyokin += kokfDat.mUrikin + kokfDat.mUriTax;
-	console.log(wkRyokin);
 	// 当月ガス売上加算
 	wkRyokin += kokfDat.mFee + kokfDat.mConTax;
-	console.log(wkRyokin);
 	// 還元額加算
 	wkRyokin += kokfDat.mReduce + kokfDat.mReduceTax;
-	console.log(wkRyokin);
 
 	// 検針時リース計上
 	if (kokfDat.mKenSumi) {
@@ -1148,7 +1128,6 @@ function calcTotal(
 			}
 		}
 	}
-	console.log(wkRyokin);
 	var nNebiki = 0;
 	if (sysfDat.mKnebFlg == 1) {
 		// 漢の値引き有り
@@ -1185,7 +1164,6 @@ function calcTotal(
 		wkRyokin += kokfDat.mKotfDat.m_nFee;
 		wkRyokin += kokfDat.mKotfDat.m_nCon_tax;
 	}
-	// console.log("差引残高:" + wkRyokin);
 	return wkRyokin;
 }
 
@@ -1203,43 +1181,30 @@ function calcTotal(
 	var wkUrizan; // 売掛残高
 	wkUrizan = kokfDat.mProcTisyuu + kokfDat.mTaxTisyuu; // 遅収料金
 	if (sysfDat.mIfDemand) {
-		// console.log( "前月残高あり");
 		wkUrizan += isIrai
 			? readPrebalance(sysfDat, kokfDat, sy2fDat)
 			: kokfDat.mPreBalance; // 前月残高
-		// console.log( "    -> " + wkUrizan);
 	}
 	if (sysfDat.mIfAdjust) {
-		// console.log( "入金調整あり");
 		wkUrizan += kokfDat.mTAdjust - kokfDat.mTReceipt; // 入金調整額
-		// console.log( "    -> " + wkUrizan);
 	}
 	if (sysfDat.mIfAlarm) {
-		// console.log( "リース加算あり");
 		wkUrizan += kokfDat.mProcLease + kokfDat.mTaxLease; // リース 加算
-		// console.log( "    -> " + wkUrizan);
 	}
 	if (sysfDat.mIfDiv) {
-		// console.log( "分割金あり");
 		wkUrizan += kokfDat.mProcDiv + kokfDat.mTaxDiv; // 分割金 加算
-		// console.log( "    -> " + wkUrizan);
 	}
 	if (sysfDat.mIfLampoil) {
-		// console.log( "灯油あり");
 		wkUrizan += kokfDat.mProcLoil + kokfDat.mTaxLoil; // 灯油　加算
-		// console.log( "    -> " + wkUrizan);
 	}
 	if (sysfDat.mIfProceeds) {
-		// console.log( "その他、ガス残高、遅収料金あり");
 		wkUrizan +=
 			kokfDat.mProcEtc +
 			kokfDat.mTaxEtc + // その他 加算
 			kokfDat.mProcGas +
 			kokfDat.mTaxGas - // ガス残高
 			(kokfDat.mProcTisyuu + kokfDat.mTaxTisyuu); // 遅収料金
-		// console.log( "    -> " + wkUrizan);
 	}
-	// console.log( "請求金額:" + wkUrizan);
 	return wkUrizan;
 }
 
@@ -1279,7 +1244,6 @@ function readPrebalance(sysfDat, kokfDat, sy2fDat) {
 	} else {
 		wkKingaku = 0;
 	}
-	console.log("前残:" + wkKingaku);
 	return wkKingaku;
 }
 
@@ -1386,9 +1350,7 @@ function calcGasKangen(kokfDat, gasfDat, sysfDat, sy2fDat, kouserDat) {
 	try {
 		shofDat = InputDat.getShofDat(sy2fDat.mKangHcd, sy2fDat.mKangHbcd);
 	} catch (ex) {
-		console.log(
-			"取引区分ファイルの読込みに失敗: " + ex.getLocalizedMessage()
-		);
+		console.log("取引区分ファイルの読込みに失敗: " + ex);
 	}
 	if (shofDat.mTaxKu == 3) {
 		if (shofDat.mTaxR == 0) {
@@ -1449,7 +1411,6 @@ function calcEtcUri(sysfDat, kokfDat) {
 			kokfDat.mProcEtc - // その他 加算
 			kokfDat.mProcTisyuu; // 遅収料金
 	}
-	console.log("その他売上:" + gTM_etcUri);
 	return gTM_etcUri;
 }
 
@@ -1485,7 +1446,6 @@ function calcEtcTax(sysfDat, kokfDat) {
 	} else {
 		gTM_etcTax = gproc_tax;
 	}
-	console.log("その他売上消費税:" + gTM_etcTax);
 	return gTM_etcTax;
 }
 
