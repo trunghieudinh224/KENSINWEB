@@ -21,9 +21,9 @@ var kensinDate = sessionStorage.getItem(StringCS.KENSINDATE);
 var HOAN_ITEMS = ["①容器設置場所", "②容器設置状況", "③火気禁止２ｍ", "④調整器", "⑤配管状況", "⑥ガス栓", "⑦危険標識", "⑧マイコンメーター"];
 
 var ko2fDat;
-var printStatus = Dat.printStatus;
+var printStatus = new Dat.PrintStatus();
 var mUserData = new Dat.UserData();
-var kokfDat = KensinKinyuu.kokfDat;
+var kokfDat = KensinKinyuu.mKokfDat;
 var sysfDat = KensinKinyuu.sysfDat;
 var kouserDat = KensinKinyuu.kouserDat;
 var sy2fDat = KensinKinyuu.sy2fDat;
@@ -135,7 +135,11 @@ function createPrintData(printStatus, isHybseikyu, isHikae) {
 			// Data chua co de test (hieu)
 			// document.getElementById("hmInfoArea").style.display = "none";
 			createHmInfo_(mUserData);
+		} else {
+			document.getElementById("hmInfoArea").style.display = "none";
 		}
+	} else {
+		document.getElementById("hmInfoArea").style.display = "none";
 	}
 	if (wkSy2fDat.mSysOption[SysOption.PRINT_COMMENT] == 1) {	//SysOption.PRINT_COMMENT.getIdx() = 25
 		// createComment(new CommentData(getComment()));
@@ -254,8 +258,8 @@ function getCusData() {
 		m_strName0: kokfDat.mSName0,
 		m_strName1: kokfDat.mSName1,
 		m_strKname: kokfDat.mKName,
-		m_strAdd0: Other.getClearString(kokfDat.mAdd.substring(0, 20)),
-		m_strAdd1: Other.getClearString(kokfDat.mAdd.substring(20))
+		m_strAdd0: Other.getClearString(kokfDat.mAdd_0.substring(0, 20)),
+		m_strAdd1: Other.getClearString(kokfDat.mAdd_1.substring(20))
 	};
 	return data;
 }
@@ -977,6 +981,8 @@ function createKinInfo(kensinData) {
 	var sysfDat = mUserData.mSysfDat;
 
 	if (!mUserData.mNyukinOnly) {
+		var countDisplay = 0;
+		//kinInfoTop
 		// 入金のみの場合は前残等印字しない
 		// 前月残高
 		if (sysfDat.mIfDemand && kensinData.m_PreReceipt != 0) {
@@ -986,9 +992,11 @@ function createKinInfo(kensinData) {
 			preReceiptVal.innerHTML = Other.KingakuFormat(kensinData.m_PreReceipt);
 		} else {
 			document.getElementById("zengetsuZandakaArea").style.display = "none";
+			countDisplay++;
 		}
 
 		// その他売上
+		var countProceed = 0;
 		if (sysfDat.mIfProceeds) {
 			document.getElementById("sonohokaUriageArea").style.display = "block";
 			if (kensinData.m_HmDay != 0) {
@@ -998,6 +1006,7 @@ function createKinInfo(kensinData) {
 				hmDayVal.innerHTML = Other.KingakuFormat(kensinData.m_HmDay);
 			} else {
 				document.getElementById("hmDayArea").style.display = "none";
+				countProceed++;
 			}
 
 			if (kensinData.m_HmMonth != 0) {
@@ -1007,9 +1016,15 @@ function createKinInfo(kensinData) {
 				hmDayVal.innerHTML = Other.KingakuFormat(kensinData.m_HmMonth);
 			} else {
 				document.getElementById("hmMonthArea").style.display = "none";
+				countProceed++;
+			}
+
+			if (countProceed == 2) {
+				countDisplay++;
 			}
 		} else {
 			document.getElementById("sonohokaUriageArea").style.display = "none";
+			countDisplay++;
 		}
 
 		var t_kokfdat = mUserData.mKokfDat;
@@ -1021,6 +1036,7 @@ function createKinInfo(kensinData) {
 			hmDayVal.innerHTML = Other.KingakuFormat(t_kokfdat.mTReceipt);
 		} else {
 			document.getElementById("toogetsuNyuuKingakuArea").style.display = "none";
+			countDisplay++;
 		}
 
 		// 当月調整額
@@ -1031,6 +1047,11 @@ function createKinInfo(kensinData) {
 			tAdjustVal.innerHTML = Other.KingakuFormat(t_kokfdat.mTAdjust);
 		} else {
 			document.getElementById("toogetsuChooseiGakuArea").style.display = "none";
+			countDisplay++;
+		}
+
+		if (countDisplay == 4) {
+			document.getElementById("kinInfoTop").style.display = "none";
 		}
 
 		// 今回請求額
@@ -1053,6 +1074,8 @@ function createKinInfo(kensinData) {
 			strLine = Other.KingakuFormat(kensinData.m_Chosei);
 			const choseiVal = document.getElementById("choseiVal");
 			choseiVal.innerHTML = strLine;
+		} else {
+			document.getElementById("chooseiGakuArea").style.display = "none";
 		}
 	} else {
 		document.getElementById("kinInfoArea").style.display = "block";
@@ -1096,6 +1119,7 @@ function createKinInfo(kensinData) {
 		sashihikiZandakaVal.innerHTML = Other.KingakuFormat(lZandaka);
 	} else {
 		document.getElementById("sashihikiZandakaArea").style.display = "none";
+		document.getElementById("sashihikiZandakaFrames").style.display = "none";
 	}
 }
 
@@ -1476,10 +1500,10 @@ function printGasryokinA(kensinData) {
 	}
 	else {
 		gstpDat = null;
-		gstpDat.mUplimit = 999999;
-		gstpDat.mAdd = parseInt(kensinData.mGasAddKin * 10);
-		gstpDat.mBase = parseInt(kensinData.mGasBaseKin);
-		gstpDat.mBase = parseInt(kensinData.mGasBaseKin);
+		gstpDat.m_nUpLimit = 999999;
+		gstpDat.m_nAddp = parseInt(kensinData.mGasAddKin * 10);
+		gstpDat.m_nBase = parseInt(kensinData.mGasBaseKin);
+		gstpDat.m_nBase = parseInt(kensinData.mGasBaseKin);
 	}
 	var nGasTotalKin = parseInt(kensinData.m_GasPay - kensinData.mGasBaseKin / 1000 - kensinData.m_nFacilityKin / 1000);
 
@@ -1491,7 +1515,7 @@ function printGasryokinA(kensinData) {
 	const gasryokinAText = document.getElementById("gasryokinAText");
 	gasryokinAText.innerHTML = strStep;
 
-	var nAddKin = gstpDat.mAdd;
+	var nAddKin = gstpDat.m_nAddp;
 	if (gasfDat.mSum == 2 || nAddKin > 0) {
 		nAddKin += gasfDat.mChoTanka;
 	}
@@ -1506,8 +1530,8 @@ function printGasryokinA(kensinData) {
 		nGasTotalKin = (ko2f.mNorKin - kensinData.mGasBaseKin / 1000 - kensinData.m_nFacilityKin / 1000);
 	}
 
-	var nGasStepKin = parseInt(nAddKin * gstpDat.mUplimit * 0.00001 + 0.0001);
-	if (kensinData.m_bSingleStep || nSur <= gstpDat.mUplimit) {
+	var nGasStepKin = parseInt(nAddKin * gstpDat.m_nUpLimit * 0.00001 + 0.0001);
+	if (kensinData.m_bSingleStep || nSur <= gstpDat.m_nUpLimit) {
 		nGasStepKin = nGasTotalKin;
 	}
 	else {
@@ -1529,9 +1553,9 @@ function printGasryokinA(kensinData) {
 	nPrnGasKin += nGasStepKin * 1000;
 
 	var previousRowId = "gasryokinASecondRow";
-	printGasRyokinStep_A(1, gstpDat.mUplimit, nAddKin, nGasStepKin, previousRowId);
+	printGasRyokinStep_A(1, gstpDat.m_nUpLimit, nAddKin, nGasStepKin, previousRowId);
 
-	if (!kensinData.m_bSingleStep && nSur > gstpDat.mUplimit) {
+	if (!kensinData.m_bSingleStep && nSur > gstpDat.m_nUpLimit) {
 		nStartIdx++;
 		var countList = 0;
 		for (var i = nStartIdx; i < lstGstpDat.length; i++) {
@@ -1539,14 +1563,14 @@ function printGasryokinA(kensinData) {
 			gstpDat = lstGstpDat[i];
 
 			// ステップの単価を印字(増減率を考慮)
-			nAddKin = gstpDat.mAdd;
+			nAddKin = gstpDat.m_nAddp;
 			if (gasfDat.mSum == 2 || nAddKin > 0) {
 				nAddKin += gasfDat.mChoTanka;
 			}
 			nAddKin = Other.hasCom(nAddKin, gasfDat.mFrac1Add, gasfDat.mFrac1Mult, 10000.);
 			nAddKin += nAddKin * gasfDat.mRiseFall / 1000;
 
-			if (nSur < gstpDat.mUplimit) {
+			if (nSur < gstpDat.m_nUpLimit) {
 				nGasStepKin = nGasTotalKin;
 			} else {
 				if (nAddKin == 0) {
@@ -1563,7 +1587,7 @@ function printGasryokinA(kensinData) {
 					}
 				}
 				else {
-					nGasStepKin = (nAddKin * (gstpDat.mUplimit - prevGstpDat.mUplimit) * 0.00001 + 0.0001);
+					nGasStepKin = (nAddKin * (gstpDat.m_nUpLimit - prevGstpDat.m_nUpLimit) * 0.00001 + 0.0001);
 				}
 				nGasTotalKin -= nGasStepKin;
 			}
@@ -1575,10 +1599,10 @@ function printGasryokinA(kensinData) {
 			previouRow.after(newRow);
 			previousRowId = "gasryokinAList-row" + String(countList);
 
-			printGasRyokinStep_A(prevGstpDat.mUplimit + 1, gstpDat.mUplimit, nAddKin, nGasStepKin, newRow.id);
+			printGasRyokinStep_A(prevGstpDat.m_nUpLimit + 1, gstpDat.m_nUpLimit, nAddKin, nGasStepKin, newRow.id);
 			countList++;
 
-			if (nSur <= gstpDat.mUplimit) {
+			if (nSur <= gstpDat.m_nUpLimit) {
 				break;
 			}
 		}
@@ -1934,9 +1958,9 @@ function printGasryokinO(kensinData) {
 	}
 	else {
 		gstpDat = null;
-		gstpDat.mUplimit = 999999;
-		gstpDat.mBase = parseInt(kensinData.mGasBaseKin * 10);
-		gstpDat.mAdd = parseInt(kensinData.mGasAddKin);
+		gstpdat.m_nUpLimit = 999999;
+		gstpdat.m_nBase = parseInt(kensinData.mGasBaseKin * 10);
+		gstpdat.m_nAddp = parseInt(kensinData.mGasAddKin);
 	}
 
 	if (kensinData.m_isHybrid && ko2fDat.mGashyb != 0) {
@@ -1962,10 +1986,10 @@ function printGasryokinO(kensinData) {
 
 
 		const dUpLimitSingleStepVal = document.getElementById("dUpLimitSingleStepVal");
-		dUpLimitSingleStepVal.innerHTML = Other.printformat(gstpDat.mUplimit, "####0.0", 1);
+		dUpLimitSingleStepVal.innerHTML = Other.printformat(gstpdat.m_nUpLimit, "####0.0", 1);
 	}
 
-	var nAddKin = gstpDat.mAdd;
+	var nAddKin = gstpdat.m_nAddp;
 	if (gasfDat.mSum == 2 || nAddKin > 0) {
 		nAddKin += gasfDat.mChoTanka;
 	}
@@ -1986,12 +2010,12 @@ function printGasryokinO(kensinData) {
 	const addKinSingleStepVal = document.getElementById("addKinSingleStepVal");
 	addKinSingleStepVal.innerHTML = strStep;
 
-	if (!kensinData.m_bSingleStep && nSur > gstpDat.mUplimit) {
+	if (!kensinData.m_bSingleStep && nSur > gstpdat.m_nUpLimit) {
 		nStartIdx++;
 		for (var i = nStartIdx; i < lstGstpDat.length; i++) {
 			var prevGstpDat = gstpDat;
 			gstpDat = lstGstpDat[i];
-			nAddKin = gstpDat.mAdd;
+			nAddKin = gstpdat.m_nAddp;
 			if (gasfDat.mSum == 2 || nAddKin > 0) {
 				nAddKin += gasfDat.mChoTanka;
 			}
@@ -2002,10 +2026,10 @@ function printGasryokinO(kensinData) {
 			const gasryokinOList = document.getElementById("gasryokinOList");
 			const newRow = document.createElement("tr");
 			newRow.id = "gasryokinORow" + String(nStartIdx);
-			printGasRyokinStep_O(prevGstpDat.mUplimit + 1, gstpDat.mUplimit, nAddKin, "gasryokinORow" + String(nStartIdx));
+			printGasRyokinStep_O(prevgstpdat.m_nUpLimit + 1, gstpdat.m_nUpLimit, nAddKin, "gasryokinORow" + String(nStartIdx));
 			gasryokinOList.appendChild(newRow);
 
-			if (nSur <= gstpDat.mUplimit) {
+			if (nSur <= gstpdat.m_nUpLimit) {
 				break;
 			}
 		}
@@ -2226,6 +2250,8 @@ function createHmInfo_(userData) {
 			createHmInfo(hmefList2, sysfDat, mapHmefDat, isTanka);
 		}
 		createHmInfoTax(mapHmefDat, userData.mKokfDat.mUriTax + nTax);
+	} else {
+		document.getElementById("hmInfoArea").style.display = "none";
 	}
 }
 
