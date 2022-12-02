@@ -37,7 +37,7 @@ function KingakuFormatLocal(wkFormat, value) {
 	var temp = value;
 	if (temp < 0) {
 		temp = Math.abs(temp);
-		format = new DecimalFormat("-" + wkFormat);
+		format = "-" + new DecimalFormat(wkFormat);
 	} else {
 		format = wkFormat;
 	}

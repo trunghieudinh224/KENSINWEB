@@ -266,7 +266,7 @@ function calcGasUse(kokfDat, nowMeter) {
 	if (kokfDat.mPreMeter <= nowMeter) {
 		wkUse += nowMeter - kokfDat.mPreMeter;
 	} else {
-		wkUse += Math.pow(10, kokfDat.mMtKeta + 1) + nowMeter - kokfDat.mPreMeter;
+		wkUse += (Math.pow(10, kokfDat.mMtKeta + 1)) + (nowMeter - kokfDat.mPreMeter);
 	}
 	return wkUse;
 }
