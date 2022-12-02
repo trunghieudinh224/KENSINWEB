@@ -1071,7 +1071,7 @@ function createKinInfo(kensinData) {
 			const choseiText = document.getElementById("choseiText");
 			choseiText.innerHTML = getChoTitle();
 
-			strLine = Other.KingakuFormat(kensinData.m_Chosei);
+			strLine = Other.formatDecial(kensinData.m_Chosei);
 			const choseiVal = document.getElementById("choseiVal");
 			choseiVal.innerHTML = strLine;
 		} else {
