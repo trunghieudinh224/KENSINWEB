@@ -47,6 +47,8 @@ export var KINYUUMODE = "KinyuuMode";
 export var KENSINDATE = "KensinDate";
 // setting data
 export var SETTINGDATA = "SettingData";
+// search string
+export var SEARCHSTRING = "SearchString";
 
 
 /*****  CONTENT  *****/
@@ -61,3 +63,9 @@ export var CONFIRM = "確認";
 export var OK = "OK";
 // ok button
 export var BACK = "戻る";
+// close button
+export var CLOSE = "閉じる";
+// hai button
+export var HAI = "はい";
+// iie button
+export var IIE = "いいえ";
