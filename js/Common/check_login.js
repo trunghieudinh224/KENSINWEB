@@ -21,6 +21,7 @@ function clearDataSearch() {
     var page = path.split("/").pop().replace(".html", "");
     if (page != "search_page" && page != "customer_page" && page != "meter_reading_fillout_page") {
         sessionStorage.removeItem(StringCS.CUSTLIST);
+        sessionStorage.removeItem(StringCS.SEARCHSTRING);
     }
 }
 
