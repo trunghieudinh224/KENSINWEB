@@ -66,7 +66,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text mw130 text">検索種別</span>
 							</div>
-							<select class="custom-select form-control ta-l text" name="search-type" id="search-type" onchange="setMaxLengthInput()">
+							<select class="custom-select form-control ta-l text" name="search-type" id="search-type">
 								<option value="0">顧客コード</option>
 								<option value="1">顧客カナ</option>
 								<option value="2">電話番号</option>
@@ -80,9 +80,9 @@
 								<span class="input-group-text mw130 text">一致種別</span>
 							</div>
 							<select class="custom-select form-control ta-l text" name="search-part" id="search-part">
-								<option value="0">前方一致</option>
-								<option value="1">部分一致</option>
-								<option value="2">後方一致</option>
+								<option value="0">部分一致</option>
+								<option value="1">前方一致</option>
+								<option value="2">後分一致</option>
 							</select>
 						</div>
 					</div>
@@ -136,9 +136,9 @@
 											<span class="title-collapse">詳細検索</span>
 										</div>
 
-										<div class="item-collapse ic-dd-collapse">
+										<!-- <div class="item-collapse ic-dd-collapse">
 											<span class="arrow-ic fas fa-caret-down"></span>
-										</div>
+										</div> -->
 									</div> <!-- form-group// -->
 								</span>
 							</div>
@@ -376,7 +376,7 @@
 	<!--===============================================================================================-->
     <script type="module" src="./js/Common/check_login.js"></script>
     <script type="module" src="./js/search.js"></script>
-	<script type="text/javascript" src="js/Common/collapse.js"></script>
+	<!-- <script type="text/javascript" src="js/Common/collapse.js"></script> -->
 </body>
 
 </html>

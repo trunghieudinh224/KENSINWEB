@@ -89,7 +89,7 @@ function setMaxLengthInput() {
 	searchInput.value = "";
 	switch (searchType.value) {
 		case "0":
-			searchInput.maxLength = 6;
+			searchInput.maxLength = systemDat.mSystemDat.KCDLEN;
 			searchInput.type = "tel";
 			break;
 		case "1":
@@ -179,9 +179,19 @@ function checkPreviousData() {
 			newElement.onclick = function () {
 				var object = previousCuslist[this.rowIndex];
 				object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
-				const cusdat = Object.assign({}, object);
-				sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
-				Common.movePage('/customer_page.html');
+				if (object.kenstat == 1) {
+					Common.setupModal("success", null, Mess.I00006, StringCS.HAI, StringCS.IIE);
+					var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
+					buttonConfirm.onclick = function () {
+						const cusdat = Object.assign({}, object);
+						sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
+						Common.movePage('/customer_page.html');
+					}
+				} else {
+					const cusdat = Object.assign({}, object);
+					sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
+					Common.movePage('/customer_page.html');
+				}
 			};
 		}
 
@@ -266,7 +276,7 @@ function searchCus() {
 							var object = data.cuslist[this.rowIndex];
 							object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 							if (object.kenstat == 1) {
-								Common.setupModal("success", null, Mess.E00005, StringCS.OK, StringCS.BACK);
+								Common.setupModal("success", null, Mess.I00006, StringCS.HAI, StringCS.IIE);
 								var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
 								buttonConfirm.onclick = function () {
 									const cusdat = Object.assign({}, object);
@@ -383,6 +393,13 @@ function firstCustomerAction() {
 }
 
 
+function selectChange() {
+	searchType.onchange = function () {
+		setMaxLengthInput();
+	};
+}
+
+
 /**
    * SETUP OPTION MENU
 */
@@ -390,6 +407,16 @@ function setOptionMenu() {
     document.getElementById("menuOption").onclick = function() {Common.movePage('/menu_page.html')};
     document.getElementById("settingOption").onclick = function() {Common.movePage('/setting_page.html')};
     document.getElementById("logoutOption").onclick = function() {Common.movePage('logout')};
+}
+
+
+/**
+   * ONCHANGE ACTION
+*/
+function onChangeAction() {
+	searchKey.onchange = function() {
+		sessionStorage.setItem(StringCS.SEARCHSTRING, searchKey.value.trim());
+	}
 }
 
 
@@ -411,7 +438,12 @@ function onLoadAction() {
 	checkPreviousData();
 	initCombobox();
 	setMaxLengthInput();
+	selectChange();
 	onclickAction();
+	onChangeAction();
+	if (sessionStorage.getItem(StringCS.SEARCHSTRING) != "") {
+		searchKey.value = sessionStorage.getItem(StringCS.SEARCHSTRING);
+	}
 }
 
 
