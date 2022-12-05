@@ -17,7 +17,7 @@ const modal = document.getElementById("myModal");
 
 /*****  DATA VARIABLE  *****/
 /* user data */
-var systemDat = JSON.parse(sessionStorage.getItem(StringCS.SYSTEMDAT));
+var systemDat = JSON.parse(sessionStorage.getItem(StringCS.SYSTEMDAT)).mSystemDat;
 /* setting data */
 var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
 /* shuukei data */
@@ -63,7 +63,7 @@ var defaultPaddingPrintForm = window.getComputedStyle(document.getElementById("p
     * SETUP LAYOUT EDIT VIEW
 */
 function setupLayoutEditView() {
-    if (systemDat.systemDat.FBUNRUI_3 == 0 && systemDat.systemDat.FHMCODE_3 == 0 && systemDat.systemDat.FHBCODE_3 == 0) {
+    if (systemDat.FBUNRUI_3 == 0 && systemDat.FHMCODE_3 == 0 && systemDat.FHBCODE_3 == 0) {
         document.getElementById("ShukeiToyuCnt").style.display = "none";
         document.getElementById("ToyuTable").style.display = "none";
         document.getElementById("ToyuTablePrint").style.display = "none";
@@ -98,7 +98,7 @@ function setupDatePicker() {
 */
 function setDefaultValueSelectDate() {
     if (systemDat != null) {
-        var startDay = String(systemDat.systemDat.HANSYSYM);
+        var startDay = String(systemDat.HANSYSYM);
         startDay = startDay.substring(0, 10);
         startDay = startDay.replaceAll("-", "/");
         document.getElementById("date-start").value = startDay;
