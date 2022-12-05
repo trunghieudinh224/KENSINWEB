@@ -16,19 +16,28 @@ var cusDetailData;
 
 var mUserData;
 
+var recentDay = moment().format('YYYY/MM/DD');
+
 
 /** 
     * SETUP DATEPICKER
 */
 function setupDatePicker() {
-    $(document).ready(function() {
-        $("#jisshi-bi").datepicker({ 
+    $(document).ready(function () {
+        $("#jisshi-bi").datepicker({
             format: 'yyyy/mm/dd'
         });
-        $("#jisshi-bi").on("change", function () {
-            var fromdate = $(this).val();
-        });
-    }); 
+    });
+
+    $("#jisshi-bi").focus(function () {
+        var recentDay = $(this).val();
+        recentDay = moment($(this).val()).format('YYYY/MM/DD');
+    });
+    $("#jisshi-bi").focusout(function () {
+        if ($(this).val() == "") {
+            document.getElementById("jisshi-bi").value = moment(recentDay).format('YYYY/MM/DD');
+        }
+    });
 }
 
 
@@ -49,14 +58,14 @@ function getInformation() {
         Common.setupModal("load", null, Mess.I00001, null, null);
         $.ajax({
             // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-		    url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+            url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
             headers: {
                 'Content-Type': StringCS.PR_CONTENT_TYPE
             },
             success: function (result) {
                 cusDetailData = JSON.parse(result);
                 mUserData = new Dat.UserData().parseData(cusDetailData);
-                
+
                 if (cusDetailData != null) {
                     setInformation();
                 }
@@ -96,13 +105,16 @@ function setInformation() {
             document.getElementById("mokuhyoo").innerHTML = cusDetailData.mKokfDat.mark;
         }
 
-        if (cusDetailData.koukanDat != null) {
+        if (cusDetailData.mKoukanDat != null) {
             showKenshinJoohoo();
             showHaisooJoohoo();
-        } 
+        } else {
+            document.getElementById("kenshin-joohoo-area").style.display = "none";
+            document.getElementById("kenshin-haisoo-area").style.display = "none";
+        }
 
         showMemo();
-        
+
         if (document.getElementById("kenshin-joohoo-area").style.display == "none" &&
             document.getElementById("kenshin-haisoo-area").style.display == "none" &&
             document.getElementById("memo-area").style.display == "none") {
@@ -116,14 +128,14 @@ function setInformation() {
    * SET CUSTOMER DETAIL INFORMATION
 */
 function setCustomerDetail() {
-    if (cusDetailData.mKokfDat.ccode != null) {
+    if (cusDetailData.mKokfDat.mCCode != null) {
         var ccodeList = document.getElementsByClassName("ccode");
         for (var i = 0; i < ccodeList.length; i++) {
             ccodeList[i].innerHTML = cusDetailData.mKokfDat.mCCode[i];
         }
     }
 
-    if (cusDetailData.mKokfDat.juncd != null) {
+    if (cusDetailData.mKokfDat.mJunCd != null) {
         var juncdList = document.getElementsByClassName("juncd");
         for (var i = 0; i < juncdList.length; i++) {
             juncdList[i].innerHTML = cusDetailData.mKokfDat.mJunCd[i];
@@ -202,12 +214,12 @@ function getKyookyuu() {
    * SET KENSHIN JOOHOO DATA
 */
 function showKenshinJoohoo() {
-    if (cusDetailData.koukanDat.HN_DENCNT > 0) {
+    if (parseInt(cusDetailData.mKoukanDat.HN_DENCNT) > 0) {
         document.getElementById("kenshin-joohoo-area").style.display = "block";
-        document.getElementById("kenshin-bii").innerText = String(cusDetailData.koukanDat.HN_DENYMD).substring(0, 10).replaceAll("-", "/");
-        document.getElementById("shishin").innerText = cusDetailData.koukanDat.HN_SISIN;
-        document.getElementById("shiyoo-ryoo").innerText = cusDetailData.koukanDat.HN_SIYOURYO;
-        document.getElementById("gasu-ryookin").innerText = cusDetailData.hndenpyoDat.zkn_kin;
+        document.getElementById("kenshin-bii").innerText = String(cusDetailData.mKoukanDat.HN_DENYMD).substring(0, 10).replaceAll("-", "/");
+        document.getElementById("shishin").innerText = cusDetailData.mKoukanDat.HN_SISIN + " m3";
+        document.getElementById("shiyoo-ryoo").innerText = cusDetailData.mKoukanDat.HN_SIYOURYO + " m3";
+        document.getElementById("gasu-ryookin").innerText = cusDetailData.hndenpyoDat.zkn_kin + " 円";
     } else {
         document.getElementById("kenshin-joohoo-area").style.display = "none";
     }
@@ -218,11 +230,11 @@ function showKenshinJoohoo() {
    * SET HAISOO JOOHOO DATA
 */
 function showHaisooJoohoo() {
-    if (cusDetailData.koukanDat.HA_DENCNT > 0) {
+    if (parseInt(cusDetailData.mKoukanDat.HA_DENCNT) > 0) {
         document.getElementById("kenshin-haisoo-area").style.display = "block";
-        document.getElementById("haisoo-bi").innerText = String(cusDetailData.koukanDat.HA_DENYMD).substring(0, 10).replaceAll("-", "/");
-        document.getElementById("haisoo-shishin").innerText = cusDetailData.koukanDat.HA_SISIN;
-        document.getElementById("haisoo-shiyoo-ryoo").innerText = cusDetailData.koukanDat.HA_SIYOURYO;
+        document.getElementById("haisoo-bi").innerText = String(cusDetailData.mKoukanDat.HA_DENYMD).substring(0, 10).replaceAll("-", "/");
+        document.getElementById("haisoo-shishin").innerText = cusDetailData.mKoukanDat.HA_SISIN + " m3";
+        document.getElementById("haisoo-shiyoo-ryoo").innerText = cusDetailData.mKoukanDat.HA_SIYOURYO + " m3";
     } else {
         document.getElementById("kenshin-haisoo-area").style.display = "none";
     }
@@ -302,9 +314,9 @@ function kinyuuMove(mode) {
    * SETUP OPTION MENU
 */
 function setOptionMenu() {
-    document.getElementById("menuOption").onclick = function() {Common.movePage('/menu_page.html')};
-    document.getElementById("settingOption").onclick = function() {Common.movePage('/setting_page.html')};
-    document.getElementById("logoutOption").onclick = function() {Common.movePage('logout')};
+    document.getElementById("menuOption").onclick = function () { Common.movePage('/menu_page.html') };
+    document.getElementById("settingOption").onclick = function () { Common.movePage('/setting_page.html') };
+    document.getElementById("logoutOption").onclick = function () { Common.movePage('logout') };
 }
 
 
@@ -312,9 +324,9 @@ function setOptionMenu() {
    * ONCLICK ACTION
 */
 function onclickAction() {
-	document.getElementById("backPageButton").onclick = Common.backAction;
-	document.getElementById("nyuukinButton").onclick = function() { kinyuuMove(3);};
-	document.getElementById("jikkoButton").onclick = function() { kinyuuMove(1);};
+    document.getElementById("backPageButton").onclick = Common.backAction;
+    document.getElementById("nyuukinButton").onclick = function () { kinyuuMove(3); };
+    document.getElementById("jikkoButton").onclick = function () { kinyuuMove(1); };
 }
 
 
@@ -326,7 +338,7 @@ function onLoadAction() {
     setupDatePicker();
     setDefaultDate();
     getInformation();
-	onclickAction();
+    onclickAction();
 }
 
 
