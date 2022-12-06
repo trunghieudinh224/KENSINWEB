@@ -444,11 +444,13 @@ export class SysfDat {
 		this.mIfChitUser = false;
 		/** システム月 */
 		this.mSysMonth = 0;  // Sys.hansysym
+
+		this.mTenkenDelta = 0;
 	}
 
 	setValue(mKgasDays0, mKgasDays1, mKgasDays2, mTax_yy, mTax_mm, mTax_dd, mConsumTax, mTaxr_old, mTaxr_new, mVisibleGas, mVisibleFacility, mLesUmu,
-		mFracAddKin, mFracMulKin, mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas,
-		m_isToyukeninFlg, mSrChkr, mSrChkm, mKnebFlg, mIfAdjust, mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser, mSysMonth) {
+		mFracAddKin, mFracMulKin, mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas, m_isToyukeninFlg, 
+		mSrChkr, mSrChkm, mKnebFlg, mIfAdjust, mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta) {
 		var data = new SysfDat();
 
 		data.mKgasDays0 = mKgasDays0;
@@ -490,6 +492,7 @@ export class SysfDat {
 		data.mSnvalue = mSnvalue;
 		data.mIfChitUser = mIfChitUser;
 		data.mSysMonth = mSysMonth;
+		data.mTenkenDelta = mTenkenDelta;
 		return data;
 	}
 
@@ -538,6 +541,7 @@ export class SysfDat {
 		data.mSnvalue = responeData.mSnvalue;
 		data.mIfChitUser = responeData.mIfChitUser;
 		data.mSysMonth = responeData.mSysMonth;
+		data.mTenkenDelta = responeData.mTenkenDelta;
 		return data
 	}
 }
