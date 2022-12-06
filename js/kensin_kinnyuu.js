@@ -805,16 +805,19 @@ function afterCheckLease() {
             sysfDat.mCheckHoan &&
             (mKokfDat.mGasKubun != 2 || sysfDat.mTenkenKgas == 1)
         ) {
+            //note Cong
             // 保安点検有
             // intent = new Intent(this, KensinHoanActivity.class);
             // intent.putExtra(DEFINE.PARCEL_USER_DATA, mUserData);
             // startActivityForResult(intent, KensinActivity.REQUEST_CODE_KENSIN_GROUP);
         } else if (sysfDat.mIfMoney) {
+            //note Cong
             // 保安点検無し、入金有
             // intent = new Intent(this, KensinNyukinActivity.class);
             // intent.putExtra(DEFINE.PARCEL_USER_DATA, mUserData);
             // startActivityForResult(intent, KensinActivity.REQUEST_CODE_KENSIN_GROUP);
         } else {
+            //note Cong
             // 保安点検無し→入金
             // 保安点検無し、入金無し
             // 印刷する、しないを確認する
@@ -822,7 +825,6 @@ function afterCheckLease() {
         }
     } catch (mex) {
         confirm.log(mex);
-        //            ErrorDialog.createErrorDialog(this, mex.getErrorCode(), getResources().getString(R.string.appKensin), mex.getMessage());
     }
 }
 
