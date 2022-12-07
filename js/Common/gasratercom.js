@@ -1101,6 +1101,7 @@ function calcNebiki(sysfDat, lstKnebDat) {
  * @return  int 差引残高
  */
 function calcTotal(
+	userData,
 	sysfDat,
 	kokfDat,
 	ko2fDat,
@@ -1131,7 +1132,7 @@ function calcTotal(
 	var nNebiki = 0;
 	if (sysfDat.mKnebFlg == 1) {
 		// 漢の値引き有り
-		nNebiki = calcNebiki(sysfDat, userData.getKnebiDat());
+		nNebiki = calcNebiki(sysfDat, userData.getKnebiDat());		//Cần tìm hiểu cái hàm này Hieu
 	}
 	var isHybrid;
 	if (

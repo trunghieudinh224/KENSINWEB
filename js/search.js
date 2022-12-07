@@ -54,6 +54,9 @@ function initCombobox() {
    * @param itemName     [STRING]
 */
 function setdataCbb(dropdownName, data, itemName) {
+	if (data == null || data.length == 0) {
+		return;
+	}
 	const dropdownList = document.getElementsByClassName(dropdownName);
 	for (var idx = 0; idx < dropdownList.length; idx++) {
 		const dropdown = dropdownList[idx];
@@ -89,7 +92,7 @@ function setMaxLengthInput() {
 	searchInput.value = "";
 	switch (searchType.value) {
 		case "0":
-			searchInput.maxLength = systemDat.mSystemDat.KCDLEN;
+			searchInput.maxLength = (systemDat.mSystemDat != null) ? systemDat.mSystemDat.KCDLEN : 15;
 			searchInput.type = "tel";
 			break;
 		case "1":

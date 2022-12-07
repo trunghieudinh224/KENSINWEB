@@ -91,6 +91,30 @@ var m_lstKnebDat = new Array();
 /** 訂正フラグ */
 var mTeiseiFlg = false;
 
+var teiseiNyuukinPre = "0";
+
+var mode = sessionStorage.getItem(StringCS.KINYUUMODE);
+
+
+function setupCollapseTab() {
+    // if (sysfDat.mCheckHoan && (mKokfDat.mGasKubun != 2 || sysfDat.mTenkenKgas == 1)) {
+    //     document.getElementById("card2").style.pointerEvents = "auto";
+    // } else {
+    //     document.getElementById("card2").style.pointerEvents = "none";
+    // }
+    
+	if (mode == 3) {
+        document.getElementById("card1").style.display = "none";
+        document.getElementById("card2").style.display = "none";
+		$('.collapseThree').collapse()
+        setupButtonNyukinMode();
+	} else {
+		$('.collapseOne').collapse()
+        document.getElementById("card2").style.pointerEvents = "none";
+        document.getElementById("card3").style.pointerEvents = "none";
+        setupButton();
+	}
+}
 
 function openKensinLayout() {
     setCusInfo();
@@ -507,6 +531,7 @@ function init() {
     // 今回請求額
     // 当月請求
     var nRyokin = GasRaterCom.calcTotal(
+        mUserData,
         sysfDat,
         mKokfDat,
         ko2fDat,
@@ -515,7 +540,7 @@ function init() {
         m_lstKnebDat,
         false
     );
-    txtKensinNyukinNowSeikyu.innerHTML = Other.KingakuFormat(nRyokin);
+    txtKensinNyukinNowSeikyu.innerHTML = nRyokin > 0 ? Other.KingakuFormat(nRyokin) : 0;
 
     mTotal = nRyokin;
 
@@ -530,7 +555,7 @@ function init() {
         nKangen = mKokfDat.mReduce;
     }
 
-    txtKensinNyukinGasRyokin.innerHTML = Other.KingakuFormat(nRyokin);
+    txtKensinNyukinGasRyokin.innerHTML = nRyokin > 0 ? Other.KingakuFormat(nRyokin) : 0;
     //txtKensinNyukinGasRyokin.innerHTML = nRyokin;
 
     // 消費税
@@ -544,7 +569,7 @@ function init() {
                 // 還元額消費税
                 nKangen += mKokfDat.mReduceTax;
             }
-            tvTax.innerHTML = Other.KingakuFormat(nRyokin);
+            tvTax.innerHTML = nRyokin > 0 ? Other.KingakuFormat(nRyokin) : 0;
             //tvTax.innerHTML = (nRyokin);
         } else {
             tvTax.innerHTML = "***";
@@ -664,7 +689,7 @@ function setZandaka() {
     var mZandaka = mTotal + lAdjust - lReceipt; // 13.02.12
     if (lAzukari == lReceipt) {
         mTxtZandakaLabel.innerHTML = "差引残高";
-        mTxtZandaka.innerHTML = Other.formatDecial(mZandaka);
+        mTxtZandaka.innerHTML = mZandaka > 0 ? Other.formatDecial(mZandaka) : 0;
         div_otsuri.classList.add("hidden");
         //mTxtZandaka.innerHTML = mZandaka;
     } else {
@@ -672,7 +697,7 @@ function setZandaka() {
         txtKensinNyukinOtsuri.innerHTML = Other.formatDecial(lAzukari - lReceipt);
         // mTxtZandakaLabel.innerHTML = "おつり";
         // mTxtZandaka.innerHTML = (Other.KingakuFormat(lAzukari - lReceipt));
-        mTxtZandaka.innerHTML = Other.formatDecial(mZandaka);
+        mTxtZandaka.innerHTML = mZandaka > 0 ? Other.formatDecial(mZandaka) : 0;
     }
     if (mTeiseiFlg) {
         mTeiseiFlg = false;
@@ -881,8 +906,6 @@ function setdataUchiWake() {
 
 //const div1_otsuri = document.querySelector("div_otsuri");
 
-let seikyu = Other.getNumFromString(txtKensinNyukinNowSeikyu.textContent);
-let zandaka = 0;
 let nyuukin = 0;
 
 //setZandaka(0, 0); // default zandaka
@@ -911,6 +934,7 @@ mEditAdjust.onchange = function () {
         setZandaka();
         updatePrintData();
         mEditAdjust.value = onChangeMinus(mEditAdjust.value);
+        setupButtonNyukinMode();
     } else {
         console.log("value err");
     }
@@ -942,6 +966,7 @@ mEditInputReceipt.onchange = function () {
         setZandaka();
         updatePrintData();
         mEditInputReceipt.value = onChangeMinus(mEditInputReceipt.value);
+        setupButtonNyukinMode();
     } else {
         console.log("value err");
     }
@@ -967,16 +992,21 @@ teiseiNyuukin.addEventListener('keypress', event => {
 
 teiseiNyuukin.onchange = function () {
     if (isValidNumber(Other.getNumFromString(teiseiNyuukin.value).replaceAll("-",""))) {
+        if (mode == 3) {
+            setupButtonNyukinMode();
+        }
         if (teiseiNyuukin.value - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0) {
             document.getElementById("txtErrorTeisei").style.display = "block";
             teiseiNyuukin.classList.add("text_red");
             document.getElementById("txtErrorTeiseiDetail").classList.add("text_red");
             document.getElementById("teisei-sumi").disabled = true;
+            document.getElementById("createPrintingFormButton").disabled = true;
         } else {
             document.getElementById("txtErrorTeisei").style.display = "none";
             teiseiNyuukin.classList.remove("text_red");
             document.getElementById("txtErrorTeiseiDetail").classList.remove("text_red");
             document.getElementById("teisei-sumi").disabled = false;
+            document.getElementById("createPrintingFormButton").disabled = false;
         }
         teiseiNyuukin.value = onChangeMinus(teiseiNyuukin.value);
     } else {
@@ -1003,10 +1033,22 @@ mTxtNowMeter.onchange = function () {
         setGasInfo();
         afterCheckLease();
         setdataNiukinLayout();
-        mTxtNowMeter.value = Other.Format(
-            parseFloat(mTxtNowMeter.value) * 10,
-            1
-        );
+        if (strSisin != "") {
+            mTxtNowMeter.value = Other.Format(
+                parseFloat(mTxtNowMeter.value) * 10,
+                1
+            );
+        }
+
+        if (mTxtNowMeter.value != "") {
+            document.getElementById("createPrintingFormButton").disabled = false;
+            document.getElementById("card2").style.pointerEvents = "auto";
+            document.getElementById("card3").style.pointerEvents = "auto";
+        } else {
+            document.getElementById("createPrintingFormButton").disabled = true;
+            document.getElementById("card2").style.pointerEvents = "none";
+            document.getElementById("card3").style.pointerEvents = "none";
+        }
     }
 };
 
@@ -1057,7 +1099,9 @@ function onChangeMinus(value) {
     if (result.includes("-")) {
         result = result.replace("-", "");
         result = Other.formatDecial(Other.getNumFromString(result));
-        result = "-" + result;
+        if (result != 0) {
+            result = "-" + result;
+        }
     } else {
         result = Other.formatDecial(Other.getNumFromString(result));
     }
@@ -1067,6 +1111,10 @@ function onChangeMinus(value) {
 //--------------Teisei button event--------------------->
 
 teiseiBtn.onclick = function () {
+    if (teiseiGroup.classList.contains("hidden") == false) {
+        return;
+    }
+    teiseiNyuukinPre = teiseiNyuukin.value;
     teiseiGroup.classList.remove("hidden");
     nyuukinGroup.classList.add("hidden");
     // if (isValidNumber(teiseiNyuukin.value)) {
@@ -1079,6 +1127,23 @@ teiseiBtn.onclick = function () {
 cancelBtn.onclick = function () {
     teiseiGroup.classList.add("hidden");
     nyuukinGroup.classList.remove("hidden");
+    teiseiNyuukin.value = teiseiNyuukinPre;
+    teiseiNyuukinPre = "0";
+
+    if (teiseiNyuukin.value - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0) {
+        document.getElementById("txtErrorTeisei").style.display = "block";
+        teiseiNyuukin.classList.add("text_red");
+        document.getElementById("txtErrorTeiseiDetail").classList.add("text_red");
+        document.getElementById("teisei-sumi").disabled = true;
+        document.getElementById("createPrintingFormButton").disabled = true;
+    } else {
+        document.getElementById("txtErrorTeisei").style.display = "none";
+        teiseiNyuukin.classList.remove("text_red");
+        document.getElementById("txtErrorTeiseiDetail").classList.remove("text_red");
+        document.getElementById("teisei-sumi").disabled = false;
+        document.getElementById("createPrintingFormButton").disabled = false;
+    }
+    
 };
 
 teiseiSumi.onclick = function () {
@@ -1123,7 +1188,7 @@ function calCutaleTotal() {
 
         div_otsuri.classList.add("hidden");
         total = Number(first) + Number(second) - Number(third);
-        mTxtZandaka.textContent = total;
+        mTxtZandaka.textContent = total > 0 ? Other.formatDecial(total) : 0;
     }
 
 }
@@ -1212,6 +1277,24 @@ export {
 
 
 /**
+   * SETUP BUTTON
+*/
+function setupButton() {
+    if (mTxtNowMeter.value == "") {
+        document.getElementById("createPrintingFormButton").disabled = true;
+    }
+}
+
+function setupButtonNyukinMode() {
+    if (mEditAdjust.value != "0" || mEditInputReceipt.value != "0" || parseInt(Other.getNumFromString(teiseiNyuukin.value)) < 0) {
+        document.getElementById("createPrintingFormButton").disabled = false;
+    } else {
+        document.getElementById("createPrintingFormButton").disabled = true;
+    }
+}
+
+
+/**
    * ONCLICK ACTION
 */
 function onclickAction() {
@@ -1234,6 +1317,7 @@ function onclickAction() {
    * ONLOAD ACTION
 */
 function onLoadAction() {
+    setupCollapseTab();
     openKensinLayout();
     setdataNiukinLayout();
     setdataUchiWake();

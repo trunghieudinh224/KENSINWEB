@@ -451,9 +451,9 @@ function setKensinData(userData, isHybSeikyu, isPrintKensin, isPrintToyu) {
 		if (sysfDat.mGtpcDat.m_nPrintHiwariComment == 0 && kokfDat.mHiwari != 0) {
 			// 日割りコメント印字
 			kensinData.m_bPrintHiwariComment = true;
-			kensinData.m_strHiwariComment_0 = sysfDat.mGtpcDat.m_strHiwariComment_0;
-			kensinData.m_strHiwariComment_1 = sysfDat.mGtpcDat.m_strHiwariComment_1;
-			if (Other.cutStringSpace(kensinData.m_strHiwariComment_0).length() == 0 && Other.cutStringSpace(kensinData.m_strHiwariComment_1).length() == 0) {
+			kensinData.m_strHiwariComment_0 = Other.nullToString(sysfDat.mGtpcDat.m_strHiwariComment_0);
+			kensinData.m_strHiwariComment_1 = Other.nullToString(sysfDat.mGtpcDat.m_strHiwariComment_1);
+			if (Other.cutStringSpace(kensinData.m_strHiwariComment_0).length == 0 && Other.cutStringSpace(kensinData.m_strHiwariComment_1).length == 0) {
 				kensinData.m_bPrintHiwariComment = false;
 			}
 		}
@@ -555,14 +555,14 @@ function calcTotalKin() {
 
 
 function createKensinInfo(kensinData) {
+	document.getElementById("KensinInfoArea").style.display = "none";
+	document.getElementById("ToyuKensinInfoArea").style.display = "none";
 	if (mUserData.mKokfDat.mKenSumi && !mUserData.mNyukinMode && kensinData.m_isPrintKensin) {
-		// document.getElementById("KensinInfoArea").style.display = "block";
 		document.getElementById("ToyuKensinInfoArea").style.display = "none";
 		createKensinInfoBase(kensinData);
 	}
 	const kotfDat = kensinData.mKotfDat;
 	if (kotfDat != null && kotfDat.m_bKen_sumi == 1 && !mUserData.mNyukinMode && kensinData.m_isPrintToyu) {
-		// document.getElementById("ToyuKensinInfoArea").style.display = "block";
 		document.getElementById("KensinInfoArea").style.display = "none";
 		createToyuKensinInfoBase(kensinData);
 	}
@@ -3195,17 +3195,20 @@ function sendImage() {
 	* ONCLICK ACTION
 */
 function onclickAction() {
+	document.getElementById("backPrintButton").onclick = function () {
+		document.getElementById("editView").style.display = "block";
+		document.getElementById("printView").style.display = "none";
+		location.reload();
+	};
 	document.getElementById("sendToAppButton").onclick = function () {
 		sendImage();
 	};
 	document.getElementById("createPrintingFormButton").onclick = function () {
 		document.getElementById("editView").style.display = "none";
 		document.getElementById("printView").style.display = "block";
-		//isToyu (biến cuối) xem lại ko đc set cứng Hieu
 		let mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
 		let mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
-		getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, false);
-		mUserData.mSysfDat.is_m_isToyukeninFlg = false;
+		getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.is_m_isToyukeninFlg);
 		createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
 		createImageKensinForm();
 	};

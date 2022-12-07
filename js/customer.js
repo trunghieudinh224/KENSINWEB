@@ -65,11 +65,11 @@ function getInformation() {
             success: function (result) {
                 cusDetailData = JSON.parse(result);
                 mUserData = new Dat.UserData().parseData(cusDetailData);
+                modal.style.display = "none";
 
                 if (cusDetailData != null) {
                     setInformation();
                 }
-                modal.style.display = "none";
             },
             error: function (jqXHR, exception) {
                 console.log(exception);
@@ -219,7 +219,7 @@ function showKenshinJoohoo() {
         document.getElementById("kenshin-bii").innerText = String(cusDetailData.mKoukanDat.HN_DENYMD).substring(0, 10).replaceAll("-", "/");
         document.getElementById("shishin").innerText = cusDetailData.mKoukanDat.HN_SISIN + " m3";
         document.getElementById("shiyoo-ryoo").innerText = cusDetailData.mKoukanDat.HN_SIYOURYO + " m3";
-        document.getElementById("gasu-ryookin").innerText = cusDetailData.hndenpyoDat.zkn_kin + " 円";
+        document.getElementById("gasu-ryookin").innerText = cusDetailData.mHndenpyoDat.zkn_kin + " 円";
     } else {
         document.getElementById("kenshin-joohoo-area").style.display = "none";
     }
