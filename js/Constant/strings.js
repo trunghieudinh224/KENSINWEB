@@ -26,7 +26,8 @@ export var PR_GETSETTING = "getSetting?";
 export var PR_CUSSEARCH = "cussearch?";
 // get shuukei data
 export var PR_READSYUKEI = "readSyukei?";
-
+// readData
+export var PR_WRITEDATA = "writeData?";
 
 /*****  VARIABLE  *****/
 // username

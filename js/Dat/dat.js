@@ -203,9 +203,10 @@ export class KokfDat {
 		/** 検針対象区分 */
 		this.mNoKensin = true;
 		/** 顧客レコード */
-		this.mCusRec = 0;
+		this.mCusrec = 0;
 		/** 使用率 */
 		this.mPuseSrpDay = 0;
+		this.nGasrkcnt = 0;
 	}
 
 	setValue(mName, mKMonth, mKDate, mGasUse, mGasKubun, mKenSumi, mNowMeter, mPreMeter, mPuseYear, mPuseMonth, mPuseDate,
@@ -213,7 +214,7 @@ export class KokfDat {
 		mSupplyForm, mGasBase, mMtKeta, mGasUnit, mHybseikyu, mUrikin, mUriTax, mReduce, mReduceTax, mKotfDat, mProcTisyuu,
 		mTaxTisyuu, mPreBalance, mTAdjust, mTReceipt, mProcLease, mTaxLease, mProcDiv, mProcLoil, mTaxLoil, mProcEtc,
 		mTaxEtc, mProcGas, mTaxGas, mReceipt, mAdjust, mSyuSumi, mInpReceipt, mAdd_0, mAdd_1, mCusCode, mSName0,
-		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusRec, mPuseSrpDay) {
+		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusrec, mPuseSrpDay , nGasrkcnt) {
 
 		var data = new KokfDat();
 
@@ -282,8 +283,9 @@ export class KokfDat {
 		data.mHoan = mHoan;
 		data.mBankCode = mBankCode;
 		data.mNoKensin = mNoKensin;
-		data.mCusRec = mCusRec;
+		data.mCusrec = mCusrec;
 		data.mPuseSrpDay = mPuseSrpDay;
+		data.nGasrkcnt = nGasrkcnt;
 
 		return data
 	}
@@ -359,8 +361,9 @@ export class KokfDat {
 		data.mHoan = responeData.mHoan;
 		data.mBankCode = responeData.mBankCode;
 		data.mNoKensin = responeData.mNoKensin;
-		data.mCusRec = responeData.mCusRec;
+		data.mCusrec = responeData.mCusrec;
 		data.mPuseSrpDay = responeData.mPuseSrpDay;
+		data.nGasrkcnt = responeData.nGasrkcnt;	
 
 		return data
 	}
@@ -895,45 +898,45 @@ export class HanfDat {
 }
 
 
-export class KnebDat {
-	constructor() {
-		/** コード */
-		this.m_nCode = 0;
-		/** 有無 */
-		this.m_nUmu = 0;
-		/** 結果 */
-		this.m_nRes = 0;
-		/** 金額 */
-		this.m_nKin = 0;
-		/** 消費税 */
-		this.m_nTax = 0;
-	}
+// export class KnebDat {
+// 	constructor() {
+// 		/** コード */
+// 		this.m_nCode = 0;
+// 		/** 有無 */
+// 		this.m_nUmu = 0;
+// 		/** 結果 */
+// 		this.m_nRes = 0;
+// 		/** 金額 */
+// 		this.m_nKin = 0;
+// 		/** 消費税 */
+// 		this.m_nTax = 0;
+// 	}
 
-	setValue(m_nCode, m_nUmu, m_nRes, m_nKin, m_nTax) {
-		var data = new KnebDat();
+// 	setValue(m_nCode, m_nUmu, m_nRes, m_nKin, m_nTax) {
+// 		var data = new KnebDat();
 
-		data.m_nCode = m_nCode;
-		data.m_nUmu = m_nUmu;
-		data.m_nRes = m_nRes;
-		data.m_nKin = m_nKin;
-		data.m_nTax = m_nTax;
-		return data;
-	}
+// 		data.m_nCode = m_nCode;
+// 		data.m_nUmu = m_nUmu;
+// 		data.m_nRes = m_nRes;
+// 		data.m_nKin = m_nKin;
+// 		data.m_nTax = m_nTax;
+// 		return data;
+// 	}
 
-	parseData(responeData) {
-		var data = new KnebDat();
-		if (responeData == null) {
-			return data;
-		}
+// 	parseData(responeData) {
+// 		var data = new KnebDat();
+// 		if (responeData == null) {
+// 			return data;
+// 		}
 
-		data.m_nCode = responeData.m_nCode;
-		data.m_nUmu = responeData.m_nUmu;
-		data.m_nRes = responeData.m_nRes;
-		data.m_nKin = responeData.m_nKin;
-		data.m_nTax = responeData.m_nTax;
-		return data
-	}
-}
+// 		data.m_nCode = responeData.m_nCode;
+// 		data.m_nUmu = responeData.m_nUmu;
+// 		data.m_nRes = responeData.m_nRes;
+// 		data.m_nKin = responeData.m_nKin;
+// 		data.m_nTax = responeData.m_nTax;
+// 		return data
+// 	}
+// }
 
 
 export class HmefDat {
@@ -1801,15 +1804,15 @@ export class SeclawDat {
 export class LawItemDat {
 	constructor() {
 		/** コード */
-		this.m_nCode = nCode;
+		this.code = 0;
 		/** 値 */
-		this.m_nValue = nValue;
+		this.value = 0;
 	}
 
 	setValue(nCode, nValue) {
 		var data = new LawItemDat();
-		data.m_nCode = nCode;
-		data.m_nValue = nValue;
+		data.code = nCode;
+		data.value = nValue;
 		return data;
 	}
 }
@@ -1824,7 +1827,7 @@ export class HnDenMeiDat {
 		/** 伝票：システム月度（値がnullの場合は、今現在の販売システム年月が割り当てられます。） */
 		this.sysymd = 0;
 		/** 伝票：伝票番号 */
-		this.entymd = 0;
+		this.m_dtEntymd = 0;
 		/** 伝票：伝票日付 */
 		this.d_denymd = 0;
 		/** 伝票：伝票区分 0:前月残高, 1:通常, 2:割賦 */
@@ -1882,8 +1885,8 @@ export class HnDenMeiDat {
 	}
 
 	setValue(d_cusrec, d_seiymd, sysymd, entymd, d_denymd, d_denku, d_torku, d_denno, m_delflg, d_kin, utax, 
-			d_stax, d_taxcom, d_taxhas, d_tancd, d_tanname, d_sisin, d_siyouryo, d_days, d_srpday, d_kenku, 
-			d_sendf, d_sendymd, d_send2f, d_send2ymd, d_kapcnt, d_les_key, d_kap_key, d_lnk_dencnt, d_wrt_tancd, m_wrt_prg) {
+		d_stax, d_taxcom, d_taxhas, d_tancd, d_tanname, d_sisin, d_siyouryo, d_days, d_srpday, d_kenku,
+		d_sendf, d_sendymd, d_send2f, d_send2ymd, d_kapcnt, d_les_key, d_kap_key, d_lnk_dencnt, d_wrt_tancd, m_wrt_prg) {
 		var data = new HnDenMeiDat();
 
 		data.d_cusrec = d_cusrec;
@@ -1917,6 +1920,54 @@ export class HnDenMeiDat {
 		data.d_lnk_dencnt = d_lnk_dencnt;
 		data.d_wrt_tancd = d_wrt_tancd;
 		data.m_wrt_prg = m_wrt_prg;
+		return data;
+	}
+}
+
+export class KnebDat{
+	constructor() {
+	/** コード */
+    this.m_nCode = 0;
+    /** 有無 */
+    this.m_nUmu = 0;
+    /** 種別 */
+    this.m_nKind = 0;
+    /** 値引き金額 */
+    this.m_nSkkin = 0;
+    /** 値引率 */
+    this.m_nSkper = 0;
+    /** 商品コード */
+    this.m_nSncode = 0;
+    /** 使用量下限 */
+    this.m_nLimit_s = 0;
+    /** 使用量上限 */
+    this.m_nLimit_e = 0;
+    /** 結果 */
+    this.m_nRes = 0;
+    /** 金額 */
+    this.m_nKin = 0;
+    /** 消費税 */
+    this.m_nTax = 0;
+    /** 使用量下限 */
+    this.m_nLowlimit = 0;
+	}
+
+	setValue(code , numu , nkind , nsskin , nskper , nsncode , nlimits , nlimite , nres , nkin , ntax , nlowlimit) {
+		var data = new KnebDat();
+
+		data.m_nCode = code;
+		data.m_nUmu = numu ; 
+		data.m_nKind = nkind;
+		data.m_nSkkin = nsskin;
+		data.m_nSkper = nskper;
+		data.m_nSncode = nsncode;
+		data.m_nLimit_s = nlimits;
+		data.m_nLimit_e = nlimite;
+		data.m_nRes = nres;
+		data.m_nKin = nkin;
+		data.m_nTax = ntax;
+		data.m_nLowlimit = nlowlimit;
+
 		return data;
 	}
 }

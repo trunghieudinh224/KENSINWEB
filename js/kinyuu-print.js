@@ -2297,7 +2297,7 @@ function addKeigenTax(sysfDat, hmefDats, mapHmefDat) {
 		if (hmefDatKeigen == null) {
 			hmefDatKeigen = new Map();	//Khoi tao HmefDat Hieu
 			if (hmefDat.mKeigenKubun != 0) {
-				hmefDatKeigen.mCusRec = nIdx++;
+				hmefDatKeigen.mCusrec = nIdx++;
 			}
 			mapHmefDat.set(nKey, hmefDatKeigen);
 		}
@@ -2441,7 +2441,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		}
 		var hmefDatKeigen = mapHmefDat.get(hmefDat.mKeigenKubun * 1000 + hmefDat.mTaxR);
 		if (hmefDatKeigen != null && hmefDatKeigen.mKeigenKubun != 0) {
-			strPrint += String(hmefDatKeigen.mCusRec);
+			strPrint += String(hmefDatKeigen.mCusrec);
 		}
 		nTax += hmefDat.mTax;
 		const kin = document.createElement("td");
@@ -2552,7 +2552,7 @@ function getHmefTaxKeigenTotal(hmefDat) {
 			break;
 	}
 	if (hmefDat.mKeigenKubun != 0) {
-		strTax += String(hmefDat.mCusRec);
+		strTax += String(hmefDat.mCusrec);
 	}
 	return strTax;
 }
@@ -3211,6 +3211,7 @@ function onclickAction() {
 		getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.is_m_isToyukeninFlg);
 		createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
 		createImageKensinForm();
+		saveDataSetting(); 
 	};
 }
 
@@ -3259,6 +3260,36 @@ function createImageKensinForm() {
 			);
 		})
 }
+
+
+function saveDataSetting() {
+	Common.setupModal("load", null, Mess.I00002, null, null);
+	$.ajax({
+		type: "POST",
+		data: JSON.stringify(KensinKinyuu.sendDataToServer()),
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
+		contentType: "application/json",
+		timeout: ValueCS.VL_LONG_TIMEOUT,
+		success: function (response) {
+			console.log(response);
+			Common.setupModal("load", null, Mess.I00002, null, null);
+		},
+		error: function (xmlhttprequest, textstatus, message) {
+			if (textstatus === "timeout") {
+				console.log("timeout")
+			} else {
+				console.log(textstatus)
+			}
+			Common.setupModal("error", null, Mess.E00004, StringCS.OK, null);
+		}
+	}).done(function (res) {
+		console.log('res', res);
+		sessionStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(writeDatadat));
+		Common.setupModal("success", null, Mess.I00003, StringCS.OK, null);
+	});
+}
+
 
 
 /** 

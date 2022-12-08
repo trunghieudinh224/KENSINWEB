@@ -15,7 +15,7 @@ const mTitleGasPay = document.getElementById("txtKensinMainGasRyokin0");
 const mTxtGasTax = document.getElementById("txtKensinMainShohi");
 const mTxtCmt = document.getElementById("txtkensinMainInfo");
 const mTxtNameUser = document.getElementById("txtKensinMainCusName");
-
+const txtKensinMainInterUse = document.getElementById("txtKensinMainInterUse");
 const mEditAdjust = document.getElementById("chouseigaku");
 const mEditInputReceipt = document.getElementById("azukari-kin"); // 預かり金
 const mEditReceipt = document.getElementById("nyuukin"); // 入金
@@ -79,6 +79,24 @@ var mTotal = 0;
 
 //List<KnebDat> lstKnebDat = mUserData.getKnebiDat();
 var lstKnebDat = new Array();
+var knebDat = new Dat.KnebDat();
+var kneb = knebDat.setValue( 1 , 0 , 0 , 0 , 0 , 1002 , 0 , 0 , 0 , 0 , 0 , 0 )
+lstKnebDat.push(kneb);
+for (let i = 2; i < 17; i++) {
+	var pos = i;
+	if(i > 7 && i <= 10){
+		pos = i + 4;
+	}else if (i > 10){
+		pos = 0;
+	}
+	kneb = knebDat.setValue(pos,0,0,0,0,0,0,0,0,0,0,0)
+	lstKnebDat.push(kneb);
+}
+console.log(lstKnebDat);
+
+
+
+
 // var lstLeasHmefDat = mUserData.getLeasHmefDat();
 var lstLeasHmefDat = new Array();
 // var bdChosei = InputDat.getBusfDat(this, kouserDat.m_sChocode,  0);
@@ -218,7 +236,10 @@ function setCusInfo() {
         var tvPreUsetTitle = document.getElementById("txtKensinMainPrevSiyou0");
         if (mKokfDat.mBetwMeter > 0) {
             // 中間使用量有
-            tvPreUsetTitle.innerHTML = "前回/中間";
+            //tvPreUsetTitle.innerHTML = "前回/中間";]
+			if (mKokfDat.metchg == true) {
+				document.getElementById("chukan_shiyo_ryo_id").classList.remove("hidden");
+			}
             var strPreUseValue =
                 Other.Format(
                     GasRaterCom.getGasSuryo(mKokfDat.mPreUse, sy2fDat, kouserDat),
@@ -229,7 +250,8 @@ function setCusInfo() {
                     GasRaterCom.getGasSuryo(mKokfDat.mBetwMeter, sy2fDat, kouserDat),
                     1
                 );
-            mTxtPreUse.innerHTML = strPreUseValue;
+           	txtKensinMainInterUse.innerHTML = strPreUseValue;
+
         } else {
             mTxtPreUse.innerHTML = Other.Format(
                 GasRaterCom.getGasSuryo(mKokfDat.mPreUse, sy2fDat, kouserDat),
@@ -1227,32 +1249,74 @@ function updatePrintData() {
 
 
 
+export function sendDataToServer() {
+	var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
+	var kensinDate_ss = sessionStorage.getItem(StringCS.KENSINDATE);
+	var kensinDate = new Date(kensinDate_ss);
+	var m_oMetMeisaiDat = new Dat.MetMeisaiDat();
+	var cusRec = mKokfDat.mCusrec;
+	var dtSeiymd = kensinDate;
+	var sysDate = new Date(sysfDat.mSysYear + "-" + sysfDat.mSysMonth + "-1");
+	var dtSysymd = sysDate;
+	var nOld_ss = mKokfDat.mPreMeter;
+	var nNew_ss = mKokfDat.mNowMeter;
+	var nKenmsr = mKokfDat.mBetwMeter;
+	var nTancd = dataSetting.tancd;
+	var strTanname = dataSetting.tanname;
+	var nWrt_tancd = dataSetting.wrt_tancd;
+	var dtWrt_ymd = kensinDate;
 
-function sendDataToServer() {
-    var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
-    var kensinDate_ss = sessionStorage.getItem(StringCS.KENSINDATE);
-    var kensinDate = new Date(kensinDate);
-    var m_oMetMeisaiDat = new Dat.MetMeisaiDat();
-    var cusRec = mKokfDat.mCusRec;
-    var dtSeiymd = kensinDate;
-    var sysDate = new Date(sysfDat.mSysYear + "-" + sysfDat.mSysMonth + "-1");
-    var dtSysymd = sysDate;
-    var nOld_ss = mKokfDat.mPreMeter;
-    var nNew_ss = mKokfDat.mNowMeter;
-    var nKenmsr = mKokfDat.mBetwMeter;
-    var nTancd = dataSetting.tancd;
-    var strTanname = dataSetting.tanname;
-    var nWrt_tancd = dataSetting.wrt_tancd;
-    var dtWrt_ymd = kensinDate;
+	m_oMetMeisaiDat.m_nCusrec = mKokfDat.mCusrec;
+	m_oMetMeisaiDat.m_dtSeiymd = kensinDate;
+	m_oMetMeisaiDat.m_dtSysymd = sysDate;
+	m_oMetMeisaiDat.m_nOld_ss = mKokfDat.mPreMeter;
+	m_oMetMeisaiDat.m_nNew_ss = mKokfDat.mNowMeter;
+	m_oMetMeisaiDat.m_nKenmsr = mKokfDat.mBetwMeter;
+	m_oMetMeisaiDat.m_nTancd = dataSetting.tancd;
+	m_oMetMeisaiDat.m_strTanname = dataSetting.tanname;
+	m_oMetMeisaiDat.m_nWrt_tancd = dataSetting.wrt_tancd;
+	m_oMetMeisaiDat.m_dtWrt_ymd = kensinDate;
+	m_oMetMeisaiDat.m_dtDenymd = kensinDate;
+	m_oMetMeisaiDat.m_dtEntymd = kensinDate;
 
-    m_oMetMeisaiDat.setValue(cusRec, dtSeiymd, dtSysymd, nOld_ss, nNew_ss, nKenmsr, nTancd, strTanname,
-        nWrt_tancd, dtWrt_ymd);
-    
+	// m_oMetMeisaiDat.setValue(cusRec, dtSeiymd, dtSysymd, nOld_ss, nNew_ss, nKenmsr, nTancd, strTanname,
+	// 	nWrt_tancd, dtWrt_ymd);
 
-    var mHnDenMeiDat = new Dat.HnDenMeiDat();
-    mHnDenMeiDat.d_cusrec = mKokfDat.mCusRec;
-    mHnDenMeiDat.d_cusrec = mKokfDat.mCusRec;
+	var m_lLawItem = HoanKinnyuu.m_lLawItem;
+	var m_oSecLawDat = new Dat.SeclawDat();
+	m_oSecLawDat.m_nCusrec = mKokfDat.mCusrec;
+	m_oSecLawDat.m_dtEntymd = kensinDate;
+	m_oSecLawDat.m_bRes = HoanKinnyuu.m_bRes;
+	m_oSecLawDat.m_strTanname = dataSetting.tanname;
+	m_oSecLawDat.m_sTancd = dataSetting.tancd;
+
+	var m_oDenpyoMeisaiDat = new Dat.HnDenMeiDat();
+	m_oDenpyoMeisaiDat.d_cusrec = mKokfDat.mCusrec;
+	m_oDenpyoMeisaiDat.m_kin = mKokfDat.mFee;
+	m_oDenpyoMeisaiDat.d_seiymd = kensinDate;
+	m_oDenpyoMeisaiDat.d_sysymd = sysDate;
+	m_oDenpyoMeisaiDat.d_entymd = kensinDate;
+	m_oDenpyoMeisaiDat.d_denymd = kensinDate;
+	m_oDenpyoMeisaiDat.d_stax = mKokfDat.mConTax * 1000;
+	m_oDenpyoMeisaiDat.d_sisin = mKokfDat.mNowMeter;
+	m_oDenpyoMeisaiDat.d_siyouryo = mKokfDat.mGasUse;
+	m_oDenpyoMeisaiDat.d_wrt_tancd = dataSetting.tancd;
+	m_oDenpyoMeisaiDat.d_wrt_prg = dataSetting.wrt_tancd;
+	m_oDenpyoMeisaiDat.wrt_ymd = kensinDate;
+	m_oDenpyoMeisaiDat.d_utax = mKokfDat.mConTax;
+	m_oDenpyoMeisaiDat.nGasrkcnt = mKokfDat.nGasrkcnt;
+
+	var writeDatadat = new Dat.WriteDataDat();
+	writeDatadat.m_oSecLawDat = m_oSecLawDat;
+	writeDatadat.m_lLawItem = m_lLawItem;
+	writeDatadat.m_oDenpyoMeisaiDat = m_oDenpyoMeisaiDat;
+	writeDatadat.m_oMetMeisaiDat = m_oMetMeisaiDat;
+	writeDatadat.login_id = sessionStorage.getItem(StringCS.USERNAME);
+	writeDatadat.login_pw =  sessionStorage.getItem(StringCS.PASSWORD);
+
+	return writeDatadat;
 }
+
 
 
 export {
