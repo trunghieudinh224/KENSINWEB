@@ -19,24 +19,28 @@ var dataSetting;
 function getDataSetting() {
 	Common.setupModal("load", null, Mess.I00001, null, null);
 	$.ajax({
-        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-        url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		headers: {
 			'Content-Type': StringCS.PR_CONTENT_TYPE
 		},
 		success: function (result) {
-			dataSetting = JSON.parse(result);
-			setCommentCbb(1);
-			setCommentCbb(2);
-			setTantnameCbb();
-			setPrintModeCbb();
-			modal.style.display = "none";
+			try {
+				dataSetting = JSON.parse(result);
+				setCommentCbb(1);
+				setCommentCbb(2);
+				setTantnameCbb();
+				setPrintModeCbb();
+				modal.style.display = "none";
+			} catch {
+				Common.setupModal("error", null, Mess.E00007, StringCS.OK, null);
+			}
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
 			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
 		},
-        timeout: ValueCS.VL_SHORT_TIMEOUT
+		timeout: ValueCS.VL_SHORT_TIMEOUT
 	});
 }
 
@@ -77,16 +81,7 @@ function setCommentCbb(cbb) {
 function setTantnameCbb() {
 	if (dataSetting != null) {
 		if (dataSetting.m_lstTantName != null) {
-			for (var i = 0; i < dataSetting.m_lstTantName.length; i++) {
-				var option = document.createElement("option");
-				option.classList.add("text")
-				option.text = dataSetting.m_lstTantName[i].name;
-				option.value = dataSetting.m_lstTantName[i].code;
-				document.getElementById("cbb_tantname").add(option);
-				if (dataSetting.tancd == dataSetting.m_lstTantName[i].code) {
-					option.selected = true;
-				}
-			}
+			document.getElementById("cbb_tantname").textContent = dataSetting.m_lstTantName[0].name;
 		}
 	}
 }
@@ -112,7 +107,7 @@ function setPrintModeCbb() {
 function prepareNewDataSetting() {
 	let comment1 = document.getElementById("cbb_comment1").value;
 	let comment2 = document.getElementById("cbb_comment2").value;
-	let tancd = document.getElementById("cbb_tantname").value;
+	let tancd = dataSetting.m_lstTantName[0].code;
 	let print_mode = document.getElementById("combobox_print_mode").value;
 	const newData = {
 		wrt_tancd: dataSetting.wrt_tancd,
@@ -136,10 +131,10 @@ function saveDataSetting() {
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(prepareNewDataSetting()),
-        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
-        url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
 		contentType: "application/json",
-        timeout: ValueCS.VL_LONG_TIMEOUT,
+		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
 			console.log(response);
 			Common.setupModal("load", null, Mess.I00002, null, null);
@@ -164,8 +159,8 @@ function saveDataSetting() {
    * SETUP OPTION MENU
 */
 function setOptionMenu() {
-    document.getElementById("menuOption").onclick = function() {Common.movePage('/menu_page.html')};
-    document.getElementById("logoutOption").onclick = function() {Common.movePage('logout')};
+	document.getElementById("menuOption").onclick = function () { Common.movePage('/menu_page.html') };
+	document.getElementById("logoutOption").onclick = function () { Common.movePage('logout') };
 }
 
 
