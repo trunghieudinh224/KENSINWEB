@@ -1107,7 +1107,7 @@ function calcTotal(
 	ko2fDat,
 	sy2fDat,
 	kouserDat,
-	m_lstKnebDat,
+	lstLeasHmefDat,
 	isIrai
 ) {
 	var wkRyokin = calcSeikyu(sysfDat, kokfDat, sy2fDat, isIrai);
@@ -1121,8 +1121,8 @@ function calcTotal(
 	// 検針時リース計上
 	if (kokfDat.mKenSumi) {
 		// 検針済みの場合は検針時リース金額加算
-		for (let i = 0; i < m_lstKnebDat.length; i++) {
-			const hmefDat = m_lstKnebDat[i];
+		for (let i = 0; i < lstLeasHmefDat.length; i++) {
+			const hmefDat = lstLeasHmefDat[i];
 			if (hmefDat.mUsef && hmefDat.mHmeKind == 9 && hmefDat.mLeasKind == 1) {
 				wkRyokin += hmefDat.mKin;
 				wkRyokin += hmefDat.mTax;
@@ -1132,7 +1132,7 @@ function calcTotal(
 	var nNebiki = 0;
 	if (sysfDat.mKnebFlg == 1) {
 		// 漢の値引き有り
-		nNebiki = calcNebiki(sysfDat, userData.getKnebiDat());		//Cần tìm hiểu cái hàm này Hieu
+		nNebiki = calcNebiki(sysfDat, userData.m_lstKnebDat);		//Cần tìm hiểu cái hàm này Hieu
 	}
 	var isHybrid;
 	if (
