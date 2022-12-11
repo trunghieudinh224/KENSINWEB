@@ -30,6 +30,8 @@ export var E00004 = "データ保存に失敗しました"
 export var E00005 = "検索条件に満たす顧客情報はありません"
 // 印刷はモバイルデバイスでのみ利用できます
 export var E00006 = "印刷はモバイルデバイスでのみ利用できます"
+// Có lỗi trong quá trình xử lý dữ liệu
+export var E00007 = "Có lỗi trong quá trình xử lý dữ liệu"
 
 
 /*
