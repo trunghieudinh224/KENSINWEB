@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+    <title>検針くん</title>
+    <meta charset=UTF-8>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="format-detection" content="telephone=no" />
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/ic_uriage.png" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" id="bootstrap-css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/modal.css" />
+    <link rel="stylesheet" type="text/css" href="css/purchase_page.css">
+</head>
+
+<body>
+
+    <div id="backgroundPage">
+        <div class="dropdown select-role">
+            <div class="btn-menu btn-secondary dropdown-toggle" type="button" id="dropdownSelectRole"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="text" id="userName"><i class="ic-dropdown fa-solid fa-user"></i><a id="name"></a></span>
+            </div>
+            <ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
+                <li>
+                    <a class="dropdown-item notice-page" id="menuOption">
+                        <span class="text"><i class="ic-dropdown fa-solid fa-bars"></i>メニュー</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item print-page" id="settingOption">
+                        <span class="text"><i class="ic-dropdown fa-solid fa-gear"></i>設定</span>
+                    </a>
+                </li>
+                <li class="dropdown-divider-wrap">
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item scan-page" id="logoutOption">
+                        <span class="text"><i class="ic-dropdown logout fa-solid fa-right-from-bracket"></i>ログアウト</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="container-mainform" id="form">
+            <div class="wrap-mainform p-t-30 p-b-40">
+
+                <div id="editView">
+                    <span id="titleForm">
+                        売上記入
+                    </span>
+
+                    <div class="row content">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text mw135">顧客コード</span>
+                                </div>
+
+                                <span class="form-control text" id="kokyaku_kodo">00100001110</span>
+                            </div> <!-- form-group// -->
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text mw135">顧客名</span>
+                                </div>
+
+                                <span class="form-control text" id="kokyaku-mei">Dinh Trung Hieu</span>
+                            </div> <!-- form-group// -->
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw135 text">現金売/掛売</span>
+                                </div>
+                                <select class="custom-select form-control ta-l text" name="modeForm" id="modeForm">
+                                    <option value="0">現金売</option>
+                                    <option value="1">掛売</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="informationDetail">
+                        <div class="row content">
+                            <div class="col-12">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw135 text">品   目</span>
+                                    </div>
+                                    <span class="form-control text" id="hinmoku">オートガス</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw135 text">品   番</span>
+                                    </div>
+                                    <span class="form-control text ta-c" id="hinban">12312</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw135 text">数   量</span>
+                                    </div>
+
+                                    <input class="form-control ta-r text" type="text" id="sur" />
+                                    <span class="form-control unit text"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw135 text">単   価</span>
+                                    </div>
+
+                                    <input class="form-control ta-r text" type="text" id="tank" />
+                                    <span class="form-control unit text">円</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw135 text">金   額</span>
+                                    </div>
+                                    
+                                    <input class="form-control ta-r text fw-b" type="text" id="kin" />
+                                    <span class="form-control unit text fw-b">円</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw135 text">税区分/税率</span>
+                                    </div>
+                                    
+                                    <select class="custom-select form-control ta-l text" name="modeForm" id="uriage_tax_select">
+                                        <option value="0">未設定</option>
+                                        <option value="1">非課税</option>
+                                        <option value="2">内税</option>
+                                        <option value="3">外税</option>
+                                    </select>
+                                    <input class="form-control ta-r text" type="text" id="uriage_tax_val" />
+                                    <span class="form-control unit text">％</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw135 text">消 費 税</span>
+                                    </div>
+
+                                    <span class="form-control text" id="taxkin"></span>
+                                    <span class="form-control unit text">円</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw135 text">合   計</span>
+                                    </div>
+
+                                    <span class="form-control text fw-b" id="total"></span>
+                                    <span class="form-control unit text fw-b">円</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="genkin_uri_area" class="row content">
+                            <div class="col-12">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw135 text hover" id="cho_text">値引き</span>
+                                    </div>
+                                    
+                                    <input class="form-control ta-r text fw-b" type="text" id="cho_val" />
+                                    <span class="form-control unit text fw-b">円</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw135 text">預  り  金</span>
+                                    </div>
+                                    
+                                    <input class="form-control ta-r text fw-b" type="text" id="azukari" />
+                                    <span class="form-control unit text fw-b">円</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw135 text hover" id="receipt_text">入  金  額</span>
+                                    </div>
+                                    
+                                    <span class="form-control text fw-b" id="receipt_val"></span>
+                                    <span class="form-control unit text fw-b">円</span>
+                                </div>
+                            </div>
+                        </div>    
+
+
+                        <div class="row content">
+                            <div class="col-12">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw135 text">差引残高</span>
+                                    </div>
+
+                                    <span class="form-control text fw-b" id="zandaka"></span>
+                                    <span class="form-control unit text fw-b">円</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="button-area">
+                        <div class="row content">
+                            <div class="col-4">
+                                <button type="button" class="btn btn-default text-center" onclick="history.back()"><span
+                                        class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
+                            </div>
+
+                            <div class="col-4">
+                                <button type="button" class="btn btn-default text-center" id="editButton"><span
+                                        class="fas fa-pencil ic-btn"></span><br>訂正</button>
+                            </div>
+
+                            <div class="col-4">
+                                <button type="button" class="btn btn-default text-center" id="kakuninButton"><span
+                                        class="fas fa-play ic-btn"></span><br>確認</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <!-- Modal image area -->
+                    <div class="modal-image-area background-error-modal">
+                        <span class="modal-close-button">X</span>
+                        <img id="imgStatusModal" class="modal-image">
+                    </div>
+
+                    <!-- Modal message area -->
+                    <div class="modal-message">
+                        <div class="modal-message-area">
+                            <span class="title-modal text">題名</span>
+                            <span class="modal-message-detail text">メッセージ</span>
+                        </div>
+
+                        <div id="buttonAreaModal">
+                            <button class="button-modal btn-common button-cancel" role="button">戻る</button>
+                            <button class="button-modal btn-common button-confirm" role="button">確認</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 内訳ダイアログ  -->
+    <div class="overlay">
+        <div class="container-mainform">
+            <div class="wrap-mainform p-t-30 p-b-40" style="padding-top: 60px;">
+                <i class="fa-sharp fa-solid fa-circle-xmark" id="close-icon"></i>
+                <form id="receipt_form" class="dialog_form" action="">
+
+                    <span id="titleDialog" class="text ta-c fw-b" style="width: 100%; display: block;">
+                        入金取引区分選択
+                    </span>
+
+                    <div class="table-container">
+                        <table id="receipt_table" class="result-detail">
+                            <tr class="h-40">
+                                <td>
+                                    <span class="ta-l text">busfdat1</span>
+                                </td>
+                            </tr>
+                            <tr class="h-40">
+                                <td>
+                                    <span class="ta-l text">busfdat2</span>
+                                </td>
+                            </tr>
+                            <tr class="h-40">
+                                <td>
+                                    <span class="ta-l text">busfdat3</span>
+                                </td>
+                            </tr>
+                            <tr class="h-40">
+                                <td>
+                                    <span class="ta-l text">busfdat4</span>
+                                </td>
+                            </tr>
+                            <tr class="h-40">
+                                <td>
+                                    <span class="ta-l text">busfdat5</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+                <form id="receipt_form" class="dialog_form" action="">
+
+                    <span id="titleDialog" class="text ta-c fw-b" style="width: 100%; display: block;">
+                        入金取引区分選択
+                    </span>
+
+                    <div class="table-container">
+                        <table id="receipt_table" class="result-detail">
+                            <tr class="h-40">
+                                <td>
+                                    <span class="ta-l text">busfdat1</span>
+                                </td>
+                            </tr>
+                            <tr class="h-40">
+                                <td>
+                                    <span class="ta-l text">busfdat2</span>
+                                </td>
+                            </tr>
+                            <tr class="h-40">
+                                <td>
+                                    <span class="ta-l text">busfdat3</span>
+                                </td>
+                            </tr>
+                            <tr class="h-40">
+                                <td>
+                                    <span class="ta-l text">busfdat4</span>
+                                </td>
+                            </tr>
+                            <tr class="h-40">
+                                <td>
+                                    <span class="ta-l text">busfdat5</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript"
+        src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <script src="vendor/daterangepicker/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
+    <script type="module" src="./js/Common/check_login.js"></script>
+    <script type="module" src="./js/purchase_page.js"></script>
+
+</body>
+
+</html>

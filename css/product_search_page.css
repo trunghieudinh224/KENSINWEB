@@ -1,0 +1,144 @@
+body {
+	position: relative;
+}
+
+.card-body {
+	padding: 0px !important;
+	overflow: hidden;
+}
+
+
+.active,
+.collapsible:hover {
+	background-color: rgb(220, 220, 220);
+	color: black;
+}
+
+.content-collapse {
+	padding: 0 18px;
+	display: none;
+	overflow: hidden;
+	background-color: #f1f1f1;
+}
+
+.card {
+	margin-bottom: 2px;
+	border-radius: 0px;
+}
+
+.card-header {
+	background-color: #e3f2de;
+	padding: 8px 10px;
+	border-radius: 0px !important;
+}
+
+.card-link {
+	font-size: 20px !important;
+	color: rgb(0, 0, 0);
+	display: block;
+}
+
+.card-link:hover {
+	cursor: grabbing;
+}
+
+.pd-l-20 {
+	padding-left: 20px;
+}
+
+.h-40 {
+	height: 40px;
+}
+
+
+.table-container {
+	max-height: 480px;
+	overflow-y: scroll;
+	margin: auto 0px;
+	position: relative;
+}
+
+
+#productList {
+	width: 100%;
+}
+
+
+.result-tb {
+	width: 100%;
+}
+
+
+.result-detail {
+	width: 100%;
+}
+
+
+
+.result-detail tr:hover {
+	cursor: pointer;
+}
+
+
+.result-detail tr:nth-child(even) {
+	background-color: #efefef;
+}
+
+.overlay {
+	position: absolute;
+	inset: 0;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .6);
+	z-index: -1;
+}
+
+.overlay-animate {
+	transform: translateY(100%);
+	animation: showDialog .5s forwards;
+	animation-timing-function: linear;
+}
+
+.overlay .container-mainform {
+	height: 100%;
+}
+
+.overlay .container-mainform .wrap-mainform {
+	max-width: 500px;
+	position: relative;
+}
+
+#close-icon {
+	font-size: 25px;
+	position: absolute;
+	padding: 5px;
+	top: 20px;
+	right: 20px;
+	cursor: pointer;
+}
+
+@media screen and (max-width: 1200px) {}
+
+@media screen and (max-width: 900px) {
+
+}
+
+
+@media screen and (max-width: 768px) {
+
+}
+
+@media screen and (max-width: 600px) {
+	
+}
+
+@media screen and (max-width: 450px) {
+	.card-header {
+		padding: 7px 10px;
+	}
+}
+
+@keyframes showDialog {
+	to {
+		transform: translateY(0);
+	}
+}

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+    <title>検針くん</title>
+    <meta charset=UTF-8>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="format-detection" content="telephone=no" />
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/ic_product_search.png" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" id="bootstrap-css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/modal.css" />
+    <link rel="stylesheet" type="text/css" href="css/product_search_page.css">
+</head>
+
+<body>
+
+    <div id="backgroundPage">
+        <div class="dropdown select-role">
+            <div class="btn-menu btn-secondary dropdown-toggle" type="button" id="dropdownSelectRole"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="text" id="userName"><i class="ic-dropdown fa-solid fa-user"></i><a id="name"></a></span>
+            </div>
+            <ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
+                <li>
+                    <a class="dropdown-item notice-page" id="menuOption">
+                        <span class="text"><i class="ic-dropdown fa-solid fa-bars"></i>メニュー</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item print-page" id="settingOption">
+                        <span class="text"><i class="ic-dropdown fa-solid fa-gear"></i>設定</span>
+                    </a>
+                </li>
+                <li class="dropdown-divider-wrap">
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item scan-page" id="logoutOption">
+                        <span class="text"><i class="ic-dropdown logout fa-solid fa-right-from-bracket"></i>ログアウト</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="container-mainform" id="form">
+            <div class="wrap-mainform p-t-30 p-b-40">
+
+                <span id="titleForm">
+                    商品選択
+                </span>
+
+                <div class="row content">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text text mw145">顧客コード</span>
+                            </div>
+
+                            <span class="form-control text" id="kokyaku_kodo">00100001110</span>
+                        </div> <!-- form-group// -->
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text text mw145">顧客名</span>
+                            </div>
+
+                            <span class="form-control text" id="kokyaku-mei">Dinh Trung Hieu</span>
+                        </div> <!-- form-group// -->
+                    </div>
+                </div>
+
+                <div class="row content">
+                    <div class="col-12 mb10">
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text mw145 text">検索キー</span>
+                            </div>
+                            <input type="text" class="form-control ta-l text" id="search-key" />
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div id="collapseView">
+                    <div id="accordion" class="table-container">
+                        <div id="card0" class="card card-0">
+                            <div class="card-header">
+                                <span class="card-link" data-toggle="collapse" href="#collapseItem0">
+                                    <div class="input-group">
+                                        <div class="item-collapse">
+                                            <span class="text">顧客情報</span>
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
+                            <div id="collapseItem0" class="collapse collapseItem0" data-parent="#accordion">
+                                <div class="card-body">
+                                    <div class="table-container">
+                                        <table id="detail0" class="result-detail">
+                                            <tr class="h-40 detailItem0">
+                                                <td>
+                                                    <span class="text pd-l-20">Item 1</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="h-40 detailItem0">
+                                                <td>
+                                                    <span class="text pd-l-20">Item 2</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="h-40 detailItem0">
+                                                <td>
+                                                    <span class="text pd-l-20">Item 3</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="card1" class="card card-1">
+                            <div class="card-header">
+                                <span class="card-link" data-toggle="collapse" href="#collapseItem1">
+                                    <div class="input-group">
+                                        <div class="item-collapse">
+                                            <span class="text">顧客情報</span>
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
+                            <div id="collapseItem1" class="collapse collapseItem1" data-parent="#accordion">
+                                <div class="card-body">
+                                    <div class="table-container">
+                                        <table id="detail0" class="result-detail">
+                                            <tr class="h-40 detailItem1">
+                                                <td>
+                                                    <span class="text pd-l-20">Item 1</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="h-40 detailItem1">
+                                                <td>
+                                                    <span class="text pd-l-20">Item 2</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="h-40 detailItem1">
+                                                <td>
+                                                    <span class="text pd-l-20">Item 3</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="card2" class="card card-2">
+                            <div class="card-header">
+                                <span class="card-link" data-toggle="collapse" href="#collapseItem2">
+                                    <div class="input-group">
+                                        <div class="item-collapse">
+                                            <span class="text">顧客情報</span>
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="button-area">
+                    <div class="row content">
+                        <div class="col-4">
+                            <button type="button" class="btn btn-default text-center" onclick="history.back()"><span
+                                    class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
+                        </div>
+
+                        <div class="col-4">
+                            <button type="button" class="btn btn-default text-center" id="deleteButton"><span
+                                    class="fas fa-trash ic-btn"></span><br>削除</button>
+                        </div>
+
+                        <div class="col-4">
+                            <button type="button" class="btn btn-default text-center" id="printButton"><span
+                                    class="fas fa-play ic-btn"></span><br>伝票再印刷</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <!-- Modal image area -->
+                    <div class="modal-image-area background-error-modal">
+                        <span class="modal-close-button">X</span>
+                        <img id="imgStatusModal" class="modal-image">
+                    </div>
+
+                    <!-- Modal message area -->
+                    <div class="modal-message">
+                        <div class="modal-message-area">
+                            <span class="title-modal text">題名</span>
+                            <span class="modal-message-detail text">メッセージ</span>
+                        </div>
+
+                        <div id="buttonAreaModal">
+                            <button class="button-modal btn-common button-cancel" role="button">戻る</button>
+                            <button class="button-modal btn-common button-confirm" role="button">確認</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript"
+        src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <script src="vendor/daterangepicker/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
+    <script type="module" src="./js/Common/check_login.js"></script>
+    <script type="module" src="./js/product_search_page.js"></script>
+
+</body>
+
+</html>
