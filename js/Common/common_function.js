@@ -54,6 +54,11 @@ function setupModal(status, title, message, textButton, textButton2) {
         closeButton.style.display = "none";
         buttonConfirm.style.display = "block";
 		imageModal.src = "./images/gif/gif_fail.gif";
+	} else if (status == "question") {
+        titleModal.style.display = "none";
+        closeButton.style.display = "none";
+        buttonConfirm.style.display = "block";
+		imageModal.src = "./images/gif/gif_question.gif";
 	}
 
 	// button
