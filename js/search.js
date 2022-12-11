@@ -183,7 +183,7 @@ function checkPreviousData() {
 				var object = previousCuslist[this.rowIndex];
 				object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 				if (object.kenstat == 1) {
-					Common.setupModal("success", null, Mess.I00006, StringCS.HAI, StringCS.IIE);
+					Common.setupModal("question", null, Mess.I00006, StringCS.HAI, StringCS.IIE);
 					var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
 					buttonConfirm.onclick = function () {
 						const cusdat = Object.assign({}, object);
@@ -231,9 +231,9 @@ function searchCus() {
 		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + searchKindVal +
-			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +	
-			"&match_kind=" + searchPartVal +	
-			"&kenstat=" + kenstat +	
+			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +
+			"&match_kind=" + searchPartVal +
+			"&kenstat=" + kenstat +
 			"&shustat=" + shustat +
 			"&uristat=" + uristat +
 			(hanku != "" ? "&hanku=" + hanku : "") +
@@ -241,7 +241,7 @@ function searchCus() {
 			(shutan != "" ? "&shutan=" + shutan : "") +
 			(uritan != "" ? "&uritan=" + uritan : "") +
 			(shuku != "" ? "&shuku=" + shuku : "") +
-			"&order_kind=" + searchOrderVal +	
+			"&order_kind=" + searchOrderVal +
 			"&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
 			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		headers: {
@@ -279,7 +279,7 @@ function searchCus() {
 							var object = data.cuslist[this.rowIndex];
 							object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 							if (object.kenstat == 1) {
-								Common.setupModal("success", null, Mess.I00006, StringCS.HAI, StringCS.IIE);
+								Common.setupModal("question", null, Mess.I00006, StringCS.HAI, StringCS.IIE);
 								var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
 								buttonConfirm.onclick = function () {
 									const cusdat = Object.assign({}, object);
@@ -291,7 +291,7 @@ function searchCus() {
 								sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
 								Common.movePage('/customer_page.html');
 							}
-							
+
 						};
 					}
 
@@ -407,9 +407,9 @@ function selectChange() {
    * SETUP OPTION MENU
 */
 function setOptionMenu() {
-    document.getElementById("menuOption").onclick = function() {Common.movePage('/menu_page.html')};
-    document.getElementById("settingOption").onclick = function() {Common.movePage('/setting_page.html')};
-    document.getElementById("logoutOption").onclick = function() {Common.movePage('logout')};
+	document.getElementById("menuOption").onclick = function () { Common.movePage('/menu_page.html') };
+	document.getElementById("settingOption").onclick = function () { Common.movePage('/setting_page.html') };
+	document.getElementById("logoutOption").onclick = function () { Common.movePage('logout') };
 }
 
 
@@ -417,7 +417,7 @@ function setOptionMenu() {
    * ONCHANGE ACTION
 */
 function onChangeAction() {
-	searchKey.onchange = function() {
+	searchKey.onchange = function () {
 		sessionStorage.setItem(StringCS.SEARCHSTRING, searchKey.value.trim());
 	}
 }
@@ -431,6 +431,8 @@ function onclickAction() {
 	document.getElementById("kensakuButton").onclick = searchCus;
 	document.getElementById("firstCustomerButton").onclick = firstCustomerAction;
 }
+
+
 
 
 /**
