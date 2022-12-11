@@ -37,11 +37,13 @@ mUserData.mSy2fDat = sy2fDat;
 mUserData.mNyukinMode = false;
 mUserData.mKo2fDat = null;
 mUserData.m_lstLeasHmefDat = null;
-mUserData.mBusfdat = KensinKinyuu.busfDat;
+mUserData.mBusfDat_kang = KensinKinyuu.mBusfDat_kang;
+mUserData.mBusfDat_hmcd13 = KensinKinyuu.mBusfDat_hmcd13;
 mUserData.getHmef0 = KensinKinyuu.hmefList;
 mUserData.getHmef1 = KensinKinyuu.hmefList1;
 mUserData.getHmef2 = KensinKinyuu.hmefList2;
 mUserData.mHanfDat = KensinKinyuu.hanfDat;
+mUserData.m_lstKnebDat = KensinKinyuu.m_lstKnebDat;
 
 
 var kensinData = new Dat.KensinData();
@@ -1132,17 +1134,11 @@ function createKinInfo(kensinData) {
  */
 function getChoTitle() {
 	var strChoTitle = "調整額";
-	var sysfDat = mUserData.mSysfDat;
 	var sy2fDat = mUserData.mSy2fDat;
 	if (sy2fDat != null && sy2fDat.mSysfHmcd13 != 0) {
-		const bFlag = 0;
-		if (sy2fDat.mSysfHmcd13 > sysfDat.mSnvalue) {
-			// 商品
-			bFlag = 1;
-		}
-		const busfDat = mUserData.busfDat;
-		if (busfDat != null) {
-			strChoTitle = Other.cutStringSpace(busfDat.mName).trim();
+		const mBusfDat_hmcd13 = mUserData.mBusfDat_hmcd13;
+		if (mBusfDat_hmcd13 != null) {
+			strChoTitle = Other.cutStringSpace(mBusfDat_hmcd13.mName).trim();
 		}
 	}
 	return strChoTitle;
