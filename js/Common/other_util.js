@@ -176,25 +176,15 @@ function MonthDayFormat(month, day) {
 /**
 	* 差益還元の名称を取得.
 	*
-	* @param context   [in] {@link Context}    呼び出し元コンテキスト
-	* @param sy2fDat   [in] {@link Sy2fDat}    システム設定２データ
+	* @param mUserData   [in] {@link Userdata}   
 	* @return  String  差益還元名称
 */
-function getKangcontname(sy2fDat, mUserData) {
-	const strKang = "原料費調整";
+function getKangcontname(mUserData) {
+	var strKang = "原料費調整";
 	// 差益還元額名称取得
-	if (sy2fDat.mKangHcd < 100) {
-		// 取引区分から取得
-		const busfDat = mUserData.getBusfDat(sy2fDat.mKangHcd, 0);		//Phần này thêm vô (Hiếu)
-		if (busfDat != null) {
-			strKang = busfDat.mName;
-		}
-	} else {
-		// 商品から取得
-		const busfDat = InputDat.getBusfDat(sy2fDat.mKangHcd, 1);
-		if (busfDat != null) {
-			strKang = busfDat.mName;
-		}
+	const busfDat = mUserData.mBusfDat_kang;
+	if (busfDat != null) {
+		strKang = busfDat.mName;
 	}
 	return getClearString(nullToString(strKang));
 }
