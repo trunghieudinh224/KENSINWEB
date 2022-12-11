@@ -1557,7 +1557,10 @@ export class UserData {
 		/** 検針時リースの販売明細一覧 */
 		this.m_lstLeasHmefDat = null;
 		/** 取引区分・品目データクラス */
-		this.mBusfdat = null;
+		this.mBusfDat_kang = null;
+		/** 取引区分・品目データクラス */
+		this.mBusfDat_hmcd13 = null;
+
 
 		this.getHmef0 = null;
 		this.getHmef1 = null;
@@ -1588,7 +1591,8 @@ export class UserData {
 		data.mKouserDat = responeData.mKouserDat;
 		data.m_lstKnebDat = responeData.m_lstKnebDat;
 		data.m_lstLeasHmefDat = responeData.m_lstLeasHmefDat;
-		data.mBusfdat = responeData.mBusfdat;
+		data.mBusfDat_kang = responeData.mBusfDat_kang;
+		data.mBusfDat_hmcd13 = responeData.mBusfDat_hmcd13;
 		data.getHmef0 = responeData.getHmef0;
 		data.getHmef1 = responeData.getHmef1;
 		data.getHmef2 = responeData.getHmef2;
