@@ -243,10 +243,6 @@
 											<div class="item-collapse">
 												<span class="title-collapse">詳細情報</span>
 											</div>
-
-											<!-- <div class="item-collapse ic-dd-collapse">
-												<span class="arrow-ic fas fa-caret-down"></span>
-											</div> -->
 										</div> <!-- form-group// -->
 									</span>
 								</div>
@@ -262,40 +258,43 @@
 												<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
 													<div class="form-group input-group">
 														<div class="input-group-prepend">
-															<span class="input-group-text text mw145">前回検針日</span>
+															<span class="input-group-text text mw135">前回検針日</span>
 														</div>
 
-														<span class="form-control text" id="kenshin-bii"></span>
+														<span class="form-control text ta-c" id="kenshin-bii"></span>
 													</div> <!-- form-group// -->
 												</div>
 
 												<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
 													<div class="form-group input-group">
 														<div class="input-group-prepend">
-															<span class="input-group-text text mw145">前回指針</span>
+															<span class="input-group-text text mw135">前回指針</span>
 														</div>
 
-														<span class="form-control text" id="shishin"></span>
+														<span class="form-control text ta-r" id="shishin"></span>
+														<span class="form-control unit text">m3</span>
 													</div> <!-- form-group// -->
 												</div>
 
 												<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
 													<div class="form-group input-group">
 														<div class="input-group-prepend">
-															<span class="input-group-text text mw145">前回使用量</span>
+															<span class="input-group-text text mw135">前回使用量</span>
 														</div>
 
-														<span class="form-control text" id="shiyoo-ryoo"></span>
+														<span class="form-control text ta-r" id="shiyoo-ryoo"></span>
+														<span class="form-control unit text">m3</span>
 													</div> <!-- form-group// -->
 												</div>
 
 												<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
 													<div class="form-group input-group">
 														<div class="input-group-prepend">
-															<span class="input-group-text text mw145">ガス料金</span>
+															<span class="input-group-text text mw135">ガス料金</span>
 														</div>
 
-														<span class="form-control text" id="gasu-ryookin"></span>
+														<span class="form-control text ta-r" id="gasu-ryookin"></span>
+														<span class="form-control unit text">円</span>
 													</div> <!-- form-group// -->
 												</div>
 											</div>
@@ -310,7 +309,7 @@
 												<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
 													<div class="form-group input-group">
 														<div class="input-group-prepend">
-															<span class="input-group-text text mw145">前回配送日</span>
+															<span class="input-group-text text mw135">前回配送日</span>
 														</div>
 
 														<span class="form-control text" id="haisoo-bi"></span>
@@ -320,20 +319,22 @@
 												<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
 													<div class="form-group input-group">
 														<div class="input-group-prepend">
-															<span class="input-group-text text mw145">前回指針</span>
+															<span class="input-group-text text mw135">前回指針</span>
 														</div>
 
-														<span class="form-control text" id="haisoo-shishin"></span>
+														<span class="form-control text ta-r" id="haisoo-shishin"></span>
+														<span class="form-control unit text">m3</span>
 													</div> <!-- form-group// -->
 												</div>
 
 												<div class="col-12 mb10">
 													<div class="form-group input-group">
 														<div class="input-group-prepend">
-															<span class="input-group-text text mw145">前回使用量</span>
+															<span class="input-group-text text mw135">前回使用量</span>
 														</div>
 
-														<span class="form-control text" id="haisoo-shiyoo-ryoo"></span>
+														<span class="form-control text ta-r" id="haisoo-shiyoo-ryoo"></span>
+														<span class="form-control unit text">m3</span>
 													</div> <!-- form-group// -->
 												</div>
 											</div>
@@ -348,7 +349,7 @@
 												<div class="col-12 mb10">
 													<div class="form-group input-group">
 														<div class="input-group-prepend">
-															<span class="input-group-text text mw145">メモ内容</span>
+															<span class="input-group-text text mw135">メモ内容</span>
 														</div>
 														<span class="form-control text " id="memo-naiyoo"></span>
 													</div> <!-- form-group// -->
@@ -364,17 +365,22 @@
 
 					<div class="button-area">
 						<div class="row content">
-							<div class="col-4">
+							<div class="col-6">
 								<button type="button" class="btn btn-default text-center" id="backPageButton"><span
 										class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
 							</div>
 
-							<div class="col-4">
+							<div class="col-6">
+								<button type="button" class="btn btn-default text-center" id="uriageButton"><span
+										class="fas fa-shopping-basket ic-btn"></span><br>売上</button>
+							</div>
+
+							<div class="col-6">
 								<button type="button" class="btn btn-default text-center" id="nyuukinButton"><span
 										class="fas fa-hand-holding-usd ic-btn"></span><br>入金</button>
 							</div>
 
-							<div class="col-4">
+							<div class="col-6">
 								<button type="button" class="btn btn-default text-center" id="jikkoButton"><span
 										class="fas fa-play ic-btn"></span><br>実行</button>
 							</div>
@@ -411,8 +417,6 @@
 		</div>
 	</div>
 
-	<script type="text/javascript"
-		src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

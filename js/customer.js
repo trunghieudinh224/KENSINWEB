@@ -1,4 +1,5 @@
 import * as Common from './Common/common_function.js'
+import * as Other from './Common/other_util.js'
 import * as StringCS from './Constant/strings.js'
 import * as ValueCS from './Constant/values.js'
 import * as Mess from './Constant/message.js'
@@ -14,7 +15,7 @@ var cusDat = JSON.parse(sessionStorage.getItem(StringCS.CUSDAT));
 /* customer detail data */
 var cusDetailData;
 
-var mUserData;
+var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 
 var recentDay = moment().format('YYYY/MM/DD');
 
@@ -65,6 +66,7 @@ function getInformation() {
             success: function (result) {
                 cusDetailData = JSON.parse(result);
                 mUserData = new Dat.UserData().parseData(cusDetailData);
+                saveUserData();
                 modal.style.display = "none";
 
                 if (cusDetailData != null) {
@@ -217,9 +219,9 @@ function showKenshinJoohoo() {
     if (parseInt(cusDetailData.mKoukanDat.HN_DENCNT) > 0) {
         document.getElementById("kenshin-joohoo-area").style.display = "block";
         document.getElementById("kenshin-bii").innerText = String(cusDetailData.mKoukanDat.HN_DENYMD).substring(0, 10).replaceAll("-", "/");
-        document.getElementById("shishin").innerText = cusDetailData.mKoukanDat.HN_SISIN + " m3";
-        document.getElementById("shiyoo-ryoo").innerText = cusDetailData.mKoukanDat.HN_SIYOURYO + " m3";
-        document.getElementById("gasu-ryookin").innerText = cusDetailData.mHndenpyoDat.zkn_kin + " 円";
+        document.getElementById("shishin").innerText = Other.Format(cusDetailData.mKoukanDat.HN_SISIN, 1);
+        document.getElementById("shiyoo-ryoo").innerText = Other.Format(cusDetailData.mKoukanDat.HN_SIYOURYO, 1);
+        document.getElementById("gasu-ryookin").innerText = Other.formatDecial(cusDetailData.mHndenpyoDat.zkn_kin);
     } else {
         document.getElementById("kenshin-joohoo-area").style.display = "none";
     }
@@ -233,8 +235,8 @@ function showHaisooJoohoo() {
     if (parseInt(cusDetailData.mKoukanDat.HA_DENCNT) > 0) {
         document.getElementById("kenshin-haisoo-area").style.display = "block";
         document.getElementById("haisoo-bi").innerText = String(cusDetailData.mKoukanDat.HA_DENYMD).substring(0, 10).replaceAll("-", "/");
-        document.getElementById("haisoo-shishin").innerText = cusDetailData.mKoukanDat.HA_SISIN + " m3";
-        document.getElementById("haisoo-shiyoo-ryoo").innerText = cusDetailData.mKoukanDat.HA_SIYOURYO + " m3";
+        document.getElementById("haisoo-shishin").innerText = Other.Format(cusDetailData.mKoukanDat.HA_SISIN, 1);
+        document.getElementById("haisoo-shiyoo-ryoo").innerText = Other.Format(cusDetailData.mKoukanDat.HA_SIYOURYO, 1);
     } else {
         document.getElementById("kenshin-haisoo-area").style.display = "none";
     }
@@ -300,13 +302,18 @@ function getRyookin() {
    * MOVE TO KINYUU PAGE WITH MODE
 */
 function kinyuuMove(mode) {
+    saveUserData();
+    sessionStorage.setItem(StringCS.KINYUUMODE, mode);
+    Common.movePage('/meter_reading_fillout_page.html');
+}
+
+
+
+function saveUserData() {
     var kensinDate = document.getElementById("jisshi-bi").value;
     sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
-    sessionStorage.setItem(StringCS.KINYUUMODE, mode);
-
     mUserData.mKensinDate = String(kensinDate);
     sessionStorage.setItem(StringCS.USERDATA, JSON.stringify(mUserData));
-    Common.movePage('/meter_reading_fillout_page.html');
 }
 
 
@@ -325,6 +332,9 @@ function setOptionMenu() {
 */
 function onclickAction() {
     document.getElementById("backPageButton").onclick = Common.backAction;
+    document.getElementById("uriageButton").onclick = function () { 
+        Common.movePage('/product_search_page.html');
+    };
     document.getElementById("nyuukinButton").onclick = function () { kinyuuMove(3); };
     document.getElementById("jikkoButton").onclick = function () { kinyuuMove(1); };
 }
