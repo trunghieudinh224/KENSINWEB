@@ -58,7 +58,8 @@ var kouserDat = new Dat.KouserDat().parseData(mUserData.mKouserDat)
 
 // var ko2fDat = mUserData.ko2fDat;;
 var ko2fDat = new Dat.Ko2fDat().parseData(mUserData.mKo2fDat);
-var busfDat = new Dat.BusfDat().parseData(mUserData.busfDat_hmcd13)
+var mBusfDat_kang = new Dat.BusfDat().parseData(mUserData.mBusfDat_kang)
+var mBusfDat_hmcd13 = new Dat.BusfDat().parseData(mUserData.busfDat_hmcd13)
 
 // var hmefDat0 = new Dat.HmefDat().setValue(true, 1, 1, 100, 8, 2314, 3, 80, 0, 5, 1, "警報器リース", 100, 10000, 0, 0, "YF-005N");
 // var hmefDat1 = new Dat.HmefDat().setValue(true, 1, 0, 20000, 1600, 3001, 3, 80, 0, 5, 15, "ガスコンロ", 100, 0, 0, 0, "abv");
@@ -78,10 +79,11 @@ var mDays = 0;
 var mTotal = 0;
 
 //List<KnebDat> lstKnebDat = mUserData.getKnebiDat();
-var lstKnebDat = new Array();
+/** 顧客値引きデータ */
+var m_lstKnebDat = new Array();
 var knebDat = new Dat.KnebDat();
 var kneb = knebDat.setValue( 1 , 0 , 0 , 0 , 0 , 1002 , 0 , 0 , 0 , 0 , 0 , 0 )
-lstKnebDat.push(kneb);
+m_lstKnebDat.push(kneb);
 for (let i = 2; i < 17; i++) {
 	var pos = i;
 	if(i > 7 && i <= 10){
@@ -90,9 +92,10 @@ for (let i = 2; i < 17; i++) {
 		pos = 0;
 	}
 	kneb = knebDat.setValue(pos,0,0,0,0,0,0,0,0,0,0,0)
-	lstKnebDat.push(kneb);
+	m_lstKnebDat.push(kneb);
 }
-console.log(lstKnebDat);
+console.log(m_lstKnebDat);
+mUserData.m_lstKnebDat = m_lstKnebDat;
 
 
 
@@ -103,8 +106,7 @@ var lstLeasHmefDat = new Array();
 // var bdNyukin = InputDat.getBusfDat(this, kouserDat.m_sNyucode, 0);
 var bdChosei = new Dat.BusfDat().setValue(true, 2, "調整", 1, 3)
 var bdNyukin = new Dat.BusfDat().setValue(true, 2, "調整", 1, 3)
-/** 顧客値引きデータ */
-var m_lstKnebDat = new Array();
+
 
 /** 訂正フラグ */
 var mTeiseiFlg = false;
@@ -559,7 +561,7 @@ function init() {
         ko2fDat,
         sy2fDat,
         kouserDat,
-        m_lstKnebDat,
+        lstLeasHmefDat,
         false
     );
     txtKensinNyukinNowSeikyu.innerHTML = nRyokin > 0 ? Other.KingakuFormat(nRyokin) : 0;
@@ -601,8 +603,8 @@ function init() {
     }
 
     // 還元額名称設定
-    // txtKensinNyukinKangen.innerHTML = (Other.getKangcontname(sy2fDat));
-    txtKensinNyukinKangen.innerHTML = sy2fDat;
+    txtKensinNyukinKangen.innerHTML = (Other.getKangcontname(mUserData));
+    // txtKensinNyukinKangen.innerHTML = sy2fDat;
     // 還元額
     txtKensinNyukinKangenKin.innerHTML = Other.KingakuFormat(nKangen);
     //txtKensinNyukinKangenKin.innerHTML = (nKangen);
@@ -612,7 +614,7 @@ function init() {
     var nNebiki = 0;
     if (sysfDat.mKnebFlg == 1) {
         // 漢の値引き有り
-        nNebiki = GasRaterCom.calcNebiki(sysfDat, lstKnebDat);
+        nNebiki = GasRaterCom.calcNebiki(sysfDat, m_lstKnebDat);
     }
     txtKensinNyukinNebiki.innerHTML = Other.KingakuFormat(nNebiki);
     //txtKensinNyukinNebiki.innerHTML = (nNebiki);
@@ -1330,12 +1332,12 @@ export {
     m_nGasuse,
     mDays,
     mTotal,
-    lstKnebDat,
     lstLeasHmefDat,
     bdChosei,
     bdNyukin,
     m_lstKnebDat,
-    busfDat,
+    mBusfDat_kang,
+    mBusfDat_hmcd13,
     hanfDat
 }
 
