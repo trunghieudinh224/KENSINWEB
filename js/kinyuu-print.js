@@ -3183,7 +3183,7 @@ function setupTextSizeDetail(nameItem, textSize, lineHeight, fontWeight) {
 function sendImage() {
 	imgString = imgString.replace("data:image/png;base64,", "");
 	navigator.clipboard.writeText(imgString);
-	window.location.href = "printermarutou://print&&1";
+	window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://","");
 }
 
 
