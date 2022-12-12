@@ -570,7 +570,7 @@ function init() {
 
     // @当月請求
     nRyokin = GasRaterCom.calcSeikyu(sysfDat, mKokfDat, sy2fDat, false);
-    txtKensinNyukinPreZandaka.innerHTML = Other.KingakuFormat(nRyokin);
+    txtKensinNyukinPreZandaka.innerHTML = Other.formatDecial(nRyokin);
 
     // 当月ガス売上
     nRyokin = mKokfDat.mFee;
@@ -887,41 +887,41 @@ function setdataUchiWake() {
         nKin = mKokfDat.mPreBalance;
     }
     document.getElementById("txtKensinNaiyakuZandaka").innerHTML =
-        Other.KingakuFormat(nKin);
+        Other.formatDecial(nKin);
 
     // 当月ガス料金
     document.getElementById("txtKensinNaiyakuGasRyokin").innerHTML =
-        Other.KingakuFormat(mKokfDat.mProcGas);
+        Other.formatDecial(mKokfDat.mProcGas);
 
     // 当月ガス料金消費税
     document.getElementById("txtKensinNaiyakuShohizei").innerHTML =
-        Other.KingakuFormat(mKokfDat.mTaxGas);
+        Other.formatDecial(mKokfDat.mTaxGas);
 
     // その他売上
     document.getElementById("txtKensinNaiyakuOtherUri").innerHTML =
-        Other.KingakuFormat(GasRaterCom.calcEtcUri(sysfDat, mKokfDat));
+        Other.formatDecial(GasRaterCom.calcEtcUri(sysfDat, mKokfDat));
 
     // その他売上消費税
     document.getElementById("txtKensinNaiyakuOtherShohi").innerHTML =
-        Other.KingakuFormat(GasRaterCom.calcEtcTax(sysfDat, mKokfDat));
+        Other.formatDecial(GasRaterCom.calcEtcTax(sysfDat, mKokfDat));
 
     // 当月調整
     document.getElementById("txtKensinNaiyakuChosei").innerHTML =
-        Other.KingakuFormat(mKokfDat.mTAdjust);
+        Other.formatDecial(mKokfDat.mTAdjust);
     // 当月入金
     document.getElementById("txtKensinNaiyakuNyukin").innerHTML =
-        Other.KingakuFormat(mKokfDat.mTReceipt);
+        Other.formatDecial(mKokfDat.mTReceipt);
 
     // 当月請求金額
     document.getElementById("txtKensinNaiyakuSeikyu").innerHTML =
-        Other.KingakuFormat(
+        Other.formatDecial(
             GasRaterCom.calcSeikyu(sysfDat, mKokfDat, sy2fDat, false)
         );
 
     if (sysfDat.mKnebFlg == 1) {
         // 漢の値引きシステム有り
         document.getElementById("txtKensinNaiyakuNebiki").innerHTML =
-            Other.KingakuFormat(GasRaterCom.calcNebiki(knebDat));
+            Other.formatDecial(GasRaterCom.calcNebiki(knebDat));
     } else {
         // 値引き項目のビューを取り除く
         document.getElementById("nebiki").classList.add("hidden");
