@@ -335,7 +335,7 @@ function calcGasBaseKin(sysf, gasf, kokf, sy2fDat, kouserDat) {
 			nBaseKin = gstpDat.m_nBase;
 		} else {
 			nStartStep = 1;
-			nBaseKin = gstpDat.m_nBase - (gstpDat.m_nAddp * prevgstpdat.m_nUpLimit) / 10;
+			nBaseKin = gstpDat.m_nBase - (gstpDat.m_nAddp * prevGstpDat.m_nUpLimit) / 10;
 		}
 		var gext = gasf.mGextDat;
 		if (sysf.mVisibleGas == 1 && gext.m_nBasekin != 0) {

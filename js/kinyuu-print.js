@@ -991,7 +991,7 @@ function createKinInfo(kensinData) {
 			document.getElementById("zengetsuZandakaArea").style.display = "block";
 			// 前月御請求額
 			const preReceiptVal = document.getElementById("preReceiptVal");
-			preReceiptVal.innerHTML = Other.KingakuFormat(kensinData.m_PreReceipt);
+			preReceiptVal.innerHTML = Other.formatDecial(kensinData.m_PreReceipt);
 		} else {
 			document.getElementById("zengetsuZandakaArea").style.display = "none";
 			countDisplay++;
@@ -1005,7 +1005,7 @@ function createKinInfo(kensinData) {
 				document.getElementById("hmDayArea").style.display = "block";
 				//本日お買い上げ額	
 				const hmDayVal = document.getElementById("hmDayVal");
-				hmDayVal.innerHTML = Other.KingakuFormat(kensinData.m_HmDay);
+				hmDayVal.innerHTML = Other.formatDecial(kensinData.m_HmDay);
 			} else {
 				document.getElementById("hmDayArea").style.display = "none";
 				countProceed++;
@@ -1015,7 +1015,7 @@ function createKinInfo(kensinData) {
 				// document.getElementById("hmMonthArea").style.display = "block";
 				//当月お買い上げ額
 				const hmDayVal = document.getElementById("hmMonthVal");
-				hmDayVal.innerHTML = Other.KingakuFormat(kensinData.m_HmMonth);
+				hmDayVal.innerHTML = Other.formatDecial(kensinData.m_HmMonth);
 			} else {
 				document.getElementById("hmMonthArea").style.display = "none";
 				countProceed++;
@@ -1035,7 +1035,7 @@ function createKinInfo(kensinData) {
 			// document.getElementById("toogetsuNyuuKingakuArea").style.display = "block";
 			//当月入金額
 			const hmDayVal = document.getElementById("hmDayVal");
-			hmDayVal.innerHTML = Other.KingakuFormat(t_kokfdat.mTReceipt);
+			hmDayVal.innerHTML = Other.formatDecial(t_kokfdat.mTReceipt);
 		} else {
 			document.getElementById("toogetsuNyuuKingakuArea").style.display = "none";
 			countDisplay++;
@@ -1046,7 +1046,7 @@ function createKinInfo(kensinData) {
 			// document.getElementById("toogetsuChooseiGakuArea").style.display = "block";
 			//当月調整額
 			const tAdjustVal = document.getElementById("tAdjustVal");
-			tAdjustVal.innerHTML = Other.KingakuFormat(t_kokfdat.mTAdjust);
+			tAdjustVal.innerHTML = Other.formatDecial(t_kokfdat.mTAdjust);
 		} else {
 			document.getElementById("toogetsuChooseiGakuArea").style.display = "none";
 			countDisplay++;
