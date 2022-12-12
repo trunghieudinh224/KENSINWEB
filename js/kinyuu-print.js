@@ -560,12 +560,12 @@ function createKensinInfo(kensinData) {
 	document.getElementById("KensinInfoArea").style.display = "none";
 	document.getElementById("ToyuKensinInfoArea").style.display = "none";
 	if (mUserData.mKokfDat.mKenSumi && !mUserData.mNyukinMode && kensinData.m_isPrintKensin) {
-		document.getElementById("ToyuKensinInfoArea").style.display = "none";
+		document.getElementById("KensinInfoArea").style.display = "block";
 		createKensinInfoBase(kensinData);
 	}
 	const kotfDat = kensinData.mKotfDat;
 	if (kotfDat != null && kotfDat.m_bKen_sumi == 1 && !mUserData.mNyukinMode && kensinData.m_isPrintToyu) {
-		document.getElementById("KensinInfoArea").style.display = "none";
+		document.getElementById("ToyuKensinInfoArea").style.display = "block";
 		createToyuKensinInfoBase(kensinData);
 	}
 
@@ -2845,17 +2845,17 @@ function createMiyaPoint() {
 	if (sy2fDat.mSysOption[SysOption.PRINT_MIYANO_GET] == 1) {
 		// 獲得ポイント
 		const kakutokuPointoVal = document.getElementById("kakutokuPointoVal");
-		kakutokuPointoVal.innerHTML = Other.format("#,###,##0", kouserDat.m_nMiyanoGetpnt);
+		kakutokuPointoVal.innerHTML = Other.formatDecial(kouserDat.m_nMiyanoGetpnt);
 	}
 	if (sy2fDat.mSysOption[SysOption.PRINT_MIYANO_USE] == 1) {
 		// 使用ポイント
 		const shiyooPointoVal = document.getElementById("shiyooPointoVal");
-		shiyooPointoVal.innerHTML = Other.format("#,###,##0", kouserDat.m_nMiyanoUsepnt);
+		shiyooPointoVal.innerHTML = Other.formatDecial(kouserDat.m_nMiyanoUsepnt);
 	}
 	if (sy2fDat.mSysOption[SysOption.PRINT_MIYANO_RUI] == 1) {
 		// 累計ポイント
 		const genzaiPointoVal = document.getElementById("genzaiPointoVal");
-		genzaiPointoVal.innerHTML = Other.format("#,###,##0", kouserDat.m_nMiyanoZanpnt);
+		genzaiPointoVal.innerHTML = Other.formatDecial(kouserDat.m_nMiyanoZanpnt);
 	}
 }
 
@@ -2873,7 +2873,7 @@ function createCnComment(kensinData) {
 
 		//前月獲得ポイント
 		const cnpZpointVal = document.getElementById("cnpZpointVal");
-		cnpZpointVal.innerHTML = Other.format("#,###,##0", cnpCusDat.mCnpZpoint);
+		cnpZpointVal.innerHTML = Other.formatDecial(cnpCusDat.mCnpZpoint);
 
 		var strLine = "";
 		if (cnpCusDat.mCnpMembers > 0) {
@@ -2887,7 +2887,7 @@ function createCnComment(kensinData) {
 		const cnpMembersText = document.getElementById("cnpMembersText");
 		cnpMembersText.innerHTML = strLine;
 		const cnpPointVal = document.getElementById("cnpPointVal");
-		cnpPointVal.innerHTML = Other.format("#,###,##0", cnpCusDat.mCnpPoint);
+		cnpPointVal.innerHTML = Other.formatDecial(cnpCusDat.mCnpPoint);
 
 		if (cnpCusDat.mCnpMembers == 0 && cnpCusDat.mCnpTemp > 0) {
 			// 仮会員はコメントを追加
@@ -3207,7 +3207,7 @@ function onclickAction() {
 		getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.is_m_isToyukeninFlg);
 		createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
 		createImageKensinForm();
-		saveDataSetting(); 
+		// saveDataSetting(); 
 	};
 }
 
@@ -3281,7 +3281,6 @@ function saveDataSetting() {
 		}
 	}).done(function (res) {
 		console.log('res', res);
-		sessionStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(writeDatadat));
 		Common.setupModal("success", null, Mess.I00003, StringCS.OK, null);
 	});
 }
