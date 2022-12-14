@@ -447,13 +447,15 @@ export class SysfDat {
 		this.mIfChitUser = false;
 		/** システム月 */
 		this.mSysMonth = 0;  // Sys.hansysym
-
+		/** 日常点検判定項目△有無 */
 		this.mTenkenDelta = 0;
+		/** 産気率 */
+		this.mSanki = 0;
 	}
 
 	setValue(mKgasDays0, mKgasDays1, mKgasDays2, mTax_yy, mTax_mm, mTax_dd, mConsumTax, mTaxr_old, mTaxr_new, mVisibleGas, mVisibleFacility, mLesUmu,
-		mFracAddKin, mFracMulKin, mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas, m_isToyukeninFlg, 
-		mSrChkr, mSrChkm, mKnebFlg, mIfAdjust, mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta) {
+		mFracAddKin, mFracMulKin, mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas, m_isToyukeninFlg, mSrChkr, 
+		mSrChkm, mKnebFlg, mIfAdjust, mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta, mSanki) {
 		var data = new SysfDat();
 
 		data.mKgasDays0 = mKgasDays0;
@@ -496,6 +498,7 @@ export class SysfDat {
 		data.mIfChitUser = mIfChitUser;
 		data.mSysMonth = mSysMonth;
 		data.mTenkenDelta = mTenkenDelta;
+		data.mSanki = mSanki;
 		return data;
 	}
 
@@ -545,6 +548,7 @@ export class SysfDat {
 		data.mIfChitUser = responeData.mIfChitUser;
 		data.mSysMonth = responeData.mSysMonth;
 		data.mTenkenDelta = responeData.mTenkenDelta;
+		data.mSanki = responeData.mSanki;
 		return data
 	}
 }
@@ -860,16 +864,34 @@ export class HanfDat {
 		/** 電話番号 */
 		this.mTel = "";
 		/** FAX */
-		this.mFax = null;
+		this.mFax = "";
 		/** 住所1 */
 		this.mAdd1 = "";
 		/** 住所2 */
-		this.mAdd2 = null;
+		this.mAdd2 = "";
 		/** 住所3 */
-		this.mAdd3 = null;
+		this.mAdd3 = "";
+		/** URL */
+		this.mUrl = "";
+		/** 請求先銀行１銀行名 */
+		this.mBkname_0 = "";
+		/** 請求先銀行１支店名 */
+		this.mBkshiten_0 = "";
+		/** 請求先銀行１口座種別 */
+		this.mBkkubun_0 = "";
+		/** 請求先銀行１口座番号 */
+		this.mBkban_0 = "";
+		/** 請求先銀行２銀行名 */
+		this.mBkname_1 = "";
+		/** 請求先銀行２支店名 */
+		this.mBkshiten_1 = "";
+		/** 請求先銀行２口座種別 */
+		this.mBkkubun_1 = "";
+		/** 請求先銀行２口座番号 */
+		this.mBkban_1 = "";
 	}
 
-	setValue(mName, mTel, mFax, mAdd1, mAdd2, mAdd3) {
+	setValue(mName, mTel, mFax, mAdd1, mAdd2, mAdd3, mUrl, mBkname_0, mBkshiten_0, mBkkubun_0, mBkban_0, mBkname_1, mBkshiten_1, mBkkubun_1, mBkban_1) {
 		var data = new HanfDat();
 
 		data.mName = mName;
@@ -878,6 +900,16 @@ export class HanfDat {
 		data.mAdd1 = mAdd1;
 		data.mAdd2 = mAdd2;
 		data.mAdd3 = mAdd3;
+
+		data.mUrl = mUrl;
+		data.mBkname_0 = mBkname_0;
+		data.mBkshiten_0 = mBkshiten_0;
+		data.mBkkubun_0 = mBkkubun_0;
+		data.mBkban_0 = mBkban_0;
+		data.mBkname_1 = mBkname_1;
+		data.mBkshiten_1 = mBkshiten_1;
+		data.mBkkubun_1 = mBkkubun_1;
+		data.mBkban_1 = mBkban_1;
 		return data;
 	}
 
@@ -893,50 +925,18 @@ export class HanfDat {
 		data.mAdd1 = responeData.mAdd1;
 		data.mAdd2 = responeData.mAdd2;
 		data.mAdd3 = responeData.mAdd3;
+		data.mUrl = responeData.mUrl;
+		data.mBkname_0 = responeData.mBkname_0;
+		data.mBkshiten_0 = responeData.mBkshiten_0;
+		data.mBkkubun_0 = responeData.mBkkubun_0;
+		data.mBkban_0 = responeData.mBkban_0;
+		data.mBkname_1 = responeData.mBkname_1;
+		data.mBkshiten_1 = responeData.mBkshiten_1;
+		data.mBkkubun_1 = responeData.mBkkubun_1;
+		data.mBkban_1 = responeData.mBkban_1;
 		return data
 	}
 }
-
-
-// export class KnebDat {
-// 	constructor() {
-// 		/** コード */
-// 		this.m_nCode = 0;
-// 		/** 有無 */
-// 		this.m_nUmu = 0;
-// 		/** 結果 */
-// 		this.m_nRes = 0;
-// 		/** 金額 */
-// 		this.m_nKin = 0;
-// 		/** 消費税 */
-// 		this.m_nTax = 0;
-// 	}
-
-// 	setValue(m_nCode, m_nUmu, m_nRes, m_nKin, m_nTax) {
-// 		var data = new KnebDat();
-
-// 		data.m_nCode = m_nCode;
-// 		data.m_nUmu = m_nUmu;
-// 		data.m_nRes = m_nRes;
-// 		data.m_nKin = m_nKin;
-// 		data.m_nTax = m_nTax;
-// 		return data;
-// 	}
-
-// 	parseData(responeData) {
-// 		var data = new KnebDat();
-// 		if (responeData == null) {
-// 			return data;
-// 		}
-
-// 		data.m_nCode = responeData.m_nCode;
-// 		data.m_nUmu = responeData.m_nUmu;
-// 		data.m_nRes = responeData.m_nRes;
-// 		data.m_nKin = responeData.m_nKin;
-// 		data.m_nTax = responeData.m_nTax;
-// 		return data
-// 	}
-// }
 
 
 export class HmefDat {
