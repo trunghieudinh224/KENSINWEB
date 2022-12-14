@@ -34,6 +34,19 @@ var tantnameItem = ["kentan", "shutan", "uritan"];
 
 /*****  FUNCTION  *****/
 /**
+   * SETUP LAYOUT
+*/
+function setupLayout() {
+	if (sessionStorage.getItem(StringCS.SEARCHMODE) == "1") {
+		var itemSearch = document.getElementsByClassName("searchItem");
+		itemSearch.forEach(async (item) => {
+			item.style.display = "none";
+		});
+	}
+}
+
+
+/**
    * INITIALIZE COMBOBOX
 */
 function initCombobox() {
@@ -433,13 +446,12 @@ function onclickAction() {
 }
 
 
-
-
 /**
    * ONLOAD ACTION
 */
 function onLoadAction() {
 	setOptionMenu();
+	setupLayout();
 	checkPreviousData();
 	initCombobox();
 	setMaxLengthInput();
