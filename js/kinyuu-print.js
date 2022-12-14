@@ -96,7 +96,6 @@ function createPrintData(printStatus, isHybseikyu, isHikae) {
 	createCusInfo(getCusData());
 
 	var wkKensinData = setKensinData(mUserData, isHybseikyu, printStatus.m_isPrintKensin, printStatus.m_isPrintToyu);
-	// sysfDat.m_isToyukeninFlg = mUserData.systemDat.FBUNRUI_3 == 0 && mUserData.systemDat.FHMCODE_3 == 0 && mUserData.systemDat.FHBCODE_3 == 0
 	if (sysfDat.m_isToyukeninFlg) {
 		var kotfDat = mUserData.mKokfDat.mKotfDat;
 		if (printStatus.m_isPrintKensin && !printStatus.m_isPrintToyu) {
@@ -576,6 +575,8 @@ function createKensinInfo(kensinData) {
 			// chưa có đủ data để test (Hieu)
 			// document.getElementById("uTaxCommentArea").style.display = "none";
 			createUTaxComment(kensinData);
+		} else {
+			document.getElementById("uTaxCommentArea").style.display = "none";
 		}
 		if (mUserData.mKokfDat.mKenSumi || (kotfDat != null && kotfDat.m_bKen_sumi == 1)) {
 			createSeikyuComment(kensinData);
@@ -778,6 +779,9 @@ function createKensinInfoBase(kensinData) {
 		} else {
 			document.getElementById("counterNameArea").style.display = "none";
 		}
+	} else {
+		document.getElementById("gasBaseKinArea").style.display = "none";
+		document.getElementById("counterNameArea").style.display = "none";
 	}
 
 	if (kensinData.m_isHybrid) {
@@ -1489,7 +1493,7 @@ function printGasryokinA(kensinData) {
 	var lstGstpDat = gasfDat.m_lstGstpDat;
 	var ko2f = kensinData.mKo2fDat;
 	var strStep;
-	var gstpDat;	// khởi tạo gstDat Hieu
+	var gstpDat;
 
 	if (gasfDat.mSum != 3) {
 		gstpDat = lstGstpDat[nStartIdx];
@@ -1503,6 +1507,8 @@ function printGasryokinA(kensinData) {
 	}
 	var nGasTotalKin = parseInt(kensinData.m_GasPay - kensinData.mGasBaseKin / 1000 - kensinData.m_nFacilityKin / 1000);
 
+	const gasryokinOFirstRow = document.getElementById("gasryokinOFirstRow");
+	gasryokinOFirstRow.style.display = "none";
 	if (kensinData.m_isHybrid && ko2f.mGashyb != 0) {
 		strStep = "通常使用分従量料金";
 	} else {
@@ -1822,7 +1828,7 @@ function printGasryokin_Hybrid(kensinData, nType, previouRowId) {
 				row.id = "counterNameRow" + String(j);
 				row.appendChild(gasryokinHybridText);
 				gasryokinHybridText.after(space);
-				area.appendChild(row);
+				area.after(row);
 				previouRowId = "counterNameRow" + String(j);
 
 
@@ -1846,7 +1852,7 @@ function printGasryokin_Hybrid(kensinData, nType, previouRowId) {
 				// ステップの下限値～上限値を印字
 				var previousArea = document.getElementById(previouRowId);
 				const newRow = document.createElement("tr");
-				newRow.id = "gasryokinHybrid_Val" + String(j);
+				newRow.id = "gasryokinValHybrid" + String(j);
 				if (nType == 0) {
 					// A式
 					printGasRyokinStep_A(1, hybf.mGasLimit[j][nStep], nAddKin, nTotalKin, previouRowId);
@@ -1856,7 +1862,7 @@ function printGasryokin_Hybrid(kensinData, nType, previouRowId) {
 					printGasRyokinStep_O(1, hybf.mGasLimit[j][nStep], nAddKin, previouRowId);
 				}
 				previousArea.after(newRow);
-				previouRowId = "gasryokinHybrid_Val" + String(j);
+				previouRowId = "gasryokinValHybrid" + String(j);
 
 				if (!bSingleStep) {
 					nStep++;
@@ -1905,6 +1911,9 @@ function printGasryokin_Hybrid(kensinData, nType, previouRowId) {
 
 		//カウンター使用料
 		printCounterUseKin(ko2fDat, hybf);
+	} else {
+		document.getElementById("counterUseKinGasryokinArea").style.display = "none";
+		document.getElementById("gasTotalKinWithoutTaxArea").style.display = "none";
 	}
 }
 
@@ -1919,7 +1928,7 @@ function printGasryokin_Hybrid(kensinData, nType, previouRowId) {
 function printCounterUseKin(ko2fDat, hybfDat) {
 	if (ko2fDat.mUseKin > 0 && hybfDat.mUseSncode > 0) {
 		//カウンタ使用料
-		document.getElementById("counterUseKinArea").style.display = "block";
+		document.getElementById("counterUseKinGasryokinArea").style.display = "block";
 
 		var nKin = ko2fDat.mUseKin;
 		if (ko2fDat.mUseTaxku == 3) {
@@ -1928,7 +1937,7 @@ function printCounterUseKin(ko2fDat, hybfDat) {
 		const counterUseKinVal = document.getElementById("counterUseKinVal");
 		counterUseKinVal.innerHTML = Other.KingakuFormat(nKin);
 	} else {
-		document.getElementById("counterUseKinArea").style.display = "none";
+		document.getElementById("counterUseKinGasryokinArea").style.display = "none";
 	}
 }
 
@@ -1950,42 +1959,42 @@ function printGasryokinO(kensinData) {
 	var lstGstpDat = gasfDat.m_lstGstpDat;
 	var gstpDat;
 	if (gasfDat.mSum != 3) {
-		gstpDat = lstGstpDat[kensinData.getStartIdx()];
+		gstpDat = lstGstpDat[kensinData.m_nStartIdx];
 	}
 	else {
 		gstpDat = null;
-		gstpdat.m_nUpLimit = 999999;
-		gstpdat.m_nBase = parseInt(kensinData.mGasBaseKin * 10);
-		gstpdat.m_nAddp = parseInt(kensinData.mGasAddKin);
+		gstpDat.m_nUpLimit = 999999;
+		gstpDat.m_nBase = parseInt(kensinData.mGasBaseKin * 10);
+		gstpDat.m_nAddp = parseInt(kensinData.mGasAddKin);
 	}
 
+	const gasryokinAFirstRow = document.getElementById("gasryokinAFirstRow");
+	gasryokinAFirstRow.style.display = "none";
 	if (kensinData.m_isHybrid && ko2fDat.mGashyb != 0) {
-		strStep.append("通常使用分従量料金");
+		strStep += "通常使用分従量料金";
 	} else {
-		strStep.append("従量料金");
+		strStep += "従量料金";
 	}
 	const gasryokinOText = document.getElementById("gasryokinOText");
 	gasryokinOText.innerHTML = strStep;
 
 	strStep = "";
 	if (kensinData.m_bSingleStep) {
-		strStep.append("一律");
-		document.getElementById("singleStepArea").style.display = "block";
+		strStep += "一律";
 		document.getElementById("singleStepValArea").style.display = "none";
 	}
 	else {
-		document.getElementById("singleStepValArea").style.display = "block";
 		document.getElementById("singleStepArea").style.display = "none";
 
 		const dLowLimitSingleStepVal = document.getElementById("dLowLimitSingleStepVal");
-		dLowLimitSingleStepVal.innerHTML = Other.printformat(1, "####0.0", 1);
+		dLowLimitSingleStepVal.innerHTML = Other.formatLocalJS(1, 1, 1);
 
 
 		const dUpLimitSingleStepVal = document.getElementById("dUpLimitSingleStepVal");
-		dUpLimitSingleStepVal.innerHTML = Other.printformat(gstpdat.m_nUpLimit, "####0.0", 1);
+		dUpLimitSingleStepVal.innerHTML = Other.formatLocalJS(gstpDat.m_nUpLimit, 1, 1);
 	}
 
-	var nAddKin = gstpdat.m_nAddp;
+	var nAddKin = gstpDat.m_nAddp;
 	if (gasfDat.mSum == 2 || nAddKin > 0) {
 		nAddKin += gasfDat.mChoTanka;
 	}
@@ -1995,23 +2004,25 @@ function printGasryokinO(kensinData) {
 	}
 
 	// add new start
-	var nSur = kensinData.getNowUse();
+	var nSur = kensinData.m_NowUse;
 	if (kensinData.m_isHybrid && ko2fDat.mGashyb > 0) {
 		// ハイブリッドの場合は通常カウンタ使用量を設定
 		nSur = kensinData.m_nNorSr;
 	}
 
 	strStep = "";
-	strStep = Other.format("#,##0.00", nAddKin, 4);
+	strStep = Other.formatLocalJS(nAddKin, 2, 4);
 	const addKinSingleStepVal = document.getElementById("addKinSingleStepVal");
-	addKinSingleStepVal.innerHTML = strStep;
+	addKinSingleStepVal.innerHTML = strStep + " 円";
 
-	if (!kensinData.m_bSingleStep && nSur > gstpdat.m_nUpLimit) {
+	var previousRowId = "singleStepValArea";
+	if (!kensinData.m_bSingleStep && nSur > gstpDat.m_nUpLimit) {
 		nStartIdx++;
+		var countList = 0;
 		for (var i = nStartIdx; i < lstGstpDat.length; i++) {
 			var prevGstpDat = gstpDat;
 			gstpDat = lstGstpDat[i];
-			nAddKin = gstpdat.m_nAddp;
+			nAddKin = gstpDat.m_nAddp;
 			if (gasfDat.mSum == 2 || nAddKin > 0) {
 				nAddKin += gasfDat.mChoTanka;
 			}
@@ -2019,19 +2030,21 @@ function printGasryokinO(kensinData) {
 			if (gasfDat.mRiseFall != 0) {
 				nAddKin += (nAddKin * gasfDat.mRiseFall / 1000);
 			}
-			const gasryokinOList = document.getElementById("gasryokinOList");
-			const newRow = document.createElement("tr");
-			newRow.id = "gasryokinORow" + String(nStartIdx);
-			printGasRyokinStep_O(prevgstpdat.m_nUpLimit + 1, gstpdat.m_nUpLimit, nAddKin, "gasryokinORow" + String(nStartIdx));
-			gasryokinOList.appendChild(newRow);
 
-			if (nSur <= gstpdat.m_nUpLimit) {
+			const previouRow = document.getElementById(previousRowId);
+			const newRow = document.createElement("tr");
+			newRow.id = "gasryokinORow" + String(countList);
+			previouRow.after(newRow);
+			previousRowId = "gasryokinORow" + String(countList);
+			printGasRyokinStep_O(prevGstpDat.m_nUpLimit + 1, gstpDat.m_nUpLimit, nAddKin, "gasryokinORow" + String(countList));
+
+			if (nSur <= gstpDat.m_nUpLimit) {
 				break;
 			}
 		}
 	}
 
-	printGasryokin_Hybrid(kensinData, 0, "gasryokinHybridOArea");
+	printGasryokin_Hybrid(kensinData, 0, previousRowId);
 }
 
 
@@ -3004,7 +3017,7 @@ function createUserInfo(hanfDat, strTantname) {
 		strBkinfo = Other.getClearString(hanf2Dat.mBkname_0).trim();
 		if (Other.getBytesLen(Other.getClearString(hanf2Dat.mBkshiten_0).trim()) > 0) {
 			// 銀行１支店名有り
-			strBkinfo += "/" + Other.getClearString(hanf2Dat.mBkshiten_0).trim();
+			strBkinfo += " / " + Other.getClearString(hanf2Dat.mBkshiten_0).trim();
 		}
 		const bkname0Shiten0 = document.getElementById("bkname0&Shiten0");
 		bkname0Shiten0.innerHTML = strBkinfo;
@@ -3019,7 +3032,7 @@ function createUserInfo(hanfDat, strTantname) {
 			// 銀行１口座番号有り
 			if (strBkinfo.length != 0) {
 				// 区分有りの場合
-				strBkinfo += "/";
+				strBkinfo += " / ";
 			}
 			strBkinfo += Other.getClearString(hanf2Dat.mBkban_0).trim();
 		}
@@ -3041,7 +3054,7 @@ function createUserInfo(hanfDat, strTantname) {
 		strBkinfo = Other.getClearString(hanf2Dat.mBkname_1).trim();
 		if (Other.getBytesLen(Other.getClearString(hanf2Dat.mBkshiten_1).trim()) > 0) {
 			// 銀行２支店名有り
-			strBkinfo += "/" + Other.getClearString(hanf2Dat.mBkshiten_1).trim();
+			strBkinfo += " / " + Other.getClearString(hanf2Dat.mBkshiten_1).trim();
 		}
 		const bkname1Shiten1 = document.getElementById("bkname1&Shiten1");
 		bkname1Shiten1.innerHTML = strBkinfo;
@@ -3054,9 +3067,9 @@ function createUserInfo(hanfDat, strTantname) {
 		}
 		if (Other.getBytesLen(Other.getClearString(hanf2Dat.mBkban_1).trim()) > 0) {
 			// 銀行２口座番号有り
-			if (strBkinfo.length() != 0) {
+			if (strBkinfo.length != 0) {
 				// 区分有りの場合
-				strBkinfo += "/";
+				strBkinfo += " / ";
 			}
 			strBkinfo += Other.getClearString(hanf2Dat.mBkban_1).trim();
 		}
@@ -3222,7 +3235,7 @@ function createImageKensinForm() {
 	document.getElementById('printView').style.display = "block";
 	setupPrintForm("100vh", "670px", "55px", "29px", "39px", "29px", "39px", true, "20px");
 	setupTextSizeDetail("lg-text", "34px", "44px", "bold");
-	setupTextSizeDetail("tb-item", "24px", "34px", "normal");
+	setupTextSizeDetail("tb-item", "22px", "32px", "normal");
 	setupTextSizeDetail("konkaiSeikyuuGaku-text", "45px", "55px", "bold");
 	setupTextSizeDetail("ryooshuu-text", "50px", "60px", "bold");
 	setupTextSizeDetail("hmInfoTable-item", "24px", "34px", "normal");
