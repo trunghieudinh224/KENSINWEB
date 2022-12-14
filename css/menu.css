@@ -1,3 +1,41 @@
+.btn-lg {
+    padding: 20px 10px !important;
+}
+
+
+.overlay {
+	position: absolute;
+	inset: 0;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .6);
+	z-index: -1;
+}
+
+.overlay-animate {
+	transform: translateY(100%);
+	animation: showDialog .5s forwards;
+	animation-timing-function: linear;
+}
+
+.overlay .container-mainform {
+	height: 100%;
+}
+
+.overlay .container-mainform .wrap-mainform {
+	max-width: 500px;
+	position: relative;
+}
+
+#close-icon {
+	font-size: 25px;
+	position: absolute;
+	padding: 5px;
+	top: 20px;
+	right: 20px;
+	cursor: pointer;
+}
+
+
 /*
   ******  RESPONSIVE LAYOUT  ******
 */
@@ -28,6 +66,10 @@
     .wrap-mainform {
         width: 350px;
     }
+    
+    .btn-lg {
+        padding: 15px 10px;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -44,5 +86,9 @@
     /* MAIN FORM */
     .wrap-mainform {
         width: 350px;
+    }
+
+    .btn-lg {
+        padding: 10px 3px;
     }
 }

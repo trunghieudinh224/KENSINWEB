@@ -1,0 +1,172 @@
+body {
+	position: relative;
+	min-height: 100vh;
+	font-family: sans-serif;
+}
+
+
+#data-messages {
+	padding: 10px 20px 0;
+	display: none;
+}
+
+.table-container {
+	max-height: 480px;
+	overflow-y: scroll;
+	margin: auto 0px;
+	position: relative;
+}
+
+table {
+	display: table;
+	position: relative;
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	padding: 0 !important;
+	overflow-y: scroll;
+	table-layout: fixed;
+	overflow-x: hidden;
+	scrollbar-width: thin;
+	scrollbar-color: red;
+}
+
+#customers td,
+#customers th,
+#htsetTable td,
+#htsetTable th {
+	border: 1px solid #ddd;
+	padding: 6px;
+}
+
+.result-tb tr:nth-child(even) {
+	background-color: #f5f5f5;
+}
+
+.result-tb tr:hover {
+	background-color: #ddd;
+}
+
+#title-table {
+	width: 100%;
+	background-color: var(--primary-color);
+}
+
+#title-table th {
+	padding: 20px 6px;
+}
+
+tbody {
+	width: 100%;
+	overflow-y: scroll;
+}
+
+.result-tb tr:hover {
+	cursor: pointer;
+}
+
+th,
+td {
+	text-align: left;
+	padding: 8px;
+	border: 0.5px solid black;
+}
+
+th {
+	text-align: center;
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+	width: 12%;
+	overflow: hidden;
+	text-align: center;
+	text-overflow: ellipsis;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+	width: 38%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+	width: 25%;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+	width: 25%;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+tr:nth-child(even) {
+	background-color: #f2f2f2
+}
+
+::-webkit-scrollbar {
+	width: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+tr:nth-child(even) {
+	background-color: #ddd;
+}
+
+
+@media screen and (max-width: 768px) {
+	.table-container {
+		max-height: 400px;
+	}
+}
+
+@media screen and (max-width: 600px) {}
+
+@media screen and (max-width:450px) {
+	.table-container {
+		max-height: 350px;
+	}
+
+
+	#title-table th {
+		padding: 10px 6px;
+	}
+
+	th:nth-child(1),
+	td:nth-child(1) {
+		width: 13% !important;
+	}
+
+	th:nth-child(2),
+	td:nth-child(2) {
+		width: 29% !important;
+	}
+
+	th:nth-child(3),
+	td:nth-child(3),
+	th:nth-child(4),
+	td:nth-child(4) {
+		width: 29% !important;
+	}
+}

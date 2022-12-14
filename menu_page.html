@@ -31,12 +31,14 @@
 			<div class="dropdown select-role">
 				<div class="btn-menu btn-secondary dropdown-toggle" type="button" id="dropdownSelectRole"
 					data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="text" id="userName"><i class="ic-dropdown fa-solid fa-user"></i><a id="name"></a></span>
+					<span class="text" id="userName"><i class="ic-dropdown fa-solid fa-user"></i><a
+							id="name"></a></span>
 				</div>
 				<ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
 					<li>
 						<a class="dropdown-item scan-page" id="logoutOption">
-							<span class="text"><i class="ic-dropdown logout fa-solid fa-right-from-bracket"></i>ログアウト</span>
+							<span class="text"><i
+									class="ic-dropdown logout fa-solid fa-right-from-bracket"></i>ログアウト</span>
 						</a>
 					</li>
 				</ul>
@@ -51,45 +53,52 @@
 				<div class="button-area">
 					<div class="row content">
 						<div class="col-12">
-							<button type="button" class="btn btn-default text-center" id="gyoomuButton">検針業務</button>
+							<button type="button" class="btn btn-default text-center btn-lg" id="gyoomuButton">検針業務</button>
 						</div>
 
 						<div class="col-12">
-							<button type="button" class="btn btn-default text-center" id="shuukeiButton">集計</button>
+							<button type="button" class="btn btn-default text-center btn-lg" id="shuukeiButton">集計</button>
 						</div>
 
 						<div class="col-12">
-							<button type="button" class="btn btn-default text-center" id="settingButton">設定</button>
+							<button type="button" class="btn btn-default text-center btn-lg"
+								id="settingListButton">設定一覧</button>
+						</div>
+
+						<div class="col-12">
+							<button type="button" class="btn btn-default text-center btn-lg" id="settingButton">設定</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<!-- The Modal -->
-		<div id="myModal" class="modal">
-			<!-- Modal content -->
-			<div class="modal-content">
-				<!-- Modal image area -->
-				<div class="modal-image-area background-error-modal">
-					<span class="modal-close-button">X</span>
-					<img id="imgStatusModal" class="modal-image">
-				</div>
+		<!-- 内訳ダイアログ  -->
+		<div class="overlay">
+			<div class="container-mainform">
+				<div class="wrap-mainform p-t-30 p-b-40" style="padding-top: 60px;">
+					<i class="fa-sharp fa-solid fa-circle-xmark" id="close-icon"></i>
+					<form action="">
+						<div class="row content">
+							<div class="col-12">
+								<div class="form-group input-group">
+									<button type="button" class="btn btn-default text-center" id="searchBtn1">検針顧客一覧</button>
+								</div> 
+							</div>
+						</div>
 
-				<!-- Modal message area -->
-				<div class="modal-message">
-					<div class="modal-message-area">
-						<span class="title-modal text">題名</span>
-						<span class="modal-message-detail text">メッセージ</span>
-					</div>
+						<div class="row content">
+							<div class="col-12">
+								<div class="form-group input-group">
+									<button type="button" class="btn btn-default text-center" id="searchBtn2">顧客検索</button>
+								</div> 
+							</div>
+						</div>
 
-					<div id="buttonAreaModal">
-						<button class="button-modal btn-common button-cancel" role="button">戻る</button>
-						<button class="button-modal btn-common button-confirm" role="button">確認</button>
-					</div>
+						
+					</form>
 				</div>
 			</div>
-
 		</div>
 
 	</div>
@@ -105,8 +114,8 @@
 	<script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<!--===============================================================================================-->
-    <script type="module" src="./js/Common/check_login.js"></script>
-    <script type="module" src="./js/menu.js"></script>
+	<script type="module" src="./js/Common/check_login.js"></script>
+	<script type="module" src="./js/menu.js"></script>
 </body>
 
 </html>
