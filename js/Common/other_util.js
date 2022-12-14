@@ -69,28 +69,35 @@ function cutStringSpace(strTarget) {
 		return "";
 	}
 
-	var nLen = strTarget.length - 1;
+	var nLen = strTarget.length;
 	if (nLen < 0) {
 		return "";
 	}
 
 	var nPos = -1;
 	var retStr;
-	var strMulti = "　";   // 全角スペース
-	var strSingle = " ";   // 半角スペース
+	var strMulti = '　';   // 全角スペース
+	var strSingle = ' ';   // 半角スペース
 
-	for (var i = nLen; i >= 0; i--) {
-		if (!(strTarget.substring(i, i + 1)) == strMulti && !(strTarget.substring(i, i + 1)) == strSingle) {
-			nPos = i + 1;
+	for (var i = nLen-1; i>=0; i--) {
+		if (strTarget.substring(i-1, i) == strMulti || strTarget.substring(i-1, i) == strSingle) {
+			strTarget = strTarget.substring(0, i-1);
+		} else {
 			break;
 		}
 	}
-	if (nPos == -1) {
-		retStr = "";
+
+	nLen = strTarget.length;
+	for (var i = 0; i < nLen; i++) {
+		var x = strTarget.substring(0, 1);
+		console.log(x);
+		if (strTarget.substring(0, 1) == strMulti || strTarget.substring(0, 1) == strSingle) {
+			strTarget = strTarget.substring(1, strTarget.length);
+		} else {
+			break;
+		}
 	}
-	else {
-		retStr = strTarget.substring(0, nPos);
-	}
+	retStr = strTarget;
 
 	return retStr;
 }
