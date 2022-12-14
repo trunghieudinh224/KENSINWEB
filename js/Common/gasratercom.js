@@ -302,6 +302,7 @@ function calcGasBaseKin(sysf, gasf, kokf, sy2fDat, kouserDat) {
 	var nFacilityKin = 0;
 	var lstGstpDat = gasf.m_lstGstpDat;
 	var gstpDat;
+	var isCalcRiseFall = true;
 	if (gasf.mSum == 3) {
 		// 契約単価
 		nBaseKin = kokf.mGasBase * 10;
@@ -340,6 +341,7 @@ function calcGasBaseKin(sysf, gasf, kokf, sy2fDat, kouserDat) {
 		var gext = gasf.mGextDat;
 		if (sysf.mVisibleGas == 1 && gext.m_nBasekin != 0) {
 			// ガス料金透明化によるガス基本料金を設定している場合
+			isCalcRiseFall = false;
 			nBaseKin = gext.m_nBasekin * 10000;
 			if (gext.m_nFacilitykin != 0 && sysf.mVisibleFacility == 1) {
 				nFacilityKin = gext.m_nFacilitykin * 10000;
@@ -353,7 +355,8 @@ function calcGasBaseKin(sysf, gasf, kokf, sy2fDat, kouserDat) {
 		nBaseKin,
 		nFacilityKin,
 		gasf,
-		kokf.mHiwari
+		kokf.mHiwari,
+		isCalcRiseFall
 	);
 	return nStartStep;
 }
@@ -424,12 +427,12 @@ function checkSrpday(
 			sysf.mSrChkm[1] * 100 <= old_srpday
 		) {
 			ret =
-				sysf.mSrChkr[2] * old_srpday >= new1_srpday * 100 &&
-				sysf.mSrChkr[3] * old_srpday <= new1_srpday * 100;
+				sysf.mSrChkr[2] * old_srpday < new1_srpday * 100 &&
+				sysf.mSrChkr[3] * old_srpday > new1_srpday * 100;
 		} else {
 			ret =
-				sysf.mSrChkr[4] * old_srpday >= new1_srpday * 100 &&
-				sysf.mSrChkr[5] * old_srpday <= new1_srpday * 100;
+				sysf.mSrChkr[4] * old_srpday < new1_srpday * 100 &&
+				sysf.mSrChkr[5] * old_srpday > new1_srpday * 100;
 		}
 	}
 	return !ret;
@@ -1258,7 +1261,7 @@ function readPrebalance(sysfDat, kokfDat, sy2fDat) {
  * @param gasf          [in] {@link GasfDat}    ガス料金データ
  * @param nHiwari       [in] int                日割り日数.
  */
-function calcZogenHiwari(ktpc, nFee, nBaseKin, nFacilityKin, gasf, nHiwari) {
+function calcZogenHiwari(ktpc, nFee, nBaseKin, nFacilityKin, gasf, nHiwari, isCalcRiseFall) {
 	if (nHiwari != 0) {
 		// 基本料金の日割り計算
 		nBaseKin = (nBaseKin * nHiwari) / 30;
@@ -1276,8 +1279,10 @@ function calcZogenHiwari(ktpc, nFee, nBaseKin, nFacilityKin, gasf, nHiwari) {
 		gasf.mFrac1Mult,
 		10000
 	);
-	nBaseKin *= 1000 + gasf.mRiseFall;
-	nFacilityKin *= 1000 + gasf.mRiseFall;
+	if (isCalcRiseFall) {
+		nBaseKin *= (1000 + gasf.mRiseFall);
+		nFacilityKin *= (1000 + gasf.mRiseFall);
+	}
 	nBaseKin =
 		Other.hasCom(nBaseKin, gasf.mFrac2Add, gasf.mFrac2Mult, 10000000) /
 		1000;
