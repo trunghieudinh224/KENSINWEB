@@ -52,11 +52,9 @@ var mKokfDat = new Dat.KokfDat().parseData(mUserData.mKokfDat)
 mKokfDat.mKtpcdat = new Dat.KtpcDat();
 var sy2fDat = new Dat.Sy2fDat().parseData(mUserData.mSy2fDat)
 var sysfDat = new Dat.SysfDat().parseData(mUserData.mSysfDat)
-sysfDat.mGtpcDat = new Dat.GtpcDat();
 var kouserDat = new Dat.KouserDat().parseData(mUserData.mKouserDat)
 
 
-// var ko2fDat = mUserData.ko2fDat;;
 var ko2fDat = new Dat.Ko2fDat().parseData(mUserData.mKo2fDat);
 var mBusfDat_kang = new Dat.BusfDat().parseData(mUserData.mBusfDat_kang)
 var mBusfDat_hmcd13 = new Dat.BusfDat().parseData(mUserData.busfDat_hmcd13)
@@ -490,6 +488,7 @@ function setGasPay(
     mKokfDat.mKtpcdat.m_nBasekin = 0;
     mKokfDat.mKtpcdat.m_nFacilitykin = 0;
     mKokfDat.mKtpcdat.m_nAddkin = 0;
+    GasRaterCom.calcGasBaseKin(sysfDat, gasfDat, mKokfDat, sy2fDat, kouserDat);
 }
 
 /**
