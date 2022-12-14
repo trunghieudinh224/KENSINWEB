@@ -28,6 +28,8 @@ export var PR_CUSSEARCH = "cussearch?";
 export var PR_READSYUKEI = "readSyukei?";
 // readData
 export var PR_WRITEDATA = "writeData?";
+// get uriage list
+export var PR_EARNING = "earnings?";
 
 /*****  VARIABLE  *****/
 // username
@@ -50,6 +52,10 @@ export var KENSINDATE = "KensinDate";
 export var SETTINGDATA = "SettingData";
 // search string
 export var SEARCHSTRING = "SearchString";
+// htsetdat_code
+export var HTSETDATCODE = "HTSetDatCode";
+// search mode
+export var SEARCHMODE = "SearchMode";
 
 
 /*****  CONTENT  *****/
