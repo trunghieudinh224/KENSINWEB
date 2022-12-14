@@ -38,6 +38,22 @@ function clearDataCus() {
 }
 
 
+/**
+   * CHECK SEARCH MODE
+*/
+function checkSearchMode() {
+    var mode = sessionStorage.getItem(StringCS.SEARCHMODE);
+    var path = window.location.pathname;
+    var page = path.split("/").pop().replace(".html", "");
+    if (page != "menu_page" && page != "meter_reading_setting_page" && page != "total_page") {
+        if (mode == null || mode == "0") {
+            Common.movePage('/menu_page.html');
+        }
+    }
+}
+
+
 checkUser();
 clearDataSearch();
 clearDataCus();
+checkSearchMode();
