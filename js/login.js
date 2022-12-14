@@ -22,12 +22,6 @@ function login() {
     let user = document.getElementById("user"); 
     let password = document.getElementById("pass"); 
     if (user.value === "" || password.value === "") {
-            // if (user.value === "") {
-            //     user.classList.add("warning");
-            // }
-            // if (password.value === "") {
-            //     password.classList.add("warning");
-            // }
         Common.setupModal("error", null, Mess.I00005, StringCS.CLOSE, null);
     } else {
         Common.setupModal("load", null, Mess.I00001, null, null);
@@ -49,8 +43,6 @@ function checkUser(username, password) {
             'Content-Type': StringCS.PR_CONTENT_TYPE
         },
         success: function (result) {
-            console.log(result)
-
             if (JSON.parse(result).err_code == 0) {
                 sessionStorage.setItem(StringCS.USERNAME, username);
                 sessionStorage.setItem(StringCS.PASSWORD, password);
@@ -123,7 +115,8 @@ function getDataSetting() {
 		success: function (result) {
 			let settingDat = JSON.parse(result);
             sessionStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(settingDat));
-            Common.movePage('/menu_page.html');
+            sessionStorage.setItem(StringCS.SEARCHMODE, "0");
+            Common.movePage('/meter_reading_setting_page.html');
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
