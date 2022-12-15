@@ -407,6 +407,10 @@ input::-webkit-inner-spin-button {
 	margin-bottom: 20px;
 }
 
+.mg-a {
+	margin: auto;
+}
+
 .pd-0 {
 	padding: 0px !important;
 }
