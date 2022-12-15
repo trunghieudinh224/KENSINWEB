@@ -3241,15 +3241,15 @@ function createImageKensinForm() {
 	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
-	setupPrintForm("100vh", "670px", "55px", "34px", "42px", "34px", "42px", true, "20px");
-	setupTextSizeDetail("lg-text", "40px", "48px", "bold");
-	setupTextSizeDetail("tb-item", "22px", "30px", "normal");
+	setupPrintForm("100vh", "670px", "55px", "33px", "40px", "33px", "40px", true, "20px");
+	setupTextSizeDetail("lg-text", "40px", "47px", "bold");
+	setupTextSizeDetail("tb-item", "22px", "29px", "normal");
 	setupTextSizeDetail("konkaiSeikyuuGaku-text", "50px", "60px", "bold");
 	setupTextSizeDetail("ryooshuu-text", "50px", "58px", "bold");
-	setupTextSizeDetail("hmInfoTable-item", "24px", "32px", "normal");
-	setupTextSizeDetail("hybTable-item", "24px", "32px", "normal");
-	setupTextSizeDetail("hoan-item", "24px", "29px", "normal");
-	setupTextSizeDetail("hoan-val", "24px", "29px", "normal");
+	setupTextSizeDetail("hmInfoTable-item", "24px", "31px", "normal");
+	setupTextSizeDetail("hybTable-item", "24px", "31px", "normal");
+	setupTextSizeDetail("hoan-item", "25px", "29px", "normal");
+	setupTextSizeDetail("hoan-val", "25px", "29px", "normal");
 	domtoimage.toBlob(document.getElementById('printContentDetail'))
 		.then(function (blob) {
 			getBase64(blob).then(
