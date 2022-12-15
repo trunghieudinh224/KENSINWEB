@@ -51,6 +51,10 @@
     margin-top: -3px;
 }
 
+.pl-25p {
+    padding-left: 25%;
+}
+
 .valLine {
     width: 85%;
     float: left;

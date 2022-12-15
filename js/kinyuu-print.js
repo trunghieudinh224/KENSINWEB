@@ -1979,12 +1979,15 @@ function printGasryokinO(kensinData) {
 	gasryokinOText.innerHTML = strStep;
 
 	strStep = "";
+	var previousRowId = "";
 	if (kensinData.m_bSingleStep) {
 		strStep += "一律";
 		document.getElementById("singleStepValArea").style.display = "none";
+		previousRowId = "singleStepArea";
 	}
 	else {
 		document.getElementById("singleStepArea").style.display = "none";
+		previousRowId = "singleStepValArea";
 
 		const dLowLimitSingleStepVal = document.getElementById("dLowLimitSingleStepVal");
 		dLowLimitSingleStepVal.innerHTML = Other.formatLocalJS(1, 1, 1);
@@ -2012,10 +2015,14 @@ function printGasryokinO(kensinData) {
 
 	strStep = "";
 	strStep = Other.formatLocalJS(nAddKin, 2, 4);
-	const addKinSingleStepVal = document.getElementById("addKinSingleStepVal");
-	addKinSingleStepVal.innerHTML = strStep + " 円";
-
-	var previousRowId = "singleStepValArea";
+	if (kensinData.m_bSingleStep) {
+		const singleStepAreaVal = document.getElementById("singleStepAreaVal");
+		singleStepAreaVal.innerHTML = strStep + " 円";
+	} else {
+		const addKinSingleStepVal = document.getElementById("addKinSingleStepVal");
+		addKinSingleStepVal.innerHTML = strStep + " 円";
+	}
+	
 	if (!kensinData.m_bSingleStep && nSur > gstpDat.m_nUpLimit) {
 		nStartIdx++;
 		var countList = 0;
@@ -2037,6 +2044,7 @@ function printGasryokinO(kensinData) {
 			previouRow.after(newRow);
 			previousRowId = "gasryokinORow" + String(countList);
 			printGasRyokinStep_O(prevGstpDat.m_nUpLimit + 1, gstpDat.m_nUpLimit, nAddKin, "gasryokinORow" + String(countList));
+			countList++;
 
 			if (nSur <= gstpDat.m_nUpLimit) {
 				break;
@@ -3233,15 +3241,15 @@ function createImageKensinForm() {
 	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
-	setupPrintForm("100vh", "670px", "55px", "29px", "39px", "29px", "39px", true, "20px");
-	setupTextSizeDetail("lg-text", "34px", "44px", "bold");
+	setupPrintForm("100vh", "670px", "55px", "30px", "40px", "40px", "40px", true, "20px");
+	setupTextSizeDetail("lg-text", "36px", "46px", "bold");
 	setupTextSizeDetail("tb-item", "22px", "32px", "normal");
-	setupTextSizeDetail("konkaiSeikyuuGaku-text", "45px", "55px", "bold");
+	setupTextSizeDetail("konkaiSeikyuuGaku-text", "50px", "60px", "bold");
 	setupTextSizeDetail("ryooshuu-text", "50px", "60px", "bold");
 	setupTextSizeDetail("hmInfoTable-item", "24px", "34px", "normal");
 	setupTextSizeDetail("hybTable-item", "24px", "34px", "normal");
-	setupTextSizeDetail("hoan-item", "24px", "34px", "normal");
-	setupTextSizeDetail("hoan-val", "27px", "37px", "normal");
+	setupTextSizeDetail("hoan-item", "22px", "32px", "normal");
+	setupTextSizeDetail("hoan-val", "24px", "34px", "normal");
 	domtoimage.toBlob(document.getElementById('printContentDetail'))
 		.then(function (blob) {
 			getBase64(blob).then(
