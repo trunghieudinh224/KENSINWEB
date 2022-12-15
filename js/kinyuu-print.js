@@ -2992,7 +2992,7 @@ function createUserInfo(hanfDat, strTantname) {
 	const add1Val = document.getElementById("add1Val");
 	if (Other.getClearString(hanfDat.mAdd1) != "") {
 		add1Val.style.display = "block";
-		add1Val.innerHTML = hanfDat.mAdd1;
+		add1Val.innerHTML = Other.cutStringSpace(hanfDat.mAdd1);
 	} else {
 		add1Val.style.display = "none";
 	}
@@ -3000,7 +3000,7 @@ function createUserInfo(hanfDat, strTantname) {
 	const add2Val = document.getElementById("add2Val");
 	if (Other.getClearString(hanfDat.add2Val) != "") {
 		add2Val.style.display = "block";
-		add2Val.innerHTML = hanfDat.add2Val;
+		add2Val.innerHTML = Other.cutStringSpace(hanfDat.add2Val);
 	} else {
 		add2Val.style.display = "none";
 	}
@@ -3259,15 +3259,15 @@ function createImageKensinForm() {
 					window.scrollTo(0, 0);
 
 					const interval = setInterval(function () {
-						setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
-						setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
-						setupTextSizeDetail("tb-item", tbItemTS, tbItemLH, "normal");
-						setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
-						setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
-						setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
-						setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
-						setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
-						setupTextSizeDetail("hoan-val", hoanValTS, hoanValLH, "normal");
+						// setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
+						// setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
+						// setupTextSizeDetail("tb-item", tbItemTS, tbItemLH, "normal");
+						// setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
+						// setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
+						// setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
+						// setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
+						// setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
+						// setupTextSizeDetail("hoan-val", hoanValTS, hoanValLH, "normal");
 
 						Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
 						clearInterval(interval);
