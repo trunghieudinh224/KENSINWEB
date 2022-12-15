@@ -3259,15 +3259,15 @@ function createImageKensinForm() {
 					window.scrollTo(0, 0);
 
 					const interval = setInterval(function () {
-						// setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
-						// setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
-						// setupTextSizeDetail("tb-item", tbItemTS, tbItemLH, "normal");
-						// setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
-						// setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
-						// setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
-						// setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
-						// setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
-						// setupTextSizeDetail("hoan-val", hoanValTS, hoanValLH, "normal");
+						setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
+						setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
+						setupTextSizeDetail("tb-item", tbItemTS, tbItemLH, "normal");
+						setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
+						setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
+						setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
+						setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
+						setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
+						setupTextSizeDetail("hoan-val", hoanValTS, hoanValLH, "normal");
 
 						Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
 						clearInterval(interval);
