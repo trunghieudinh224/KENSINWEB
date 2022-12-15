@@ -3241,15 +3241,15 @@ function createImageKensinForm() {
 	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
-	setupPrintForm("100vh", "670px", "55px", "30px", "40px", "40px", "40px", true, "20px");
+	setupPrintForm("100vh", "670px", "55px", "29px", "39px", "29px", "39px", true, "20px");
 	setupTextSizeDetail("lg-text", "36px", "46px", "bold");
 	setupTextSizeDetail("tb-item", "22px", "32px", "normal");
 	setupTextSizeDetail("konkaiSeikyuuGaku-text", "50px", "60px", "bold");
 	setupTextSizeDetail("ryooshuu-text", "50px", "60px", "bold");
 	setupTextSizeDetail("hmInfoTable-item", "24px", "34px", "normal");
 	setupTextSizeDetail("hybTable-item", "24px", "34px", "normal");
-	setupTextSizeDetail("hoan-item", "22px", "32px", "normal");
-	setupTextSizeDetail("hoan-val", "24px", "34px", "normal");
+	setupTextSizeDetail("hoan-item", "24px", "29px", "normal");
+	setupTextSizeDetail("hoan-val", "24px", "29px", "normal");
 	domtoimage.toBlob(document.getElementById('printContentDetail'))
 		.then(function (blob) {
 			getBase64(blob).then(
