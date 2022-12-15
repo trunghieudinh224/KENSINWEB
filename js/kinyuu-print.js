@@ -2992,7 +2992,7 @@ function createUserInfo(hanfDat, strTantname) {
 	const add1Val = document.getElementById("add1Val");
 	if (Other.getClearString(hanfDat.mAdd1) != "") {
 		add1Val.style.display = "block";
-		add1Val.innerHTML = Other.cutStringSpace(hanfDat.mAdd1);
+		add1Val.innerHTML = Other.getClearString(hanfDat.mAdd1);
 	} else {
 		add1Val.style.display = "none";
 	}
@@ -3000,7 +3000,7 @@ function createUserInfo(hanfDat, strTantname) {
 	const add2Val = document.getElementById("add2Val");
 	if (Other.getClearString(hanfDat.add2Val) != "") {
 		add2Val.style.display = "block";
-		add2Val.innerHTML = Other.cutStringSpace(hanfDat.add2Val);
+		add2Val.innerHTML = Other.getClearString(hanfDat.add2Val);
 	} else {
 		add2Val.style.display = "none";
 	}
