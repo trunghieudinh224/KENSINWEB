@@ -57,13 +57,8 @@ var kouserDat = new Dat.KouserDat().parseData(mUserData.mKouserDat)
 
 var ko2fDat = new Dat.Ko2fDat().parseData(mUserData.mKo2fDat);
 var mBusfDat_kang = new Dat.BusfDat().parseData(mUserData.mBusfDat_kang)
-var mBusfDat_hmcd13 = new Dat.BusfDat().parseData(mUserData.busfDat_hmcd13)
+var mBusfDat_hmcd13 = new Dat.BusfDat().parseData(mUserData.mBusfDat_hmcd13)
 
-// var hmefDat0 = new Dat.HmefDat().setValue(true, 1, 1, 100, 8, 2314, 3, 80, 0, 5, 1, "警報器リース", 100, 10000, 0, 0, "YF-005N");
-// var hmefDat1 = new Dat.HmefDat().setValue(true, 1, 0, 20000, 1600, 3001, 3, 80, 0, 5, 15, "ガスコンロ", 100, 0, 0, 0, "abv");
-// var hmefList1 = [hmefDat0, hmefDat1];
-// var hmefList = [];
-// var hmefList2 = [];
 var hanfDat = new Dat.HanfDat().parseData(mUserData.mHanfDat);
 var gasfDat = new Dat.GasfDat().parseData(mUserData.mGasfDat)
 gasfDat.mGextDat = new Dat.GextDat();
@@ -76,7 +71,6 @@ var mDays = 0;
 /** 合計金額 */
 var mTotal = 0;
 
-//List<KnebDat> lstKnebDat = mUserData.getKnebiDat();
 /** 顧客値引きデータ */
 var m_lstKnebDat = new Array();
 var knebDat = new Dat.KnebDat();

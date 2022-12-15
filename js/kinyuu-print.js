@@ -1110,10 +1110,10 @@ function createKinInfo(kensinData) {
 	var t_otsuri = kensinData.m_Azukarikin - kensinData.m_Nyukin;
 	if (t_otsuri > 0) {
 		// document.getElementById("honjitsuNyuuKingakuArea").style.display = "block";
+		document.getElementById("honjitsuNyuuKingakuArea").style.display = "none";
 		const otsuriVal = document.getElementById("otsuriVal");
 		otsuriVal.innerHTML = Other.KingakuFormat(t_otsuri);
 	} else {
-		document.getElementById("honjitsuNyuuKingakuArea").style.display = "none";
 		document.getElementById("otsuriArea").style.display = "none";
 	}
 
@@ -3241,7 +3241,7 @@ function createImageKensinForm() {
 	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
-	setupPrintForm("100vh", "670px", "55px", "33px", "40px", "33px", "40px", true, "20px");
+	setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
 	setupTextSizeDetail("lg-text", "40px", "47px", "bold");
 	setupTextSizeDetail("tb-item", "22px", "29px", "normal");
 	setupTextSizeDetail("konkaiSeikyuuGaku-text", "50px", "60px", "bold");
