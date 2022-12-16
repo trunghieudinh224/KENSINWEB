@@ -276,6 +276,18 @@ function format(wkFormat, wkValue, wkMulti) {
 
 
 /**
+     * 数値(long型)を指定フォーマットに合わせた文字列に変換します。
+     * 
+     * @param wkFormat  [in] String 指定フォーマット
+     * @param wkValue   [in] long   変換したい数値(long型)
+     * @return String   変換後文字列
+     */
+function format2pr(wkFormat, wkValue) {
+	return formatLocal(wkFormat, parseFloat(wkValue), 0);
+}
+
+
+/**
 	* 指定フォーマットと倍数計算後の値を用いて、数値用文字列に変換します。
 	* 
 	* @param wkFormat  [in] String 指定フォーマット（小数点以下の文字列数を固定化したい場合は、0.## のように指定してください。）
@@ -666,6 +678,6 @@ function DateFormatYMD(year, month, day, mask) {
 
 export {
 	Format, KingakuFormat, KingakuFormatLocal, isEmpty, cutStringSpace, nullToString, getClearString, DateFormat, MonthDayFormat, getKangcontname, hasCom,
-	printformat, printformatLocal, calcMulti, format, formatLocal, getUriTaxr, getBytesLen, formatLocalJS, formatDecial, getNumFromString, parseDate,
+	printformat, printformatLocal, calcMulti, format, format2pr, formatLocal, getUriTaxr, getBytesLen, formatLocalJS, formatDecial, getNumFromString, parseDate,
 	betweenDays, DateFormatYMD
 }
