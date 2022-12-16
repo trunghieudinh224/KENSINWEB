@@ -88,8 +88,8 @@
                                     <span class="input-group-text mw135 text">現金売/掛売</span>
                                 </div>
                                 <select class="custom-select form-control ta-l text" name="modeForm" id="modeForm">
-                                    <option value="0">現金売</option>
-                                    <option value="1">掛売</option>
+                                    <option value="0">掛売</option>
+                                    <option value="1">現金売</option>
                                 </select>
                             </div>
                         </div>
@@ -122,7 +122,7 @@
                                     </div>
 
                                     <input class="form-control ta-r text" type="text" id="sur" />
-                                    <span class="form-control unit text"></span>
+                                    <span class="form-control unit text" id="uriage_unit"></span>
                                 </div>
                             </div>
 
@@ -171,7 +171,7 @@
                                         <span class="input-group-text mw135 text">消 費 税</span>
                                     </div>
 
-                                    <span class="form-control text" id="taxkin"></span>
+                                    <span class="form-control ta-r text" id="taxkin"></span>
                                     <span class="form-control unit text">円</span>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@
                                         <span class="input-group-text mw135 text">合   計</span>
                                     </div>
 
-                                    <span class="form-control text fw-b" id="total"></span>
+                                    <span class="form-control ta-r text fw-b" id="total"></span>
                                     <span class="form-control unit text fw-b">円</span>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@
                                         <span class="input-group-text mw135 text hover" id="cho_text">値引き</span>
                                     </div>
                                     
-                                    <input class="form-control ta-r text fw-b" type="text" id="cho_val" />
+                                    <input class="form-control ta-r text fw-b" type="text" id="cho_val"/>
                                     <span class="form-control unit text fw-b">円</span>
                                 </div>
                             </div>
@@ -206,7 +206,7 @@
                                         <span class="input-group-text mw135 text">預  り  金</span>
                                     </div>
                                     
-                                    <input class="form-control ta-r text fw-b" type="text" id="azukari" />
+                                    <input class="form-control ta-r text fw-b" type="text" id="azukari"/>
                                     <span class="form-control unit text fw-b">円</span>
                                 </div>
                             </div>
@@ -217,7 +217,7 @@
                                         <span class="input-group-text mw135 text hover" id="receipt_text">入  金  額</span>
                                     </div>
                                     
-                                    <span class="form-control text fw-b" id="receipt_val"></span>
+                                    <span class="form-control ta-r text fw-b" id="receipt_val"></span>
                                     <span class="form-control unit text fw-b">円</span>
                                 </div>
                             </div>
@@ -228,10 +228,10 @@
                             <div class="col-12">
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text mw135 text">差引残高</span>
+                                        <span class="input-group-text mw135 text" id="uriage_gen_name">差引残高</span>
                                     </div>
 
-                                    <span class="form-control text fw-b" id="zandaka"></span>
+                                    <span class="form-control ta-r text fw-b" id="zandaka"></span>
                                     <span class="form-control unit text fw-b">円</span>
                                 </div>
                             </div>
