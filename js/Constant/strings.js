@@ -56,6 +56,10 @@ export var SEARCHSTRING = "SearchString";
 export var HTSETDATCODE = "HTSetDatCode";
 // search mode
 export var SEARCHMODE = "SearchMode";
+// shofDatItem
+export var SHOFDATITEM = "ShofDatItem";
+// busfDatItem
+export var BUSFDATITEM = "BusfDatItem";
 
 
 /*****  CONTENT  *****/
