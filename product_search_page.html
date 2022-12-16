@@ -64,7 +64,7 @@
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="form-group input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text text mw145">顧客コード</span>
+                                <span class="input-group-text text mw135">顧客コード</span>
                             </div>
 
                             <span class="form-control text" id="kokyaku_kodo">00100001110</span>
@@ -74,7 +74,7 @@
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="form-group input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text text mw145">顧客名</span>
+                                <span class="input-group-text text mw135">顧客名</span>
                             </div>
 
                             <span class="form-control text" id="kokyaku-mei">Dinh Trung Hieu</span>
@@ -83,12 +83,21 @@
                 </div>
 
                 <div class="row content">
-                    <div class="col-12 mb10">
+                    <div class="col-8 mb10">
                         <div class="form-group input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text mw145 text">検索キー</span>
+                                <span class="input-group-text mw135 text">検索キー</span>
                             </div>
                             <input type="text" class="form-control ta-l text" id="search-key" />
+                        </div>
+                    </div>
+
+                    <div class="col-4 mb10">
+                        <div class="form-group input-group">
+                            <div class="form-control text bd-0 pd-l-0 pd-r-0 pd-0">
+                                <button type="button" class="btn btn-default text-center mg-0"
+                                    id="kensakuButton">検索</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -97,88 +106,6 @@
 
                 <div id="collapseView">
                     <div id="accordion" class="table-container">
-                        <div id="card0" class="card card-0">
-                            <div class="card-header">
-                                <span class="card-link" data-toggle="collapse" href="#collapseItem0">
-                                    <div class="input-group">
-                                        <div class="item-collapse">
-                                            <span class="text">顧客情報</span>
-                                        </div>
-                                    </div>
-                                </span>
-                            </div>
-                            <div id="collapseItem0" class="collapse collapseItem0" data-parent="#accordion">
-                                <div class="card-body">
-                                    <div class="table-container">
-                                        <table id="detail0" class="result-detail">
-                                            <tr class="h-40 detailItem0">
-                                                <td>
-                                                    <span class="text pd-l-20">Item 1</span>
-                                                </td>
-                                            </tr>
-                                            <tr class="h-40 detailItem0">
-                                                <td>
-                                                    <span class="text pd-l-20">Item 2</span>
-                                                </td>
-                                            </tr>
-                                            <tr class="h-40 detailItem0">
-                                                <td>
-                                                    <span class="text pd-l-20">Item 3</span>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="card1" class="card card-1">
-                            <div class="card-header">
-                                <span class="card-link" data-toggle="collapse" href="#collapseItem1">
-                                    <div class="input-group">
-                                        <div class="item-collapse">
-                                            <span class="text">顧客情報</span>
-                                        </div>
-                                    </div>
-                                </span>
-                            </div>
-                            <div id="collapseItem1" class="collapse collapseItem1" data-parent="#accordion">
-                                <div class="card-body">
-                                    <div class="table-container">
-                                        <table id="detail0" class="result-detail">
-                                            <tr class="h-40 detailItem1">
-                                                <td>
-                                                    <span class="text pd-l-20">Item 1</span>
-                                                </td>
-                                            </tr>
-                                            <tr class="h-40 detailItem1">
-                                                <td>
-                                                    <span class="text pd-l-20">Item 2</span>
-                                                </td>
-                                            </tr>
-                                            <tr class="h-40 detailItem1">
-                                                <td>
-                                                    <span class="text pd-l-20">Item 3</span>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="card2" class="card card-2">
-                            <div class="card-header">
-                                <span class="card-link" data-toggle="collapse" href="#collapseItem2">
-                                    <div class="input-group">
-                                        <div class="item-collapse">
-                                            <span class="text">顧客情報</span>
-                                        </div>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 
@@ -233,24 +160,24 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
-	<script src="vendor/daterangepicker/moment.min.js"></script>
-	<script src="https://code.jquery.com/jquery-2.2.3.min.js"
-		integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-		integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-		crossorigin="anonymous"></script>
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
-	<!--===============================================================================================-->
-	<script type="module" src="./js/Common/check_login.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <script src="vendor/daterangepicker/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"
+        integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+    <!--===============================================================================================-->
+    <script type="module" src="./js/Common/check_login.js"></script>
     <script type="module" src="./js/product_search_page.js"></script>
 
 </body>
