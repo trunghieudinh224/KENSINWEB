@@ -41,7 +41,7 @@ function clearDataCus() {
 /**
    * CHECK SEARCH MODE
 */
-function checkSearchMode() {
+function clearSearchMode() {
     var mode = sessionStorage.getItem(StringCS.SEARCHMODE);
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
@@ -53,7 +53,21 @@ function checkSearchMode() {
 }
 
 
+/**
+   * CHECK URIAGE STORAGE
+*/
+function clearUriageStorage() {
+    var path = window.location.pathname;
+    var page = path.split("/").pop().replace(".html", "");
+    if (page != "purchase_page" && page != "product_search_page") {
+        sessionStorage.removeItem(StringCS.BUSFDATITEM);
+        sessionStorage.removeItem(StringCS.SHOFDATITEM);
+    }
+}
+
+
 checkUser();
 clearDataSearch();
 clearDataCus();
-checkSearchMode();
+clearSearchMode();
+clearUriageStorage();
