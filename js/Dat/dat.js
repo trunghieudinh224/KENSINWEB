@@ -207,6 +207,12 @@ export class KokfDat {
 		/** 使用率 */
 		this.mPuseSrpDay = 0;
 		this.nGasrkcnt = 0;
+		/** 灯油:単価 */
+		this.mLoilUnit;
+		/** 灯油：端数処理(加算) */
+		this.mLoilAdd = 0;
+		/** 灯油：端数処理(乗算) */
+		this.mLoilMulti = 0;
 	}
 
 	setValue(mName, mKMonth, mKDate, mGasUse, mGasKubun, mKenSumi, mNowMeter, mPreMeter, mPuseYear, mPuseMonth, mPuseDate,
@@ -214,7 +220,7 @@ export class KokfDat {
 		mSupplyForm, mGasBase, mMtKeta, mGasUnit, mHybseikyu, mUrikin, mUriTax, mReduce, mReduceTax, mKotfDat, mProcTisyuu,
 		mTaxTisyuu, mPreBalance, mTAdjust, mTReceipt, mProcLease, mTaxLease, mProcDiv, mProcLoil, mTaxLoil, mProcEtc,
 		mTaxEtc, mProcGas, mTaxGas, mReceipt, mAdjust, mSyuSumi, mInpReceipt, mAdd_0, mAdd_1, mCusCode, mSName0,
-		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusrec, mPuseSrpDay, nGasrkcnt) {
+		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusrec, mPuseSrpDay, nGasrkcnt, mLoilUnit , mLoilAdd , mLoilMulti) {
 
 		var data = new KokfDat();
 
@@ -286,6 +292,9 @@ export class KokfDat {
 		data.mCusrec = mCusrec;
 		data.mPuseSrpDay = mPuseSrpDay;
 		data.nGasrkcnt = nGasrkcnt;
+		data.mLoilUnit = mLoilUnit;
+		data.mLoilAdd = mLoilAdd;
+		data.mLoilMulti = mLoilMulti;
 
 		return data
 	}
@@ -364,6 +373,9 @@ export class KokfDat {
 		data.mCusrec = responeData.mCusrec;
 		data.mPuseSrpDay = responeData.mPuseSrpDay;
 		data.nGasrkcnt = responeData.nGasrkcnt;
+		data.mLoilUnit = responeData.mLoilUnit;
+		data.mLoilAdd = responeData.mLoilAdd;
+		data.mLoilMulti = responeData.mLoilMulti;
 
 		return data
 	}
@@ -451,11 +463,13 @@ export class SysfDat {
 		this.mTenkenDelta = 0;
 		/** 産気率 */
 		this.mSanki = 0;
+		/** 灯油品目コード */
+		this.mHinCd9 = 0;
 	}
 
 	setValue(mKgasDays0, mKgasDays1, mKgasDays2, mTax_yy, mTax_mm, mTax_dd, mConsumTax, mTaxr_old, mTaxr_new, mVisibleGas, mVisibleFacility, mLesUmu,
 		mFracAddKin, mFracMulKin, mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas, m_isToyukeninFlg, mSrChkr,
-		mSrChkm, mKnebFlg, mIfAdjust, mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta, mSanki) {
+		mSrChkm, mKnebFlg, mIfAdjust, mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta, mSanki, mHinCd9) {
 		var data = new SysfDat();
 
 		data.mKgasDays0 = mKgasDays0;
@@ -499,6 +513,7 @@ export class SysfDat {
 		data.mSysMonth = mSysMonth;
 		data.mTenkenDelta = mTenkenDelta;
 		data.mSanki = mSanki;
+		data.mHinCd9 = mHinCd9;
 		return data;
 	}
 
@@ -549,6 +564,7 @@ export class SysfDat {
 		data.mSysMonth = responeData.mSysMonth;
 		data.mTenkenDelta = responeData.mTenkenDelta;
 		data.mSanki = responeData.mSanki;
+		data.mHinCd9 = responeData.mHinCd9;
 		return data
 	}
 }
@@ -2056,4 +2072,44 @@ export class ShofDat {
 
 		return shofdat;
 	}
+}
+
+export class Hme2Dat {
+	constructor() {
+		/** 備考 */
+		this.mBikou = "";
+		/** 現金売りflag */
+		this.m_bGenuri = 0;
+		/** 売上明細レコード(入金・調整のみ書込み) */
+		this.m_nUrirec = 0;
+		/** 預り金(売上明細のみ書込み) */
+		this.m_nReceipt = 0;
+	}
+
+	setValue(mBikou, m_bGenuri, m_nUrirec, m_nReceipt) {
+		var data = new Hme2Dat();
+		data.mBikou = mBikou;
+		data.m_bGenuri = m_bGenuri;
+		data.m_nUrirec = m_nUrirec;
+		data.m_nReceipt = m_nReceipt;
+	}
+
+
+	parseData(responeData) {
+		var data = new Hme2Dat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mBikou = mBikou;
+		data.m_bGenuri = m_bGenuri;
+		data.m_nUrirec = m_nUrirec;
+		data.m_nReceipt = m_nReceipt;;
+		return data
+	}
+
+
+
+
+
 }
