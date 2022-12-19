@@ -86,14 +86,14 @@ td:nth-child(1) {
 
 th:nth-child(2),
 td:nth-child(2) {
-	width: 38%;
+	width: 34%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
 th:nth-child(3),
 td:nth-child(3) {
-	width: 25%;
+	width: 20%;
 	text-align: center;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -101,7 +101,15 @@ td:nth-child(3) {
 
 th:nth-child(4),
 td:nth-child(4) {
-	width: 25%;
+	width: 20%;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+th:nth-child(5),
+td:nth-child(5) {
+	width: 14%;
 	text-align: center;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -134,6 +142,9 @@ tr:nth-child(even) {
 	background-color: #ddd;
 }
 
+.ic-check {
+	color:  #37a11a;
+}
 
 @media screen and (max-width: 768px) {
 	.table-container {
@@ -160,13 +171,18 @@ tr:nth-child(even) {
 
 	th:nth-child(2),
 	td:nth-child(2) {
-		width: 29% !important;
+		width: 28% !important;
 	}
 
 	th:nth-child(3),
 	td:nth-child(3),
 	th:nth-child(4),
 	td:nth-child(4) {
-		width: 29% !important;
+		width: 22% !important;
+	}
+
+	th:nth-child(5),
+	td:nth-child(5) {
+		width: 15% !important;
 	}
 }

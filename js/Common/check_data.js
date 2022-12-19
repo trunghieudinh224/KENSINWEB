@@ -45,7 +45,7 @@ function clearSearchMode() {
     var mode = sessionStorage.getItem(StringCS.SEARCHMODE);
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
-    if (page != "menu_page" && page != "meter_reading_setting_page" && page != "total_page") {
+    if (page != "menu_page" && page != "meter_reading_setting_page" && page != "total_page" && page != "setting_page") {
         if (mode == null || mode == "0") {
             Common.movePage('/menu_page.html');
         }

@@ -37,14 +37,26 @@ function setData() {
 				col3.className += " text";
 				const col4 = document.createElement("td");
 				col4.className += " text";
+				const col5 = document.createElement("td");
+				col5.className += " text";
+				const icon = document.createElement("i");
+				icon.className += "ic-check ";
+				icon.className += "fas ";
+				icon.className += "fa-check-circle";
 				col1.appendChild(document.createTextNode(list[i].code));
 				col2.appendChild(document.createTextNode(list[i].name.trim()));
 				col3.appendChild(document.createTextNode(list[i].kind.trim()));
 				col4.appendChild(document.createTextNode(list[i].tanname.trim()));
+				if (sessionStorage.getItem(StringCS.HTSETDATCODE) == String(list[i].code)) {
+					col5.appendChild(icon);
+				} else {
+					col5.appendChild(document.createTextNode(""));
+				}
 				newElement.appendChild(col1);
 				newElement.appendChild(col2);
 				newElement.appendChild(col3);
 				newElement.appendChild(col4);
+				newElement.appendChild(col5);
 				table.appendChild(newElement);
 				newElement.onclick = function () {	
 					var object = list[this.rowIndex];
