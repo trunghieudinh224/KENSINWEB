@@ -31,6 +31,7 @@ export var PR_WRITEDATA = "writeData?";
 // get uriage list
 export var PR_EARNING = "earnings?";
 
+
 /*****  VARIABLE  *****/
 // username
 export var USERNAME = "Username";
@@ -60,6 +61,16 @@ export var SEARCHMODE = "SearchMode";
 export var SHOFDATITEM = "ShofDatItem";
 // busfDatItem
 export var BUSFDATITEM = "BusfDatItem";
+// shofDatList
+export var SHOFDATLIST = "ShofDatList";
+// busfDatList
+export var BUSFDATLIST = "BusfDatList";
+// product string
+export var PRODUCTSTRING = "ProductString";
+// list bustnyu
+export var LISTBUSTNYU = "ListBustNyu";
+// list bustcho
+export var LISTBUSTCHO = "ListBustCho";
 
 
 /*****  CONTENT  *****/
