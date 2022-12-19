@@ -93,7 +93,7 @@ function setupModal(status, title, message, textButton, textButton2) {
    *
    * @param page     [STRING]
 */
-function changePage(page) {
+function movePage(page) {
     if (page != 'logout') {
         window.location.href = page;
     } else {
@@ -189,4 +189,4 @@ function checkPrintable() {
 // 	alert(browserName);
 // }
 
-export {backAction, setupModal, changePage, changePage, checkDevice, setBackgroundDialogScreen, checkPrintable}
+export {backAction, setupModal, movePage, changePage, checkDevice, setBackgroundDialogScreen, checkPrintable}
