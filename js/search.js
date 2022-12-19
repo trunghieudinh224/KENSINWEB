@@ -2,6 +2,7 @@ import * as Common from './Common/common_function.js'
 import * as StringCS from './Constant/strings.js'
 import * as ValueCS from './Constant/values.js'
 import * as Mess from './Constant/message.js'
+import * as Other from './Common/other_util.js'
 
 /*****  VIEW VARIABLE  *****/
 /* searchType */
@@ -183,8 +184,8 @@ function checkPreviousData() {
 			newKenshin.className += " text";
 			const newShuukin = document.createElement("td");
 			newShuukin.className += " text";
-			newName.appendChild(document.createTextNode(previousCuslist[i].name.trim()));
-			newAddress.appendChild(document.createTextNode(previousCuslist[i].add_0.trim()));
+			newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(previousCuslist[i].name))));
+			newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(previousCuslist[i].add_0))));
 			newKenshin.appendChild(document.createTextNode(previousCuslist[i].kenstat == 1 ? "済" : "未"));
 			newShuukin.appendChild(document.createTextNode(previousCuslist[i].shustat == 1 ? "済" : "未"));
 			newElement.appendChild(newName);
@@ -241,8 +242,8 @@ function searchCus() {
 
 	Common.setupModal("load", null, Mess.I00001, null, null);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + searchKindVal +
 			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +
 			"&match_kind=" + searchPartVal +
@@ -279,8 +280,8 @@ function searchCus() {
 						newKenshin.className += " text";
 						const newShuukin = document.createElement("td");
 						newShuukin.className += " text";
-						newName.appendChild(document.createTextNode(data.cuslist[i].name.trim()));
-						newAddress.appendChild(document.createTextNode(data.cuslist[i].add_0.trim()));
+						newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].name))));
+						newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].add_0))));
 						newKenshin.appendChild(document.createTextNode(data.cuslist[i].kenstat == 1 ? "済" : "未"));
 						newShuukin.appendChild(document.createTextNode(data.cuslist[i].shustat == 1 ? "済" : "未"));
 						newElement.appendChild(newName);
@@ -359,8 +360,8 @@ function firstCustomerAction() {
 
 	Common.setupModal("load", null, Mess.I00001, null, null);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + searchKindVal +
 			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +
 			"&match_kind=" + searchPartVal +
