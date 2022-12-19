@@ -89,8 +89,6 @@ function cutStringSpace(strTarget) {
 
 	nLen = strTarget.length;
 	for (var i = 0; i < nLen; i++) {
-		var x = strTarget.substring(0, 1);
-		console.log(x);
 		if (strTarget.substring(0, 1) == strMulti || strTarget.substring(0, 1) == strSingle) {
 			strTarget = strTarget.substring(1, strTarget.length);
 		} else {

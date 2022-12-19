@@ -4,10 +4,6 @@ import * as StringCS from './Constant/strings.js'
 /*****  VIEW VARIABLE  *****/
 /* resultTable */
 const table = document.getElementById("htsetTable");
-/* dataMessage */
-const dataMessage = document.getElementById("data-messages");
-/* modal */
-const modal = document.getElementById("myModal");
 
 /*****  DATA VARIABLE  *****/
 /* systemdat */
