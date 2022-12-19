@@ -67,8 +67,8 @@
                                 <span class="input-group-text text mw135">顧客コード</span>
                             </div>
 
-                            <span class="form-control text" id="kokyaku_kodo">00100001110</span>
-                        </div> <!-- form-group// -->
+                            <span class="form-control text" id="codeVal"></span>
+                        </div> 
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -77,8 +77,8 @@
                                 <span class="input-group-text text mw135">顧客名</span>
                             </div>
 
-                            <span class="form-control text" id="kokyaku-mei">Dinh Trung Hieu</span>
-                        </div> <!-- form-group// -->
+                            <span class="form-control text" id="nameVal"></span>
+                        </div> 
                     </div>
                 </div>
 
@@ -88,15 +88,14 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text mw135 text">検索キー</span>
                             </div>
-                            <input type="text" class="form-control ta-l text" id="search-key" />
+                            <input type="text" class="form-control ta-l text" id="searchString" />
                         </div>
                     </div>
 
                     <div class="col-4 mb10">
                         <div class="form-group input-group">
                             <div class="form-control text bd-0 pd-l-0 pd-r-0 pd-0">
-                                <button type="button" class="btn btn-default text-center mg-0"
-                                    id="kensakuButton">検索</button>
+                                <button type="button" class="btn btn-default text-center mg-0" id="kensakuButton">検索</button>
                             </div>
                         </div>
                     </div>
@@ -106,9 +105,11 @@
 
                 <div id="collapseView">
                     <div id="accordion" class="table-container">
+                        
                     </div>
                 </div>
 
+				<div class="row text" id="data-messages"></div>
 
                 <div class="button-area">
                     <div class="row content">
@@ -124,7 +125,7 @@
 
                         <div class="col-4">
                             <button type="button" class="btn btn-default text-center" id="printButton"><span
-                                    class="fas fa-play ic-btn"></span><br>伝票再印刷</button>
+                                    class="fas fa-play ic-btn"></span><br>再印刷</button>
                         </div>
                     </div>
                 </div>
@@ -177,7 +178,7 @@
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
     <!--===============================================================================================-->
-    <script type="module" src="./js/Common/check_login.js"></script>
+    <script type="module" src="./js/Common/check_data.js"></script>
     <script type="module" src="./js/product_search_page.js"></script>
 
 </body>

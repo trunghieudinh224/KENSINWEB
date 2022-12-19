@@ -2,6 +2,11 @@ body {
 	position: relative;
 }
 
+#data-messages {
+	padding: 10px 20px 0;
+	display: none;
+}
+
 .card-body {
 	padding: 0px !important;
 	overflow: hidden;
@@ -116,20 +121,35 @@ body {
 	cursor: pointer;
 }
 
+.w-100p {
+	width: 100%;
+}
+
+.w-75p {
+	width: 75%;
+}
+
+.w-25p {
+	width: 25%;
+}
+
+.float-l {
+	float: left;
+}
+
+.float-r {
+	float: right;
+}
+
+
 @media screen and (max-width: 1200px) {}
 
-@media screen and (max-width: 900px) {
-
-}
+@media screen and (max-width: 900px) {}
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {}
 
-}
-
-@media screen and (max-width: 600px) {
-	
-}
+@media screen and (max-width: 600px) {}
 
 @media screen and (max-width: 450px) {
 	.card-header {
