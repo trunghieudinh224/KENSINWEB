@@ -93,7 +93,7 @@ function setupModal(status, title, message, textButton, textButton2) {
    *
    * @param page     [STRING]
 */
-function movePage(page) {
+function changePage(page) {
     if (page != 'logout') {
         window.location.href = page;
     } else {
@@ -103,6 +103,26 @@ function movePage(page) {
         // Remove all saved data from sessionStorage
         sessionStorage.clear();
         window.location.href = "/login_page.html";
+    }
+}
+
+
+/**
+   * MOVING TO ANOTHER PAGE
+   *
+   * @param page     [STRING]
+*/
+function changePage(page) {
+    if (page != 'logout') {
+        page = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME_M + page;
+        window.location.href = page;
+    } else {
+        // Remove saved data from sessionStorage
+        sessionStorage.removeItem(StringCS.USERNAME);
+
+        // Remove all saved data from sessionStorage
+        sessionStorage.clear();
+        window.location.href = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME_M + "menu_page.html";
     }
 }
 
@@ -169,4 +189,4 @@ function checkPrintable() {
 // 	alert(browserName);
 // }
 
-export {backAction, setupModal, movePage, checkDevice, setBackgroundDialogScreen, checkPrintable}
+export {backAction, setupModal, changePage, changePage, checkDevice, setBackgroundDialogScreen, checkPrintable}

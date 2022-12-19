@@ -9,6 +9,8 @@ export var PR_ADDRESS = "192.168.200.218";
 export var PR_PORT = ":8080";
 // web name
 export var PR_WEBNAME = "/Webkensin/compackr/";
+// web name
+export var PR_WEBNAME_M = "/Webkensin/";
 // web key
 export var PR_KEY = "key=0582668301";
 // content-type
