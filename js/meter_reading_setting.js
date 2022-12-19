@@ -61,7 +61,7 @@ function setData() {
 				newElement.onclick = function () {	
 					var object = list[this.rowIndex];
 					sessionStorage.setItem(StringCS.HTSETDATCODE, object.code);
-					Common.movePage('/menu_page.html');
+					Common.movePage('/menu.html');
 				};
 			}
 		} else {

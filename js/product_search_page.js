@@ -25,8 +25,8 @@ const mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 	SETUP OPTION MENU
 */
 function setOptionMenu() {
-	document.getElementById("menuOption").onclick = function () { Common.movePage('/menu_page.html') };
-	document.getElementById("settingOption").onclick = function () { Common.movePage('/setting_page.html') };
+	document.getElementById("menuOption").onclick = function () { Common.movePage('/menu.html') };
+	document.getElementById("settingOption").onclick = function () { Common.movePage('/setting.html') };
 	document.getElementById("logoutOption").onclick = function () { Common.movePage('logout') };
 }
 
@@ -43,12 +43,12 @@ function setOnClickItem() {
 			var item = document.getElementsByClassName("detailItem" + String(i));
 			for (var idx = 0; idx < item.length; idx++) {
 				item[idx].onclick = function () {
-					Common.movePage("/purchase_page.html")
+					Common.movePage("/purchase.html")
 				}
 			}
 		} else {
 			card.onclick = function () {
-				Common.movePage("/purchase_page.html")
+				Common.movePage("/purchase.html")
 			}
 		}
 	}
@@ -155,7 +155,7 @@ function setData(shofDatList, busfDatList) {
 						var id = (this.parentElement).parentElement.parentElement.parentElement.id;
 						const busfDat = Object.assign({}, busfDatList[parseInt(id.substring(id.length - 1, id.length))]);
 						sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
-						Common.movePage('/purchase_page.html');
+						Common.movePage('/purchase.html');
 					};
 				}
 			} else {
@@ -165,7 +165,7 @@ function setData(shofDatList, busfDatList) {
 					var id = collapse.id;
 					const busfDat = Object.assign({}, busfDatList[parseInt(id.substring(id.length - 1, id.length))]);
 					sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
-					Common.movePage('/purchase_page.html');
+					Common.movePage('/purchase.html');
 				};
 			}
 	

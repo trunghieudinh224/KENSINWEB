@@ -1,7 +1,7 @@
 function checkLogin() {
     // var data = sessionStorage.getItem('username');
     // if (data == null || data == '') {
-    //     window.location.href = "/login_page.html";
+    //     window.location.href = "/login.html";
     // } else {
     //     document.getElementById("userName").textContent = data;
     // }

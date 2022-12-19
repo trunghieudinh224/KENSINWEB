@@ -10,7 +10,7 @@ import * as Mess from './Constant/message.js'
 function checkAccount() {
     var data = sessionStorage.getItem(StringCS.USERNAME);
     if (data != null) {
-        Common.movePage('/menu_page.html');
+        Common.movePage('/menu.html');
     }
 }
 
@@ -116,7 +116,7 @@ function getDataSetting() {
 			let settingDat = JSON.parse(result);
             sessionStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(settingDat));
             sessionStorage.setItem(StringCS.SEARCHMODE, "0");
-            Common.movePage('/meter_reading_setting_page.html');
+            Common.movePage('/meter_reading_setting.html');
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);

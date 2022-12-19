@@ -1,7 +1,7 @@
 function checkLogin() {
     var data = sessionStorage.getItem('username');
     if (data == null || data == '') {
-        Common.movePage('/login_page.html');
+        Common.movePage('/login.html');
     } else {
         document.getElementById("userName").textContent = data;
     }

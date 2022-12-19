@@ -13,9 +13,9 @@ function setOptionMenu() {
    * ONCLICK ACTION
 */
 function onclickAction() {
-    document.getElementById("shuukeiButton").onclick = function() {Common.movePage('/total_page.html')};
-    document.getElementById("settingListButton").onclick = function() {Common.movePage('/meter_reading_setting_page.html')};
-    document.getElementById("settingButton").onclick = function() {Common.movePage('/setting_page.html')};
+    document.getElementById("shuukeiButton").onclick = function() {Common.movePage('/total.html')};
+    document.getElementById("settingListButton").onclick = function() {Common.movePage('/meter_reading_setting.html')};
+    document.getElementById("settingButton").onclick = function() {Common.movePage('/setting.html')};
 }
 
 
@@ -38,11 +38,11 @@ function showDialog() {
 
     document.getElementById("searchBtn1").onclick = function() {
         sessionStorage.setItem(StringCS.SEARCHMODE, "1");
-        Common.movePage('/search_page.html');
+        Common.movePage('/search_customer.html');
     };
     document.getElementById("searchBtn2").onclick = function() {
         sessionStorage.setItem(StringCS.SEARCHMODE, "2");
-        Common.movePage('/search_page.html');
+        Common.movePage('/search_customer.html');
     };
 }
 

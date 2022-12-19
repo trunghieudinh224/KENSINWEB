@@ -6,7 +6,7 @@ import * as StringCS from '../Constant/strings.js'
 function checkUser() {
     var data = sessionStorage.getItem(StringCS.USERNAME);
     if (data == null || data == '') {
-        Common.movePage('/login_page.html');
+        Common.movePage('/login.html');
     } else {
         document.getElementById("name").innerText = data;
     }
@@ -19,7 +19,7 @@ function checkUser() {
 function clearDataSearch() {
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
-    if (page != "search_page" && page != "customer_page" && page != "meter_reading_fillout_page" && page != "product_search_page" && page != "purchase_page") {
+    if (page != "search_customer" && page != "customer" && page != "meter_reading_fillout" && page != "product_search" && page != "purchase") {
         sessionStorage.removeItem(StringCS.CUSTLIST);
         sessionStorage.removeItem(StringCS.SEARCHSTRING);
     }
@@ -32,7 +32,7 @@ function clearDataSearch() {
 function clearDataCus() {
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
-    if (page != "meter_reading_fillout_page" && page != "customer_page" && page != "product_search_page" && page != "purchase_page") {
+    if (page != "meter_reading_fillout" && page != "customer" && page != "product_search" && page != "purchase") {
         sessionStorage.removeItem(StringCS.CUSDAT);
     }
 }
@@ -45,9 +45,9 @@ function clearSearchMode() {
     var mode = sessionStorage.getItem(StringCS.SEARCHMODE);
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
-    if (page != "menu_page" && page != "meter_reading_setting_page" && page != "total_page" && page != "setting_page") {
+    if (page != "menu" && page != "meter_reading_setting" && page != "total" && page != "setting") {
         if (mode == null || mode == "0") {
-            Common.movePage('/menu_page.html');
+            Common.movePage('/menu.html');
         }
     }
 }
@@ -59,7 +59,7 @@ function clearSearchMode() {
 function clearUriageStorage() {
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
-    if (page != "purchase_page" && page != "product_search_page") {
+    if (page != "purchase" && page != "product_search") {
         sessionStorage.removeItem(StringCS.BUSFDATITEM);
         sessionStorage.removeItem(StringCS.SHOFDATITEM);
         sessionStorage.removeItem(StringCS.BUSFDATLIST);

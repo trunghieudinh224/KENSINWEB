@@ -202,12 +202,12 @@ function checkPreviousData() {
 					buttonConfirm.onclick = function () {
 						const cusdat = Object.assign({}, object);
 						sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
-						Common.movePage('/customer_page.html');
+						Common.movePage('/customer.html');
 					}
 				} else {
 					const cusdat = Object.assign({}, object);
 					sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
-					Common.movePage('/customer_page.html');
+					Common.movePage('/customer.html');
 				}
 			};
 		}
@@ -298,12 +298,12 @@ function searchCus() {
 								buttonConfirm.onclick = function () {
 									const cusdat = Object.assign({}, object);
 									sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
-									Common.movePage('/customer_page.html');
+									Common.movePage('/customer.html');
 								}
 							} else {
 								const cusdat = Object.assign({}, object);
 								sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
-								Common.movePage('/customer_page.html');
+								Common.movePage('/customer.html');
 							}
 
 						};
@@ -386,7 +386,7 @@ function firstCustomerAction() {
 					const cusdat = Object.assign({}, data.cuslist[0]);
 					cusdat.taishoo = searchOrder.options[searchOrder.selectedIndex].text
 					sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
-					Common.movePage('/customer_page.html');
+					Common.movePage('/customer.html');
 					dataMessage.style.display = "none";
 					modal.style.display = "none";
 				} else {
@@ -421,8 +421,8 @@ function selectChange() {
    * SETUP OPTION MENU
 */
 function setOptionMenu() {
-	document.getElementById("menuOption").onclick = function () { Common.movePage('/menu_page.html') };
-	document.getElementById("settingOption").onclick = function () { Common.movePage('/setting_page.html') };
+	document.getElementById("menuOption").onclick = function () { Common.movePage('/menu.html') };
+	document.getElementById("settingOption").onclick = function () { Common.movePage('/setting.html') };
 	document.getElementById("logoutOption").onclick = function () { Common.movePage('logout') };
 }
 

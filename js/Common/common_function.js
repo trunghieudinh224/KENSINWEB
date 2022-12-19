@@ -102,7 +102,7 @@ function movePage(page) {
 
         // Remove all saved data from sessionStorage
         sessionStorage.clear();
-        window.location.href = "/login_page.html";
+        window.location.href = "/login.html";
     }
 }
 
@@ -122,7 +122,7 @@ function changePage(page) {
 
         // Remove all saved data from sessionStorage
         sessionStorage.clear();
-        window.location.href = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME_M + "menu_page.html";
+        window.location.href = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME_M + "menu.html";
     }
 }
 

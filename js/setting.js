@@ -159,7 +159,7 @@ function saveDataSetting() {
    * SETUP OPTION MENU
 */
 function setOptionMenu() {
-	document.getElementById("menuOption").onclick = function () { Common.movePage('/menu_page.html') };
+	document.getElementById("menuOption").onclick = function () { Common.movePage('/menu.html') };
 	document.getElementById("logoutOption").onclick = function () { Common.movePage('logout') };
 }
 

@@ -312,7 +312,7 @@ function getRyookin() {
 function kinyuuMove(mode) {
     saveUserData();
     sessionStorage.setItem(StringCS.KINYUUMODE, mode);
-    Common.movePage('/meter_reading_fillout_page.html');
+    Common.movePage('/meter_reading_fillout.html');
 }
 
 
@@ -329,8 +329,8 @@ function saveUserData() {
    * SETUP OPTION MENU
 */
 function setOptionMenu() {
-    document.getElementById("menuOption").onclick = function () { Common.movePage('/menu_page.html') };
-    document.getElementById("settingOption").onclick = function () { Common.movePage('/setting_page.html') };
+    document.getElementById("menuOption").onclick = function () { Common.movePage('/menu.html') };
+    document.getElementById("settingOption").onclick = function () { Common.movePage('/setting.html') };
     document.getElementById("logoutOption").onclick = function () { Common.movePage('logout') };
 }
 
@@ -341,7 +341,7 @@ function setOptionMenu() {
 function onclickAction() {
     document.getElementById("backPageButton").onclick = Common.backAction;
     document.getElementById("uriageButton").onclick = function () { 
-        Common.movePage('/product_search_page.html');
+        Common.movePage('/product_search.html');
     };
     document.getElementById("nyuukinButton").onclick = function () { kinyuuMove(3); };
     document.getElementById("jikkoButton").onclick = function () { kinyuuMove(1); };
