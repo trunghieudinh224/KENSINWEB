@@ -1456,7 +1456,9 @@ function createGasryokinSiki(kensinData) {
 
 				if (kensinData.m_nPrintGasRyokinSikiPtn == 0) {
 					// 合計
-					// document.getElementById("gasTotalKinWithoutTaxArea").style.display = "block";
+					if (document.getElementById("gasTotalKinWithoutTaxArea").style.display == "none") {
+						document.getElementById("gasTotalKinWithoutTaxArea").style.display = "contents";
+					}
 					const gasTotalKinWithoutTaxVal = document.getElementById("gasTotalKinWithoutTaxVal");
 					gasTotalKinWithoutTaxVal.innerHTML = Other.KingakuFormat(kensinData.m_nGasTotalKinWithoutTax) + " 円";
 				} else {
@@ -1494,6 +1496,7 @@ function printGasryokinA(kensinData) {
 	var ko2f = kensinData.mKo2fDat;
 	var strStep;
 	var gstpDat;
+	document.getElementById("singleStepArea").style.display = "none";
 
 	if (gasfDat.mSum != 3) {
 		gstpDat = lstGstpDat[nStartIdx];

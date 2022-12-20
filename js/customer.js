@@ -127,9 +127,9 @@ function setInformation() {
 
     var jikkoBtn = document.getElementById("jikkoButton");
     if (cusDetailData.mKokfDat.mNoKensin == 0) {
-        jikkoBtn.disabled = true;
-    } else {
         jikkoBtn.disabled = false;
+    } else {
+        jikkoBtn.disabled = true;
     }
 }
 
