@@ -46,7 +46,7 @@ const Sashihiki_zandaka = document.querySelector("#Sashihiki_zandaka");
 const teiseiSumi = document.querySelector("#teisei-sumi");
 
 
-
+var displayTab = [true, true, true];
 const mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 var mKokfDat = new Dat.KokfDat().parseData(mUserData.mKokfDat)
 mKokfDat.mKtpcdat = new Dat.KtpcDat();
@@ -115,15 +115,30 @@ function setupCollapseTab() {
     //     document.getElementById("card2").style.pointerEvents = "none";
     // }
     
+    if ((sysfDat.mIfMoney && mKokfDat.mSupplyForm != 2) == false) {
+		$('.collapseOne').collapse();
+        document.getElementById("card3").remove();
+        displayTab[2] = false;
+        setupButton();
+        return;
+    } else {
+        setdataUchiWake();
+        onclickAction();
+    }
+
 	if (mode == 3) {
+        displayTab[0] = false;
+        displayTab[1] = false;
         document.getElementById("card1").style.display = "none";
         document.getElementById("card2").style.display = "none";
 		$('.collapseThree').collapse()
         setupButtonNyukinMode();
 	} else {
-		$('.collapseOne').collapse()
+        displayTab[1] = false;
+        displayTab[2] = false;
         document.getElementById("card2").style.pointerEvents = "none";
         document.getElementById("card3").style.pointerEvents = "none";
+		$('.collapseOne').collapse()
         setupButton();
 	}
 }
@@ -825,7 +840,7 @@ function afterCheckLease() {
             // GasRaterCom.calcGasWaribiki(this, sysfDat, mUserData.getmKokfDat(), mUserData.getKnebiDat(), mUserData.getKo2fDat(), sy2fDat, kouserDat, mUserData.getGasfDat());
         }
         // 還元
-        // GasRaterCom.calcGasKangen(mKokfDat, mUserData.getGasfDat(), sysfDat, sy2fDat, kouserDat);
+        GasRaterCom.calcGasKangen(mKokfDat, mUserData.mGasfDat, sysfDat, sy2fDat, kouserDat);
 
         // 配送使用量の計算
         if (mKokfDat.mSupplyForm != 2) {
@@ -1060,11 +1075,15 @@ mTxtNowMeter.onchange = function () {
         if (mTxtNowMeter.value != "") {
             document.getElementById("createPrintingFormButton").disabled = false;
             document.getElementById("card2").style.pointerEvents = "auto";
-            document.getElementById("card3").style.pointerEvents = "auto";
+            if (displayTab[2] == true) {
+                document.getElementById("card3").style.pointerEvents = "auto";
+            }
         } else {
             document.getElementById("createPrintingFormButton").disabled = true;
             document.getElementById("card2").style.pointerEvents = "none";
-            document.getElementById("card3").style.pointerEvents = "none";
+            if (displayTab[2] == true) {
+                document.getElementById("card3").style.pointerEvents = "none";
+            }
         }
     }
 };
@@ -1315,6 +1334,7 @@ export function sendDataToServer() {
 
 
 export {
+    displayTab,
     mKokfDat,
     sy2fDat,
     kouserDat,
@@ -1379,8 +1399,6 @@ function onLoadAction() {
     setupCollapseTab();
     openKensinLayout();
     setdataNiukinLayout();
-    setdataUchiWake();
-    onclickAction();
 }
 
 

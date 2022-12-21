@@ -20,7 +20,7 @@ var kensinDate = sessionStorage.getItem(StringCS.KENSINDATE);
 /** 日常点検項目 */
 var HOAN_ITEMS = ["①容器設置場所", "②容器設置状況", "③火気禁止２ｍ", "④調整器", "⑤配管状況", "⑥ガス栓", "⑦危険標識", "⑧マイコンメーター"];
 
-var ko2fDat;
+var ko2fDat = KensinKinyuu.ko2fDat;
 var printStatus = new Dat.PrintStatus();
 var mUserData = new Dat.UserData();
 var kokfDat = KensinKinyuu.mKokfDat;
@@ -35,7 +35,7 @@ mUserData.mGasfDat = gasfDat;
 mUserData.mKouserDat = kouserDat;
 mUserData.mSy2fDat = sy2fDat;
 mUserData.mNyukinMode = false;
-mUserData.mKo2fDat = null;
+mUserData.mKo2fDat = ko2fDat;
 mUserData.m_lstLeasHmefDat = null;
 mUserData.mBusfDat_kang = KensinKinyuu.mBusfDat_kang;
 mUserData.mBusfDat_hmcd13 = KensinKinyuu.mBusfDat_hmcd13;
@@ -154,7 +154,7 @@ function createPrintData(printStatus, isHybseikyu, isHikae) {
 			createHybTblPrint(wkKensinData);
 
 			if (printStatus.m_isPrintHoan) {
-				if (mUserData.mKokfDat.mNoKensin) {
+				if (mUserData.mKokfDat.mNoKensin == 0) {
 					// 保安点検
 					if (sysfDat.mCheckHoan && wkSy2fDat.mSysOption[SysOption.PRINT_HOAN] == 1) { 		// SysOption.PRINT_HOAN.getIdx() = 21
 						createHoanInfo(HoanKinnyuu.hoanString);
@@ -175,6 +175,13 @@ function createPrintData(printStatus, isHybseikyu, isHikae) {
 		createMiyaPoint();
 
 		createCnComment(wkKensinData);
+	} else {
+		document.getElementById("hybCommentArea").style.display = "none";
+		document.getElementById("hybTblArea").style.display = "none";
+		document.getElementById("hoanInfoArea").style.display = "none";
+		document.getElementById("pointArea").style.display = "none";
+		document.getElementById("miyaPointArea").style.display = "none";
+		document.getElementById("cnCommentArea").style.display = "none";
 	}
 
 	// 店舗データ
@@ -346,9 +353,9 @@ function setKensinData(userData, isHybSeikyu, isPrintKensin, isPrintToyu) {
 	kensinData.m_isHybrid = kouserDat.mHyc5 == 1 && isHybSeikyu;
 	if (kensinData.m_isHybrid) {
 		// ハイブリッドカウンタの名称取得
-		kensinData.mCounterName = new Array(mUserData.ko2fDat.kHyb_MAX);		//ko2fDat
+		kensinData.mCounterName = new Array(userData.mKo2fDat.kHyb_MAX);		//ko2fDat
 		for (var i = 0; i < kensinData.mCounterName.length; i++) {
-			kensinData.mCounterName[i] = getCounterName(context, i);
+			kensinData.mCounterName[i] = getCounterName(i);
 		}
 		// 顧客ハイブリッドデータの取得
 		kensinData.mKo2fDat = userData.mKo2fDat;
@@ -361,7 +368,7 @@ function setKensinData(userData, isHybSeikyu, isPrintKensin, isPrintToyu) {
 		}
 
 		kensinData.m_nNorSr = GasRaterCom.getGasSuryo(parseInt(kensinData.mKo2fDat.mNorSr), sy2fDat, kouserDat);
-		kensinData.m_nHybGasUse = new Array[kensinData.mKo2fDat.kHyb_MAX];
+		kensinData.m_nHybGasUse = new Array(kensinData.mKo2fDat.kHyb_MAX);
 		for (var i = 0; i < kensinData.mKo2fDat.kHyb_MAX; i++) {
 			kensinData.m_nHybGasUse[i] = GasRaterCom.getGasSuryo(parseInt(kensinData.mKo2fDat.mGasUse[i]), sy2fDat, kouserDat);
 		}
@@ -716,26 +723,27 @@ function createKensinInfoBase(kensinData) {
 		//基本料金
 		const kihonRyookinVal = document.getElementById("kihonRyookinVal");
 		kihonRyookinVal.innerHTML = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000);
+		previousIdCounter = "kihonRyookinValArea";
 
 		if (kensinData.m_isHybrid && ko2fDat.mGashyb > 0) {
-			// document.getElementById("tsuujooJuuryooRyookinArea").style.display = "block";
 			document.getElementById("juuryooRyookinArea").style.display = "none";
 			//通常従量料金
 			const tsuujooJuuryooRyookinVal = document.getElementById("tsuujooJuuryooRyookinVal");
 			tsuujooJuuryooRyookinVal.innerHTML = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000)
+			previousIdCounter = "tsuujooJuuryooRyookinArea";
 		} else {
-			// document.getElementById("juuryooRyookinArea").style.display = "block";
 			document.getElementById("tsuujooJuuryooRyookinArea").style.display = "none";
 			//従量料金
 			strLine = Other.KingakuFormat(kensinData.m_GasPay - kensinData.mGasBaseKin / 1000 - kensinData.m_nFacilityKin / 1000);
 			const juuryooRyookinVal = document.getElementById("juuryooRyookinVal");
 			juuryooRyookinVal.innerHTML = strLine;
+			previousIdCounter = "juuryooRyookinArea";
 		}
 
 		if (kensinData.m_isHybrid && ko2fDat.mGashyb > 0) {
 			var str;
 			var nGasTotal;
-			var hasData = false;
+			var count = 0;
 			for (var j = 0; j < ko2fDat.kHyb_MAX; j++) {
 				if (hybfDat.mCusef[j] == 1 && ko2fDat.mFee[j] != 0) {
 
@@ -743,20 +751,20 @@ function createKensinInfoBase(kensinData) {
 					str = kensinData.mCounterName[j].trim();
 					nGasTotal = ko2fDat.mFee[j];
 					strLine = Other.KingakuFormat(nGasTotal);
-					const area = document.getElementById("counterNameArea");
 					const row = document.createElement("div");
+					row.id = "counterNameDetail" + String(count);
 					row.className = "row";
 
 					const text = document.createElement("div");
 					text.className = "col-6 text-print ta-l fw-b wsp-text item";
-					text.innerHTML = str;
+					text.innerHTML = "hieu";
 
 
 					const valueArea = document.createElement("div");
 					valueArea.className = "col-6";
 					const value = document.createElement("div");
 					value.className = "text-print ta-r fw-b wsp-text item valLine";
-					value.innerHTML = strLine;
+					value.innerHTML = "3";
 
 					const unit = document.createElement("div");
 					unit.className = "text-print ta-r fw-b wsp-text item unitLine";
@@ -766,29 +774,25 @@ function createKensinInfoBase(kensinData) {
 					valueArea.appendChild(unit);
 					row.appendChild(text);
 					row.appendChild(valueArea);
-					area.appendChild(row);
 
 					hasData = true;
+					document.getElementById(previousIdCounter).after(row);
+					previousIdCounter = row.id;
+					count++;
 				}
 			}
-			if (hasData) {
-				document.getElementById("counterNameArea").style.display = "block";
-			} else {
-				document.getElementById("counterNameArea").style.display = "none";
-			}
-		} else {
-			document.getElementById("counterNameArea").style.display = "none";
 		}
 	} else {
 		document.getElementById("gasBaseKinArea").style.display = "none";
-		document.getElementById("counterNameArea").style.display = "none";
 	}
 
+	var countCounterNameArea = 0;
 	if (kensinData.m_isHybrid) {
 		//カウンター使用料 (nType is unnecessary, let it be zero)
 		printCounterUseKin(ko2fDat, hybfDat);
 	} else {
 		document.getElementById("counterUseKinArea").style.display = "none";
+		countCounterNameArea++;
 	}
 
 	// 消費税有り
@@ -800,7 +804,11 @@ function createKensinInfoBase(kensinData) {
 			gasuShoohizeiVal.innerHTML = Other.KingakuFormat(kensinData.m_GasTax);
 		} else {
 			document.getElementById("gasuShoohizeiArea").style.display = "none";
+			countCounterNameArea++;
 		}
+	} else {
+		document.getElementById("gasuShoohizeiArea").style.display = "none";
+		countCounterNameArea++;
 	}
 
 	if (sysfDat.mKnebFlg == 1) {
@@ -827,14 +835,15 @@ function createKensinInfoBase(kensinData) {
 			document.getElementById("hinNameArea").style.display = "block";
 		} else {
 			document.getElementById("hinNameArea").style.display = "none";
+			countCounterNameArea++;
 		}
 	} else {
 		document.getElementById("hinNameArea").style.display = "none";
+		countCounterNameArea++;
 	}
 
 	// 還元額有り
 	if (sysfDat.mIfReduce && kensinData.m_Reduce != 0) {
-		document.getElementById("kangconTnameArea").style.display = "block";
 		// 差益還元額名称取得
 		strLine = Other.getKangcontname(sy2fDat, mUserData);
 		const kangconTnameVal = document.getElementById("kangconTnameVal");
@@ -845,6 +854,7 @@ function createKensinInfoBase(kensinData) {
 		reduceVal.innerHTML = strLine;
 	} else {
 		document.getElementById("kangconTnameArea").style.display = "none";
+		countCounterNameArea++;
 	}
 
 	if (kensinData.m_bPrintGasRyokinTotal) {
@@ -852,6 +862,11 @@ function createKensinInfoBase(kensinData) {
 		createGasryokinTotal(kensinData);
 	} else {
 		document.getElementById("gasuRyookinSoogakuArea").style.display = "none";
+		countCounterNameArea++;
+	}
+
+	if (countCounterNameArea == 4) {
+		document.getElementById("counterNameArea").style.display = "none";
 	}
 }
 
@@ -1104,13 +1119,13 @@ function createKinInfo(kensinData) {
 		strLine = Other.KingakuFormat(kensinData.m_Azukarikin) + "円";
 		const honjitsuNyuuKingakuVal = document.getElementById("honjitsuNyuuKingakuVal");
 		honjitsuNyuuKingakuVal.innerHTML = Other.KingakuFormat(kensinData.m_Azukarikin);
+	} else {
+		document.getElementById("honjitsuNyuuKingakuArea").style.display = "none";
 	}
 
 	// おつり
 	var t_otsuri = kensinData.m_Azukarikin - kensinData.m_Nyukin;
 	if (t_otsuri > 0) {
-		// document.getElementById("honjitsuNyuuKingakuArea").style.display = "block";
-		document.getElementById("honjitsuNyuuKingakuArea").style.display = "none";
 		const otsuriVal = document.getElementById("otsuriVal");
 		otsuriVal.innerHTML = Other.KingakuFormat(t_otsuri);
 	} else {
@@ -3226,11 +3241,20 @@ function onclickAction() {
 	document.getElementById("createPrintingFormButton").onclick = function () {
 		document.getElementById("editView").style.display = "none";
 		document.getElementById("printView").style.display = "block";
-		let mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
-		let mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
-		getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.is_m_isToyukeninFlg);
-		createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
+		var mReciept = 0;
+		var mZandaka = 0;
+		if (KensinKinyuu.displayTab[2] == true) {
+			mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
+			mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
+			getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukeninFlg);
+			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
+		} else {
+			getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukeninFlg);
+			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
+		}
 		createImageKensinForm();
+		
+		
 		// saveDataSetting(); 
 	};
 }

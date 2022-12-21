@@ -465,11 +465,13 @@ export class SysfDat {
 		this.mSanki = 0;
 		/** 灯油品目コード */
 		this.mHinCd9 = 0;
+		/**  */
+		this.mShofDatKangen = null;
 	}
 
-	setValue(mKgasDays0, mKgasDays1, mKgasDays2, mTax_yy, mTax_mm, mTax_dd, mConsumTax, mTaxr_old, mTaxr_new, mVisibleGas, mVisibleFacility, mLesUmu,
-		mFracAddKin, mFracMulKin, mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas, m_isToyukeninFlg, mSrChkr,
-		mSrChkm, mKnebFlg, mIfAdjust, mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta, mSanki, mHinCd9) {
+	setValue(mKgasDays0, mKgasDays1, mKgasDays2, mTax_yy, mTax_mm, mTax_dd, mConsumTax, mTaxr_old, mTaxr_new, mVisibleGas, mVisibleFacility, mLesUmu, mFracAddKin, mFracMulKin, 
+		mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas, m_isToyukeninFlg, mSrChkr, mSrChkm, mKnebFlg, mIfAdjust, 
+		mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta, mSanki, mHinCd9, mShofDatKangen) {
 		var data = new SysfDat();
 
 		data.mKgasDays0 = mKgasDays0;
@@ -514,6 +516,7 @@ export class SysfDat {
 		data.mTenkenDelta = mTenkenDelta;
 		data.mSanki = mSanki;
 		data.mHinCd9 = mHinCd9;
+		data.mShofDatKangen = mShofDatKangen;
 		return data;
 	}
 
@@ -565,6 +568,7 @@ export class SysfDat {
 		data.mTenkenDelta = responeData.mTenkenDelta;
 		data.mSanki = responeData.mSanki;
 		data.mHinCd9 = responeData.mHinCd9;
+		data.mShofDatKangen = new ShofDat().parseData(responeData.mShofDatKangen);
 		return data
 	}
 }
@@ -628,10 +632,10 @@ export class Sy2fDat {
 
 
 export class Ko2fDat {
-	/** ハイブリッドカウンタ数 */
-	kHyb_MAX = 4;
 
 	constructor() {
+		/** ハイブリッドカウンタ数 */
+		this.kHyb_MAX = 4;
 		/** ハイブリッド料金区分 */
 		this.mGashyb = 0;
 		/** カウント値引:税区分 */
@@ -646,11 +650,14 @@ export class Ko2fDat {
 		this.mUseTax = 0;
 		/** カウント値引 */
 		this.mChoKin = 0;
+		/** 今回使用量 */
+		this.mGasUse = [];
 	}
 
-	setValue(mGashyb, mChoTaxku, mChoTax, mUseKin, mUseTaxku, mUseTax, mChoKin) {
+	setValue(mGashyb, mChoTaxku, mChoTax, mUseKin, mUseTaxku, mUseTax, mChoKin, mGasUse) {
 		var data = new Ko2fDat();
 
+		data.kHyb_MAX = 4;
 		data.mGashyb = mGashyb;
 		data.mChoTaxku = mChoTaxku;
 		data.mChoTax = mChoTax;
@@ -658,6 +665,7 @@ export class Ko2fDat {
 		data.mUseTaxku = mUseTaxku;
 		data.mUseTax = mUseTax;
 		data.mChoKin = mChoKin;
+		data.mGasUse = mGasUse;
 		return data;
 	}
 
@@ -667,6 +675,7 @@ export class Ko2fDat {
 			return data;
 		}
 
+		data.kHyb_MAX = 4;
 		data.mGashyb = responeData.mGashyb;
 		data.mChoTaxku = responeData.mChoTaxku;
 		data.mChoTax = responeData.mChoTax;
@@ -674,6 +683,7 @@ export class Ko2fDat {
 		data.mUseTaxku = responeData.mUseTaxku;
 		data.mUseTax = responeData.mUseTax;
 		data.mChoKin = responeData.mChoKin;
+		data.mGasUse = responeData.mGasUse;
 		return data
 	}
 }
@@ -2054,21 +2064,21 @@ export class ShofDat {
 		if (responeData == null) {
 			return shofdat;
 		}
-		shofdat.mUsef = responeData.mUsef;
-		shofdat.mHinno = responeData.mHinno;
-		shofdat.mHinban = responeData.mHinban;
-		shofdat.mShono = responeData.mShono;
-		shofdat.mUnit = responeData.mUnit;
-		shofdat.mTaxKu = responeData.mTaxKu;
-		shofdat.mTaxR = responeData.mTaxR;
-		shofdat.mTanka = responeData.mTanka;
-		shofdat.mFracAddMult = responeData.mFracAddMult;
-		shofdat.mFracAddTax = responeData.mFracAddTax;
-		shofdat.mTax_yy = responeData.mTax_yy;
-		shofdat.mTax_mm = responeData.mTax_mm;
-		shofdat.mTax_dd = responeData.mTax_dd;
-		shofdat.mTaxr_old = responeData.mTaxr_old;
-		shofdat.mTaxr_new = responeData.mTaxr_new;
+		shofdat.mUsef = parseInt(responeData.MUSEF);
+		shofdat.mHinno = parseInt(responeData.MHINNO);
+		shofdat.mHinban = parseInt(responeData.MHINBAN);
+		shofdat.mShono = String(responeData.MSHONO);
+		shofdat.mUnit = String(responeData.MUNIT);
+		shofdat.mTaxKu = parseInt(responeData.MTAXKU);
+		shofdat.mTaxR = parseInt(responeData.MTAXR);
+		shofdat.mTanka = parseInt(responeData.MTANKA);
+		shofdat.mFracAddMult = parseInt(responeData.MFRACADDMULT);
+		shofdat.mFracAddTax = parseInt(responeData.MFRACADDTAX);
+		shofdat.mTax_yy = parseInt(responeData.MTAX_YY);
+		shofdat.mTax_mm = parseInt(responeData.MTAX_MM);
+		shofdat.mTax_dd = parseInt(responeData.MTAX_DD);
+		shofdat.mTaxr_old = parseInt(responeData.MTAXR_OLD);
+		shofdat.mTaxr_new = parseInt(responeData.MTAXR_NEW);
 
 		return shofdat;
 	}
