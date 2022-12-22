@@ -231,27 +231,27 @@ function setViewItemtList(type) {
     * SET SHUUKEI DATA
 */
 function setShuukeiData() {
-    viewItemtList[0].innerHTML = Other.KingakuFormat(shuukeiData.mKensu);
-    viewItemtList[1].innerHTML = Other.KingakuFormat(shuukeiData.mToyuCnt);
-    viewItemtList[2].innerHTML = Other.KingakuFormat(shuukeiData.mNyucnt);
-    viewItemtList[3].innerHTML = Other.KingakuFormat(shuukeiData.mUricnt);
-    viewItemtList[4].innerHTML = Other.Format(shuukeiData.mGsiyou, 1);
-    viewItemtList[5].innerHTML = Other.KingakuFormat(shuukeiData.mGryokin);
-    viewItemtList[6].innerHTML = Other.KingakuFormat(shuukeiData.mShohi);
-    viewItemtList[7].innerHTML = Other.KingakuFormat(shuukeiData.mKang);
-    viewItemtList[8].innerHTML = Other.KingakuFormat(shuukeiData.mTotal);
+    viewItemtList[0].innerHTML = Other.formatDecial(shuukeiData.mKensu);
+    viewItemtList[1].innerHTML = Other.formatDecial(shuukeiData.mToyuCnt);
+    viewItemtList[2].innerHTML = Other.formatDecial(shuukeiData.mNyucnt);
+    viewItemtList[3].innerHTML = Other.formatDecial(shuukeiData.mUricnt);
+    viewItemtList[4].innerHTML = Other.formatLocalJS(shuukeiData.mGsiyou, 1, 1);
+    viewItemtList[5].innerHTML = Other.formatDecial(shuukeiData.mGryokin);
+    viewItemtList[6].innerHTML = Other.formatDecial(shuukeiData.mShohi);
+    viewItemtList[7].innerHTML = Other.formatDecial(shuukeiData.mKang);
+    viewItemtList[8].innerHTML = Other.formatDecial(shuukeiData.mTotal);
 
-    viewItemtList[9].innerHTML = Other.Format(shuukeiData.mToyuUse, 1);
-    viewItemtList[10].innerHTML = Other.KingakuFormat(shuukeiData.mToyuKin);
-    viewItemtList[11].innerHTML = Other.KingakuFormat(shuukeiData.mToyuTax);
-    viewItemtList[12].innerHTML = Other.KingakuFormat(shuukeiData.mToyuTotal);
+    viewItemtList[9].innerHTML = Other.formatLocalJS(shuukeiData.mToyuUse, 1, 1);
+    viewItemtList[10].innerHTML = Other.formatDecial(shuukeiData.mToyuKin);
+    viewItemtList[11].innerHTML = Other.formatDecial(shuukeiData.mToyuTax);
+    viewItemtList[12].innerHTML = Other.formatDecial(shuukeiData.mToyuTotal);
 
-    viewItemtList[13].innerHTML = Other.KingakuFormat(shuukeiData.mNyukin);
-    viewItemtList[14].innerHTML = Other.KingakuFormat(shuukeiData.mChosei);
-    viewItemtList[15].innerHTML = shuukeiData.mUrisur; //Other.Format("#,###,##0.00", shuukeiData.mUrisur, 2);
-    viewItemtList[16].innerHTML = Other.KingakuFormat(shuukeiData.mUrikin);
-    viewItemtList[17].innerHTML = Other.KingakuFormat(shuukeiData.mUritax);
-    viewItemtList[18].innerHTML = Other.KingakuFormat(shuukeiData.mUrikin + shuukeiData.mUritax);
+    viewItemtList[13].innerHTML = Other.formatDecial(shuukeiData.mNyukin);
+    viewItemtList[14].innerHTML = Other.formatDecial(shuukeiData.mChosei);
+    viewItemtList[15].innerHTML = Other.formatLocalJS(shuukeiData.mUrisur, 2, 2);
+    viewItemtList[16].innerHTML = Other.formatDecial(shuukeiData.mUrikin);
+    viewItemtList[17].innerHTML = Other.formatDecial(shuukeiData.mUritax);
+    viewItemtList[18].innerHTML = Other.formatDecial(shuukeiData.mUrikin + shuukeiData.mUritax);
 }
 
 
