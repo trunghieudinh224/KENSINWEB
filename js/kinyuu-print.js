@@ -3142,7 +3142,7 @@ function onclickAction() {
 		createImageKensinForm();
 
 
-		// saveDataSetting(); 
+		saveDataSetting(); 
 	};
 }
 
