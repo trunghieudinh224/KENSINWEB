@@ -213,6 +213,8 @@ export class KokfDat {
 		this.mLoilAdd = 0;
 		/** 灯油：端数処理(乗算) */
 		this.mLoilMulti = 0;
+		/** ポイント */
+		this.mPoint = 0;
 	}
 
 	setValue(mName, mKMonth, mKDate, mGasUse, mGasKubun, mKenSumi, mNowMeter, mPreMeter, mPuseYear, mPuseMonth, mPuseDate,
@@ -220,7 +222,8 @@ export class KokfDat {
 		mSupplyForm, mGasBase, mMtKeta, mGasUnit, mHybseikyu, mUrikin, mUriTax, mReduce, mReduceTax, mKotfDat, mProcTisyuu,
 		mTaxTisyuu, mPreBalance, mTAdjust, mTReceipt, mProcLease, mTaxLease, mProcDiv, mProcLoil, mTaxLoil, mProcEtc,
 		mTaxEtc, mProcGas, mTaxGas, mReceipt, mAdjust, mSyuSumi, mInpReceipt, mAdd_0, mAdd_1, mCusCode, mSName0,
-		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusrec, mPuseSrpDay, nGasrkcnt, mLoilUnit , mLoilAdd , mLoilMulti) {
+		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusrec, mPuseSrpDay, nGasrkcnt, mLoilUnit , mLoilAdd , mLoilMulti,
+		mPoint) {
 
 		var data = new KokfDat();
 
@@ -295,6 +298,7 @@ export class KokfDat {
 		data.mLoilUnit = mLoilUnit;
 		data.mLoilAdd = mLoilAdd;
 		data.mLoilMulti = mLoilMulti;
+		data.mPoint = mPoint;
 
 		return data
 	}
@@ -376,6 +380,7 @@ export class KokfDat {
 		data.mLoilUnit = responeData.mLoilUnit;
 		data.mLoilAdd = responeData.mLoilAdd;
 		data.mLoilMulti = responeData.mLoilMulti;
+		data.mPoint = responeData.mPoint;
 
 		return data
 	}
@@ -594,9 +599,13 @@ export class Sy2fDat {
 		this.mJifuriNext;
 		/** 軽減税率対応 */
 		this.mSyskeigen;
+		/** ポイントシステムver */
+		this.mPntVer;
+		/** ポイント名称 */
+		this.pntDatName;
 	}
 
-	setValue(mCaHas, mCaFlg, mKangHbcd, mKangHcd, mNyucho, mSysOption, mSysfHmcd13, mJifuriNext, mSyskeigen) {
+	setValue(mCaHas, mCaFlg, mKangHbcd, mKangHcd, mNyucho, mSysOption, mSysfHmcd13, mJifuriNext, mSyskeigen, mPntVer, pntDatName) {
 		var data = new Sy2fDat();
 
 		data.mCaHas = mCaHas;
@@ -608,6 +617,8 @@ export class Sy2fDat {
 		data.mSysfHmcd13 = mSysfHmcd13;
 		data.mJifuriNext = mJifuriNext;
 		data.mSyskeigen = mSyskeigen;
+		data.mPntVer = mPntVer;
+		data.pntDatName = pntDatName;
 		return data;
 	}
 
@@ -626,6 +637,8 @@ export class Sy2fDat {
 		data.mSysfHmcd13 = responeData.mSysfHmcd13;
 		data.mJifuriNext = responeData.mJifuriNext;
 		data.mSyskeigen = responeData.mSyskeigen;
+		data.mPntVer = responeData.mPntVer;
+		data.pntDatName = responeData.pntDatName;
 		return data
 	}
 }
