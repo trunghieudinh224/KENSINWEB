@@ -1494,6 +1494,7 @@ function printGasryokinA(kensinData) {
 	var strStep;
 	var gstpDat;
 	document.getElementById("singleStepArea").style.display = "none";
+	document.getElementById("singleStepValArea").style.display = "none";
 
 	if (gasfDat.mSum != 3) {
 		gstpDat = lstGstpDat[nStartIdx];
