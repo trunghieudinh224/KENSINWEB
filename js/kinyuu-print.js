@@ -1667,7 +1667,7 @@ function printGasRyokinStep_A(dLowLimit, dUpLimit, dAddKin, dTotalKin, areaName)
 	const tdRight = document.createElement("td");
 	tdRight.className = "text-print item td-r";
 	const divTotal = document.createElement("div");
-	divTotal.className = "text-print ta-r wsp-text item";
+	divTotal.className = "text-print ta-r wsp-text item tb-item tb-item-ts";
 	divTotal.appendChild(document.createTextNode(Other.KingakuFormat(dTotalKin) + " 円"));
 
 	// const spanTotal = document.createElement("span");
@@ -3174,6 +3174,7 @@ function createImageKensinForm() {
 					window.scrollTo(0, 0);
 
 					const interval = setInterval(function () {
+						setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
 						setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
 						setupTextSizeDetail("tb-item-ts", tbItemTS, tbItemLH, "normal");
 						setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
@@ -3182,7 +3183,6 @@ function createImageKensinForm() {
 						setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
 						setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
 						setupTextSizeDetail("hoan-val", hoanValTS, hoanValLH, "normal");
-						setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
 
 						Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
 						clearInterval(interval);
