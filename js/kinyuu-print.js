@@ -1632,28 +1632,28 @@ function printGasRyokinStep_A(dLowLimit, dUpLimit, dAddKin, dTotalKin, areaName)
 	td.className = "text-print ta-r wsp-text";
 
 	const dLowLimitStepA = document.createElement("span");
-	dLowLimitStepA.className = "text-print ta-r wsp-text tb-item tbw-16";
+	dLowLimitStepA.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-16";
 	dLowLimitStepA.appendChild(document.createTextNode(Other.formatLocalJS(parseInt(dLowLimit), 1, 1)));
 
 
 	const arrow = document.createElement("span");
-	arrow.className = "text-print ta-r wsp-text tb-item tbw-6";
+	arrow.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-6";
 	arrow.appendChild(document.createTextNode("→"));
 
 	const dUpLimitStepA = document.createElement("span");
-	dUpLimitStepA.className = "text-print ta-r wsp-text tb-item tbw-22";
+	dUpLimitStepA.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-22";
 	dUpLimitStepA.appendChild(document.createTextNode(Other.formatLocalJS(parseInt(dUpLimit), 1, 1)));
 
 	const tanka = document.createElement("span");
-	tanka.className = "text-print ta-r wsp-text tb-item tbw-28";
+	tanka.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-28";
 	tanka.appendChild(document.createTextNode("m3 単価"));
 
 	const dAddKinStepA = document.createElement("span");
-	dAddKinStepA.className = "text-print ta-r wsp-text tb-item tbw-22";
+	dAddKinStepA.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-22";
 	dAddKinStepA.appendChild(document.createTextNode(Other.formatLocalJS(dAddKin, 2, 4)));
 
 	const unitRow = document.createElement("span");
-	unitRow.className = "text-print ta-r wsp-text tb-item tbw-6";
+	unitRow.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-6";
 	unitRow.appendChild(document.createTextNode("円"));
 
 	td.appendChild(dLowLimitStepA);
@@ -1671,7 +1671,7 @@ function printGasRyokinStep_A(dLowLimit, dUpLimit, dAddKin, dTotalKin, areaName)
 	divTotal.appendChild(document.createTextNode(Other.KingakuFormat(dTotalKin) + " 円"));
 
 	// const spanTotal = document.createElement("span");
-	// spanTotal.className = "text-print ta-r wsp-text tb-item";
+	// spanTotal.className = "text-print ta-r wsp-text tb-item tb-item-ts";
 	// spanTotal.appendChild(document.createTextNode("円"));
 	// divTotal.after(spanTotal);
 	tdRight.appendChild(divTotal);
@@ -1696,19 +1696,19 @@ function printGasRyokinStep_O(dLowLimit, dUpLimit, dAddKin, areaName) {
 	td.className = "text-print ta-r wsp-text item";
 
 	const dLowLimitHybrid = document.createElement("span");
-	dLowLimitHybrid.className = "text-print ta-r wsp-text item tb-item tbw-35";
+	dLowLimitHybrid.className = "text-print ta-r wsp-text item tb-item tb-item-ts tbw-35";
 	dLowLimitHybrid.appendChild(document.createTextNode(Other.formatLocalJS(parseInt(dLowLimit), 1, 1)));
 
 	const rangeHybrid = document.createElement("span");
-	rangeHybrid.className = "text-print ta-r wsp-text item tb-item tbw-20";
+	rangeHybrid.className = "text-print ta-r wsp-text item tb-item tb-item-ts tbw-20";
 	rangeHybrid.appendChild(document.createTextNode("m3 ～ "));
 
 	const dUpLimitHybrid = document.createElement("span");
-	dUpLimitHybrid.className = "text-print ta-r wsp-text item tb-item tbw-35";
+	dUpLimitHybrid.className = "text-print ta-r wsp-text item tb-item tb-item-ts tbw-35";
 	dUpLimitHybrid.appendChild(document.createTextNode(Other.formatLocalJS(parseInt(dUpLimit), 1, 1)));
 
 	const unitHybrid = document.createElement("span");
-	unitHybrid.className = "text-print ta-r wsp-text item tb-item tbw-10";
+	unitHybrid.className = "text-print ta-r wsp-text item tb-item tb-item-ts tbw-10";
 	unitHybrid.appendChild(document.createTextNode("m3"));
 
 	td.appendChild(dLowLimitHybrid);
@@ -1720,11 +1720,11 @@ function printGasRyokinStep_O(dLowLimit, dUpLimit, dAddKin, areaName) {
 	const tdRight = document.createElement("td");
 	tdRight.className = "text-print item td-r";
 	const divTotal = document.createElement("div");
-	divTotal.className = "text-print ta-r wsp-text item tb-item";
+	divTotal.className = "text-print ta-r wsp-text item tb-item tb-item-ts";
 	divTotal.appendChild(document.createTextNode(Other.formatLocalJS(dAddKin, 2, 4) + " 円"));
 
 	// const spanTotal = document.createElement("span");
-	// spanTotal.className = "text-print ta-r wsp-text item tb-item";
+	// spanTotal.className = "text-print ta-r wsp-text item tb-item tb-item-ts";
 	// spanTotal.appendChild(document.createTextNode("円"));
 	// divTotal.after(spanTotal);
 	tdRight.appendChild(divTotal);
@@ -3174,15 +3174,15 @@ function createImageKensinForm() {
 					window.scrollTo(0, 0);
 
 					const interval = setInterval(function () {
-						setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
 						setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
-						setupTextSizeDetail("tb-item", tbItemTS, tbItemLH, "normal");
+						setupTextSizeDetail("tb-item-ts", tbItemTS, tbItemLH, "normal");
 						setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
 						setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
 						setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
 						setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
 						setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
 						setupTextSizeDetail("hoan-val", hoanValTS, hoanValLH, "normal");
+						setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
 
 						Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
 						clearInterval(interval);
