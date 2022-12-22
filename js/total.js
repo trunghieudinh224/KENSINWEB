@@ -24,7 +24,7 @@ var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
 var shuukeiData = new Dat.ShukeiItem();
 /* shuukei data all*/
 var shukeiItemAll = new Dat.ShukeiItem();
-
+var m_lstShukeiDat;
 let mItemList = new Map();
 let m_mapKensinData = new Map();
 let m_mapUriageData = new Map();
@@ -166,6 +166,7 @@ function getShuukeiData() {
         },
         success: function (result) {
             var shukeiData = JSON.parse(result);
+            m_lstShukeiDat = shukeiData.m_lstShukeiDat;
             viewItemtList = setViewItemtList("edt");
 
             if (shukeiData != null) {
@@ -553,23 +554,22 @@ function setShukeiDateList() {
     // var kouserDat = userData.kouserDat;
     // var cuslist = userData.cuslist;
 
-    var cuslist = [kokfDat1, kokfDat2, kokfDat3, kokfDat4];
 
-
-    for (var i = 0; i < cuslist.length; i++) {
+    for (var i = 0; i < m_lstShukeiDat.length; i++) {
         // 顧客データ取得
         // nSearchNo = sysfDat.mSearchNo;
         // idxfDat = this.mUserData.getIdxfDat().get(nSearchNo);
         // nIdx = Objects.requireNonNull(idxfDat).mRecId[i];
-        kokfDat = cuslist[i];
+        kokfDat = m_lstShukeiDat[i];
 
         var kotfDat = null;
         if (sysfDat.m_isToyukeninFlg) {
             kotfDat = kokfDat.mKotfDat;
         }
-        if (kokfDat.mKenSumi || kokfDat.mSyuSumi || (kotfDat != null && kotfDat.m_bKen_sumi == 1)) {
+        // if (kokfDat.mKenSumi || kokfDat.mSyuSumi || (kotfDat != null && kotfDat.m_bKen_sumi == 1)) {
             // date kensin
-            var strKey = kokfDat.mKMonth + "/" + kokfDat.mKDate;
+            var kensinDate = new Date(m_lstShukeiDat[i].h_seiymd);
+            var strKey = kensinDate.getMonth() + "/" + kensinDate.getDate();
             var lstKensinData;
             if (m_mapKensinData.has(strKey)) {
                 lstKensinData = m_mapKensinData.get(strKey);
@@ -586,10 +586,10 @@ function setShukeiDateList() {
             kensinData.m_strKcode = kokfDat.mCusCode;
             kensinData.m_strName = kokfDat.mName;
             kensinData.m_isKensin = kokfDat.mKenSumi;
-            kensinData.m_nSs = kokfDat.mNowMeter;
-            kensinData.m_nSr = kokfDat.mGasUse;
-            kensinData.m_nKin = kokfDat.mFee;
-            kensinData.m_nTax = kokfDat.mConTax;
+            kensinData.m_nSs = kokfDat.h_sisin;
+            kensinData.m_nSr = kokfDat.h_siyouryo;
+            kensinData.m_nKin = kokfDat.h_kin;
+            kensinData.m_nTax = kokfDat.h_utax;
             kensinData.m_nKng = kokfDat.mReduce + kokfDat.mReduceTax;
             kensinData.m_lNyu = kokfDat.mReceipt;
             kensinData.m_lCho = kokfDat.mAdjust;
@@ -609,7 +609,7 @@ function setShukeiDateList() {
             addShukeiData(shukeiItem, kokfDat, sysfDat, sy2fDat, kouserDat);
             lstKensinData.push(kensinData);
             m_mapKensinData.set(strKey, lstKensinData);
-        }
+        // }
         // if(kokfDat.mUriSumi){
         //     HmefDat hmefDat = InputDat.getHmefDat(this, kokfDat.mHmew0Srec - 1,  2);
         //     if(hmefDat != null) {
