@@ -86,7 +86,6 @@ for (let i = 2; i < 17; i++) {
 	kneb = knebDat.setValue(pos,0,0,0,0,0,0,0,0,0,0,0)
 	m_lstKnebDat.push(kneb);
 }
-console.log(m_lstKnebDat);
 mUserData.m_lstKnebDat = m_lstKnebDat;
 
 
@@ -210,11 +209,9 @@ function setCusInfo() {
 
         // ガス料金
         // 顧客データからガス料金を取得する 12.04.24
-        mTxtGasPay.innerHTML = Other.KingakuFormat(mKokfDat.mFee);
-        //mTxtGasPay.innerHTML = (mKokfDat.mFee);
+        mTxtGasPay.innerHTML = Other.formatDecial(mKokfDat.mFee);
 
         // 確認ボタンを押せるようにする 12.04.24
-        // mBtnCheck.setEnabled(true);
         mDays = mKokfDat.mHiwari;
         if (mKokfDat.mHiwari != 0) {
             // 日割り日数がある場合は予測使用量を計算
@@ -715,7 +712,6 @@ function setZandaka() {
             }
         }
         mEditReceipt.innerHTML = Other.formatDecial(lReceipt);
-        // mEditReceipt.innerHTML = (lReceipt);
     }
 
     var mZandaka = mTotal + lAdjust - lReceipt; // 13.02.12
@@ -723,18 +719,16 @@ function setZandaka() {
         mTxtZandakaLabel.innerHTML = "差引残高";
         mTxtZandaka.innerHTML = mZandaka > 0 ? Other.formatDecial(mZandaka) : 0;
         div_otsuri.classList.add("hidden");
-        //mTxtZandaka.innerHTML = mZandaka;
     } else {
         div_otsuri.classList.remove("hidden");
         txtKensinNyukinOtsuri.innerHTML = Other.formatDecial(lAzukari - lReceipt);
-        // mTxtZandakaLabel.innerHTML = "おつり";
-        // mTxtZandaka.innerHTML = (Other.KingakuFormat(lAzukari - lReceipt));
         mTxtZandaka.innerHTML = mZandaka > 0 ? Other.formatDecial(mZandaka) : 0;
     }
     if (mTeiseiFlg) {
         mTeiseiFlg = false;
     }
 }
+
 
 /**
  * 入力フォームからlong値の取得
@@ -746,6 +740,7 @@ function getLongValue(tvSrc) {
     var strValue = Other.getClearString(tvSrc);
     return strValue == "" ? 0 : parseInt(Other.getNumFromString(strValue));
 }
+
 
 /**
  * 検針指針の結果を登録して次のアクティビティを呼び出す。

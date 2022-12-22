@@ -132,7 +132,7 @@ function createPrintData(printStatus, isHybseikyu, isHikae) {
 		createFunouComment();
 	}
 	if (!mUserData.mNyukinMode || !mUserData.mNyukinOnly) {
-		if (wkSy2fDat.mSysOption[SysOption.PRINT_HANMEISAI] == 0) {	//SysOption.PRINT_HANMEISAI.getIdx() = 14
+		if (wkSy2fDat.mSysOption[SysOption.PRINT_HANMEISAI] == 0) {
 			// Data chua co de test (hieu)
 			// document.getElementById("hmInfoArea").style.display = "none";
 			createHmInfo_(mUserData);
@@ -142,8 +142,7 @@ function createPrintData(printStatus, isHybseikyu, isHikae) {
 	} else {
 		document.getElementById("hmInfoArea").style.display = "none";
 	}
-	if (wkSy2fDat.mSysOption[SysOption.PRINT_COMMENT] == 1) {	//SysOption.PRINT_COMMENT.getIdx() = 25
-		// createComment(new CommentData(getComment()));
+	if (wkSy2fDat.mSysOption[SysOption.PRINT_COMMENT] == 1) {
 		createComment(getComment());
 	}
 
@@ -170,7 +169,7 @@ function createPrintData(printStatus, isHybseikyu, isHikae) {
 		}
 
 		// 標準ポイント
-		createPoint(wkKensinData);
+		createPoint();
 		// 宮野式ポイント
 		createMiyaPoint();
 
@@ -186,19 +185,7 @@ function createPrintData(printStatus, isHybseikyu, isHikae) {
 
 	// 店舗データ
 	if (sysfDat.mIfChitUser) {
-		// var nTancd = mUserData.mSysfDat.mTanCd;
-		// if (nTancd == 0) {
-		// 	// 顧客別担当者
-		// 	nTancd = mUserData.mKokfDat.mTanCd;
-		// }
-		// var wkTan = mUserData.getTntfDat(mUserData.mSysfDat.mTanKen);
-		var tantname = "";
-		for (var i = 0; i < dataSetting.m_lstTantName.length; i++) {
-			if (dataSetting.m_lstTantName[i].code == dataSetting.tancd) {
-				tantname = dataSetting.m_lstTantName[i].name;
-				break;
-			}
-		}
+		var tantname = dataSetting.m_lstTantName[0].name;
 		createUserInfo(mUserData.mHanfDat, tantname);
 	}
 }
@@ -442,11 +429,11 @@ function setKensinData(userData, isHybSeikyu, isPrintKensin, isPrintToyu) {
 		}
 
 		const zyksDat = kokfDat.mZyksDat;
-		const calKai = new Date();
+		var calKai = new Date();
 		if (kokfDat.mKaiYear > 0 && kokfDat.mKaiMonth > 0 && kokfDat.mKaiDate > 0) {
 			calKai = new Date(kokfDat.mKaiYear, kokfDat.mKaiMonth - 1, kokfDat.mKaiDate);
 		}
-		const calZyks = new Date();
+		var calZyks = new Date();
 		if (zyksDat.mKaiYear > 0 && zyksDat.mKaiMonth > 0 && zyksDat.mKaiDate > 0) {
 			calZyks = new Date(zyksDat.mKaiYear, zyksDat.mKaiMonth - 1, zyksDat.mKaiDate);
 		}
@@ -578,9 +565,7 @@ function createKensinInfo(kensinData) {
 	createKinInfo(kensinData);
 	if (!mUserData.mNyukinMode) {
 		// 内税を印字する
-		if (mUserData.mSy2fDat.mSysOption[SysOption.NOT_PRINT_UTIZEI] == 0) { // 内税コメントの抑制フラグ	//SysOption.NOT_PRINT_UTIZEI.getIdx() = 15
-			// chưa có đủ data để test (Hieu)
-			// document.getElementById("uTaxCommentArea").style.display = "none";
+		if (mUserData.mSy2fDat.mSysOption[SysOption.NOT_PRINT_UTIZEI] == 0) { // 内税コメントの抑制フラグ
 			createUTaxComment(kensinData);
 		} else {
 			document.getElementById("uTaxCommentArea").style.display = "none";
@@ -668,7 +653,6 @@ function createKensinInfoBase(kensinData) {
 
 	// 矩形印字
 	if (kensinData.mPrnZensr) {
-		// document.getElementById("zenkaiShiyooRyooArea").style.display = "block";
 		const zenkaiShiyooRyooVal = document.getElementById("zenkaiShiyooRyooVal");
 		zenkaiShiyooRyooVal.innerHTML = Other.Format(kensinData.m_PreUse, 1);
 	} else {
@@ -718,6 +702,7 @@ function createKensinInfoBase(kensinData) {
 
 	var ko2fDat = kensinData.mKo2fDat;
 	var hybfDat = kensinData.mHybfDat;
+	var previousIdCounter = "";
 	if (kensinData.mPrnGasBaseKin) {
 		document.getElementById("gasBaseKinArea").style.display = "block";
 		//基本料金
@@ -799,7 +784,6 @@ function createKensinInfoBase(kensinData) {
 	var gasfDat = mUserData.mGasfDat;
 	if (gasfDat != null) {
 		if (gasfDat.mTaxDiv == 3 && kensinData.m_GasTax != 0) {
-			// document.getElementById("gasuShoohizeiArea").style.display = "block";
 			const gasuShoohizeiVal = document.getElementById("gasuShoohizeiVal");
 			gasuShoohizeiVal.innerHTML = Other.KingakuFormat(kensinData.m_GasTax);
 		} else {
@@ -876,7 +860,6 @@ function createZenYearkenSr(kensinData) {
 		document.getElementById("zenYearkenSrArea").style.display = "none";
 		return;
 	}
-	// document.getElementById("zenYearkenSrArea").style.display = "block";
 
 	const zenYearkenSrVal = document.getElementById("zenYearkenSrVal");
 	zenYearkenSrVal.innerHTML = Other.Format(kensinData.m_nZenYearKenSr, 1);
@@ -1031,7 +1014,6 @@ function createKinInfo(kensinData) {
 			}
 
 			if (kensinData.m_HmMonth != 0) {
-				// document.getElementById("hmMonthArea").style.display = "block";
 				//当月お買い上げ額
 				const hmDayVal = document.getElementById("hmMonthVal");
 				hmDayVal.innerHTML = Other.formatDecial(kensinData.m_HmMonth);
@@ -1051,7 +1033,6 @@ function createKinInfo(kensinData) {
 		var t_kokfdat = mUserData.mKokfDat;
 		// 当月入金額
 		if (sysfDat.mIfAdjust && t_kokfdat.mTReceipt != 0) {
-			// document.getElementById("toogetsuNyuuKingakuArea").style.display = "block";
 			//当月入金額
 			const hmDayVal = document.getElementById("hmDayVal");
 			hmDayVal.innerHTML = Other.formatDecial(t_kokfdat.mTReceipt);
@@ -1134,7 +1115,6 @@ function createKinInfo(kensinData) {
 
 	// 差引残高
 	if (kensinData.m_Zandaka != 0 && isPrint) {
-		// document.getElementById("sashihikiZandakaArea").style.display = "block";
 		var lZandaka = kensinData.m_Zandaka - GasRaterCom.calcPrebalance(sysfDat, mUserData.mKokfDat, mUserData.mSy2fDat);
 		const sashihikiZandakaVal = document.getElementById("sashihikiZandakaVal");
 		sashihikiZandakaVal.innerHTML = Other.KingakuFormat(lZandaka);
@@ -1751,67 +1731,6 @@ function printGasRyokinStep_O(dLowLimit, dUpLimit, dAddKin, areaName) {
 }
 
 
-// function test() {
-// 	var area = document.getElementById("gasryokinASecondRow");
-// 	const td = document.createElement("td");
-// 	td.className = "text-print ta-r wsp-text item";
-
-// 	const dLowLimitStepA = document.createElement("span");
-// 	dLowLimitStepA.className = "text-print ta-r wsp-text item tb-item tbw-16";
-// 	dLowLimitStepA.appendChild(document.createTextNode("121"));
-
-// 	const arrow = document.createElement("span");
-// 	arrow.className = "text-print ta-r wsp-text item tb-item tbw-6";
-// 	arrow.appendChild(document.createTextNode("→"));
-
-// 	const dUpLimitStepA = document.createElement("span");
-// 	dUpLimitStepA.className = "text-print ta-r wsp-text item tb-item tbw-22";
-// 	dUpLimitStepA.appendChild(document.createTextNode("123"));
-
-// 	const tanka = document.createElement("span");
-// 	tanka.className = "text-print ta-r wsp-text item tb-item tbw-28";
-// 	tanka.appendChild(document.createTextNode("m3 単価"));
-
-// 	const dAddKinStepA = document.createElement("span");
-// 	dAddKinStepA.className = "text-print ta-r wsp-text item tb-item tbw-22";
-// 	dAddKinStepA.appendChild(document.createTextNode("393"));
-
-// 	const unitRow = document.createElement("span");
-// 	unitRow.className = "text-print ta-r wsp-text item tb-item tbw-6";
-// 	unitRow.appendChild(document.createTextNode("円"));
-
-// 	td.appendChild(dLowLimitStepA);
-// 	dLowLimitStepA.after(arrow);
-// 	arrow.after(dUpLimitStepA);
-// 	dUpLimitStepA.after(tanka);
-// 	tanka.after(dAddKinStepA);
-// 	dAddKinStepA.after(unitRow);
-
-
-
-
-// 	const tdRight = document.createElement("td");
-// 	tdRight.className = "text-print item td-r";
-// 	const divTotal = document.createElement("div");
-// 	divTotal.className = "text-print ta-r wsp-text item tb-item";
-// 	divTotal.appendChild(document.createTextNode("2221"));
-
-// 	const spanTotal = document.createElement("span");
-// 	spanTotal.className = "text-print ta-r wsp-text item tb-item";
-// 	spanTotal.appendChild(document.createTextNode("円"));
-// 	divTotal.after(spanTotal);
-// 	tdRight.appendChild(divTotal);
-
-// 	area.appendChild(td);
-// 	td.after(tdRight);
-// }
-
-
-// test();
-
-
-
-
 /**
 	 * ハイブリッドガス料金式の印字(秋元式)
 	 *
@@ -2040,7 +1959,7 @@ function printGasryokinO(kensinData) {
 		const addKinSingleStepVal = document.getElementById("addKinSingleStepVal");
 		addKinSingleStepVal.innerHTML = strStep + " 円";
 	}
-	
+
 	if (!kensinData.m_bSingleStep && nSur > gstpDat.m_nUpLimit) {
 		nStartIdx++;
 		var countList = 0;
@@ -2173,7 +2092,6 @@ function createBank() {
 	var countNull = 0;
 
 	// 前回引き落とし結果
-	//SysOption.PRINT_JIFURI.getIdx() = 11
 	if (sy2fDat.mSysOption[SysOption.PRINT_JIFURI] != 0 && kokfDat.mTransFee != 0 && kokfDat.mTransFee < 50000) {
 		document.getElementById("zenkaiHikiotoshiKekkaArea").style.display = "block";
 
@@ -2630,38 +2548,6 @@ function getComment() {
 			strComments[1] = dataSetting.m_lstComment[i].name;
 		}
 	}
-
-
-
-	// strComments[0] = dataSetting;
-	// strComments[1] = mUserData.mSy2fDat.mComment2;
-	// var kouserDat = mUserData.mKouserDat;
-	// if (Other.getBytesLen(Other.getClearString(kouserDat.m_strCmt).trim()) > 0) {
-	// 	// 顧客毎コメント有り
-	// 	var lstCmt = [];
-	// 	var strCmt = "";
-	// 	var strClearCmt = Other.getClearString(kouserDat.m_strCmt).trim();
-	// 	try {
-	// 		for (var i = 0; i < strClearCmt.length; i++) {
-	// 			strCmt += (strClearCmt.charAt(i));		//hieu kiểm tra lại
-	// 			if (strCmt.length > 40) {
-	// 				strCmt = strCmt.substring(0, strCmt.length - 2);
-	// 				i -= 2;
-	// 				if (Other.getBytesLen(Other.getClearString(strCmt.toString()).trim()) > 0) {
-	// 					lstCmt.push(strCmt);
-	// 				}
-	// 				strCmt = "";
-	// 			}
-	// 		}
-	// 		if (Other.getBytesLen(Other.getClearString(strCmt.toString()).trim()) > 0) {
-	// 			lstCmt.push(strCmt);
-	// 		}
-	// 		strComments = lstCmt;
-	// 	}
-	// 	catch (err) {
-	// 		console.log(err);
-	// 	}
-	// }
 	return strComments;
 }
 
@@ -2844,22 +2730,22 @@ function createHoanInfo(strHoan) {
 
 
 
-function createPoint(kensinData) {
+function createPoint() {
 	var sy2fDat = mUserData.mSy2fDat;
 	var kokfDat = mUserData.mKokfDat;
 
-	document.getElementById("pointArea").style.display = "none";
 	if (sy2fDat.mPntVer > 0 && kokfDat.mPoint > 0) {
-		if (sy2fDat.mSy2fPntDat.mPntName == null || sy2fDat.mSy2fPntDat.mPntName.trim().length == 0) {
+		if (sy2fDat.pntDatName == null || sy2fDat.pntDatName.length == 0) {
 			// ポイント名が空の場合は印字しない
 			return;
 		}
-		document.getElementById("pointArea").style.display = "block";
 		const pointPntNameVal = document.getElementById("pointPntNameVal");
-		pointPntNameVal.innerHTML = Other.nullToString(sy2fDat.mSy2fPntDat.mPntName);
+		pointPntNameVal.innerHTML = Other.cutStringSpace(Other.nullToString(sy2fDat.pntDatName));
 
 		const pointVal = document.getElementById("pointVal");
-		pointVal.innerHTML = Other.printformat("#,###,##0", kokfDat.mPoint);
+		pointVal.innerHTML = Other.formatDecial(kokfDat.mPoint);
+	} else {
+		document.getElementById("pointArea").style.display = "none";
 	}
 
 }
@@ -2867,18 +2753,13 @@ function createPoint(kensinData) {
 
 
 function createMiyaPoint() {
-	document.getElementById("miyaPointArea").style.display = "none";
-	var sy2fDat = mUserData.mSy2fDat;
 	if (sy2fDat.mMiyanoFlg == 0 ||
-		(sy2fDat.mSysOption[SysOption.PRINT_MIYANO_GET] == 0 &&		//SysOption.PRINT_MIYANO_GET.getIdx() = 31
-			sy2fDat.mSysOption[SysOption.PRINT_MIYANO_USE] == 0 &&		//SysOption.PRINT_MIYANO_USE.getIdx() = 32
-			sy2fDat.mSysOption[SysOption.PRINT_MIYANO_RUI] == 0)) {		//SysOption.PRINT_MIYANO_RUI.getIdx() = 33
-		// 宮野式ポイント未使用の場合
-		// もしくは印字フラグが全てOFFの場合
-		// は印字しない。
+		(sy2fDat.mSysOption[SysOption.PRINT_MIYANO_GET] == 0 &&
+			sy2fDat.mSysOption[SysOption.PRINT_MIYANO_USE] == 0 &&
+			sy2fDat.mSysOption[SysOption.PRINT_MIYANO_RUI] == 0)) {
+		document.getElementById("miyaPointArea").style.display = "none";
 		return;
 	}
-	document.getElementById("miyaPointArea").style.display = "block";
 	var kouserDat = mUserData.mKouserDat;
 
 	if (sy2fDat.mSysOption[SysOption.PRINT_MIYANO_GET] == 1) {
@@ -2899,6 +2780,12 @@ function createMiyaPoint() {
 }
 
 
+/**
+	* 伝票のCNポイント用コメント印字部分の作成
+	*
+	* @param kensinData  [in] {@link KensinData}   検針データ
+	* @throws MException 印字データ作成時にエラーがあった場合に発生
+*/
 function createCnComment(kensinData) {
 	document.getElementById("cnCommentArea").style.display = "none";
 	if (kensinData.mCnp) {
@@ -3222,7 +3109,7 @@ function setupTextSizeDetail(nameItem, textSize, lineHeight, fontWeight) {
 function sendImage() {
 	imgString = imgString.replace("data:image/png;base64,", "");
 	navigator.clipboard.writeText(imgString);
-	window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://","");
+	window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://", "");
 }
 
 
@@ -3253,8 +3140,8 @@ function onclickAction() {
 			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
 		}
 		createImageKensinForm();
-		
-		
+
+
 		// saveDataSetting(); 
 	};
 }
