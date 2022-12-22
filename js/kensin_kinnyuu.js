@@ -128,13 +128,11 @@ function setupCollapseTab() {
 	if (mode == 3) {
         displayTab[0] = false;
         displayTab[1] = false;
-        document.getElementById("card1").style.display = "none";
-        document.getElementById("card2").style.display = "none";
+        document.getElementById("card1").remove();
+        document.getElementById("card2").remove();
 		$('.collapseThree').collapse()
         setupButtonNyukinMode();
 	} else {
-        displayTab[1] = false;
-        displayTab[2] = false;
         document.getElementById("card2").style.pointerEvents = "none";
         document.getElementById("card3").style.pointerEvents = "none";
 		$('.collapseOne').collapse()
