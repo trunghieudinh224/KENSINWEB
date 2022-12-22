@@ -651,17 +651,20 @@ function createKensinInfoBase(kensinData) {
 	const shiyooRyooVal = document.getElementById("shiyooRyooVal");
 	shiyooRyooVal.innerHTML = Other.Format(kensinData.m_NowUse, 1);
 
+	var countZenkaiSS = 0;
 	// 矩形印字
 	if (kensinData.mPrnZensr) {
 		const zenkaiShiyooRyooVal = document.getElementById("zenkaiShiyooRyooVal");
 		zenkaiShiyooRyooVal.innerHTML = Other.Format(kensinData.m_PreUse, 1);
 	} else {
 		document.getElementById("zenkaiShiyooRyooArea").style.display = "none";
+		countZenkaiSS++;
 	}
 	if (kensinData.m_bPrintZenYearKenSr) {
 		createZenYearkenSr(kensinData);
 	} else {
 		document.getElementById("zenYearkenSrArea").style.display = "none";
+		countZenkaiSS++;
 	}
 
 	if (kensinData.m_bChgMeter) {
@@ -686,12 +689,11 @@ function createKensinInfoBase(kensinData) {
 		zenkaiSSVal.innerHTML = Other.Format(kensinData.m_ChgZsisin, 1);
 	} else {
 		document.getElementById("torihazuZenkaiSSArea").style.display = "none";
+		countZenkaiSS++;
 	}
 
-	if (document.getElementById("zenkaiShiyooRyooArea").style.display == "none" &&
-		document.getElementById("zenYearkenSrArea").style.display == "none" &&
-		document.getElementById("torihazuZenkaiSSArea").style.display == "none") {
-
+	if (countZenkaiSS == 3) {
+		document.getElementById("zenkaiSSArea").style.display = "none";
 	}
 
 
@@ -2109,8 +2111,6 @@ function createBank() {
 
 	// 依頼中
 	if (sy2fDat.mSysOption[SysOption.PRINT_JIFURI] != 0 && (kouserDat.m_nIraiStat == 1 || kouserDat.m_nIraiStat == 2 || kouserDat.m_nIraiStat == 3)) {
-		document.getElementById("iraiChuuArea").style.display = "block";
-
 		wkStr = Other.MonthDayFormat(kouserDat.m_nIraiMonth, kouserDat.m_nIraiDay);
 		const iraiMonthDateVal = document.getElementById("iraiMonthDateVal");
 		iraiMonthDateVal.innerHTML = wkStr;
