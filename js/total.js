@@ -29,7 +29,7 @@ let mItemList = new Map();
 let m_mapKensinData = new Map();
 let m_mapUriageData = new Map();
 var sysfDat = new Dat.SysfDat().setValue(25, 35, 29, 1970, 1, 1, 80, 50, 80, 1, 0, 1, 0, 1000, 0, 1000, 2019, 5, 1, false, 0, true, true, 0,
-                                        false, [50, 250, 50, 200, 60, 180], [20, 60], 0, true, true, true, true, true, true);
+    false, [50, 250, 50, 200, 60, 180], [20, 60], 0, true, true, true, true, true, true);
 var sy2fDat = new Dat.Sy2fDat().setValue(0, 0, 0, 0, 0, [1, 1, -1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 5, 0, 0]);
 var kouserDat = new Dat.KouserDat();
 var kokfDat1 = new Dat.KokfDat().setValue("野村　洋子", 5, 1, 440, 1, true, 9990, 9550, 2019, 2, 7, 570, 1830, 0, 319, 22920, 0,
@@ -165,6 +165,7 @@ function getShuukeiData() {
             'Content-Type': StringCS.PR_CONTENT_TYPE
         },
         success: function (result) {
+            modal.style.display = "none";
             var shukeiData = JSON.parse(result);
             m_lstShukeiDat = shukeiData.m_lstShukeiDat;
             viewItemtList = setViewItemtList("edt");
@@ -184,7 +185,7 @@ function getShuukeiData() {
             }
 
             setShuukeiData();
-            modal.style.display = "none";
+            setShukeiDateList();
 
         },
         error: function (jqXHR, exception) {
@@ -392,7 +393,7 @@ function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineH
 function sendImage() {
     imgString = imgString.replace("data:image/png;base64,", "");
     navigator.clipboard.writeText(imgString);
-	window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://","");
+    window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://", "");
 }
 
 
@@ -543,7 +544,7 @@ function setShukeiDateList() {
     var shukeiItem = null;
     // var nSearchNo;
     // var nIdx;
-    var kokfDat;
+    var item;
     // var idxfDat;
     mItemList = new Map();
     m_mapKensinData = new Map();
@@ -560,62 +561,60 @@ function setShukeiDateList() {
         // nSearchNo = sysfDat.mSearchNo;
         // idxfDat = this.mUserData.getIdxfDat().get(nSearchNo);
         // nIdx = Objects.requireNonNull(idxfDat).mRecId[i];
-        kokfDat = m_lstShukeiDat[i];
+        item = m_lstShukeiDat[i];
 
         var kotfDat = null;
         if (sysfDat.m_isToyukeninFlg) {
-            kotfDat = kokfDat.mKotfDat;
+            kotfDat = item.mKotfDat;
         }
-        // if (kokfDat.mKenSumi || kokfDat.mSyuSumi || (kotfDat != null && kotfDat.m_bKen_sumi == 1)) {
-            // date kensin
-            var kensinDate = new Date(m_lstShukeiDat[i].h_seiymd);
-            var strKey = kensinDate.getMonth() + "/" + kensinDate.getDate();
-            var lstKensinData;
-            if (m_mapKensinData.has(strKey)) {
-                lstKensinData = m_mapKensinData.get(strKey);
-                if (lstKensinData == null) {
-                    lstKensinData = [];
-                }
-            }
-            else {
+        // date kensin
+        var kensinDate = new Date(m_lstShukeiDat[i].h_seiymd);
+        var strKey = kensinDate.getMonth() + "/" + kensinDate.getDate();
+        var lstKensinData;
+        if (m_mapKensinData.has(strKey)) {
+            lstKensinData = m_mapKensinData.get(strKey);
+            if (lstKensinData == null) {
                 lstKensinData = [];
             }
-            let kensinData = new Dat.ShukeiKensinData();
+        }
+        else {
+            lstKensinData = [];
+        }
+        let kensinData = new Dat.ShukeiKensinData();
 
 
-            kensinData.m_strKcode = kokfDat.mCusCode;
-            kensinData.m_strName = kokfDat.mName;
-            kensinData.m_isKensin = kokfDat.mKenSumi;
-            kensinData.m_nSs = kokfDat.h_sisin;
-            kensinData.m_nSr = kokfDat.h_siyouryo;
-            kensinData.m_nKin = kokfDat.h_kin;
-            kensinData.m_nTax = kokfDat.h_utax;
-            kensinData.m_nKng = kokfDat.mReduce + kokfDat.mReduceTax;
-            kensinData.m_lNyu = kokfDat.mReceipt;
-            kensinData.m_lCho = kokfDat.mAdjust;
-            if (kotfDat != null && kotfDat.m_bKen_sumi == 1) {
-                kensinData.m_isToyu = true;
-                kensinData.m_nToyuSs = kotfDat.m_nNow_meter;
-                kensinData.m_nToyuSr = kotfDat.m_nLoil_use;
-                kensinData.m_lToyuKin = kotfDat.m_nFee;
-                kensinData.m_lToyuTax = kotfDat.m_nCon_tax;
-            }
-            if (mItemList.has(strKey))
-                shukeiItem = mItemList.get(strKey);
-            else {
-                shukeiItem = new Dat.ShukeiItem();
-                mItemList.set(strKey, shukeiItem);
-            }
-            addShukeiData(shukeiItem, kokfDat, sysfDat, sy2fDat, kouserDat);
-            lstKensinData.push(kensinData);
-            m_mapKensinData.set(strKey, lstKensinData);
-        // }
-        // if(kokfDat.mUriSumi){
-        //     HmefDat hmefDat = InputDat.getHmefDat(this, kokfDat.mHmew0Srec - 1,  2);
+        kensinData.m_strKcode = item.mCusCode;
+        kensinData.m_strName = item.mName;
+        kensinData.m_isKensin = true;
+        kensinData.m_nSs = item.h_sisin;
+        kensinData.m_nSr = item.h_siyouryo;
+        kensinData.m_nKin = item.h_kin;
+        kensinData.m_nTax = item.h_utax;
+        kensinData.m_nKng = item.u_kin + item.u_tax;
+        kensinData.m_lNyu = item.h_kin;     // đổi sau
+        kensinData.m_lCho = item.u_kin;     // đổi sau
+        if (kotfDat != null && kotfDat.m_bKen_sumi == 1) {
+            kensinData.m_isToyu = true;
+            kensinData.m_nToyuSs = kotfDat.m_nNow_meter;
+            kensinData.m_nToyuSr = kotfDat.m_nLoil_use;
+            kensinData.m_lToyuKin = kotfDat.m_nFee;
+            kensinData.m_lToyuTax = kotfDat.m_nCon_tax;
+        }
+        if (mItemList.has(strKey))
+            shukeiItem = mItemList.get(strKey);
+        else {
+            shukeiItem = new Dat.ShukeiItem();
+            mItemList.set(strKey, shukeiItem);
+        }
+        addShukeiData(shukeiItem, item, sysfDat, sy2fDat, kouserDat);
+        lstKensinData.push(kensinData);
+        m_mapKensinData.set(strKey, lstKensinData);
+        // if(item.mUriSumi){
+        //     HmefDat hmefDat = InputDat.getHmefDat(this, item.mHmew0Srec - 1,  2);
         //     if(hmefDat != null) {
 
         //         String strKey = hmefDat.mDenm + "/" + hmefDat.mDend;
-        //         addShukeiUriageData(strKey, kokfDat, hmefDat);
+        //         addShukeiUriageData(strKey, item, hmefDat);
         //         if(mItemList.containsKey(strKey)){
         //             shukeiItem = mItemList.get(strKey);
         //         }
@@ -630,7 +629,7 @@ function setShukeiDateList() {
         //                 break;
         //             }
         //             strKey = hmefDat.mDenm + "/" + hmefDat.mDend;
-        //             addShukeiUriageData(strKey, kokfDat, hmefDat);
+        //             addShukeiUriageData(strKey, item, hmefDat);
         //             if(mItemList.containsKey(strKey)){
         //                 shukeiItem = mItemList.get(strKey);
         //             }
@@ -660,7 +659,7 @@ function setShukeiDateList() {
 function addShukeiData(shukeiItem, sysfDat, sy2fDat, kouserDat) {
 
     shuukeiData.mKensu += 1;
-    shuukeiData.mGsiyou += GasRaterCom.getGasSuryo(shukeiItem.mGsiyou, sy2fDat, kouserDat);
+    shuukeiData.mGsiyou += GasRaterCom.getGasSuryo(shukeiItem.mGsiyou, sy2fDat, kouserDat);     // lấy data từ api
     shuukeiData.mGryokin += shuukeiData.mGryokin;
     shuukeiData.mKang += shukeiItem.mKang;
     shuukeiData.mShohi += shukeiItem.mShohi;
@@ -1039,7 +1038,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
    *
    * @param mapKensinData     [MAP]
  */
- function createPrintDataShuukinNippou(mapKensinData) {
+function createPrintDataShuukinNippou(mapKensinData) {
     var time = moment().format('YYYY年 MM月 dd日 HH:mm:ss');
     document.getElementById("insatsuBiNP").innerHTML = time;
 
@@ -1216,7 +1215,7 @@ function onLoadAction() {
     setDefaultValueSelectDate();
     setupSelectDateView();
     onclickAction();
-    setShukeiDateList();
+    getShuukeiData();
 }
 
 
