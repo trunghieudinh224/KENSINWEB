@@ -150,22 +150,26 @@ function setData(shofDatList, busfDatList) {
 					td.appendChild(span);
 					table.appendChild(tr);
 					tr.onclick = function () {
-						const shofdat = Object.assign({}, value[this.rowIndex]);
-						sessionStorage.setItem(StringCS.SHOFDATITEM, JSON.stringify(shofdat));
-						var id = (this.parentElement).parentElement.parentElement.parentElement.id;
-						const busfDat = Object.assign({}, busfDatList[parseInt(id.substring(id.length - 1, id.length))]);
-						sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
-						Common.movePage('/purchase.html');
+						// const shofdat = Object.assign({}, value[this.rowIndex]);
+						// sessionStorage.setItem(StringCS.SHOFDATITEM, JSON.stringify(shofdat));
+						// var id = (this.parentElement).parentElement.parentElement.parentElement.id;
+						// const busfDat = Object.assign({}, busfDatList[parseInt(id.substring(id.length - 1, id.length))]);
+						// sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
+						// Common.movePage('/purchase.html');
+
+						Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
 					};
 				}
 			} else {
 				collapse.onclick = function () {
-					const shofdat = Object.assign({}, value[0]);
-					sessionStorage.setItem(StringCS.SHOFDATITEM, JSON.stringify(shofdat));
-					var id = collapse.id;
-					const busfDat = Object.assign({}, busfDatList[parseInt(id.substring(id.length - 1, id.length))]);
-					sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
-					Common.movePage('/purchase.html');
+					// const shofdat = Object.assign({}, value[0]);
+					// sessionStorage.setItem(StringCS.SHOFDATITEM, JSON.stringify(shofdat));
+					// var id = collapse.id;
+					// const busfDat = Object.assign({}, busfDatList[parseInt(id.substring(id.length - 1, id.length))]);
+					// sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
+					// Common.movePage('/purchase.html');
+
+					Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
 				};
 			}
 	
