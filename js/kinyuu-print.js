@@ -3242,7 +3242,7 @@ function saveDataSetting() {
 function onLoadAction() {
 	onclickAction();
 	if (sessionStorage.getItem(StringCS.SAVINGSTATUS) == "1") {
-		Common.setupModal("question", null, Mess.I00006, StringCS.HAI, StringCS.IIE);
+		Common.setupModal("question", null, Mess.I00007, StringCS.HAI, StringCS.IIE);
 		var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
 		buttonConfirm.onclick = function () {
 			Common.movePage('/search_customer.html');
