@@ -459,9 +459,7 @@ function onLoadAction() {
 	onclickAction();
 	onChangeAction();
 
-	if (sessionStorage.getItem(StringCS.SEARCHSTRING) != "") {
-		searchKey.value = sessionStorage.getItem(StringCS.SEARCHSTRING);
-	}
+	
 	// if (sessionStorage.getItem(StringCS.SAVINGSTATUS) == "1") {
 	// 	searchCus();
 	// 	if (sessionStorage.getItem(StringCS.SAVINGSTATUS) != null) {
@@ -477,7 +475,10 @@ function onLoadAction() {
 		sessionStorage.removeItem(StringCS.SAVINGSTATUS);
 		return;
 	}
-	searchCus();
+	if (sessionStorage.getItem(StringCS.SEARCHSTRING) != null) {
+		searchKey.value = sessionStorage.getItem(StringCS.SEARCHSTRING);
+		searchCus();
+	}
 }
 
 
