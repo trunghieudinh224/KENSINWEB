@@ -203,6 +203,7 @@ function checkPreviousData() {
 						const cusdat = Object.assign({}, object);
 						sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
 						Common.movePage('/customer.html');
+						modal.style.display = "none";
 					}
 				} else {
 					const cusdat = Object.assign({}, object);
@@ -299,6 +300,7 @@ function searchCus() {
 									const cusdat = Object.assign({}, object);
 									sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
 									Common.movePage('/customer.html');
+									modal.style.display = "none";
 								}
 							} else {
 								const cusdat = Object.assign({}, object);
