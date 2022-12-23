@@ -1224,7 +1224,7 @@ function Calc_UchiZei(wkKensinData, isHybSeikyu) {
 	if (wkKensinData.m_GasfDat.mTaxDiv == 2) {	//内税
 		wk_taxr = GasRaterCom.getKenTaxr(wkKokf, wkSysf, wkSysf.mTax_yy, wkSysf.mTax_mm, wkSysf.mTax_dd
 			, wkSysf.mConsumTax, wkSysf.mTaxr_old, wkSysf.mTaxr_new);
-		ハイブリッドでの内税額の対応
+		// ハイブリッドでの内税額の対応
 		var wk_kin;
 		wk_kin = wkKokf.mFee;
 		if (isHybSeikyu && wkKo2f.mGashyb > 0) {
@@ -3119,31 +3119,19 @@ function sendImage() {
 */
 function onclickAction() {
 	document.getElementById("backPrintButton").onclick = function () {
-		document.getElementById("editView").style.display = "block";
-		document.getElementById("printView").style.display = "none";
-		location.reload();
+		if (sessionStorage.getItem(StringCS.SAVINGSTATUS) != "1") {
+			document.getElementById("editView").style.display = "block";
+			document.getElementById("printView").style.display = "none";
+			location.reload();
+		} else {
+			Common.movePage('/search_customer.html');
+		}
 	};
 	document.getElementById("sendToAppButton").onclick = function () {
 		sendImage();
 	};
 	document.getElementById("createPrintingFormButton").onclick = function () {
-		document.getElementById("editView").style.display = "none";
-		document.getElementById("printView").style.display = "block";
-		var mReciept = 0;
-		var mZandaka = 0;
-		if (KensinKinyuu.displayTab[2] == true) {
-			mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
-			mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
-			getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukeninFlg);
-			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
-		} else {
-			getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukeninFlg);
-			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
-		}
-		createImageKensinForm();
-
-
-		saveDataSetting(); 
+		saveDataSetting();
 	};
 }
 
@@ -3187,6 +3175,14 @@ function createImageKensinForm() {
 						Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
 						clearInterval(interval);
 						modal.style.display = "none";
+
+						// if (sessionStorage.getItem(StringCS.SAVINGSTATUS) == "1") {
+						// 	Common.setupModal("question", null, Mess.I00006, StringCS.HAI, StringCS.IIE);
+						// 	var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
+						// 	buttonConfirm.onclick = function () {
+						// 		Common.movePage('/search_customer.html');
+						// 	}
+						// }
 					}, 100);
 				}
 			);
@@ -3205,7 +3201,22 @@ function saveDataSetting() {
 		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
 			console.log(response);
+			sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
+			document.getElementById("editView").style.display = "none";
+			document.getElementById("printView").style.display = "block";
+			var mReciept = 0;
+			var mZandaka = 0;
+			if (KensinKinyuu.displayTab[2] == true) {
+				mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
+				mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
+				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukeninFlg);
+				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
+			} else {
+				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukeninFlg);
+				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
+			}
 			Common.setupModal("load", null, Mess.I00002, null, null);
+			createImageKensinForm();
 		},
 		error: function (xmlhttprequest, textstatus, message) {
 			if (textstatus === "timeout") {
@@ -3213,10 +3224,12 @@ function saveDataSetting() {
 			} else {
 				console.log(textstatus)
 			}
+			sessionStorage.setItem(StringCS.SAVINGSTATUS, "0");
 			Common.setupModal("error", null, Mess.E00004, StringCS.OK, null);
 		}
 	}).done(function (res) {
 		console.log('res', res);
+		sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
 		Common.setupModal("success", null, Mess.I00003, StringCS.OK, null);
 	});
 }
@@ -3228,6 +3241,14 @@ function saveDataSetting() {
 */
 function onLoadAction() {
 	onclickAction();
+	if (sessionStorage.getItem(StringCS.SAVINGSTATUS) == "1") {
+		Common.setupModal("question", null, Mess.I00006, StringCS.HAI, StringCS.IIE);
+		var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
+		buttonConfirm.onclick = function () {
+			Common.movePage('/search_customer.html');
+			sessionStorage.removeItem(StringCS.CUSDAT);
+		}
+	}
 }
 
 

@@ -34,6 +34,12 @@ function clearDataCus() {
     var page = path.split("/").pop().replace(".html", "");
     if (page != "meter_reading_fillout" && page != "customer" && page != "product_search" && page != "purchase") {
         sessionStorage.removeItem(StringCS.CUSDAT);
+    } else {
+        if (page == "meter_reading_fillout") {
+            if (sessionStorage.getItem(StringCS.CUSDAT) == null) {
+                Common.movePage('/search_customer.html');
+            }
+        }
     }
 }
 

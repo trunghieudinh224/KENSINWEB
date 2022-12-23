@@ -73,6 +73,10 @@ export var PRODUCTSTRING = "ProductString";
 export var LISTBUSTNYU = "ListBustNyu";
 // list bustcho
 export var LISTBUSTCHO = "ListBustCho";
+// saving status
+export var SAVINGSTATUS = "SavingStatus";
+// back to search
+export var BACKTOLIST = "BackToSearch";
 
 
 /*****  CONTENT  *****/

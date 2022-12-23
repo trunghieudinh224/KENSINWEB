@@ -5,6 +5,10 @@ import * as Mess from '../Constant/message.js'
    * BACK ACTION
 */
 function backAction() {
+    let previousURL = document.referrer;
+    // if (previousURL.includes("http://127.0.0.1/")) {
+
+    // }
     history.back();
 }
 
