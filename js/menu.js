@@ -36,13 +36,18 @@ function showDialog() {
 		wrapMainForm.classList.remove("overlay-animate");
 	};
 
+    var overlay = document.querySelector(".overlay");
     document.getElementById("searchBtn1").onclick = function() {
         sessionStorage.setItem(StringCS.SEARCHMODE, "1");
         Common.movePage('/search_customer.html');
+        sessionStorage.removeItem(StringCS.SEARCHSTRING);
+        overlay.style.zIndex = "-1";
     };
     document.getElementById("searchBtn2").onclick = function() {
         sessionStorage.setItem(StringCS.SEARCHMODE, "2");
         Common.movePage('/search_customer.html');
+        sessionStorage.removeItem(StringCS.SEARCHSTRING);
+        overlay.style.zIndex = "-1";
     };
 }
 
