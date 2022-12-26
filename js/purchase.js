@@ -26,6 +26,10 @@ const uriage_gen = document.getElementById("zandaka");
 const mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 const select_shohin_list_urimode = document.getElementById("modeForm");
 const cash_sale = document.getElementById("genkin_uri_area");
+const group_prezandaka = document.getElementById("group_prezandaka");
+const preZandaka = document.getElementById("preZandaka");
+const otsuri = document.getElementById("teisei-group");
+const uriage_edit = document.getElementById("editButton");
 var kokf = new Dat.KokfDat().parseData(mUserData.mKokfDat)
 kokf.mKtpcdat = new Dat.KtpcDat();
 var sy2fDat = new Dat.Sy2fDat().parseData(mUserData.mSy2fDat)
@@ -37,9 +41,11 @@ var kensinDate = new Date(kensinDate_ss);
 var ko2fDat = new Dat.Ko2fDat().parseData(mUserData.mKo2fDat);
 
 /** 商品マスタデータ */
-var mShofDat = new Dat.ShofDat().setValue(1, 100, 0, "", "", 2, 80, 0, 0, 1000, 2014, 4, 1, 50, 80);
+//var mShofDat = new Dat.ShofDat().setValue(1, 100, 0, "", "", 2, 80, 0, 0, 1000, 2014, 4, 1, 50, 80);
+var mShofDat = JSON.parse(sessionStorage.getItem(StringCS.SHOFDATITEM));
 /** 品目データ */
-var mBusfDat = new Dat.BusfDat().setValue(true, 100, "灯　油  ", 0, 0);
+// var mBusfDat = new Dat.BusfDat().setValue(true, 100, "灯　油  ", 0, 0);
+var mBusfDat = JSON.parse(sessionStorage.getItem(StringCS.BUSFDATITEM));
 /** 販売明細データ */
 var mHmefDat = null;
 /** 拡張販売明細データ */
@@ -56,7 +62,11 @@ var m_isGenuri = false;
 var m_bdCho;
 /** 入金取引区分 */
 var m_bdNyu;
+var lstBusfCho = JSON.parse(sessionStorage.getItem(StringCS.LISTBUSTCHO));
+var lstBusfNyu = JSON.parse(sessionStorage.getItem(StringCS.LISTBUSTNYU));
 
+var CHOMODE = 1;
+var NYUMODE = 2;
 
 
 /**
@@ -90,7 +100,10 @@ function calcKin() {
 		mHmefDat.mKin = Other.hasCom(dKin, nAdd, nMul, 10000) / 10000;
 
 		uriage_kin.value = Other.format("#,##0", calcSign(mHmefDat.mSign, mHmefDat.mKin), 0);
+		uriage_kin.disabled = true;
 		calcTax();
+	} else {
+		uriage_kin.disabled = false;
 	}
 
 }
@@ -114,7 +127,7 @@ function calcTax() {
 		mHmefDat.mTax = (Other.hasCom(dTax, nFracAddTax, nFracMulTax, 1000.) / 1000.);
 	}
 
-	uriage_tax.textContent = (Other.Format(calcSign(mHmefDat.mSign, mHmefDat.mTax), 1));
+	uriage_tax.textContent = Other.formatDecial(calcSign(mHmefDat.mSign, mHmefDat.mTax));
 	dispTotal();
 }
 
@@ -124,7 +137,7 @@ function calcTax() {
  *
  */
 function dispTotal() {
-	uriage_total.textContent = (Other.Format(calcSign(mHmefDat.mSign, mHmefDat.mKin + mHmefDat.mTax), 1));
+	uriage_total.textContent = Other.formatDecial(calcSign(mHmefDat.mSign, mHmefDat.mKin + mHmefDat.mTax));
 	dispGen();
 }
 
@@ -138,7 +151,7 @@ function dispGen() {
 	var strGenName = "差引残高";
 	if (m_isGenuri) {
 		// m_nCho = Other.getNumFromString(uriage_cho.value);
-		m_nNyu = Number(uriage_nyu.textContent);
+		m_nNyu = Number(Other.getNumFromString(uriage_nyu.textContent));
 
 		nGen += m_nCho - m_nNyu;
 		if (nGen == 0 && m_nReceipt > m_nNyu) {
@@ -148,12 +161,15 @@ function dispGen() {
 			strGenName = "おつり";
 			nGen = m_nReceipt - m_nNyu;
 		}
+		group_prezandaka.style.display = "none";
 	}
 	else {
 		nGen += GasRaterCom.calcTotal(mUserData, sysfDat, kokf, ko2fDat, sy2fDat, kouserDat, false);
+		group_prezandaka.style.display = "block";
+		preZandaka.textContent = Other.format("#,###,##0", GasRaterCom.calcTotal(mUserData, sysfDat, kokf, ko2fDat, sy2fDat, kouserDat, false), 0);
 	}
-	uriage_gen_name.textContent = (strGenName);
-	uriage_gen.textContent = Other.format("#,###,##0", nGen, 0);
+	uriage_gen_name.textContent = strGenName;
+	uriage_gen.textContent = Other.formatDecial(nGen);
 }
 
 function createData() {
@@ -217,12 +233,12 @@ function onCreateView() {
 	uriage_hbname.textContent = (Other.nullToString(mShofDat.mHinban).trim());
 
 	// 数量
-	uriage_sur.value = Other.format("0.00", mHmefDat.mSuryo, 2);
+	uriage_sur.value = Other.formatLocalJS(mHmefDat.mSuryo, 2, 3);
 
 	// 単位
 	uriage_unit.textContent = (Other.nullToString(mShofDat.mUnit));
 	// 単価
-	uriage_tanka.value = (Other.format("0.00", mHmefDat.mTanka, 2));
+	uriage_tanka.value = Other.formatLocalJS(mHmefDat.mTanka, 2, 3);
 	// 金額
 
 	uriage_kin.value = (Other.format("#,##0", mHmefDat.mKin, 0));
@@ -230,10 +246,10 @@ function onCreateView() {
 	uriage_taxku.value = mHmefDat.mTaxKu;
 
 	// 税率
-	uriage_taxr.value = (Other.format("0.0", mHmefDat.mTaxR, 1));
+	uriage_taxr.value = Other.formatLocalJS(mHmefDat.mTaxR, 1, 1);
 
 	// 消費税
-	uriage_tax.textContent = Other.format("#,##0", mHmefDat.mTax, 0);
+	uriage_tax.textContent = Other.formatDecial(mHmefDat.mTax);
 
 
 
@@ -248,26 +264,28 @@ function onCreateView() {
 
 	// 調整取引区分デフォルト取得・設定
 	// m_bdCho = InputDat.getBusfDat(getContext(), sChoHmcode, (byte)(sChoHmcode < sysfDat.mSnvalue ? 0 : 1));
-	m_bdCho = mUserData.mBusfDat_hmcd13;
+	m_bdCho = JSON.parse(sessionStorage.getItem(StringCS.BUSFCHOITEM));
 	if (m_bdCho != null) {
 		uriage_cho_name.textContent = (Other.cutStringSpace(m_bdCho.mName));
 	}
 	// 入金取引区分デフォルト取得・設定
 	// var sNyuHmcode = sy2fDat.mSysfHmcd12;
-	m_bdNyu = mUserData.mBusfDat_hmcd12;
+	m_bdNyu = JSON.parse(sessionStorage.getItem(StringCS.BUSFNYUITEM));
 	if (m_bdNyu != null) {
 		uriage_nyu_name.textContent = (Other.cutStringSpace(m_bdNyu.mName));
 	}
 
 	cash_sale.style.display = "none";
+	otsuri.style.display = "none";
+	uriage_edit.style.display = "none";
 }
 
 /* 
 	SETUP OPTION MENU
 */
 function setOptionMenu() {
-	document.getElementById("menuOption").onclick = function () { Common.movePage('/menu.html') };
-	document.getElementById("settingOption").onclick = function () { Common.movePage('/setting.html') };
+	document.getElementById("menuOption").onclick = function () { Common.movePage('/menu_page.html') };
+	document.getElementById("settingOption").onclick = function () { Common.movePage('/setting_page.html') };
 	document.getElementById("logoutOption").onclick = function () { Common.movePage('logout') };
 }
 
@@ -275,7 +293,7 @@ function setOptionMenu() {
 /* 
 	TITLE ONCLICK
 */
-function titleOnclick(title, idForm) {
+function titleOnclick(title, idForm, listItem) {
 	var tableForm = document.getElementsByClassName("dialog_form");
 	for (var i = 0; i < tableForm.length; i++) {
 		tableForm[i].style.display = "none";
@@ -283,18 +301,29 @@ function titleOnclick(title, idForm) {
 	var form = document.getElementById(idForm);
 	form.style.display = "block"
 
-	var title = document.getElementById(title);
+	var tittle = document.getElementById(title);
 	var overlay = document.querySelector(".overlay");
 	var wrapMainForm = document.querySelector(".overlay .container-mainform .wrap-mainform");
-	document.getElementById("close-icon").onclick = function () {
-		overlay.style.zIndex = "-1";
-		wrapMainForm.classList.remove("overlay-animate");
-	};
-
-	title.onclick = function () {
+	document.getElementById("close-icon").onclick = closeDialog;
+	tittle.onclick = function () {
 		overlay.style.zIndex = "2";
 		wrapMainForm.classList.remove("overlay-animate");
+		if (title == "cho_text") {
+			generateTable(listItem, tittle, CHOMODE);
+		} else {
+			generateTable(listItem, tittle, NYUMODE);
+		}
+
 	};
+}
+
+// close dialog
+
+function closeDialog() {
+	var overlay = document.querySelector(".overlay");
+	var wrapMainForm = document.querySelector(".overlay .container-mainform .wrap-mainform");
+	overlay.style.zIndex = "-1";
+	wrapMainForm.classList.remove("overlay-animate");
 }
 
 
@@ -302,9 +331,43 @@ function titleOnclick(title, idForm) {
 	SETUP TITLE CLICK
 */
 function setupTitleClick() {
-	titleOnclick("receipt_text", "receipt_form");
-	titleOnclick("cho_text", "receipt_form");
+	titleOnclick("receipt_text", "receipt_form", lstBusfNyu);
+	titleOnclick("cho_text", "receipt_form", lstBusfCho);
 }
+
+function generateTable(listItem, tittle, pos) {
+	// creates a <table> element and a <tbody> element
+
+	const receipt_table = document.getElementById("receipt_table");
+	$('#receipt_table > tr > td').remove();
+
+	// creating all cells
+	for (let i = 0; i < listItem.length; i++) {
+		// creates a table row
+		const row = document.createElement("tr");
+		const cell = document.createElement("td");
+		var span = document.createElement("span");
+		span.id = "span_" + i;
+		span.classList.add("h-40");
+		span.textContent = Other.cutStringSpace(listItem[i].mName);
+		span.onclick = function () {
+			tittle.textContent = Other.cutStringSpace(listItem[i].mName);
+			closeDialog();
+			if (pos == CHOMODE) {
+				m_bdCho = lstBusfCho[i];
+			} else {
+				m_bdNyu = lstBusfNyu[i];
+			}
+		}
+		cell.appendChild(span);
+		row.appendChild(cell);
+
+
+		// add the row to the end of the table body
+		receipt_table.appendChild(row);
+	}
+}
+
 
 /**
  * onchangeData
@@ -314,8 +377,11 @@ function changeData() {
 		m_isGenuri = !m_isGenuri;
 		if (m_isGenuri) {
 			cash_sale.style.display = "block";
+			uriage_edit.style.display = "block";
+
 		} else {
 			cash_sale.style.display = "none";
+			uriage_edit.style.display = "none";
 		}
 		dispGen();
 	}
@@ -331,7 +397,7 @@ function changeData() {
 		}
 
 
-		uriage_nyu.textContent = m_nNyu;
+		uriage_nyu.textContent = Other.formatDecial(m_nNyu);
 		dispGen();
 	}
 
@@ -348,19 +414,27 @@ function changeData() {
 	uriage_sur.onchange = function () {
 		// 数量
 		mHmefDat.mSuryo = Number(uriage_sur.value) * 100;
-		// uriage_sur.value = Other.format("0.00", mHmefDat.mSuryo, 2);
+		uriage_sur.value = Other.formatLocalJS(mHmefDat.mSuryo, 2, 2);
 		calcKin();
 	}
 
 	uriage_tanka.onchange = function () {
 		mHmefDat.mTanka = Number(uriage_tanka.value) * 100;
-		// uriage_tanka.value = (Other.format("0.00", mHmefDat.mTanka, 2));
+		uriage_tanka.value = Other.formatLocalJS(mHmefDat.mTanka, 2, 2);
 		calcKin();
 	}
 
 	uriage_taxr.onchange = function () {
 		mHmefDat.mTaxR = Number(uriage_taxr.value) * 10;
+		calcTax();
 	}
+
+	uriage_kin.onchange = function () {
+		mHmefDat.mKin = Number(uriage_kin.value);
+		calcTax();
+	}
+
+
 
 
 }

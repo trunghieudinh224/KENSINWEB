@@ -115,6 +115,17 @@
                                 </div>
                             </div>
 
+                            <div class="col-12" id="group_prezandaka">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw135 text">当月請求額</span>
+                                    </div>
+
+                                    <span class="form-control ta-r text" type="text" id="preZandaka"></span>
+                                    <span class="form-control unit text">円</span>
+                                </div>
+                            </div>
+
                             <div class="col-12">
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
@@ -142,7 +153,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text mw135 text">金   額</span>
                                     </div>
-                                    
+
                                     <input class="form-control ta-r text fw-b" type="text" id="kin" />
                                     <span class="form-control unit text fw-b">円</span>
                                 </div>
@@ -153,7 +164,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text mw135 text">税区分/税率</span>
                                     </div>
-                                    
+
                                     <select class="custom-select form-control ta-l text" name="modeForm" id="uriage_tax_select">
                                         <option value="0">未設定</option>
                                         <option value="1">非課税</option>
@@ -194,7 +205,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text mw135 text hover" id="cho_text">値引き</span>
                                     </div>
-                                    
+
                                     <input class="form-control ta-r text fw-b" type="text" id="cho_val"/>
                                     <span class="form-control unit text fw-b">円</span>
                                 </div>
@@ -205,7 +216,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text mw135 text">預  り  金</span>
                                     </div>
-                                    
+
                                     <input class="form-control ta-r text fw-b" type="text" id="azukari"/>
                                     <span class="form-control unit text fw-b">円</span>
                                 </div>
@@ -216,12 +227,12 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text mw135 text hover" id="receipt_text">入  金  額</span>
                                     </div>
-                                    
+
                                     <span class="form-control ta-r text fw-b" id="receipt_val"></span>
                                     <span class="form-control unit text fw-b">円</span>
                                 </div>
                             </div>
-                        </div>    
+                        </div>
 
 
                         <div class="row content">
@@ -236,6 +247,42 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- ------------------------------------------------------------------------- -->
+                        <div class="row content" id="teisei-group">
+                            <div class="col-12">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw145 text">入金額</span>
+                                    </div>
+
+                                    <input class="form-control ta-r text" id="teisei-nyuukin" value="0" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mw145 text">差引残高</span>
+                                    </div>
+                                    <span class="form-control ta-r text" id="Sashihiki_zandaka">0</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12" id="txtErrorTeisei">
+                                <div class="form-group input-group">
+                                    <span class="ta-l text" id="txtErrorTeiseiDetail">入金額は差引残高以上の値が入力できません。</span>
+                                </div> <!-- form-group// -->
+                            </div>
+
+                            <div class="col-6 text-center">
+                                <button id="cancel" class="btn btn-default text-center">戻る</button>
+                            </div>
+
+                            <div class="col-6 text-center">
+                                <button id="teisei-sumi" class="btn btn-default text-center">確認</button>
+                            </div>
+                        </div>
+                        <!-- ------------------------------------------------------------------------- -->
                     </div>
 
 
@@ -301,33 +348,7 @@
                     </span>
 
                     <div class="table-container">
-                        <table id="receipt_table" class="result-detail">
-                            <tr class="h-40">
-                                <td>
-                                    <span class="ta-l text">busfdat1</span>
-                                </td>
-                            </tr>
-                            <tr class="h-40">
-                                <td>
-                                    <span class="ta-l text">busfdat2</span>
-                                </td>
-                            </tr>
-                            <tr class="h-40">
-                                <td>
-                                    <span class="ta-l text">busfdat3</span>
-                                </td>
-                            </tr>
-                            <tr class="h-40">
-                                <td>
-                                    <span class="ta-l text">busfdat4</span>
-                                </td>
-                            </tr>
-                            <tr class="h-40">
-                                <td>
-                                    <span class="ta-l text">busfdat5</span>
-                                </td>
-                            </tr>
-                        </table>
+                        <table id="receipt_table" class="result-detail"></table>
                     </div>
                 </form>
 
@@ -367,7 +388,7 @@
                         </table>
                     </div>
                 </form>
-                
+
             </div>
         </div>
     </div>

@@ -60,11 +60,13 @@ function setOnClickItem() {
 */
 function getData() {
 	Common.setupModal("load", null, Mess.I00001, null, null);
-	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
+	var str = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
 			"&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
-			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+	$.ajax({
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
+		
+		url: str,
 		headers: {
 			'Content-Type': StringCS.PR_CONTENT_TYPE
 		},
@@ -73,15 +75,17 @@ function getData() {
 			const data = JSON.parse(result);
 			busfDatList = data.m_lstBufDat;
 			shofDatList = new Map(Object.entries(data.m_MapShofDat))
-			listBustCho = prepareUriageData(3);
-			listBustNyu = prepareUriageData(1);
+			var listBusfcho = data.listBusfcho;
+			var listBusfNyu = data.listBusfNyu;
 			sessionStorage.setItem(StringCS.BUSFDATLIST, JSON.stringify(busfDatList));
 			sessionStorage.setItem(StringCS.SHOFDATLIST, JSON.stringify(Array.from(shofDatList.entries())));
-			sessionStorage.setItem(StringCS.LISTBUSTCHO, JSON.stringify(listBustCho));
-			sessionStorage.setItem(StringCS.LISTBUSTNYU, JSON.stringify(listBustNyu));
+			sessionStorage.setItem(StringCS.LISTBUSTCHO, JSON.stringify(listBusfcho));
+			sessionStorage.setItem(StringCS.LISTBUSTNYU, JSON.stringify(listBusfNyu));
+			sessionStorage.setItem(StringCS.BUSFCHOITEM, JSON.stringify(data.mBusfDat_hmcd13));
+			sessionStorage.setItem(StringCS.BUSFNYUITEM, JSON.stringify(data.mBusfDat_hmcd12));
 			setData(shofDatList, busfDatList);
 		},
-		error: function (jqXHR, exception) {
+		error: function (exception) {
 			console.log(exception);
 			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
 		},
@@ -150,26 +154,26 @@ function setData(shofDatList, busfDatList) {
 					td.appendChild(span);
 					table.appendChild(tr);
 					tr.onclick = function () {
-						// const shofdat = Object.assign({}, value[this.rowIndex]);
-						// sessionStorage.setItem(StringCS.SHOFDATITEM, JSON.stringify(shofdat));
-						// var id = (this.parentElement).parentElement.parentElement.parentElement.id;
-						// const busfDat = Object.assign({}, busfDatList[parseInt(id.substring(id.length - 1, id.length))]);
-						// sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
-						// Common.movePage('/purchase.html');
+						const shofdat = Object.assign({}, value[this.rowIndex]);
+						sessionStorage.setItem(StringCS.SHOFDATITEM, JSON.stringify(shofdat));
+						var id = (this.parentElement).parentElement.parentElement.parentElement.id;
+						const busfDat = Object.assign({}, busfDatList[parseInt(id.substring(id.length - 1, id.length))]);
+						sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
+						Common.movePage('/purchase.html');
 
-						Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
+						// Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
 					};
 				}
 			} else {
 				collapse.onclick = function () {
-					// const shofdat = Object.assign({}, value[0]);
-					// sessionStorage.setItem(StringCS.SHOFDATITEM, JSON.stringify(shofdat));
-					// var id = collapse.id;
-					// const busfDat = Object.assign({}, busfDatList[parseInt(id.substring(id.length - 1, id.length))]);
-					// sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
-					// Common.movePage('/purchase.html');
+					const shofdat = Object.assign({}, value[0]);
+					sessionStorage.setItem(StringCS.SHOFDATITEM, JSON.stringify(shofdat));
+					var id = collapse.id;
+					const busfDat = Object.assign({}, busfDatList[parseInt(id.substring(id.length - 1, id.length))]);
+					sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
+					Common.movePage('/purchase.html');
 
-					Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
+					// Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
 				};
 			}
 	
@@ -305,9 +309,9 @@ function setLayoutDefault() {
 
 
 function prepareUriageData(kind) {
-	var list;
+	var list = new Array();
 	for (var i = 0; i < busfDatList.length; i++) {
-		if (busfDatList.mKind == kind) {
+		if (busfDatList[i].mKind == kind) {
 			list.push(busfDatList[i]);
 		}
 	}
