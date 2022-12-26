@@ -472,14 +472,17 @@ function onLoadAction() {
 	// 	searchCus();
 	// 	// checkPreviousData();
 	// }
-	if (sessionStorage.getItem(StringCS.SAVINGSTATUS) != null) {
-		location.reload();
-		sessionStorage.removeItem(StringCS.SAVINGSTATUS);
-		return;
-	}
+	// if (sessionStorage.getItem(StringCS.SAVINGSTATUS) != null) {
+	// 	Common.setupModal("load", null, Mess.I00001, null, null);
+	// 	location.reload();
+	// 	sessionStorage.removeItem(StringCS.SAVINGSTATUS);
+	// 	return;
+	// }
 	if (sessionStorage.getItem(StringCS.SEARCHSTRING) != null) {
 		searchKey.value = sessionStorage.getItem(StringCS.SEARCHSTRING);
 		searchCus();
+		searchCus();
+		sessionStorage.removeItem(StringCS.SAVINGSTATUS);
 	}
 }
 

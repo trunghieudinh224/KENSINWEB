@@ -215,6 +215,12 @@ export class KokfDat {
 		this.mLoilMulti = 0;
 		/** ポイント */
 		this.mPoint = 0;
+		/** 振替:月 */
+		this.mTransMonth = 0;
+		/** 振替:日 */
+		this.mTransDate = 0;
+		/** 振替:金額 */
+		this.mTransFee = 0;
 	}
 
 	setValue(mName, mKMonth, mKDate, mGasUse, mGasKubun, mKenSumi, mNowMeter, mPreMeter, mPuseYear, mPuseMonth, mPuseDate,
@@ -223,7 +229,7 @@ export class KokfDat {
 		mTaxTisyuu, mPreBalance, mTAdjust, mTReceipt, mProcLease, mTaxLease, mProcDiv, mProcLoil, mTaxLoil, mProcEtc,
 		mTaxEtc, mProcGas, mTaxGas, mReceipt, mAdjust, mSyuSumi, mInpReceipt, mAdd_0, mAdd_1, mCusCode, mSName0,
 		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusrec, mPuseSrpDay, nGasrkcnt, mLoilUnit , mLoilAdd , mLoilMulti,
-		mPoint) {
+		mPoint, mTransMonth, mTransDate, mTransFee) {
 
 		var data = new KokfDat();
 
@@ -299,6 +305,9 @@ export class KokfDat {
 		data.mLoilAdd = mLoilAdd;
 		data.mLoilMulti = mLoilMulti;
 		data.mPoint = mPoint;
+		data.mTransMonth = mTransMonth;
+		data.mTransDate = mTransDate;
+		data.mTransFee = mTransFee;
 
 		return data
 	}
@@ -381,6 +390,9 @@ export class KokfDat {
 		data.mLoilAdd = responeData.mLoilAdd;
 		data.mLoilMulti = responeData.mLoilMulti;
 		data.mPoint = responeData.mPoint;
+		data.mTransMonth = responeData.mTransMonth;
+		data.mTransDate = responeData.mTransDate;
+		data.mTransFee = responeData.mTransFee;
 
 		return data
 	}
@@ -720,10 +732,22 @@ export class KouserDat {
 		this.m_nNextTransMonth = 0;
 		/** 次回振替予定日（日） */
 		this.m_nNextTransDay = 0;
+		/** 依頼状況 */
+		this.m_nIraiStat = 0;
+        /** 引落し予定日（月） */
+		this.m_nIraiMonth = 0;
+		/** 引落し予定日（日） */
+		this.m_nIraiDay = 0;
+		/** 依頼金額 */
+		this.m_nIraiKin = 0;
+		/** 引落し予定日（年） */
+		this.m_nIraiYear = 0;
+
 	}
 
 
-	setValue(m_nChuatu, m_nKoubetsu, mHyc5, m_sChocode, m_sNyucode, m_nNextTransYear, m_nNextTransMonth, m_nNextTransDay) {
+	setValue(m_nChuatu, m_nKoubetsu, mHyc5, m_sChocode, m_sNyucode, m_nNextTransYear, m_nNextTransMonth, m_nNextTransDay, 
+		m_nIraiStat, m_nIraiMonth, m_nIraiDay, m_nIraiKin, m_nIraiYear) {
 		var data = new KouserDat();
 
 		data.m_nChuatu = m_nChuatu;
@@ -734,6 +758,11 @@ export class KouserDat {
 		data.m_nNextTransYear = m_nNextTransYear;
 		data.m_nNextTransMonth = m_nNextTransMonth;
 		data.m_nNextTransDay = m_nNextTransDay;
+		data.m_nIraiStat = m_nIraiStat;
+		data.m_nIraiMonth = m_nIraiMonth;
+		data.m_nIraiDay = m_nIraiDay;
+		data.m_nIraiKin = m_nIraiKin;
+		data.m_nIraiYear = m_nIraiYear;
 		return data;
 	}
 
@@ -751,6 +780,12 @@ export class KouserDat {
 		data.m_nNextTransYear = responeData.m_nNextTransYear;
 		data.m_nNextTransMonth = responeData.m_nNextTransMonth;
 		data.m_nNextTransDay = responeData.m_nNextTransDay;
+		data.m_nIraiStat = responeData.m_nIraiStat;
+		data.m_nIraiMonth = responeData.m_nIraiMonth;
+		data.m_nIraiDay = responeData.m_nIraiDay;
+		data.m_nIraiKin = responeData.m_nIraiKin;
+		data.m_nIraiYear = responeData.m_nIraiYear;
+		
 		return data
 	}
 }

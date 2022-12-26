@@ -2102,7 +2102,7 @@ function createBank() {
 		const transMonthDateVal = document.getElementById("transMonthDateVal");
 		transMonthDateVal.innerHTML = wkStr;
 
-		wkStr = Other.printformat("#,###,##0", kokfDat.mTransFee);
+		wkStr = Other.formatDecial(kokfDat.mTransFee);
 		const zenkaiHikiotoshiGakuVal = document.getElementById("zenkaiHikiotoshiGakuVal");
 		zenkaiHikiotoshiGakuVal.innerHTML = wkStr;
 	} else {
@@ -2116,7 +2116,7 @@ function createBank() {
 		const iraiMonthDateVal = document.getElementById("iraiMonthDateVal");
 		iraiMonthDateVal.innerHTML = wkStr;
 
-		wkStr = Other.printformat("#,###,##0", kouserDat.m_nIraiKin);
+		wkStr = Other.formatDecial(kouserDat.m_nIraiKin);
 		const iraiKinVal = document.getElementById("iraiKinVal");
 		iraiKinVal.innerHTML = wkStr;
 	} else {
@@ -3131,7 +3131,21 @@ function onclickAction() {
 		sendImage();
 	};
 	document.getElementById("createPrintingFormButton").onclick = function () {
-		saveDataSetting();
+		// saveDataSetting();
+		document.getElementById("editView").style.display = "none";
+		document.getElementById("printView").style.display = "block";
+		var mReciept = 0;
+		var mZandaka = 0;
+		if (KensinKinyuu.displayTab[2] == true) {
+			mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
+			mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
+			getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukeninFlg);
+			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
+		} else {
+			getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukeninFlg);
+			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
+		}
+		createImageKensinForm();
 	};
 }
 
@@ -3195,8 +3209,8 @@ function saveDataSetting() {
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(KensinKinyuu.sendDataToServer()),
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
 		contentType: "application/json",
 		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
@@ -3242,7 +3256,7 @@ function saveDataSetting() {
 function onLoadAction() {
 	onclickAction();
 	if (sessionStorage.getItem(StringCS.SAVINGSTATUS) == "1") {
-		Common.setupModal("question", null, Mess.I00007, StringCS.HAI, StringCS.IIE);
+		Common.setupModal("question", null, Mess.I00007, StringCS.SHUURYOUU, null);
 		var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
 		buttonConfirm.onclick = function () {
 			Common.movePage('/search_customer.html');

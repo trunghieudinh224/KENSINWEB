@@ -97,3 +97,5 @@ export var CLOSE = "閉じる";
 export var HAI = "はい";
 // iie button
 export var IIE = "いいえ";
+// 終了
+export var SHUURYOUU = "終了";
