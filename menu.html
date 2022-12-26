@@ -53,11 +53,13 @@
 				<div class="button-area">
 					<div class="row content">
 						<div class="col-12">
-							<button type="button" class="btn btn-default text-center btn-lg" id="gyoomuButton">検針業務</button>
+							<button type="button" class="btn btn-default text-center btn-lg"
+								id="gyoomuButton">検針業務</button>
 						</div>
 
 						<div class="col-12">
-							<button type="button" class="btn btn-default text-center btn-lg" id="shuukeiButton">集計</button>
+							<button type="button" class="btn btn-default text-center btn-lg"
+								id="shuukeiButton">集計</button>
 						</div>
 
 						<div class="col-12">
@@ -66,10 +68,37 @@
 						</div>
 
 						<div class="col-12">
-							<button type="button" class="btn btn-default text-center btn-lg" id="settingButton">設定</button>
+							<button type="button" class="btn btn-default text-center btn-lg"
+								id="settingButton">設定</button>
 						</div>
 					</div>
 				</div>
+			</div>
+
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+				<!-- Modal content -->
+				<div class="modal-content">
+					<!-- Modal image area -->
+					<div class="modal-image-area background-error-modal">
+						<span class="modal-close-button">X</span>
+						<img id="imgStatusModal" class="modal-image">
+					</div>
+
+					<!-- Modal message area -->
+					<div class="modal-message">
+						<div class="modal-message-area">
+							<span class="title-modal text">題名</span>
+							<span class="modal-message-detail text">メッセージ</span>
+						</div>
+
+						<div id="buttonAreaModal">
+							<button class="button-modal btn-common button-cancel" role="button">戻る</button>
+							<button class="button-modal btn-common button-confirm" role="button">確認</button>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
 
@@ -82,20 +111,22 @@
 						<div class="row content">
 							<div class="col-12">
 								<div class="form-group input-group">
-									<button type="button" class="btn btn-default text-center" id="searchBtn1">検針顧客一覧</button>
-								</div> 
+									<button type="button" class="btn btn-default text-center"
+										id="searchBtn1">検針顧客一覧</button>
+								</div>
 							</div>
 						</div>
 
 						<div class="row content">
 							<div class="col-12">
 								<div class="form-group input-group">
-									<button type="button" class="btn btn-default text-center" id="searchBtn2">顧客検索</button>
-								</div> 
+									<button type="button" class="btn btn-default text-center"
+										id="searchBtn2">顧客検索</button>
+								</div>
 							</div>
 						</div>
 
-						
+
 					</form>
 				</div>
 			</div>

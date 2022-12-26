@@ -3131,21 +3131,7 @@ function onclickAction() {
 		sendImage();
 	};
 	document.getElementById("createPrintingFormButton").onclick = function () {
-		// saveDataSetting();
-		document.getElementById("editView").style.display = "none";
-		document.getElementById("printView").style.display = "block";
-		var mReciept = 0;
-		var mZandaka = 0;
-		if (KensinKinyuu.displayTab[2] == true) {
-			mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
-			mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
-			getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukeninFlg);
-			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
-		} else {
-			getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukeninFlg);
-			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
-		}
-		createImageKensinForm();
+		saveDataSetting();
 	};
 }
 
