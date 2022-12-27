@@ -52,7 +52,6 @@ function showDialog() {
         sessionStorage.setItem(StringCS.SEARCHMODE, "2");
         Common.movePage('/search_customer.html');
         sessionStorage.removeItem(StringCS.SEARCHSTRING);
-        Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
         overlay.style.zIndex = "-1";
     };
 }
