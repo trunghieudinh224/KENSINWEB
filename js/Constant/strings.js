@@ -77,6 +77,10 @@ export var LISTBUSTCHO = "ListBustCho";
 export var SAVINGSTATUS = "SavingStatus";
 // back to search
 export var BACKTOLIST = "BackToSearch";
+// condition data
+export var CONDITIONDATA = "ConditionData";
+// customer index
+export var CUSTOMERINDEX = "CustomerIndex";
 
 
 /*****  CONTENT  *****/
