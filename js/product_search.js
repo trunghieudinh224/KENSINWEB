@@ -64,8 +64,10 @@ function getData() {
 			"&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
 			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
 	$.ajax({
-		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
-		
+		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
+			"&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
+			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		url: str,
 		headers: {
 			'Content-Type': StringCS.PR_CONTENT_TYPE
