@@ -3175,14 +3175,6 @@ function createImageKensinForm() {
 						Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
 						clearInterval(interval);
 						modal.style.display = "none";
-
-						// if (sessionStorage.getItem(StringCS.SAVINGSTATUS) == "1") {
-						// 	Common.setupModal("question", null, Mess.I00006, StringCS.HAI, StringCS.IIE);
-						// 	var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
-						// 	buttonConfirm.onclick = function () {
-						// 		Common.movePage('/search_customer.html');
-						// 	}
-						// }
 					}, 100);
 				}
 			);
@@ -3241,6 +3233,7 @@ function saveDataSetting() {
 */
 function onLoadAction() {
 	onclickAction();
+	Common.setFocusSelectString();
 	if (sessionStorage.getItem(StringCS.SAVINGSTATUS) == "1") {
 		Common.setupModal("question", null, Mess.I00007, StringCS.SHUURYOUU, null);
 		var buttonConfirm = document.getElementsByClassName("button-confirm")[0];

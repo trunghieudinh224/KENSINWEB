@@ -32,6 +32,21 @@ var tantnameList;
 /* tantname item */
 var tantnameItem = ["kentan", "shutan", "uritan"];
 
+var conditionData = {
+	searchKind: "",
+	searchKey: "",
+	searchPart: "",
+	searchOrder: "",
+	kenstat: "",
+	shustat: "",
+	uristat: "",
+	hanku: "",
+	shuku: "",
+	kentan: "",
+	shutan: "",
+	uritan: ""
+};
+
 
 /*****  FUNCTION  *****/
 /**
@@ -88,7 +103,6 @@ function setdataCbb(dropdownName, data, itemName) {
 			}
 
 			input.setAttribute("type", "checkbox");
-
 			li.appendChild(label);
 			label.appendChild(input);
 			input.after(data[i].name.trim());
@@ -226,37 +240,25 @@ function checkPreviousData() {
    * SEARCH CUSTOMER
 */
 function searchCus() {
-	let searchKindVal = String(searchType.value);
-	let searchKeyVal = String(searchKey.value);
-	let searchPartVal = String(searchPart.value);
-	let searchOrderVal = String(searchOrder.value);
-
-	let kenstat = getValueRadio("kenstat_radio");
-	let shustat = getValueRadio("shustat_radio");
-	let uristat = getValueRadio("uristat_radio");
-
-	let hanku = getValueCheckbox("hanku", hankuList);
-	let shuku = getValueCheckbox("shuku", shukuList);
-	let kentan = getValueCheckbox("kentan", tantnameList);
-	let shutan = getValueCheckbox("shutan", tantnameList);
-	let uritan = getValueCheckbox("uritan", tantnameList);
+	setConditionData();
+	sessionStorage.setItem(StringCS.SEARCHSTRING, searchKey.value.trim());
 
 	Common.setupModal("load", null, Mess.I00001, null, null);
 	$.ajax({
 		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-			"&srch_kind=" + searchKindVal +
-			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +
-			"&match_kind=" + searchPartVal +
-			"&kenstat=" + kenstat +
-			"&shustat=" + shustat +
-			"&uristat=" + uristat +
-			(hanku != "" ? "&hanku=" + hanku : "") +
-			(kentan != "" ? "&kentan=" + kentan : "") +
-			(shutan != "" ? "&shutan=" + shutan : "") +
-			(uritan != "" ? "&uritan=" + uritan : "") +
-			(shuku != "" ? "&shuku=" + shuku : "") +
-			"&order_kind=" + searchOrderVal +
+			// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+			"&srch_kind=" + conditionData.searchKind +
+			(conditionData.searchKey != "" ? "&srch_string=" + conditionData.searchKey : "") +
+			"&match_kind=" + conditionData.searchPart +
+			"&kenstat=" + conditionData.kenstat +
+			"&shustat=" + conditionData.shustat +
+			"&uristat=" + conditionData.uristat +
+			(conditionData.hanku != "" ? "&hanku=" + conditionData.hanku : "") +
+			(conditionData.kentan != "" ? "&kentan=" + conditionData.kentan : "") +
+			(conditionData.shutan != "" ? "&shutan=" + conditionData.shutan : "") +
+			(conditionData.uritan != "" ? "&uritan=" + conditionData.uritan : "") +
+			(conditionData.shuku != "" ? "&shuku=" + conditionData.shuku : "") +
+			"&order_kind=" + conditionData.searchOrder +
 			"&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
 			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		headers: {
@@ -292,6 +294,7 @@ function searchCus() {
 						table.appendChild(newElement);
 						newElement.onclick = function () {
 							var object = data.cuslist[this.rowIndex];
+							sessionStorage.setItem(StringCS.CUSTOMERINDEX, this.rowIndex);
 							object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 							if (object.kenstat == 1) {
 								Common.setupModal("question", null, Mess.I00006, StringCS.HAI, StringCS.IIE);
@@ -316,6 +319,12 @@ function searchCus() {
 						document.getElementById("data-messages").style.display = "none";
 						document.getElementById("countList").innerHTML = "検索件数：" + table.childElementCount + "件";
 						document.getElementById("countList").style.display = "block";
+						if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) != null) {
+							scrollToItemList(parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)));
+						} else {
+							scrollToItemList(0);
+						}
+						
 					} else {
 						document.getElementsByClassName("table-container")[0].style.display = "none";
 						document.getElementById("countList").style.display = "none";
@@ -349,33 +358,24 @@ function searchCus() {
    * ACCESS FIRST CUSTOMER
 */
 function firstCustomerAction() {
-	let searchKindVal = String(searchType.value);
-	let searchKeyVal = String(searchKey.value);
-	let searchPartVal = String(searchPart.value);
-	let searchOrderVal = String(searchOrder.value);
-
-	let hanku = getValueCheckbox("hanku", hankuList);
-	let shuku = getValueCheckbox("shuku", shukuList);
-	let kentan = getValueCheckbox("kentan", tantnameList);
-	let shutan = getValueCheckbox("shutan", tantnameList);
-	let uritan = getValueCheckbox("uritan", tantnameList);
+	setConditionData();
 
 	Common.setupModal("load", null, Mess.I00001, null, null);
 	$.ajax({
 		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-			"&srch_kind=" + searchKindVal +
-			(searchKeyVal != "" ? "&srch_string=" + searchKeyVal : "") +
-			"&match_kind=" + searchPartVal +
+			// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+			"&srch_kind=" + conditionData.searchKind +
+			(conditionData.searchKey != "" ? "&srch_string=" + conditionData.searchKey : "") +
+			"&match_kind=" + conditionData.searchPart +
 			"&kenstat=2" +
 			"&shustat=0" +
 			"&uristat=0" +
-			(hanku != "" ? "&hanku=" + hanku : "") +
-			(kentan != "" ? "&kentan=" + kentan : "") +
-			(shutan != "" ? "&shutan=" + shutan : "") +
-			(uritan != "" ? "&uritan=" + uritan : "") +
-			(shuku != "" ? "&shuku=" + shuku : "") +
-			"&order_kind=" + searchOrderVal +
+			(conditionData.hanku != "" ? "&hanku=" + conditionData.hanku : "") +
+			(conditionData.kentan != "" ? "&kentan=" + conditionData.kentan : "") +
+			(conditionData.shutan != "" ? "&shutan=" + conditionData.shutan : "") +
+			(conditionData.uritan != "" ? "&uritan=" + conditionData.uritan : "") +
+			(conditionData.shuku != "" ? "&shuku=" + conditionData.shuku : "") +
+			"&order_kind=" + conditionData.searchOrder +
 			"&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
 			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		headers: {
@@ -412,10 +412,112 @@ function firstCustomerAction() {
 }
 
 
+/**
+   * SET MAXLENGTH INPUT WHEN CHANGE TYPE
+*/
 function selectChange() {
 	searchType.onchange = function () {
 		setMaxLengthInput();
 	};
+}
+
+
+/**
+   * SET CONDITION DATA
+*/
+function setConditionData() {
+	let searchKindVal = String(searchType.value);
+	let searchKeyVal = String(searchKey.value);
+	let searchPartVal = String(searchPart.value);
+	let searchOrderVal = String(searchOrder.value);
+
+	let kenstat = getValueRadio("kenstat_radio");
+	let shustat = getValueRadio("shustat_radio");
+	let uristat = getValueRadio("uristat_radio");
+
+	let hanku = getValueCheckbox("hanku", hankuList);
+	let shuku = getValueCheckbox("shuku", shukuList);
+	let kentan = getValueCheckbox("kentan", tantnameList);
+	let shutan = getValueCheckbox("shutan", tantnameList);
+	let uritan = getValueCheckbox("uritan", tantnameList);
+
+	conditionData.searchKind = searchKindVal;
+	conditionData.searchOrder = searchOrderVal;
+	conditionData.searchKey = searchKeyVal;
+	conditionData.searchPart = searchPartVal;
+
+	conditionData.kenstat = kenstat;
+	conditionData.shustat = shustat;
+	conditionData.uristat = uristat;
+
+	conditionData.hanku = hanku;
+	conditionData.shuku = shuku;
+	conditionData.kentan = kentan;
+	conditionData.shutan = shutan;
+	conditionData.uritan = uritan;
+
+	sessionStorage.setItem(StringCS.CONDITIONDATA, JSON.stringify(conditionData));
+}
+
+
+/**
+   * GET CONDITION DATA
+*/
+function getConditionData() {
+	if (JSON.parse(sessionStorage.getItem(StringCS.CONDITIONDATA)) != null) {
+		conditionData = JSON.parse(sessionStorage.getItem(StringCS.CONDITIONDATA));
+
+		searchType.selectedIndex = conditionData.searchType;
+		searchKey.selectedIndex = conditionData.searchKey;
+		searchPart.selectedIndex = conditionData.searchPart;
+		searchOrder.selectedIndex = conditionData.searchOrder;
+
+		var list1 = [
+			document.getElementsByName("kenstat_radio"),
+			document.getElementsByName("shustat_radio"),
+			document.getElementsByName("uristat_radio")
+		]
+
+		var list2 = [conditionData.kenstat, conditionData.shustat, conditionData.uristat];
+		for (var i  = 0; i < list1.length; i++) {
+			for (var idx = 0; idx < list1[i].length; idx++) {
+				if (parseInt((list1[i])[idx].value) == parseInt(list2[i])) {
+					(list1[i])[idx].checked = true;
+				}
+			}
+		}
+
+		var list3 = [
+			document.getElementsByClassName("hanku"),
+			document.getElementsByClassName("shuku"),
+			document.getElementsByClassName("kentan"),
+			document.getElementsByClassName("shutan"),
+			document.getElementsByClassName("uritan")
+		]
+		var list4 = [conditionData.hanku, conditionData.shuku, conditionData.kentan, conditionData.shutan, conditionData.uritan];
+		for (var i  = 0; i < list3.length; i++) {
+			for (var idx = 0; idx < list3[i].length; idx++) {
+				var item = list4[i].split(",");
+				for (var j = 0; j < item.length; j++) {
+					if (idx == parseInt(item[j])) {
+						(list3[i])[idx].checked = true;
+					}
+				}				
+			}
+		}
+	}
+}
+
+
+
+function scrollToItemList(idx) {
+	var rows = table.querySelectorAll('tr');
+    rows[idx].scrollIntoView({
+    	behavior: 'smooth',
+      	block: 'center'
+    });
+
+	rows[idx].scrollIntoView(true);
 }
 
 
@@ -444,7 +546,10 @@ function onChangeAction() {
 */
 function onclickAction() {
 	document.getElementById("backPageButton").onclick = Common.backAction;
-	document.getElementById("kensakuButton").onclick = searchCus;
+	document.getElementById("kensakuButton").onclick = function() {
+		sessionStorage.setItem(StringCS.CUSTOMERINDEX, 0);
+		searchCus();
+	}
 	document.getElementById("firstCustomerButton").onclick = firstCustomerAction;
 }
 
@@ -460,24 +565,9 @@ function onLoadAction() {
 	selectChange();
 	onclickAction();
 	onChangeAction();
-
+	Common.setFocusSelectString();
+	getConditionData();
 	
-	// if (sessionStorage.getItem(StringCS.SAVINGSTATUS) == "1") {
-	// 	searchCus();
-	// 	if (sessionStorage.getItem(StringCS.SAVINGSTATUS) != null) {
-	// 		location.reload();
-	// 		sessionStorage.removeItem(StringCS.SAVINGSTATUS);
-	// 	}
-	// } else {
-	// 	searchCus();
-	// 	// checkPreviousData();
-	// }
-	// if (sessionStorage.getItem(StringCS.SAVINGSTATUS) != null) {
-	// 	Common.setupModal("load", null, Mess.I00001, null, null);
-	// 	location.reload();
-	// 	sessionStorage.removeItem(StringCS.SAVINGSTATUS);
-	// 	return;
-	// }
 	if (sessionStorage.getItem(StringCS.SEARCHSTRING) != null) {
 		searchKey.value = sessionStorage.getItem(StringCS.SEARCHSTRING);
 		searchCus();
