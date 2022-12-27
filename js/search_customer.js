@@ -565,7 +565,6 @@ function onLoadAction() {
 	selectChange();
 	onclickAction();
 	onChangeAction();
-	Common.setFocusSelectString();
 	getConditionData();
 	
 	if (sessionStorage.getItem(StringCS.SEARCHSTRING) != null) {
