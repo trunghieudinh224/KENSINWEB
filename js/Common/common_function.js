@@ -178,6 +178,20 @@ function checkPrintable() {
     }
 }
 
+
+/**
+   * SET FOCUS SELECT STRING
+*/
+function setFocusSelectString() {
+	var inputs = document.getElementsByClassName('t-ip');
+	for (var index = 0; index < inputs.length; index++) {
+		inputs[index].onclick = function() {
+			this.setSelectionRange(0, this.value.length)
+		}
+	}
+}
+
+
 // function detectBrowser() {
 // 	let userAgent = navigator.userAgent;
 // 	let browserName;
@@ -193,4 +207,4 @@ function checkPrintable() {
 // 	alert(browserName);
 // }
 
-export {backAction, setupModal, movePage, changePage, checkDevice, setBackgroundDialogScreen, checkPrintable}
+export {backAction, setupModal, movePage, changePage, checkDevice, setBackgroundDialogScreen, checkPrintable, setFocusSelectString}
