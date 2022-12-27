@@ -22,6 +22,8 @@ function clearDataSearch() {
     if (page != "search_customer" && page != "customer" && page != "meter_reading_fillout" && page != "product_search" && page != "purchase") {
         sessionStorage.removeItem(StringCS.CUSTLIST);
         sessionStorage.removeItem(StringCS.SEARCHSTRING);
+        sessionStorage.removeItem(StringCS.CONDITIONDATA);
+        sessionStorage.removeItem(StringCS.CUSTOMERINDEX);
     }
 }
 
