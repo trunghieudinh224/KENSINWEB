@@ -115,6 +115,7 @@ function prepareNewDataSetting() {
 		prnt_mode: print_mode,
 		comment1: comment1,
 		comment2: comment2,
+		m_lstTantName: dataSetting.m_lstTantName,
 		m_lstComment: dataSetting.m_lstComment,
 		m_nMode: dataSetting.wrt_tancd > 0 ? 1 : 0,
 		login_id: sessionStorage.getItem(StringCS.USERNAME),

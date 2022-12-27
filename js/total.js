@@ -737,12 +737,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
     document.getElementById("insatsuBiNP").innerHTML = time;
 
     var tantname = "";
-    for (var i = 0; i < dataSetting.m_lstTantName.length; i++) {
-        if (dataSetting.m_lstTantName[i].code == dataSetting.tancd) {
-            tantname = dataSetting.m_lstTantName[i].name;
-            break;
-        }
-    }
+    tantname = Other.cutStringSpace(dataSetting.m_lstTantName[0].name);
     // 担当
     document.getElementById("tantNameNP").innerHTML = tantname;
 
