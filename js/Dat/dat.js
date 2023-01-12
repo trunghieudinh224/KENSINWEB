@@ -221,6 +221,16 @@ export class KokfDat {
 		this.mTransDate = 0;
 		/** 振替:金額 */
 		this.mTransFee = 0;
+		/** 締後：ガス売上 */
+		this.mGUri2 = 0;
+		/** 締後：その他売上 */
+		this.mUri2 = 0;
+		/** 締後：その他消費税 */
+		this.mTax2 = 0;
+		/** 締後：入金額 */
+		this.mNyu2 = 0;
+		/** 締後：調整額 */
+		this.mCho2 = 0;
 	}
 
 	setValue(mName, mKMonth, mKDate, mGasUse, mGasKubun, mKenSumi, mNowMeter, mPreMeter, mPuseYear, mPuseMonth, mPuseDate,
@@ -229,7 +239,7 @@ export class KokfDat {
 		mTaxTisyuu, mPreBalance, mTAdjust, mTReceipt, mProcLease, mTaxLease, mProcDiv, mProcLoil, mTaxLoil, mProcEtc,
 		mTaxEtc, mProcGas, mTaxGas, mReceipt, mAdjust, mSyuSumi, mInpReceipt, mAdd_0, mAdd_1, mCusCode, mSName0,
 		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusrec, mPuseSrpDay, nGasrkcnt, mLoilUnit , mLoilAdd , mLoilMulti,
-		mPoint, mTransMonth, mTransDate, mTransFee) {
+		mPoint, mTransMonth, mTransDate, mTransFee, mGUri2, mUri2, mTax2, mNyu2, mCho2) {
 
 		var data = new KokfDat();
 
@@ -308,6 +318,11 @@ export class KokfDat {
 		data.mTransMonth = mTransMonth;
 		data.mTransDate = mTransDate;
 		data.mTransFee = mTransFee;
+		data.mGUri2 = mGUri2;
+		data.mUri2 = mUri2;
+		data.mTax2 = mTax2;
+		data.mNyu2 = mNyu2;
+		data.mCho2 = mCho2;
 
 		return data
 	}
@@ -393,6 +408,11 @@ export class KokfDat {
 		data.mTransMonth = responeData.mTransMonth;
 		data.mTransDate = responeData.mTransDate;
 		data.mTransFee = responeData.mTransFee;
+		data.mGUri2 = responeData.mGUri2;
+		data.mUri2 = responeData.mUri2;
+		data.mTax2 = responeData.mTax2;
+		data.mNyu2 = responeData.mNyu2;
+		data.mCho2 = responeData.mCho2;
 
 		return data
 	}
@@ -1049,10 +1069,12 @@ export class HmefDat {
 		this.mHbnmPrn = 0;
 		/** 品番名称 (半角24文字) */
 		this.mHbName = "";
+		/** 伝票日付(年) */
+		this.mDeny = 0;
 	}
 
 	setValue(mUsef, mHmeKind, mLeasKind, mKin, mTax, mHmCode, mTaxKu, mTaxR, mHbCode, mDenm,
-		mDend, mHmName, mSuryo, mTanka, mKeigenKubun, mHbnmPrn, mHbName) {
+		mDend, mHmName, mSuryo, mTanka, mKeigenKubun, mHbnmPrn, mHbName, mDeny) {
 		var data = new HmefDat();
 
 		data.mUsef = mUsef;
@@ -1072,6 +1094,7 @@ export class HmefDat {
 		data.mKeigenKubun = mKeigenKubun;
 		data.mHbnmPrn = mHbnmPrn;
 		data.mHbName = mHbName;
+		data.mDeny = mDeny;
 		return data;
 	}
 
@@ -1098,6 +1121,7 @@ export class HmefDat {
 		data.mKeigenKubun = responeData.mKeigenKubun;
 		data.mHbnmPrn = responeData.mHbnmPrn;
 		data.mHbName = responeData.mHbName;
+		data.mDeny = responeData.mDeny;
 		return data
 	}
 }
