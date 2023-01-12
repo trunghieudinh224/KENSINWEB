@@ -21,7 +21,8 @@
 	<link rel="stylesheet" type="text/css" href="css/modal.css" />
     <link rel="stylesheet" type="text/css" href="css/meter_reading_fillout.css">
     <link rel="stylesheet" type="text/css" href="css/print_common.css">
-    <link rel="stylesheet" type="text/css" href="css/kinyuu-print.css">
+    <link rel="stylesheet" type="text/css" href="css/kensin_print.css">
+    <link rel="stylesheet" type="text/css" href="css/nyuukin_print.css">
 </head>
 
 <body>
@@ -1067,9 +1068,9 @@
                                             <div class="row">
                                                 <div class="col-6 text-print ta-l fw-b konkaiSeikyuuGaku-text wsp-text item">今回請求額</div>
                                                 <div class="col-6 mg-a">
-                                                    <div class="text-print ta-r fw-b wsp-text item valLine"
+                                                    <div class="text-print ta-r fw-b wsp-text item valLine kk-val"
                                                         id="konkaiSeikyuuGakuVal">0</div>
-                                                    <div class="text-print ta-r fw-b wsp-text item unitLine">円</div>
+                                                    <div class="text-print ta-r fw-b wsp-text item unitLine kk-val">円</div>
                                                 </div>
                                             </div>
     
@@ -1701,6 +1702,228 @@
     
                                 <div class="end-space"></div>
                             </div>
+
+
+                            <div id="nyuukinForm">
+                                <div id="titleArea_NK">
+                                    <span class="col-12 title-printView wsp-title ta-c titlePrintView" id="titlePrintView_NK">領 収 書</span>
+                                </div>
+    
+    
+                                <div id="cusInfoArea_NK">
+                                    <div class="text-print ta-l wsp-text sg-line">
+                                        <span class="text-print item" id="hakkooBiKenshinBiTitle_NK"></span>
+                                        <span class="text-print item" id="hakkooBiKenshinBi_NK"></span>
+                                    </div>
+    
+                                    <div class="frames-common bd-3">
+                                        <div class="text-print ta-l wsp-text sg-line">コード:
+                                            <span class="text-print item" id="codeVal_NK"></span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-9 text-print ta-l wsp-text item" id="nameVal_NK"></div>
+                                            <div class="col-3 text-print ta-r wsp-text item" id="kNameVal_NK">様</div>
+                                        </div>
+                                        <div class="text-print ta-l wsp-text sg-line" id="address0Val_NK"></div>
+                                        <div class="text-print ta-l wsp-text sg-line" id="address1Val_NK"></div>
+                                    </div>
+                                </div>
+
+                                <div id="RyoSyuInfo_NK">
+                                    <div class="frames-common bd-1">
+                                        <div class="row" id="konkaiSeikyuGakuArea_NK">
+                                            <div class="col-6 text-print ta-l wsp-text item">今回請求額</div>
+                                            <div class="col-6">
+                                                <div class="text-print ta-r wsp-text item valLine" id="konkaiSeikyuGakuVal_NK">0</div>
+                                                <div class="text-print ta-r wsp-text item unitLine">円</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" id="choTitleArea_NK">
+                                            <div class="col-6 text-print ta-l wsp-text item" id="choTitleText_NK"></div>
+                                            <div class="col-6">
+                                                <div class="text-print ta-r wsp-text item valLine" id="choTitleVal_NK">0</div>
+                                                <div class="text-print ta-r wsp-text item unitLine">円</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-6 text-print ta-l wsp-text item" id="isJustText"></div>
+                                            <div class="col-6">
+                                                <div class="text-print ta-r wsp-text item valLine" id="isJustVal">0</div>
+                                                <div class="text-print ta-r wsp-text item unitLine">円</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" id="otsuriArea_NK">
+                                            <div class="col-6 text-print ta-l wsp-text item">おつり</div>
+                                            <div class="col-6">
+                                                <div class="text-print ta-r wsp-text item valLine" id="otsuriVal_NK">0</div>
+                                                <div class="text-print ta-r wsp-text item unitLine">円</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="frames-common bd-3 mt--1" id="sashihikiZandakaArea_NK">
+                                        <div class="row">
+                                            <div class="col-6 text-print ta-l wsp-text item">差引残高</div>
+                                            <div class="col-6">
+                                                <div class="text-print ta-r wsp-text item valLine" id="sashihikiZandakaVal_NK">0</div>
+                                                <div class="text-print ta-r wsp-text item unitLine">円</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="uTaxCommentArea_NK">
+                                    <div class="frames-common bd-3 mt--3">
+                                        <div class="row" id="uTaxComment1Area_NK">
+                                            <div class="col-12 text-print ta-l wsp-text item">
+                                                ガス売上には
+                                                <span class="text-print item" id="gUchiZeiVal_NK"></span>
+                                                <span class="text-print item" id="gUchiZeiText_NK">円の消費税が含まれます。</span>
+                                            </div>
+                                        </div>
+    
+                                        <div class="row" id="uTaxComment2Area_NK">
+                                            <div class="col-12 text-print ta-l wsp-text item">
+                                                <span class="text-print item" id="taUriage-uriageText_NK">他売上には</span>
+                                                <span class="text-print item" id="taUriage-uriageVal_NK"></span>
+                                                円の消費税が含まれます。
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div id="hmInfoArea_NK">
+                                    <div class="row" id="hmInfoHeader_NK">
+                                        <div class="col-12 text-print ta-l wsp-text item">
+                                            <<売上明細>>
+                                        </div>
+                                    </div>
+    
+                                    <table id="hmInfoTable_NK">
+                                        <tr class="hmInfoHeader" id="hmInfoHeaderText_NK">
+                                            <td class="text-print ta-c item hmw-16">月日</td>
+                                            <td class="text-print ta-c item hmw-20 hinmoku-nk">品 目</td>
+                                            <td class="text-print ta-c item hmw-20">数 量</td>
+                                            <td class="text-print ta-c item hmw-20 tanka-nk">単 価</td>
+                                            <td class="text-print ta-c item hmw-24">金 額</td>
+                                        </tr>
+    
+                                        <!-- <div id="hmInfoTableItem_NK">
+                                            <tr>         
+                                                <td class="text-print ta-c w-16 hmInfoTable-item">20/10</td>
+                                                <td class="text-print ta-l w-20 hmInfoTable-item">
+                                                    <span class="text-print ta-l w100 hmInfoTable-item">HmName</span>
+                                                    <span class="text-print ta-l w100 hmInfoTable-item">HbName</span>
+                                                </td>
+                                                <td class="text-print ta-r w-20 hmInfoTable-item">22.04</td>
+                                                <td class="text-print ta-r w-20 hmInfoTable-item">20</td>
+                                                <td class="text-print ta-r w-24 hmInfoTable-item">1,023</td>
+                                            </tr>
+                                        </div> -->
+    
+                                        <tr class="hmInfoHeader" id="hmInfoTotal_NK">
+                                            <td class="text-print ta-c w-16 hmInfoTable-item">
+                                            </td>
+                                            <td class="text-print ta-l w-20 hmInfoTable-item">
+                                                消費税</td>
+                                            <td class="text-print ta-c w-20 hmInfoTable-item">
+                                            </td>
+                                            <td class="text-print ta-c w-20 hmInfoTable-item">
+                                            </td>
+                                            <td class="text-print ta-r w-24 hmInfoTable-item" id="nTaxVal_NK">
+                                                0</td>
+                                        </tr>
+                                    </table>
+    
+                                    <div class="frames-common bd-1 mt--1" id="infoTaxArea_NK">
+                                        <div class="row">
+                                            <div class="col-7 text-print ta-l wsp-text item" id="hmefTaxKeigenTotalVal_NK">
+                                                hmefTaxKeigenTotal</div>
+                                            <div class="col-5 text-print ta-r wsp-text item valLine" id="hmefKinVal_NK">()
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-7 text-print ta-l wsp-text item" id="hmefTaxKeigenTaxVal_NK">
+                                                hmefTaxKeigenTax</div>
+                                            <div class="col-5 text-print ta-r wsp-text item valLine" id="hmefTaXVal_NK">()
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                </div>
+
+                                
+                                <div id="ryoshuArea_NK">
+                                    <div class="row">
+                                        <div class="col-8 text-print ta-l wsp-text" id="ryoshuDetail_NK">
+                                            <span class="text-print ta-l fw-b wsp-text ryooshuu-text ryooshuuKingaku">領収金額</span>
+                                            <span class="text-print ta-l fw-b wsp-text ryooshuu-text ryooshuuKingaku" id="ryooshuuKingakuVal_NK">0円</span>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="bd-3 text-print ta-c wsp-text item">
+                                                領 収 印
+                                            </div>
+    
+                                            <div class="bd-3 ta-c" id="ryooOsamuShirushiArea_NK">
+    
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="row" id="ryoshuText_NK">
+                                        <div class="col-12 text-print ta-l wsp-text item">上記の通り領収致しました。有難うございました。</div>
+                                    </div>
+                                </div>
+
+                                <div class="frames-common bd-1" id="commentArea_NK">
+                                    <div class="row" id="commentDetailArea_NK">
+                                    </div>
+                                </div>
+
+                                <div id="userInfoArea_NK">
+                                    <div class="frames-common bd-3" id="addArea_NK">
+                                        <div class="row">
+                                            <div class="col-12 text-print ta-l wsp-text item" id="mNameVal_NK">mNameVal</div>
+                                            <div class="col-12 text-print ta-l wsp-text item" id="add1Val_NK">Add 1</div>
+                                            <div class="col-12 text-print ta-l wsp-text item" id="add2Val_NK">Add 2</div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="frames-common bd-3 mt--3" id="addArea_NK">
+                                        <div class="row">
+                                            <div class="col-2 text-print ta-l wsp-text item">TEL</div>
+                                            <div class="col-4 text-print ta-l wsp-text item" id="telVal_NK">0902622737</div>
+                                            <div class="col-6 text-print ta-l wsp-text item">(担当)</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-2 text-print ta-l wsp-text item">FAX</div>
+                                            <div class="col-4 text-print ta-l wsp-text item" id="faxVal_NK">12333</div>
+                                            <div class="col-6 text-print ta-l wsp-text item" id="tantnameFaxVal_NK">Tantname
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="frames-common bd-3 mt--3" id="bkInfoArea_NK">
+                                        <div class="row">
+                                            <div class="col-12 text-print ta-l wsp-text item" id="bkname0&Shiten0_NK">
+                                                mBkname_0/mBkshiten_0</div>
+                                            <div class="col-12 text-print ta-l wsp-text item" id="bkKubun0&Ban0_NK">
+                                                mBkkubun_0/mBkban_0</div>
+                                            <div class="col-12 text-print ta-l wsp-text item" id="bkname1&Shiten1_NK">
+                                                mBkname_1/mBkshiten_1</div>
+                                            <div class="col-12 text-print ta-l wsp-text item" id="bkKubun1&Ban1_NK">
+                                                mBkkubun_1/mBkban_1</div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="end-space"></div>
+    
+                            </div>
                         </div>
                     </div>
 
@@ -1879,8 +2102,8 @@
     <script type="module" src="js/meter_reading_fillout.js"></script>
     <script type="module" src="js/hoan_kinnyuu.js"></script>
     <script type="module" src="js/kensin_kinnyuu.js"></script>
-    <script type="module" src="js/kinyuu-print.js"></script>
-    <!-- <script type="module" src="js/Common/collapse.js"></script> -->
+    <script type="module" src="js/kensin_print.js"></script>
+    <script type="module" src="js/nyuukin_print.js"></script>
 
 </body>
 
