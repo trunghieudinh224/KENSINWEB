@@ -1354,7 +1354,7 @@ function calcGasKangen(kokfDat, gasfDat, sysfDat, sy2fDat, kouserDat) {
 	}
 	var shofDat;
 	try {
-		shofDat = sysfDat.mShofDatKangen;
+		shofDat = sysfDat.mShofDatKangen;		//Hieu
 	} catch (ex) {
 		console.log("取引区分ファイルの読込みに失敗: " + ex);
 	}
