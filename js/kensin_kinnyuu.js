@@ -44,25 +44,16 @@ const nyuukinGroup = document.querySelector("#nyuukin-group");
 const teiseiNyuukin = document.querySelector("#teisei-nyuukin");
 const Sashihiki_zandaka = document.querySelector("#Sashihiki_zandaka");
 const teiseiSumi = document.querySelector("#teisei-sumi");
+const saveButton = document.getElementById("createPrintingFormButton");
 
+/** ユーザー情報 */ 
+var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
+mUserData.mKokfDat.mKtpcdat = new Dat.KtpcDat();
+mUserData.mGasfDat.mGextDat = new Dat.GextDat();
 
+/** tab display status */
 var displayTab = [true, true, true];
-const mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
-var mKokfDat = new Dat.KokfDat().parseData(mUserData.mKokfDat)
-mKokfDat.mKtpcdat = new Dat.KtpcDat();
-var sy2fDat = new Dat.Sy2fDat().parseData(mUserData.mSy2fDat)
-var sysfDat = new Dat.SysfDat().parseData(mUserData.mSysfDat)
-var kouserDat = new Dat.KouserDat().parseData(mUserData.mKouserDat)
-
-
-var ko2fDat = new Dat.Ko2fDat().parseData(mUserData.mKo2fDat);
-var mBusfDat_kang = new Dat.BusfDat().parseData(mUserData.mBusfDat_kang)
-var mBusfDat_hmcd13 = new Dat.BusfDat().parseData(mUserData.mBusfDat_hmcd13)
-
-var hanfDat = new Dat.HanfDat().parseData(mUserData.mHanfDat);
-var gasfDat = new Dat.GasfDat().parseData(mUserData.mGasfDat)
-gasfDat.mGextDat = new Dat.GextDat();
-
+/** kensin date */
 var kensin_date = new Date(mUserData.mKensinDate);
 /** ガス使用量 */
 var m_nGasuse = 0;
@@ -70,12 +61,19 @@ var m_nGasuse = 0;
 var mDays = 0;
 /** 合計金額 */
 var mTotal = 0;
-
+/** nyuukin */
+let nyuukin = 0;
+/** 訂正フラグ */
+var mTeiseiFlg = false;
+/** teisei nyuukin pre value */
+var teiseiNyuukinPre = "0";
+/** mode page */
+var modePage = sessionStorage.getItem(StringCS.KINYUUMODE);
 /** 顧客値引きデータ */
-var m_lstKnebDat = new Array();
+mUserData.m_lstKnebDat = new Array();
 var knebDat = new Dat.KnebDat();
 var kneb = knebDat.setValue( 1 , 0 , 0 , 0 , 0 , 1002 , 0 , 0 , 0 , 0 , 0 , 0 )
-m_lstKnebDat.push(kneb);
+mUserData.m_lstKnebDat.push(kneb);
 for (let i = 2; i < 17; i++) {
 	var pos = i;
 	if(i > 7 && i <= 10){
@@ -84,37 +82,25 @@ for (let i = 2; i < 17; i++) {
 		pos = 0;
 	}
 	kneb = knebDat.setValue(pos,0,0,0,0,0,0,0,0,0,0,0)
-	m_lstKnebDat.push(kneb);
+	mUserData.m_lstKnebDat.push(kneb);
 }
-mUserData.m_lstKnebDat = m_lstKnebDat;
-
-
-
-
 // var lstLeasHmefDat = mUserData.getLeasHmefDat();
 var lstLeasHmefDat = new Array();
-// var bdChosei = InputDat.getBusfDat(this, kouserDat.m_sChocode,  0);
-// var bdNyukin = InputDat.getBusfDat(this, kouserDat.m_sNyucode, 0);
+// var bdChosei = InputDat.getBusfDat(this, mUserData.mKouserDat.m_sChocode,  0);
+// var bdNyukin = InputDat.getBusfDat(this, mUserData.mKouserDat.m_sNyucode, 0);
 var bdChosei = new Dat.BusfDat().setValue(true, 2, "調整", 1, 3)
 var bdNyukin = new Dat.BusfDat().setValue(true, 2, "調整", 1, 3)
 
 
-/** 訂正フラグ */
-var mTeiseiFlg = false;
-
-var teiseiNyuukinPre = "0";
-
-var mode = sessionStorage.getItem(StringCS.KINYUUMODE);
-
 
 function setupCollapseTab() {
-    // if (sysfDat.mCheckHoan && (mKokfDat.mGasKubun != 2 || sysfDat.mTenkenKgas == 1)) {
+    // if (mUserData.mSysfDat.mCheckHoan && (mKokfDat.mGasKubun != 2 || mUserData.mSysfDat.mTenkenKgas == 1)) {
     //     document.getElementById("card2").style.pointerEvents = "auto";
     // } else {
     //     document.getElementById("card2").style.pointerEvents = "none";
     // }
     
-    if ((sysfDat.mIfMoney && mKokfDat.mSupplyForm != 2) == false) {
+    if ((mUserData.mSysfDat.mIfMoney && mUserData.mKokfDat.mSupplyForm != 2) == false) {
 		$('.collapseOne').collapse();
         document.getElementById("card3").remove();
         displayTab[2] = false;
@@ -125,7 +111,7 @@ function setupCollapseTab() {
         onclickAction();
     }
 
-	if (mode == 3) {
+	if (modePage == 3) {
         displayTab[0] = false;
         displayTab[1] = false;
         document.getElementById("card1").remove();
@@ -155,7 +141,7 @@ function setdataNiukinLayout() {
  */
 function setCusInfo() {
     // 顧客名
-    mTxtNameUser.innerHTML = Other.getClearString(mKokfDat.mName);
+    mTxtNameUser.innerHTML = Other.getClearString(mUserData.mKokfDat.mName);
     // 検針日付
 
     mTxtDate.innerHTML = Other.MonthDayFormat(
@@ -163,40 +149,40 @@ function setCusInfo() {
         kensin_date.getDate(),
         false
     );
-    m_nGasuse = mKokfDat.mGasUse;
+    m_nGasuse = mUserData.mKokfDat.mGasUse;
 
-    if (mKokfDat.mKenSumi) {
+    if (mUserData.mKokfDat.mKenSumi) {
         // 検針済みの場合
         mTxtCmt.innerHTML = "検針済みです。";
-        mTxtNowMeter.value = Other.Format(mKokfDat.mNowMeter, 1);
-		mTxtPreMeter.innerHTML = Other.Format(mKokfDat.mPreMeter, 1);
-        if (mKokfDat.mGasDiv != 0 && gasfDat.mTaxDiv == 3) {
-			mTxtGasTax.innerHTML = Other.KingakuFormat(mKokfDat.mConTax);
+        mTxtNowMeter.value = Other.Format(mUserData.mKokfDat.mNowMeter, 1);
+		mTxtPreMeter.innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
+        if (mUserData.mKokfDat.mGasDiv != 0 && mUserData.mGasfDat.mTaxDiv == 3) {
+			mTxtGasTax.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mConTax);
         } else {
             mTxtGasTax.innerHTML = "***";
         }
         mTxtNowUse.innerHTML = Other.Format(
-            GasRaterCom.getGasSuryo(mKokfDat.mGasUse, sy2fDat, kouserDat),
+            GasRaterCom.getGasSuryo(mUserData.mKokfDat.mGasUse, mUserData.mSy2fDat, mUserData.mKouserDat),
             1
         );
         var strPreUseTitle;
         var strPreUseValue;
-        if (mKokfDat.mBetwMeter > 0) {
+        if (mUserData.mKokfDat.mBetwMeter > 0) {
             strPreUseTitle = "前回/中間";
             strPreUseValue =
                 Other.Format(
-                    GasRaterCom.getGasSuryo(mKokfDat.mPreUse, sy2fDat, kouserDat),
+                    GasRaterCom.getGasSuryo(mUserData.mKokfDat.mPreUse, mUserData.mSy2fDat, mUserData.mKouserDat),
                     1
                 ) +
                 " / " +
                 Other.Format(
-                    GasRaterCom.getGasSuryo(mKokfDat.mBetwMeter, sy2fDat, kouserDat),
+                    GasRaterCom.getGasSuryo(mUserData.mKokfDat.mBetwMeter, mUserData.mSy2fDat, mUserData.mKouserDat),
                     1
                 );
         } else {
             strPreUseTitle = "前回使用量";
             strPreUseValue = Other.Format(
-                GasRaterCom.getGasSuryo(mKokfDat.mPreUse, sy2fDat, kouserDat),
+                GasRaterCom.getGasSuryo(mUserData.mKokfDat.mPreUse, mUserData.mSy2fDat, mUserData.mKouserDat),
                 1
             );
         }
@@ -207,11 +193,11 @@ function setCusInfo() {
 
         // ガス料金
         // 顧客データからガス料金を取得する 12.04.24
-        mTxtGasPay.innerHTML = Other.formatDecial(mKokfDat.mFee);
+        mTxtGasPay.innerHTML = Other.formatDecial(mUserData.mKokfDat.mFee);
 
         // 確認ボタンを押せるようにする 12.04.24
-        mDays = mKokfDat.mHiwari;
-        if (mKokfDat.mHiwari != 0) {
+        mDays = mUserData.mKokfDat.mHiwari;
+        if (mUserData.mKokfDat.mHiwari != 0) {
             // 日割り日数がある場合は予測使用量を計算
             mTitleGasPay.innerHTML = "日割料金";
         } else {
@@ -219,18 +205,18 @@ function setCusInfo() {
         }
     } else {
         // 今回指針
-        if (mKokfDat.mKenSumi) {
-            mTxtNowMeter.innerHTML = Other.Format(mKokfDat.mNowMeter, 1);
+        if (mUserData.mKokfDat.mKenSumi) {
+            mTxtNowMeter.innerHTML = Other.Format(mUserData.mKokfDat.mNowMeter, 1);
         } else {
             // 入力前は前回値
             mTxtNowMeter.innerHTML = "";
         }
         // 前回指針
-		mTxtPreMeter.innerHTML = Other.Format(mKokfDat.mPreMeter, 1);
+		mTxtPreMeter.innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
         // 使用量(これも再入力で初期値が変わるかも)
-        if (mKokfDat.mKenSumi) {
+        if (mUserData.mKokfDat.mKenSumi) {
             mTxtNowUse.innerHTML = Other.Format(
-                GasRaterCom.getGasSuryo(mKokfDat.mGasUse, sy2fDat, kouserDat),
+                GasRaterCom.getGasSuryo(mUserData.mKokfDat.mGasUse, mUserData.mSy2fDat, mUserData.mKouserDat),
                 1
             );
         } else {
@@ -238,42 +224,42 @@ function setCusInfo() {
         }
         // 前回使用量
         var tvPreUsetTitle = document.getElementById("txtKensinMainPrevSiyou0");
-        if (mKokfDat.mBetwMeter > 0) {
+        if (mUserData.mKokfDat.mBetwMeter > 0) {
             // 中間使用量有
             //tvPreUsetTitle.innerHTML = "前回/中間";]
-			if (mKokfDat.metchg == true) {
+			if (mUserData.mKokfDat.metchg == true) {
 				document.getElementById("chukan_shiyo_ryo_id").classList.remove("hidden");
 			}
             var strPreUseValue =
                 Other.Format(
-                    GasRaterCom.getGasSuryo(mKokfDat.mPreUse, sy2fDat, kouserDat),
+                    GasRaterCom.getGasSuryo(mUserData.mKokfDat.mPreUse, mUserData.mSy2fDat, mUserData.mKouserDat),
                     1
                 ) +
                 "/" +
                 Other.Format(
-                    GasRaterCom.getGasSuryo(mKokfDat.mBetwMeter, sy2fDat, kouserDat),
+                    GasRaterCom.getGasSuryo(mUserData.mKokfDat.mBetwMeter, mUserData.mSy2fDat, mUserData.mKouserDat),
                     1
                 );
            	txtKensinMainInterUse.innerHTML = strPreUseValue;
 
         } else {
             mTxtPreUse.innerHTML = Other.Format(
-                GasRaterCom.getGasSuryo(mKokfDat.mPreUse, sy2fDat, kouserDat),
+                GasRaterCom.getGasSuryo(mUserData.mKokfDat.mPreUse, mUserData.mSy2fDat, mUserData.mKouserDat),
                 1
             ); //13.02.08
         }
 
         // ガス料金
         // 顧客データからガス料金を取得する 12.05.07 不具合対応票No.50対応
-        if (mKokfDat.mKenSumi) {
-            mTxtGasPay.innerHTML = Other.KingakuFormat(mKokfDat.mFee);
+        if (mUserData.mKokfDat.mKenSumi) {
+            mTxtGasPay.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mFee);
         } else {
             mTxtGasPay.innerHTML = "";
         }
 
         // 消費税
         // 内税の場合は***
-        mTxtGasTax.innerHTML = mKokfDat.mTaxDiv == 3 ? "" : "***";
+        mTxtGasTax.innerHTML = mUserData.mKokfDat.mTaxDiv == 3 ? "" : "***";
         mTxtCmt.innerHTML = "今回指針を入力してください。";
     }
 }
@@ -312,26 +298,26 @@ function setGasInfo() {
         //mTxtCmt.setTextColor(Color.BLACK);
         mTxtNowUse.innerHTML = "";
         mTxtGasPay.innerHTML = "";
-        mTxtGasTax.innerHTML = mKokfDat.mTaxDiv == 3 ? "" : "***";
+        mTxtGasTax.innerHTML = mUserData.mKokfDat.mTaxDiv == 3 ? "" : "***";
         return;
     }
 	var nSisin = parseFloat(strSisin) * 10;
-	m_nGasuse = GasRaterCom.calcGasUse(mKokfDat, nSisin);
+	m_nGasuse = GasRaterCom.calcGasUse(mUserData.mKokfDat, nSisin);
     mTxtNowUse.innerHTML = Other.Format(
-        GasRaterCom.getGasSuryo(m_nGasuse, sy2fDat, kouserDat),
+        GasRaterCom.getGasSuryo(m_nGasuse, mUserData.mSy2fDat, mUserData.mKouserDat),
         1
     );
 
     // 使用率チェック
     if (
         GasRaterCom.checkSrpday(
-            sysfDat,
-            mKokfDat,
+            mUserData.mSysfDat,
+            mUserData.mKokfDat,
             m_nGasuse,
             kensin_date.getMonth() + 1,
             kensin_date.getDate(),
-            sy2fDat,
-            kouserDat
+            mUserData.mSy2fDat,
+            mUserData.mKouserDat
         )
     ) {
         mTxtCmt.innerHTML = "使用率チェック";
@@ -346,63 +332,63 @@ function setGasInfo() {
     }
 
     // メーター一回り確認
-    if (mKokfDat.mPreMeter > nSisin) {
+    if (mUserData.mKokfDat.mPreMeter > nSisin) {
         mTxtCmt.innerHTML = "メーター周り";
         mTxtCmt.classList.add("text_blue");
         mTxtCmt.classList.remove("text_red");
         mTxtCmt.classList.remove("text_black");
     }
 
-    if (gasfDat.mSum == 4) {
+    if (mUserData.mGasfDat.mSum == 4) {
         mTxtCmt.innerHTML = "ガス料金を入力してください。";
         return;
-    } else if (kouserDat.m_nKoubetsu == 1) {
+    } else if (mUserData.mKouserDat.m_nKoubetsu == 1) {
         mTxtCmt.innerHTML = "ガス料金を入力してください。";
     }
 
-    if (GasRaterCom.checkKgas(mKokfDat, kouserDat.m_nKoubetsu)) {
+    if (GasRaterCom.checkKgas(mUserData.mKokfDat, mUserData.mKouserDat.m_nKoubetsu)) {
         // 13.03.18
         // if (true) { // 13.03.18
         // 簡ガス日割りチェック
 
         var nDays = GasRaterCom.getKgasday(
-            sysfDat,
-            mKokfDat,
+            mUserData.mSysfDat,
+            mUserData.mKokfDat,
             kensin_date.getMonth() + 1,
             kensin_date.getDate()
         );
 
-        if (sysfDat.mKgasDays0 == 0) {
-            sysfDat.mKgasDays0 = 25;
+        if (mUserData.mSysfDat.mKgasDays0 == 0) {
+            mUserData.mSysfDat.mKgasDays0 = 25;
         }
-        if (sysfDat.mKgasDays1 == 0) {
-            sysfDat.mKgasDays1 = 35;
+        if (mUserData.mSysfDat.mKgasDays1 == 0) {
+            mUserData.mSysfDat.mKgasDays1 = 35;
         }
-        if (sysfDat.mKgasDays2 == 0) {
-            sysfDat.mKgasDays2 = 29;
+        if (mUserData.mSysfDat.mKgasDays2 == 0) {
+            mUserData.mSysfDat.mKgasDays2 = 29;
         }
 
         if (
-            nDays < sysfDat.mKgasDays0 || // 通常の最低日数より小さいときには日割り有効
-            nDays > sysfDat.mKgasDays1 || // 通常の最大日数より大きいときには日割り有効
-            (mKokfDat.mPuseMonth == 0 && nDays <= sysfDat.mKgasDays2)
+            nDays < mUserData.mSysfDat.mKgasDays0 || // 通常の最低日数より小さいときには日割り有効
+            nDays > mUserData.mSysfDat.mKgasDays1 || // 通常の最大日数より大きいときには日割り有効
+            (mUserData.mKokfDat.mPuseMonth == 0 && nDays <= mUserData.mSysfDat.mKgasDays2)
         ) {
             // 前回検針がないときのみkgasDays2のチェックが入る
             // var wkStrDays = new StringBuilder();
             // wkStrDays.append("今回検針: ").append(Other.DataFormat(mUserData.getKensinDate(),  0)).append("\n");
-            // if (mKokfDat.mKaiYear + mKokfDat.mKaiMonth + mKokfDat.mKaiDate > 0) {
-            //     wkStrDays.append("検針開始日: ").append(Other.DateFormat(mKokfDat.mKaiYear, mKokfDat.mKaiMonth, mKokfDat.mKaiDate, true)).append("\n");
+            // if (mUserData.mKokfDat.mKaiYear + mUserData.mKokfDat.mKaiMonth + mUserData.mKokfDat.mKaiDate > 0) {
+            //     wkStrDays.append("検針開始日: ").append(Other.DateFormat(mUserData.mKokfDat.mKaiYear, mUserData.mKokfDat.mKaiMonth, mUserData.mKokfDat.mKaiDate, true)).append("\n");
             // }
-            // if (mKokfDat.mPuseYear + mKokfDat.mPuseMonth + mKokfDat.mPuseDate > 0) {
-            //     wkStrDays.append("前回検針日: ").append(Other.DateFormat(mKokfDat.mPuseYear, mKokfDat.mPuseMonth, mKokfDat.mPuseDate, true)).append("\n");
+            // if (mUserData.mKokfDat.mPuseYear + mUserData.mKokfDat.mPuseMonth + mUserData.mKokfDat.mPuseDate > 0) {
+            //     wkStrDays.append("前回検針日: ").append(Other.DateFormat(mUserData.mKokfDat.mPuseYear, mUserData.mKokfDat.mPuseMonth, mUserData.mKokfDat.mPuseDate, true)).append("\n");
             // }
             // wkStrDays.append("日割り日数: ").append(nDays).append("\n\n");
             // wkStrDays.append("日割計算をしますか？\n");
-            // if (mKokfDat.mPuseMonth == 0 && nDays <= sysfDat.mKgasDays2) {
-            //     wkStrDays.append("閉開栓時には").append(sysfDat.mKgasDays2).append("日以下が対象です。");
+            // if (mUserData.mKokfDat.mPuseMonth == 0 && nDays <= mUserData.mSysfDat.mKgasDays2) {
+            //     wkStrDays.append("閉開栓時には").append(mUserData.mSysfDat.mKgasDays2).append("日以下が対象です。");
             // }
             // else {
-            //     wkStrDays.append("日割対象の検針期間\n( ").append(sysfDat.mKgasDays0 - 1).append("日数以下、").append(sysfDat.mKgasDays1 + 1).append("日数以上) ");
+            //     wkStrDays.append("日割対象の検針期間\n( ").append(mUserData.mSysfDat.mKgasDays0 - 1).append("日数以下、").append(mUserData.mSysfDat.mKgasDays1 + 1).append("日数以上) ");
             // }
 
             // final Dialog wkDlg = Other.createAlertDialog(this, "日割計算", wkStrDays.toString(), true);
@@ -411,7 +397,7 @@ function setGasInfo() {
             //     public void onClick(View v) {
             //         MLog.INFO(KensinMainActivity.this, TAG, "[確認ダイアログ:終了][YES]");
             //         // 日割計算する
-            //         setGasPay(m_nGasuse, nDays, mKokfDat, gasfDat, sysfDat, sy2fDat, kouserDat);
+            //         setGasPay(m_nGasuse, nDays, mUserData.mKokfDat, mUserData.mGasfDat, mUserData.mSysfDat, mUserData.mSy2fDat, mUserData.mKouserDat);
             //         wkDlg.dismiss();
             //     }
             // });
@@ -420,16 +406,16 @@ function setGasInfo() {
             //     public void onClick(View v) {
             //         MLog.INFO(KensinMainActivity.this, TAG, "[確認ダイアログ:終了][NO]");
             //         // 日割計算しない
-            //         setGasPay(m_nGasuse, 0, mKokfDat, gasfDat, sysfDat, sy2fDat, kouserDat);
+            //         setGasPay(m_nGasuse, 0, mUserData.mKokfDat, mUserData.mGasfDat, mUserData.mSysfDat, mUserData.mSy2fDat, mUserData.mKouserDat);
             //         wkDlg.dismiss();
             //     }
             // });
             // wkDlg.show();
         } else {
-            setGasPay(m_nGasuse, 0, mKokfDat, gasfDat, sysfDat, sy2fDat, kouserDat);
+            setGasPay(m_nGasuse, 0, mUserData.mKokfDat, mUserData.mGasfDat, mUserData.mSysfDat, mUserData.mSy2fDat, mUserData.mKouserDat);
         }
     } else {
-        setGasPay(m_nGasuse, 0, mKokfDat, gasfDat, sysfDat, sy2fDat, kouserDat);
+        setGasPay(m_nGasuse, 0, mUserData.mKokfDat, mUserData.mGasfDat, mUserData.mSysfDat, mUserData.mSy2fDat, mUserData.mKouserDat);
     }
 }
 
@@ -438,7 +424,7 @@ function setGasInfo() {
  * ガス料金を出力する
  * @param nSiyou    [in] int                使用量
  * @param nDays     [in] int                日割り日数
- * @param mKokfDat   [in] {@link mKokfDat}    顧客データ
+ * @param kokfDat   [in] {@link kokfDat}    顧客データ
  * @param gasfDat   [in] {@link GasfDat}    ガス料金データ
  * @param sysfDat   [in] {@link SysfDat}    システムデータ
  * @param sy2fDat   [in] {@link Sy2fDat}    システム2データ
@@ -447,7 +433,7 @@ function setGasInfo() {
 function setGasPay(
     nSiyou,
     nDays,
-    mKokfDat,
+    kokfDat,
     gasfDat,
     sysfDat,
     sy2fDat,
@@ -460,9 +446,9 @@ function setGasPay(
     // 数量は中圧係数考慮
     nSiyou = GasRaterCom.getGasSuryo(nSiyou, sy2fDat, kouserDat);
 
-    lGasFee = GasRaterCom.dailyGasrate(nSiyou, nDays, mKokfDat, gasfDat);
+    lGasFee = GasRaterCom.dailyGasrate(nSiyou, nDays, kokfDat, gasfDat);
 
-    nGasTax = GasRaterCom.calcConTax(lGasFee, mKokfDat, gasfDat, sysfDat);
+    nGasTax = GasRaterCom.calcConTax(lGasFee, kokfDat, gasfDat, sysfDat);
 
     // ガス料金設定
     if (nDays > 0) {
@@ -483,16 +469,16 @@ function setGasPay(
     //      mBtnCheck.setEnabled(true);
 
     // ガス料金内訳計算のため必要な情報を一旦格納
-    mKokfDat.mHiwari = nDays;
-    mKokfDat.mGasUse = nSiyou;
-    mKokfDat.mFee = lGasFee;
+    kokfDat.mHiwari = nDays;
+    kokfDat.mGasUse = nSiyou;
+    kokfDat.mFee = lGasFee;
     // ガス料金内訳金額の算出
     //基本料金などは、検針前に初期化
     // reset gas detail
-    mKokfDat.mKtpcdat.m_nBasekin = 0;
-    mKokfDat.mKtpcdat.m_nFacilitykin = 0;
-    mKokfDat.mKtpcdat.m_nAddkin = 0;
-    GasRaterCom.calcGasBaseKin(sysfDat, gasfDat, mKokfDat, sy2fDat, kouserDat);
+    kokfDat.mKtpcdat.m_nBasekin = 0;
+    kokfDat.mKtpcdat.m_nFacilitykin = 0;
+    kokfDat.mKtpcdat.m_nAddkin = 0;
+    GasRaterCom.calcGasBaseKin(sysfDat, gasfDat, kokfDat, sy2fDat, kouserDat);
 }
 
 /**
@@ -511,10 +497,10 @@ function initComponents() {
     //     }
     // });
 
-    var isHybrid = kouserDat.mHyc5 == 1 && ko2fDat.mGashyb > 0;
+    var isHybrid = mUserData.mKouserDat.mHyc5 == 1 && mUserData.mKo2fDat.mGashyb > 0;
     // SysfDat sysfDat = mUserData.getSysfDat();
     var nVisible = 1;
-    if (!sysfDat.mIfReduce) {
+    if (!mUserData.mSysfDat.mIfReduce) {
         nVisible = 0;
     }
     if (nVisible == 1) {
@@ -524,7 +510,7 @@ function initComponents() {
     }
 
     nVisible = 1;
-    if (sysfDat.mKnebFlg == 0 && (!isHybrid || mKokfDat.mHybseikyu == 2)) {
+    if (mUserData.mSysfDat.mKnebFlg == 0 && (!isHybrid || mUserData.mKokfDat.mHybseikyu == 2)) {
         // 値引きシステム無し
         // 値引き項目のビューを取り除く
         nVisible = 0;
@@ -559,11 +545,11 @@ function init() {
     // 当月請求
     var nRyokin = GasRaterCom.calcTotal(
         mUserData,
-        sysfDat,
-        mKokfDat,
-        ko2fDat,
-        sy2fDat,
-        kouserDat,
+        mUserData.mSysfDat,
+        mUserData.mKokfDat,
+        mUserData.mKo2fDat,
+        mUserData.mSy2fDat,
+        mUserData.mKouserDat,
         lstLeasHmefDat,
         false
     );
@@ -572,14 +558,14 @@ function init() {
     mTotal = nRyokin;
 
     // @当月請求
-    nRyokin = GasRaterCom.calcSeikyu(sysfDat, mKokfDat, sy2fDat, false);
+    nRyokin = GasRaterCom.calcSeikyu(mUserData.mSysfDat, mUserData.mKokfDat, mUserData.mSy2fDat, false);
     txtKensinNyukinPreZandaka.innerHTML = Other.formatDecial(nRyokin);
 
     // 当月ガス売上
-    nRyokin = mKokfDat.mFee;
+    nRyokin = mUserData.mKokfDat.mFee;
     var nKangen = 0;
-    if (sysfDat.mIfReduce) {
-        nKangen = mKokfDat.mReduce;
+    if (mUserData.mSysfDat.mIfReduce) {
+        nKangen = mUserData.mKokfDat.mReduce;
     }
 
     txtKensinNyukinGasRyokin.innerHTML = nRyokin > 0 ? Other.KingakuFormat(nRyokin) : 0;
@@ -588,13 +574,13 @@ function init() {
     // 消費税
     // その他消費税
 
-    if (gasfDat != null) {
-        if (gasfDat.mTaxDiv == 3) {
+    if (mUserData.mGasfDat != null) {
+        if (mUserData.mGasfDat.mTaxDiv == 3) {
             // 13.01.16
-            nRyokin = mKokfDat.mConTax;
-            if (sysfDat.mIfReduce) {
+            nRyokin = mUserData.mKokfDat.mConTax;
+            if (mUserData.mSysfDat.mIfReduce) {
                 // 還元額消費税
-                nKangen += mKokfDat.mReduceTax;
+                nKangen += mUserData.mKokfDat.mReduceTax;
             }
             tvTax.innerHTML = nRyokin > 0 ? Other.KingakuFormat(nRyokin) : 0;
             //tvTax.innerHTML = (nRyokin);
@@ -607,7 +593,7 @@ function init() {
 
     // 還元額名称設定
     txtKensinNyukinKangen.innerHTML = (Other.getKangcontname(mUserData));
-    // txtKensinNyukinKangen.innerHTML = sy2fDat;
+    // txtKensinNyukinKangen.innerHTML = mUserData.mSy2fDat;
     // 還元額
     txtKensinNyukinKangenKin.innerHTML = Other.KingakuFormat(nKangen);
     //txtKensinNyukinKangenKin.innerHTML = (nKangen);
@@ -615,17 +601,17 @@ function init() {
     // 値引き
     // 値引き
     var nNebiki = 0;
-    if (sysfDat.mKnebFlg == 1) {
+    if (mUserData.mSysfDat.mKnebFlg == 1) {
         // 漢の値引き有り
-        nNebiki = GasRaterCom.calcNebiki(sysfDat, m_lstKnebDat);
+        nNebiki = GasRaterCom.calcNebiki(mUserData.mSysfDat, m_lstKnebDat);
     }
     txtKensinNyukinNebiki.innerHTML = Other.KingakuFormat(nNebiki);
     //txtKensinNyukinNebiki.innerHTML = (nNebiki);
 
     // その他売上
-    var nEtcUri = mKokfDat.mUrikin;
-    var nEtcUriTax = mKokfDat.mUriTax;
-    if (mKokfDat.mKenSumi) {
+    var nEtcUri = mUserData.mKokfDat.mUrikin;
+    var nEtcUriTax = mUserData.mKokfDat.mUriTax;
+    if (mUserData.mKokfDat.mKenSumi) {
         // 13.12.10 検針済みの場合はリース金額を計上する
         // 検針済みの場合は検針時リース金額加算
 
@@ -637,10 +623,10 @@ function init() {
             }
         }
     }
-    if (kouserDat.mHyc5 == 1 && ko2fDat.mGashyb > 0 && mKokfDat.mHybseikyu != 2) {
-        nEtcUri += ko2fDat.mUseKin;
-        if (ko2fDat.mUseTaxku == 3) {
-            nEtcUriTax += ko2fDat.mUseTax;
+    if (mUserData.mKouserDat.mHyc5 == 1 && mUserData.mKo2fDat.mGashyb > 0 && mUserData.mKokfDat.mHybseikyu != 2) {
+        nEtcUri += mUserData.mKo2fDat.mUseKin;
+        if (mUserData.mKo2fDat.mUseTaxku == 3) {
+            nEtcUriTax += mUserData.mKo2fDat.mUseTax;
         }
     }
 
@@ -649,16 +635,16 @@ function init() {
     //txtKensinNyukinOtherUri.innerHTML = ((nEtcUri));
     //txtKensinNyukinOtherShohi.innerHTML = ((nEtcUriTax));
 
-    if (mKokfDat.mSyuSumi) {
+    if (mUserData.mKokfDat.mSyuSumi) {
         // 13.02.13
         // 検針済み or 再入力の場合は入力して編集不可
-        mEditAdjust.value = Other.KingakuFormat(mKokfDat.mAdjust);
-        mEditInputReceipt.innerHTML = Other.KingakuFormat(mKokfDat.mInpReceipt);
-        mEditReceipt.innerHTML = Other.formatDecial(mKokfDat.mReceipt);
+        mEditAdjust.value = Other.KingakuFormat(mUserData.mKokfDat.mAdjust);
+        mEditInputReceipt.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mInpReceipt);
+        mEditReceipt.innerHTML = Other.formatDecial(mUserData.mKokfDat.mReceipt);
         // mTeiseiFlg = getLongValue(mEditInputReceipt) != getLongValue(mEditReceipt);
-        // mEditAdjust.innerHTML = ((mKokfDat.mAdjust));
-        // mEditInputReceipt.innerHTML = ((mKokfDat.mInpReceipt));
-        // mEditReceipt.innerHTML = ((mKokfDat.mReceipt));
+        // mEditAdjust.innerHTML = ((mUserData.mKokfDat.mAdjust));
+        // mEditInputReceipt.innerHTML = ((mUserData.mKokfDat.mInpReceipt));
+        // mEditReceipt.innerHTML = ((mUserData.mKokfDat.mReceipt));
         // mTeiseiFlg = getLongValue(mEditInputReceipt) != getLongValue(mEditReceipt);
     } else {
         mEditAdjust.innerHTML = Other.KingakuFormat(0); // 調整額
@@ -671,15 +657,15 @@ function init() {
     // 残高、おつり確認
     setZandaka();
 
-    if (sy2fDat.mNyucho == 1) {
-        if (kouserDat.m_sChocode != 0) {
+    if (mUserData.mSy2fDat.mNyucho == 1) {
+        if (mUserData.mKouserDat.m_sChocode != 0) {
             if (bdChosei != null) {
                 txtKensinNyukinChosei.innerHTML = Other.cutSpace(
                     bdChosei.mName
                 ).trim();
             }
         }
-        if (kouserDat.m_sNyucode != 0) {
+        if (mUserData.mKouserDat.m_sNyucode != 0) {
             if (bdNyukin != null) {
                 txtKensinNyukinNyukin.innerHTML = Other.cutSpace(
                     bdNyukin.mName
@@ -767,9 +753,9 @@ function startKensinNextIntent() {
 function setLeasInfo() {
     //2017.02.07 個別指定の時には、リース計上を確認します。
     //リースの計上有無を確認します。
-    if (mUserData.getSysfDat().mLesUmu != 0) {
+    if (mUserData.mSysfDat.mLesUmu != 0) {
         //個別指定の顧客
-        if (mUserData.getKouserDat().m_nKoubetsu == 1) {
+        if (mUserData.mKouserDat.m_nKoubetsu == 1) {
             //リース計上を確認
             if (checkLeasUmu()) {
                 //リース計上の対象があれば、確認する。
@@ -811,56 +797,56 @@ function setLeasInfo() {
  */
 function afterCheckLease() {
     try {
-        mKokfDat.mHiwari = mDays;
-        mKokfDat.mKenSumi = true;
-        mKokfDat.mKMonth = kensin_date.getMonth() + 1;
-        mKokfDat.mKDate = kensin_date.getDate();
+        mUserData.mKokfDat.mHiwari = mDays;
+        mUserData.mKokfDat.mKenSumi = true;
+        mUserData.mKokfDat.mKMonth = kensin_date.getMonth() + 1;
+        mUserData.mKokfDat.mKDate = kensin_date.getDate();
 
-        mKokfDat.mNowMeter =
+        mUserData.mKokfDat.mNowMeter =
             Other.getNumFromString(mTxtNowMeter.value) * 10; 
-        mKokfDat.mGasUse = m_nGasuse;
-        mKokfDat.mFee = parseInt(Other.getNumFromString(mTxtGasPay.textContent));
+        mUserData.mKokfDat.mGasUse = m_nGasuse;
+        mUserData.mKokfDat.mFee = parseInt(Other.getNumFromString(mTxtGasPay.textContent));
 
-        if (gasfDat.mTaxDiv == 3) {
-            mKokfDat.mConTax = parseInt(
+        if (mUserData.mGasfDat.mTaxDiv == 3) {
+            mUserData.mKokfDat.mConTax = parseInt(
                 Other.getNumFromString(mTxtGasTax.textContent)
             );
         } else {
-            mKokfDat.mConTax = 0;
+            mUserData.mKokfDat.mConTax = 0;
         }
-        if (sysfDat.mKnebFlg == 1) {
+        if (mUserData.mSysfDat.mKnebFlg == 1) {
             // 値引き
-            // GasRaterCom.calcGasWaribiki(this, sysfDat, mUserData.getmKokfDat(), mUserData.getKnebiDat(), mUserData.getKo2fDat(), sy2fDat, kouserDat, mUserData.getGasfDat());
+            // GasRaterCom.calcGasWaribiki(this, mUserData.mSysfDat, mUserData.getmKokfDat(), mUserData.getKnebiDat(), mUserData.mKo2fDat, mUserData.mSy2fDat, mUserData.mKouserDat, mUserData.mGasfDat);
         }
         // 還元
-        GasRaterCom.calcGasKangen(mKokfDat, mUserData.mGasfDat, sysfDat, sy2fDat, kouserDat);
+        GasRaterCom.calcGasKangen(mUserData.mKokfDat, mUserData.mGasfDat, mUserData.mSysfDat, mUserData.mSy2fDat, mUserData.mKouserDat);
 
         // 配送使用量の計算
-        if (mKokfDat.mSupplyForm != 2) {
+        if (mUserData.mKokfDat.mSupplyForm != 2) {
             // 親以外
-            mKokfDat.mKhaiSs = mKokfDat.mNowMeter;
-            mKokfDat.mKhaiSr = mKokfDat.mHaiMsr;
-            if (mKokfDat.mHaiSs <= mKokfDat.mKhaiSs) {
-                mKokfDat.mKhaiSr = mKokfDat.mKhaiSr + mKokfDat.mKhaiSs - mKokfDat.mHaiSs;
+            mUserData.mKokfDat.mKhaiSs = mUserData.mKokfDat.mNowMeter;
+            mUserData.mKokfDat.mKhaiSr = mUserData.mKokfDat.mHaiMsr;
+            if (mUserData.mKokfDat.mHaiSs <= mUserData.mKokfDat.mKhaiSs) {
+                mUserData.mKokfDat.mKhaiSr = mUserData.mKokfDat.mKhaiSr + mUserData.mKokfDat.mKhaiSs - mUserData.mKokfDat.mHaiSs;
             } else {
-                mKokfDat.mKhaiSr =
-                    mKokfDat.mKhaiSr +
-                    Math.pow(10, mKokfDat.mMtKeta + 1) +
-                    mKokfDat.mKhaiSs -
-                    mKokfDat.mHaiSs;
+                mUserData.mKokfDat.mKhaiSr =
+                    mUserData.mKokfDat.mKhaiSr +
+                    Math.pow(10, mUserData.mKokfDat.mMtKeta + 1) +
+                    mUserData.mKokfDat.mKhaiSs -
+                    mUserData.mKokfDat.mHaiSs;
             }
         }
 
         if (
-            sysfDat.mCheckHoan &&
-            (mKokfDat.mGasKubun != 2 || sysfDat.mTenkenKgas == 1)
+            mUserData.mSysfDat.mCheckHoan &&
+            (mUserData.mKokfDat.mGasKubun != 2 || mUserData.mSysfDat.mTenkenKgas == 1)
         ) {
             //note Cong
             // 保安点検有
             // intent = new Intent(this, KensinHoanActivity.class);
             // intent.putExtra(DEFINE.PARCEL_USER_DATA, mUserData);
             // startActivityForResult(intent, KensinActivity.REQUEST_CODE_KENSIN_GROUP);
-        } else if (sysfDat.mIfMoney) {
+        } else if (mUserData.mSysfDat.mIfMoney) {
             //note Cong
             // 保安点検無し、入金有
             // intent = new Intent(this, KensinNyukinActivity.class);
@@ -880,46 +866,46 @@ function afterCheckLease() {
 
 function setdataUchiWake() {
     document.getElementById("txtKensinNaiyakuCusName").innerHTML =
-        Other.getClearString(mKokfDat.mName);
+        Other.getClearString(mUserData.mKokfDat.mName);
     var nKin = 0;
     // 前残印字
-    if (sysfDat.mIfDemand) {
+    if (mUserData.mSysfDat.mIfDemand) {
         // 前残印字有りの場合のみ
-        nKin = mKokfDat.mPreBalance;
+        nKin = mUserData.mKokfDat.mPreBalance;
     }
     document.getElementById("txtKensinNaiyakuZandaka").innerHTML =
         Other.formatDecial(nKin);
 
     // 当月ガス料金
     document.getElementById("txtKensinNaiyakuGasRyokin").innerHTML =
-        Other.formatDecial(mKokfDat.mProcGas);
+        Other.formatDecial(mUserData.mKokfDat.mProcGas);
 
     // 当月ガス料金消費税
     document.getElementById("txtKensinNaiyakuShohizei").innerHTML =
-        Other.formatDecial(mKokfDat.mTaxGas);
+        Other.formatDecial(mUserData.mKokfDat.mTaxGas);
 
     // その他売上
     document.getElementById("txtKensinNaiyakuOtherUri").innerHTML =
-        Other.formatDecial(GasRaterCom.calcEtcUri(sysfDat, mKokfDat));
+        Other.formatDecial(GasRaterCom.calcEtcUri(mUserData.mSysfDat, mUserData.mKokfDat));
 
     // その他売上消費税
     document.getElementById("txtKensinNaiyakuOtherShohi").innerHTML =
-        Other.formatDecial(GasRaterCom.calcEtcTax(sysfDat, mKokfDat));
+        Other.formatDecial(GasRaterCom.calcEtcTax(mUserData.mSysfDat, mUserData.mKokfDat));
 
     // 当月調整
     document.getElementById("txtKensinNaiyakuChosei").innerHTML =
-        Other.formatDecial(mKokfDat.mTAdjust);
+        Other.formatDecial(mUserData.mKokfDat.mTAdjust);
     // 当月入金
     document.getElementById("txtKensinNaiyakuNyukin").innerHTML =
-        Other.formatDecial(mKokfDat.mTReceipt);
+        Other.formatDecial(mUserData.mKokfDat.mTReceipt);
 
     // 当月請求金額
     document.getElementById("txtKensinNaiyakuSeikyu").innerHTML =
         Other.formatDecial(
-            GasRaterCom.calcSeikyu(sysfDat, mKokfDat, sy2fDat, false)
+            GasRaterCom.calcSeikyu(mUserData.mSysfDat, mUserData.mKokfDat, mUserData.mSy2fDat, false)
         );
 
-    if (sysfDat.mKnebFlg == 1) {
+    if (mUserData.mSysfDat.mKnebFlg == 1) {
         // 漢の値引きシステム有り
         document.getElementById("txtKensinNaiyakuNebiki").innerHTML =
             Other.formatDecial(GasRaterCom.calcNebiki(knebDat));
@@ -929,11 +915,6 @@ function setdataUchiWake() {
     }
 }
 
-//const div1_otsuri = document.querySelector("div_otsuri");
-
-let nyuukin = 0;
-
-//setZandaka(0, 0); // default zandaka
 
 //-------------------Enter Input Sting event--------------------------------->
 
@@ -1017,7 +998,7 @@ teiseiNyuukin.addEventListener('keypress', event => {
 
 teiseiNyuukin.onchange = function () {
     if (isValidNumber(Other.getNumFromString(teiseiNyuukin.value).replaceAll("-",""))) {
-        if (mode == 3) {
+        if (modePage == 3) {
             setupButtonNyukinMode();
         }
         if (teiseiNyuukin.value - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0) {
@@ -1047,7 +1028,7 @@ mTxtNowMeter.addEventListener('keypress', event => {
         event.stopPropagation();
         return false;
     } else {
-        keyPressAction(value, mKokfDat.mMtKeta, event);
+        keyPressAction(value, mUserData.mKokfDat.mMtKeta, event);
     }
 });
 
@@ -1238,9 +1219,9 @@ function checkValue() {
     var moneyGasUse = Number(Other.getNumFromString(txtKensinNyukinNowSeikyu.textContent));
     var moneyBonus = Number(Other.getNumFromString(mEditAdjust.value));
     var moneyUserGet = Number(Other.getNumFromString(mEditReceipt.textContent));
-    var tienNhap = Number(Other.getNumFromString(mEditInputReceipt.textContent));
-    if (moneyGasUse + moneyBonus > tienNhap) {
-        moneyUserGet = tienNhap;
+    var inputMoney = Number(Other.getNumFromString(mEditInputReceipt.textContent));
+    if (moneyGasUse + moneyBonus > inputMoney) {
+        moneyUserGet = inputMoney;
         mEditReceipt.textContent = Other.formatDecial(moneyUserGet);
     } else {
         moneyUserGet = moneyBonus + moneyGasUse;
@@ -1249,9 +1230,16 @@ function checkValue() {
 }
 
 function updatePrintData() {
-    mKokfDat.mAdjust = getLongValue(mEditAdjust.value);
-    mKokfDat.mReceipt = getLongValue(mEditReceipt.textContent);
-    mKokfDat.mInpReceipt = getLongValue(mEditInputReceipt.value);
+    mUserData.mKokfDat.mAdjust = getLongValue(mEditAdjust.value);
+    mUserData.mKokfDat.mReceipt = getLongValue(mEditReceipt.textContent);
+    mUserData.mKokfDat.mInpReceipt = getLongValue(mEditInputReceipt.value);
+}
+
+
+function updateDataNyuukin() {
+    mUserData.mKokfDat.mSyuSumi = getLongValue(mEditReceipt.textContent) != 0 || getLongValue(mEditAdjust.value) != 0;
+    mUserData.mKokfDat.mKMonth = parseInt(mUserData.mKensinDate.substring(5, 7)) + 1;
+    mUserData.mKokfDat.mKDate = parseInt(mUserData.mKensinDate.substring(8, 10));
 }
 
 
@@ -1261,26 +1249,26 @@ export function sendDataToServer() {
 	var kensinDate_ss = sessionStorage.getItem(StringCS.KENSINDATE);
 	var kensinDate = new Date(kensinDate_ss);
 	var m_oMetMeisaiDat = new Dat.MetMeisaiDat();
-	var cusRec = mKokfDat.mCusrec;
+	var cusRec = mUserData.mKokfDat.mCusrec;
 	var dtSeiymd = kensinDate;
-	var sysDate = new Date(sysfDat.mSysYear + "-" + sysfDat.mSysMonth + "-1");
+	var sysDate = new Date(mUserData.mSysfDat.mSysYear + "-" + mUserData.mSysfDat.mSysMonth + "-1");
 	var dtSysymd = sysDate;
-	var nOld_ss = mKokfDat.mPreMeter;
-	var nNew_ss = mKokfDat.mNowMeter;
-	var nKenmsr = mKokfDat.mBetwMeter;
+	var nOld_ss = mUserData.mKokfDat.mPreMeter;
+	var nNew_ss = mUserData.mKokfDat.mNowMeter;
+	var nKenmsr = mUserData.mKokfDat.mBetwMeter;
 	var nTancd = dataSetting.tancd;
-	var strTanname = dataSetting.tanname;
+	var strTanname = dataSetting.m_lstTantName[0].name;
 	var nWrt_tancd = dataSetting.wrt_tancd;
 	var dtWrt_ymd = kensinDate;
 
-	m_oMetMeisaiDat.m_nCusrec = mKokfDat.mCusrec;
+	m_oMetMeisaiDat.m_nCusrec = mUserData.mKokfDat.mCusrec;
 	m_oMetMeisaiDat.m_dtSeiymd = kensinDate;
 	m_oMetMeisaiDat.m_dtSysymd = sysDate;
-	m_oMetMeisaiDat.m_nOld_ss = mKokfDat.mPreMeter;
-	m_oMetMeisaiDat.m_nNew_ss = mKokfDat.mNowMeter;
-	m_oMetMeisaiDat.m_nKenmsr = mKokfDat.mBetwMeter;
+	m_oMetMeisaiDat.m_nOld_ss = mUserData.mKokfDat.mPreMeter;
+	m_oMetMeisaiDat.m_nNew_ss = mUserData.mKokfDat.mNowMeter;
+	m_oMetMeisaiDat.m_nKenmsr = mUserData.mKokfDat.mBetwMeter;
 	m_oMetMeisaiDat.m_nTancd = dataSetting.tancd;
-	m_oMetMeisaiDat.m_strTanname = dataSetting.tanname;
+	m_oMetMeisaiDat.m_strTanname = dataSetting.m_lstTantName[0].name;
 	m_oMetMeisaiDat.m_nWrt_tancd = dataSetting.wrt_tancd;
 	m_oMetMeisaiDat.m_dtWrt_ymd = kensinDate;
 	m_oMetMeisaiDat.m_dtDenymd = kensinDate;
@@ -1291,27 +1279,28 @@ export function sendDataToServer() {
 
 	var m_lLawItem = HoanKinnyuu.m_lLawItem;
 	var m_oSecLawDat = new Dat.SeclawDat();
-	m_oSecLawDat.m_nCusrec = mKokfDat.mCusrec;
+	m_oSecLawDat.m_nCusrec = mUserData.mKokfDat.mCusrec;
 	m_oSecLawDat.m_dtEntymd = kensinDate;
 	m_oSecLawDat.m_bRes = HoanKinnyuu.m_bRes;
-	m_oSecLawDat.m_strTanname = dataSetting.tanname;
+	m_oSecLawDat.m_strTanname = dataSetting.m_lstTantName[0].name;
 	m_oSecLawDat.m_sTancd = dataSetting.tancd;
 
 	var m_oDenpyoMeisaiDat = new Dat.HnDenMeiDat();
-	m_oDenpyoMeisaiDat.d_cusrec = mKokfDat.mCusrec;
-	m_oDenpyoMeisaiDat.m_kin = mKokfDat.mFee;
+	m_oDenpyoMeisaiDat.d_cusrec = mUserData.mKokfDat.mCusrec;
+	m_oDenpyoMeisaiDat.m_kin = mUserData.mKokfDat.mFee;
 	m_oDenpyoMeisaiDat.d_seiymd = kensinDate;
 	m_oDenpyoMeisaiDat.d_sysymd = sysDate;
 	m_oDenpyoMeisaiDat.d_entymd = kensinDate;
 	m_oDenpyoMeisaiDat.d_denymd = kensinDate;
-	m_oDenpyoMeisaiDat.d_stax = mKokfDat.mConTax * 1000;
-	m_oDenpyoMeisaiDat.d_sisin = mKokfDat.mNowMeter;
-	m_oDenpyoMeisaiDat.d_siyouryo = mKokfDat.mGasUse;
+	m_oDenpyoMeisaiDat.m_tax = mUserData.mKokfDat.mConTax * 1000;
+	m_oDenpyoMeisaiDat.d_sisin = mUserData.mKokfDat.mNowMeter;
+	m_oDenpyoMeisaiDat.d_siyouryo = mUserData.mKokfDat.mGasUse;
 	m_oDenpyoMeisaiDat.d_wrt_tancd = dataSetting.tancd;
 	m_oDenpyoMeisaiDat.d_wrt_prg = dataSetting.wrt_tancd;
 	m_oDenpyoMeisaiDat.wrt_ymd = kensinDate;
-	m_oDenpyoMeisaiDat.d_utax = mKokfDat.mConTax;
-	m_oDenpyoMeisaiDat.nGasrkcnt = mKokfDat.nGasrkcnt;
+	m_oDenpyoMeisaiDat.d_utax = mUserData.mKokfDat.mConTax;
+	m_oDenpyoMeisaiDat.nGasrkcnt = mUserData.mKokfDat.nGasrkcnt;
+    m_oDenpyoMeisaiDat.m_taxku = gasfDat.mTaxDiv;
 
 	var writeDatadat = new Dat.WriteDataDat();
 	writeDatadat.m_oSecLawDat = m_oSecLawDat;
@@ -1322,29 +1311,6 @@ export function sendDataToServer() {
 	writeDatadat.login_pw =  sessionStorage.getItem(StringCS.PASSWORD);
 
 	return writeDatadat;
-}
-
-
-
-export {
-    displayTab,
-    mKokfDat,
-    sy2fDat,
-    kouserDat,
-    sysfDat,
-    ko2fDat,
-    gasfDat,
-    kensin_date,
-    m_nGasuse,
-    mDays,
-    mTotal,
-    lstLeasHmefDat,
-    bdChosei,
-    bdNyukin,
-    m_lstKnebDat,
-    mBusfDat_kang,
-    mBusfDat_hmcd13,
-    hanfDat
 }
 
 
@@ -1396,3 +1362,30 @@ function onLoadAction() {
 
 
 onLoadAction();
+
+
+
+export {
+    displayTab,
+    // mKokfDat,
+    // sy2fDat,
+    // sysfDat,
+    // kouserDat,
+    // ko2fDat,
+    // mBusfDat_kang,
+    // mBusfDat_hmcd13,
+    // gasfDat,
+    // hanfDat,
+    // m_lstKnebDat,
+    mUserData,
+    kensin_date,
+    m_nGasuse,
+    mDays,
+    mTotal,
+    lstLeasHmefDat,
+    bdChosei,
+    bdNyukin,
+    modePage,
+    saveButton,
+    updateDataNyuukin
+}

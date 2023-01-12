@@ -18,70 +18,29 @@ const unnecessary_btn = document.getElementById("unnecessary_btn");
 const no_btn = document.getElementById("no_btn");
 const good_btn = document.getElementById("good_btn");
 
-export var hoanString = KensinKinyuu.mKokfDat.mHoan.substring(0, 8);
+export var hoanString = KensinKinyuu.mUserData.mKokfDat.mHoan.substring(0, 8);
 var listHoanData = hoanString.split("");
-m_bRes = getValueOfHoanItem(combobox_total.value);
 
 var pos_combobox = 0;
 
-var tenkenDelta = KensinKinyuu.sysfDat.mTenkenDelta;
-
-const list_combobox = [combobox_1, combobox_2, combobox_3, combobox_4, combobox_5, combobox_6, combobox_7, combobox_8];
-for (let i = 0; i < list_combobox.length; i++) {
-    switch (listHoanData[i]) {
-        case "o":
-        list_combobox[i].value = "0";
-            break;
-        case "-":
-        list_combobox[i].value = "2";
-            break;
-        case "x":
-        list_combobox[i].value = "1";
-            break;
-    }
-}
-
-list_combobox[pos_combobox].classList.add("combobox_select");
-
-if (tenkenDelta == 1) {
-    var option = document.createElement("option");
-    option.text = "△";
-    option.value = "3";
-    combobox_total.add(option);
-
-    list_combobox.forEach(item => {      
-        item.add(option);
-    });
-}
-
-setLawItem();
-
-//combobox_total.addEventListener("click",setAllComboBox);
+var tenkenDelta = KensinKinyuu.mUserData.mSysfDat.mTenkenDelta;
 
 var combo_choose;
 
-list_combobox.forEach(item => {
-    item.addEventListener("change", function () {
-        if (item.value == 1) {
-            combobox_total.value = item.value;
-        } else {
-            setComboBoxTotal(item);           
-        }
-    });
-});
+const kenshin_data = document.getElementById("kenshin_data");
 
-combobox_total.onchange = setAllComboBox;
+const list_combobox = [combobox_1, combobox_2, combobox_3, combobox_4, combobox_5, combobox_6, combobox_7, combobox_8];
 
 
 function setAllComboBox() {
-   
+
     if (combobox_total.value != 1) {
-                list_combobox.forEach(item => {
-                item.value = combobox_total.value;
-            });
-        } 
-        setHoanKinnyuu();
+        list_combobox.forEach(item => {
+            item.value = combobox_total.value;
+        });
     }
+    setHoanKinnyuu();
+}
 
 function setComboBoxTotal(item) {
     var isOne = true;
@@ -93,22 +52,22 @@ function setComboBoxTotal(item) {
     });
 
     if (isOne == true) {
-            combobox_total.value = check;  
-        }
-        m_bRes = getValueOfHoanItem(combobox_total.value);
+        combobox_total.value = check;
+    }
+    m_bRes = getValueOfHoanItem(combobox_total.value);
 }
 
 function setDataforComboBoxSelect(value) {
     switch (value) {
         case 0:
-        list_combobox[pos_combobox].value = 0;
+            list_combobox[pos_combobox].value = 0;
             break;
         case 1:
-        combobox_total.value = 1;
-        list_combobox[pos_combobox].value = 1;
+            combobox_total.value = 1;
+            list_combobox[pos_combobox].value = 1;
             break;
         default:
-        list_combobox[pos_combobox].value = 2;
+            list_combobox[pos_combobox].value = 2;
             break;
     }
     list_combobox[pos_combobox].classList.remove("combobox_select");
@@ -146,14 +105,12 @@ function getHoan() {
         value.code = i;
         value.value = result;
         list_Value.push(value);
-        
+
     }
     return list_Value;
 }
 
 
-
-const kenshin_data = document.getElementById("kenshin_data");
 
 function changeValue() {
     console.log(kenshin_data.value);
@@ -166,25 +123,9 @@ function setHoanKinnyuu() {
         if (hoanVal == "ー") {
             hoanVal = "-";
         }
-       hoanString = hoanString + hoanVal;        
+        hoanString = hoanString + hoanVal;
     }
 }
-
-good_btn.addEventListener("click", function () {
-     setDataforComboBoxSelect(0);
-    
-});
-unnecessary_btn.addEventListener("click", function () {
-     setDataforComboBoxSelect(2);
-    
-});
-no_btn.addEventListener("click", function () {
-     setDataforComboBoxSelect(1);
-   
-});
-
-
-
 
 function getValueOfHoanItem(value) {
     if (value == 0) {
@@ -198,11 +139,75 @@ function getValueOfHoanItem(value) {
 
 function setLawItem() {
     m_lLawItem = [];
-    var item ;
+    var item;
     for (let i = 0; i < list_combobox.length; i++) {
-         item =   new LawItemDat();
-         item.code = 101 + i;
-         item.value = getValueOfHoanItem(list_combobox[i].value);
-        m_lLawItem.push(item);     
+        item = new LawItemDat();
+        item.code = 101 + i;
+        item.value = getValueOfHoanItem(list_combobox[i].value);
+        m_lLawItem.push(item);
     }
 }
+
+function onLoadAction() {
+    if (combobox_total != null) {
+        m_bRes = getValueOfHoanItem(combobox_total.value);
+
+        for (let i = 0; i < list_combobox.length; i++) {
+            switch (listHoanData[i]) {
+                case "o":
+                    list_combobox[i].value = "0";
+                    break;
+                case "-":
+                    list_combobox[i].value = "2";
+                    break;
+                case "x":
+                    list_combobox[i].value = "1";
+                    break;
+            }
+        }
+
+
+        list_combobox[pos_combobox].classList.add("combobox_select");
+
+        if (tenkenDelta == 1) {
+            var option = document.createElement("option");
+            option.text = "△";
+            option.value = "3";
+            combobox_total.add(option);
+
+            list_combobox.forEach(item => {
+                item.add(option);
+            });
+        }
+
+        setLawItem();
+
+
+        list_combobox.forEach(item => {
+            item.addEventListener("change", function () {
+                if (item.value == 1) {
+                    combobox_total.value = item.value;
+                } else {
+                    setComboBoxTotal(item);
+                }
+            });
+        });
+
+        combobox_total.onchange = setAllComboBox;
+
+        good_btn.addEventListener("click", function () {
+            setDataforComboBoxSelect(0);
+        
+        });
+        unnecessary_btn.addEventListener("click", function () {
+            setDataforComboBoxSelect(2);
+        
+        });
+        no_btn.addEventListener("click", function () {
+            setDataforComboBoxSelect(1);
+        
+        });
+    }
+}
+
+onLoadAction();
