@@ -3,6 +3,8 @@ import * as StringCS from './Constant/strings.js'
 import * as Dat from './Dat/dat.js'
 import * as Other from './Common/other_util.js'
 import * as GasRaterCom from './Common/gasratercom.js'
+import * as ValueCS from './Constant/values.js'
+import * as Mess from './Constant/message.js'
 const uriage_name = document.getElementById("kokyaku-mei");
 const uriage_kcode = document.getElementById("kokyaku_kodo");
 const uriage_hmname = document.getElementById("hinmoku");
@@ -29,7 +31,15 @@ const cash_sale = document.getElementById("genkin_uri_area");
 const group_prezandaka = document.getElementById("group_prezandaka");
 const preZandaka = document.getElementById("preZandaka");
 const otsuri = document.getElementById("teisei-group");
+const teiseiBtn = document.querySelector("#teisei");
+const cancelBtn = document.querySelector("#cancel");
+const teiseiGroup = document.querySelector("#teisei-group");
 const uriage_edit = document.getElementById("editButton");
+const uriage_back = document.getElementById("layout_back");
+const uriage_submit = document.getElementById("kakuninButton");
+const titleDialog = document.getElementById("titleDialog");
+const teiseiSumi = document.querySelector("#teisei-sumi");
+const nyuukinGroup = document.querySelector("#nyuukin-group");
 var kokf = new Dat.KokfDat().parseData(mUserData.mKokfDat)
 kokf.mKtpcdat = new Dat.KtpcDat();
 var sy2fDat = new Dat.Sy2fDat().parseData(mUserData.mSy2fDat)
@@ -39,6 +49,7 @@ var kouserDat = new Dat.KouserDat().parseData(mUserData.mKouserDat)
 var kensinDate_ss = sessionStorage.getItem(StringCS.KENSINDATE);
 var kensinDate = new Date(kensinDate_ss);
 var ko2fDat = new Dat.Ko2fDat().parseData(mUserData.mKo2fDat);
+var teiseiNyuukinPre = "0";
 
 /** 商品マスタデータ */
 //var mShofDat = new Dat.ShofDat().setValue(1, 100, 0, "", "", 2, 80, 0, 0, 1000, 2014, 4, 1, 50, 80);
@@ -49,7 +60,7 @@ var mBusfDat = JSON.parse(sessionStorage.getItem(StringCS.BUSFDATITEM));
 /** 販売明細データ */
 var mHmefDat = null;
 /** 拡張販売明細データ */
-var mHme2Dat;
+var mHme2Dat = null;
 /** 調整額 */
 var m_nCho;
 /** 入金額 */
@@ -217,31 +228,37 @@ function createData() {
 
 function onCreateView() {
 	m_nCho = 0;
+	m_nNyu = 0;
+	m_nReceipt = 0;
+	uriage_cho.value = 0;
+	uriage_recept.value = 0;
+	uriage_nyu.textContent = 0;
 
 	// 顧客コード
 	uriage_kcode.textContent = kokf.mCusCode;
 	// 顧客名
-	uriage_name.textContent = kokf.mName;
+	uriage_name.value = kokf.mName;
+	mHme2Dat.mBikou = kokf.mName;
 	// 品目名
 	var strHmname = mBusfDat.mName;
 	if (mShofDat.mHinno == sysfDat.mHinCd9 && mShofDat.mShono == 0) {
 		// 固定品目灯油
 		strHmname += "　　　T";
 	}
-	uriage_hmname.textContent = (Other.nullToString(strHmname));
+	uriage_hmname.textContent = Other.nullToString(strHmname);
 	// 品番名
-	uriage_hbname.textContent = (Other.nullToString(mShofDat.mHinban).trim());
+	uriage_hbname.textContent = Other.nullToString(mShofDat.mHinban).trim();
 
 	// 数量
 	uriage_sur.value = Other.formatLocalJS(mHmefDat.mSuryo, 2, 3);
 
 	// 単位
-	uriage_unit.textContent = (Other.nullToString(mShofDat.mUnit));
+	uriage_unit.textContent = Other.nullToString(mShofDat.mUnit);
 	// 単価
 	uriage_tanka.value = Other.formatLocalJS(mHmefDat.mTanka, 2, 3);
 	// 金額
 
-	uriage_kin.value = (Other.format("#,##0", mHmefDat.mKin, 0));
+	uriage_kin.value = Other.format("#,##0", mHmefDat.mKin, 0);
 	// 税区分
 	uriage_taxku.value = mHmefDat.mTaxKu;
 
@@ -251,9 +268,6 @@ function onCreateView() {
 	// 消費税
 	uriage_tax.textContent = Other.formatDecial(mHmefDat.mTax);
 
-
-
-	//uriage_taxr.value = mHmefDat.mTaxR;
 
 	// 合計
 	dispTotal();
@@ -276,8 +290,9 @@ function onCreateView() {
 	}
 
 	cash_sale.style.display = "none";
-	otsuri.style.display = "none";
-	uriage_edit.style.display = "none";
+	//otsuri.style.display = "none";
+	teiseiGroup.classList.add("hidden");
+	changeLayoutButton();
 }
 
 /* 
@@ -309,8 +324,10 @@ function titleOnclick(title, idForm, listItem) {
 		overlay.style.zIndex = "2";
 		wrapMainForm.classList.remove("overlay-animate");
 		if (title == "cho_text") {
+			titleDialog.textContent = "調整取引区分選択"
 			generateTable(listItem, tittle, CHOMODE);
 		} else {
+			titleDialog.textContent = "入金取引区分選択"
 			generateTable(listItem, tittle, NYUMODE);
 		}
 
@@ -377,11 +394,10 @@ function changeData() {
 		m_isGenuri = !m_isGenuri;
 		if (m_isGenuri) {
 			cash_sale.style.display = "block";
-			uriage_edit.style.display = "block";
-
+			changeLayoutButton();
 		} else {
 			cash_sale.style.display = "none";
-			uriage_edit.style.display = "none";
+			changeLayoutButton();
 		}
 		dispGen();
 	}
@@ -434,8 +450,159 @@ function changeData() {
 		calcTax();
 	}
 
+	teiseiBtn.onclick = function () {
+		if (teiseiGroup.classList.contains("hidden") == false) {
+			return;
+		}
+		teiseiNyuukinPre = uriage_nyu.value;
+		teiseiGroup.classList.remove("hidden");
+		nyuukinGroup.classList.add("hidden");
+		// if (isValidNumber(uriage_nyu.value)) {
+		//   otsuri.textContent =
+		//     Number(azukariKin.value) - Number(uriage_nyu.value);
+		// }
+		checkValue();
+	};
+
+	cancelBtn.onclick = function () {
+		teiseiGroup.classList.add("hidden");
+		nyuukinGroup.classList.remove("hidden");
+		uriage_nyu.value = teiseiNyuukinPre;
+		teiseiNyuukinPre = "0";
+
+		if (uriage_nyu.value - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0) {
+			document.getElementById("txtErrorTeisei").style.display = "block";
+			uriage_nyu.classList.add("text_red");
+			document.getElementById("txtErrorTeiseiDetail").classList.add("text_red");
+			document.getElementById("teisei-sumi").disabled = true;
+			document.getElementById("createPrintingFormButton").disabled = true;
+		} else {
+			document.getElementById("txtErrorTeisei").style.display = "none";
+			uriage_nyu.classList.remove("text_red");
+			document.getElementById("txtErrorTeiseiDetail").classList.remove("text_red");
+			document.getElementById("teisei-sumi").disabled = false;
+			document.getElementById("createPrintingFormButton").disabled = false;
+		}
+
+	};
+
+	teiseiSumi.onclick = function () {
+		var uriage_nyuVal = Other.getNumFromString(uriage_nyu.value);
+		if (isValidNumber(Other.getNumFromString(uriage_nyu.value).replaceAll("-", ""))) {
+			const chousei = Number(mEditAdjust.value);
+			nyuukin = Number(uriage_nyuVal);
+			mEditReceipt.textContent = Other.formatDecial(String(nyuukin));
+			txtKensinNyukinOtsuri.textContent = Number(Other.getNumFromString(mEditInputReceipt.value)) - nyuukin;
+			//  setZandaka(chousei, nyuukin);
+			// nyuukinGaku.textContent = nyuukin;
+			teiseiGroup.classList.add("hidden");
+			nyuukinGroup.classList.remove("hidden");
+			// setOtsuri();
+			// calCutaleTotal();
+			mTeiseiFlg = true;
+			// setZandaka();
+			// updatePrintData();
+		}
+	};
+
+	uriage_name.onchange = function () {
+		mHme2Dat.mBikou = uriage_name.value;
+	}
+
+	uriage_submit.onclick = function () {
+		sendDataToServer();
+		// history.back();
+	}
+
+}
+
+function checkValue() {
+	var moneyGasUse = Number(Other.getNumFromString(txtKensinNyukinNowSeikyu.textContent));
+	var moneyBonus = Number(Other.getNumFromString(mEditAdjust.value));
+	var moneyUserGet = Number(Other.getNumFromString(mEditReceipt.textContent));
+	var tienNhap = Number(Other.getNumFromString(mEditInputReceipt.textContent));
+	if (moneyGasUse + moneyBonus > tienNhap) {
+		moneyUserGet = tienNhap;
+		mEditReceipt.textContent = Other.formatDecial(moneyUserGet);
+	} else {
+		moneyUserGet = moneyBonus + moneyGasUse;
+		mEditReceipt.textContent = Other.formatDecial(moneyUserGet);
+	}
+}
+
+function changeLayoutButton() {
+	teiseiGroup.classList.add("hidden");
+	if (m_isGenuri) {
+		uriage_edit.style.display = "block";
+		uriage_edit.classList.add("col-4");
+		uriage_back.classList.remove("col-6");
+		uriage_submit.classList.remove("col-6");
+		uriage_back.classList.add("col-4");
+		uriage_submit.classList.add("col-4");
+	} else {
+		uriage_edit.style.display = "none";
+		uriage_edit.classList.remove("col-4");
+		uriage_back.classList.remove("col-4");
+		uriage_submit.classList.remove("col-4");
+		uriage_back.classList.add("col-6");
+		uriage_submit.classList.add("col-6");
+
+	}
+}
 
 
+export function sendDataToServer() {
+	const mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
+	var mKokfDat = new Dat.KokfDat().parseData(mUserData.mKokfDat)
+	var sysfDat = new Dat.SysfDat().parseData(mUserData.mSysfDat)
+	mKokfDat.mKtpcdat = new Dat.KtpcDat();
+	var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
+	var kensinDate_ss = sessionStorage.getItem(StringCS.KENSINDATE);
+	var kensinDate = new Date(kensinDate_ss);
+
+
+	var nTancd = dataSetting.tancd;
+	var strTanname = dataSetting.tanname;
+	var nWrt_tancd = dataSetting.wrt_tancd;
+	var dtWrt_ymd = kensinDate;
+	mHmefDat.m_strBikou = mHme2Dat.mBikou;
+	mHmefDat.m_isToyukensin = sysfDat.m_isToyukeninFlg;
+
+
+	var hmefWriteDat = new Dat.HmefWriteDat();
+	hmefWriteDat.m_lstHmefDat = [mHmefDat];
+	hmefWriteDat.m_kokfDat = mKokfDat;
+	hmefWriteDat.login_id = sessionStorage.getItem(StringCS.USERNAME);
+	hmefWriteDat.login_pw = sessionStorage.getItem(StringCS.PASSWORD);
+
+
+	$.ajax({
+		type: "POST",
+		data: JSON.stringify(hmefWriteDat),
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
+		contentType: "application/json",
+		timeout: ValueCS.VL_LONG_TIMEOUT,
+		success: function (response) {
+			console.log(response);
+			sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
+			Common.setupModal("load", null, Mess.I00002, null, null);
+		
+		},
+		error: function (textstatus) {
+			if (textstatus === "timeout") {
+				console.log("timeout")
+			} else {
+				console.log(textstatus)
+			}
+			sessionStorage.setItem(StringCS.SAVINGSTATUS, "0");
+			Common.setupModal("error", null, Mess.E00004, StringCS.OK, null);
+		}
+	}).done(function (res) {
+		console.log('res', res);
+		sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
+		Common.setupModal("success", null, Mess.I00003, StringCS.OK, null);
+	});
 
 }
 

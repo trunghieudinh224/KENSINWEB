@@ -119,6 +119,15 @@ body {
 	margin-top: 25px;
 }
 
+.hidden {
+	display: none;
+}
+
+#teisei-group {
+	background-color: #b7b7b7;
+	padding: 20px 0;
+}
+
 @media screen and (max-width: 1200px) {}
 
 @media screen and (max-width: 900px) {

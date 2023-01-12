@@ -81,6 +81,10 @@ export var BACKTOLIST = "BackToSearch";
 export var CONDITIONDATA = "ConditionData";
 // customer index
 export var CUSTOMERINDEX = "CustomerIndex";
+// BusfDat Nyu 
+export var BUSFNYUITEM = "BusfNyuItem";
+// BusfDat Cho 
+export var BUSFCHOITEM = "BusfChoItem";
 
 
 /*****  CONTENT  *****/

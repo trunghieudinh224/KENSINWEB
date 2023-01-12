@@ -78,7 +78,7 @@
                                     <span class="input-group-text text mw135">顧客名</span>
                                 </div>
 
-                                <span class="form-control text" id="kokyaku-mei">Dinh Trung Hieu</span>
+                                <input class="form-control text" id="kokyaku-mei"></span>
                             </div> <!-- form-group// -->
                         </div>
 
@@ -222,7 +222,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-12" id="nyuukin-group">
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text mw135 text hover" id="receipt_text">入  金  額</span>
@@ -288,18 +288,18 @@
 
                     <div class="button-area">
                         <div class="row content">
-                            <div class="col-4">
+                            <div class="col-4" id="layout_back">
                                 <button type="button" class="btn btn-default text-center" onclick="history.back()"><span
                                         class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
                             </div>
 
-                            <div class="col-4">
-                                <button type="button" class="btn btn-default text-center" id="editButton"><span
+                            <div class="col-4" id="editButton">
+                                <button type="button" class="btn btn-default text-center" id="teisei"><span
                                         class="fas fa-pencil ic-btn"></span><br>訂正</button>
                             </div>
 
-                            <div class="col-4">
-                                <button type="button" class="btn btn-default text-center" id="kakuninButton"><span
+                            <div class="col-4" id="kakuninButton">
+                                <button type="button" class="btn btn-default text-center"><span
                                         class="fas fa-play ic-btn"></span><br>確認</button>
                             </div>
                         </div>
@@ -405,6 +405,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <script src="vendor/daterangepicker/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
     <script type="module" src="./js/Common/check_data.js"></script>
     <script type="module" src="./js/purchase.js"></script>
 
