@@ -1300,7 +1300,7 @@ export function sendDataToServer() {
 	m_oDenpyoMeisaiDat.wrt_ymd = kensinDate;
 	m_oDenpyoMeisaiDat.d_utax = mUserData.mKokfDat.mConTax;
 	m_oDenpyoMeisaiDat.nGasrkcnt = mUserData.mKokfDat.nGasrkcnt;
-    m_oDenpyoMeisaiDat.m_taxku = gasfDat.mTaxDiv;
+    m_oDenpyoMeisaiDat.m_taxku = mUserData.mGasfDat.mTaxDiv;
 
 	var writeDatadat = new Dat.WriteDataDat();
 	writeDatadat.m_oSecLawDat = m_oSecLawDat;
