@@ -1481,7 +1481,7 @@ function printGasryokinA(kensinData) {
 		gstpDat = lstGstpDat[nStartIdx];
 	}
 	else {
-		gstpDat = null;
+		gstpDat = new Dat.GstpDat();
 		gstpDat.m_nUpLimit = 999999;
 		gstpDat.m_nAddp = parseInt(kensinData.mGasAddKin * 10);
 		gstpDat.m_nBase = parseInt(kensinData.mGasBaseKin);
