@@ -1,0 +1,416 @@
+#printView {
+    display: none;
+}
+
+#titleArea {
+    margin-bottom: 25px;
+}
+
+#cusInfoArea, #kinInfoArea, #seiKyuCommentArea, #gasryokinSikiArea, #ryoshuArea, #bankArea, #nyukinModeArea, #hmInfoArea, #commentArea, #hybCommentArea, #hybTblArea, #hoanInfoArea, #pointArea, #miyaPointArea, #cnCommentArea, #GasryokinCommentArea {
+    margin-bottom: 15px;
+}
+
+#uTaxCommentArea, #hoanTable {
+    margin-bottom: 5px;
+}
+
+#hoanTable {
+    padding: 3px 0px;
+}
+
+#HiwariCommentArea {
+    margin-bottom: 25px;
+}
+
+#ryooOsamuShirushiArea {
+    height: 150px;
+    margin-top: -3px;
+}
+
+#ryoshuText {
+    margin-top: 5px;
+}
+
+.bd-1 {
+    border: 1.5px solid black;
+}
+
+.bd-3 {
+    border: 3px solid black;
+}
+
+.frames-common {
+    padding: 3px 10px
+}
+
+.mt--1 {
+    margin-top: -1px;
+}
+
+.mt--3 {
+    margin-top: -3px;
+}
+
+.pl-25p {
+    padding-left: 25%;
+}
+
+.valLine {
+    width: 85%;
+    float: left;
+}
+
+.unitLine {
+    width: 15%;
+    float: right;
+}
+
+.pl-15 {
+    padding-left: 15px;
+}
+
+.pl-20 {
+    padding-left: 20px;
+}
+
+.lg-text {
+    font-size: 24px;
+}
+
+.konkaiSeikyuuGaku-text {
+    font-size: 28px;
+}
+
+.ryooshuu-text {
+    font-size: 30px;
+}
+
+.tb-item {
+    font-size: 22px;
+    display: block;
+    float: right;
+}
+
+.hybTable-item {
+    font-size: 22px;
+}
+
+.hmInfoTable-item {
+    font-size: 22px;
+}
+
+.hoan-item {
+    padding-right: 0px;
+    font-size: 22px;
+}
+
+.hoan-val {
+    font-family: monospace !important;
+    padding-left: 0px;
+}
+
+.hoan-title {
+    padding-right: 0px;
+}
+
+.hoan-title-r {
+    padding-left: 0px;
+}
+
+.kk-val {
+    font-size: 26px;
+}
+
+
+table {
+    width:100%; 
+    border: 1px solid black; 
+    border-collapse: collapse;
+}
+
+td {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
+.td-nm {
+    border: 1px solid black; 
+    width: 70%; 
+    padding: 1px 10px;
+}
+
+.td-r {
+    border-left: 1px solid black; 
+    width: 30%;
+}
+
+#ryoshuDetail {
+    margin: auto
+}
+
+.ryooshuuKingaku {
+    width: 100%; 
+    display: block; 
+    padding-left: 30px;
+}
+
+#hmInfoTable, #hmInfoTable td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.w16 {
+    width: 16%;
+}
+
+.w20 {
+    width: 20%;
+}
+
+.w24 {
+    width: 24%;
+}
+
+
+
+#hybTableHeader {
+    border: none; 
+    border-bottom: 1px solid black; 
+    margin-bottom: 15px;
+}
+
+.w33 {
+    width: 33%;
+}
+
+.w21 {
+    width: 21%;
+}
+
+.w25 {
+    width: 25%;
+}
+
+.w100 {
+    width: 100%;
+    display: block;
+}
+
+#hybTable {
+    border: none;
+}
+
+
+.tbw-6{
+    width: 6%;
+    float: left;
+}
+.tbw-28{
+    width: 28%;
+    float: left;
+}
+.tbw-16{
+    width: 16%;
+    float: left;
+}
+
+.tbw-22{
+    width: 22%;
+    float: left;
+}
+
+.tbw-10{
+    width: 10%;
+    float: left;
+}
+
+.tbw-20{
+    width: 20%;
+    float: left;
+}
+
+.tbw-35{
+    width: 35%;
+    float: left;
+}
+
+
+/*
+  ******  RESPONSIVE LAYOUT  ******
+*/
+
+@media screen and (max-width: 900px) {
+    .lg-text {
+        font-size: 22px;
+    }
+
+    .konkaiSeikyuuGaku-text {
+        font-size: 26px;
+    }
+
+    .kk-val {
+        font-size: 24px;
+    }
+
+    .ryooshuu-text {
+        font-size: 28px;
+    }
+    
+    .tb-item {
+        font-size: 20px ;
+    }
+    
+    .hybTable-item {
+        font-size: 20px;
+    }
+
+    .hmInfoTable-item {
+        font-size: 20px;
+    }
+    
+    .hoan-item {
+        font-size: 20px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .frames-common {
+        padding: 3px 4px
+    }
+
+    .valLine {
+        width: 82%;
+    }
+
+    .unitLine {
+        width: 18%;
+    }
+
+    .lg-text {
+        font-size: 18px;
+    }
+
+    .konkaiSeikyuuGaku-text {
+        font-size: 24px;
+    }
+
+    .kk-val {
+        font-size: 22px;
+    }
+
+    .ryooshuu-text {
+        font-size: 26px;
+    }
+    
+    .tb-item {
+        font-size: 16px;
+    }
+    
+    .hybTable-item {
+        font-size: 16px;
+    }
+
+    .hmInfoTable-item {
+        font-size: 16px;
+    }
+    
+    .hoan-item {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .valLine {
+        width: 79%;
+    }
+
+    .unitLine {
+        width: 21%;
+    }
+
+    #ryooOsamuShirushiArea {
+        height: 120px;
+    }
+
+    #hoanTable {
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-left: -4px;
+        margin-right: -4px;
+    }
+
+    .lg-text {
+        font-size: 16px !important;
+    }
+
+    .konkaiSeikyuuGaku-text {
+        font-size: 20px;
+    }
+
+    .kk-val {
+        font-size: 18px;
+    }
+
+    .ryooshuu-text {
+        font-size: 22px !important;
+    }
+    
+    .tb-item {
+        font-size: 14px !important;
+    }
+    
+    .hybTable-item {
+        font-size: 13px !important;
+    }
+
+    .hmInfoTable-item {
+        font-size: 13px !important;
+    }
+    
+    .hoan-item {
+        font-size: 13px !important;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .frames-common {
+        padding: 3px 4px
+    }
+
+    #hoanTable {
+        padding-left: 3px;
+        padding-right: 3px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .ryooshuu-text {
+        font-size: 18px !important;
+    }
+
+    .tb-item {
+        font-size: 13px !important;
+        /* margin: -2px !important; */
+        padding: 0px !important;
+    }
+
+    #ryooOsamuShirushiArea {
+        height: 140px;
+    }
+
+    .hybTable-item {
+        font-size: 12px !important;
+        margin: -2px !important;
+        /* padding: 0px !important; */
+    }
+
+    .hmInfoTable-item {
+        font-size: 13px !important;
+    }
+
+    .hoan-item {
+        font-size: 12px !important;
+        padding: 0px;
+    }
+}

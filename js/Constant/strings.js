@@ -90,6 +90,8 @@ export var BUSFCHOITEM = "BusfChoItem";
 /*****  CONTENT  *****/
 // login
 export var LOGIN = "ログイン";
+// sakujo kakunin
+export var SAKUJO_KAKUNIN = "削除確認";
 
 
 /*****  BUTTON  *****/

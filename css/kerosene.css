@@ -1,0 +1,232 @@
+body {
+	position: relative;
+}
+
+.card-body {
+	padding: 10px !important;
+	overflow: hidden;
+}
+
+.igt-center {
+	display: block !important;
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.collapsible {
+	background-color: #777;
+	color: white;
+	cursor: pointer;
+	padding: 18px;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+}
+
+.active,
+.collapsible:hover {
+	background-color: #555;
+	color: black;
+}
+
+.content-collapse {
+	padding: 0 18px;
+	display: none;
+	overflow: hidden;
+	background-color: #f1f1f1;
+}
+
+.card {
+	margin-bottom: 5px;
+}
+
+.card-header {
+	background-color: #7ab869;
+	padding: 10px 10px;
+}
+
+.card-link {
+	font-size: 20px !important;
+	color: white;
+	font-weight: bold;
+	display: block;
+	text-align: center;
+}
+
+.card-link:hover {
+	cursor: pointer;
+}
+
+.ta-l {
+	text-align: left;
+}
+
+.ta-r {
+	text-align: right;
+}
+
+#status {
+	padding-left: 5px;
+	font-weight: bold;
+	color: red;
+}
+
+.overlay {
+	position: absolute;
+	inset: 0;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .6);
+	z-index: -1;
+}
+
+.overlay-animate {
+	transform: translateY(100%);
+	animation: showDialog .5s forwards;
+	animation-timing-function: linear;
+}
+
+.overlay .container-mainform {
+	height: 100%;
+}
+
+.overlay .container-mainform .wrap-mainform {
+	max-width: 500px;
+	position: relative;
+}
+
+#close-icon {
+	font-size: 25px;
+	position: absolute;
+	padding: 5px;
+	top: 20px;
+	right: 20px;
+	cursor: pointer;
+}
+
+
+.item-collapse {
+	width: 100%;
+}
+
+.ic-dd-collapse {
+	position: absolute;
+	height: 30px;
+}
+
+.title-collapse {
+	border: none;
+	background: transparent;
+	margin: auto;
+	font-size: 20px;
+}
+
+.arrow-ic {
+	border: none;
+	background: transparent;
+	display: block;
+	position: absolute;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	right: 0;
+	font-size: 20px;
+}
+
+.combobox_select {
+	box-shadow: rgba(91, 101, 79, 0.25) 0px -50px 36px -28px inset;
+}
+
+.hidden {
+	display: none;
+}
+
+#teisei-group {
+	background-color: #b7b7b7;
+	padding: 20px 0;
+}
+
+.text_red {
+	color: red;
+}
+
+.text_blue {
+	color: blue;
+}
+
+.text_black {
+	color: black;
+}
+
+.edtError {
+	border-color: red;
+	border-width: 1px;
+}
+
+#cancel,
+#teisei-sumi {
+	margin-top: 10px;
+}
+
+#txtErrorTeisei {
+	display: none;
+}
+
+@media screen and (max-width: 1200px) {}
+
+@media screen and (max-width: 900px) {
+	.card-link {
+		font-size: 23px !important;
+	}
+
+	.ic-dd-collapse {
+		height: 27px;
+	}
+
+	.title-collapse {
+		font-size: 18px;
+	}
+
+	.arrow-ic {
+		font-size: 18px;
+	}
+
+}
+
+
+@media screen and (max-width: 768px) {
+	.card-link {
+		font-size: 21px !important;
+	}
+
+	.ic-dd-collapse {
+		height: 27px;
+	}
+
+	.title-collapse {
+		font-size: 16px;
+	}
+
+	.arrow-ic {
+		font-size: 16px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.card-link {
+		font-size: 20px !important;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.card-header {
+		padding: 7px 10px;
+	}
+}
+
+@keyframes showDialog {
+	to {
+		transform: translateY(0);
+	}
+}

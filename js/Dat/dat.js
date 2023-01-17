@@ -762,12 +762,13 @@ export class KouserDat {
 		this.m_nIraiKin = 0;
 		/** 引落し予定日（年） */
 		this.m_nIraiYear = 0;
-
+		/** 顧客毎コメント */
+		this.m_strCmt = "";
 	}
 
 
 	setValue(m_nChuatu, m_nKoubetsu, mHyc5, m_sChocode, m_sNyucode, m_nNextTransYear, m_nNextTransMonth, m_nNextTransDay, 
-		m_nIraiStat, m_nIraiMonth, m_nIraiDay, m_nIraiKin, m_nIraiYear) {
+		m_nIraiStat, m_nIraiMonth, m_nIraiDay, m_nIraiKin, m_nIraiYear, m_strCmt) {
 		var data = new KouserDat();
 
 		data.m_nChuatu = m_nChuatu;
@@ -783,6 +784,7 @@ export class KouserDat {
 		data.m_nIraiDay = m_nIraiDay;
 		data.m_nIraiKin = m_nIraiKin;
 		data.m_nIraiYear = m_nIraiYear;
+		data.m_strCmt = m_strCmt;
 		return data;
 	}
 
@@ -805,6 +807,7 @@ export class KouserDat {
 		data.m_nIraiDay = responeData.m_nIraiDay;
 		data.m_nIraiKin = responeData.m_nIraiKin;
 		data.m_nIraiYear = responeData.m_nIraiYear;
+		data.m_strCmt = responeData.m_strCmt;
 		
 		return data
 	}
@@ -2189,9 +2192,53 @@ export class Hme2Dat {
 		data.m_nReceipt = m_nReceipt;;
 		return data
 	}
+}
 
 
+export class PrintGenuriInfo {
+	constructor() {
+		/** 伝票用氏名1 */
+		this.m_strSname_0 = "";
+		/** 伝票用氏名2 */
+		this.m_strSname_1 = "";
+		/** 現金売りフラグ */
+		this.m_isGenuri = false;
+		/** 調整額 */
+		this.m_nChokin = 0;
+		/** 入金額 */
+		this.m_nNyukin = 0;
+		/** 預り金額 */
+		this.m_nReceipt = 0;
+		/** 今回売上明細一覧 */
+		this.m_lstHmefDat = null;
+	}
+
+	setValue(m_strSname_0, m_strSname_1, m_isGenuri, m_nChokin, m_nNyukin, m_nReceipt, m_lstHmefDat) {
+		var data = new PrintGenuriInfo();
+		data.m_strSname_0 = m_strSname_0;
+		data.m_strSname_1 = m_strSname_1;
+		data.m_isGenuri = m_isGenuri;
+		data.m_nChokin = m_nChokin;
+		data.m_nNyukin = m_nNyukin;
+		data.m_nReceipt = m_nReceipt;
+		data.m_lstHmefDat = m_lstHmefDat;
+		return data;
+	}
 
 
+	parseData(responeData) {
+		var data = new PrintGenuriInfo();
+		if (responeData == null) {
+			return data;
+		}
 
+		data.m_strSname_0 = responeData.m_strSname_0;
+		data.m_strSname_1 = responeData.m_strSname_1;
+		data.m_isGenuri = responeData.m_isGenuri;
+		data.m_nChokin = responeData.m_nChokin;
+		data.m_nNyukin = responeData.m_nNyukin;
+		data.m_nReceipt = responeData.m_nReceipt;
+		data.m_lstHmefDat = responeData.m_lstHmefDatc;
+		return data
+	}
 }

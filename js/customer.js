@@ -131,6 +131,15 @@ function setInformation() {
     } else {
         jikkoBtn.disabled = true;
     }
+
+    var toyuBtn = document.getElementById("toyuPageButton");
+    if (cusDetailData.mSysfDat.m_isToyukeninFlg == true) {
+        toyuBtn.disabled = false;
+    } else {
+        document.getElementById("toyuPageButtonArea").remove();
+        document.getElementById("uriageButtonArea").className = "col-6";
+        document.getElementById("nyuukinButtonArea").className = "col-6";
+    }
 }
 
 
@@ -169,11 +178,11 @@ function getShuukei() {
         }
     }
 
-    if (cusDetailData.mKokfDat.mShuku == 0 || cusDetailData.mKokfDat.mShuku == 4 || cusDat.m_nBkcd != 0) {
+    if (cusDetailData.mKokfDat.mShuku == 0 || cusDetailData.mKokfDat.mShuku == 4 || cusDetailData.mKokfDat.mBankCode != 0) {
         if (cusDetailData.mKokfDat.fkin != 0) {
             shuukei = "依頼中";
         } else {
-            shuukei = formatShuku(cusDat.bkcd);
+            shuukei = formatShuku(cusDetailData.mKokfDat.mBankCode);
         }
     }
     document.getElementById("shuukei-mei").innerHTML = shuukei;
@@ -316,7 +325,9 @@ function kinyuuMove(mode) {
 }
 
 
-
+/**
+   * SAVE USERDATA
+*/
 function saveUserData() {
     var kensinDate = document.getElementById("jisshi-bi").value;
     sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
@@ -345,6 +356,7 @@ function onclickAction() {
     };
     document.getElementById("nyuukinButton").onclick = function () { kinyuuMove(3); };
     document.getElementById("jikkoButton").onclick = function () { kinyuuMove(1); };
+    document.getElementById("toyuPageButtonArea").onclick = function () { Common.movePage('/kerosene.html') };
 }
 
 

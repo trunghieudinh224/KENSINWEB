@@ -39,7 +39,7 @@ function setOnClickItem() {
 	for (var i = 0; i < listTableItem.length; i++) {
 		var card = document.getElementById('card' + String(i));
 
-		if (card.querySelector('#collapseItem' + String(i)) !== null) {
+		if (card.querySelector('#collapseItem' + String(i)) != null) {
 			var item = document.getElementsByClassName("detailItem" + String(i));
 			for (var idx = 0; idx < item.length; idx++) {
 				item[idx].onclick = function () {
@@ -155,7 +155,7 @@ function setData(shofDatList, busfDatList) {
 						const shofdat = Object.assign({}, value[this.rowIndex]);
 						sessionStorage.setItem(StringCS.SHOFDATITEM, JSON.stringify(shofdat));
 						var id = (this.parentElement).parentElement.parentElement.parentElement.id;
-						const busfDat = Object.assign({}, busfDatList[parseInt(id.substring(id.length - 1, id.length))]);
+						const busfDat = Object.assign({}, busfDatList[parseInt(id.replaceAll("collapseItem",""))]);
 						sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
 						Common.movePage('/purchase.html');
 
@@ -167,7 +167,7 @@ function setData(shofDatList, busfDatList) {
 					const shofdat = Object.assign({}, value[0]);
 					sessionStorage.setItem(StringCS.SHOFDATITEM, JSON.stringify(shofdat));
 					var id = collapse.id;
-					const busfDat = Object.assign({}, busfDatList[parseInt(id.substring(id.length - 1, id.length))]);
+					const busfDat = Object.assign({}, busfDatList[parseInt(id.replaceAll("card",""))]);
 					sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
 					Common.movePage('/purchase.html');
 
@@ -326,6 +326,42 @@ function onclickAction() {
 		sessionStorage.setItem(StringCS.PRODUCTSTRING, val);
 		searchProduct(val);
 	};
+
+	var isEnable = false;
+	if (mUserData.mHmefList != null) {
+		if (mUserData.mHmefList.length > 0) {
+			for (var i = 0; i < mUserData.mHmefList.length; i++) {
+				if (item.mUsef) {
+					isEnable = true;
+					break;
+				}
+			}
+		}
+	}
+
+	
+	// if (isEnable) {
+	// 	document.getElementById("deleteButton").disabled = false;
+	// 	document.getElementById("printButton").disabled = false;
+
+	// 	document.getElementById("deleteButton").onclick = function () {
+	// 		sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
+	// 		Common.movePage('/sales_list.html');
+	// 	};
+
+	// 	document.getElementById("printButton").onclick = function () {
+			
+	// 	};
+	// } else {
+	// 	document.getElementById("deleteButton").disabled = true;
+	// 	document.getElementById("printButton").disabled = true;
+	// }
+
+	document.getElementById("deleteButton").onclick = function () {
+		// sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
+		Common.movePage('/sales_list.html');
+	};
+
 }
 
 
@@ -349,7 +385,6 @@ function onLoadAction() {
 	} else {
 		getData();
 	}
-	setOnClickItem();
 	setLayoutDefault();
 }
 
