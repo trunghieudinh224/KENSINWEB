@@ -145,7 +145,7 @@ export class KokfDat {
 		/** 今回入力：還元額の消費税 */
 		this.mReduceTax = 0;
 		/** 顧客灯油 */
-		this.mKotfDat = new KotfDat();
+		this.mKotfDat = null;
 		/** 当月：遅収料金 */
 		this.mProcTisyuu = 0;
 		/** 当月：消費税(遅収料金) */
@@ -195,7 +195,7 @@ export class KokfDat {
 		/** 呼称 */
 		this.mKName = "";
 		/** 前年同月使用量データ */
-		this.mZyksDat = new ZyksDat();
+		this.mZyksDat = null;
 		/** 今回入力：保安点検 */
 		this.mHoan = "";
 		/** 振替:銀行コード */
@@ -266,7 +266,7 @@ export class KokfDat {
 		data.mKaiMonth = mKaiMonth;
 		data.mKaiDate = mKaiDate;
 		if (mKtpcdat != null) {
-			data.mKtpcdat = mKtpcdat;
+			data.mKtpcdat = new KtpcDat().parseData(mKtpcdat);
 		}
 		data.mSupplyForm = mSupplyForm;
 		data.mGasBase = mGasBase;
@@ -277,7 +277,9 @@ export class KokfDat {
 		data.mUriTax = mUriTax;
 		data.mReduce = mReduce;
 		data.mReduceTax = mReduceTax;
-		data.mKotfDat = mKotfDat;
+		if (mKotfDat != null) {
+			data.mKotfDat = new KotfDat().parseData(mKotfDat);
+		}
 		data.mProcTisyuu = mProcTisyuu;
 		data.mTaxTisyuu = mTaxTisyuu;
 		data.mPreBalance = mPreBalance;
@@ -303,7 +305,7 @@ export class KokfDat {
 		data.mSName1 = mSName1;
 		data.mKName = mKName;
 		if (mZyksDat != null) {
-			data.mZyksDat = mZyksDat;
+			data.mZyksDat = new ZyksDat().parseData(mZyksDat);
 		}
 		data.mHoan = mHoan;
 		data.mBankCode = mBankCode;
@@ -355,8 +357,8 @@ export class KokfDat {
 		data.mKaiYear = responeData.mKaiYear;
 		data.mKaiMonth = responeData.mKaiMonth;
 		data.mKaiDate = responeData.mKaiDate;
-		if (data.mKtpcdat != null) {
-			data.mKtpcdat = responeData.mKtpcdat;
+		if (responeData.mKtpcdat != null) {
+			data.mKtpcdat = new KtpcDat().parseData(responeData.mKtpcdat);
 		}
 		data.mSupplyForm = responeData.mSupplyForm;
 		data.mGasBase = responeData.mGasBase;
@@ -367,7 +369,9 @@ export class KokfDat {
 		data.mUriTax = responeData.mUriTax;
 		data.mReduce = responeData.mReduce;
 		data.mReduceTax = responeData.mReduceTax;
-		data.mKotfDat = responeData.mKotfDat;
+		if (responeData.mKotfDat != null) {
+			data.mKotfDat = new KotfDat().parseData(responeData.mKotfDat);
+		}
 		data.mProcTisyuu = responeData.mProcTisyuu;
 		data.mTaxTisyuu = responeData.mTaxTisyuu;
 		data.mPreBalance = responeData.mPreBalance;
@@ -392,8 +396,8 @@ export class KokfDat {
 		data.mSName0 = responeData.mSName0;
 		data.mSName1 = responeData.mSName1;
 		data.mKName = responeData.mKName;
-		if (data.mZyksDat != null) {
-			data.mZyksDat = responeData.mZyksDat;
+		if (responeData.mZyksDat != null) {
+			data.mZyksDat = new ZyksDat().parseData(responeData.mZyksDat);
 		}
 		data.mHoan = responeData.mHoan;
 		data.mBankCode = responeData.mBankCode;
@@ -600,12 +604,17 @@ export class SysfDat {
 		data.mGtpcDat = responeData.mGtpcDat;
 		data.mHtOption = responeData.mHtOption;
 		data.mSnvalue = responeData.mSnvalue;
+		if(data.mSnvalue == 0){
+            data.mSnvalue = 100;
+        }
 		data.mIfChitUser = responeData.mIfChitUser;
 		data.mSysMonth = responeData.mSysMonth;
 		data.mTenkenDelta = responeData.mTenkenDelta;
 		data.mSanki = responeData.mSanki;
 		data.mHinCd9 = responeData.mHinCd9;
-		data.mShofDatKangen = new ShofDat().parseData(responeData.mShofDatKangen);
+		if (responeData.mShofDatKangen != null) {
+			data.mShofDatKangen = new ShofDat().parseData(responeData.mShofDatKangen);
+		}
 		return data
 	}
 }
@@ -1150,14 +1159,48 @@ export class KotfDat {
 		this.m_nFee = 0;
 		/** 灯油消費税額 */
 		this.m_nCon_tax = 0;
+		/** 今回指針 */
+		this.m_nNow_meter = 0;
+		/** 前回指針 */
+		this.m_nPre_meter = 0;
+		/** 今回使用量 */
+		this.m_nLoil_use = 0;
+		/** 中間使用量 */
+		this.m_nBetw_meter = 0;
+		/** 前回使用量 */
+		this.m_nPre_use = 0;
+		/** 灯油基本料金 */
+		this.m_nLoil_base = 0;
+		/** 灯油消費税区分 */
+		this.m_bLoil_taxku = 0;
+		/** 灯油消費税率 */
+		this.m_sLoil_taxr;
+		/** 灯油消費税端数処理(加算) */
+		this.m_nLoil_fracadd_tax = 0;
+		/** 灯油消費税端数処理(乗算) */
+		this.m_nLoil_fracmul_tax = 0;
+		/** 指針桁数 */
+		this.m_bMt_keta;
 	}
 
-	setValue(m_bKen_sumi, m_nFee, m_nCon_tax) {
+	setValue(m_bKen_sumi, m_nFee, m_nCon_tax, m_nNow_meter, m_nPre_meter, m_nLoil_use, m_nBetw_meter, m_nPre_use, m_nLoil_base,
+			m_bLoil_taxku, m_sLoil_taxr, m_nLoil_fracadd_tax, m_nLoil_fracmul_tax, m_bMt_keta) {
 		var data = new KotfDat();
 
 		data.m_bKen_sumi = m_bKen_sumi;
 		data.m_nFee = m_nFee;
 		data.m_nCon_tax = m_nCon_tax;
+		data.m_nNow_meter = m_nNow_meter;
+		data.m_nPre_meter = m_nPre_meter;
+		data.m_nLoil_use = m_nLoil_use;
+		data.m_nBetw_meter = m_nBetw_meter;
+		data.m_nPre_use = m_nPre_use;
+		data.m_nLoil_base = m_nLoil_base;
+		data.m_bLoil_taxku = m_bLoil_taxku;
+		data.m_sLoil_taxr = m_sLoil_taxr;
+		data.m_nLoil_fracadd_tax = m_nLoil_fracadd_tax;
+		data.m_nLoil_fracmul_tax = m_nLoil_fracmul_tax;
+		data.m_bMt_keta = m_bMt_keta;
 		return data;
 	}
 
@@ -1170,6 +1213,17 @@ export class KotfDat {
 		data.m_bKen_sumi = responeData.m_bKen_sumi;
 		data.m_nFee = responeData.m_nFee;
 		data.m_nCon_tax = responeData.m_nCon_tax;
+		data.m_nNow_meter = responeData.m_nNow_meter;
+		data.m_nPre_meter = responeData.m_nPre_meter;
+		data.m_nLoil_use = responeData.m_nLoil_use;
+		data.m_nBetw_meter = responeData.m_nBetw_meter;
+		data.m_nPre_use = responeData.m_nPre_use;
+		data.m_nLoil_base = responeData.m_nLoil_base;
+		data.m_bLoil_taxku = responeData.m_bLoil_taxku;
+		data.m_sLoil_taxr = responeData.m_sLoil_taxr;
+		data.m_nLoil_fracadd_tax = responeData.m_nLoil_fracadd_tax;
+		data.m_nLoil_fracmul_tax = responeData.m_nLoil_fracmul_tax;
+		data.m_bMt_keta = responeData.m_bMt_keta;
 		return data
 	}
 }
@@ -1691,17 +1745,17 @@ export class UserData {
 		}
 		var data = new UserData();
 
-		data.mSysfDat = responeData.mSysfDat;
-		data.mSy2fDat = responeData.mSy2fDat;
+		data.mSysfDat = new SysfDat().parseData(responeData.mSysfDat);
+		data.mSy2fDat = new Sy2fDat().parseData(responeData.mSy2fDat);
 		data.mKensinDate = responeData.mKensinDate;
-		data.mKokfDat = responeData.mKokfDat;
-		data.mKo2fDat = responeData.mKo2fDat;
-		data.mGasfDat = responeData.mGasfDat;
+		data.mKokfDat = new KokfDat().parseData(responeData.mKokfDat);
+		data.mKo2fDat = new Ko2fDat().parseData(responeData.mKo2fDat);
+		data.mGasfDat = new GasfDat().parseData(responeData.mGasfDat);
 		data.mHmefList = responeData.mHmefList;
-		data.mHanfDat = responeData.mHanfDat;
+		data.mHanfDat = new HanfDat().parseData(responeData.mHanfDat);
 		data.mNyukinMode = responeData.mNyukinMode;
 		data.mNyukinOnly = responeData.mNyukinOnly;
-		data.mKouserDat = responeData.mKouserDat;
+		data.mKouserDat = new KouserDat().parseData(responeData.mKouserDat);
 		data.m_lstKnebDat = responeData.m_lstKnebDat;
 		data.m_lstLeasHmefDat = responeData.m_lstLeasHmefDat;
 		data.mBusfDat_kang = responeData.mBusfDat_kang;
