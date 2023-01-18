@@ -876,6 +876,8 @@ export class GasfDat {
 		this.mChoTanka = 0;
 		/** ガス料金拡張データ */
 		this.mGextDat = null;
+		/** 消費税区分 */
+    	this.mTaxDiv;
 	}
 
 	setValue(mSum, mSyu, mFrac1Add, mFrac2Add, mFrac1Mult, mFrac2Mult, mRiseFall, m_lstGstpDat, mTaxDiv, mTaxAdd, mTaxMult, mChoTanka, mGextDat) {
@@ -1074,6 +1076,16 @@ export class HmefDat {
 		this.mHbName = "";
 		/** 伝票日付(年) */
 		this.mDeny = 0;
+		/** 備考 */
+		this.m_strBikou = "";
+		/** 灯油検針フラグ設定 */
+		this.m_isToyukensin = false;
+		/** 顧客コード */
+		this.mCusRec = 0;
+		/** 前明細レコード */
+		this.mPreHrec = 0;
+		/** 次明細レコード 0で最終レコード */
+		this.mNxtHrec = 0;
 	}
 
 	setValue(mUsef, mHmeKind, mLeasKind, mKin, mTax, mHmCode, mTaxKu, mTaxR, mHbCode, mDenm,
@@ -1824,6 +1836,7 @@ export class WriteDataDat {
 		this.login_id = 0;
 		/** ログインパスワード */
 		this.login_pw = 0;
+		this.m_kokfDat = null;
 	}
 
 	setValue(m_oSecLawDat, m_lLawItem, m_oDenpyoMeisaiDat, m_oMetMeisaiDat, m_oGasraterDat, m_nMode, login_id, login_pw) {
@@ -1987,6 +2000,10 @@ export class HnDenMeiDat {
 		this.d_wrt_tancd = 0;
 		/** 明細：記入プログラムコード */
 		this.m_wrt_prg = 0;
+		/** 明細：消費税区分 */
+		this.m_taxku = 0;
+		/** 明細：消費税 */
+		this.m_tax = 0;
 	}
 
 	setValue(d_cusrec, d_seiymd, sysymd, entymd, d_denymd, d_denku, d_torku, d_denno, m_delflg, d_kin, utax,
@@ -2240,5 +2257,23 @@ export class PrintGenuriInfo {
 		data.m_nReceipt = responeData.m_nReceipt;
 		data.m_lstHmefDat = responeData.m_lstHmefDatc;
 		return data
+	}
+}
+
+export class HmefWriteDat {
+
+	constructor(){
+	/** 顧客管理番号 */
+	this.m_nCusrec = 0;
+	/** 顧客データ(標準)  */
+	this.m_kokfDat = null;
+	/** 販売明細一覧 */
+	this.m_lstHmefDat = null;
+	/** モード（0:新規追加、1:修正、2:削除） */
+	this.m_nMode = 0;
+	/** ログインID */
+	this.m_strloginID = "";
+	/** ログインパスワード */
+	this.m_strloginPW = "";
 	}
 }
