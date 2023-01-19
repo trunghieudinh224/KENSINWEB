@@ -229,6 +229,9 @@ function dispGen() {
 	uriage_gen.textContent = Other.formatDecial(nGen);
 }
 
+/**
+* create hmefDat data from sessionstorage
+*/
 function createData() {
 
 	if (mHmefDat == null) {
@@ -272,6 +275,10 @@ function createData() {
 
 }
 
+/**
+* set data for layout
+*
+*/
 function onCreateView() {
 	m_nCho = 0;
 	m_nNyu = 0;
@@ -398,6 +405,10 @@ function setupTitleClick() {
 	titleOnclick("cho_text", "receipt_form", lstBusfCho);
 }
 
+/**
+* set data of nyu and cho to create table view
+*
+*/
 function generateTable(listItem, tittle, pos) {
 	// creates a <table> element and a <tbody> element
 

@@ -50,6 +50,10 @@ const saveButton = document.getElementById("createPrintingFormButton");
 var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 mUserData.mKokfDat.mKtpcdat = new Dat.KtpcDat();
 mUserData.mGasfDat.mGextDat = new Dat.GextDat();
+var seiymd = mUserData.mKokfDat.seiymd;
+var kai_ymd = mUserData.mKokfDat.kai_ymd;
+var mKenku = mUserData.mKokfDat.mKenku;
+var chuatu = mUserData.mKokfDat.chuatu;
 
 /** tab display status */
 var displayTab = [true, true, true];
@@ -798,7 +802,7 @@ function setLeasInfo() {
 function afterCheckLease() {
     try {
         mUserData.mKokfDat.mHiwari = mDays;
-        mUserData.mKokfDat.mKenSumi = true;
+        mUserData.mKokfDat.mKenSumi = 1;
         mUserData.mKokfDat.mKMonth = kensin_date.getMonth() + 1;
         mUserData.mKokfDat.mKDate = kensin_date.getDate();
 
@@ -1244,8 +1248,17 @@ function updateDataNyuukin() {
 
 
 
-export function sendDataToServer() {
+  export function sendDataToServer() {
 	var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
+
+    // const mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
+	var mKokfDat = new Dat.KokfDat().parseData(mUserData.mKokfDat)
+	var sysfDat = new Dat.SysfDat().parseData(mUserData.mSysfDat)
+	mKokfDat.mKtpcdat = new Dat.KtpcDat();
+    mKokfDat.seiymd = seiymd;
+    mKokfDat.kai_ymd = kai_ymd;
+    mKokfDat.mKenku = mKenku;
+    mKokfDat.chuatu = chuatu;
 	var kensinDate_ss = sessionStorage.getItem(StringCS.KENSINDATE);
 	var kensinDate = new Date(kensinDate_ss);
 	var m_oMetMeisaiDat = new Dat.MetMeisaiDat();
@@ -1258,13 +1271,13 @@ export function sendDataToServer() {
 	var nKenmsr = mUserData.mKokfDat.mBetwMeter;
 	var nTancd = dataSetting.tancd;
 	var strTanname = dataSetting.m_lstTantName[0].name;
-	var nWrt_tancd = dataSetting.wrt_tancd;
+	var nWrt_tancd = dataSetting.tancd;
 	var dtWrt_ymd = kensinDate;
 
 	m_oMetMeisaiDat.m_nCusrec = mUserData.mKokfDat.mCusrec;
 	m_oMetMeisaiDat.m_dtSeiymd = kensinDate;
 	m_oMetMeisaiDat.m_dtSysymd = sysDate;
-	m_oMetMeisaiDat.m_nOld_ss = mUserData.mKokfDat.mPreMeter;
+	m_oMetMeisaiDat.m_nOld_ss = mUserData.mKokfDat.mNowMeter;
 	m_oMetMeisaiDat.m_nNew_ss = mUserData.mKokfDat.mNowMeter;
 	m_oMetMeisaiDat.m_nKenmsr = mUserData.mKokfDat.mBetwMeter;
 	m_oMetMeisaiDat.m_nTancd = dataSetting.tancd;
@@ -1276,14 +1289,30 @@ export function sendDataToServer() {
 
 	// m_oMetMeisaiDat.setValue(cusRec, dtSeiymd, dtSysymd, nOld_ss, nNew_ss, nKenmsr, nTancd, strTanname,
 	// 	nWrt_tancd, dtWrt_ymd);
-
-	var m_lLawItem = HoanKinnyuu.m_lLawItem;
-	var m_oSecLawDat = new Dat.SeclawDat();
-	m_oSecLawDat.m_nCusrec = mUserData.mKokfDat.mCusrec;
-	m_oSecLawDat.m_dtEntymd = kensinDate;
-	m_oSecLawDat.m_bRes = HoanKinnyuu.m_bRes;
-	m_oSecLawDat.m_strTanname = dataSetting.m_lstTantName[0].name;
-	m_oSecLawDat.m_sTancd = dataSetting.tancd;
+    var checkHoan = HoanKinnyuu.checkInsertSecLawDat();
+    if(checkHoan == true){
+        var m_lLawItem;
+        if(mKokfDat.mSupplyForm == 3){
+            m_lLawItem = [];
+        }else{
+            m_lLawItem = HoanKinnyuu.m_lLawItem;
+        }
+        
+        var m_oSecLawDat = new Dat.SeclawDat();
+        var bRec;
+        if(HoanKinnyuu.m_bRes == 4){
+            bRec = 2;
+        }else if(HoanKinnyuu.m_bRes == 2){
+            bRec = 1;
+        }else if(HoanKinnyuu.m_bRes == 1){
+            bRec = 0;
+        }
+	    m_oSecLawDat.m_nCusrec = mUserData.mKokfDat.mCusrec;
+	    m_oSecLawDat.m_dtEntymd = kensinDate;
+	    m_oSecLawDat.m_bRes = bRec;
+	    m_oSecLawDat.m_strTanname = strTanname;
+	    m_oSecLawDat.m_sTancd = nWrt_tancd;
+    }
 
 	var m_oDenpyoMeisaiDat = new Dat.HnDenMeiDat();
 	m_oDenpyoMeisaiDat.d_cusrec = mUserData.mKokfDat.mCusrec;
@@ -1292,7 +1321,7 @@ export function sendDataToServer() {
 	m_oDenpyoMeisaiDat.d_sysymd = sysDate;
 	m_oDenpyoMeisaiDat.d_entymd = kensinDate;
 	m_oDenpyoMeisaiDat.d_denymd = kensinDate;
-	m_oDenpyoMeisaiDat.m_tax = mUserData.mKokfDat.mConTax * 1000;
+	m_oDenpyoMeisaiDat.m_tax = mUserData.mKokfDat.mConTax;
 	m_oDenpyoMeisaiDat.d_sisin = mUserData.mKokfDat.mNowMeter;
 	m_oDenpyoMeisaiDat.d_siyouryo = mUserData.mKokfDat.mGasUse;
 	m_oDenpyoMeisaiDat.d_wrt_tancd = dataSetting.tancd;
@@ -1303,8 +1332,12 @@ export function sendDataToServer() {
     m_oDenpyoMeisaiDat.m_taxku = mUserData.mGasfDat.mTaxDiv;
 
 	var writeDatadat = new Dat.WriteDataDat();
-	writeDatadat.m_oSecLawDat = m_oSecLawDat;
-	writeDatadat.m_lLawItem = m_lLawItem;
+    if(checkHoan == true){
+        writeDatadat.m_oSecLawDat = m_oSecLawDat;
+	    writeDatadat.m_lLawItem = m_lLawItem;
+    }
+
+    writeDatadat.m_kokfDat = mKokfDat;
 	writeDatadat.m_oDenpyoMeisaiDat = m_oDenpyoMeisaiDat;
 	writeDatadat.m_oMetMeisaiDat = m_oMetMeisaiDat;
 	writeDatadat.login_id = sessionStorage.getItem(StringCS.USERNAME);

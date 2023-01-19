@@ -1,6 +1,6 @@
 import { LawItemDat } from './Dat/dat.js';
 import * as KensinKinyuu from './kensin_kinnyuu.js'
-import * as Dat from './Dat/dat.js'
+import * as StringCS from './Constant/strings.js'
 
 
 export var m_bRes;
@@ -25,11 +25,15 @@ var pos_combobox = 0;
 
 var tenkenDelta = KensinKinyuu.mUserData.mSysfDat.mTenkenDelta;
 
-var combo_choose;
-
 const kenshin_data = document.getElementById("kenshin_data");
 
-const list_combobox = [combobox_1, combobox_2, combobox_3, combobox_4, combobox_5, combobox_6, combobox_7, combobox_8];
+var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
+var list_combobox ;
+if(mUserData.mKokfDat.mSupplyForm != 3 ){
+    list_combobox = [combobox_1, combobox_2, combobox_3, combobox_4, combobox_5, combobox_6, combobox_7, combobox_8];
+}else{
+    list_combobox = [combobox_5, combobox_6, combobox_8];
+}
 
 
 function setAllComboBox() {
@@ -73,7 +77,7 @@ function setDataforComboBoxSelect(value) {
     list_combobox[pos_combobox].classList.remove("combobox_select");
     setComboBoxTotal(list_combobox[pos_combobox]);
     pos_combobox++;
-    if (pos_combobox > 7) {
+    if (pos_combobox > list_combobox.length-1) {
         pos_combobox = 0;
     }
     list_combobox[pos_combobox].classList.add("combobox_select");
@@ -118,8 +122,9 @@ function changeValue() {
 
 function setHoanKinnyuu() {
     hoanString = "";
-    for (let i = 0; i < list_combobox.length; i++) {
-        var hoanVal = list_combobox[i].options[list_combobox[i].selectedIndex].text;
+    for (let i = 0; i < 8; i++) {
+        var combobox_pos = document.getElementById("combobox_"+(i+1));
+        var hoanVal = combobox_pos.options[list_combobox[i].selectedIndex].text;
         if (hoanVal == "ー") {
             hoanVal = "-";
         }
@@ -131,9 +136,9 @@ function getValueOfHoanItem(value) {
     if (value == 0) {
         return 1;
     } else if (value == 1) {
-        return 2;
-    } else if (value == 2) {
         return 4;
+    } else if (value == 2) {
+        return 2;
     }
 }
 
@@ -208,6 +213,17 @@ function onLoadAction() {
         
         });
     }
+}
+
+export function checkInsertSecLawDat(){
+    var check = false;
+    for (let i = 0; i < m_lLawItem.length; i++) {
+        if(m_lLawItem[i] != 4){
+            check = true;
+            break;
+        } 
+    }
+    return check;
 }
 
 onLoadAction();

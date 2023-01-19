@@ -231,6 +231,11 @@ export class KokfDat {
 		this.mNyu2 = 0;
 		/** 締後：調整額 */
 		this.mCho2 = 0;
+		this.seiymd = null;
+		this.kai_ymd =null;
+		this.mKenku = 0;
+		this.chuatu = 0;
+		this.sime = 0;
 	}
 
 	setValue(mName, mKMonth, mKDate, mGasUse, mGasKubun, mKenSumi, mNowMeter, mPreMeter, mPuseYear, mPuseMonth, mPuseDate,
@@ -239,7 +244,7 @@ export class KokfDat {
 		mTaxTisyuu, mPreBalance, mTAdjust, mTReceipt, mProcLease, mTaxLease, mProcDiv, mProcLoil, mTaxLoil, mProcEtc,
 		mTaxEtc, mProcGas, mTaxGas, mReceipt, mAdjust, mSyuSumi, mInpReceipt, mAdd_0, mAdd_1, mCusCode, mSName0,
 		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusrec, mPuseSrpDay, nGasrkcnt, mLoilUnit , mLoilAdd , mLoilMulti,
-		mPoint, mTransMonth, mTransDate, mTransFee, mGUri2, mUri2, mTax2, mNyu2, mCho2) {
+		mPoint, mTransMonth, mTransDate, mTransFee, mGUri2, mUri2, mTax2, mNyu2, mCho2 , seiymd , kai_ymd , mKenku , chuatu) {
 
 		var data = new KokfDat();
 
@@ -325,6 +330,11 @@ export class KokfDat {
 		data.mTax2 = mTax2;
 		data.mNyu2 = mNyu2;
 		data.mCho2 = mCho2;
+		data.seiymd = seiymd;
+		data.kai_ymd = kai_ymd;
+		data.mKenku = mKenku;
+		data.chuatu = chuatu;
+		data.sime = sime;
 
 		return data
 	}
@@ -417,6 +427,11 @@ export class KokfDat {
 		data.mTax2 = responeData.mTax2;
 		data.mNyu2 = responeData.mNyu2;
 		data.mCho2 = responeData.mCho2;
+		data.seiymd = responeData.seiymd;
+		data.kai_ymd = responeData.kai_ymd;
+		data.mKenku = responeData.mKenku;
+		data.chuatu = responeData.chuatu;
+		data.sime = responeData.sime;
 
 		return data
 	}
@@ -2314,6 +2329,10 @@ export class PrintGenuriInfo {
 	}
 }
 
+
+/**
+ * 売上機能の書き込むデータ
+ */
 export class HmefWriteDat {
 
 	constructor(){
