@@ -1367,16 +1367,6 @@ onLoadAction();
 
 export {
     displayTab,
-    // mKokfDat,
-    // sy2fDat,
-    // sysfDat,
-    // kouserDat,
-    // ko2fDat,
-    // mBusfDat_kang,
-    // mBusfDat_hmcd13,
-    // gasfDat,
-    // hanfDat,
-    // m_lstKnebDat,
     mUserData,
     kensin_date,
     m_nGasuse,

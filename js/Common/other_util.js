@@ -673,9 +673,43 @@ function DateFormatYMD(year, month, day, mask) {
 	return ymd;
 }
 
+/**
+    * double型をlong型に変換.
+    *
+    * @param dvalue    [in] float 変換元double値
+    * @return  int    変換後int値
+*/
+function Double2Long(dvalue){
+	if(parseFloat(dvalue) < 0.){
+		return parseInt(parseFloat(dvalue) - 0.001);
+	}
+	else {
+		return parseInt(parseFloat(dvalue) + 0.001);
+	}
+}
+
+
+/**
+    * Convert string to number
+    *
+    * @param value    [int / float]
+    * @return  int    変換後int値
+*/
+function CvtString2Num(value) {
+	if (value != null) {
+		if (value.includes(".")) {
+			return parseFloat(value);
+		} else {
+			return parseInt(value);
+		}
+	} else {
+		return 0;
+	}
+}
 
 export {
-	Format, KingakuFormat, KingakuFormatLocal, isEmpty, cutStringSpace, nullToString, getClearString, DateFormat, MonthDayFormat, getKangcontname, hasCom,
-	printformat, printformatLocal, calcMulti, format, format2pr, formatLocal, getUriTaxr, getBytesLen, formatLocalJS, formatDecial, getNumFromString, parseDate,
-	betweenDays, DateFormatYMD
+	Format, KingakuFormat, KingakuFormatLocal, isEmpty, cutStringSpace, nullToString, getClearString, DateFormat, 
+	MonthDayFormat, getKangcontname, hasCom, printformat, printformatLocal, calcMulti, format, format2pr, formatLocal, 
+	getUriTaxr, getBytesLen, formatLocalJS, formatDecial, getNumFromString, parseDate, betweenDays, DateFormatYMD, 
+	Double2Long, CvtString2Num
 }

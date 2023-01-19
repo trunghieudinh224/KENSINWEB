@@ -595,15 +595,15 @@ function onClickAction() {
 	};
 
 	uriage_submit.onclick = function () {
-		Common.setupModal("question", null, Mess.I00008, StringCS.HAI, StringCS.IIE);
-		var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
+		Common.setupModal("question", null, Mess.I00008, StringCS.IIE, StringCS.HAI, null, false);
+		var buttonConfirm = document.getElementsByClassName("button-1")[0];
 		buttonConfirm.onclick = function () {
-			// sendDataToServer();
-			modal.style.display = "none";
-			document.getElementById("editView").style.display = "none";
-			document.getElementById("printView").style.display = "block";
-			preparePrintData();
-			createImageForm();
+			sendDataToServer();
+			// modal.style.display = "none";
+			// document.getElementById("editView").style.display = "none";
+			// document.getElementById("printView").style.display = "block";
+			// preparePrintData();
+			// createImageForm();
 		}
 	}
 }
@@ -1526,7 +1526,7 @@ function sendImage() {
 	* CREATE IMAGE FILE OF SHUUKEI NIPPOU FORM
 */
 function createImageForm() {
-	Common.setupModal("load", null, Mess.I00001, null);
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
@@ -1599,14 +1599,14 @@ export function sendDataToServer() {
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(hmefWriteDat),
-		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
-		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
+		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
+		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
 		contentType: "application/json",
 		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
 			console.log(response);
 			sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
-			Common.setupModal("load", null, Mess.I00002, null, null);
+			Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 
 		},
 		error: function (textstatus) {
@@ -1616,12 +1616,12 @@ export function sendDataToServer() {
 				console.log(textstatus)
 			}
 			sessionStorage.setItem(StringCS.SAVINGSTATUS, "0");
-			Common.setupModal("error", null, Mess.E00004, StringCS.OK, null);
+			Common.setupModal("error", null, Mess.E00004, null, StringCS.OK, null, false);
 		}
 	}).done(function (res) {
 		console.log('res', res);
 		sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
-		Common.setupModal("success", null, Mess.I00003, StringCS.OK, null);
+		Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
 	});
 
 }

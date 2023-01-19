@@ -13,10 +13,10 @@ const modal = document.getElementById("myModal");
 /* customer data */
 var cusDat = JSON.parse(sessionStorage.getItem(StringCS.CUSDAT));
 /* customer detail data */
-var cusDetailData;
-
+var cusDetailData = JSON.parse(sessionStorage.getItem(StringCS.CUSDETAILDATA));
+/* ユーザー情報 */ 
 var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
-
+/** recent day */ 
 var recentDay = moment().format('YYYY/MM/DD');
 
 
@@ -56,15 +56,16 @@ function setDefaultDate() {
 */
 function getInformation() {
     if (cusDat != null) {
-        Common.setupModal("load", null, Mess.I00001, null, null);
+        Common.setupModal("load", null, Mess.I00001, null, null, null, false);
         $.ajax({
-            // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-            url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+            url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+            // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
             headers: {
                 'Content-Type': StringCS.PR_CONTENT_TYPE
             },
             success: function (result) {
                 cusDetailData = JSON.parse(result);
+                sessionStorage.setItem(StringCS.CUSDETAILDATA, JSON.stringify(cusDetailData));
                 mUserData = new Dat.UserData().parseData(cusDetailData);
                 saveUserData();
                 modal.style.display = "none";
@@ -75,12 +76,14 @@ function getInformation() {
             },
             error: function (jqXHR, exception) {
                 console.log(exception);
-                Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
+                Common.setupModal("error", null, Mess.E00003, StringCS.OK, null, null, false);
             },
             timeout: ValueCS.VL_LONG_TIMEOUT
         });
     } else {
-        // history.back();
+        if (cusDetailData != null) {
+            setInformation();
+        }
     }
 }
 
@@ -356,7 +359,10 @@ function onclickAction() {
     };
     document.getElementById("nyuukinButton").onclick = function () { kinyuuMove(3); };
     document.getElementById("jikkoButton").onclick = function () { kinyuuMove(1); };
-    document.getElementById("toyuPageButtonArea").onclick = function () { Common.movePage('/kerosene.html') };
+    document.getElementById("toyuPageButtonArea").onclick = function () { 
+        saveUserData();
+        Common.movePage('/kerosene.html') 
+    };
 }
 
 

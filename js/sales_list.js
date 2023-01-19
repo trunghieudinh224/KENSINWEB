@@ -48,8 +48,8 @@ function setData() {
 				table.appendChild(newElement);
 				icon.onclick = function () {
 					var mess = "品目:" + "Hieu" + "を削除しますか?";		//hmefDat.mHmName		//Hieu
-					Common.setupModal("question", StringCS.SAKUJO_KAKUNIN, mess, StringCS.HAI, StringCS.IIE);
-					var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
+					Common.setupModal("question", StringCS.SAKUJO_KAKUNIN, mess, StringCS.IIE, StringCS.HAI, null, false);
+					var buttonConfirm = document.getElementsByClassName("button-1")[0];
 					buttonConfirm.onclick = function () {
 
 					}

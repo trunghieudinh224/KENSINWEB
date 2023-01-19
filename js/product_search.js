@@ -59,10 +59,10 @@ function setOnClickItem() {
    * SEARCH CUSTOMER
 */
 function getData() {
-	Common.setupModal("load", null, Mess.I00001, null, null);
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
-		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
-		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
+		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
 			"&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
 			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		headers: {
@@ -85,7 +85,7 @@ function getData() {
 		},
 		error: function (exception) {
 			console.log(exception);
-			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
+			Common.setupModal("error", null, Mess.E00003, null, StringCS.OK, null, false);
 		},
 		timeout: ValueCS.VL_LONG_TIMEOUT
 	});
@@ -159,7 +159,7 @@ function setData(shofDatList, busfDatList) {
 						sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
 						Common.movePage('/purchase.html');
 
-						// Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
+						// Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
 					};
 				}
 			} else {
@@ -171,7 +171,7 @@ function setData(shofDatList, busfDatList) {
 					sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
 					Common.movePage('/purchase.html');
 
-					// Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
+					// Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
 				};
 			}
 	

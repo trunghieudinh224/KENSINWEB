@@ -19,11 +19,12 @@ function checkUser() {
 function clearDataSearch() {
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
-    if (page != "search_customer" && page != "customer" && page != "meter_reading_fillout" && page != "product_search" && page != "purchase" && page != "kerosene") {
+    if (page != "search_customer" && page != "customer" && page != "meter_reading_fillout" && page != "product_search" && page != "purchase" && page != "kerosene" && page != "sales_list") {
         sessionStorage.removeItem(StringCS.CUSTLIST);
         sessionStorage.removeItem(StringCS.SEARCHSTRING);
         sessionStorage.removeItem(StringCS.CONDITIONDATA);
         sessionStorage.removeItem(StringCS.CUSTOMERINDEX);
+        sessionStorage.removeItem(StringCS.CUSDETAILDATA);
     }
 }
 
@@ -34,7 +35,7 @@ function clearDataSearch() {
 function clearDataCus() {
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
-    if (page != "meter_reading_fillout" && page != "customer" && page != "product_search" && page != "purchase") {
+    if (page != "meter_reading_fillout" && page != "customer" && page != "product_search" && page != "purchase" && page != "kerosene" && page != "sales_list") {
         sessionStorage.removeItem(StringCS.CUSDAT);
     } else {
         if (page == "meter_reading_fillout") {

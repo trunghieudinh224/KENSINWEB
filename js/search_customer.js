@@ -211,8 +211,8 @@ function checkPreviousData() {
 				var object = previousCuslist[this.rowIndex];
 				object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 				if (object.kenstat == 1) {
-					Common.setupModal("question", null, Mess.I00006, StringCS.HAI, StringCS.IIE);
-					var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
+					Common.setupModal("question", null, Mess.I00006, StringCS.IIE, StringCS.HAI, null, false);
+					var buttonConfirm = document.getElementsByClassName("button-1")[0];
 					buttonConfirm.onclick = function () {
 						const cusdat = Object.assign({}, object);
 						sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
@@ -243,7 +243,7 @@ function searchCus() {
 	setConditionData();
 	sessionStorage.setItem(StringCS.SEARCHSTRING, searchKey.value.trim());
 
-	Common.setupModal("load", null, Mess.I00001, null, null);
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
 		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
@@ -297,8 +297,8 @@ function searchCus() {
 							sessionStorage.setItem(StringCS.CUSTOMERINDEX, this.rowIndex);
 							object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 							if (object.kenstat == 1) {
-								Common.setupModal("question", null, Mess.I00006, StringCS.HAI, StringCS.IIE);
-								var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
+								Common.setupModal("question", null, Mess.I00006, StringCS.IIE, StringCS.HAI, null, false);
+								var buttonConfirm = document.getElementsByClassName("button-1")[0];
 								buttonConfirm.onclick = function () {
 									const cusdat = Object.assign({}, object);
 									sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
@@ -336,18 +336,18 @@ function searchCus() {
 					dataMessage.innerText = Mess.E00001;
 					dataMessage.style.display = "block";
 					document.getElementById("countList").style.display = "none";
-					Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
+					Common.setupModal("success", null, Mess.E00005, null, StringCS.OK, null, false);
 				}
 			} else {
 				dataMessage.innerText = Mess.E00001;
 				dataMessage.style.display = "block";
 				document.getElementById("countList").style.display = "none";
-				Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
+				Common.setupModal("success", null, Mess.E00005, null, StringCS.OK, null, false);
 			}
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
-			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
+			Common.setupModal("error", null, Mess.E00003, null, StringCS.OK, null, false);
 		},
 		timeout: ValueCS.VL_LONG_TIMEOUT
 	});
@@ -360,10 +360,10 @@ function searchCus() {
 function firstCustomerAction() {
 	setConditionData();
 
-	Common.setupModal("load", null, Mess.I00001, null, null);
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-			// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+			url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + conditionData.searchKind +
 			(conditionData.searchKey != "" ? "&srch_string=" + conditionData.searchKey : "") +
 			"&match_kind=" + conditionData.searchPart +
@@ -394,18 +394,18 @@ function firstCustomerAction() {
 				} else {
 					dataMessage.innerText = Mess.E00001;
 					dataMessage.style.display = "block";
-					Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
+					Common.setupModal("success", null, Mess.E00005, null, StringCS.OK, null, false);
 				}
 			} else {
 				dataMessage.innerText = Mess.E00001;
 				dataMessage.style.display = "block";
-				Common.setupModal("success", null, Mess.E00005, StringCS.OK, null);
+				Common.setupModal("success", null, Mess.E00005, null, StringCS.OK, null, false);
 			}
 
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
-			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
+			Common.setupModal("success", null, Mess.E00005, null, StringCS.OK, null, false);
 		},
 		timeout: ValueCS.VL_LONG_TIMEOUT
 	});

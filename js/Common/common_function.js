@@ -19,16 +19,20 @@ function backAction() {
    * @param status     [STRING]
    * @param title     [STRING]
    * @param message     [STRING]
-   * @param textButton     [STRING]
+   * @param textButton0     [STRING]
+   * @param textButton1     [STRING]
+   * @param textButton2     [STRING]
+   * @param isClose     [BOOL]
 */
-function setupModal(status, title, message, textButton, textButton2) {
+function setupModal(status, title, message, textButton0, textButton1, textButton2, isClose) {
 	// init view
     var modal = document.getElementById("myModal");
     var imageModal = document.getElementsByClassName("modal-image")[0];
     var titleModal = document.getElementsByClassName("title-modal")[0];
     var messageModal = document.getElementsByClassName("modal-message-detail")[0];
-    var buttonBack = document.getElementsByClassName("button-cancel")[0];
-    var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
+    var button0 = document.getElementsByClassName("button-0")[0];
+    var button1 = document.getElementsByClassName("button-1")[0];
+    var button2 = document.getElementsByClassName("button-2")[0];
     var closeButton = document.getElementsByClassName("modal-close-button")[0];
 
 	// title and message
@@ -38,54 +42,60 @@ function setupModal(status, title, message, textButton, textButton2) {
     if (message != null) {
         messageModal.innerHTML = message;
     }
-    if (buttonConfirm != null) {
-        buttonConfirm.innerHTML = message;
-    }
 
 	// status
     if (status == "load") {
         titleModal.style.display = "none";
-        closeButton.style.display = "none";
-        buttonConfirm.style.display = "none";
 		imageModal.src = "./images/gif/gif_loading_data.gif";
     } else if (status == "success") {
         titleModal.style.display = "none";
-        closeButton.style.display = "none";
-        buttonConfirm.style.display = "block";
 		imageModal.src = "./images/gif/gif_success.gif";
 	} else if (status == "error") {
         titleModal.style.display = "none";
-        closeButton.style.display = "none";
-        buttonConfirm.style.display = "block";
 		imageModal.src = "./images/gif/gif_fail.gif";
 	} else if (status == "question") {
         titleModal.style.display = "none";
-        closeButton.style.display = "none";
-        buttonConfirm.style.display = "block";
 		imageModal.src = "./images/gif/gif_question.gif";
 	}
 
 	// button
-	if (textButton != null) {
-		buttonConfirm.style.display = "block";
-		buttonConfirm.innerHTML = textButton;
-		buttonConfirm.onclick = function () {
-			modal.style.display = "none";
-		}
-	} 
-
-    if (textButton2 != null) {
-		buttonBack.style.display = "block";
-		buttonBack.innerHTML = textButton2;
-		buttonBack.onclick = function () {
+	if (textButton0 != null) {
+		button0.style.display = "block";
+		button0.innerHTML = textButton0;
+		button0.onclick = function () {
 			modal.style.display = "none";
 		}
 	} else {
-		buttonBack.style.display = "none";
+		button0.style.display = "none";
     }
 
-    closeButton.onclick = function () {
-        modal.style.display = "none";
+    if (textButton1 != null) {
+		button1.style.display = "block";
+		button1.innerHTML = textButton1;
+		button1.onclick = function () {
+			modal.style.display = "none";
+		}
+	} else {
+		button1.style.display = "none";
+    }
+
+    if (textButton2 != null) {
+		button2.style.display = "block";
+		button2.innerHTML = textButton2;
+		button2.onclick = function () {
+			modal.style.display = "none";
+		}
+	} else {
+		button2.style.display = "none";
+    }
+
+    if (isClose == true) {
+		closeButton.style.display = "block";
+        closeButton.onclick = function () {
+            modal.style.display = "none";
+        }
+    } else {
+		closeButton.style.display = "none";
     }
 
 	modal.style.display = "block";
@@ -171,7 +181,7 @@ function setBackgroundDialogScreen(display, color) {
 */
 function checkPrintable() {
     if (checkDevice() != 0 && checkDevice() != 1) {
-        setupModal("error", null, Mess.E00006, StringCS.OK, null);
+        setupModal("error", null, Mess.E00006, null, StringCS.OK, null, false);
         return false;
     } else {
         return true;

@@ -3140,7 +3140,7 @@ function onclickAction() {
 	* CREATE IMAGE FILE OF SHUUKEI NIPPOU FORM
 */
 function createImageKensinForm() {
-	Common.setupModal("load", null, Mess.I00001, null);
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
@@ -3185,7 +3185,7 @@ function createImageKensinForm() {
 
 
 function saveDataSetting() {
-	Common.setupModal("load", null, Mess.I00002, null, null);
+	Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(KensinKinyuu.sendDataToServer()),
@@ -3209,7 +3209,7 @@ function saveDataSetting() {
 				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukeninFlg);
 				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
 			}
-			Common.setupModal("load", null, Mess.I00002, null, null);
+			Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 			createImageKensinForm();
 		},
 		error: function (xmlhttprequest, textstatus, message) {
@@ -3219,12 +3219,12 @@ function saveDataSetting() {
 				console.log(textstatus)
 			}
 			sessionStorage.setItem(StringCS.SAVINGSTATUS, "0");
-			Common.setupModal("error", null, Mess.E00004, StringCS.OK, null);
+			Common.setupModal("error", null, Mess.E00004, null, StringCS.OK, null, false);
 		}
 	}).done(function (res) {
 		console.log('res', res);
 		sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
-		Common.setupModal("success", null, Mess.I00003, StringCS.OK, null);
+		Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
 	});
 }
 
@@ -3237,8 +3237,8 @@ function onLoadAction() {
 	onclickAction();
 	Common.setFocusSelectString();
 	if (sessionStorage.getItem(StringCS.SAVINGSTATUS) == "1") {
-		Common.setupModal("question", null, Mess.I00007, StringCS.SHUURYOUU, null);
-		var buttonConfirm = document.getElementsByClassName("button-confirm")[0];
+		Common.setupModal("question", null, Mess.I00007, null, StringCS.SHUURYOUU, null, false);
+		var buttonConfirm = document.getElementsByClassName("button-1")[0];
 		buttonConfirm.onclick = function () {
 			Common.movePage('/search_customer.html');
 			sessionStorage.removeItem(StringCS.CUSDAT);

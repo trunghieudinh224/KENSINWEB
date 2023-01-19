@@ -16,7 +16,7 @@ function setOptionMenu() {
 function onclickAction() {
     document.getElementById("shuukeiButton").onclick = function() {
         // Common.movePage('/total.html')
-        Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
+        Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
     };
     document.getElementById("settingListButton").onclick = function() {Common.movePage('/meter_reading_setting.html')};
     document.getElementById("settingButton").onclick = function() {Common.movePage('/setting.html')};
@@ -46,7 +46,7 @@ function showDialog() {
         // Common.movePage('/search_customer.html');
         // sessionStorage.removeItem(StringCS.SEARCHSTRING);
         overlay.style.zIndex = "-1";
-        Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
+        Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
     };
     document.getElementById("searchBtn2").onclick = function() {
         sessionStorage.setItem(StringCS.SEARCHMODE, "2");

@@ -17,7 +17,7 @@ var dataSetting;
    * GET DATA SETTING
 */
 function getDataSetting() {
-	Common.setupModal("load", null, Mess.I00001, null, null);
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
 		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
@@ -33,12 +33,12 @@ function getDataSetting() {
 				setPrintModeCbb();
 				modal.style.display = "none";
 			} catch {
-				Common.setupModal("error", null, Mess.E00007, StringCS.OK, null);
+				Common.setupModal("error", null, Mess.E00007, null, StringCS.OK, null, false);
 			}
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
-			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
+			Common.setupModal("error", null, Mess.E00003, null, StringCS.OK, null, false);
 		},
 		timeout: ValueCS.VL_SHORT_TIMEOUT
 	});
@@ -129,7 +129,7 @@ function prepareNewDataSetting() {
    * SAVE DATA SETTING
 */
 function saveDataSetting() {
-	Common.setupModal("load", null, Mess.I00002, null, null);
+	Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(prepareNewDataSetting()),
@@ -139,7 +139,7 @@ function saveDataSetting() {
 		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
 			console.log(response);
-			Common.setupModal("load", null, Mess.I00002, null, null);
+			Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 		},
 		error: function (xmlhttprequest, textstatus, message) {
 			if (textstatus === "timeout") {
@@ -147,12 +147,12 @@ function saveDataSetting() {
 			} else {
 				console.log(textstatus)
 			}
-			Common.setupModal("error", null, Mess.E00004, StringCS.OK, null);
+			Common.setupModal("error", null, Mess.E00004, null, StringCS.OK, null, false);
 		}
 	}).done(function (res) {
 		console.log('res', res);
 		sessionStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(prepareNewDataSetting()));
-		Common.setupModal("success", null, Mess.I00003, StringCS.OK, null);
+		Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
 	});
 }
 

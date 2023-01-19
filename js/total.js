@@ -158,7 +158,7 @@ function getShuukeiData() {
         // urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
     }
     shuukeiData = new Dat.ShukeiItem();
-    Common.setupModal("load", null, Mess.I00001, null);
+    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
     $.ajax({
         url: urlString,
         headers: {
@@ -190,7 +190,7 @@ function getShuukeiData() {
         },
         error: function (jqXHR, exception) {
             console.log(exception);
-            Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
+            Common.setupModal("error", null, Mess.E00003, null, StringCS.OK, null, false);
         },
         timeout: ValueCS.VL_LONG_TIMEOUT
     });
@@ -428,7 +428,7 @@ function onclickAction() {
     * CREATE IMAGE FILE OF SHUUKEI FORM
 */
 function createImageShuukeiForm() {
-    Common.setupModal("load", null, Mess.I00001, null);
+    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
     Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
@@ -462,7 +462,7 @@ function createImageKenshinNippouForm() {
     closeNippouDialog();
     setTitlePrintForm(0);
 
-    Common.setupModal("load", null, Mess.I00001, null);
+    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
     Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
@@ -497,14 +497,14 @@ function createImageKenshinNippouForm() {
 */
 function createImageShuukinNippouForm() {
     closeNippouDialog();
-    // Common.setupModal("load", null, Mess.I00004, StringCS.OK, null);
+    // Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
     // return;
     // if (Common.checkPrintable() == false) {
     //     return;
     // }
     setTitlePrintForm(1);
 
-    Common.setupModal("load", null, Mess.I00001, null);
+    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
     Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";

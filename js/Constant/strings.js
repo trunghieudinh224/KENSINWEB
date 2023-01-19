@@ -85,6 +85,8 @@ export var CUSTOMERINDEX = "CustomerIndex";
 export var BUSFNYUITEM = "BusfNyuItem";
 // BusfDat Cho 
 export var BUSFCHOITEM = "BusfChoItem";
+// CUS DETAIL DATA
+export var CUSDETAILDATA = "CusDetailData";
 
 
 /*****  CONTENT  *****/

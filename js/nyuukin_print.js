@@ -1508,7 +1508,7 @@ function onclickAction() {
 	* CREATE IMAGE FILE OF SHUUKEI NIPPOU FORM
 */
 function createImageKensinForm() {
-	Common.setupModal("load", null, Mess.I00001, null);
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
@@ -1553,7 +1553,7 @@ function createImageKensinForm() {
 
 
 function saveDataSetting() {
-	Common.setupModal("load", null, Mess.I00002, null, null);
+	Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 	document.getElementById("editView").style.display = "none";
 	document.getElementById("printView").style.display = "block";
 	var mReciept = 0;
@@ -1567,7 +1567,7 @@ function saveDataSetting() {
 		getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukeninFlg);
 		createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
 	}
-	Common.setupModal("load", null, Mess.I00002, null, null);
+	Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 	createImageKensinForm();
 }
 

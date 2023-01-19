@@ -22,9 +22,9 @@ function login() {
     let user = document.getElementById("user"); 
     let password = document.getElementById("pass"); 
     if (user.value === "" || password.value === "") {
-        Common.setupModal("error", null, Mess.I00005, StringCS.CLOSE, null);
+        Common.setupModal("error", null, Mess.I00005, StringCS.CLOSE, null, null, false);
     } else {
-        Common.setupModal("load", null, Mess.I00001, null, null);
+        Common.setupModal("load", null, Mess.I00001, null, null, null, false);
         checkUser(user.value, password.value);
     }
 }
@@ -48,7 +48,7 @@ function checkUser(username, password) {
                 sessionStorage.setItem(StringCS.PASSWORD, password);
                 getSystemDat();
             } else {
-                Common.setupModal("error", StringCS.LOGIN, JSON.parse(result).err_msg, StringCS.CONFIRM, null);
+                Common.setupModal("error", StringCS.LOGIN, JSON.parse(result).err_msg, null, StringCS.CONFIRM, null, false);
             }
         },
         error: function (jqXHR, exception) {
@@ -105,7 +105,7 @@ function getSystemDat() {
    * GET DATA SETTING
 */
 function getDataSetting() {
-	Common.setupModal("load", null, Mess.I00001, null, null);
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
         url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
         // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING + StringCS.PR_KEY + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
@@ -120,7 +120,7 @@ function getDataSetting() {
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
-			Common.setupModal("error", null, Mess.E00003, StringCS.OK, null);
+			Common.setupModal("error", null, Mess.E00003, null, StringCS.OK, null, false);
 		},
         timeout: ValueCS.VL_SHORT_TIMEOUT
 	});
