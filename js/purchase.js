@@ -9,7 +9,6 @@ import * as Mess from './Constant/message.js'
 /*****  VIEW VARIABLE  *****/
 /* modal */
 const modal = document.getElementById("myModal");
-
 /* layout */ 
 const uriage_name = document.getElementById("kokyaku-mei");
 const uriage_kcode = document.getElementById("kokyaku_kodo");
@@ -46,28 +45,21 @@ const titleDialog = document.getElementById("titleDialog");
 const teiseiSumi = document.querySelector("#teisei-sumi");
 const nyuukinGroup = document.querySelector("#nyuukin-group");
 
-/** ユーザー情報 */ 
-var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 /* setting data */
 var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
-
-
-var kokf = new Dat.KokfDat().parseData(mUserData.mKokfDat)
-kokf.mKtpcdat = new Dat.KtpcDat();
-var sy2fDat = new Dat.Sy2fDat().parseData(mUserData.mSy2fDat)
-var sysfDat = new Dat.SysfDat().parseData(mUserData.mSysfDat)
-sysfDat.mGtpcDat = new Dat.GtpcDat();
-var kouserDat = new Dat.KouserDat().parseData(mUserData.mKouserDat)
-var kensinDate_ss = sessionStorage.getItem(StringCS.KENSINDATE);
-var kensinDate = new Date(kensinDate_ss);
-var ko2fDat = new Dat.Ko2fDat().parseData(mUserData.mKo2fDat);
+/** 印刷情報 */ 
+var printStatus = new Dat.PrintStatus();
+/** ユーザー情報 */ 
+var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
+/* kensin date */
+var kensinDate = new Date(sessionStorage.getItem(StringCS.KENSINDATE));
+mUserData.mKokfDat.mKtpcdat = new Dat.KtpcDat();
+mUserData.mSysfDat.mGtpcDat = new Dat.GtpcDat();
 var teiseiNyuukinPre = "0";
 
 /** 商品マスタデータ */
-//var mShofDat = new Dat.ShofDat().setValue(1, 100, 0, "", "", 2, 80, 0, 0, 1000, 2014, 4, 1, 50, 80);
 var mShofDat = JSON.parse(sessionStorage.getItem(StringCS.SHOFDATITEM));
 /** 品目データ */
-// var mBusfDat = new Dat.BusfDat().setValue(true, 100, "灯　油  ", 0, 0);
 var mBusfDat = JSON.parse(sessionStorage.getItem(StringCS.BUSFDATITEM));
 /** 販売明細データ */
 var mHmefDat = null;
@@ -92,8 +84,6 @@ var CHOMODE = 1;
 var NYUMODE = 2;
 
 
-
-var printStatus = new Dat.PrintStatus();
 
 
 /****  PRINT   ****/
@@ -126,13 +116,14 @@ var itemLH = window.getComputedStyle(document.getElementsByClassName("item")[0])
 var titlePrintViewLH = window.getComputedStyle(document.getElementsByClassName("titlePrintView")[0]).lineHeight;
 // var kkValLH = window.getComputedStyle(document.getElementsByClassName("kk-val")[0]).lineHeight;
 
+
 /**
- * 符号の設定.
- *
- * @param nSign [in] int    符号
- * @param nKin  [in] int    金額
- * @return  int 符号設定後の金額
- */
+	* 符号の設定.
+	*
+	* @param nSign [in] int    符号
+	* @param nKin  [in] int    金額
+	* @return  int 符号設定後の金額
+*/
 function calcSign(nSign, nKin) {
 	if (nSign == 1) {
 		return nKin * -1;
@@ -140,19 +131,20 @@ function calcSign(nSign, nKin) {
 	return nKin;
 }
 
+
 /**
- * 金額計算処理.
- */
+	* 金額計算処理.
+*/
 function calcKin() {
 	if (mHmefDat.mTanka != 0 && mHmefDat.mSuryo != 0) {
 		// 単価、数量の両方が入力済みの場合処理.
 		var dKin = mHmefDat.mTanka * mHmefDat.mSuryo;
-		var nAdd = sysfDat.mFracAddKin;
-		var nMul = sysfDat.mFracMulKin;
-		if (mHmefDat.mHmCode == sysfDat.mHinCd9 && mHmefDat.mHbCode == 0) {
-			// 灯油・・・端数処理は顧客var kokfDat = mUserData.getKokfDat();
-			nAdd = kokf.mLoilAdd;
-			nMul = kokf.mLoilMulti;
+		var nAdd = mUserData.mSysfDat.mFracAddKin;
+		var nMul = mUserData.mSysfDat.mFracMulKin;
+		if (mHmefDat.mHmCode == mUserData.mSysfDat.mHinCd9 && mHmefDat.mHbCode == 0) {
+			// 灯油・・・端数処理は顧客var mUserData.mKokfDatDat = mUserData.getKokfDat();
+			nAdd = mUserData.mKokfDat.mLoilAdd;
+			nMul = mUserData.mKokfDat.mLoilMulti;
 		}
 		mHmefDat.mKin = Other.hasCom(dKin, nAdd, nMul, 10000) / 10000;
 
@@ -167,7 +159,7 @@ function calcKin() {
 
 
 /**
-* 消費税金額の計算処理.
+	* 消費税金額の計算処理.
 */
 function calcTax() {
 	mHmefDat.mTax = 0;
@@ -177,7 +169,7 @@ function calcTax() {
 		var nFracAddTax = mShofDat.mFracAddTax;
 		var nFracMulTax = mShofDat.mFracAddMult;
 		if (nFracAddTax == 0 && nFracMulTax == 0) {
-			var sysfDat = sysfDat;
+			var sysfDat = mUserData.mSysfDat;
 			nFracAddTax = sysfDat.mFracAddTax;
 			nFracMulTax = sysfDat.mFracMulTax;
 		}
@@ -190,9 +182,8 @@ function calcTax() {
 
 
 /**
- * 請求金額の設定.
- *
- */
+	* 請求金額の設定.
+*/
 function dispTotal() {
 	uriage_total.textContent = Other.formatDecial(calcSign(mHmefDat.mSign, mHmefDat.mKin + mHmefDat.mTax));
 	dispGen();
@@ -200,8 +191,7 @@ function dispTotal() {
 
 
 /**
-* 現在高の設定.
-*
+	* 現在高の設定.
 */
 function dispGen() {
 	var nGen = calcSign(mHmefDat.mSign, mHmefDat.mKin + mHmefDat.mTax);
@@ -221,16 +211,17 @@ function dispGen() {
 		group_prezandaka.style.display = "none";
 	}
 	else {
-		nGen += GasRaterCom.calcTotal(mUserData, sysfDat, kokf, ko2fDat, sy2fDat, kouserDat, false);
+		nGen += GasRaterCom.calcTotal(mUserData, mUserData.mSysfDat, mUserData.mKokfDat, mUserData.mKo2fDat, mUserData.mSy2fDat, mUserData.mKouserDat, false);
 		group_prezandaka.style.display = "block";
-		preZandaka.textContent = Other.formatDecial(GasRaterCom.calcTotal(mUserData, sysfDat, kokf, ko2fDat, sy2fDat, kouserDat, false));
+		preZandaka.textContent = Other.formatDecial(GasRaterCom.calcTotal(mUserData, mUserData.mSysfDat, mUserData.mKokfDat, mUserData.mKo2fDat, mUserData.mSy2fDat, mUserData.mKouserDat, false));
 	}
 	uriage_gen_name.textContent = strGenName;
 	uriage_gen.textContent = Other.formatDecial(nGen);
 }
 
+
 /**
-* create hmefDat data from sessionstorage
+	* create hmefDat data from sessionstorage
 */
 function createData() {
 
@@ -239,12 +230,12 @@ function createData() {
 		// 必要なデータを予め設定
 		mHmefDat = new Dat.HmefDat();
 		mHmefDat.mUsef = true;
-		mHmefDat.mCusRec = kokf.mCusRec;
+		mHmefDat.mCusRec = mUserData.mKokfDat.mCusRec;
 		mHmefDat.mHmeKind = 9;
 		mHmefDat.mTanka = mShofDat.mTanka;
-		if (sysfDat.mHinCd9 == mBusfDat.mHinno && mShofDat.mShono == 0) {
+		if (mUserData.mSysfDat.mHinCd9 == mBusfDat.mHinno && mShofDat.mShono == 0) {
 			// 灯油は顧客の灯油単価
-			mHmefDat.mTanka = kokf.mLoilUnit;
+			mHmefDat.mTanka = mUserData.mKokfDat.mLoilUnit;
 		}
 		mHmefDat.mLeasKind = 0;
 		mHmefDat.mDenKind = mBusfDat.mKind;
@@ -259,7 +250,7 @@ function createData() {
 		mHmefDat.mTaxR = mShofDat.mTaxR;
 		mHmefDat.mHbnmPrn = 0;
 		mHmefDat.mKin = 0;
-		mHmefDat.mPreHrec = kokf.mHmew0Erec; // 前明細レコードNo <-
+		mHmefDat.mPreHrec = mUserData.mKokfDat.mHmew0Erec; // 前明細レコードNo <-
 		// 販売明細(ﾊﾝﾃﾞｨ)・終了レコード位置
 		mHmefDat.mNxtHrec = 0; // 次明細レコードNo
 		var dtKenymd = kensinDate;
@@ -276,8 +267,7 @@ function createData() {
 }
 
 /**
-* set data for layout
-*
+	* set data for layout
 */
 function onCreateView() {
 	m_nCho = 0;
@@ -288,13 +278,13 @@ function onCreateView() {
 	uriage_nyu.textContent = 0;
 
 	// 顧客コード
-	uriage_kcode.textContent = kokf.mCusCode;
+	uriage_kcode.textContent = mUserData.mKokfDat.mCusCode;
 	// 顧客名
-	uriage_name.value = kokf.mName;
-	mHme2Dat.mBikou = kokf.mName;
+	uriage_name.value = mUserData.mKokfDat.mName;
+	mHme2Dat.mBikou = mUserData.mKokfDat.mName;
 	// 品目名
 	var strHmname = mBusfDat.mName;
-	if (mShofDat.mHinno == sysfDat.mHinCd9 && mShofDat.mShono == 0) {
+	if (mShofDat.mHinno == mUserData.mSysfDat.mHinCd9 && mShofDat.mShono == 0) {
 		// 固定品目灯油
 		strHmname += "　　　T";
 	}
@@ -330,13 +320,13 @@ function onCreateView() {
 
 
 	// 調整取引区分デフォルト取得・設定
-	// m_bdCho = InputDat.getBusfDat(getContext(), sChoHmcode, (byte)(sChoHmcode < sysfDat.mSnvalue ? 0 : 1));
+	// m_bdCho = InputDat.getBusfDat(getContext(), sChoHmcode, (byte)(sChoHmcode < mUserData.mSysfDat.mSnvalue ? 0 : 1));
 	m_bdCho = JSON.parse(sessionStorage.getItem(StringCS.BUSFCHOITEM));
 	if (m_bdCho != null) {
 		uriage_cho_name.textContent = (Other.cutStringSpace(m_bdCho.mName));
 	}
 	// 入金取引区分デフォルト取得・設定
-	// var sNyuHmcode = sy2fDat.mSysfHmcd12;
+	// var sNyuHmcode = mUserData.mSy2fDat.mSysfHmcd12;
 	m_bdNyu = JSON.parse(sessionStorage.getItem(StringCS.BUSFNYUITEM));
 	if (m_bdNyu != null) {
 		uriage_nyu_name.textContent = (Other.cutStringSpace(m_bdNyu.mName));
@@ -352,8 +342,8 @@ function onCreateView() {
 	SETUP OPTION MENU
 */
 function setOptionMenu() {
-	document.getElementById("menuOption").onclick = function () { Common.movePage('/menu_page.html') };
-	document.getElementById("settingOption").onclick = function () { Common.movePage('/setting_page.html') };
+	document.getElementById("menuOption").onclick = function () { Common.movePage('/menu.html') };
+	document.getElementById("settingOption").onclick = function () { Common.movePage('/setting.html') };
 	document.getElementById("logoutOption").onclick = function () { Common.movePage('logout') };
 }
 
@@ -387,8 +377,9 @@ function titleOnclick(title, idForm, listItem) {
 	};
 }
 
-// close dialog
-
+/* 
+	CLOSING DIALOG
+*/
 function closeDialog() {
 	var overlay = document.querySelector(".overlay");
 	var wrapMainForm = document.querySelector(".overlay .container-mainform .wrap-mainform");
@@ -398,7 +389,7 @@ function closeDialog() {
 
 
 /* 
-	SETUP TITLE CLICK
+	* SETUP TITLE CLICK
 */
 function setupTitleClick() {
 	titleOnclick("receipt_text", "receipt_form", lstBusfNyu);
@@ -406,8 +397,7 @@ function setupTitleClick() {
 }
 
 /**
-* set data of nyu and cho to create table view
-*
+	* set data of nyu and cho to create table view
 */
 function generateTable(listItem, tittle, pos) {
 	// creates a <table> element and a <tbody> element
@@ -444,8 +434,8 @@ function generateTable(listItem, tittle, pos) {
 
 
 /**
- * onChange Data
- */
+	* onChange Data
+*/
 function onChangeData() {
 	select_shohin_list_urimode.onchange = function () {
 		m_isGenuri = !m_isGenuri;
@@ -510,10 +500,12 @@ function onChangeData() {
 	uriage_name.onchange = function () {
 		mHme2Dat.mBikou = uriage_name.value;
 	}
-
-
 }
 
+
+/* 
+	* CHECKING VALUE
+*/
 function checkValue() {
 	var moneyGasUse = Number(Other.getNumFromString(txtKensinNyukinNowSeikyu.textContent));
 	var moneyBonus = Number(Other.getNumFromString(mEditAdjust.value));
@@ -528,6 +520,10 @@ function checkValue() {
 	}
 }
 
+
+/* 
+	CHANGING LAYOUT BUTTON
+*/
 function changeLayoutButton() {
 	teiseiGroup.classList.add("hidden");
 	if (m_isGenuri) {
@@ -549,7 +545,14 @@ function changeLayoutButton() {
 }
 
 
+/* 
+	ONCLICK ACTION
+*/
 function onClickAction() {
+    document.getElementById("backPageButton").onclick = function () {
+	    Common.backAction();
+	};
+	
 	teiseiBtn.onclick = function () {
 		if (teiseiGroup.classList.contains("hidden") == false) {
 			return;
@@ -617,16 +620,22 @@ function onClickAction() {
 			// createImageForm();
 		}
 	}
+
+
+    document.getElementById("backPrintButton").onclick = function () { Common.movePage('/menu.html') };
 }
 
 
+/* 
+	* PREPARING PRINTING DATA
+*/
 function preparePrintData() {
 	var strSname_0 = document.getElementById("kokyaku-mei").value;
 	var strSname_1 = "";
 	if(Other.getClearString(strSname_0) == Other.getClearString(mUserData.mKokfDat.mName)){
 		strSname_0 = mUserData.mKokfDat.mSName0;
 		strSname_1 = mUserData.mKokfDat.mSName1;
-		var printGenuriInfo = new Dat.PrintGenuriInfo().setValue(strSname_0, strSname_1, m_isGenuri, m_nCho, m_nNyu, m_nReceipt, [mHmefDat]);	//m_lstHmefDat
+		var printGenuriInfo = new Dat.PrintGenuriInfo().setValue(strSname_0, strSname_1, m_isGenuri, m_nCho, m_nNyu, m_nReceipt, [mHmefDat]);
 		getPrintStatus(false, 0, 0, false, false);
 		createPrintData(false, printGenuriInfo, false);
 	}
@@ -677,6 +686,7 @@ function createPrintData(isHybseikyu, printGenuriInfo, isHikae) {
 	* CREATE HEADER DATA
 	* 
 	* @param isHikae     [BOOLEAN]
+	* @param isGenuri     [BOOLEAN]
 */
 function createHeaderData(isHikae, isGenuri) {
 	var strTitle = "納　品　書";
@@ -692,7 +702,6 @@ function createHeaderData(isHikae, isGenuri) {
 
 /** 
 	* SET DATA CUSTOMER
-	*
 	* @return cusData
 */
 function getCusData() {
@@ -832,7 +841,6 @@ function calcKeigen(mapHmefDat, lstHmefDat) {
 	* @param sysfDat       [in] {@link SysfDat}                    システムデータ
 	* @param hmefDats      [in] HmefDta[]                          売上明細一覧
 	* @param mapHmefDat    [in/out] {@code Map<Integer, Hmefdat>}  軽減税率区分、税率毎の消費税金額
-	* @throws MException   エラー時に発生
 */
 function addKeigenTax(sysfDat, hmefDats, mapHmefDat) {
 	var nIdx = 1;
@@ -888,7 +896,7 @@ function setKeigenKubun(hmefDat, sysfDat) {
 	*
 	* @param sysfDat   [in] {@link SysfDat}    システムデータ
 	* @param sTaxr     [in] short              消費税率
-	* @return byte 軽減税率区分
+	* @return int 軽減税率区分
 */
 function getKeigenKubun(sysfDat, sTaxr) {
 	var nSysTaxr = Other.getUriTaxr(sysfDat.mTax_yy, sysfDat.mTax_mm, sysfDat.mTax_dd,
@@ -960,7 +968,6 @@ function calcUtaxHm(wkHmef, sysf, sysf2) {
 	* @param sysfDat   [in] {@link SysfDat}    システムデータ
 	* @param hmefDat   [in] {@link HmefDat}    販売明細データ
 	* @return  int 内税金額
-	* @throws MException   計算失敗時に発生
 */
 function calcUtax(sysfDat, hmefDat) {
 	var nUtax = 0;
@@ -995,10 +1002,15 @@ function createHmInfoHeader(strTitle, isTanka) {
 	if (isTanka) {
 		document.getElementsByClassName("hinmoku")[0].classList.remove("hmw-40");
 		document.getElementsByClassName("hinmoku")[0].classList.add(" hmw-20");
+		document.getElementsByClassName("hinmoku")[1].classList.remove("hmw-40");
+		document.getElementsByClassName("hinmoku")[1].classList.add(" hmw-20");
 	} else {
 		document.getElementsByClassName("tanka")[0].style.display = "none";
 		document.getElementsByClassName("hinmoku")[0].classList.remove("hmw-20");
 		document.getElementsByClassName("hinmoku")[0].classList.add("hmw-40");
+		document.getElementsByClassName("tanka")[1].style.display = "none";
+		document.getElementsByClassName("hinmoku")[1].classList.remove("hmw-20");
+		document.getElementsByClassName("hinmoku")[1].classList.add("hmw-40");
 	}
 }
 
@@ -1122,8 +1134,12 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		row.appendChild(date);
 		date.after(name);
 		name.after(suryo);
-		suryo.after(tanka);
-		tanka.after(kin);
+		if (isTanka && hmefDat.mTanka != 0) {
+			suryo.after(tanka);
+			tanka.after(kin);
+		} else {
+			suryo.after(kin);
+		}
 		area.after(row);
 		previousId = row.id;
 	}
@@ -1138,7 +1154,6 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 	*
 	* @param mapHmefDat        [in] {@code Map<Integer, HmefDat>}  軽減税率区分、税率毎の消費税金額
 	* @param nTax              [in] int                            消費税金額
-	* @param isTanka           [in] boolean                        単価印字フラグ
 */
 function createHmInfoTax(mapHmefDat, nTax) {
 	// 消費税
@@ -1172,6 +1187,9 @@ function createHmInfoTax(mapHmefDat, nTax) {
 }
 
 
+/**
+    * CREATING HMINFO FOOTER
+*/
 function createHmInfoFooter(lKin){
 	document.getElementById("honjitsuUriageKingakuVal").innerHTML = Other.formatDecial(lKin);
 }
@@ -1184,7 +1202,6 @@ function createHmInfoFooter(lKin){
     * @param nNyukin   [in] int    入金額
     * @param nRecept   [in] int    領収額
     * @param lSeikyu   [in] int    請求金額
-    * @throws MException   印刷データの作成時にエラーがあった場合に発生
 */
 function createRyoshu(nChokin, nNyukin, nRecept, lSeikyu) {
 	document.getElementById("konkaiSeikyuGakuVal").innerHTML = Other.formatDecial(lSeikyu);
@@ -1230,11 +1247,10 @@ function createRyoshu(nChokin, nNyukin, nRecept, lSeikyu) {
 
 
 /**
- * 調整額名称の取得.
- *
- * @return String   調整額名称
- * @throws MException   エラー時に発生
- */
+* 調整額名称の取得.
+	*
+	* @return String   調整額名称
+*/
 function getChoTitle() {
 	var strChoTitle = "調整額";
 	var sy2fDat = mUserData.mSy2fDat;
@@ -1272,7 +1288,6 @@ function getComment() {
 	* コメント印字
 	*
 	* @param commentData [in] CommentData    コメントデータ
-	* @throws MException 印刷データ作成時にエラーがあった場合発生
 */
 function createComment(commentData) {
 	if (commentData.length == 0) {
@@ -1304,7 +1319,8 @@ function createComment(commentData) {
 /**
 	* 店舗情報の印刷データを作成する。
 	*
-	* @param hanfDat [in] HanfDat    店舗データ
+	* @param hanfDat 	 [in] HanfDat    店舗データ
+	* @param strTantname [in] string     担当者名
 */
 function createUserInfo(hanfDat, strTantname) {
 	var wkStr;
@@ -1581,15 +1597,16 @@ function createImageForm() {
 }
 
 
-
+/** 
+	* SENDING DATA
+*/
 export function sendDataToServer() {
 	const mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 	var mKokfDat = new Dat.KokfDat().parseData(mUserData.mKokfDat)
 	var sysfDat = new Dat.SysfDat().parseData(mUserData.mSysfDat)
 	mKokfDat.mKtpcdat = new Dat.KtpcDat();
 	var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
-	var kensinDate_ss = sessionStorage.getItem(StringCS.KENSINDATE);
-	var kensinDate = new Date(kensinDate_ss);
+	var kensinDate = new Date(sessionStorage.getItem(StringCS.KENSINDATE));
 
 
 	var nTancd = dataSetting.tancd;
@@ -1610,8 +1627,8 @@ export function sendDataToServer() {
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(hmefWriteDat),
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
 		contentType: "application/json",
 		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
@@ -1634,8 +1651,8 @@ export function sendDataToServer() {
 		sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
 		Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
 	});
-
 }
+
 
 /**
    * ONLOAD ACTION

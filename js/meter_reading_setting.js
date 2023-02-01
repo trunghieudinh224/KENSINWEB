@@ -12,11 +12,6 @@ var systemDat = JSON.parse(sessionStorage.getItem(StringCS.SYSTEMDAT));
 
 /*****  FUNCTION  *****/
 /**
-   * INITIALIZE COMBOBOX
-*/
-
-
-/**
    * SET DATA
 */
 function setData() {

@@ -26,19 +26,32 @@ var recentDay = moment().format('YYYY/MM/DD');
 function setupDatePicker() {
     $(document).ready(function () {
         $("#jisshi-bi").datepicker({
-            format: 'yyyy/mm/dd'
+            format: 'yyyy/mm/dd',
+            onSelect: function(dateText) {
+                console.log("Selected date: " + dateText + "; input's current value: " + this.value);
+            }
         });
     });
 
     $("#jisshi-bi").focus(function () {
-        var recentDay = $(this).val();
         recentDay = moment($(this).val()).format('YYYY/MM/DD');
     });
     $("#jisshi-bi").focusout(function () {
         if ($(this).val() == "") {
             document.getElementById("jisshi-bi").value = moment(recentDay).format('YYYY/MM/DD');
+            var kensinDate = recentDay;
+            sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
+            mUserData.mKensinDate = String(kensinDate);
         }
     });
+
+
+    $('#jisshi-bi').change(function(){
+        recentDay = moment($(this).val()).format('YYYY/MM/DD');
+        var kensinDate = recentDay;
+        sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
+        mUserData.mKensinDate = String(kensinDate);
+   });
 }
 
 
@@ -58,8 +71,8 @@ function getInformation() {
     if (cusDat != null) {
         Common.setupModal("load", null, Mess.I00001, null, null, null, false);
         $.ajax({
-            url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-            // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+            // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+            url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
             headers: {
                 'Content-Type': StringCS.PR_CONTENT_TYPE
             },
@@ -67,6 +80,15 @@ function getInformation() {
                 cusDetailData = JSON.parse(result);
                 sessionStorage.setItem(StringCS.CUSDETAILDATA, JSON.stringify(cusDetailData));
                 mUserData = new Dat.UserData().parseData(cusDetailData);
+                if (sessionStorage.getItem(StringCS.KENSINDATE) == null) {
+                    var kensinDate = document.getElementById("jisshi-bi").value;
+                    sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
+                    mUserData.mKensinDate = String(kensinDate);
+                } else {
+                    var kensinDate = sessionStorage.getItem(StringCS.KENSINDATE);
+                    document.getElementById("jisshi-bi").value = kensinDate;
+                    mUserData.mKensinDate = String(kensinDate);
+                }
                 saveUserData();
                 modal.style.display = "none";
 
@@ -136,7 +158,7 @@ function setInformation() {
     }
 
     var toyuBtn = document.getElementById("toyuPageButton");
-    if (cusDetailData.mSysfDat.m_isToyukeninFlg == true) {
+    if (cusDetailData.mSysfDat.m_isToyukensinFlg == true) {
         toyuBtn.disabled = false;
     } else {
         document.getElementById("toyuPageButtonArea").remove();

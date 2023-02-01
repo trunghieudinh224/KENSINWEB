@@ -18,9 +18,9 @@ var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
 /** ユーザー情報 */ 
 var mUserData = KensinKinyuu.mUserData;
 mUserData.m_lstLeasHmefDat = null;
-
+/** 印刷情報 */ 
 var printStatus = new Dat.PrintStatus();
-
+/** 検針情報 */
 var kensinData = new Dat.KensinData();
 
 
@@ -58,6 +58,9 @@ var kkValLH = window.getComputedStyle(document.getElementsByClassName("kk-val")[
 
 /**
 	* 印刷データを作成する
+	*
+	* @param printStatus              [in] PrintStatus                印刷情報
+	* @param isHikae              	  [in] bool                       
 */
 function createPrintData(printStatus, isHikae) {
 	try {
@@ -372,7 +375,7 @@ function getCounterName(nCounterNo) {
 
 	var strCounterName = "";
 	try {
-		strCounterName = InputDat.getHymnDat(ctx, nCounterNo).mName;
+		strCounterName = mUserData.mmHynmDat[nCounterNo].mName;
 	}
 	catch (err) {
 		console.log(err);
@@ -388,9 +391,6 @@ function getCounterName(nCounterNo) {
 
 /** 
 	* calcTotalKin
-	*
-	* @param nCounterNo     [Int]
-	* @return strCounterName
 */
 function calcTotalKin() {
 	if (kensinData.m_isHybrid && kensinData.mKo2fDat.mGashyb > 0) {
@@ -422,7 +422,6 @@ function calcTotalKin() {
 	*
 	* @param wkKensinData  [in]    KensinData  検針データ
 	* @param isKinOnly     [in]    boolean     入金のみ
-	* @throws MException 印字データ作成時にエラーがあった場合に発生
 */
 function createRyosyuInfo(wkKensinData, isNyukinOnly) {
 	if (!isNyukinOnly) {
@@ -522,11 +521,10 @@ function createUTaxComment(wkKensinData) {
 
 
 /**
- * 調整額名称の取得.
- *
- * @return String   調整額名称
- * @throws MException   エラー時に発生
- */
+ 	* 調整額名称の取得.
+ 	*
+ 	* @return String   調整額名称
+*/
 function getChoTitle() {
 	var strChoTitle = "調整額";
 	var sy2fDat = mUserData.mSy2fDat;
@@ -659,7 +657,7 @@ function isUriage_(hmefDats, sysfDat, isIncludeNyuCho) {
 	*
 	* @param wkHmef    [in] HmefDat[]      販売明細データ
 	* @param sysf      [in] SysfDat        システムデータ
-	* @throws MException 印刷データ作成時にエラーがあった場合に発生
+	* @param sysf2     [in] Sy2fDat    	   システム2データ
 */
 function calcUtaxHm(wkHmef, sysf, sysf2) {
 	var flo = 0;
@@ -712,7 +710,6 @@ function calcUtaxHm(wkHmef, sysf, sysf2) {
 	* @param sysfDat   [in] {@link SysfDat}    システムデータ
 	* @param hmefDat   [in] {@link HmefDat}    販売明細データ
 	* @return  int 内税金額
-	* @throws MException   計算失敗時に発生
 */
 function calcUtax(sysfDat, hmefDat) {
 	var nUtax = 0;
@@ -735,8 +732,6 @@ function calcUtax(sysfDat, hmefDat) {
 
 /**
 	* 伝票の明細部分の作成
-	*
-	* @throws MException 印字データ作成時にエラーがあった場合に発生
 */
 function createHmInfo_() {
 	var kokfDat = JSON.parse(JSON.stringify(mUserData.mKokfDat));
@@ -837,8 +832,6 @@ function createHmInfo_() {
 /**
 	* 販売明細ヘッダーの印字.
 	*
-	* @param strTitle          [in] String                     タイトル
-	* @param printImageList    [in] {@link PrintImageList}     印刷データ格納先インスタンス
 	* @param isTanka           [in] boolean                    単価印字フラグ(true: 印字有り, false: 印字無し)
 */
 function createHmInfoHeader(isTanka) {
@@ -858,7 +851,6 @@ function createHmInfoHeader(isTanka) {
 	*
 	* @param mapHmefDat    [in] {@code Map<Integer, HmefDat>}  軽減税率マップ
 	* @param lstHmefDat    [in] HmefDat[]                      販売明細一覧
-	* @throws MException   計算エラー時に発生
 */
 function calcKeigen(mapHmefDat, lstHmefDat) {
 	if (mapHmefDat == null) {
@@ -879,7 +871,6 @@ function calcKeigen(mapHmefDat, lstHmefDat) {
 	* @param sysfDat       [in] {@link SysfDat}                    システムデータ
 	* @param hmefDats      [in] HmefDta[]                          売上明細一覧
 	* @param mapHmefDat    [in/out] {@code Map<Integer, Hmefdat>}  軽減税率区分、税率毎の消費税金額
-	* @throws MException   エラー時に発生
 */
 function addKeigenTax(sysfDat, hmefDats, mapHmefDat) {
 	var nIdx = 1;
@@ -935,7 +926,7 @@ function setKeigenKubun(hmefDat, sysfDat) {
 	*
 	* @param sysfDat   [in] {@link SysfDat}    システムデータ
 	* @param sTaxr     [in] short              消費税率
-	* @return byte 軽減税率区分
+	* @return int 軽減税率区分
 */
 function getKeigenKubun(sysfDat, sTaxr) {
 	var nSysTaxr = Other.getUriTaxr(sysfDat.mTax_yy, sysfDat.mTax_mm, sysfDat.mTax_dd,
@@ -1084,10 +1075,8 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 	* <br>軽減税率対応(Sy2fDat.msyskeigen == 1)の場合は軽減税率区分、税率毎の消費税を印字.
 	* <br>非対応の場合は明細の合計消費税額を印字.
 	*
-	* @param printImageList    [in] {@link PrintImageList}         印刷データ
 	* @param mapHmefDat        [in] {@code Map<Integer, HmefDat>}  軽減税率区分、税率毎の消費税金額
 	* @param nTax              [in] int                            消費税金額
-	* @param isTanka           [in] boolean                        単価印字フラグ
 */
 function createHmInfoTax(mapHmefDat, nTax) {
 	// 消費税
@@ -1121,6 +1110,7 @@ function createHmInfoTax(mapHmefDat, nTax) {
 		}
 	}
 }
+
 
 /**
 	* 軽減税率印字データの生成.
@@ -1174,7 +1164,6 @@ function getHmefTaxkeigenTax(hmefDat) {
 }
 
 
-
 /**
 	* 領収印印字.
 	*
@@ -1186,7 +1175,6 @@ function createRyoshu(strInpReceipt) {
 	const ryooshuuKingakuVal = document.getElementById("ryooshuuKingakuVal_NK");
 	ryooshuuKingakuVal.innerHTML = wkStr;
 }
-
 
 
 /**
@@ -1213,7 +1201,6 @@ function getComment() {
 	* コメント印字
 	*
 	* @param commentData [in] CommentData    コメントデータ
-	* @throws MException 印刷データ作成時にエラーがあった場合発生
 */
 function createComment(commentData) {
 	if (commentData.length == 0) {
@@ -1551,7 +1538,9 @@ function createImageKensinForm() {
 		})
 }
 
-
+/** 
+	* SENDING DATA
+*/
 function saveDataSetting() {
 	Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 	document.getElementById("editView").style.display = "none";
@@ -1570,7 +1559,6 @@ function saveDataSetting() {
 	Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 	createImageKensinForm();
 }
-
 
 
 /** 

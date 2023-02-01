@@ -4,7 +4,7 @@ import * as GasRaterCom from './Common/gasratercom.js'
 import * as StringCS from './Constant/strings.js'
 import * as HoanKinnyuu from './hoan_kinnyuu.js'
 
-//kensin layout
+/*****  VIEW VARIABLE  *****/
 const mTxtDate = document.getElementById("txtKensinMainKensinDate");
 const mTxtNowMeter = document.getElementById("txtKensinMainNowMeter");
 const mTxtPreMeter = document.getElementById("txtKensinMainPrevMeter");
@@ -36,7 +36,6 @@ const txtKensinNyukinChosei = document.getElementById("txtKensinNyukinChosei");
 const txtKensinNyukinNyukin = document.getElementById("txtKensinNyukinNyukin");
 const div_otsuri = document.getElementById("div_otsuri");
 const txtKensinNyukinOtsuri = document.getElementById("txtKensinNyukinOtsuri");
-
 const teiseiBtn = document.querySelector("#teisei");
 const cancelBtn = document.querySelector("#cancel");
 const teiseiGroup = document.querySelector("#teisei-group");
@@ -46,6 +45,7 @@ const Sashihiki_zandaka = document.querySelector("#Sashihiki_zandaka");
 const teiseiSumi = document.querySelector("#teisei-sumi");
 const saveButton = document.getElementById("createPrintingFormButton");
 
+/*****  DATA VARIABLE  *****/
 /** ユーザー情報 */ 
 var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 mUserData.mKokfDat.mKtpcdat = new Dat.KtpcDat();
@@ -96,7 +96,9 @@ var bdChosei = new Dat.BusfDat().setValue(true, 2, "調整", 1, 3)
 var bdNyukin = new Dat.BusfDat().setValue(true, 2, "調整", 1, 3)
 
 
-
+/**
+    * SETUP COLLAPSE TAB
+*/
 function setupCollapseTab() {
     // if (mUserData.mSysfDat.mCheckHoan && (mKokfDat.mGasKubun != 2 || mUserData.mSysfDat.mTenkenKgas == 1)) {
     //     document.getElementById("card2").style.pointerEvents = "auto";
@@ -130,24 +132,31 @@ function setupCollapseTab() {
 	}
 }
 
+
+/**
+    * OPEN KENSIN LAYOUT
+*/
 function openKensinLayout() {
     setCusInfo();
 }
 
-function setdataNiukinLayout() {
+
+/**
+    * SET DATA NYUUKIN LAYOUT
+*/
+function setdataNyukinLayout() {
     initComponents();
     init();
 }
 
+
 /**
- * 顧客情報等を設定する。
- *
- */
+    * 顧客情報等を設定する。
+*/
 function setCusInfo() {
     // 顧客名
     mTxtNameUser.innerHTML = Other.getClearString(mUserData.mKokfDat.mName);
     // 検針日付
-
     mTxtDate.innerHTML = Other.MonthDayFormat(
         kensin_date.getMonth()+1,
         kensin_date.getDate(),
@@ -270,24 +279,21 @@ function setCusInfo() {
 
 
 /**
- * check gas now is a number?
- *
- */
+    * check gas now is a number?
+*/
 function checkNowGas() {
     var strSisin = mTxtNowMeter.value;
     if (isNaN(strSisin)) {
-        // mTxtNowMeter.classList.add("edtError");
     } else {
-        // mTxtNowMeter.classList.remove("edtError");
         setGasInfo();
         afterCheckLease();
-        setdataNiukinLayout();
+        setdataNyukinLayout();
     }
 }
 
 
 /**
- * * 入力された今回指針から使用量、ガス料金を表示する。
+    * 入力された今回指針から使用量、ガス料金を表示する。
  */
 function setGasInfo() {
     // ガス使用量計算
@@ -486,8 +492,8 @@ function setGasPay(
 }
 
 /**
- * コンポーネントの初期設定を実施する。
- */
+    * コンポーネントの初期設定を実施する。
+*/
 function initComponents() {
     // インスタンス設定
 
@@ -680,8 +686,8 @@ function init() {
 }
 
 /**
- * 差引残高を設定する。
- */
+    * 差引残高を設定する。
+*/
 function setZandaka() {
     // const txtKensinNyukinNowSeikyu = document.getElementById("seikyugaku");
     //   const mEditAdjust = document.getElementById("chouseigaku");
@@ -723,7 +729,7 @@ function setZandaka() {
  *
  * @param tvSrc [in] {@link TextView}   入力値(123,456,789,012)
  * @return long ,を取り除いたlong値
- */
+*/
 function getLongValue(tvSrc) {
     var strValue = Other.getClearString(tvSrc);
     return strValue == "" ? 0 : parseInt(Other.getNumFromString(strValue));
@@ -751,9 +757,10 @@ function startKensinNextIntent() {
     }
 }
 
+
 /**
- * リース形状.
- */
+    * リース形状.
+*/
 function setLeasInfo() {
     //2017.02.07 個別指定の時には、リース計上を確認します。
     //リースの計上有無を確認します。
@@ -796,9 +803,10 @@ function setLeasInfo() {
     }
 }
 
+
 /**
- * リース計上チェック後の処理.
- */
+    * リース計上チェック後の処理.
+*/
 function afterCheckLease() {
     try {
         mUserData.mKokfDat.mHiwari = mDays;
@@ -868,6 +876,10 @@ function afterCheckLease() {
     }
 }
 
+
+/**
+    * SET DATA UCHIWAKE
+*/
 function setdataUchiWake() {
     document.getElementById("txtKensinNaiyakuCusName").innerHTML =
         Other.getClearString(mUserData.mKokfDat.mName);
@@ -1042,7 +1054,7 @@ mTxtNowMeter.onchange = function () {
     if (!isNaN(strSisin)) {
         setGasInfo();
         afterCheckLease();
-        setdataNiukinLayout();
+        setdataNyukinLayout();
         if (strSisin != "") {
             mTxtNowMeter.value = Other.Format(
                 parseFloat(mTxtNowMeter.value) * 10,
@@ -1066,6 +1078,10 @@ mTxtNowMeter.onchange = function () {
     }
 };
 
+
+/**
+	KEY PRESS ACTION
+*/
 function keyPressAction(value, length, event) {
     if (value.replaceAll(",","").includes(".")) {
         if (value.indexOf(".") > length) {
@@ -1088,6 +1104,10 @@ function keyPressAction(value, length, event) {
     }
 }
 
+
+/**
+	KEY PRESS MINUS ACTION
+*/
 function keyPressMinus(value, length, event) {
     if (value.includes("-")) {
         if (value.indexOf("-") != 0) {
@@ -1108,6 +1128,10 @@ function keyPressMinus(value, length, event) {
     }
 }
 
+
+/**
+	ONCHANGE MINUS ACTION
+*/
 function onChangeMinus(value) {
     var result = value;
     if (result.includes("-")) {
@@ -1123,7 +1147,6 @@ function onChangeMinus(value) {
 }
 
 //--------------Teisei button event--------------------->
-
 teiseiBtn.onclick = function () {
     if (teiseiGroup.classList.contains("hidden") == false) {
         return;
@@ -1180,14 +1203,18 @@ teiseiSumi.onclick = function () {
 };
 
 
-
-// -------------check valid string----------------------->
-
+/**
+	CHECK VALID STRING
+*/
 function isValidNumber(inputString) {
     const isnum = /^\d+$/.test(inputString);
     return isnum;
 }
 
+
+/**
+	TOTAL CALCULATION
+*/
 function calCutaleTotal() {
     checkValue();
     var total;
@@ -1207,6 +1234,10 @@ function calCutaleTotal() {
 
 }
 
+
+/**
+	SET OTSURI
+*/
 function setOtsuri() {
     var nyuukin = teiseiNyuukin.value;
     var zakanda = Other.getNumFromString(Sashihiki_zandaka.textContent);
@@ -1219,6 +1250,10 @@ function setOtsuri() {
     }
 }
 
+
+/**
+	CHECK VALUE
+*/
 function checkValue() {
     var moneyGasUse = Number(Other.getNumFromString(txtKensinNyukinNowSeikyu.textContent));
     var moneyBonus = Number(Other.getNumFromString(mEditAdjust.value));
@@ -1233,6 +1268,10 @@ function checkValue() {
     }
 }
 
+
+/**
+	UPDATE PRINTTING DATA
+*/
 function updatePrintData() {
     mUserData.mKokfDat.mAdjust = getLongValue(mEditAdjust.value);
     mUserData.mKokfDat.mReceipt = getLongValue(mEditReceipt.textContent);
@@ -1240,6 +1279,9 @@ function updatePrintData() {
 }
 
 
+/**
+	UPDATE NYUUKIN DATA
+*/
 function updateDataNyuukin() {
     mUserData.mKokfDat.mSyuSumi = getLongValue(mEditReceipt.textContent) != 0 || getLongValue(mEditAdjust.value) != 0;
     mUserData.mKokfDat.mKMonth = parseInt(mUserData.mKensinDate.substring(5, 7)) + 1;
@@ -1247,8 +1289,10 @@ function updateDataNyuukin() {
 }
 
 
-
-  export function sendDataToServer() {
+/**
+	SEND DATA
+*/
+export function sendDataToServer() {
 	var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
 
     // const mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
@@ -1356,6 +1400,10 @@ function setupButton() {
     }
 }
 
+
+/**
+	SETUP NYUUKIN MODE BUTTON
+*/
 function setupButtonNyukinMode() {
     if (mEditAdjust.value != "0" || mEditInputReceipt.value != "0" || parseInt(Other.getNumFromString(teiseiNyuukin.value)) < 0) {
         document.getElementById("createPrintingFormButton").disabled = false;
@@ -1381,6 +1429,10 @@ function onclickAction() {
         overlay.style.zIndex = "2";
         wrapMainForm.classList.remove("overlay-animate");
     };
+
+    document.getElementById("backPageButton").onclick = function () {
+	    Common.backAction();
+	};
 }
 
 

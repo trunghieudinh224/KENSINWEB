@@ -18,8 +18,10 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/common.css" />
-	<link rel="stylesheet" type="text/css" href="css/sales_list.css" />
 	<link rel="stylesheet" type="text/css" href="css/modal.css" />
+	<link rel="stylesheet" type="text/css" href="css/sales_list.css" />
+    <link rel="stylesheet" type="text/css" href="css/print_common.css">
+    <link rel="stylesheet" type="text/css" href="css/purchase_print.css">
 </head>
 
 <body>
@@ -40,22 +42,261 @@
 
 		<div class="container-mainform" id="form">
 			<div class="wrap-mainform p-t-30 p-b-40">
-				<!-- Title// -->
-				<div class="row">
-					<span id="titleForm" class="col-12">明細削除</span>
-				</div>
-				
-				<table id="customers">
-					<tr id="title-table">
-						<th class="text">日付</th>
-						<th class="text">品目</th>
-						<th class="text">金額</th>
-						<th class="text">削除</th>
-					</tr>
-				</table>
-				<div class="table-container">
-					<table id="htsetTable" class="result-tb">
+
+				<div id="editView">
+					<!-- Title// -->
+					<div class="row">
+						<span id="titleForm" class="col-12">明細削除</span>
+					</div>
+
+					<table id="customers">
+						<tr id="title-table">
+							<th class="text">日 付</th>
+							<th class="text">品 目</th>
+							<th class="text">金 額</th>
+							<th class="text">削 除</th>
+						</tr>
 					</table>
+					<div class="table-container">
+						<table id="htsetTable" class="result-tb">
+						</table>
+					</div>
+
+					<div class="button-area">
+						<div class="row content">
+							<div class="col-6">
+								<button type="button" class="btn btn-default text-center" id="backPageButton"><span
+										class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
+							</div>
+
+							<div class="col-6">
+								<button type="button" class="btn btn-default text-center" id="printButton"><span
+										class="fas fa-play ic-btn"></span><br>印刷</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="printView">
+					<!-- Content -->
+					<div id="printContent">
+						<div id="printContentDetail">
+							<div id="titleArea">
+								<span class="col-12 title-printView wsp-title ta-c titlePrintView" id="titlePrintView">領
+									収 書</span>
+							</div>
+
+
+							<div id="cusInfoArea">
+								<div class="text-print ta-l wsp-text sg-line">
+									<span class="text-print item" id="hakkooBiKenshinBiTitle">発行日</span>
+									<span class="text-print item" id="hakkooBiKenshinBi"></span>
+								</div>
+
+								<div class="frames-common bd-3">
+									<div class="text-print ta-l wsp-text sg-line">コード:
+										<span class="text-print item" id="codeVal"></span>
+									</div>
+									<div class="row">
+										<div class="col-9 text-print ta-l wsp-text item" id="nameVal"></div>
+										<div class="col-3 text-print ta-r wsp-text item" id="kNameVal">様</div>
+									</div>
+									<div class="text-print ta-l wsp-text sg-line" id="address0Val"></div>
+									<div class="text-print ta-l wsp-text sg-line" id="address1Val"></div>
+								</div>
+							</div>
+
+
+							<div id="hmInfoArea">
+								<div class="row">
+									<div class="col-12 text-print ta-l wsp-text item" id="hmInfoHeaderVal"></div>
+								</div>
+
+								<table id="hmInfoTable">
+									<tr class="hmInfoHeader" id="hmInfoHeaderText">
+										<td class="text-print ta-c item hmw-16">月日</td>
+										<td class="text-print ta-c item hmw-20 hinmoku">品 目</td>
+										<td class="text-print ta-c item hmw-20">数 量</td>
+										<td class="text-print ta-c item hmw-20 tanka">単 価</td>
+										<td class="text-print ta-c item hmw-24">金 額</td>
+									</tr>
+
+									<tr class="hmInfoHeader" id="hmInfoTotal">
+										<td class="text-print ta-c w-16 hmInfoTable-item">
+										</td>
+										<td class="text-print ta-l w-20 hinmoku hmInfoTable-item">
+											消費税</td>
+										<td class="text-print ta-c w-20 hmInfoTable-item">
+										</td>
+										<td class="text-print ta-c w-20 tanka hmInfoTable-item">
+										</td>
+										<td class="text-print ta-r w-24 hmInfoTable-item" id="nTaxVal">
+											0</td>
+									</tr>
+								</table>
+
+								<div class="frames-common bd-1 mt--1" id="infoTaxArea">
+									<div class="row">
+										<div class="col-7 text-print ta-l wsp-text item" id="hmefTaxKeigenTotalVal">
+										</div>
+										<div class="col-5 text-print ta-r wsp-text item valLine" id="hmefKinVal"></div>
+									</div>
+									<div class="row">
+										<div class="col-7 text-print ta-l wsp-text item" id="hmefTaxKeigenTaxVal"></div>
+										<div class="col-5 text-print ta-r wsp-text item valLine" id="hmefTaXVal"></div>
+									</div>
+								</div>
+
+								<div class="frames-common bd-3 mt--1" id="honjitsuUriageKingakuArea">
+									<div class="row">
+										<div class="col-6 text-print ta-l fw-b wsp-text item">本日売上金額</div>
+										<div class="col-6">
+											<div class="text-print ta-r fw-b wsp-text item valLine"
+												id="honjitsuUriageKingakuVal">0</div>
+											<div class="text-print ta-r fw-b wsp-text item unitLine">円</div>
+										</div>
+									</div>
+								</div>
+
+								<div id="honjitsuUriageKingakuCmt">
+									<div class="text-print ta-l wsp-text item">上記の通り納品致しました。有難うございました。</div>
+								</div>
+
+							</div>
+
+
+							<div id="RyoSyuInfo">
+								<div class="frames-common bd-1">
+									<div class="row" id="konkaiSeikyuGakuArea">
+										<div class="col-6 text-print ta-l wsp-text item">今回請求額</div>
+										<div class="col-6">
+											<div class="text-print ta-r wsp-text item valLine" id="konkaiSeikyuGakuVal">
+												0</div>
+											<div class="text-print ta-r wsp-text item unitLine">円</div>
+										</div>
+									</div>
+
+									<div class="row" id="choTitleArea">
+										<div class="col-6 text-print ta-l wsp-text item" id="choTitleText"></div>
+										<div class="col-6">
+											<div class="text-print ta-r wsp-text item valLine" id="choTitleVal">0</div>
+											<div class="text-print ta-r wsp-text item unitLine">円</div>
+										</div>
+									</div>
+
+									<div class="row" id="honjitsuNyuuKingakuArea">
+										<div class="col-6 text-print ta-l wsp-text item" id="honjitsuNyuuKingakuText">
+										</div>
+										<div class="col-6">
+											<div class="text-print ta-r wsp-text item valLine"
+												id="honjitsuNyuuKingakuVal">0</div>
+											<div class="text-print ta-r wsp-text item unitLine">円</div>
+										</div>
+									</div>
+
+									<div class="row" id="otsuriArea">
+										<div class="col-6 text-print ta-l wsp-text item">おつり</div>
+										<div class="col-6">
+											<div class="text-print ta-r wsp-text item valLine" id="otsuriVal">0</div>
+											<div class="text-print ta-r wsp-text item unitLine">円</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="frames-common bd-3 mt--1" id="sashihikiZandakaArea">
+									<div class="row">
+										<div class="col-6 text-print ta-l fw-b wsp-text item">差引残高</div>
+										<div class="col-6">
+											<div class="text-print ta-r fw-b wsp-text item valLine"
+												id="sashihikiZandakaVal">0</div>
+											<div class="text-print ta-r fw-b wsp-text item unitLine">円</div>
+										</div>
+									</div>
+								</div>
+
+								<div id="RyoshuArea">
+									<div class="row">
+										<div class="col-8 text-print ta-l wsp-text" id="ryoshuDetail">
+											<span
+												class="text-print ta-l fw-b wsp-text ryooshuu-text ryooshuuKingaku">領収金額</span>
+											<span class="text-print ta-l fw-b wsp-text ryooshuu-text ryooshuuKingaku"
+												id="ryooshuuKingakuVal">0円</span>
+										</div>
+										<div class="col-4">
+											<div class="bd-3 text-print ta-c wsp-text item">
+												領 収 印
+											</div>
+
+											<div class="bd-3 ta-c" id="ryooOsamuShirushiArea">
+
+											</div>
+										</div>
+									</div>
+
+									<div class="row" id="ryoshuText">
+										<div class="col-12 text-print ta-l wsp-text item">上記の通り領収致しました。有難うございました。</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="frames-common bd-1" id="commentArea">
+								<div class="row" id="commentDetailArea">
+								</div>
+							</div>
+
+
+							<div id="userInfoArea">
+								<div class="frames-common bd-3" id="addArea">
+									<div class="row">
+										<div class="col-12 text-print ta-l wsp-text item" id="mNameVal"></div>
+										<div class="col-12 text-print ta-l wsp-text item" id="add1Val"></div>
+										<div class="col-12 text-print ta-l wsp-text item" id="add2Val"></div>
+									</div>
+								</div>
+
+								<div class="frames-common bd-3 mt--3" id="addArea">
+									<div class="row">
+										<div class="col-2 text-print ta-l wsp-text item">TEL</div>
+										<div class="col-4 text-print ta-l wsp-text item" id="telVal"></div>
+										<div class="col-6 text-print ta-l wsp-text item">(担当)</div>
+									</div>
+									<div class="row">
+										<div class="col-2 text-print ta-l wsp-text item">FAX</div>
+										<div class="col-4 text-print ta-l wsp-text item" id="faxVal"></div>
+										<div class="col-6 text-print ta-l wsp-text item" id="tantnameFaxVal">
+										</div>
+									</div>
+								</div>
+
+								<div class="frames-common bd-3 mt--3" id="bkInfoArea">
+									<div class="row">
+										<div class="col-12 text-print ta-l wsp-text item" id="bkname0&Shiten0"></div>
+										<div class="col-12 text-print ta-l wsp-text item" id="bkKubun0&Ban0"></div>
+										<div class="col-12 text-print ta-l wsp-text item" id="bkname1&Shiten1"></div>
+										<div class="col-12 text-print ta-l wsp-text item" id="bkKubun1&Ban1"></div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="end-space"></div>
+						</div>
+					</div>
+
+					<!-- Button -->
+					<div class="row content button-area">
+						<div class="col-6">
+							<button type="button" class="btn btn-default text-center" id="backPrintButton">
+								<span class="fas fa-arrow-alt-circle-left"></span><br />戻る
+							</button>
+						</div>
+						<div class="col-6">
+							<button type="button" class="btn btn-default text-center" id="sendToAppButton">
+								<span class="fas fa-print"></span><br />印刷
+							</button>
+						</div>
+					</div>
 				</div>
 
 			</div>
@@ -81,7 +322,7 @@
 							<button class="button-modal btn-common button-0" role="button"></button>
 							<button class="button-modal btn-common button-1" role="button"></button>
 							<button class="button-modal btn-common button-2" role="button"></button>
-                        </div>
+						</div>
 					</div>
 				</div>
 
@@ -89,21 +330,21 @@
 		</div>
 	</div>
 
-    <script type="text/javascript"
-        src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
+	<script type="text/javascript"
+		src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
 	<script src="vendor/daterangepicker/moment.min.js"></script>
 	<!--===============================================================================================-->
-    <script type="module" src="./js/Common/check_data.js"></script>
-    <script type="module" src="./js/sales_list.js"></script>
+	<script type="module" src="./js/Common/check_data.js"></script>
+	<script type="module" src="./js/sales_list.js"></script>
 </body>
 
 </html>

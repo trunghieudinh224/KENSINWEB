@@ -232,7 +232,7 @@ export class KokfDat {
 		/** 締後：調整額 */
 		this.mCho2 = 0;
 		this.seiymd = null;
-		this.kai_ymd =null;
+		this.kai_ymd = null;
 		this.mKenku = 0;
 		this.chuatu = 0;
 		this.sime = 0;
@@ -243,8 +243,8 @@ export class KokfDat {
 		mSupplyForm, mGasBase, mMtKeta, mGasUnit, mHybseikyu, mUrikin, mUriTax, mReduce, mReduceTax, mKotfDat, mProcTisyuu,
 		mTaxTisyuu, mPreBalance, mTAdjust, mTReceipt, mProcLease, mTaxLease, mProcDiv, mProcLoil, mTaxLoil, mProcEtc,
 		mTaxEtc, mProcGas, mTaxGas, mReceipt, mAdjust, mSyuSumi, mInpReceipt, mAdd_0, mAdd_1, mCusCode, mSName0,
-		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusrec, mPuseSrpDay, nGasrkcnt, mLoilUnit , mLoilAdd , mLoilMulti,
-		mPoint, mTransMonth, mTransDate, mTransFee, mGUri2, mUri2, mTax2, mNyu2, mCho2 , seiymd , kai_ymd , mKenku , chuatu) {
+		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusrec, mPuseSrpDay, nGasrkcnt, mLoilUnit, mLoilAdd, mLoilMulti,
+		mPoint, mTransMonth, mTransDate, mTransFee, mGUri2, mUri2, mTax2, mNyu2, mCho2, seiymd, kai_ymd, mKenku, chuatu) {
 
 		var data = new KokfDat();
 
@@ -525,8 +525,8 @@ export class SysfDat {
 		this.mShofDatKangen = null;
 	}
 
-	setValue(mKgasDays0, mKgasDays1, mKgasDays2, mTax_yy, mTax_mm, mTax_dd, mConsumTax, mTaxr_old, mTaxr_new, mVisibleGas, mVisibleFacility, mLesUmu, mFracAddKin, mFracMulKin, 
-		mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas, m_isToyukeninFlg, mSrChkr, mSrChkm, mKnebFlg, mIfAdjust, 
+	setValue(mKgasDays0, mKgasDays1, mKgasDays2, mTax_yy, mTax_mm, mTax_dd, mConsumTax, mTaxr_old, mTaxr_new, mVisibleGas, mVisibleFacility, mLesUmu, mFracAddKin, mFracMulKin,
+		mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas, m_isToyukeninFlg, mSrChkr, mSrChkm, mKnebFlg, mIfAdjust,
 		mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta, mSanki, mHinCd9, mShofDatKangen) {
 		var data = new SysfDat();
 
@@ -619,9 +619,9 @@ export class SysfDat {
 		data.mGtpcDat = responeData.mGtpcDat;
 		data.mHtOption = responeData.mHtOption;
 		data.mSnvalue = responeData.mSnvalue;
-		if(data.mSnvalue == 0){
-            data.mSnvalue = 100;
-        }
+		if (data.mSnvalue == 0) {
+			data.mSnvalue = 100;
+		}
 		data.mIfChitUser = responeData.mIfChitUser;
 		data.mSysMonth = responeData.mSysMonth;
 		data.mTenkenDelta = responeData.mTenkenDelta;
@@ -778,7 +778,7 @@ export class KouserDat {
 		this.m_nNextTransDay = 0;
 		/** 依頼状況 */
 		this.m_nIraiStat = 0;
-        /** 引落し予定日（月） */
+		/** 引落し予定日（月） */
 		this.m_nIraiMonth = 0;
 		/** 引落し予定日（日） */
 		this.m_nIraiDay = 0;
@@ -791,7 +791,7 @@ export class KouserDat {
 	}
 
 
-	setValue(m_nChuatu, m_nKoubetsu, mHyc5, m_sChocode, m_sNyucode, m_nNextTransYear, m_nNextTransMonth, m_nNextTransDay, 
+	setValue(m_nChuatu, m_nKoubetsu, mHyc5, m_sChocode, m_sNyucode, m_nNextTransYear, m_nNextTransMonth, m_nNextTransDay,
 		m_nIraiStat, m_nIraiMonth, m_nIraiDay, m_nIraiKin, m_nIraiYear, m_strCmt) {
 		var data = new KouserDat();
 
@@ -832,7 +832,7 @@ export class KouserDat {
 		data.m_nIraiKin = responeData.m_nIraiKin;
 		data.m_nIraiYear = responeData.m_nIraiYear;
 		data.m_strCmt = responeData.m_strCmt;
-		
+
 		return data
 	}
 }
@@ -901,7 +901,7 @@ export class GasfDat {
 		/** ガス料金拡張データ */
 		this.mGextDat = null;
 		/** 消費税区分 */
-    	this.mTaxDiv;
+		this.mTaxDiv;
 	}
 
 	setValue(mSum, mSyu, mFrac1Add, mFrac2Add, mFrac1Mult, mFrac2Mult, mRiseFall, m_lstGstpDat, mTaxDiv, mTaxAdd, mTaxMult, mChoTanka, mGextDat) {
@@ -1199,7 +1199,7 @@ export class KotfDat {
 	}
 
 	setValue(m_bKen_sumi, m_nFee, m_nCon_tax, m_nNow_meter, m_nPre_meter, m_nLoil_use, m_nBetw_meter, m_nPre_use, m_nLoil_base,
-			m_bLoil_taxku, m_sLoil_taxr, m_nLoil_fracadd_tax, m_nLoil_fracmul_tax, m_bMt_keta) {
+		m_bLoil_taxku, m_sLoil_taxr, m_nLoil_fracadd_tax, m_nLoil_fracmul_tax, m_bMt_keta) {
 		var data = new KotfDat();
 
 		data.m_bKen_sumi = m_bKen_sumi;
@@ -1425,9 +1425,9 @@ export class GextDat {
 export class TaxDat {
 	constructor() {
 		/** ガス内税 */
-		this.mGUchiZei = 0,
-			/** ガス外内税 */
-			this.mUchiZei = 0
+		this.mGUchiZei = 0;
+		/** ガス外内税 */
+		this.mUchiZei = 0;
 	}
 
 	setValue(mGUchiZei, mUchiZei) {
@@ -1742,16 +1742,14 @@ export class UserData {
 		this.mBusfDat_kang = null;
 		/** 取引区分・品目データクラス */
 		this.mBusfDat_hmcd13 = null;
+		/** ハイブリッドカウンタ名称データ */
+		this.mHynmDat = null;
+
 
 
 		this.getHmef0 = null;
 		this.getHmef1 = null;
 		this.getHmef2 = null;
-	}
-
-	setValue(inputData) {
-		var data = new UserData();
-		return data;
 	}
 
 	parseData(responeData) {
@@ -1775,6 +1773,7 @@ export class UserData {
 		data.m_lstLeasHmefDat = responeData.m_lstLeasHmefDat;
 		data.mBusfDat_kang = responeData.mBusfDat_kang;
 		data.mBusfDat_hmcd13 = responeData.mBusfDat_hmcd13;
+		data.mHynmDat = new HynmDat().parseData(responeData.mHynmDat);
 		data.getHmef0 = responeData.getHmef0;
 		data.getHmef1 = responeData.getHmef1;
 		data.getHmef2 = responeData.getHmef2;
@@ -2335,18 +2334,51 @@ export class PrintGenuriInfo {
  */
 export class HmefWriteDat {
 
-	constructor(){
-	/** 顧客管理番号 */
-	this.m_nCusrec = 0;
-	/** 顧客データ(標準)  */
-	this.m_kokfDat = null;
-	/** 販売明細一覧 */
-	this.m_lstHmefDat = null;
-	/** モード（0:新規追加、1:修正、2:削除） */
-	this.m_nMode = 0;
-	/** ログインID */
-	this.m_strloginID = "";
-	/** ログインパスワード */
-	this.m_strloginPW = "";
+	constructor() {
+		/** 顧客管理番号 */
+		this.m_nCusrec = 0;
+		/** 顧客データ(標準)  */
+		this.m_kokfDat = null;
+		/** 販売明細一覧 */
+		this.m_lstHmefDat = null;
+		/** モード（0:新規追加、1:修正、2:削除） */
+		this.m_nMode = 0;
+		/** ログインID */
+		this.m_strloginID = "";
+		/** ログインパスワード */
+		this.m_strloginPW = "";
+	}
+}
+
+
+export class HynmDat {
+	constructor() {
+		/** 種別 */
+		this.mSyu = 0;
+		/** コード */
+		this.mCode = 0
+		/** 名称 */
+		this.mName = 0
+	}
+
+	setValue(mSyu, mCode, mName) {
+		var data = new HynmDat();
+
+		data.mSyu = mSyu;
+		data.mCode = mCode;
+		data.mName = mName;
+		return data;
+	}
+
+	parseData(responeData) {
+		var data = new HynmDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mSyu = responeData.mSyu;
+		data.mCode = responeData.mCode;
+		data.mName = responeData.mName;
+		return data;
 	}
 }

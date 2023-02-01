@@ -61,8 +61,8 @@ function setOnClickItem() {
 function getData() {
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING + StringCS.PR_KEY +
 			"&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
 			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		headers: {
@@ -326,12 +326,16 @@ function onclickAction() {
 		sessionStorage.setItem(StringCS.PRODUCTSTRING, val);
 		searchProduct(val);
 	};
+	
+    document.getElementById("backPageButton").onclick = function () {
+	    Common.backAction();
+	};
 
 	var isEnable = false;
 	if (mUserData.mHmefList != null) {
 		if (mUserData.mHmefList.length > 0) {
 			for (var i = 0; i < mUserData.mHmefList.length; i++) {
-				if (item.mUsef) {
+				if (mUserData.mHmefList[i].mUsef) {
 					isEnable = true;
 					break;
 				}
@@ -340,28 +344,14 @@ function onclickAction() {
 	}
 
 	
-	// if (isEnable) {
-	// 	document.getElementById("deleteButton").disabled = false;
-	// 	document.getElementById("printButton").disabled = false;
-
-	// 	document.getElementById("deleteButton").onclick = function () {
-	// 		sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
-	// 		Common.movePage('/sales_list.html');
-	// 	};
-
-	// 	document.getElementById("printButton").onclick = function () {
-			
-	// 	};
-	// } else {
-	// 	document.getElementById("deleteButton").disabled = true;
-	// 	document.getElementById("printButton").disabled = true;
-	// }
-
-	document.getElementById("deleteButton").onclick = function () {
-		// sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
-		Common.movePage('/sales_list.html');
-	};
-
+	if (isEnable) {
+		document.getElementById("uriageListButton").disabled = false;
+		document.getElementById("uriageListButton").onclick = function () {
+			Common.movePage('/sales_list.html');
+		};
+	} else {
+		document.getElementById("uriageListButton").disabled = true;
+	}
 }
 
 

@@ -37,6 +37,7 @@ function clearDataCus() {
     var page = path.split("/").pop().replace(".html", "");
     if (page != "meter_reading_fillout" && page != "customer" && page != "product_search" && page != "purchase" && page != "kerosene" && page != "sales_list") {
         sessionStorage.removeItem(StringCS.CUSDAT);
+        sessionStorage.removeItem(StringCS.KENSINDATE);
     } else {
         if (page == "meter_reading_fillout") {
             if (sessionStorage.getItem(StringCS.CUSDAT) == null) {

@@ -2,9 +2,7 @@ import { LawItemDat } from './Dat/dat.js';
 import * as KensinKinyuu from './kensin_kinnyuu.js'
 import * as StringCS from './Constant/strings.js'
 
-
-export var m_bRes;
-export var m_lLawItem = [];
+/*****  VIEW VARIABLE  *****/
 const combobox_total = document.getElementById("combobox_total");
 const combobox_1 = document.getElementById("combobox_1");
 const combobox_2 = document.getElementById("combobox_2");
@@ -17,23 +15,23 @@ const combobox_8 = document.getElementById("combobox_8");
 const unnecessary_btn = document.getElementById("unnecessary_btn");
 const no_btn = document.getElementById("no_btn");
 const good_btn = document.getElementById("good_btn");
+const kenshin_data = document.getElementById("kenshin_data");
 
+
+/*****  DATA VARIABLE  *****/
+export var m_bRes;
+export var m_lLawItem = [];
 export var hoanString = KensinKinyuu.mUserData.mKokfDat.mHoan.substring(0, 8);
+
 var listHoanData = hoanString.split("");
 
 var pos_combobox = 0;
 
 var tenkenDelta = KensinKinyuu.mUserData.mSysfDat.mTenkenDelta;
 
-const kenshin_data = document.getElementById("kenshin_data");
-
 var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
+
 var list_combobox ;
-if(mUserData.mKokfDat.mSupplyForm != 3 ){
-    list_combobox = [combobox_1, combobox_2, combobox_3, combobox_4, combobox_5, combobox_6, combobox_7, combobox_8];
-}else{
-    list_combobox = [combobox_5, combobox_6, combobox_8];
-}
 
 
 function setAllComboBox() {
@@ -114,8 +112,6 @@ function getHoan() {
     return list_Value;
 }
 
-
-
 function changeValue() {
     console.log(kenshin_data.value);
 }
@@ -154,6 +150,13 @@ function setLawItem() {
 }
 
 function onLoadAction() {
+    if(mUserData.mKokfDat.mSupplyForm != 3 ){
+        list_combobox = [combobox_1, combobox_2, combobox_3, combobox_4, combobox_5, combobox_6, combobox_7, combobox_8];
+    }else{
+        list_combobox = [combobox_5, combobox_6, combobox_8];
+    }
+
+    
     if (combobox_total != null) {
         m_bRes = getValueOfHoanItem(combobox_total.value);
 

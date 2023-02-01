@@ -23,15 +23,10 @@ var HOAN_ITEMS = ["①容器設置場所", "②容器設置状況", "③火気�
 var mUserData = KensinKinyuu.mUserData;
 mUserData.mNyukinMode = false;
 mUserData.m_lstLeasHmefDat = null;
-// mUserData.getHmef0 = KensinKinyuu.hmefList;
-// mUserData.getHmef1 = KensinKinyuu.hmefList1;
-// mUserData.getHmef2 = KensinKinyuu.hmefList2;
-
-
+/** 印刷情報 */ 
 var printStatus = new Dat.PrintStatus();
+/** 検針情報 */
 var kensinData = new Dat.KensinData();
-
-
 
 
 /****  PRINT   ****/
@@ -485,7 +480,7 @@ function getCounterName(nCounterNo) {
 
 	var strCounterName = "";
 	try {
-		strCounterName = InputDat.getHymnDat(ctx, nCounterNo).mName;
+		strCounterName = mUserData.mmHynmDat[nCounterNo].mName;
 	}
 	catch (err) {
 		console.log(err);
@@ -530,6 +525,11 @@ function calcTotalKin() {
 }
 
 
+/**
+    * 伝票の検針データ印字部分の作成
+    *
+    * @param kensinData  [in] {@link KensinData} 検針データ
+*/
 function createKensinInfo(kensinData) {
 	document.getElementById("KensinInfoArea").style.display = "none";
 	document.getElementById("ToyuKensinInfoArea").style.display = "none";
@@ -575,8 +575,6 @@ function createKensinInfo(kensinData) {
 	 * 検針情報印刷データの生成.
 	 *
 	 * @param kensinData        [in] {@link KensinData}     検針印刷データ
-	 * @param printImageList    [in] {@link PrintImageList} 印刷データ格納先
-	 * @throws MException 印刷データ生成時にエラーがあった場合に発生
 */
 function createKensinInfoBase(kensinData) {
 	var strLine = "";
@@ -838,6 +836,11 @@ function createKensinInfoBase(kensinData) {
 }
 
 
+/**
+    * 前年同月使用量を印字
+    *
+    * @param kensinData        [in] KensinData     検針印字データ
+*/
 function createZenYearkenSr(kensinData) {
 	if (!kensinData.m_bPrintZenYearKenSr) {
 		document.getElementById("zenYearkenSrArea").style.display = "none";
@@ -849,12 +852,22 @@ function createZenYearkenSr(kensinData) {
 }
 
 
+/**
+    * 伝票にガス料金総額を印字
+    *
+    * @param kensinData        [in] KensinData     印刷用検針データ
+*/
 function createGasryokinTotal(kensinData) {
 	const gasuRyookinSoogakuVal = document.getElementById("gasuRyookinSoogakuVal");
 	gasuRyookinSoogakuVal.innerHTML = Other.KingakuFormat(kensinData.m_nGasTotalKin);
 }
 
 
+/**
+    * 灯油検針情報の印字
+    *
+    * @param kensinData    [in] {@link KensinData} 検針データ
+*/
 function createToyuKensinInfoBase(kensinData) {
 	var strLine;
 	var kotfDat = kensinData.mKotfDat;
@@ -962,6 +975,11 @@ function createToyuKensinInfoBase(kensinData) {
 }
 
 
+/**
+    * 金額関係印刷データの生成.
+    *
+    * @param kensinData    [in] {@link KensinData} 検針印刷データ
+*/
 function createKinInfo(kensinData) {
 	var isPrint = false;
 	var strLine;
@@ -1112,7 +1130,6 @@ function createKinInfo(kensinData) {
  * 調整額名称の取得.
  *
  * @return String   調整額名称
- * @throws MException   エラー時に発生
  */
 function getChoTitle() {
 	var strChoTitle = "調整額";
@@ -1127,6 +1144,11 @@ function getChoTitle() {
 }
 
 
+ /**
+    * 内税コメントの生成.
+    *
+    * @param kensinData    [in] {@link KensinData} 検針印刷データ
+*/
 function createUTaxComment(wkKensinData) {
 	var wkStr;
 	var wkTaxDat = Calc_UchiZei(wkKensinData, wkKensinData.m_isHybrid);
@@ -1182,7 +1204,7 @@ function createUTaxComment(wkKensinData) {
 	*
 	* @param wkKensinData  [in] {@link KensinData} 印刷データ
 	* @param isHybSeikyu   [in] boolean            ハイブリッド請求フラグ(true:有り, false:無し)
-	* @return  {@link TaxDat}  内税計算後消費税データ
+	* @return  {TaxDat}  内税計算後消費税データ
 */
 function Calc_UchiZei(wkKensinData, isHybSeikyu) {
 	//初期化
@@ -1297,7 +1319,7 @@ function isUriage_(hmefDats, sysfDat, isIncludeNyuCho) {
 	*
 	* @param wkHmef    [in] HmefDat[]      販売明細データ
 	* @param sysf      [in] SysfDat        システムデータ
-	* @throws MException 印刷データ作成時にエラーがあった場合に発生
+	* @param sysf2     [in] Sy2fDat        システム2データ
 */
 function calcUtaxHm(wkHmef, sysf, sysf2) {
 	var flo = 0;
@@ -1350,7 +1372,6 @@ function calcUtaxHm(wkHmef, sysf, sysf2) {
 	* @param sysfDat   [in] {@link SysfDat}    システムデータ
 	* @param hmefDat   [in] {@link HmefDat}    販売明細データ
 	* @return  int 内税金額
-	* @throws MException   計算失敗時に発生
 */
 function calcUtax(sysfDat, hmefDat) {
 	var nUtax = 0;
@@ -1386,8 +1407,11 @@ function createSeikyuComment(kensinData) {
 }
 
 
-
-
+/**
+    * 伝票にガス料金式を印字
+    *
+    * @param kensinData        [in] KensinData 印刷用検針データ
+*/
 function createGasryokinSiki(kensinData) {
 	var gasfDat = kensinData.m_GasfDat;
 	if (gasfDat != null && kensinData.m_isVisibleGas) {
@@ -1456,13 +1480,10 @@ function createGasryokinSiki(kensinData) {
 }
 
 
-
 /**
 	* 秋元式ガス料金式印字
 	*
-	* @param printImageList    [in] {@link PrintImageList} 印字データ
 	* @param kensinData        [in] {@link KensinData}     検針データ
-	* @return int 伝票印字後の高さ
 */
 function printGasryokinA(kensinData) {
 	var nPrnGasKin = kensinData.mGasBaseKin + kensinData.m_nFacilityKin;
@@ -1604,7 +1625,7 @@ function printGasryokinA(kensinData) {
 	* @param dUpLimit          [in] double                 上限値
 	* @param dAddKin           [in] double                 加算値
 	* @param dTotalKin         [in] double                 ステップ金額
-	* @return int  印刷後の高さ
+	* @param areaName          [in] string                 項目名
 */
 function printGasRyokinStep_A(dLowLimit, dUpLimit, dAddKin, dTotalKin, areaName) {
 	var area = document.getElementById(areaName);
@@ -1668,7 +1689,7 @@ function printGasRyokinStep_A(dLowLimit, dUpLimit, dAddKin, dTotalKin, areaName)
 	 * @param dLowLimit         [in] double                 下限値
 	 * @param dUpLimit          [in] double                 上限値
 	 * @param dAddKin           [in] double                 加算値
-	 * @return  int 印刷後の高さ
+	* @param areaName         	[in] string                 項目名
 	 */
 function printGasRyokinStep_O(dLowLimit, dUpLimit, dAddKin, areaName) {
 	var area = document.getElementById(areaName);
@@ -1716,12 +1737,12 @@ function printGasRyokinStep_O(dLowLimit, dUpLimit, dAddKin, areaName) {
 
 
 /**
-	 * ハイブリッドガス料金式の印字(秋元式)
-	 *
-	 * @param printImageList    [in] {@link PrintImageList} 帳票データ
-	 * @param kensinData        [in] {@link KensinData}     印字データ
-	 * @return int 印字後の伝票高さ
-	 */
+	* ハイブリッドガス料金式の印字(秋元式)
+	*
+	* @param kensinData        	 [in] {@link KensinData}     印字データ
+	* @param nType        		 [in] int     				 タイプ
+	* @param previouRowId        [in] string     			 以前のID
+*/
 function printGasryokin_Hybrid(kensinData, nType, previouRowId) {
 	var ko2fDat = kensinData.mKo2fDat;
 	if (kensinData.m_isHybrid && ko2fDat.mGashyb > 0) {
@@ -1844,7 +1865,6 @@ function printGasryokin_Hybrid(kensinData, nType, previouRowId) {
 	*
 	* @param ko2fDat              [in] {@link Ko2fDat}        顧客ハイブリッドデータ
 	* @param hybfDat              [in] {@link HybfDat}        ハイブリッド料金表データ
-   * @return  int 印字後の伝票高さ
 */
 function printCounterUseKin(ko2fDat, hybfDat) {
 	if (ko2fDat.mUseKin > 0 && hybfDat.mUseSncode > 0) {
@@ -1866,10 +1886,7 @@ function printCounterUseKin(ko2fDat, hybfDat) {
 /**
 	* 大口式ガス料金式印字
 	*
-	* @param printImageList    [in] {@link PrintImageList} 印字データ
-	* @param nYpos             [in] int                    伝票印字開始高さ
-	* @param kensinData        [in] {@link KensinData      検針データ
-	  * @return int 伝票印字後の高さ
+	* @param kensinData        [in] {@link KensinData}      検針データ
 */
 function printGasryokinO(kensinData) {
 	var gasfDat = kensinData.m_GasfDat;
@@ -1980,10 +1997,7 @@ function printGasryokinO(kensinData) {
 /**
 	* ガス料金コメントの印字
 	*
-	* @param printImageList    [in] PrintImageList 帳票印刷データ
 	* @param gextDat              [in] GextDat        ガス料金拡張データ
-	* @param nYpos             [in] int            印字開始高さ
-	* @since 2017.05.23    S.iimura    新規作成
 */
 function printGasryokinComment(gextDat) {
 	var lstKinComment = [
@@ -2030,6 +2044,11 @@ function printGasryokinComment(gextDat) {
 }
 
 
+/**
+    * 伝票に日割りコメントを印字
+    *
+    * @param kensinData        [in] Kensindata     印刷用検針データ
+*/
 function createHiwariComment(kensinData) {
 	var countNull = 0;
 	if (Other.getClearString(kensinData.m_strHiwariComment_0).length != 0) {
@@ -2067,7 +2086,9 @@ function createRyoshu(strInpReceipt) {
 }
 
 
-
+/**
+    * 伝票の自振関連データ印字部分の作成
+*/
 function createBank() {
 	var kokfDat = mUserData.mKokfDat;
 	var kouserDat = mUserData.mKouserDat;
@@ -2123,7 +2144,9 @@ function createBank() {
 }
 
 
-
+/**
+    * 銀行不能コメントの印字.
+*/
 function createFunouComment() {
 	var sy2fDat = mUserData.mSy2fDat;
 	if (sy2fDat.mFunouPrint == 0) {
@@ -2159,7 +2182,11 @@ function createFunouComment() {
 }
 
 
-
+/**
+    * 伝票の明細部分の作成
+    *
+    * @param userData    [in] {@link UserData}   共通データ
+*/
 function createHmInfo_(userData) {
 	// 販売データ
 	var hmefList = userData.getHmef0;
@@ -2196,7 +2223,6 @@ function createHmInfo_(userData) {
 	*
 	* @param mapHmefDat    [in] {@code Map<Integer, HmefDat>}  軽減税率マップ
 	* @param lstHmefDat    [in] HmefDat[]                      販売明細一覧
-	* @throws MException   計算エラー時に発生
 */
 function calcKeigen(mapHmefDat, lstHmefDat) {
 	if (mapHmefDat == null) {
@@ -2217,7 +2243,6 @@ function calcKeigen(mapHmefDat, lstHmefDat) {
 	* @param sysfDat       [in] {@link SysfDat}                    システムデータ
 	* @param hmefDats      [in] HmefDta[]                          売上明細一覧
 	* @param mapHmefDat    [in/out] {@code Map<Integer, Hmefdat>}  軽減税率区分、税率毎の消費税金額
-	* @throws MException   エラー時に発生
 */
 function addKeigenTax(sysfDat, hmefDats, mapHmefDat) {
 	var nIdx = 1;
@@ -2273,7 +2298,7 @@ function setKeigenKubun(hmefDat, sysfDat) {
 	*
 	* @param sysfDat   [in] {@link SysfDat}    システムデータ
 	* @param sTaxr     [in] short              消費税率
-	* @return byte 軽減税率区分
+	* @return int 軽減税率区分
 */
 function getKeigenKubun(sysfDat, sTaxr) {
 	var nSysTaxr = Other.getUriTaxr(sysfDat.mTax_yy, sysfDat.mTax_mm, sysfDat.mTax_dd,
@@ -2289,14 +2314,13 @@ function getKeigenKubun(sysfDat, sTaxr) {
 
 
 /**
-	 * 販売明細情報の印刷データを作成する。
-	 *
-	 * @param lstHmefDat        [in] HmefDat[]      販売明細データ
-	 * @param printImageList    [in] PrintImageList
-	 * @param sysfDat           [in] SysfDat        システムデータ
-	 * @param mapHmefDat        [in] {@code Map<Integer, HmefDat>}  軽減税率区分毎データ
-	 * @param isTanka           [in] boolean    単価印字フラグ(true:有り/false:無し)
-	 */
+	* 販売明細情報の印刷データを作成する。
+	*
+	* @param lstHmefDat        [in] HmefDat[]      販売明細データ
+	* @param sysfDat           [in] SysfDat        システムデータ
+	* @param mapHmefDat        [in] {@code Map<Integer, HmefDat>}  軽減税率区分毎データ
+	* @param isTanka           [in] boolean    単価印字フラグ(true:有り/false:無し)
+*/
 function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 	if (lstHmefDat == null || lstHmefDat.length == 0) {
 		return 0;
@@ -2423,10 +2447,8 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 	* <br>軽減税率対応(Sy2fDat.msyskeigen == 1)の場合は軽減税率区分、税率毎の消費税を印字.
 	* <br>非対応の場合は明細の合計消費税額を印字.
 	*
-	* @param printImageList    [in] {@link PrintImageList}         印刷データ
 	* @param mapHmefDat        [in] {@code Map<Integer, HmefDat>}  軽減税率区分、税率毎の消費税金額
 	* @param nTax              [in] int                            消費税金額
-	* @param isTanka           [in] boolean                        単価印字フラグ
 */
 function createHmInfoTax(mapHmefDat, nTax) {
 	// 消費税
@@ -2538,7 +2560,6 @@ function getComment() {
 	* コメント印字
 	*
 	* @param commentData [in] CommentData    コメントデータ
-	* @throws MException 印刷データ作成時にエラーがあった場合発生
 */
 function createComment(commentData) {
 	if (commentData.length == 0) {
@@ -2559,6 +2580,11 @@ function createComment(commentData) {
 }
 
 
+/**
+    * ハイブリッドコメントの印字.
+    *
+    * @param kensinData    [in] {@link KensinData} 検針印字データ
+*/
 function createHybComment(kensinData) {
 	var str;
 	var lGaskin;
@@ -2603,7 +2629,11 @@ function createHybComment(kensinData) {
 }
 
 
-
+/**
+    * ハイブリッド料金式の印字.
+    *
+    * @param kensinData    [in] {@link KensinData} 検針印字データ
+*/
 function createHybTblPrint(kensinData) {
 	var strLine;
 	var ko2fDat = kensinData.mKo2fDat;
@@ -2711,7 +2741,11 @@ function createHoanInfo(strHoan) {
 }
 
 
-
+/**
+    * 通常ポイント印字部分の作成.
+    *
+    * @param kensinData    [in] {@link KensinData} 検針データ
+*/
 function createPoint() {
 	var sy2fDat = mUserData.mSy2fDat;
 	var kokfDat = mUserData.mKokfDat;
@@ -2733,7 +2767,9 @@ function createPoint() {
 }
 
 
-
+/**
+    * 伝票：宮野式ポイント印字部分の作成
+*/
 function createMiyaPoint() {
 	if (mUserData.mSy2fDat.mMiyanoFlg == 0 ||
 		(mUserData.mSy2fDat.mSysOption[Dat.SysOption.PRINT_MIYANO_GET] == 0 &&
@@ -2766,7 +2802,6 @@ function createMiyaPoint() {
 	* 伝票のCNポイント用コメント印字部分の作成
 	*
 	* @param kensinData  [in] {@link KensinData}   検針データ
-	* @throws MException 印字データ作成時にエラーがあった場合に発生
 */
 function createCnComment(kensinData) {
 	document.getElementById("cnCommentArea").style.display = "none";
@@ -2826,6 +2861,7 @@ function createCnComment(kensinData) {
 /**
 	* CNポイント用コメントの取得
 	*
+	* @param kensinData  [in] {@link KensinData}   検針データ
 	* @return  List<String>    CNポイント用コメント
 */
 function getCnpCmt(kensinData) {
@@ -2860,13 +2896,11 @@ function getCnpCmt(kensinData) {
 }
 
 
-const byteSize = str => new Blob([str]).size;
-
-
 /**
 	* 店舗情報の印刷データを作成する。
 	*
-	* @param hanfDat [in] HanfDat    店舗データ
+	* @param hanfDat 	 [in] HanfDat    店舗データ
+	* @param strTantname [in] string     担当者名
 */
 function createUserInfo(hanfDat, strTantname) {
 	var wkStr;
@@ -3184,13 +3218,16 @@ function createImageKensinForm() {
 }
 
 
+/** 
+	* SENDING DATA
+*/
 function saveDataSetting() {
 	Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(KensinKinyuu.sendDataToServer()),
-		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
-		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
+		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
+		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
 		contentType: "application/json",
 		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
@@ -3227,7 +3264,6 @@ function saveDataSetting() {
 		Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
 	});
 }
-
 
 
 /** 
