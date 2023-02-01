@@ -53,8 +53,12 @@ var printStatus = new Dat.PrintStatus();
 var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 /* kensin date */
 var kensinDate = new Date(sessionStorage.getItem(StringCS.KENSINDATE));
+// 顧客料金透明化データクラス
 mUserData.mKokfDat.mKtpcdat = new Dat.KtpcDat();
+// ガス料金透明化データクラス
 mUserData.mSysfDat.mGtpcDat = new Dat.GtpcDat();
+
+// value of teisei Nyuukin prev
 var teiseiNyuukinPre = "0";
 
 /** 商品マスタデータ */
@@ -82,8 +86,6 @@ var lstBusfNyu = JSON.parse(sessionStorage.getItem(StringCS.LISTBUSTNYU));
 
 var CHOMODE = 1;
 var NYUMODE = 2;
-
-
 
 
 /****  PRINT   ****/

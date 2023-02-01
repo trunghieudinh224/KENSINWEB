@@ -19,21 +19,25 @@ const kenshin_data = document.getElementById("kenshin_data");
 
 
 /*****  DATA VARIABLE  *****/
+// value of combobox total
 export var m_bRes;
+// list law item
 export var m_lLawItem = [];
+// string value of hoan item
 export var hoanString = KensinKinyuu.mUserData.mKokfDat.mHoan.substring(0, 8);
-
 var listHoanData = hoanString.split("");
-
+// position start
 var pos_combobox = 0;
-
+/** 日常点検判定項目△有無 */
 var tenkenDelta = KensinKinyuu.mUserData.mSysfDat.mTenkenDelta;
 
 var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 
 var list_combobox ;
 
-
+/**
+ * set value for all combobox
+ */
 function setAllComboBox() {
 
     if (combobox_total.value != 1) {
@@ -43,7 +47,9 @@ function setAllComboBox() {
     }
     setHoanKinnyuu();
 }
-
+/**
+ * set value for combobox total
+ */
 function setComboBoxTotal(item) {
     var isOne = true;
     var check = item.value;
@@ -59,6 +65,10 @@ function setComboBoxTotal(item) {
     m_bRes = getValueOfHoanItem(combobox_total.value);
 }
 
+/** 
+ * set data for combobox select
+ * @param value int value of combobox
+ */
 function setDataforComboBoxSelect(value) {
     switch (value) {
         case 0:
@@ -116,6 +126,9 @@ function changeValue() {
     console.log(kenshin_data.value);
 }
 
+/**
+ * set value for hoan item
+ */
 function setHoanKinnyuu() {
     hoanString = "";
     for (let i = 0; i < 8; i++) {
@@ -128,6 +141,9 @@ function setHoanKinnyuu() {
     }
 }
 
+/**
+ * get value of hoan item
+ */
 function getValueOfHoanItem(value) {
     if (value == 0) {
         return 1;
@@ -138,6 +154,9 @@ function getValueOfHoanItem(value) {
     }
 }
 
+/**
+ * set value of hoan item to insert lawitemdat
+ */
 function setLawItem() {
     m_lLawItem = [];
     var item;
@@ -218,6 +237,9 @@ function onLoadAction() {
     }
 }
 
+/**
+ * check value of hoan item, insert lawitemdat or no
+ */
 export function checkInsertSecLawDat(){
     var check = false;
     for (let i = 0; i < m_lLawItem.length; i++) {

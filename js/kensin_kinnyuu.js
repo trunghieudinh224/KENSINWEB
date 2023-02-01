@@ -50,9 +50,13 @@ const saveButton = document.getElementById("createPrintingFormButton");
 var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 mUserData.mKokfDat.mKtpcdat = new Dat.KtpcDat();
 mUserData.mGasfDat.mGextDat = new Dat.GextDat();
+/*	販売請求月度（顧客の請求月） */
 var seiymd = mUserData.mKokfDat.seiymd;
+    /** 検針・初期の日付 */
 var kai_ymd = mUserData.mKokfDat.kai_ymd;
+/** 検針区分 */
 var mKenku = mUserData.mKokfDat.mKenku;
+/** 中圧メータ係数 */
 var chuatu = mUserData.mKokfDat.chuatu;
 
 /** tab display status */
@@ -1297,12 +1301,14 @@ export function sendDataToServer() {
 
     // const mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 	var mKokfDat = new Dat.KokfDat().parseData(mUserData.mKokfDat)
-	var sysfDat = new Dat.SysfDat().parseData(mUserData.mSysfDat)
+	var mKouserDat = new Dat.SysfDat().parseData(mUserData.mKouserDat)
 	mKokfDat.mKtpcdat = new Dat.KtpcDat();
     mKokfDat.seiymd = seiymd;
     mKokfDat.kai_ymd = kai_ymd;
     mKokfDat.mKenku = mKenku;
     mKokfDat.chuatu = chuatu;
+    mKokfDat.m_sChocode = mKouserDat.m_sChocode;
+    mKokfDat.m_sNyucode = mKouserDat.m_sNyucode;
 	var kensinDate_ss = sessionStorage.getItem(StringCS.KENSINDATE);
 	var kensinDate = new Date(kensinDate_ss);
 	var m_oMetMeisaiDat = new Dat.MetMeisaiDat();
