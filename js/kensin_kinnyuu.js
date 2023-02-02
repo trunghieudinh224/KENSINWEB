@@ -1301,7 +1301,7 @@ export function sendDataToServer() {
 
     // const mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 	var mKokfDat = new Dat.KokfDat().parseData(mUserData.mKokfDat)
-	var mKouserDat = new Dat.SysfDat().parseData(mUserData.mKouserDat)
+	var mKouserDat = new Dat.KouserDat().parseData(mUserData.mKouserDat)
 	mKokfDat.mKtpcdat = new Dat.KtpcDat();
     mKokfDat.seiymd = seiymd;
     mKokfDat.kai_ymd = kai_ymd;
@@ -1448,7 +1448,7 @@ function onclickAction() {
 function onLoadAction() {
     setupCollapseTab();
     openKensinLayout();
-    setdataNiukinLayout();
+    setdataNyukinLayout();
 }
 
 
