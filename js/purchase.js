@@ -95,28 +95,13 @@ var imgString = "";
 var defaultPaddingPrintForm = window.getComputedStyle(document.getElementById("printContentDetail"), null).getPropertyValue('padding');
 /* default title size of printting form */
 var itemTS = window.getComputedStyle(document.getElementsByClassName("item")[0]).fontSize;
-//
-// var lgTextTS = window.getComputedStyle(document.getElementsByClassName("lg-text")[0]).fontSize;
-// var tbItemTS = window.getComputedStyle(document.getElementsByClassName("tb-item")[0]).fontSize;
-// var ryooshuuTextTS = window.getComputedStyle(document.getElementsByClassName("ryooshuu-text")[0]).fontSize;
-// var hmInfoTableItemTS = window.getComputedStyle(document.getElementsByClassName("hmInfoTable-item")[0]).fontSize;
-// var hybTableItemTS = window.getComputedStyle(document.getElementsByClassName("hybTable-item")[0]).fontSize;
-// var hoanItemTS = window.getComputedStyle(document.getElementsByClassName("hoan-item")[0]).fontSize;
-// var hoanValTS = window.getComputedStyle(document.getElementsByClassName("hoan-val")[0]).fontSize;
-// var konkaiSeikyuuGakuTS = window.getComputedStyle(document.getElementsByClassName("konkaiSeikyuuGaku-text")[0]).fontSize;
+var ryooshuuTextTS = window.getComputedStyle(document.getElementsByClassName("ryooshuu-text")[0]).fontSize;
+var hmInfoTableItemTS = window.getComputedStyle(document.getElementsByClassName("hmInfoTable-item")[0]).fontSize;
 var titlePrintViewTS = window.getComputedStyle(document.getElementsByClassName("titlePrintView")[0]).fontSize;
 /* default line height text of printting form */
 var itemLH = window.getComputedStyle(document.getElementsByClassName("item")[0]).lineHeight;
-// var lgTextLH = window.getComputedStyle(document.getElementsByClassName("lg-text")[0]).lineHeight;
-// var tbItemLH = window.getComputedStyle(document.getElementsByClassName("tb-item")[0]).lineHeight;
-// var ryooshuuTextLH = window.getComputedStyle(document.getElementsByClassName("ryooshuu-text")[0]).lineHeight;
-// var hmInfoTableItemLH = window.getComputedStyle(document.getElementsByClassName("hmInfoTable-item")[0]).lineHeight;
-// var hybTableItemLH = window.getComputedStyle(document.getElementsByClassName("hybTable-item")[0]).lineHeight;
-// var hoanItemLH = window.getComputedStyle(document.getElementsByClassName("hoan-item")[0]).lineHeight;
-// var hoanValLH = window.getComputedStyle(document.getElementsByClassName("hoan-val")[0]).lineHeight;
-// var konkaiSeikyuuGakuLH = window.getComputedStyle(document.getElementsByClassName("konkaiSeikyuuGaku-text")[0]).lineHeight;
-var titlePrintViewLH = window.getComputedStyle(document.getElementsByClassName("titlePrintView")[0]).lineHeight;
-// var kkValLH = window.getComputedStyle(document.getElementsByClassName("kk-val")[0]).lineHeight;
+var ryooshuuTextLH = window.getComputedStyle(document.getElementsByClassName("ryooshuu-text")[0]).lineHeight;
+var hmInfoTableItemLH = window.getComputedStyle(document.getElementsByClassName("hmInfoTable-item")[0]).lineHeight;
 
 
 /**
@@ -614,17 +599,19 @@ function onClickAction() {
 		Common.setupModal("question", null, Mess.I00008, StringCS.IIE, StringCS.HAI, null, false);
 		var buttonConfirm = document.getElementsByClassName("button-1")[0];
 		buttonConfirm.onclick = function () {
-			sendDataToServer();
-			// modal.style.display = "none";
-			// document.getElementById("editView").style.display = "none";
-			// document.getElementById("printView").style.display = "block";
-			// preparePrintData();
-			// createImageForm();
+			// sendDataToServer();
+			modal.style.display = "none";
+			document.getElementById("editView").style.display = "none";
+			document.getElementById("printView").style.display = "block";
+			preparePrintData();
+			createImageForm();
 		}
 	}
 
 
-    document.getElementById("backPrintButton").onclick = function () { Common.movePage('/menu.html') };
+	document.getElementById("sendToAppButton").onclick = function () { sendImage(); };
+
+    document.getElementById("backPrintButton").onclick = function () { Common.movePage('/customer.html') };
 }
 
 
@@ -776,10 +763,11 @@ function createMeisaiInfo(lstHmefDat) {
 		}
 
 		createHmInfo(lstHmefDat, mUserData.mSysfDat, mapHmefDat, isTanka);
-		createHmInfoTax(mapHmefDat, mUserData.mKokfDat.mUriTax);
-		createHmInfoFooter(lKin);
+		createHmInfoTax(mapHmefDat, calcTaxList(mUserData.mHmefList, Other.getNumFromString(uriage_tax.textContent)));
+		createHmInfoFooter(lKin + lTax);
 	}
 }
+
 
 /**
 	* 売上明細の存在チェックを実施
@@ -1444,6 +1432,32 @@ function createUserInfo(hanfDat, strTantname) {
 }
 
 
+
+
+/**
+	* CALCULATING TAX LIST
+	*
+	* @param lstHmefDat   [in] [HmefDat]    販売明細データ
+	* @param recentTax    [in] [int]    	recent tax
+	* @return  int 
+*/
+function calcTaxList(lstHmefDat, recentTax) {
+	if (lstHmefDat != null) {
+		if (lstHmefDat.length > 0) {
+			var result = 0;
+			for (var i = 0; i < lstHmefDat.length; i++) {
+				result += lstHmefDat[i].mTax;
+			}
+			return result + parseInt(recentTax);
+		} else {
+			return parseInt(recentTax);
+		}
+	} else {
+		return parseInt(recentTax);
+	}
+}
+
+
 /** 
 	* GET PRINT STATUS
 */
@@ -1560,15 +1574,8 @@ function createImageForm() {
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
 	setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
-	// setupTextSizeDetail("lg-text", "40px", "47px", "bold");
-	// setupTextSizeDetail("tb-item", "22px", "29px", "normal");
-	// setupTextSizeDetail("konkaiSeikyuuGaku-text", "50px", "60px", "bold");
-	// setupTextSizeDetail("ryooshuu-text", "50px", "58px", "bold");
-	// setupTextSizeDetail("hmInfoTable-item", "24px", "31px", "normal");
-	// setupTextSizeDetail("hybTable-item", "24px", "31px", "normal");
-	// setupTextSizeDetail("hoan-item", "25px", "29px", "normal");
-	// setupTextSizeDetail("hoan-val", "25px", "29px", "normal");
-	// setupTextSizeDetail("kk-val", "40px", "48px", "bold");
+	setupTextSizeDetail("ryooshuu-text", "50px", "58px", "bold");
+	setupTextSizeDetail("hmInfoTable-item", "24px", "31px", "normal");
 	domtoimage.toBlob(document.getElementById('printContentDetail'))
 		.then(function (blob) {
 			getBase64(blob).then(
@@ -1579,15 +1586,8 @@ function createImageForm() {
 
 					const interval = setInterval(function () {
 						setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
-						// setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
-						// setupTextSizeDetail("tb-item-ts", tbItemTS, tbItemLH, "normal");
-						// setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
-						// setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
-						// setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
-						// setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
-						// setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
-						// setupTextSizeDetail("hoan-val", hoanValTS, hoanValLH, "normal");
-						// setupTextSizeDetail("kk-val", kkValTS, kkValLH, "bold");
+						setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
+						setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
 
 						Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
 						clearInterval(interval);
@@ -1652,6 +1652,14 @@ export function sendDataToServer() {
 		console.log('res', res);
 		sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
 		Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
+		var buttonConfirm = document.getElementsByClassName("button-1")[0];
+		buttonConfirm.onclick = function () {
+			modal.style.display = "none";
+			document.getElementById("editView").style.display = "none";
+			document.getElementById("printView").style.display = "block";
+			preparePrintData();
+			createImageForm();
+		}		
 	});
 }
 

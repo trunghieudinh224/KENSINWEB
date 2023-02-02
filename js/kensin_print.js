@@ -60,8 +60,6 @@ var titlePrintViewLH = window.getComputedStyle(document.getElementsByClassName("
 var kkValLH = window.getComputedStyle(document.getElementsByClassName("kk-val")[0]).lineHeight;
 
 
-
-
 /**
 	* 印刷データを作成する
 */
