@@ -158,8 +158,6 @@ function setData(shofDatList, busfDatList) {
 						const busfDat = Object.assign({}, busfDatList[parseInt(id.replaceAll("collapseItem",""))]);
 						sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
 						Common.movePage('/purchase.html');
-
-						// Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
 					};
 				}
 			} else {
@@ -170,8 +168,6 @@ function setData(shofDatList, busfDatList) {
 					const busfDat = Object.assign({}, busfDatList[parseInt(id.replaceAll("card",""))]);
 					sessionStorage.setItem(StringCS.BUSFDATITEM, JSON.stringify(busfDat));
 					Common.movePage('/purchase.html');
-
-					// Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
 				};
 			}
 	
@@ -187,7 +183,7 @@ function setData(shofDatList, busfDatList) {
 			idx++;
 		})
 	} else {
-		dataMessage.innerText = Mess.E00001;
+		dataMessage.innerText = Mess.E00008;
 		dataMessage.style.display = "block";
 	}
 }
