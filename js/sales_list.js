@@ -47,12 +47,15 @@ var hmInfoTableItemLH = window.getComputedStyle(document.getElementsByClassName(
    * SET DATA
 */
 function setData() {
+	var dataMessage = document.getElementById("data-messages");
+
 	while (table.hasChildNodes()) {
 		table.removeChild(table.firstChild);
 	}
 
 	if (mUserData.mHmefList != null) {
 		if (mUserData.mHmefList.length > 0) {
+			dataMessage.style.display = "none";
 			var list = mUserData.mHmefList;
 			for (var i = 0; i < list.length; i++) {
 				var item = list[i];
@@ -86,14 +89,20 @@ function setData() {
 					buttonConfirm.onclick = function () {
 						modal.style.display = "none";
 						table.deleteRow(this.rowIndex);
+						if (table.rows.length == 0) {
+							dataMessage.innerText = Mess.E00008;
+							dataMessage.style.display = "block";
+						}
 					}
 				};
 			}
 		} else {
-
+			dataMessage.innerText = Mess.E00008;
+			dataMessage.style.display = "block";
 		}
 	} else {
-
+		dataMessage.innerText = Mess.E00008;
+		dataMessage.style.display = "block";
 	}
 }
 
