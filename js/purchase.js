@@ -9,7 +9,7 @@ import * as Mess from './Constant/message.js'
 /*****  VIEW VARIABLE  *****/
 /* modal */
 const modal = document.getElementById("myModal");
-/* layout */ 
+/* layout */
 const uriage_name = document.getElementById("kokyaku-mei");
 const uriage_kcode = document.getElementById("kokyaku_kodo");
 const uriage_hmname = document.getElementById("hinmoku");
@@ -47,9 +47,9 @@ const nyuukinGroup = document.querySelector("#nyuukin-group");
 
 /* setting data */
 var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
-/** 印刷情報 */ 
+/** 印刷情報 */
 var printStatus = new Dat.PrintStatus();
-/** ユーザー情報 */ 
+/** ユーザー情報 */
 var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 /* kensin date */
 var kensinDate = new Date(sessionStorage.getItem(StringCS.KENSINDATE));
@@ -98,10 +98,14 @@ var itemTS = window.getComputedStyle(document.getElementsByClassName("item")[0])
 var ryooshuuTextTS = window.getComputedStyle(document.getElementsByClassName("ryooshuu-text")[0]).fontSize;
 var hmInfoTableItemTS = window.getComputedStyle(document.getElementsByClassName("hmInfoTable-item")[0]).fontSize;
 var titlePrintViewTS = window.getComputedStyle(document.getElementsByClassName("titlePrintView")[0]).fontSize;
+var konkaiSeikyuuGakuTS = window.getComputedStyle(document.getElementsByClassName("konkaiSeikyuuGaku-text")[0]).fontSize;
+var kkValTS = window.getComputedStyle(document.getElementsByClassName("kk-val")[0]).fontSize;
 /* default line height text of printting form */
 var itemLH = window.getComputedStyle(document.getElementsByClassName("item")[0]).lineHeight;
 var ryooshuuTextLH = window.getComputedStyle(document.getElementsByClassName("ryooshuu-text")[0]).lineHeight;
 var hmInfoTableItemLH = window.getComputedStyle(document.getElementsByClassName("hmInfoTable-item")[0]).lineHeight;
+var konkaiSeikyuuGakuLH = window.getComputedStyle(document.getElementsByClassName("konkaiSeikyuuGaku-text")[0]).lineHeight;
+var kkValLH = window.getComputedStyle(document.getElementsByClassName("kk-val")[0]).lineHeight;
 
 
 /**
@@ -536,10 +540,10 @@ function changeLayoutButton() {
 	ONCLICK ACTION
 */
 function onClickAction() {
-    document.getElementById("backPageButton").onclick = function () {
-	    Common.backAction();
+	document.getElementById("backPageButton").onclick = function () {
+		Common.backAction();
 	};
-	
+
 	teiseiBtn.onclick = function () {
 		if (teiseiGroup.classList.contains("hidden") == false) {
 			return;
@@ -599,19 +603,18 @@ function onClickAction() {
 		Common.setupModal("question", null, Mess.I00008, StringCS.IIE, StringCS.HAI, null, false);
 		var buttonConfirm = document.getElementsByClassName("button-1")[0];
 		buttonConfirm.onclick = function () {
-			// sendDataToServer();
+			sendDataToServer();
 			modal.style.display = "none";
 			document.getElementById("editView").style.display = "none";
 			document.getElementById("printView").style.display = "block";
-			preparePrintData();
-			createImageForm();
+			// preparePrintData();
+			// reloadUriageList();
 		}
 	}
 
-
+    document.getElementById("backPrintButton").onclick = function () { Common.movePage('/sales_list.html') };
+	
 	document.getElementById("sendToAppButton").onclick = function () { sendImage(); };
-
-    document.getElementById("backPrintButton").onclick = function () { Common.movePage('/customer.html') };
 }
 
 
@@ -621,7 +624,7 @@ function onClickAction() {
 function preparePrintData() {
 	var strSname_0 = document.getElementById("kokyaku-mei").value;
 	var strSname_1 = "";
-	if(Other.getClearString(strSname_0) == Other.getClearString(mUserData.mKokfDat.mName)){
+	if (Other.getClearString(strSname_0) == Other.getClearString(mUserData.mKokfDat.mName)) {
 		strSname_0 = mUserData.mKokfDat.mSName0;
 		strSname_1 = mUserData.mKokfDat.mSName1;
 		var printGenuriInfo = new Dat.PrintGenuriInfo().setValue(strSname_0, strSname_1, m_isGenuri, m_nCho, m_nNyu, m_nReceipt, [mHmefDat]);
@@ -634,15 +637,13 @@ function preparePrintData() {
 function createPrintData(isHybseikyu, printGenuriInfo, isHikae) {
 	// ヘッダー
 	createHeaderData(isHikae, printGenuriInfo.m_isGenuri)
-	
+
 	// 顧客情報
 	createCusInfo(getCusData());
 
 	// 売上明細
 	if (mUserData.mSy2fDat.mSysOption[Dat.SysOption.PRINT_HANMEISAI] == 0) {
 		createMeisaiInfo(printGenuriInfo.m_lstHmefDat);
-	} else {
-		
 	}
 
 	if (printGenuriInfo.m_isGenuri) {
@@ -651,7 +652,7 @@ function createPrintData(isHybseikyu, printGenuriInfo, isHikae) {
 			if (item.mUsef && item.mHmCode > mUserData.mSysfDat.mSnvalue) {
 				lSeikyu += item.mKin + item.mTax;
 			}
-        });
+		});
 
 		createRyoshu(printGenuriInfo.m_nChokin, printGenuriInfo.m_nNyukin, printGenuriInfo.m_nReceipt, lSeikyu)
 	} else {
@@ -678,11 +679,11 @@ function createPrintData(isHybseikyu, printGenuriInfo, isHikae) {
 	* @param isGenuri     [BOOLEAN]
 */
 function createHeaderData(isHikae, isGenuri) {
-	var strTitle = "納　品　書";
-	if(isGenuri){
+	var strTitle = "納 品 書";
+	if (isGenuri) {
 		strTitle += " 兼 領 収 書";
 	}
-	if(isHikae){
+	if (isHikae) {
 		strTitle += " (控)";
 	}
 	document.getElementById("titlePrintView").innerHTML = strTitle;
@@ -741,9 +742,9 @@ function createCusInfo(cusData) {
 
 
 /**
-    * 販売明細印刷データの作成.
-    *
-    * @param lstHmefDat    [in] {@code List<HmefDat>}  販売明細一覧
+	* 販売明細印刷データの作成.
+	*
+	* @param lstHmefDat    [in] {@code List<HmefDat>}  販売明細一覧
 */
 function createMeisaiInfo(lstHmefDat) {
 	var uriage = isUriage(lstHmefDat[0], lstHmefDat[0], [lstHmefDat[0]], mUserData.mSysfDat);
@@ -756,7 +757,7 @@ function createMeisaiInfo(lstHmefDat) {
 		var lTax = 0;
 		for (var i = 0; i < lstHmefDat.length; i++) {
 			var item = lstHmefDat[i];
-			if (item.mUsef && item.mHmCode > 100){		//mUserData.mSysfDat.mSnvalue	//Hieu
+			if (item.mUsef && item.mHmCode > 100) {		//mUserData.mSysfDat.mSnvalue	//Hieu
 				lKin += item.mKin;
 				lTax += item.mTax;
 			}
@@ -979,10 +980,10 @@ function calcUtax(sysfDat, hmefDat) {
 
 
 /**
-    * 販売明細ヘッダーの印字.
-    *
-    * @param strTitle          [in] String                     タイトル
-    * @param isTanka           [in] boolean                    単価印字フラグ(true: 印字有り, false: 印字無し)
+	* 販売明細ヘッダーの印字.
+	*
+	* @param strTitle          [in] String                     タイトル
+	* @param isTanka           [in] boolean                    単価印字フラグ(true: 印字有り, false: 印字無し)
 */
 function createHmInfoHeader(strTitle, isTanka) {
 	if (strTitle.length != 0) {
@@ -1147,6 +1148,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 */
 function createHmInfoTax(mapHmefDat, nTax) {
 	// 消費税
+	var hmInfoTable = document.getElementById("hmInfoTable");
 	if (mUserData.mSy2fDat.mSyskeigen == 0) {
 		if (nTax != 0) {
 			document.getElementById("infoTaxArea").style.display = "none";
@@ -1156,9 +1158,16 @@ function createHmInfoTax(mapHmefDat, nTax) {
 			document.getElementById("hmInfoTotal").style.display = "none";
 			document.getElementById("infoTaxArea").style.display = "none";
 		}
-	}
-	else {
+
+		if (hmInfoTable.classList.contains("mg-bt-15") == false) {
+			hmInfoTable.className += " mg-bt-15";
+		}
+	} else {
 		document.getElementById("hmInfoTotal").style.display = "none";
+		if (hmInfoTable.classList.contains("mg-bt-15")) {
+			hmInfoTable.classList.remove("mg-bt-15");
+		}
+
 		for (let hmefDat of mapHmefDat.values()) {
 
 			const hmefTaxKeigenTotalVal = document.getElementById("hmefTaxKeigenTotalVal");
@@ -1178,20 +1187,20 @@ function createHmInfoTax(mapHmefDat, nTax) {
 
 
 /**
-    * CREATING HMINFO FOOTER
+	* CREATING HMINFO FOOTER
 */
-function createHmInfoFooter(lKin){
+function createHmInfoFooter(lKin) {
 	document.getElementById("honjitsuUriageKingakuVal").innerHTML = Other.formatDecial(lKin);
 }
 
 
 /**
-    * 領収書印刷データの作成.
-    *
-    * @param nChokin   [in] int    調整額
-    * @param nNyukin   [in] int    入金額
-    * @param nRecept   [in] int    領収額
-    * @param lSeikyu   [in] int    請求金額
+	* 領収書印刷データの作成.
+	*
+	* @param nChokin   [in] int    調整額
+	* @param nNyukin   [in] int    入金額
+	* @param nRecept   [in] int    領収額
+	* @param lSeikyu   [in] int    請求金額
 */
 function createRyoshu(nChokin, nNyukin, nRecept, lSeikyu) {
 	document.getElementById("konkaiSeikyuGakuVal").innerHTML = Other.formatDecial(lSeikyu);
@@ -1218,10 +1227,17 @@ function createRyoshu(nChokin, nNyukin, nRecept, lSeikyu) {
 
 	// おつり
 	var lOtsuri = nRecept - (lSeikyu + nChokin);
+	var genkinUriPrintArea = document.getElementById("genkin_uri_print_area");
 	if (lOtsuri > 0) {
 		document.getElementById("otsuriVal").innerHTML = Other.formatDecial(lOtsuri);
+		if (genkinUriPrintArea.classList.contains("mg-bt-15") == false) {
+			genkinUriPrintArea.className += " mg-bt-15";
+		}
 	} else {
 		document.getElementById("otsuriArea").style.display = "none";
+		if (genkinUriPrintArea.classList.contains("mg-bt-15")) {
+			genkinUriPrintArea.classList.remove("mg-bt-15");
+		}
 	}
 
 	// 差引残高
@@ -1287,7 +1303,7 @@ function createComment(commentData) {
 			}
 		}
 
-		if (commentData.length == 0) { 
+		if (commentData.length == 0) {
 			document.getElementById("commentArea").style.display = "none";
 			return;
 		}
@@ -1569,13 +1585,14 @@ function sendImage() {
 	* CREATE IMAGE FILE OF SHUUKEI NIPPOU FORM
 */
 function createImageForm() {
-	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
 	setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
+	setupTextSizeDetail("konkaiSeikyuuGaku-text", "50px", "60px", "bold");
 	setupTextSizeDetail("ryooshuu-text", "50px", "58px", "bold");
 	setupTextSizeDetail("hmInfoTable-item", "24px", "31px", "normal");
+	setupTextSizeDetail("kk-val", "40px", "48px", "bold");
 	domtoimage.toBlob(document.getElementById('printContentDetail'))
 		.then(function (blob) {
 			getBase64(blob).then(
@@ -1585,9 +1602,11 @@ function createImageForm() {
 					window.scrollTo(0, 0);
 
 					const interval = setInterval(function () {
-						setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
-						setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
-						setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
+						// setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
+						// setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
+						// setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
+						// setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
+						// setupTextSizeDetail("kk-val", kkValTS, kkValLH, "bold");
 
 						Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
 						clearInterval(interval);
@@ -1629,15 +1648,21 @@ export function sendDataToServer() {
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(hmefWriteDat),
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
 		contentType: "application/json",
 		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
 			console.log(response);
-			sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
-			Common.setupModal("load", null, Mess.I00002, null, null, null, false);
-
+			Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
+			var buttonConfirm = document.getElementsByClassName("button-1")[0];
+			buttonConfirm.onclick = function () {
+				modal.style.display = "none";
+				document.getElementById("editView").style.display = "none";
+				document.getElementById("printView").style.display = "block";
+				preparePrintData();
+				reloadUriageList();
+			}
 		},
 		error: function (textstatus) {
 			if (textstatus === "timeout") {
@@ -1645,22 +1670,34 @@ export function sendDataToServer() {
 			} else {
 				console.log(textstatus)
 			}
-			sessionStorage.setItem(StringCS.SAVINGSTATUS, "0");
 			Common.setupModal("error", null, Mess.E00004, null, StringCS.OK, null, false);
 		}
 	}).done(function (res) {
 		console.log('res', res);
-		sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
-		Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
-		var buttonConfirm = document.getElementsByClassName("button-1")[0];
-		buttonConfirm.onclick = function () {
-			modal.style.display = "none";
-			document.getElementById("editView").style.display = "none";
-			document.getElementById("printView").style.display = "block";
-			preparePrintData();
-			createImageForm();
-		}		
 	});
+}
+
+
+function reloadUriageList() {
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
+	$.ajax({
+        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + mUserData.mKokfDat.mCusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+        headers: {
+            'Content-Type': StringCS.PR_CONTENT_TYPE
+        },
+        success: function (result) {
+			modal.style.display = "none";
+            let dataHmefList = JSON.parse(result);
+			mUserData.mHmefList = dataHmefList.mHmefList;
+			sessionStorage.setItem(StringCS.USERDATA, JSON.stringify(mUserData));
+			createImageForm();
+        },
+        error: function (jqXHR, exception) {
+            console.log(exception);
+        }, 
+        timeout: ValueCS.VL_SHORT_TIMEOUT
+    });
 }
 
 
