@@ -469,7 +469,7 @@ function createImageKenshinNippouForm() {
     document.getElementById('nippouArea').style.display = "block";
     document.getElementById('kensinNippouForm').style.display = "block";
     document.getElementById('shuukinNippouForm').style.display = "none";
-    createPrintDataKenshinNippou(m_mapKensinData, sysfDat.m_isToyukeninFlg);
+    createPrintDataKenshinNippou(m_mapKensinData, sysfDat.m_isToyukensinFlg);
     // setupPrintForm("100vh", "670px", "55px", "27px", "33px", "27px", "33px", true, "20px");
     setupPrintForm("100vh", "670px", "55px", "31px", "37px", "31px", "37px", true, "20px");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
@@ -564,7 +564,7 @@ function setShukeiDateList() {
         item = m_lstShukeiDat[i];
 
         var kotfDat = null;
-        if (sysfDat.m_isToyukeninFlg) {
+        if (sysfDat.m_isToyukensinFlg) {
             kotfDat = item.mKotfDat;
         }
         // date kensin
@@ -665,7 +665,7 @@ function addShukeiData(shukeiItem, sysfDat, sy2fDat, kouserDat) {
     shuukeiData.mShohi += shukeiItem.mShohi;
     shukeiItem.mTotal += shukeiItem.mTotal;
 
-    // if(sysfDat.m_isToyukeninFlg){
+    // if(sysfDat.m_isToyukensinFlg){
     //     var kotfDat = kokfDat.mKotfDat;
     //     if(kotfDat != null && kotfDat.m_bKen_sumi == 1){
     //         shukeiItem.mToyuCnt++;

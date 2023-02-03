@@ -1161,7 +1161,7 @@ function calcTotal(
 	wkRyokin += nNebiki;
 
 	if (
-		sysfDat.m_isToyukeninFlg &&
+		sysfDat.m_isToyukensinFlg &&
 		kokfDat.mKotfDat != null &&
 		kokfDat.mKotfDat.m_bKen_sumi == 1
 	) {

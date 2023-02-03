@@ -150,7 +150,7 @@ function preparePrintData() {
 	if(Other.getClearString(strSname_0) == Other.getClearString(mUserData.mKokfDat.mName)){
 		strSname_0 = mUserData.mKokfDat.mSName0;
 		strSname_1 = mUserData.mKokfDat.mSName1;
-		var printGenuriInfo = new Dat.PrintGenuriInfo().setValue(strSname_0, strSname_1, m_isGenuri, m_nCho, m_nNyu, m_nReceipt, mUserData.mHmefList);
+		var printGenuriInfo = new Dat.PrintGenuriInfo().setValue(strSname_0, strSname_1, false, 0, 0, 0, mUserData.mHmefList);
 		getPrintStatus(false, 0, 0, false, false);
 		createPrintData(false, printGenuriInfo, false);
 	}
@@ -174,7 +174,7 @@ function createPrintData(isHybseikyu, printGenuriInfo, isHikae) {
 	if (printGenuriInfo.m_isGenuri) {
 		var lSeikyu = 0;
 		printGenuriInfo.m_lstHmefDat.forEach(item => {
-			if (item.mUsef && item.mHmCode > mUserData.mSysfDat.mSnvalue) {
+			if (item.mUsef && item.mHmCode > 100) {		//mUserData.mSysfDat.mSnvalue (100)	//Hieu
 				lSeikyu += item.mKin + item.mTax;
 			}
         });
@@ -282,7 +282,7 @@ function createMeisaiInfo(lstHmefDat) {
 		var lTax = 0;
 		for (var i = 0; i < lstHmefDat.length; i++) {
 			var item = lstHmefDat[i];
-			if (item.mUsef && item.mHmCode > 100){		//mUserData.mSysfDat.mSnvalue	//Hieu
+			if (item.mUsef && item.mHmCode > 100){		//mUserData.mSysfDat.mSnvalue (100)	//Hieu
 				lKin += item.mKin;
 				lTax += item.mTax;
 			}
@@ -319,10 +319,10 @@ function isUriage_(hmefDats, sysfDat, isIncludeNyuCho) {
 	if (hmefDats == null) {
 		return false;
 	}
-	var sSnvalue = sysfDat.mSnvalue;
+	var sSnvalue = 100;	//sysfDat.mSnvalue (100)	//Hieu
 	for (var i = 0; i < hmefDats.length; i++) {
 		var hmefDat = hmefDats[i];
-		if (hmefDat.mUsef && (hmefDat.mHmCode >= 100 || isIncludeNyuCho)) {	//Hieu
+		if (hmefDat.mUsef && (hmefDat.mHmCode >= sSnvalue || isIncludeNyuCho)) {	
 			return true;
 		}
 	}
@@ -361,7 +361,7 @@ function addKeigenTax(sysfDat, hmefDats, mapHmefDat) {
 	var nIdx = 1;
 	for (var i = 0; i < hmefDats.length; i++) {
 		var hmefDat = hmefDats[i];
-		if (!hmefDat.mUsef || hmefDat.mHmCode <= sysfDat.mSnvalue) {
+		if (!hmefDat.mUsef || hmefDat.mHmCode <= 100) {	//sysfDat.mSnvalue (100)	//Hieu
 			continue;
 		}
 		setKeigenKubun(hmefDat, sysfDat);
@@ -441,7 +441,7 @@ function calcUtaxHm(wkHmef, sysf, sysf2) {
 	}
 	for (var i = 0; i < wkHmef.length; i++) {
 		var wkHmefDat = wkHmef[i];
-		if (!wkHmefDat.mUsef || wkHmefDat.mHmCode < sysf.mSnvalue) {
+		if (!wkHmefDat.mUsef || wkHmefDat.mHmCode < 100) {	//sysf.mSnvalue (100)	//Hieu
 			continue;
 		}
 		// 金額
@@ -548,7 +548,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 	for (var i = 0; i < lstHmefDat.length; i++) {
 		const area = document.getElementById(previousId);
 		var hmefDat = lstHmefDat[i];
-		if (!hmefDat.mUsef || hmefDat.mHmCode < sysfDat.mSnvalue) {
+		if (!hmefDat.mUsef || hmefDat.mHmCode < 100) {		//sysfDat.mSnvalue (100)	//Hieu
 			continue;
 		}
 

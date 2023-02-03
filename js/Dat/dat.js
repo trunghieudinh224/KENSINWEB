@@ -486,7 +486,7 @@ export class SysfDat {
 		/** 簡ガス日常点検有無 */
 		this.mTenkenKgas = 0;
 		/** 灯油検針フラグ */
-		this.m_isToyukeninFlg = false;
+		this.m_isToyukensinFlg = false;
 		/** 使用率チェック:倍率 */
 		this.mSrChkr = [];
 		/** 使用率チェック:使用率 */
@@ -526,7 +526,7 @@ export class SysfDat {
 	}
 
 	setValue(mKgasDays0, mKgasDays1, mKgasDays2, mTax_yy, mTax_mm, mTax_dd, mConsumTax, mTaxr_old, mTaxr_new, mVisibleGas, mVisibleFacility, mLesUmu, mFracAddKin, mFracMulKin,
-		mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas, m_isToyukeninFlg, mSrChkr, mSrChkm, mKnebFlg, mIfAdjust,
+		mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas, m_isToyukensinFlg, mSrChkr, mSrChkm, mKnebFlg, mIfAdjust,
 		mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta, mSanki, mHinCd9, mShofDatKangen) {
 		var data = new SysfDat();
 
@@ -554,7 +554,7 @@ export class SysfDat {
 		data.mCheckHoan = mCheckHoan;
 		data.mIfMoney = mIfMoney;
 		data.mTenkenKgas = mTenkenKgas;
-		data.m_isToyukeninFlg = m_isToyukeninFlg;
+		data.m_isToyukensinFlg = m_isToyukensinFlg;
 		data.mSrChkr = mSrChkr;
 		data.mSrChkm = mSrChkm;
 		data.mKnebFlg = mKnebFlg;
@@ -606,7 +606,7 @@ export class SysfDat {
 		data.mCheckHoan = responeData.mCheckHoan;
 		data.mIfMoney = responeData.mIfMoney;
 		data.mTenkenKgas = responeData.mTenkenKgas;
-		data.m_isToyukeninFlg = responeData.m_isToyukeninFlg;
+		data.m_isToyukensinFlg = responeData.m_isToyukensinFlg;
 		data.mSrChkr = responeData.mSrChkr;
 		data.mSrChkm = responeData.mSrChkm;
 		data.mKnebFlg = responeData.mKnebFlg;
@@ -1196,10 +1196,17 @@ export class KotfDat {
 		this.m_nLoil_fracmul_tax = 0;
 		/** 指針桁数 */
 		this.m_bMt_keta;
+
+		/** 前回検針：年 */
+		this.m_sPuse_year = 0;
+		/** 前回検針：月 */
+		this.m_bPuse_month = 0;
+		/** 前回検針：日 */
+		this.m_bPuse_day = 0;
 	}
 
 	setValue(m_bKen_sumi, m_nFee, m_nCon_tax, m_nNow_meter, m_nPre_meter, m_nLoil_use, m_nBetw_meter, m_nPre_use, m_nLoil_base,
-		m_bLoil_taxku, m_sLoil_taxr, m_nLoil_fracadd_tax, m_nLoil_fracmul_tax, m_bMt_keta) {
+		m_bLoil_taxku, m_sLoil_taxr, m_nLoil_fracadd_tax, m_nLoil_fracmul_tax, m_bMt_keta, m_sPuse_year, m_bPuse_month, m_bPuse_day) {
 		var data = new KotfDat();
 
 		data.m_bKen_sumi = m_bKen_sumi;
@@ -1216,6 +1223,9 @@ export class KotfDat {
 		data.m_nLoil_fracadd_tax = m_nLoil_fracadd_tax;
 		data.m_nLoil_fracmul_tax = m_nLoil_fracmul_tax;
 		data.m_bMt_keta = m_bMt_keta;
+		data.m_sPuse_year = m_sPuse_year;
+		data.m_bPuse_month = m_bPuse_month;
+		data.m_bPuse_day = m_bPuse_day;
 		return data;
 	}
 
@@ -1239,6 +1249,9 @@ export class KotfDat {
 		data.m_nLoil_fracadd_tax = responeData.m_nLoil_fracadd_tax;
 		data.m_nLoil_fracmul_tax = responeData.m_nLoil_fracmul_tax;
 		data.m_bMt_keta = responeData.m_bMt_keta;
+		data.m_sPuse_year = responeData.m_sPuse_year;
+		data.m_bPuse_month = responeData.m_bPuse_month;
+		data.m_bPuse_day = responeData.m_bPuse_day;
 		return data
 	}
 }

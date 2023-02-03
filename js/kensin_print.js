@@ -70,7 +70,7 @@ function createPrintData(printStatus, isHybseikyu, isHikae) {
 	createCusInfo(getCusData());
 
 	var wkKensinData = setKensinData(mUserData, isHybseikyu, printStatus.m_isPrintKensin, printStatus.m_isPrintToyu);
-	if (sysfDat.m_isToyukeninFlg) {
+	if (sysfDat.m_isToyukensinFlg) {
 		var kotfDat = mUserData.mKokfDat.mKotfDat;
 		if (printStatus.m_isPrintKensin && !printStatus.m_isPrintToyu) {
 			// 検針のみ 
@@ -446,7 +446,7 @@ function setKensinData(userData, isHybSeikyu, isPrintKensin, isPrintToyu) {
 		}
 	}
 
-	if (sysfDat.m_isToyukeninFlg) {
+	if (sysfDat.m_isToyukensinFlg) {
 		kensinData.mKotfDat = kokfDat.mKotfDat;
 		kensinData.m_isPrintKensin = isPrintKensin;
 		kensinData.m_isPrintToyu = isPrintToyu;
@@ -1300,7 +1300,7 @@ function isUriage_(hmefDats, sysfDat, isIncludeNyuCho) {
 	if (hmefDats == null) {
 		return false;
 	}
-	var sSnvalue = sysfDat.mSnvalue;
+	var sSnvalue = 100; 	//sysfDat.mSnvalue	//Hieu
 	for (var i = 0; i < hmefDats.length; i++) {
 		var hmefDat = hmefDats[i];
 		if (hmefDat.mUsef && (hmefDat.mHmCode >= sSnvalue || isIncludeNyuCho)) {
@@ -1309,7 +1309,6 @@ function isUriage_(hmefDats, sysfDat, isIncludeNyuCho) {
 	}
 	return false;
 }
-
 
 
 /**
@@ -1328,7 +1327,7 @@ function calcUtaxHm(wkHmef, sysf, sysf2) {
 	}
 	for (var i = 0; i < wkHmef.length; i++) {
 		var wkHmefDat = wkHmef[i];
-		if (!wkHmefDat.mUsef || wkHmefDat.mHmCode < sysf.mSnvalue) {
+		if (!wkHmefDat.mUsef || wkHmefDat.mHmCode < 100) {  //sysf.mSnvalue	//Hieu
 			continue;
 		}
 		// 金額
@@ -2246,7 +2245,7 @@ function addKeigenTax(sysfDat, hmefDats, mapHmefDat) {
 	var nIdx = 1;
 	for (var i = 0; i < hmefDats.length; i++) {
 		var hmefDat = hmefDats[i];
-		if (!hmefDat.mUsef || hmefDat.mHmCode <= sysfDat.mSnvalue) {
+		if (!hmefDat.mUsef || hmefDat.mHmCode <= sysfDat.mSnvalue) {	//sysfDat.mSnvalue	//Hieu
 			continue;
 		}
 		setKeigenKubun(hmefDat, sysfDat);
@@ -2329,7 +2328,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 	for (var i = 0; i < lstHmefDat.length; i++) {
 		const area = document.getElementById(previousId);
 		var hmefDat = lstHmefDat[i];
-		if (!hmefDat.mUsef || hmefDat.mHmCode < sysfDat.mSnvalue) {
+		if (!hmefDat.mUsef || hmefDat.mHmCode < 100) {	//mUserData.mSysfDat.mSnvalue	//Hieu
 			continue;
 		}
 
@@ -3156,11 +3155,11 @@ function onclickAction() {
 			if (KensinKinyuu.displayTab[2] == true) {
 				mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
 				mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
-				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukeninFlg);
-				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
+				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
+				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
 			} else {
-				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukeninFlg);
-				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
+				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
+				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
 			}
 			createImageKensinForm();
 		};
@@ -3238,11 +3237,11 @@ function saveDataSetting() {
 			if (KensinKinyuu.displayTab[2] == true) {
 				mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
 				mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
-				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukeninFlg);
-				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
+				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
+				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
 			} else {
-				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukeninFlg);
-				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukeninFlg, false);
+				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
+				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
 			}
 			Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 			createImageKensinForm();

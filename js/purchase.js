@@ -613,7 +613,7 @@ function onClickAction() {
 	}
 
     document.getElementById("backPrintButton").onclick = function () { Common.movePage('/sales_list.html') };
-	
+
 	document.getElementById("sendToAppButton").onclick = function () { sendImage(); };
 }
 
@@ -649,7 +649,7 @@ function createPrintData(isHybseikyu, printGenuriInfo, isHikae) {
 	if (printGenuriInfo.m_isGenuri) {
 		var lSeikyu = 0;
 		printGenuriInfo.m_lstHmefDat.forEach(item => {
-			if (item.mUsef && item.mHmCode > mUserData.mSysfDat.mSnvalue) {
+			if (item.mUsef && item.mHmCode > 100) {		//mUserData.mSysfDat.mSnvalue	//Hieu
 				lSeikyu += item.mKin + item.mTax;
 			}
 		});
@@ -795,10 +795,10 @@ function isUriage_(hmefDats, sysfDat, isIncludeNyuCho) {
 	if (hmefDats == null) {
 		return false;
 	}
-	var sSnvalue = sysfDat.mSnvalue;
+	var sSnvalue = 100;		//sysfDat.mSnvalue	//Hieu
 	for (var i = 0; i < hmefDats.length; i++) {
 		var hmefDat = hmefDats[i];
-		if (hmefDat.mUsef && (hmefDat.mHmCode >= 100 || isIncludeNyuCho)) {	//Hieu
+		if (hmefDat.mUsef && (hmefDat.mHmCode >= sSnvalue || isIncludeNyuCho)) {
 			return true;
 		}
 	}
@@ -837,7 +837,7 @@ function addKeigenTax(sysfDat, hmefDats, mapHmefDat) {
 	var nIdx = 1;
 	for (var i = 0; i < hmefDats.length; i++) {
 		var hmefDat = hmefDats[i];
-		if (!hmefDat.mUsef || hmefDat.mHmCode <= sysfDat.mSnvalue) {
+		if (!hmefDat.mUsef || hmefDat.mHmCode <= 100) {	//sysfDat.mSnvalue	//Hieu
 			continue;
 		}
 		setKeigenKubun(hmefDat, sysfDat);
@@ -917,7 +917,7 @@ function calcUtaxHm(wkHmef, sysf, sysf2) {
 	}
 	for (var i = 0; i < wkHmef.length; i++) {
 		var wkHmefDat = wkHmef[i];
-		if (!wkHmefDat.mUsef || wkHmefDat.mHmCode < sysf.mSnvalue) {
+		if (!wkHmefDat.mUsef || wkHmefDat.mHmCode < 100) {	//sysf.mSnvalue	//Hieu
 			continue;
 		}
 		// 金額
@@ -1024,7 +1024,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 	for (var i = 0; i < lstHmefDat.length; i++) {
 		const area = document.getElementById(previousId);
 		var hmefDat = lstHmefDat[i];
-		if (!hmefDat.mUsef || hmefDat.mHmCode < sysfDat.mSnvalue) {
+		if (!hmefDat.mUsef || hmefDat.mHmCode < 100) {		//sysfDat.mSnvalue (100)	//Hieu
 			continue;
 		}
 
@@ -1635,7 +1635,7 @@ export function sendDataToServer() {
 	var nWrt_tancd = dataSetting.wrt_tancd;
 	var dtWrt_ymd = kensinDate;
 	mHmefDat.m_strBikou = mHme2Dat.mBikou;
-	mHmefDat.m_isToyukensin = sysfDat.m_isToyukeninFlg;
+	mHmefDat.m_isToyukensin = sysfDat.m_isToyukensinFlg;
 
 
 	var hmefWriteDat = new Dat.HmefWriteDat();
