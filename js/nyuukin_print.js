@@ -1541,7 +1541,7 @@ function createImageKensinForm() {
 /** 
 	* SENDING DATA
 */
-function saveDataSetting() {
+function savingData() {
 	Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 	document.getElementById("editView").style.display = "none";
 	document.getElementById("printView").style.display = "block";
