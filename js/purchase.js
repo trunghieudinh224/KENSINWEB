@@ -472,25 +472,251 @@ function onChangeData() {
 		calcKin();
 	}
 
+	uriage_sur.addEventListener('keypress', event => {
+		var value = `${event.target.value}${event.key}`;
+		if (window.getSelection().toString() != uriage_sur.value) {
+			var cursorPosition = uriage_sur.selectionStart;
+			var value = "";
+			if (cursorPosition == 0) {
+				var value = `${event.key}${event.target.value}`;
+			} else {
+				value = `${event.target.value}${event.key}`;
+			}
+			if (`${event.target.value}`.includes('.')) {
+				if (`${event.key}` == '.') {
+					event.preventDefault();
+					event.stopPropagation();
+					return false;
+				}
+			}
+
+			if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
+				event.preventDefault();
+				event.stopPropagation();
+				return false;
+			} else {
+				keyPressMinus(value, 4, event);
+			}
+		} else {
+			uriage_sur.value = "";
+			value = `${event.key}`;
+			if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
+				event.preventDefault();
+				event.stopPropagation();
+				return false;
+			} else {
+				keyPressMinus(value, 4, event);
+			}
+		}
+	});
+
+
 	uriage_tanka.onchange = function () {
 		mHmefDat.mTanka = Number(uriage_tanka.value) * 100;
 		uriage_tanka.value = Other.formatLocalJS(mHmefDat.mTanka, 2, 2);
 		calcKin();
 	}
 
-	uriage_taxr.onchange = function () {
-		mHmefDat.mTaxR = Number(uriage_taxr.value) * 10;
+	uriage_tanka.addEventListener('keypress', event => {
+		var value = `${event.target.value}${event.key}`;
+		if (window.getSelection().toString() != uriage_tanka.value) {
+			var cursorPosition = uriage_tanka.selectionStart;
+			var value = "";
+			if (cursorPosition == 0) {
+				var value = `${event.key}${event.target.value}`;
+			} else {
+				value = `${event.target.value}${event.key}`;
+			}
+			if (`${event.target.value}`.includes('.')) {
+				if (`${event.key}` == '.') {
+					event.preventDefault();
+					event.stopPropagation();
+					return false;
+				}
+			}
+
+			if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
+				event.preventDefault();
+				event.stopPropagation();
+				return false;
+			} else {
+				keyPressMinus(value, 6, event);
+			}
+		} else {
+			uriage_tanka.value = "";
+			value = `${event.key}`;
+			if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
+				event.preventDefault();
+				event.stopPropagation();
+				return false;
+			} else {
+				keyPressMinus(value, 6, event);
+			}
+		}
+	});
+
+
+	uriage_kin.onchange = function () {
+		uriage_kin.value = onChangeMinus(uriage_kin.value);
+		mHmefDat.mKin = uriage_kin.value;
 		calcTax();
 	}
 
-	uriage_kin.onchange = function () {
-		mHmefDat.mKin = Number(uriage_kin.value);
+	uriage_kin.addEventListener('keypress', event => {
+		var value = `${event.target.value}${event.key}`;
+		if (window.getSelection().toString() != uriage_kin.value) {
+			if (`${event.target.value}`.includes('.')) {
+				if (`${event.key}` == '.') {
+					event.preventDefault();
+					event.stopPropagation();
+					return false;
+				}
+			}
+
+			var cursorPosition = uriage_kin.selectionStart;
+			var value = "";
+			if (cursorPosition == 0) {
+				var value = `${event.key}${event.target.value}`;
+			} else {
+				value = `${event.target.value}${event.key}`;
+			}
+			if (!value.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
+				event.preventDefault();
+				event.stopPropagation();
+				return false;
+			} else {
+				keyPressMinus(value, 8, event);
+			}
+		} else {
+			uriage_kin.value = "";
+			value = `${event.key}`;
+			if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*$/)) {
+				event.preventDefault();
+				event.stopPropagation();
+				return false;
+			} else {
+				keyPressMinus(value, 8, event);
+			}
+		}
+	});
+
+
+	uriage_taxr.onchange = function () {
+		mHmefDat.mTaxR = Number(uriage_taxr.value) * 10;
+		uriage_taxr.value = Other.formatLocalJS(mHmefDat.mTaxR, 1, 1);
 		calcTax();
 	}
+
+	uriage_taxr.addEventListener('keypress', event => {
+		var value = `${event.target.value}${event.key}`;
+		if (window.getSelection().toString() != uriage_taxr.value) {
+			if (`${event.target.value}`.includes('.')) {
+				if (`${event.key}` == '.') {
+					event.preventDefault();
+					event.stopPropagation();
+					return false;
+				}
+			}
+
+			var cursorPosition = uriage_taxr.selectionStart;
+			var value = "";
+			if (cursorPosition == 0) {
+				var value = `${event.key}${event.target.value}`;
+			} else {
+				value = `${event.target.value}${event.key}`;
+			}
+			if (!value.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
+				event.preventDefault();
+				event.stopPropagation();
+				return false;
+			} else {
+				keyPressMinus(value, 2, event);
+			}
+		} else {
+			uriage_taxr.value = "";
+			value = `${event.key}`;
+			if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
+				event.preventDefault();
+				event.stopPropagation();
+				return false;
+			} else {
+				keyPressMinus(value, 2, event);
+			}
+		}
+	});
+
 
 	uriage_name.onchange = function () {
 		mHme2Dat.mBikou = uriage_name.value;
 	}
+}
+
+
+/**
+	KEY PRESS ACTION
+*/
+function keyPressAction(value, length, event) {
+	if (value.replaceAll(",", "").includes(".")) {
+		if (value.indexOf(".") > length) {
+			event.preventDefault();
+			event.stopPropagation();
+			return false;
+		}
+
+		if (value.length - value.indexOf(".") > 3) {
+			event.preventDefault();
+			event.stopPropagation();
+			return false;
+		}
+	} else {
+		if (value.replaceAll(",", "").length > length) {
+			event.preventDefault();
+			event.stopPropagation();
+			return false;
+		}
+	}
+}
+
+
+/**
+	KEY PRESS MINUS ACTION
+*/
+function keyPressMinus(value, length, event) {
+	if (value.includes("-")) {
+		if (value.indexOf("-") != 0) {
+			event.preventDefault();
+			event.stopPropagation();
+			return false;
+		} else if (value.replaceAll(",", "").length > length) {
+			event.preventDefault();
+			event.stopPropagation();
+			return false;
+		}
+	} else {
+		if (value.replaceAll(",", "").length > length) {
+			event.preventDefault();
+			event.stopPropagation();
+			return false;
+		}
+	}
+}
+
+
+/**
+	ONCHANGE MINUS ACTION
+*/
+function onChangeMinus(value) {
+	var result = value;
+	if (result.includes("-")) {
+		result = result.replace("-", "");
+		result = Other.formatDecial(Other.getNumFromString(result));
+		if (result != 0) {
+			result = "-" + result;
+		}
+	} else {
+		result = Other.formatDecial(Other.getNumFromString(result));
+	}
+	return result;
 }
 
 
@@ -604,15 +830,16 @@ function onClickAction() {
 		var buttonConfirm = document.getElementsByClassName("button-1")[0];
 		buttonConfirm.onclick = function () {
 			sendDataToServer();
-			modal.style.display = "none";
-			document.getElementById("editView").style.display = "none";
-			document.getElementById("printView").style.display = "block";
+
+			// modal.style.display = "none";
+			// document.getElementById("editView").style.display = "none";
+			// document.getElementById("printView").style.display = "block";
 			// preparePrintData();
 			// reloadUriageList();
 		}
 	}
 
-    document.getElementById("backPrintButton").onclick = function () { Common.movePage('/sales_list.html') };
+	document.getElementById("backPrintButton").onclick = function () { Common.movePage('/product_search.html') };
 
 	document.getElementById("sendToAppButton").onclick = function () { sendImage(); };
 }
@@ -1582,10 +1809,9 @@ function sendImage() {
 
 
 /** 
-	* CREATE IMAGE FILE OF SHUUKEI NIPPOU FORM
+	* CREATE IMAGE FILE
 */
 function createImageForm() {
-	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
 	setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
@@ -1602,11 +1828,11 @@ function createImageForm() {
 					window.scrollTo(0, 0);
 
 					const interval = setInterval(function () {
-						// setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
-						// setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
-						// setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
-						// setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
-						// setupTextSizeDetail("kk-val", kkValTS, kkValLH, "bold");
+						setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
+						setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
+						setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
+						setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
+						setupTextSizeDetail("kk-val", kkValTS, kkValLH, "bold");
 
 						Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
 						clearInterval(interval);
@@ -1661,6 +1887,7 @@ export function sendDataToServer() {
 				document.getElementById("editView").style.display = "none";
 				document.getElementById("printView").style.display = "block";
 				preparePrintData();
+				Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 				reloadUriageList();
 			}
 		},
@@ -1683,21 +1910,21 @@ function reloadUriageList() {
 	$.ajax({
         url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + mUserData.mKokfDat.mCusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-        headers: {
-            'Content-Type': StringCS.PR_CONTENT_TYPE
-        },
-        success: function (result) {
+		headers: {
+			'Content-Type': StringCS.PR_CONTENT_TYPE
+		},
+		success: function (result) {
 			modal.style.display = "none";
-            let dataHmefList = JSON.parse(result);
+			let dataHmefList = JSON.parse(result);
 			mUserData.mHmefList = dataHmefList.mHmefList;
 			sessionStorage.setItem(StringCS.USERDATA, JSON.stringify(mUserData));
 			createImageForm();
-        },
-        error: function (jqXHR, exception) {
-            console.log(exception);
-        }, 
-        timeout: ValueCS.VL_SHORT_TIMEOUT
-    });
+		},
+		error: function (jqXHR, exception) {
+			console.log(exception);
+		},
+		timeout: ValueCS.VL_SHORT_TIMEOUT
+	});
 }
 
 
@@ -1709,6 +1936,7 @@ function onLoadAction() {
 	setupTitleClick();
 	createData();
 	onCreateView();
+	Common.setFocusSelectString();
 	onChangeData();
 	onClickAction();
 }

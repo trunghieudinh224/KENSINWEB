@@ -1,3 +1,4 @@
+import * as Common from './Common/common_function.js'
 import * as Dat from './Dat/dat.js'
 import * as Other from './Common/other_util.js'
 import * as GasRaterCom from './Common/gasratercom.js'
@@ -936,7 +937,7 @@ function setdataUchiWake() {
 }
 
 
-//-------------------Enter Input Sting event--------------------------------->
+//-------------------Enter Input String event--------------------------------->
 
 mEditAdjust.addEventListener('keypress', event => {
     var cursorPosition = mEditAdjust.selectionStart;

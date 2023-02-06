@@ -3239,11 +3239,10 @@ function savingData() {
 				mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
 				mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
 				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
-				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
 			} else {
 				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
-				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
 			}
+			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
 			Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 			createImageKensinForm();
 		},

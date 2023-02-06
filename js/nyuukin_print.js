@@ -1471,21 +1471,22 @@ function onclickAction() {
 			sendImage();
 		};
 		KensinKinyuu.saveButton.onclick = function () {
-			document.getElementById("editView").style.display = "none";
-			document.getElementById("printView").style.display = "block";
-			document.getElementById("kensinForm").style.display = "none";
-			var mReciept = 0;
-			var mZandaka = 0;
-			if (KensinKinyuu.displayTab[2] == true) {
-				mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
-				mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
-				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
-				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
-			} else {
-				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
-				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
-			}
-			createImageKensinForm();
+			Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
+			// document.getElementById("editView").style.display = "none";
+			// document.getElementById("printView").style.display = "block";
+			// document.getElementById("kensinForm").style.display = "none";
+			// var mReciept = 0;
+			// var mZandaka = 0;
+			// if (KensinKinyuu.displayTab[2] == true) {
+			// 	mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
+			// 	mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
+			// 	getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
+			// 	createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
+			// } else {
+			// 	getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
+			// 	createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
+			// }
+			// createImageKensinForm();
 		}
 	}
 }
@@ -1569,5 +1570,4 @@ function onLoadAction() {
 }
 
 
-
-window.onload = onLoadAction;
+onLoadAction();
