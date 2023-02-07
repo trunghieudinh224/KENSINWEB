@@ -32,20 +32,20 @@ var sysfDat = new Dat.SysfDat().setValue(25, 35, 29, 1970, 1, 1, 80, 50, 80, 1, 
     false, [50, 250, 50, 200, 60, 180], [20, 60], 0, true, true, true, true, true, true);
 var sy2fDat = new Dat.Sy2fDat().setValue(0, 0, 0, 0, 0, [1, 1, -1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 5, 0, 0]);
 var kouserDat = new Dat.KouserDat();
-var kokfDat1 = new Dat.KokfDat().setValue("野村　洋子", 5, 1, 440, 1, true, 9990, 9550, 2019, 2, 7, 570, 1830, 0, 319, 22920, 0,
-                                            0, 0, 0, 0, 0, new Dat.KtpcDat().setValue(18000000, 211200000, 0), 1, 0, 4, 0, 0, 0,
-                                            0, 0, 0, null, 0, 0, 14884, 0, 0, 100, 8, 0, 0, 0, 20000, 1600, 0, 0, 0, 0, 0, 1000,
-                                            true, 0, "○児市△貫町３－３", "0010000375",  "", "野村　洋子", "様", new Dat.ZyksDat().setValue(261, 2018, 5, 8),
-                                            "---------��", 44, true);
-var kokfDat2 = kokfDat1;
-kokfDat2.mCusCode = "0010000370";
-kokfDat2.mName = "xyz";
-var kokfDat3 = kokfDat1;
-kokfDat3.mKDate = 7;
-var kokfDat4 = kokfDat1;
-kokfDat4.mKDate = 7;
-kokfDat4.mCusCode = "0010000370";
-kokfDat4.mName = "xyz";
+// var kokfDat1 = new Dat.KokfDat().setValue("野村　洋子", 5, 1, 440, 1, true, 9990, 9550, 2019, 2, 7, 570, 1830, 0, 319, 22920, 0,
+//                                             0, 0, 0, 0, 0, new Dat.KtpcDat().setValue(18000000, 211200000, 0), 1, 0, 4, 0, 0, 0,
+//                                             0, 0, 0, null, 0, 0, 14884, 0, 0, 100, 8, 0, 0, 0, 20000, 1600, 0, 0, 0, 0, 0, 1000,
+//                                             true, 0, "○児市△貫町３－３", "0010000375",  "", "野村　洋子", "様", new Dat.ZyksDat().setValue(261, 2018, 5, 8),
+//                                             "---------��", 44, true);
+// var kokfDat2 = kokfDat1;
+// kokfDat2.mCusCode = "0010000370";
+// kokfDat2.mName = "xyz";
+// var kokfDat3 = kokfDat1;
+// kokfDat3.mKDate = 7;
+// var kokfDat4 = kokfDat1;
+// kokfDat4.mKDate = 7;
+// kokfDat4.mCusCode = "0010000370";
+// kokfDat4.mName = "xyz";
 
 
 /*****  PRINT VARIABLE  *****/
@@ -57,6 +57,9 @@ var viewItemtList;
 var defaultPrintSize = window.getComputedStyle(document.getElementsByClassName("text")[0]).fontSize;
 /* default title size of printting form */
 var defaultPaddingPrintForm = window.getComputedStyle(document.getElementById("printContentDetail"), null).getPropertyValue('padding');
+
+/** list cusrec */
+var lstCusrec = [];
 
 
 /** 
@@ -555,131 +558,187 @@ function setShukeiDateList() {
     // var kouserDat = userData.kouserDat;
     // var cuslist = userData.cuslist;
 
+    if (m_lstShukeiDat.length > 0) {
+        for (var i = 0; i < m_lstShukeiDat.length; i++) {
+            // 顧客データ取得
+            // nSearchNo = sysfDat.mSearchNo;
+            // idxfDat = this.mUserData.getIdxfDat().get(nSearchNo);
+            // nIdx = Objects.requireNonNull(idxfDat).mRecId[i];
+            item = m_lstShukeiDat[i];
+            item.receipt = 0;
+            item.adjust = 0;
 
-    for (var i = 0; i < m_lstShukeiDat.length; i++) {
-        // 顧客データ取得
-        // nSearchNo = sysfDat.mSearchNo;
-        // idxfDat = this.mUserData.getIdxfDat().get(nSearchNo);
-        // nIdx = Objects.requireNonNull(idxfDat).mRecId[i];
-        item = m_lstShukeiDat[i];
+            if (checkCusrec(item.h_cusrec)) {
+                continue;
+            } else {
+                lstCusrec.push(item.h_cusrec);
+            }
 
-        var kotfDat = null;
-        if (sysfDat.m_isToyukensinFlg) {
-            kotfDat = item.mKotfDat;
-        }
-        // date kensin
-        var kensinDate = new Date(m_lstShukeiDat[i].h_seiymd);
-        var strKey = kensinDate.getMonth() + "/" + kensinDate.getDate();
-        var lstKensinData;
-        if (m_mapKensinData.has(strKey)) {
-            lstKensinData = m_mapKensinData.get(strKey);
-            if (lstKensinData == null) {
+            if (i < m_lstShukeiDat.length - 1) {
+                for (let j = 0; j < m_lstShukeiDat.length; j++) {
+                    if (m_lstShukeiDat[j].h_lnk_dencnt == item.h_dencnt) {
+                        if (m_lstShukeiDat[j].h_kin > 0) {
+                            item.adjust = m_lstShukeiDat[j].h_kin;
+                        } else {
+                            item.receipt = m_lstShukeiDat[j].h_kin * (-1);
+                        }
+                    }
+                }
+            }
+
+            var shukeiItem1 = new Dat.ShukeiItem();
+            shukeiItem1.mGsiyou = item.h_siyouryo;
+            shukeiItem1.mGryokin = item.h_kin;
+            shukeiItem1.mKang =     0 + 0           // kokfDat.mReduce + kokfDat.mReduceTax chua tim ra field;
+            shukeiItem1.mShohi = item.u_tax / 1000;
+            shukeiItem1.mTotal = shukeiItem1.mKang + shukeiItem1.mGryokin + shukeiItem1.mShohi;
+            shukeiItem1.mNyukin = item.receipt;
+            shukeiItem1.mChosei = item.adjust;
+            // addShukeiData(shukeiItem1, sysfDat, sy2fDat, kouserDat);
+
+            var kotfDat = null;
+            if (sysfDat.m_isToyukeninFlg) {
+                kotfDat = item.mKotfDat;
+            }
+            // date kensin
+            var kensinDate = new Date(m_lstShukeiDat[i].h_seiymd);
+            var strKey = kensinDate.getMonth() + "/" + kensinDate.getDate();
+            var lstKensinData;
+            if (m_mapKensinData.has(strKey)) {
+                lstKensinData = m_mapKensinData.get(strKey);
+                if (lstKensinData == null) {
+                    lstKensinData = [];
+                }
+            }
+            else {
                 lstKensinData = [];
             }
-        }
-        else {
-            lstKensinData = [];
-        }
-        let kensinData = new Dat.ShukeiKensinData();
+            let kensinData = new Dat.ShukeiKensinData();
 
 
-        kensinData.m_strKcode = item.mCusCode;
-        kensinData.m_strName = item.mName;
-        kensinData.m_isKensin = true;
-        kensinData.m_nSs = item.h_sisin;
-        kensinData.m_nSr = item.h_siyouryo;
-        kensinData.m_nKin = item.h_kin;
-        kensinData.m_nTax = item.h_utax;
-        kensinData.m_nKng = item.u_kin + item.u_tax;
-        kensinData.m_lNyu = item.h_kin;     // đổi sau
-        kensinData.m_lCho = item.u_kin;     // đổi sau
-        if (kotfDat != null && kotfDat.m_bKen_sumi == 1) {
-            kensinData.m_isToyu = true;
-            kensinData.m_nToyuSs = kotfDat.m_nNow_meter;
-            kensinData.m_nToyuSr = kotfDat.m_nLoil_use;
-            kensinData.m_lToyuKin = kotfDat.m_nFee;
-            kensinData.m_lToyuTax = kotfDat.m_nCon_tax;
-        }
-        if (mItemList.has(strKey))
-            shukeiItem = mItemList.get(strKey);
-        else {
-            shukeiItem = new Dat.ShukeiItem();
-            mItemList.set(strKey, shukeiItem);
-        }
-        addShukeiData(shukeiItem, item, sysfDat, sy2fDat, kouserDat);
-        lstKensinData.push(kensinData);
-        m_mapKensinData.set(strKey, lstKensinData);
-        // if(item.mUriSumi){
-        //     HmefDat hmefDat = InputDat.getHmefDat(this, item.mHmew0Srec - 1,  2);
-        //     if(hmefDat != null) {
+            kensinData.m_strKcode = item.mCusCode;
+            kensinData.m_strName = item.mName;
+            kensinData.m_isKensin = true;
+            kensinData.m_nSs = item.h_sisin;
+            kensinData.m_nSr = item.h_siyouryo;
+            kensinData.m_nKin = item.h_kin;
+            kensinData.m_nTax = item.h_utax;
+            kensinData.m_nKng = item.u_kin + item.u_tax;
+            kensinData.m_lNyu = item.receipt;
+            kensinData.m_lCho = item.adjust;
+            if (kotfDat != null && kotfDat.m_bKen_sumi == 1) {
+                kensinData.m_isToyu = true;
+                kensinData.m_nToyuSs = kotfDat.m_nNow_meter;
+                kensinData.m_nToyuSr = kotfDat.m_nLoil_use;
+                kensinData.m_lToyuKin = kotfDat.m_nFee;
+                kensinData.m_lToyuTax = kotfDat.m_nCon_tax;
+            }
+            if (mItemList.has(strKey))
+                shukeiItem = mItemList.get(strKey);
+            else {
+                shukeiItem = new Dat.ShukeiItem();
+                mItemList.set(strKey, shukeiItem);
+            }
+            addShukeiData(shukeiItem1, sysfDat, sy2fDat, kouserDat);
+            lstKensinData.push(kensinData);
+            m_mapKensinData.set(strKey, lstKensinData);
+            // if(item.mUriSumi){
+            //     HmefDat hmefDat = InputDat.getHmefDat(this, item.mHmew0Srec - 1,  2);
+            //     if(hmefDat != null) {
 
-        //         String strKey = hmefDat.mDenm + "/" + hmefDat.mDend;
-        //         addShukeiUriageData(strKey, item, hmefDat);
-        //         if(mItemList.containsKey(strKey)){
-        //             shukeiItem = mItemList.get(strKey);
-        //         }
-        //         else {
-        //             shukeiItem = new ShukeiItem();
-        //             mItemList.put(strKey, shukeiItem);
-        //         }
-        //         addUriageShukeiData(shukeiItem, hmefDat);
-        //         while (hmefDat.mNxtHrec != 0) {
-        //             hmefDat = InputDat.getHmefDat(this, hmefDat.mNxtHrec - 1, (byte) 2);
-        //             if(hmefDat == null){
-        //                 break;
-        //             }
-        //             strKey = hmefDat.mDenm + "/" + hmefDat.mDend;
-        //             addShukeiUriageData(strKey, item, hmefDat);
-        //             if(mItemList.containsKey(strKey)){
-        //                 shukeiItem = mItemList.get(strKey);
-        //             }
-        //             else {
-        //                 shukeiItem = new ShukeiItem();
-        //                 mItemList.put(strKey, shukeiItem);
-        //             }
-        //             addUriageShukeiData(shukeiItem, hmefDat);
-        //         }
-        //     }
-        // }
-        shuukeiData = shukeiItem;
+            //         String strKey = hmefDat.mDenm + "/" + hmefDat.mDend;
+            //         addShukeiUriageData(strKey, item, hmefDat);
+            //         if(mItemList.containsKey(strKey)){
+            //             shukeiItem = mItemList.get(strKey);
+            //         }
+            //         else {
+            //             shukeiItem = new ShukeiItem();
+            //             mItemList.put(strKey, shukeiItem);
+            //         }
+            //         addUriageShukeiData(shukeiItem, hmefDat);
+            //         while (hmefDat.mNxtHrec != 0) {
+            //             hmefDat = InputDat.getHmefDat(this, hmefDat.mNxtHrec - 1, (byte) 2);
+            //             if(hmefDat == null){
+            //                 break;
+            //             }
+            //             strKey = hmefDat.mDenm + "/" + hmefDat.mDend;
+            //             addShukeiUriageData(strKey, item, hmefDat);
+            //             if(mItemList.containsKey(strKey)){
+            //                 shukeiItem = mItemList.get(strKey);
+            //             }
+            //             else {
+            //                 shukeiItem = new ShukeiItem();
+            //                 mItemList.put(strKey, shukeiItem);
+            //             }
+            //             addUriageShukeiData(shukeiItem, hmefDat);
+            //         }
+            //     }
+            // }
+            
+            // shuukeiData = shukeiItem;
+        }
+    } else{
+        shuukeiData = new Dat.ShukeiItem();
     }
+        setShuukeiData();
 
 }
 
 
-/**
- * 集計データの計上.
- *
- * @param shukeiItem    [in] {@link ShukeiItem} 集計データ
- * @param kokfDat       [in] {@link KokfDat}    顧客データ
- * @param sysfDat       [in] {@link SysfDat}    システムデータ
- * @param sy2fDat       [in] {@link Sy2fDat}    システム2データ
- * @param kouserDat     [in] {@link KouserDat}  顧客拡張データ
- */
-function addShukeiData(shukeiItem, sysfDat, sy2fDat, kouserDat) {
+/** 
+    * GET SHUUKEI DATA
+*/
+function getShuukeiData() {
+    var urlString;
+    m_lstShukeiDat = [];
+    if (selectDate.value == "1") {
+        let date = document.getElementById("date-end").value;
+        // urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+    } else {
+        let dateStart = document.getElementById("date-start").value;
+        let dateEnd = document.getElementById("date-end").value;
+        // urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+    }
+    shuukeiData = new Dat.ShukeiItem();
+    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
+    $.ajax({
+        url: urlString,
+        headers: {
+            'Content-Type': StringCS.PR_CONTENT_TYPE
+        },
+        success: function (result) {
+            modal.style.display = "none";
+            var shukeiData = JSON.parse(result);
+            m_lstShukeiDat = shukeiData.m_lstShukeiDat;
+            selectionSort();
+            viewItemtList = setViewItemtList("edt");
 
-    shuukeiData.mKensu += 1;
-    shuukeiData.mGsiyou += GasRaterCom.getGasSuryo(shukeiItem.mGsiyou, sy2fDat, kouserDat);     // lấy data từ api
-    shuukeiData.mGryokin += shuukeiData.mGryokin;
-    shuukeiData.mKang += shukeiItem.mKang;
-    shuukeiData.mShohi += shukeiItem.mShohi;
-    shukeiItem.mTotal += shukeiItem.mTotal;
+            // if (shukeiData != null) {
+            //     if (shukeiData.m_lstShukeiDat != null) {
+            //         for (var i = 0; i < shukeiData.m_lstShukeiDat.length; i++) {
+            //             var shukeiItem = new Dat.ShukeiItem();
+            //             shukeiItem.mGsiyou = shukeiData.m_lstShukeiDat[i].h_siyouryo;
+            //             shukeiItem.mGryokin = shukeiData.m_lstShukeiDat[i].h_kin;
+            //             shukeiItem.mKang = shukeiData.m_lstShukeiDat[i].u_kin + shukeiData.m_lstShukeiDat[i].u_tax;
+            //             shukeiItem.mShohi = shukeiData.m_lstShukeiDat[i].h_utax;
+            //             shukeiItem.mTotal = shukeiItem.mKang + shukeiItem.mTotal;
+            //             addShukeiData(shukeiItem, sysfDat, sy2fDat, kouserDat);
+            //         }
+            //     }
+            // }
 
-    // if(sysfDat.m_isToyukensinFlg){
-    //     var kotfDat = kokfDat.mKotfDat;
-    //     if(kotfDat != null && kotfDat.m_bKen_sumi == 1){
-    //         shukeiItem.mToyuCnt++;
-    //         shukeiItem.mToyuUse += kotfDat.m_nLoil_use;
-    //         shukeiItem.mToyuKin += kotfDat.m_nFee;
-    //         shukeiItem.mToyuTax += kotfDat.m_nCon_tax;
-    //         shukeiItem.mToyuTotal += kotfDat.m_nFee + kotfDat.m_nCon_tax;
-    //     }
-    // }
-    // shukeiItem.mNyukin += kokfDat.mReceipt;
-    // shukeiItem.mChosei += kokfDat.mAdjust;
-    // if (kokfDat.mReceipt != 0) {
-    //     shukeiItem.mNyucnt++;
-    // }
+
+            setShukeiDateList();
+
+        },
+        error: function (jqXHR, exception) {
+            console.log(exception);
+            Common.setupModal("error", null, Mess.E00003, null, StringCS.OK, null, false);
+        },
+        timeout: ValueCS.VL_LONG_TIMEOUT
+    });
 }
 
 /**
@@ -1197,6 +1256,111 @@ function createShortLine(countLine) {
     line.className = "line-form mt-20 mb-0 lh-2";
     line.id = "line" + countLine;
     return line;
+}
+
+
+/**
+ * 集計データの計上.
+ *
+ * @param shukeiItem    [in] {@link ShukeiItem} 集計データ
+ * @param kokfDat       [in] {@link KokfDat}    顧客データ
+ * @param sysfDat       [in] {@link SysfDat}    システムデータ
+ * @param sy2fDat       [in] {@link Sy2fDat}    システム2データ
+ * @param kouserDat     [in] {@link KouserDat}  顧客拡張データ
+ */
+function addShukeiData(shukeiItem, sysfDat, sy2fDat, kouserDat) {
+
+    shuukeiData.mKensu += 1;
+    shuukeiData.mGsiyou += GasRaterCom.getGasSuryo(shukeiItem.mGsiyou, sy2fDat, kouserDat);     // lấy data từ api
+    shuukeiData.mGryokin += shukeiItem.mGryokin;
+    shuukeiData.mKang += shukeiItem.mKang;
+    shuukeiData.mShohi += shukeiItem.mShohi;
+    shuukeiData.mTotal += shukeiItem.mTotal;
+
+    // if(sysfDat.m_isToyukeninFlg){
+    //     var kotfDat = kokfDat.mKotfDat;
+    //     if(kotfDat != null && kotfDat.m_bKen_sumi == 1){
+    //         shukeiItem.mToyuCnt++;
+    //         shukeiItem.mToyuUse += kotfDat.m_nLoil_use;
+    //         shukeiItem.mToyuKin += kotfDat.m_nFee;
+    //         shukeiItem.mToyuTax += kotfDat.m_nCon_tax;
+    //         shukeiItem.mToyuTotal += kotfDat.m_nFee + kotfDat.m_nCon_tax;
+    //     }
+    // }
+    shuukeiData.mNyukin += shukeiItem.mNyukin;
+    shuukeiData.mChosei += shukeiItem.mChosei;
+    if (shukeiItem.mNyukin != 0) {
+        shuukeiData.mNyucnt++;
+    }
+}
+
+
+
+
+/**
+ * 売上日報用データの追加.
+ *
+ * @param strKey    [in] String             明細日付
+ * @param kokfDat   [in] {@link KokfDat}    顧客データ
+ * @param hmefDat   [in] {@link HmefDat}    販売明細データ
+ */
+function addShukeiUriageData(strKey, kokfDat, hmefDat) {
+    if (!hmefDat.mUsef) {
+        return;
+    }
+    Map < Integer, ShukeiUriageData > mapShukeiUriageData;
+    // 対象の日付に集計用売上データが存在するか確認
+    if (m_mapUriageData.containsKey(strKey)) {
+        // 存在する場合はそのデータを使用
+        mapShukeiUriageData = m_mapUriageData.get(strKey);
+    }
+    else {
+        // 存在しない場合は新規作成後追加
+        mapShukeiUriageData = new Map();
+        m_mapUriageData.put(strKey, mapShukeiUriageData);
+    }
+    // ShukeiUriageData shukeiUriageData;
+    var shukeiUriageData;
+    // 対象顧客のデータが存在するか確認
+    if (Objects.requireNonNull(mapShukeiUriageData).containsKey(kokfDat.mCusRec)) {
+        // 存在する場合はそのデータを使用
+        shukeiUriageData = mapShukeiUriageData.get(kokfDat.mCusRec);
+    }
+    else {
+        // 存在しない場合は新規作成後追加
+        shukeiUriageData = new ShukeiUriageData(kokfDat.mCusCode, kokfDat.mName);
+        mapShukeiUriageData.put(kokfDat.mCusRec, shukeiUriageData);
+    }
+    // 販売明細を追加
+    Objects.requireNonNull(shukeiUriageData).addHmefDat(hmefDat);
+}
+
+/**
+ * check cusrec are duplicate?
+ * @param {*} cusrec int cusrec 
+ * @returns boolean 
+*/
+function checkCusrec(cusrec) {
+    for (let i = 0; i < lstCusrec.length; i++) {
+        if (lstCusrec[i] == cusrec) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function selectionSort() {
+    var pos;
+    for (let i = 0; i < m_lstShukeiDat.length; i++) {
+        for (let j = 0; j < m_lstShukeiDat.length; j++) {
+            if (m_lstShukeiDat[j].h_dencnt > m_lstShukeiDat[i].h_dencnt) {
+                pos = m_lstShukeiDat[j];
+                m_lstShukeiDat[j] = m_lstShukeiDat[i];
+                m_lstShukeiDat[i] = pos;
+            }
+        }
+    }
+    lstCusrec = [];
 }
 
 

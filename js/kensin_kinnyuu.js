@@ -111,7 +111,7 @@ function setupCollapseTab() {
     //     document.getElementById("card2").style.pointerEvents = "none";
     // }
     
-    if ((mUserData.mSysfDat.mIfMoney && mUserData.mKokfDat.mSupplyForm != 2) == false) {
+    if (mUserData.mSysfDat.mIfMoney == false) {
 		$('.collapseOne').collapse();
         document.getElementById("card3").remove();
         displayTab[2] = false;
@@ -1306,6 +1306,7 @@ export function sendDataToServer() {
 	mKokfDat.mKtpcdat = new Dat.KtpcDat();
     mKokfDat.seiymd = seiymd;
     mKokfDat.kai_ymd = kai_ymd;
+    mKokfDat.mReceipt = mKokfDat.mReceipt * (-1)
     mKokfDat.mKenku = mKenku;
     mKokfDat.chuatu = chuatu;
     mKokfDat.m_sChocode = mKouserDat.m_sChocode;
