@@ -645,8 +645,8 @@ function init() {
         }
     }
 
-    txtKensinNyukinOtherUri.innerHTML = Other.KingakuFormat(nEtcUri);
-    txtKensinNyukinOtherShohi.innerHTML = Other.KingakuFormat(nEtcUriTax);
+    txtKensinNyukinOtherUri.innerHTML = Other.formatDecial(nEtcUri);
+    txtKensinNyukinOtherShohi.innerHTML = Other.formatDecial(nEtcUriTax);
     //txtKensinNyukinOtherUri.innerHTML = ((nEtcUri));
     //txtKensinNyukinOtherShohi.innerHTML = ((nEtcUriTax));
 

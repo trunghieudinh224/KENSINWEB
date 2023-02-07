@@ -954,7 +954,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		return 0;
 	}
 	var nTax = 0;
-	var strPrint;
+	var strPrint = "";
 	var previousId = "hmInfoHeaderText";
 	for (var i = 0; i < lstHmefDat.length; i++) {
 		const area = document.getElementById(previousId);
@@ -967,7 +967,9 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		const row = document.createElement("tr");
 		row.id = "hmInfoTableItem_NK" + String(i);
 
-		strPrint = hmefDat.mDenm + "/" + hmefDat.mDend;
+		if (hmefDat.mDenm != 0) {
+			strPrint = hmefDat.mDenm + "/" + hmefDat.mDend;
+		}
 		const date = document.createElement("td");
 		date.className = "text-print ta-c w-16 hmInfoTable-item";
 		date.appendChild(document.createTextNode(strPrint));
