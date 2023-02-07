@@ -869,9 +869,7 @@ function createPrintData(isHybseikyu, printGenuriInfo, isHikae) {
 	createCusInfo(getCusData());
 
 	// 売上明細
-	if (mUserData.mSy2fDat.mSysOption[Dat.SysOption.PRINT_HANMEISAI] == 0) {
-		createMeisaiInfo(printGenuriInfo.m_lstHmefDat);
-	}
+	createMeisaiInfo(printGenuriInfo.m_lstHmefDat);
 
 	if (printGenuriInfo.m_isGenuri) {
 		var lSeikyu = 0;
@@ -991,7 +989,7 @@ function createMeisaiInfo(lstHmefDat) {
 		}
 
 		createHmInfo(lstHmefDat, mUserData.mSysfDat, mapHmefDat, isTanka);
-		createHmInfoTax(mapHmefDat, calcTaxList(mUserData.mHmefList, Other.getNumFromString(uriage_tax.textContent)));
+		createHmInfoTax(mapHmefDat, lTax);
 		createHmInfoFooter(lKin + lTax);
 	}
 }
@@ -1246,7 +1244,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		return 0;
 	}
 	var nTax = 0;
-	var strPrint;
+	var strPrint = "";
 	var previousId = "hmInfoHeaderText";
 	for (var i = 0; i < lstHmefDat.length; i++) {
 		const area = document.getElementById(previousId);
@@ -1259,7 +1257,9 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		const row = document.createElement("tr");
 		row.id = "hmInfoTableItem" + String(i);
 
-		strPrint = hmefDat.mDenm + "/" + hmefDat.mDend;
+		if (hmefDat.mDenm != 0) {
+			strPrint = hmefDat.mDenm + "/" + hmefDat.mDend;
+		}
 		const date = document.createElement("td");
 		date.className = "text-print ta-c w-16 hmInfoTable-item";
 		date.appendChild(document.createTextNode(strPrint));
@@ -1313,7 +1313,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 			// 軽減税率対応は税込み
 			nKin += hmefDat.mTax;
 		}
-		if (nKin < 1000) {
+		if (String(nKin).length < 4) {
 			strPrint = Other.formatLocalJS(nKin, 0, 0);
 		} else {
 			strPrint = Other.formatDecial(nKin);
@@ -1812,6 +1812,7 @@ function sendImage() {
 	* CREATE IMAGE FILE
 */
 function createImageForm() {
+	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
 	setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
@@ -1874,8 +1875,8 @@ export function sendDataToServer() {
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(hmefWriteDat),
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
 		contentType: "application/json",
 		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
@@ -1884,10 +1885,7 @@ export function sendDataToServer() {
 			var buttonConfirm = document.getElementsByClassName("button-1")[0];
 			buttonConfirm.onclick = function () {
 				modal.style.display = "none";
-				document.getElementById("editView").style.display = "none";
-				document.getElementById("printView").style.display = "block";
 				preparePrintData();
-				Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 				reloadUriageList();
 			}
 		},
@@ -1908,15 +1906,16 @@ export function sendDataToServer() {
 function reloadUriageList() {
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
-        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + mUserData.mKokfDat.mCusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + mUserData.mKokfDat.mCusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + mUserData.mKokfDat.mCusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + mUserData.mKokfDat.mCusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		headers: {
 			'Content-Type': StringCS.PR_CONTENT_TYPE
 		},
 		success: function (result) {
-			modal.style.display = "none";
 			let dataHmefList = JSON.parse(result);
 			mUserData.mHmefList = dataHmefList.mHmefList;
+			mUserData.mKokfDat.mUrikin = Common.calcValOfList(mUserData.mHmefList, "mKin");
+			mUserData.mKokfDat.mUriTax = Common.calcValOfList(mUserData.mHmefList, "mTax");
 			sessionStorage.setItem(StringCS.USERDATA, JSON.stringify(mUserData));
 			createImageForm();
 		},

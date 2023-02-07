@@ -72,8 +72,8 @@ function getInformation() {
         Common.setupModal("load", null, Mess.I00001, null, null, null, false);
         console.log(cusDat.cusrec);
         $.ajax({
-            url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-            // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+            // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+            url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
             headers: {
                 'Content-Type': StringCS.PR_CONTENT_TYPE
             },
@@ -81,6 +81,8 @@ function getInformation() {
                 cusDetailData = JSON.parse(result);
                 sessionStorage.setItem(StringCS.CUSDETAILDATA, JSON.stringify(cusDetailData));
                 mUserData = new Dat.UserData().parseData(cusDetailData);
+                mUserData.mKokfDat.mUrikin = Common.calcValOfList(mUserData.mHmefList, "mKin");
+                mUserData.mKokfDat.mUriTax = Common.calcValOfList(mUserData.mHmefList, "mTax");
                 if (sessionStorage.getItem(StringCS.KENSINDATE) == null) {
                     var kensinDate = document.getElementById("jisshi-bi").value;
                     sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
@@ -166,6 +168,10 @@ function setInformation() {
         document.getElementById("uriageButtonArea").className = "col-6";
         document.getElementById("nyuukinButtonArea").className = "col-6";
     }
+
+    var isEnabled = cusDetailData.mKokfDat.mSupplyForm != 2;
+    document.getElementById("uriageButton").disabled = !isEnabled;
+    document.getElementById("nyuukinButton").disabled = !isEnabled;
 }
 
 

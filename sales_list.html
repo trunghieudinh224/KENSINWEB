@@ -21,7 +21,7 @@
 	<link rel="stylesheet" type="text/css" href="css/modal.css" />
 	<link rel="stylesheet" type="text/css" href="css/sales_list.css" />
     <link rel="stylesheet" type="text/css" href="css/print_common.css">
-    <link rel="stylesheet" type="text/css" href="css/purchase_print.css">
+    <link rel="stylesheet" type="text/css" href="css/sales_list_print.css">
 </head>
 
 <body>
@@ -51,10 +51,10 @@
 
 					<table id="customers">
 						<tr id="title-table">
-							<th class="text">日 付</th>
-							<th class="text">品 目</th>
-							<th class="text">金 額</th>
-							<th class="text">削 除</th>
+							<th class="text"></th>
+							<th class="text">日付</th>
+							<th class="text">品目</th>
+							<th class="text">金額</th>
 						</tr>
 					</table>
 					<div class="table-container">
@@ -66,12 +66,17 @@
 
 					<div class="button-area">
 						<div class="row content">
-							<div class="col-6">
+							<div class="col-4">
 								<button type="button" class="btn btn-default text-center" id="backPageButton"><span
 										class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
 							</div>
 
-							<div class="col-6">
+							<div class="col-4">
+								<button type="button" class="btn btn-default text-center" id="deleteButton" disabled><span
+										class="fas fa-trash ic-btn"></span><br>削除</button>
+							</div>
+
+							<div class="col-4">
 								<button type="button" class="btn btn-default text-center" id="printButton"><span
 										class="fas fa-play ic-btn"></span><br>印刷</button>
 							</div>
@@ -117,10 +122,10 @@
 								<table id="hmInfoTable">
 									<tr class="hmInfoHeader" id="hmInfoHeaderText">
 										<td class="text-print ta-c item hmw-16">月日</td>
-										<td class="text-print ta-c item hmw-20 hinmoku">品 目</td>
-										<td class="text-print ta-c item hmw-20">数 量</td>
-										<td class="text-print ta-c item hmw-20 tanka">単 価</td>
-										<td class="text-print ta-c item hmw-24">金 額</td>
+										<td class="text-print ta-c item hmw-20 hinmoku">品目</td>
+										<td class="text-print ta-c item hmw-20">数量</td>
+										<td class="text-print ta-c item hmw-20 tanka">単価</td>
+										<td class="text-print ta-c item hmw-24">金額</td>
 									</tr>
 
 									<tr class="hmInfoHeader" id="hmInfoTotal">

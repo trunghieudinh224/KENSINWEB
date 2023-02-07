@@ -2,6 +2,7 @@ import * as Common from './Common/common_function.js'
 import * as Other from './Common/other_util.js'
 import * as StringCS from './Constant/strings.js'
 import * as Mess from './Constant/message.js'
+import * as ValueCS from './Constant/values.js'
 import * as Dat from './Dat/dat.js'
 
 /*****  VIEW VARIABLE  *****/
@@ -9,20 +10,26 @@ import * as Dat from './Dat/dat.js'
 const modal = document.getElementById("myModal");
 /* resultTable */
 const table = document.getElementById("htsetTable");
+/* data message */
+var dataMessage = document.getElementById("data-messages");
 
 /*****  DATA VARIABLE  *****/
 /* systemdat */
 var systemDat = JSON.parse(sessionStorage.getItem(StringCS.SYSTEMDAT));
 /* setting data */
 var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
-/** 印刷情報 */ 
+/** 印刷情報 */
 var printStatus = new Dat.PrintStatus();
-/** ユーザー情報 */ 
+/** ユーザー情報 */
 var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 mUserData.mKokfDat.mKtpcdat = new Dat.KtpcDat();
 mUserData.mSysfDat.mGtpcDat = new Dat.GtpcDat();
 /* kensin date */
 var kensinDate = new Date(sessionStorage.getItem(StringCS.KENSINDATE));
+
+var deleteList = [];
+
+var deletePositionList = [];
 
 
 
@@ -47,8 +54,6 @@ var hmInfoTableItemLH = window.getComputedStyle(document.getElementsByClassName(
    * SET DATA
 */
 function setData() {
-	var dataMessage = document.getElementById("data-messages");
-
 	while (table.hasChildNodes()) {
 		table.removeChild(table.firstChild);
 	}
@@ -62,37 +67,48 @@ function setData() {
 				const newElement = document.createElement("tr");
 				const col1 = document.createElement("td");
 				col1.className += " text";
+				col1.className += " ta-c";
+				const chb = document.createElement("input");
+				chb.className += "checkbox";
+				chb.setAttribute("type", "checkbox");
+				col1.appendChild(chb);
 				const col2 = document.createElement("td");
 				col2.className += " text";
+				col2.className += " ta-c";
 				const col3 = document.createElement("td");
 				col3.className += " text";
+				col3.className += " ta-l";
 				const col4 = document.createElement("td");
 				col4.className += " text";
-				col4.className += " del";
-				const icon = document.createElement("i");
-				icon.className += "ic-del ";
-				icon.className += "fas ";
-				icon.className += "fa-trash";
-				col1.appendChild(document.createTextNode(item.mDenm + "/" + item.mDend));
-				col2.appendChild(document.createTextNode(Other.cutStringSpace(item.mHmName)));
-				col3.appendChild(document.createTextNode(Other.formatDecial(item.mKin + item.mTax) + " 円"));
-				col4.appendChild(icon);
+				col4.className += " ta-r";
+				col2.appendChild(document.createTextNode(item.mDenm + "/" + item.mDend));
+				col3.appendChild(document.createTextNode(Other.cutStringSpace(item.mHmName)));
+				col4.appendChild(document.createTextNode(Other.formatDecial(item.mKin + item.mTax) + " 円"));
 				newElement.appendChild(col1);
 				newElement.appendChild(col2);
 				newElement.appendChild(col3);
 				newElement.appendChild(col4);
 				table.appendChild(newElement);
-				icon.onclick = function () {
-					var mess = "品目:" + Other.cutStringSpace(item.mHmName) + "を削除しますか?";
-					Common.setupModal("question", StringCS.SAKUJO_KAKUNIN, mess, StringCS.IIE, StringCS.HAI, null, false);
-					var buttonConfirm = document.getElementsByClassName("button-1")[0];
-					buttonConfirm.onclick = function () {
-						modal.style.display = "none";
-						table.deleteRow(this.rowIndex);
-						if (table.rows.length == 0) {
-							dataMessage.innerText = Mess.E00008;
-							dataMessage.style.display = "block";
+
+				
+				chb.onclick = function () {
+					var chb = document.getElementsByClassName("checkbox");
+					var count = 0;
+					deleteList = [];
+					deletePositionList = [];
+					for (var i = chb.length-1; i >= 0; i--) {
+						if (chb[i].checked == true) {
+							count++;
+							deleteList.push(mUserData.mHmefList[i]);
+							deletePositionList.push(i);
 						}
+					}
+					if (count > 0) {
+						document.getElementById("deleteButton").disabled = false;
+						document.getElementById("printButton").disabled = false;
+					} else {
+						document.getElementById("deleteButton").disabled = true;
+						document.getElementById("printButton").disabled = true;
 					}
 				};
 			}
@@ -124,21 +140,115 @@ function onClickAction() {
 	};
 
 
+	document.getElementById("deleteButton").onclick = function () {
+		Common.setupModal("question", StringCS.SAKUJO_KAKUNIN, Mess.I00009, StringCS.IIE, StringCS.HAI, null, false);
+		var buttonConfirm = document.getElementsByClassName("button-1")[0];
+		buttonConfirm.onclick = function () {
+			modal.style.display = "none";
+			deleteData();
+			
+		}
+	};
+
+
 	document.getElementById("printButton").onclick = function () {
-		// modal.style.display = "none";
-		// document.getElementById("editView").style.display = "none";
-		// document.getElementById("printView").style.display = "block";
-		// modal.style.display = "none";
-		// document.getElementById("editView").style.display = "none";
-		// document.getElementById("printView").style.display = "block";
-		// preparePrintData();
-		// createImageForm();
-		Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
+		modal.style.display = "none";
+		document.getElementById("editView").style.display = "none";
+		document.getElementById("printView").style.display = "block";
+		modal.style.display = "none";
+		document.getElementById("editView").style.display = "none";
+		document.getElementById("printView").style.display = "block";
+		preparePrintData();
+		createImageForm();
+		// Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
+	}
+
+	document.getElementById("backPrintButton").onclick = function () { Common.backAction() };
+}
+
+
+/** 
+	* SENDING DATA
+*/
+export function deleteData() {
+	if (deleteList.length == 0) {
+		return;
+	}
+	const mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
+	var mKokfDat = new Dat.KokfDat().parseData(mUserData.mKokfDat)
+	var sysfDat = new Dat.SysfDat().parseData(mUserData.mSysfDat)
+	mKokfDat.mKtpcdat = new Dat.KtpcDat();
+	for (var item in deleteList) {
+		deleteList[item].m_isToyukensin = sysfDat.m_isToyukensinFlg;
 	}
 
 
-	// document.getElementById("backPrintButton").onclick = function () { Common.backAction() };
+	var hmefWriteDat = new Dat.HmefWriteDat();
+	hmefWriteDat.m_nMode = 2;
+	hmefWriteDat.m_lstHmefDat = deleteList;
+	hmefWriteDat.m_kokfDat = mKokfDat;
+	hmefWriteDat.login_id = sessionStorage.getItem(StringCS.USERNAME);
+	hmefWriteDat.login_pw = sessionStorage.getItem(StringCS.PASSWORD);
+
+
+	Common.setupModal("load", null, Mess.I00010, null, null, null, false);
+	$.ajax({
+		type: "POST",
+		data: JSON.stringify(hmefWriteDat),
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
+		contentType: "application/json",
+		timeout: ValueCS.VL_LONG_TIMEOUT,
+		success: function (response) {
+			console.log(response);
+			reloadUriageList();
+		},
+		error: function (textstatus) {
+			if (textstatus === "timeout") {
+				console.log("timeout")
+			} else {
+				console.log(textstatus)
+			}
+			Common.setupModal("error", null, Mess.E00004, null, StringCS.OK, null, false);
+		}
+	}).done(function (res) {
+		console.log('res', res);
+	});
 }
+
+
+function reloadUriageList() {
+	$.ajax({
+        // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + mUserData.mKokfDat.mCusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + mUserData.mKokfDat.mCusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+		headers: {
+			'Content-Type': StringCS.PR_CONTENT_TYPE
+		},
+		success: function (result) {
+			modal.style.display = "none";
+			Common.setupModal("success", null, Mess.I00010, null, StringCS.OK, null, false);
+			let dataHmefList = JSON.parse(result);
+			mUserData.mHmefList = dataHmefList.mHmefList;
+			mUserData.mKokfDat.mUrikin = Common.calcValOfList(mUserData.mHmefList, "mKin");
+			mUserData.mKokfDat.mUriTax = Common.calcValOfList(mUserData.mHmefList, "mTax");
+			sessionStorage.setItem(StringCS.USERDATA, JSON.stringify(mUserData));
+			for (var i = 0; i < deletePositionList.length; i++) {
+				table.deleteRow(deletePositionList[i]);
+				if (table.rows.length == 0) {
+					dataMessage.innerText = Mess.E00008;
+					dataMessage.style.display = "block";
+					document.getElementById("deleteButton").disabled = true;
+					document.getElementById("printButton").disabled = true;
+				}
+			}
+		},
+		error: function (jqXHR, exception) {
+			console.log(exception);
+		},
+		timeout: ValueCS.VL_SHORT_TIMEOUT
+	});
+}
+
 
 
 /* 
@@ -147,7 +257,7 @@ function onClickAction() {
 function preparePrintData() {
 	var strSname_0 = Other.getClearString(Other.nullToString(mUserData.mKokfDat.mName));
 	var strSname_1 = "";
-	if(Other.getClearString(strSname_0) == Other.getClearString(mUserData.mKokfDat.mName)){
+	if (Other.getClearString(strSname_0) == Other.getClearString(mUserData.mKokfDat.mName)) {
 		strSname_0 = mUserData.mKokfDat.mSName0;
 		strSname_1 = mUserData.mKokfDat.mSName1;
 		var printGenuriInfo = new Dat.PrintGenuriInfo().setValue(strSname_0, strSname_1, false, 0, 0, 0, mUserData.mHmefList);
@@ -160,16 +270,12 @@ function preparePrintData() {
 function createPrintData(isHybseikyu, printGenuriInfo, isHikae) {
 	// ヘッダー
 	createHeaderData(isHikae, printGenuriInfo.m_isGenuri)
-	
+
 	// 顧客情報
 	createCusInfo(getCusData());
 
 	// 売上明細
-	if (mUserData.mSy2fDat.mSysOption[Dat.SysOption.PRINT_HANMEISAI] == 0) {
-		createMeisaiInfo(printGenuriInfo.m_lstHmefDat);
-	} else {
-		
-	}
+	createMeisaiInfo(printGenuriInfo.m_lstHmefDat);
 
 	if (printGenuriInfo.m_isGenuri) {
 		var lSeikyu = 0;
@@ -177,7 +283,7 @@ function createPrintData(isHybseikyu, printGenuriInfo, isHikae) {
 			if (item.mUsef && item.mHmCode > 100) {		//mUserData.mSysfDat.mSnvalue (100)	//Hieu
 				lSeikyu += item.mKin + item.mTax;
 			}
-        });
+		});
 
 		createRyoshu(printGenuriInfo.m_nChokin, printGenuriInfo.m_nNyukin, printGenuriInfo.m_nReceipt, lSeikyu)
 	} else {
@@ -205,10 +311,10 @@ function createPrintData(isHybseikyu, printGenuriInfo, isHikae) {
 */
 function createHeaderData(isHikae, isGenuri) {
 	var strTitle = "納　品　書";
-	if(isGenuri){
+	if (isGenuri) {
 		strTitle += " 兼 領 収 書";
 	}
-	if(isHikae){
+	if (isHikae) {
 		strTitle += " (控)";
 	}
 	document.getElementById("titlePrintView").innerHTML = strTitle;
@@ -267,9 +373,9 @@ function createCusInfo(cusData) {
 
 
 /**
-    * 販売明細印刷データの作成.
-    *
-    * @param lstHmefDat    [in] {@code List<HmefDat>}  販売明細一覧
+	* 販売明細印刷データの作成.
+	*
+	* @param lstHmefDat    [in] {@code List<HmefDat>}  販売明細一覧
 */
 function createMeisaiInfo(lstHmefDat) {
 	var uriage = isUriage(lstHmefDat[0], lstHmefDat[0], [lstHmefDat[0]], mUserData.mSysfDat);
@@ -282,7 +388,7 @@ function createMeisaiInfo(lstHmefDat) {
 		var lTax = 0;
 		for (var i = 0; i < lstHmefDat.length; i++) {
 			var item = lstHmefDat[i];
-			if (item.mUsef && item.mHmCode > 100){		//mUserData.mSysfDat.mSnvalue (100)	//Hieu
+			if (item.mUsef && item.mHmCode > 100) {		//mUserData.mSysfDat.mSnvalue (100)	//Hieu
 				lKin += item.mKin;
 				lTax += item.mTax;
 			}
@@ -290,7 +396,7 @@ function createMeisaiInfo(lstHmefDat) {
 
 		createHmInfo(lstHmefDat, mUserData.mSysfDat, mapHmefDat, isTanka);
 		createHmInfoTax(mapHmefDat, mUserData.mKokfDat.mUriTax);
-		createHmInfoFooter(lKin);
+		createHmInfoFooter(lKin + lTax);
 	}
 }
 
@@ -322,7 +428,7 @@ function isUriage_(hmefDats, sysfDat, isIncludeNyuCho) {
 	var sSnvalue = 100;	//sysfDat.mSnvalue (100)	//Hieu
 	for (var i = 0; i < hmefDats.length; i++) {
 		var hmefDat = hmefDats[i];
-		if (hmefDat.mUsef && (hmefDat.mHmCode >= sSnvalue || isIncludeNyuCho)) {	
+		if (hmefDat.mUsef && (hmefDat.mHmCode >= sSnvalue || isIncludeNyuCho)) {
 			return true;
 		}
 	}
@@ -504,10 +610,10 @@ function calcUtax(sysfDat, hmefDat) {
 
 
 /**
-    * 販売明細ヘッダーの印字.
-    *
-    * @param strTitle          [in] String                     タイトル
-    * @param isTanka           [in] boolean                    単価印字フラグ(true: 印字有り, false: 印字無し)
+	* 販売明細ヘッダーの印字.
+	*
+	* @param strTitle          [in] String                     タイトル
+	* @param isTanka           [in] boolean                    単価印字フラグ(true: 印字有り, false: 印字無し)
 */
 function createHmInfoHeader(strTitle, isTanka) {
 	if (strTitle.length != 0) {
@@ -543,7 +649,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		return 0;
 	}
 	var nTax = 0;
-	var strPrint;
+	var strPrint = "";
 	var previousId = "hmInfoHeaderText";
 	for (var i = 0; i < lstHmefDat.length; i++) {
 		const area = document.getElementById(previousId);
@@ -556,7 +662,9 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		const row = document.createElement("tr");
 		row.id = "hmInfoTableItem" + String(i);
 
-		strPrint = hmefDat.mDenm + "/" + hmefDat.mDend;
+		if (hmefDat.mDenm != 0) {
+			strPrint = hmefDat.mDenm + "/" + hmefDat.mDend;
+		}
 		const date = document.createElement("td");
 		date.className = "text-print ta-c w-16 hmInfoTable-item";
 		date.appendChild(document.createTextNode(strPrint));
@@ -629,7 +737,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		// リース割賦の残回数を印字する。
 		if (hmefDat.mHbnmPrn == 1) {
 			strPrint = hmefDat.mHbName;
-			if (!strPrint.contains("(  ")) {
+			if (!strPrint.includes("(  ")) {
 				continue; // 残回数 '(  ' というパターンがなければ以下を除外する。
 			}
 			strPrint = strPrint.replace("(  ", "(");
@@ -703,20 +811,20 @@ function createHmInfoTax(mapHmefDat, nTax) {
 
 
 /**
-    * CREATING HMINFO FOOTER
+	* CREATING HMINFO FOOTER
 */
-function createHmInfoFooter(lKin){
+function createHmInfoFooter(lKin) {
 	document.getElementById("honjitsuUriageKingakuVal").innerHTML = Other.formatDecial(lKin);
 }
 
 
 /**
-    * 領収書印刷データの作成.
-    *
-    * @param nChokin   [in] int    調整額
-    * @param nNyukin   [in] int    入金額
-    * @param nRecept   [in] int    領収額
-    * @param lSeikyu   [in] int    請求金額
+	* 領収書印刷データの作成.
+	*
+	* @param nChokin   [in] int    調整額
+	* @param nNyukin   [in] int    入金額
+	* @param nRecept   [in] int    領収額
+	* @param lSeikyu   [in] int    請求金額
 */
 function createRyoshu(nChokin, nNyukin, nRecept, lSeikyu) {
 	document.getElementById("konkaiSeikyuGakuVal").innerHTML = Other.formatDecial(lSeikyu);
@@ -812,7 +920,7 @@ function createComment(commentData) {
 			}
 		}
 
-		if (commentData.length == 0) { 
+		if (commentData.length == 0) {
 			document.getElementById("commentArea").style.display = "none";
 			return;
 		}

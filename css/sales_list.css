@@ -72,44 +72,52 @@ th {
 	text-align: center;
 }
 
-th:nth-child(1),
-td:nth-child(1) {
-	width: 14%;
+#customers th:nth-child(1),
+#customers td:nth-child(1),
+#htsetTable th:nth-child(1),
+#htsetTable td:nth-child(1) {
+	width: 11%;
 	overflow: hidden;
 	text-align: center;
 	text-overflow: ellipsis;
 }
 
-th:nth-child(2),
-td:nth-child(2) {
+
+#customers th:nth-child(2),
+#customers td:nth-child(2),
+#htsetTable th:nth-child(2),
+#htsetTable td:nth-child(2) {
+	width: 14%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+#customers th:nth-child(3),
+#htsetTable th:nth-child(3){
+	width: 40%;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#customers td:nth-child(3),
+#htsetTable td:nth-child(3) {
 	width: 40%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
-th:nth-child(3){
+#customers th:nth-child(4),
+#customers td:nth-child(4),
+#htsetTable th:nth-child(4),
+#htsetTable td:nth-child(4) {
 	width: 32%;
-	text-align: center;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
-td:nth-child(3) {
-	width: 32%;
-	text-align: right;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-th:nth-child(4),
-td:nth-child(4) {
-	width: 14%;
-	text-align: center;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-tr:nth-child(even) {
+#htsetTable tr:nth-child(even) {
 	background-color: #f2f2f2
 }
 
@@ -136,15 +144,9 @@ tr:nth-child(even) {
 	background-color: #ddd;
 }
 
-.ic-del {
-	color:  #e34c4c;
+/* .ic-del {
 	font-size: 19px;
-}
-
-.ic-del:hover {
-	cursor: pointer;
-	transform: scale(1.2);
-}
+} */
 
 @media screen and (max-width: 768px) {
 	.table-container {
@@ -164,28 +166,31 @@ tr:nth-child(even) {
 		padding: 10px 6px;
 	}
 
-	th:nth-child(1),
-	td:nth-child(1) {
+	#customers th:nth-child(1),
+	#customers td:nth-child(1),
+	#htsetTable th:nth-child(1),
+	#htsetTable td:nth-child(1) {
+		width: 12% !important;
+	}
+
+	#customers th:nth-child(2),
+	#customers td:nth-child(2),
+	#htsetTable th:nth-child(2),
+	#htsetTable td:nth-child(2) {
 		width: 17% !important;
 	}
 
-	th:nth-child(2),
-	td:nth-child(2) {
-		width: 38% !important;
+	#customers th:nth-child(3),
+	#customers td:nth-child(3),
+	#htsetTable th:nth-child(3),
+	#htsetTable td:nth-child(3){
+		width: 42% !important;
 	}
 
-	th:nth-child(3),
-	td:nth-child(3){
+	#customers th:nth-child(4),
+	#customers td:nth-child(4),
+	#htsetTable th:nth-child(4),
+	#htsetTable td:nth-child(4) {
 		width: 29% !important;
-	}
-
-	th:nth-child(4),
-	td:nth-child(4) {
-		width: 16% !important;
-	}
-
-	.ic-del {
-		color:  #e34c4c;
-		font-size: 15px;
 	}
 }
