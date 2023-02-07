@@ -51,6 +51,7 @@
 	text-align: center;
 	font-size: 45px;
 	font-weight: bold;
+	padding: 0px;
 }
 
 
@@ -160,7 +161,7 @@
 
 	/* TEXT */
 	.title-printView {
-		font-size: 27px;
+		font-size: 26px;
 	}
 
 	.wsp-title {

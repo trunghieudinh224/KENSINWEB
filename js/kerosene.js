@@ -892,6 +892,7 @@ function createKensinInfo(kensinData) {
 		} else {
 			document.getElementById("gasryokinSikiArea").style.display = "none";
 			document.getElementById("hiwariCommentArea").style.display = "none";
+			document.getElementById("GasryokinCommentArea").style.display = "none";
 		}
 	}
 }
@@ -973,6 +974,9 @@ function createToyuKensinInfoBase(kensinData) {
 
 		const zenkaiSSVal = document.getElementById("zenkaiSSVal");
 		zenkaiSSVal.innerHTML = Other.Format(kotfDat.m_nMtchg_zknss, 1);
+	} else {
+		document.getElementById("torihazuSSToyuArea").style.display = "none";
+		document.getElementById("zenkaiSSArea").style.display = "none";
 	}
 
 
@@ -1039,7 +1043,6 @@ function createKinInfo(kensinData) {
 		if (sysfDat.mIfProceeds) {
 			document.getElementById("sonohokaUriageArea").style.display = "block";
 			if (kensinData.m_HmDay != 0) {
-				document.getElementById("hmDayArea").style.display = "block";
 				//本日お買い上げ額	
 				const hmDayVal = document.getElementById("hmDayVal");
 				hmDayVal.innerHTML = Other.formatDecial(kensinData.m_HmDay);
@@ -2968,7 +2971,8 @@ function onclickAction() {
 	};
 
 	kakuninButton.onclick = function () {
-		save();
+		// save();
+		Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
 	}
 }
 
