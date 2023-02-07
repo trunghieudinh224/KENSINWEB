@@ -202,6 +202,24 @@ function setFocusSelectString() {
 }
 
 
+/**
+   * CALCULATING ITEM'S VALUE OF LIST
+*/
+function calcValOfList(list, prop) {
+    var result = 0;
+	for (var i = 0; i < list.length; i++) {
+        var obj = list[i];
+        for(var name in obj) {
+            console.log(name);
+            if (prop == name) {
+                result += obj[name];
+            }
+        }
+    }
+    return result;
+}
+
+
 // function detectBrowser() {
 // 	let userAgent = navigator.userAgent;
 // 	let browserName;
@@ -217,4 +235,4 @@ function setFocusSelectString() {
 // 	alert(browserName);
 // }
 
-export {backAction, setupModal, movePage, changePage, checkDevice, setBackgroundDialogScreen, checkPrintable, setFocusSelectString}
+export {backAction, setupModal, movePage, changePage, checkDevice, setBackgroundDialogScreen, checkPrintable, setFocusSelectString, calcValOfList}
