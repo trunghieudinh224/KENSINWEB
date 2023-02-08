@@ -108,17 +108,18 @@ function setData() {
 						document.getElementById("printButton").disabled = false;
 					} else {
 						document.getElementById("deleteButton").disabled = true;
-						document.getElementById("printButton").disabled = true;
 					}
 				};
 			}
 		} else {
 			dataMessage.innerText = Mess.E00008;
 			dataMessage.style.display = "block";
+			document.getElementById("printButton").disabled = true;
 		}
 	} else {
 		dataMessage.innerText = Mess.E00008;
 		dataMessage.style.display = "block";
+		document.getElementById("printButton").disabled = true;
 	}
 }
 
