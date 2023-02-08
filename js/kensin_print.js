@@ -1003,7 +1003,6 @@ function createKinInfo(kensinData) {
 		if (sysfDat.mIfProceeds) {
 			document.getElementById("sonohokaUriageArea").style.display = "block";
 			if (kensinData.m_HmDay != 0) {
-				document.getElementById("hmDayArea").style.display = "block";
 				//本日お買い上げ額	
 				const hmDayVal = document.getElementById("hmDayVal");
 				hmDayVal.innerHTML = Other.formatDecial(kensinData.m_HmDay);
