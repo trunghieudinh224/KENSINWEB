@@ -3,6 +3,7 @@ import * as GasRaterCom from './Common/gasratercom.js'
 import * as Dat from './Dat/dat.js'
 import * as Other from './Common/other_util.js'
 import * as StringCS from './Constant/strings.js'
+import * as Mess from './Constant/message.js'
 
 /*****  VIEW VARIABLE  *****/
 /* modal */

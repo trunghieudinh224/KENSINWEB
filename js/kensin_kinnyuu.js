@@ -134,6 +134,7 @@ function setupCollapseTab() {
         document.getElementById("card3").style.pointerEvents = "none";
 		$('.collapseOne').collapse()
         setupButton();
+        openKensinLayout();
 	}
 }
 
@@ -204,8 +205,7 @@ function setCusInfo() {
                 1
             );
         }
-        document.getElementById("txtKensinMainPrevSiyou0").innerHTML =
-            strPreUseTitle;
+        document.getElementById("txtKensinMainPrevSiyou0").innerHTML = strPreUseTitle;
 
         mTxtPreUse.innerHTML = strPreUseValue;
 
@@ -1449,7 +1449,6 @@ function onclickAction() {
 */
 function onLoadAction() {
     setupCollapseTab();
-    openKensinLayout();
     setdataNyukinLayout();
 }
 
