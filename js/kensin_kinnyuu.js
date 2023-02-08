@@ -1323,7 +1323,7 @@ export function sendDataToServer() {
 	var nKenmsr = mUserData.mKokfDat.mBetwMeter;
 	var nTancd = dataSetting.tancd;
 	var strTanname = dataSetting.m_lstTantName[0].name;
-	var nWrt_tancd = dataSetting.tancd;
+	var nWrt_tancd = dataSetting.wrt_tancd;
 	var dtWrt_ymd = kensinDate;
 
 	m_oMetMeisaiDat.m_nCusrec = mUserData.mKokfDat.mCusrec;
