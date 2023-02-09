@@ -32,6 +32,10 @@ var tantnameList;
 /* tantname item */
 var tantnameItem = ["kentan", "shutan", "uritan"];
 
+const cuslList = JSON.parse(sessionStorage.getItem(StringCS.CUSTLIST));
+
+var searchMode = sessionStorage.getItem(StringCS.SEARCHMODE);
+
 var conditionData = {
 	searchKind: "",
 	searchKey: "",
@@ -53,11 +57,18 @@ var conditionData = {
    * SETUP LAYOUT
 */
 function setupLayout() {
-	if (sessionStorage.getItem(StringCS.SEARCHMODE) == "1") {
-		var itemSearch = document.getElementsByClassName("searchItem");
-		itemSearch.forEach(async (item) => {
-			item.style.display = "none";
-		});
+	var title = document.getElementById("titleForm");
+	if (searchMode == "1") {
+		title.innerHTML = "検針顧客一覧";
+		var itemSearch = document.getElementsByClassName("searchItem2");
+		for(var i = itemSearch.length-1; i >= 0; i--) {
+			itemSearch[i].remove();
+		}
+	} else {
+		var itemSearch = document.getElementsByClassName("searchItem1");
+		for(var i = itemSearch.length-1; i >= 0; i--) {
+			itemSearch[i].remove();
+		}
 	}
 }
 
@@ -178,17 +189,17 @@ function getValueCheckbox(checkboxName, data) {
 /**
    * SHOW PREVIOUS DATA
 */
-function checkPreviousData() {
-	const previousCuslist = JSON.parse(sessionStorage.getItem(StringCS.CUSTLIST));
-	if (previousCuslist != null) {
-		if (previousCuslist.length > 0) {
-			document.getElementById("countList").innerHTML = "検索件数：" + previousCuslist.length + "件";
+function checkPreviousData(cuslList) {
+	if (cuslList != null) {
+		if (cuslList.length > 0) {
+			document.getElementsByClassName("table-container")[0].style.display = "block";
+			document.getElementById("countList").innerHTML = "検索件数：" + cuslList.length + "件";
 			document.getElementById("countList").style.display = "block";
 		} else {
 			document.getElementById("countList").style.display = "none";
 		}
 
-		for (var i = 0; i < previousCuslist.length; i++) {
+		for (var i = 0; i < cuslList.length; i++) {
 			const newElement = document.createElement("tr");
 			const newName = document.createElement("td");
 			newName.className += " text";
@@ -198,17 +209,25 @@ function checkPreviousData() {
 			newKenshin.className += " text";
 			const newShuukin = document.createElement("td");
 			newShuukin.className += " text";
-			newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(previousCuslist[i].name))));
-			newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(previousCuslist[i].add_0))));
-			newKenshin.appendChild(document.createTextNode(previousCuslist[i].kenstat == 1 ? "済" : "未"));
-			newShuukin.appendChild(document.createTextNode(previousCuslist[i].shustat == 1 ? "済" : "未"));
+			newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(cuslList[i].name))));
+			newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(cuslList[i].add_0))));
+			newKenshin.appendChild(document.createTextNode(cuslList[i].kenstat == 1 ? "済" : "未"));
+			newShuukin.appendChild(document.createTextNode(cuslList[i].shustat == 1 ? "済" : "未"));
 			newElement.appendChild(newName);
 			newElement.appendChild(newAddress);
 			newElement.appendChild(newKenshin);
 			newElement.appendChild(newShuukin);
 			table.appendChild(newElement);
+			if (searchMode == "1") {
+				if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
+					if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) == i) {
+						newElement.style.background = "#d9a691";
+					}
+				}
+			}
 			newElement.onclick = function () {
-				var object = previousCuslist[this.rowIndex];
+				sessionStorage.setItem(StringCS.CUSTOMERINDEX, this.rowIndex);
+				var object = cuslList[this.rowIndex];
 				object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 				if (object.kenstat == 1) {
 					Common.setupModal("question", null, Mess.I00006, StringCS.IIE, StringCS.HAI, null, false);
@@ -227,8 +246,15 @@ function checkPreviousData() {
 			};
 		}
 
-		if (previousCuslist.length !== 0) {
-			document.getElementsByClassName("table-container")[0].style.display = "block";
+		if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
+			
+			const interval = setInterval(function () {
+				scrollToItemList(parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)));
+				clearInterval(interval);
+				alert("Hieu");
+			}, 300);
+		} else {
+			scrollToItemList(0);
 		}
 	} else {
 		document.getElementsByClassName("table-container")[0].style.display = "block";
@@ -239,14 +265,133 @@ function checkPreviousData() {
 /**
    * SEARCH CUSTOMER
 */
-function searchCus() {
+function searchCusType1(searchVal) {
+	sessionStorage.setItem(StringCS.SEARCHSTRING, searchKey.value.trim());
+
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
+	$.ajax({
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+			"&srch_kind=0" + String(searchType.value) +
+			(searchVal != "" ? "&srch_string=" + searchVal : "") +
+			"&match_kind=0" +
+			"&kenstat=0" +
+			"&shustat=0" +
+			"&uristat=0" +
+			"&order_kind=0" +
+			"&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
+			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+		headers: {
+			'Content-Type': StringCS.PR_CONTENT_TYPE
+		},
+		success: function (result) {
+			while (table.hasChildNodes()) {
+				table.removeChild(table.firstChild);
+			}
+
+			const data = JSON.parse(result);
+			if (data.cuslist != null) {
+				if (data.cuslist.length > 0) {
+					sessionStorage.setItem(StringCS.CUSTLIST, JSON.stringify(data.cuslist));
+					for (var i = 0; i < data.cuslist.length; i++) {
+						const newElement = document.createElement("tr");
+						const newName = document.createElement("td");
+						newName.className += " text";
+						const newAddress = document.createElement("td");
+						newAddress.className += " text";
+						const newKenshin = document.createElement("td");
+						newKenshin.className += " text";
+						const newShuukin = document.createElement("td");
+						newShuukin.className += " text";
+						newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].name))));
+						newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].add_0))));
+						newKenshin.appendChild(document.createTextNode(data.cuslist[i].kenstat == 1 ? "済" : "未"));
+						newShuukin.appendChild(document.createTextNode(data.cuslist[i].shustat == 1 ? "済" : "未"));
+						newElement.appendChild(newName);
+						newElement.appendChild(newAddress);
+						newElement.appendChild(newKenshin);
+						newElement.appendChild(newShuukin);
+						if (searchMode == "1") {
+							if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
+								if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) == i) {
+									newElement.style.background = "#d9a691";
+								}
+							}
+						}
+						table.appendChild(newElement);
+						newElement.onclick = function () {
+							var object = data.cuslist[this.rowIndex];
+							sessionStorage.setItem(StringCS.CUSTOMERINDEX, this.rowIndex);
+							object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
+							if (object.kenstat == 1) {
+								Common.setupModal("question", null, Mess.I00006, StringCS.IIE, StringCS.HAI, null, false);
+								var buttonConfirm = document.getElementsByClassName("button-1")[0];
+								buttonConfirm.onclick = function () {
+									const cusdat = Object.assign({}, object);
+									sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
+									Common.movePage('/customer.html');
+									modal.style.display = "none";
+								}
+							} else {
+								const cusdat = Object.assign({}, object);
+								sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
+								Common.movePage('/customer.html');
+							}
+
+						};
+					}
+
+					if (table.hasChildNodes()) {
+						document.getElementsByClassName("table-container")[0].style.display = "block";
+						document.getElementById("data-messages").style.display = "none";
+						document.getElementById("countList").innerHTML = "検索件数：" + table.childElementCount + "件";
+						document.getElementById("countList").style.display = "block";
+						if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
+							scrollToItemList(parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)));
+						} else {
+							scrollToItemList(0);
+						}
+
+					} else {
+						document.getElementsByClassName("table-container")[0].style.display = "none";
+						document.getElementById("countList").style.display = "none";
+						document.getElementById("data-messages").style.display = "block";
+					}
+					modal.style.display = "none";
+					dataMessage.style.display = "none";
+				} else {
+					dataMessage.innerText = Mess.E00001;
+					dataMessage.style.display = "block";
+					document.getElementById("countList").style.display = "none";
+					Common.setupModal("success", null, Mess.E00005, null, StringCS.OK, null, false);
+				}
+			} else {
+				dataMessage.innerText = Mess.E00001;
+				dataMessage.style.display = "block";
+				document.getElementById("countList").style.display = "none";
+				Common.setupModal("success", null, Mess.E00005, null, StringCS.OK, null, false);
+			}
+		},
+		error: function (jqXHR, exception) {
+			console.log(exception);
+			Common.setupModal("error", null, Mess.E00003, null, StringCS.OK, null, false);
+		},
+		timeout: ValueCS.VL_LONG_TIMEOUT
+	});
+}
+
+
+/**
+   * SEARCH CUSTOMER TYPE 1
+*/
+function searchCusType2() {
 	setConditionData();
 	sessionStorage.setItem(StringCS.SEARCHSTRING, searchKey.value.trim());
 
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + conditionData.searchKind +
 			(conditionData.searchKey != "" ? "&srch_string=" + conditionData.searchKey : "") +
 			"&match_kind=" + conditionData.searchPart +
@@ -319,12 +464,12 @@ function searchCus() {
 						document.getElementById("data-messages").style.display = "none";
 						document.getElementById("countList").innerHTML = "検索件数：" + table.childElementCount + "件";
 						document.getElementById("countList").style.display = "block";
-						if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) != null) {
+						if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
 							scrollToItemList(parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)));
 						} else {
 							scrollToItemList(0);
 						}
-						
+
 					} else {
 						document.getElementsByClassName("table-container")[0].style.display = "none";
 						document.getElementById("countList").style.display = "none";
@@ -354,6 +499,7 @@ function searchCus() {
 }
 
 
+
 /**
    * ACCESS FIRST CUSTOMER
 */
@@ -362,8 +508,8 @@ function firstCustomerAction() {
 
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-			// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + conditionData.searchKind +
 			(conditionData.searchKey != "" ? "&srch_string=" + conditionData.searchKey : "") +
 			"&match_kind=" + conditionData.searchPart +
@@ -479,7 +625,7 @@ function getConditionData() {
 		]
 
 		var list2 = [conditionData.kenstat, conditionData.shustat, conditionData.uristat];
-		for (var i  = 0; i < list1.length; i++) {
+		for (var i = 0; i < list1.length; i++) {
 			for (var idx = 0; idx < list1[i].length; idx++) {
 				if (parseInt((list1[i])[idx].value) == parseInt(list2[i])) {
 					(list1[i])[idx].checked = true;
@@ -495,14 +641,14 @@ function getConditionData() {
 			document.getElementsByClassName("uritan")
 		]
 		var list4 = [conditionData.hanku, conditionData.shuku, conditionData.kentan, conditionData.shutan, conditionData.uritan];
-		for (var i  = 0; i < list3.length; i++) {
+		for (var i = 0; i < list3.length; i++) {
 			for (var idx = 0; idx < list3[i].length; idx++) {
 				var item = list4[i].split(",");
 				for (var j = 0; j < item.length; j++) {
 					if (idx == parseInt(item[j])) {
 						(list3[i])[idx].checked = true;
 					}
-				}				
+				}
 			}
 		}
 	}
@@ -512,10 +658,10 @@ function getConditionData() {
 
 function scrollToItemList(idx) {
 	var rows = table.querySelectorAll('tr');
-    rows[idx].scrollIntoView({
-    	behavior: 'smooth',
-      	block: 'center'
-    });
+	rows[idx].scrollIntoView({
+		behavior: 'smooth',
+		block: 'center'
+	});
 
 	rows[idx].scrollIntoView(true);
 }
@@ -545,12 +691,56 @@ function onChangeAction() {
    * ONCLICK ACTION
 */
 function onclickAction() {
-	document.getElementById("backPageButton").onclick = Common.backAction;
-	document.getElementById("kensakuButton").onclick = function() {
-		sessionStorage.setItem(StringCS.CUSTOMERINDEX, 0);
-		searchCus();
+	document.getElementById("kensakuButton").onclick = function () {
+		// sessionStorage.setItem(StringCS.CUSTOMERINDEX, 0);
+		// if (searchMode == "1") {
+		// 	var valueSearch = Other.cutStringSpace(String(searchKey.value));
+		// 	for (var i = 0; i < cuslList.length; i++) {
+		// 		if (String(searchType.value) == 0) {
+		// 			if (valueSearch == Other.cutStringSpace(Other.nullToString(cuslList[i].kcode))) {
+		// 				scrollToItemList(i);
+		// 				table.rows.item(i).style.background = "#d9a691";
+		// 				break;
+		// 			}
+		// 		} else if (String(searchType.value) == 1) {
+		// 			if (valueSearch == Other.cutStringSpace(Other.nullToString(cuslList[i].name))) {
+
+		// 			}
+		// 		} else if (String(searchType.value) == 2) {
+		// 			if (valueSearch == Other.cutStringSpace(Other.nullToString(cuslList[i].tel_0))) {
+
+		// 			}
+		// 		}
+		// 	}
+		// } else {
+		// 	searchCusType2();
+		// }
+
+		var valueSearch = Other.cutStringSpace(String(searchKey.value));
+		searchCusType1(valueSearch);
 	}
-	document.getElementById("firstCustomerButton").onclick = firstCustomerAction;
+	if (searchMode == "2") {
+		document.getElementById("backPage2Button").onclick = Common.backAction;
+		document.getElementById("firstCustomerButton").onclick = firstCustomerAction;
+	} else {
+		document.getElementById("backPage1Button").onclick = Common.backAction;
+		document.getElementById("previousButton").onclick = function () {
+			sessionStorage.setItem(StringCS.CUSTOMERINDEX, 0);
+			if (searchMode == "1") {
+				searchCusType1(Other.cutStringSpace(String(searchKey.value)));
+			} else {
+				searchCusType2();
+			}
+		}
+		document.getElementById("nextButton").onclick = function () {
+			sessionStorage.setItem(StringCS.CUSTOMERINDEX, 0);
+			if (searchMode == "1") {
+				searchCusType1("");
+			} else {
+				searchCusType2();
+			}
+		}
+	}
 }
 
 
@@ -564,15 +754,23 @@ function onLoadAction() {
 	setMaxLengthInput();
 	selectChange();
 	onclickAction();
-	onChangeAction();
-	getConditionData();
-	
-	if (sessionStorage.getItem(StringCS.SEARCHSTRING) != null) {
-		searchKey.value = sessionStorage.getItem(StringCS.SEARCHSTRING);
-		searchCus();
-		searchCus();
-		sessionStorage.removeItem(StringCS.SAVINGSTATUS);
+	if (searchMode == "2") {
+		onChangeAction();
+		getConditionData();
+		if (sessionStorage.getItem(StringCS.SEARCHSTRING) != null) {
+			searchKey.value = sessionStorage.getItem(StringCS.SEARCHSTRING);
+			searchCusType2();
+			searchCusType2();
+			sessionStorage.removeItem(StringCS.SAVINGSTATUS);
+		}
+	} else {
+		if (cuslList != null) {
+			checkPreviousData(cuslList);
+		} else {
+			searchCusType1("");
+		}
 	}
+	alert("hieu")
 }
 
 

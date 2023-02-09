@@ -14,9 +14,9 @@ const modal = document.getElementById("myModal");
 var cusDat = JSON.parse(sessionStorage.getItem(StringCS.CUSDAT));
 /* customer detail data */
 var cusDetailData = JSON.parse(sessionStorage.getItem(StringCS.CUSDETAILDATA));
-/* ユーザー情報 */ 
+/* ユーザー情報 */
 var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
-/** recent day */ 
+/** recent day */
 var recentDay = moment().format('YYYY/MM/DD');
 
 
@@ -27,7 +27,7 @@ function setupDatePicker() {
     $(document).ready(function () {
         $("#jisshi-bi").datepicker({
             format: 'yyyy/mm/dd',
-            onSelect: function(dateText) {
+            onSelect: function (dateText) {
                 console.log("Selected date: " + dateText + "; input's current value: " + this.value);
             }
         });
@@ -46,12 +46,12 @@ function setupDatePicker() {
     });
 
 
-    $('#jisshi-bi').change(function(){
+    $('#jisshi-bi').change(function () {
         recentDay = moment($(this).val()).format('YYYY/MM/DD');
         var kensinDate = recentDay;
         sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
         mUserData.mKensinDate = String(kensinDate);
-   });
+    });
 }
 
 
@@ -96,6 +96,7 @@ function getInformation() {
                 modal.style.display = "none";
 
                 if (cusDetailData != null) {
+                    $('.collapseOne').collapse();
                     setInformation();
                 }
             },
@@ -108,6 +109,7 @@ function getInformation() {
     } else {
         if (cusDetailData != null) {
             setInformation();
+            $('.collapseOne').collapse();
         }
     }
 }
@@ -383,14 +385,14 @@ function setOptionMenu() {
 */
 function onclickAction() {
     document.getElementById("backPageButton").onclick = Common.backAction;
-    document.getElementById("uriageButton").onclick = function () { 
+    document.getElementById("uriageButton").onclick = function () {
         Common.movePage('/product_search.html');
     };
     document.getElementById("nyuukinButton").onclick = function () { kinyuuMove(3); };
     document.getElementById("jikkoButton").onclick = function () { kinyuuMove(1); };
-    document.getElementById("toyuPageButtonArea").onclick = function () { 
+    document.getElementById("toyuPageButtonArea").onclick = function () {
         saveUserData();
-        Common.movePage('/kerosene.html') 
+        Common.movePage('/kerosene.html')
     };
 }
 

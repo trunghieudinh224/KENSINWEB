@@ -42,11 +42,11 @@ function showDialog() {
 
     var overlay = document.querySelector(".overlay");
     document.getElementById("searchBtn1").onclick = function() {
-        // sessionStorage.setItem(StringCS.SEARCHMODE, "1");
-        // Common.movePage('/search_customer.html');
-        // sessionStorage.removeItem(StringCS.SEARCHSTRING);
+        sessionStorage.setItem(StringCS.SEARCHMODE, "1");
+        Common.movePage('/search_customer.html');
+        sessionStorage.removeItem(StringCS.SEARCHSTRING);
         overlay.style.zIndex = "-1";
-        Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
+        // Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
     };
     document.getElementById("searchBtn2").onclick = function() {
         sessionStorage.setItem(StringCS.SEARCHMODE, "2");
