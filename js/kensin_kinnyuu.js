@@ -650,11 +650,11 @@ function init() {
     //txtKensinNyukinOtherUri.innerHTML = ((nEtcUri));
     //txtKensinNyukinOtherShohi.innerHTML = ((nEtcUriTax));
 
-    if (mUserData.mKokfDat.mSyuSumi) {
+    if (mUserData.mKokfDat.mSyuSumi == 1) {
         // 13.02.13
         // 検針済み or 再入力の場合は入力して編集不可
-        mEditAdjust.value = Other.KingakuFormat(mUserData.mKokfDat.mAdjust);
-        mEditInputReceipt.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mInpReceipt);
+        mEditAdjust.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mAdjust);
+        // mEditInputReceipt.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mInpReceipt);
         mEditReceipt.innerHTML = Other.formatDecial(mUserData.mKokfDat.mReceipt);
         // mTeiseiFlg = getLongValue(mEditInputReceipt) != getLongValue(mEditReceipt);
         // mEditAdjust.innerHTML = ((mUserData.mKokfDat.mAdjust));

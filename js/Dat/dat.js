@@ -2395,3 +2395,115 @@ export class HynmDat {
 		return data;
 	}
 }
+
+/**
+ * システム2情報(CNポイント)データクラス.
+ */
+export class Sy2fCnpDat {
+	constructor() {
+		/** CNコメント１ */
+		this.mCnpComment_0 = "";
+		/** CNコメント２ */
+		this.mCnpComment_1 = "";
+		/** CNコメント３ */
+		this.mCnpComment_2 = "";
+	}
+
+	setValue(mCnpComment_0, mCnpComment_1, mCnpComment_2) {
+		var data = new Sy2fCnpDat();
+
+		data.mCnpComment_0 = mCnpComment_0;
+		data.mCnpComment_1 = mCnpComment_1;
+		data.mCnpComment_2 = mCnpComment_2;
+		return data;
+	}
+
+	parseData(responeData) {
+		var data = new Sy2fCnpDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mCnpComment_0 = responeData.mCnpComment_0;
+		data.mCnpComment_1 = responeData.mCnpComment_1;
+		data.mCnpComment_2 = responeData.mCnpComment_2;
+		return data;
+	}
+}
+
+/**
+ * システム2情報(CNポイント)データクラス.
+ */
+export class Sy2fCnpTempDat {
+	constructor() {
+		/** CN仮会員コメント1 */
+		this.mCnpTempComment_0 = "";
+		/** CN仮会員コメント2 */
+		this.mCnpTempComment_1 = "";
+		/** CNコメント１ */
+		this.mCnpComment_0 = "";
+		/** CNコメント２ */
+		this.mCnpComment_1 = "";
+		/** CNコメント３ */
+		this.mCnpComment_2 = "";
+
+	}
+
+	setValue(mCnpTempComment_0 , mCnpTempComment_1 , mCnpComment_0, mCnpComment_1, mCnpComment_2) {
+		var data = new Sy2fCnpTempDat();
+
+		data.mCnpTempComment_0 = mCnpTempComment_0;
+		data.mCnpTempComment_1 = mCnpTempComment_1;
+		data.mCnpComment_0 = mCnpComment_0;
+		data.mCnpComment_1 = mCnpComment_1;
+		data.mCnpComment_2 = mCnpComment_2;
+		return data;
+	}
+
+	parseData(responeData) {
+		var data = new Sy2fCnpTempDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mCnpTempComment_0 = responeData.mCnpTempComment_0;
+		data.mCnpTempComment_1 = responeData.mCnpTempComment_1;
+		data.mCnpComment_0 = responeData.mCnpComment_0;
+		data.mCnpComment_1 = responeData.mCnpComment_1;
+		data.mCnpComment_2 = responeData.mCnpComment_2;
+		return data;
+	}
+}
+
+/**
+ * システム2データ(銀行不能コメント)クラス
+ */
+export class Sy2fFunouComment {
+	constructor() {
+    /** 不能コメント1 */
+    this.mFunouComment0 = "";
+    /** 不能コメント2 */
+    this.mFunouComment1 = "";
+	}
+
+	setValue(mFunouComment0, mFunouComment1) {
+		var data = new Sy2fFunouComment();
+
+		data.mFunouComment0 = mFunouComment0;
+		data.mFunouComment1 = mFunouComment1;
+
+		return data;
+	}
+
+	parseData(responeData) {
+		var data = new Sy2fFunouComment();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mCnpComment_0 = responeData.mCnpComment_0;
+		data.mCnpComment_1 = responeData.mCnpComment_1;
+
+		return data;
+	}
+}
