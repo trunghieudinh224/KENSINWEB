@@ -200,8 +200,8 @@ function searchCusType1(searchVal) {
 
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
-		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + String(searchType.value) +
 			(searchVal != "" ? "&srch_string=" + searchVal : "") +
 			"&match_kind=0" +
@@ -322,8 +322,8 @@ function searchCusType2() {
 
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
-		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + conditionData.searchKind +
 			(conditionData.searchKey != "" ? "&srch_string=" + conditionData.searchKey : "") +
 			"&match_kind=" + conditionData.searchPart +
@@ -440,8 +440,8 @@ function firstCustomerAction() {
 
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
-		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + conditionData.searchKind +
 			(conditionData.searchKey != "" ? "&srch_string=" + conditionData.searchKey : "") +
 			"&match_kind=" + conditionData.searchPart +
