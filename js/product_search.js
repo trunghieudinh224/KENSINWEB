@@ -356,6 +356,7 @@ function onclickAction() {
    * ONLOAD ACTION
 */
 function onLoadAction() {
+	Common.setupModal("load", null, Mess.I00010, null, null, null, false);
 	setOptionMenu();
 	onclickAction();
 	setCusData();
@@ -369,6 +370,7 @@ function onLoadAction() {
 		} else {
 			setData(shofDatList, busfDatList);
 		}
+		modal.style.display = "none";
 	} else {
 		getData();
 	}
