@@ -119,8 +119,8 @@
                                                                 id="txtKensinMainNowMeter0">今回指針</span>
                                                         </div>
 
-                                                        <input class="form-control ta-r text t-ip" type="text"
-                                                            id="txtKensinMainNowMeter">
+                                                        <span class="form-control ta-r text" type="text"
+                                                            id="txtKensinMainNowMeter"></span>
                                                         <span class="form-control unit text"
                                                             id="txtKensinMainMmm0">m3</span>
                                                     </div> <!-- form-group// -->
@@ -550,8 +550,7 @@
                                                             id="txtKensinNyukinChosei">調整額</span>
                                                     </div>
                                                     <!-- id = editKensinNyukinChosei -->
-                                                    <input class="form-control ta-r text t-ip" id="chouseigaku" type="text"
-                                                        value="0">
+                                                    <span class="form-control ta-r text" id="chouseigaku" type="text">0</span>
                                                 </div> <!-- form-group// -->
                                             </div>
                                         </div>
@@ -564,8 +563,7 @@
                                                             id="txtKensinNyukinInput">預り金</span>
                                                     </div>
                                                     <!-- id = editKensinNyukinAzukari -->
-                                                    <input class="form-control ta-r text t-ip" id="azukari-kin" type="text"
-                                                        value="0">
+                                                    <span class="form-control ta-r text" id="azukari-kin" type="text">0</span>
                                                 </div> <!-- form-group// -->
                                             </div>
                                         </div>
@@ -587,11 +585,10 @@
                                             <div class="col-12">
                                                 <div class="form-group input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text mw145 text">入金額</span>
+                                                        <span class="input-group-text mw145 text" id="teisei-nyuukin-text">入金額</span>
                                                     </div>
 
-                                                    <input class="form-control ta-r text t-ip" id="teisei-nyuukin"
-                                                        value="0" />
+                                                    <span class="form-control ta-r text" id="teisei-nyuukin">0</span>
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -2088,6 +2085,57 @@
         </div>
     </div>
 
+    <!-- 内訳ダイアログ  -->
+    <div class="keyboard">
+        <div class="container-mainform">
+            <div class="wrap-mainform p-t-30 p-b-40" style="padding-top: 60px;">
+                <i class="fa-sharp fa-solid fa-circle-xmark" id="close-icon-keyboard"></i>
+                <form action="">
+
+                    <div class="row content">
+                        <div class="col-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw145 text" id="inputTitle">顧客</span>
+                                </div>
+                                <span class="form-control ta-r text" id="inputVal"></span>
+                            </div> 
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="keyboardTable" class="result-tb">
+                            <tr>
+                                <td><div class="it-keyboard num-kb">7</div></td>
+                                <td><div class="it-keyboard num-kb">8</div></td>
+                                <td><div class="it-keyboard num-kb">9</div></td>
+                                <td><div class="it-keyboard" id="minus-btn">ー</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="it-keyboard num-kb">4</div></td>
+                                <td><div class="it-keyboard num-kb">5</div></td>
+                                <td><div class="it-keyboard num-kb">6</div></td>
+                                <td><div class="it-keyboard" id="dot-btn">.</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="it-keyboard num-kb">1</div></td>
+                                <td><div class="it-keyboard num-kb">2</div></td>
+                                <td><div class="it-keyboard num-kb">3</div></td>
+                                <td rowspan="2"><div class="it-keyboard" id="enter-btn">ENT</div></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><div class="it-keyboard num-kb">0</div></td>
+                                <td ><div class="it-keyboard" id="del-btn">DEL</div></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -2098,7 +2146,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
 	<script src="vendor/daterangepicker/moment.min.js"></script>
-    <script src="https://wzrd.in/standalone/copy-to-clipboard@latest" async></script>
 
     <script type="module" src="./js/Common/check_data.js"></script>
     <script type="module" src="js/meter_reading_fillout.js"></script>

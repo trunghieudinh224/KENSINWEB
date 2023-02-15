@@ -235,4 +235,168 @@ function calcValOfList(list, prop) {
 // 	alert(browserName);
 // }
 
-export {backAction, setupModal, movePage, changePage, checkDevice, setBackgroundDialogScreen, checkPrintable, setFocusSelectString, calcValOfList}
+
+function showKeyBoard(title, valElement) {
+    document.getElementById("inputTitle").innerHTML = title;
+    var inputVal = document.getElementById("inputVal");
+    var number = document.getElementsByClassName("num-kb");
+    var btnDel = document.getElementById("del-btn");
+    var btnMinus = document.getElementById("minus-btn");
+    var btnDot = document.getElementById("dot-btn");
+    var btnEnter = document.getElementById("enter-btn");
+    var keyboard = document.querySelector(".keyboard");
+    var wrapMainForm = document.querySelector(".keyboard .container-mainform .wrap-mainform");
+    var prop = JSON.parse(sessionStorage.getItem(StringCS.KEYBOARDPROP));
+
+
+    //setup layout
+	document.getElementById("close-icon-keyboard").onclick = function () {
+		keyboard.style.zIndex = "-2";
+		wrapMainForm.classList.remove("overlay-animate");
+        inputVal.textContent = "";
+	};
+
+    if (prop.minus == false) {
+        btnMinus.classList.add("disabled-div");
+    }
+    if (prop.dot == false) {
+        btnDot.classList.add("disabled-div");
+    }
+
+    btnDel.classList.add("disabled-div");
+    
+
+    inputVal.addEventListener('DOMSubtreeModified', function () {
+        var _prop = JSON.parse(sessionStorage.getItem(StringCS.KEYBOARDPROP));
+
+        if (inputVal.textContent.length > 0) {
+            if (btnDel.classList.contains("disabled-div")) {
+                btnDel.classList.remove("disabled-div");
+            }
+            if (btnMinus.classList.contains("disabled-div") == false && _prop.minus == true) {
+                btnMinus.classList.add("disabled-div");
+            }
+            if (inputVal.textContent.includes(".") && _prop.dot == true) {
+                if (btnDot.classList.contains("disabled-div") == false) {
+                    btnDot.classList.add("disabled-div");
+                }
+                if (inputVal.textContent.substring(inputVal.textContent.indexOf("."), inputVal.textContent.length - 1).length < _prop.numAfterDot) {
+                    disableNumberKeyboard(true);
+                } else if (inputVal.textContent.substring(inputVal.textContent.indexOf("."), inputVal.textContent.length - 1).length == _prop.numAfterDot) {
+                    disableNumberKeyboard(false);
+                } else {
+                    disableNumberKeyboard(false);
+                }
+            } else {
+                if (btnDot.classList.contains("disabled-div") && _prop.dot == true) {
+                    btnDot.classList.remove("disabled-div");
+                }
+                if (inputVal.textContent.length <= _prop.lengthVal) {
+                    disableNumberKeyboard(true);
+                } else {
+                    disableNumberKeyboard(false);
+                }
+            }
+
+        } else {
+            disableNumberKeyboard(true);
+            if (btnDel.classList.contains("disabled-div") == false) {
+                btnDel.classList.add("disabled-div");
+            }
+            if (btnMinus.classList.contains("disabled-div") && _prop.minus == true) {
+                btnMinus.classList.remove("disabled-div");
+            }
+            if (btnDot.classList.contains("disabled-div") && _prop.dot == true) {
+                btnDot.classList.remove("disabled-div");
+            }
+        }
+    });
+
+    btnDel.onclick = function () {
+        inputVal.innerHTML = inputVal.textContent.substring(0, inputVal.textContent.length - 1);
+    }
+
+    btnDot.onclick = function () {
+        if (btnDot.classList.contains("disabled-div")) {
+            return;
+        }
+        inputVal.innerHTML = inputVal.textContent + this.textContent;
+    }
+
+    btnMinus.onclick = function () {
+        if (btnMinus.classList.contains("disabled-div")) {
+            return;
+        }
+        if (inputVal.textContent.length == 0) {
+            inputVal.innerHTML = "-" + inputVal.textContent;
+        }
+    }
+
+    btnEnter.onclick = function () {
+        if (inputVal.textContent.charAt(0) == ".") {
+            inputVal.innerHTML = "0" + inputVal.textContent;
+        } 
+        if (btnDel.classList.contains("disabled-div")) {
+            btnDel.classList.remove("disabled-div");
+        }
+        if (btnMinus.classList.contains("disabled-div")) {
+            btnMinus.classList.remove("disabled-div");
+        }
+        if (btnDot.classList.contains("disabled-div")) {
+            btnDot.classList.remove("disabled-div");
+        }
+        inputVal.removeEventListener('DOMSubtreeModified', null)
+        keyboard.style.zIndex = "-2";
+        wrapMainForm.classList.remove("overlay-animate");
+        if (inputVal.textContent != "") {
+            valElement.textContent = inputVal.textContent;
+        }
+        inputVal.textContent = "";
+    }
+
+    for (var i = 0; i < number.length; i++) {
+        number[i].onclick = function () {
+            if (this.classList.contains("disabled-div")) {
+                return;
+            }
+
+            if (inputVal.textContent.includes(".") && prop.dot == true) {
+                if (inputVal.textContent.substring(inputVal.textContent.indexOf("."), inputVal.textContent.length - 1).length < prop.numAfterDot) {
+                    disableNumberKeyboard(true);
+                    inputVal.innerHTML = inputVal.textContent + this.textContent;
+                } else if (inputVal.textContent.substring(inputVal.textContent.indexOf("."), inputVal.textContent.length - 1).length == prop.numAfterDot) {
+                    disableNumberKeyboard(false);
+                    inputVal.innerHTML = inputVal.textContent + this.textContent;
+                } else {
+                    disableNumberKeyboard(false);
+                }
+            } else {
+                if (inputVal.textContent.length < prop.lengthVal-1) {
+                    disableNumberKeyboard(true);
+                    inputVal.innerHTML = inputVal.textContent + this.textContent;
+                } else {
+                    inputVal.innerHTML = inputVal.textContent + this.textContent;
+                    disableNumberKeyboard(false);
+                }
+            }
+        }
+    }
+}
+
+function disableNumberKeyboard(enable) {
+    var number = document.getElementsByClassName("num-kb");
+    for (var i = 0; i < number.length; i++) {
+        if (enable == false) {
+            if (number[i].classList.contains("disabled-div") == false) {
+                number[i].classList.add("disabled-div");
+            }
+        } else {
+            if (number[i].classList.contains("disabled-div")) {
+                number[i].classList.remove("disabled-div");
+            }
+        }
+    }
+}
+
+export {backAction, setupModal, movePage, changePage, checkDevice, setBackgroundDialogScreen, checkPrintable, setFocusSelectString, calcValOfList,
+    showKeyBoard}

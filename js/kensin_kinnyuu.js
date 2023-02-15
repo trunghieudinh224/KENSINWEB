@@ -47,13 +47,15 @@ const teiseiSumi = document.querySelector("#teisei-sumi");
 const saveButton = document.getElementById("createPrintingFormButton");
 
 /*****  DATA VARIABLE  *****/
-/** ユーザー情報 */ 
+/** ユーザー情報 */
 var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 mUserData.mKokfDat.mKtpcdat = new Dat.KtpcDat();
 mUserData.mGasfDat.mGextDat = new Dat.GextDat();
+/** keyboard property */
+var keyboardProp = new Dat.KeyboardProp();
 /*	販売請求月度（顧客の請求月） */
 var seiymd = mUserData.mKokfDat.seiymd;
-    /** 検針・初期の日付 */
+/** 検針・初期の日付 */
 var kai_ymd = mUserData.mKokfDat.kai_ymd;
 /** 検針区分 */
 var mKenku = mUserData.mKokfDat.mKenku;
@@ -81,17 +83,17 @@ var modePage = sessionStorage.getItem(StringCS.KINYUUMODE);
 /** 顧客値引きデータ */
 mUserData.m_lstKnebDat = new Array();
 var knebDat = new Dat.KnebDat();
-var kneb = knebDat.setValue( 1 , 0 , 0 , 0 , 0 , 1002 , 0 , 0 , 0 , 0 , 0 , 0 )
+var kneb = knebDat.setValue(1, 0, 0, 0, 0, 1002, 0, 0, 0, 0, 0, 0)
 mUserData.m_lstKnebDat.push(kneb);
 for (let i = 2; i < 17; i++) {
-	var pos = i;
-	if(i > 7 && i <= 10){
-		pos = i + 4;
-	}else if (i > 10){
-		pos = 0;
-	}
-	kneb = knebDat.setValue(pos,0,0,0,0,0,0,0,0,0,0,0)
-	mUserData.m_lstKnebDat.push(kneb);
+    var pos = i;
+    if (i > 7 && i <= 10) {
+        pos = i + 4;
+    } else if (i > 10) {
+        pos = 0;
+    }
+    kneb = knebDat.setValue(pos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    mUserData.m_lstKnebDat.push(kneb);
 }
 // var lstLeasHmefDat = mUserData.getLeasHmefDat();
 var lstLeasHmefDat = new Array();
@@ -110,9 +112,9 @@ function setupCollapseTab() {
     // } else {
     //     document.getElementById("card2").style.pointerEvents = "none";
     // }
-    
+
     if (mUserData.mSysfDat.mIfMoney == false) {
-		$('.collapseOne').collapse();
+        $('.collapseOne').collapse();
         document.getElementById("card3").remove();
         displayTab[2] = false;
         setupButton();
@@ -122,20 +124,20 @@ function setupCollapseTab() {
         onclickAction();
     }
 
-	if (modePage == 3) {
+    if (modePage == 3) {
         displayTab[0] = false;
         displayTab[1] = false;
         document.getElementById("card1").remove();
         document.getElementById("card2").remove();
-		$('.collapseThree').collapse()
+        $('.collapseThree').collapse()
         setupButtonNyukinMode();
-	} else {
+    } else {
         document.getElementById("card2").style.pointerEvents = "none";
         document.getElementById("card3").style.pointerEvents = "none";
-		$('.collapseOne').collapse()
+        $('.collapseOne').collapse()
         setupButton();
         openKensinLayout();
-	}
+    }
 }
 
 
@@ -164,7 +166,7 @@ function setCusInfo() {
     mTxtNameUser.innerHTML = Other.getClearString(mUserData.mKokfDat.mName);
     // 検針日付
     mTxtDate.innerHTML = Other.MonthDayFormat(
-        kensin_date.getMonth()+1,
+        kensin_date.getMonth() + 1,
         kensin_date.getDate(),
         false
     );
@@ -173,10 +175,10 @@ function setCusInfo() {
     if (mUserData.mKokfDat.mKenSumi) {
         // 検針済みの場合
         mTxtCmt.innerHTML = "検針済みです。";
-        mTxtNowMeter.value = Other.Format(mUserData.mKokfDat.mNowMeter, 1);
-		mTxtPreMeter.innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
+        mTxtNowMeter.textContent = Other.Format(mUserData.mKokfDat.mNowMeter, 1);
+        mTxtPreMeter.innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
         if (mUserData.mKokfDat.mGasDiv != 0 && mUserData.mGasfDat.mTaxDiv == 3) {
-			mTxtGasTax.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mConTax);
+            mTxtGasTax.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mConTax);
         } else {
             mTxtGasTax.innerHTML = "***";
         }
@@ -230,7 +232,7 @@ function setCusInfo() {
             mTxtNowMeter.innerHTML = "";
         }
         // 前回指針
-		mTxtPreMeter.innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
+        mTxtPreMeter.innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
         // 使用量(これも再入力で初期値が変わるかも)
         if (mUserData.mKokfDat.mKenSumi) {
             mTxtNowUse.innerHTML = Other.Format(
@@ -245,9 +247,9 @@ function setCusInfo() {
         if (mUserData.mKokfDat.mBetwMeter > 0) {
             // 中間使用量有
             //tvPreUsetTitle.innerHTML = "前回/中間";]
-			if (mUserData.mKokfDat.metchg == true) {
-				document.getElementById("chukan_shiyo_ryo_id").classList.remove("hidden");
-			}
+            if (mUserData.mKokfDat.metchg == true) {
+                document.getElementById("chukan_shiyo_ryo_id").classList.remove("hidden");
+            }
             var strPreUseValue =
                 Other.Format(
                     GasRaterCom.getGasSuryo(mUserData.mKokfDat.mPreUse, mUserData.mSy2fDat, mUserData.mKouserDat),
@@ -258,7 +260,7 @@ function setCusInfo() {
                     GasRaterCom.getGasSuryo(mUserData.mKokfDat.mBetwMeter, mUserData.mSy2fDat, mUserData.mKouserDat),
                     1
                 );
-           	txtKensinMainInterUse.innerHTML = strPreUseValue;
+            txtKensinMainInterUse.innerHTML = strPreUseValue;
 
         } else {
             mTxtPreUse.innerHTML = Other.Format(
@@ -287,7 +289,7 @@ function setCusInfo() {
     * check gas now is a number?
 */
 function checkNowGas() {
-    var strSisin = mTxtNowMeter.value;
+    var strSisin = mTxtNowMeter.textContent;
     if (isNaN(strSisin)) {
     } else {
         setGasInfo();
@@ -302,7 +304,7 @@ function checkNowGas() {
  */
 function setGasInfo() {
     // ガス使用量計算
-    var strSisin = mTxtNowMeter.value;
+    var strSisin = mTxtNowMeter.textContent;
     //sua lai strSisin == ""
     if (strSisin == "") {
         // 空欄なのでなにもしない。
@@ -316,8 +318,8 @@ function setGasInfo() {
         mTxtGasTax.innerHTML = mUserData.mKokfDat.mTaxDiv == 3 ? "" : "***";
         return;
     }
-	var nSisin = parseFloat(strSisin) * 10;
-	m_nGasuse = GasRaterCom.calcGasUse(mUserData.mKokfDat, nSisin);
+    var nSisin = parseFloat(strSisin) * 10;
+    m_nGasuse = GasRaterCom.calcGasUse(mUserData.mKokfDat, nSisin);
     mTxtNowUse.innerHTML = Other.Format(
         GasRaterCom.getGasSuryo(m_nGasuse, mUserData.mSy2fDat, mUserData.mKouserDat),
         1
@@ -665,8 +667,8 @@ function init() {
         mEditAdjust.innerHTML = Other.KingakuFormat(0); // 調整額
         mEditInputReceipt.innerHTML = Other.KingakuFormat(0); // 預かり金
         mEditReceipt.innerHTML = Other.formatDecial(0); // 入金額
-        // mEditAdjust.value = "0";// 調整額
-        // mEditInputReceipt.value = "0";// 預かり金
+        // mEditAdjust.textContent = "0";// 調整額
+        // mEditInputReceipt.textContent = "0";// 預かり金
         // mEditReceipt.value = "0";// 入金額
     }
     // 残高、おつり確認
@@ -699,8 +701,8 @@ function setZandaka() {
     // const mEditInputReceipt = document.getElementById("azukari-kin"); // 預かり金
     // const mEditReceipt = document.getElementById("nyuukin"); // 入金
 
-    var lAdjust = getLongValue(mEditAdjust.value); // 調整額
-    var lAzukari = getLongValue(mEditInputReceipt.value); // 預かり金
+    var lAdjust = getLongValue(mEditAdjust.textContent); // 調整額
+    var lAzukari = getLongValue(mEditInputReceipt.textContent); // 預かり金
     var lReceipt = getLongValue(mEditReceipt.textContent); // 入金額
 
     if (!mTeiseiFlg) {
@@ -820,7 +822,7 @@ function afterCheckLease() {
         mUserData.mKokfDat.mKDate = kensin_date.getDate();
 
         mUserData.mKokfDat.mNowMeter =
-            Other.getNumFromString(mTxtNowMeter.value) * 10; 
+            Other.getNumFromString(mTxtNowMeter.textContent) * 10;
         mUserData.mKokfDat.mGasUse = m_nGasuse;
         mUserData.mKokfDat.mFee = parseInt(Other.getNumFromString(mTxtGasPay.textContent));
 
@@ -938,136 +940,21 @@ function setdataUchiWake() {
 
 
 //-------------------Enter Input String event--------------------------------->
+mTxtNowMeter.addEventListener('DOMSubtreeModified', function () {
+    var strSisin = mTxtNowMeter.textContent;
 
-mEditAdjust.addEventListener('keypress', event => {
-    var cursorPosition = mEditAdjust.selectionStart;
-    var value = "";
-    if (cursorPosition == 0) {
-        var value = `${event.key}${event.target.value}`;
-    } else {
-        value = `${event.target.value}${event.key}`;
-    }
-    if (!value.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
-        event.preventDefault();
-        event.stopPropagation();
-        return false;
-    } else {
-        keyPressMinus(value, 8, event);
-    }
-});
-
-mEditAdjust.onchange = function () {
-    if (isValidNumber(Other.getNumFromString(mEditAdjust.value).replaceAll("-",""))) {
-        setZandaka();
-        updatePrintData();
-        mEditAdjust.value = onChangeMinus(mEditAdjust.value);
-        setupButtonNyukinMode();
-    } else {
-        console.log("value err");
-    }
-};
-
-
-mEditInputReceipt.addEventListener('keypress', event => {
-    var cursorPosition = mEditInputReceipt.selectionStart;
-    var value = "";
-    if (cursorPosition == 0) {
-        var value = `${event.key}${event.target.value}`;
-    } else {
-        value = `${event.target.value}${event.key}`;
-    }
-    if (!value.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
-        event.preventDefault();
-        event.stopPropagation();
-        return false;
-    } else {
-        keyPressMinus(value, 8, event);
-    }
-});
-
-mEditInputReceipt.onchange = function () {
-    if (isValidNumber(Other.getNumFromString(mEditInputReceipt.value).replaceAll("-",""))) {
-        nyuukin = Number(mEditInputReceipt.value);
-        mEditReceipt.textContent = Other.formatDecial(nyuukin);
-        Sashihiki_zandaka.textContent = Other.formatDecial(nyuukin);
-        setZandaka();
-        updatePrintData();
-        mEditInputReceipt.value = onChangeMinus(mEditInputReceipt.value);
-        setupButtonNyukinMode();
-    } else {
-        console.log("value err");
-    }
-};
-
-
-teiseiNyuukin.addEventListener('keypress', event => {
-    var cursorPosition = teiseiNyuukin.selectionStart;
-    var value = "";
-    if (cursorPosition == 0) {
-        var value = `${event.key}${event.target.value}`;
-    } else {
-        value = `${event.target.value}${event.key}`;
-    }
-    if (!value.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
-        event.preventDefault();
-        event.stopPropagation();
-        return false;
-    } else {
-        keyPressMinus(value, 8, event);
-    }
-});
-
-teiseiNyuukin.onchange = function () {
-    if (isValidNumber(Other.getNumFromString(teiseiNyuukin.value).replaceAll("-",""))) {
-        if (modePage == 3) {
-            setupButtonNyukinMode();
-        }
-        if (teiseiNyuukin.value - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0) {
-            document.getElementById("txtErrorTeisei").style.display = "block";
-            teiseiNyuukin.classList.add("text_red");
-            document.getElementById("txtErrorTeiseiDetail").classList.add("text_red");
-            document.getElementById("teisei-sumi").disabled = true;
-            document.getElementById("createPrintingFormButton").disabled = true;
-        } else {
-            document.getElementById("txtErrorTeisei").style.display = "none";
-            teiseiNyuukin.classList.remove("text_red");
-            document.getElementById("txtErrorTeiseiDetail").classList.remove("text_red");
-            document.getElementById("teisei-sumi").disabled = false;
-            document.getElementById("createPrintingFormButton").disabled = false;
-        }
-        teiseiNyuukin.value = onChangeMinus(teiseiNyuukin.value);
-    } else {
-        console.log("value err");
-    }
-};
-
-
-mTxtNowMeter.addEventListener('keypress', event => {
-    var value = `${event.target.value}${event.key}`;
-    if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*$/)) {
-        event.preventDefault();
-        event.stopPropagation();
-        return false;
-    } else {
-        keyPressAction(value, mUserData.mKokfDat.mMtKeta, event);
-    }
-});
-
-mTxtNowMeter.onchange = function () {
-    var strSisin = mTxtNowMeter.value;
-
-    if (!isNaN(strSisin)) {
+    if (strSisin != "") {
         setGasInfo();
         afterCheckLease();
         setdataNyukinLayout();
         if (strSisin != "") {
-            mTxtNowMeter.value = Other.Format(
-                parseFloat(mTxtNowMeter.value) * 10,
+            mTxtNowMeter.textContent = Other.Format(
+                parseFloat(mTxtNowMeter.textContent) * 10,
                 1
             );
         }
 
-        if (mTxtNowMeter.value != "") {
+        if (mTxtNowMeter.textContent != "") {
             document.getElementById("createPrintingFormButton").disabled = false;
             document.getElementById("card2").style.pointerEvents = "auto";
             if (displayTab[2] == true) {
@@ -1081,37 +968,60 @@ mTxtNowMeter.onchange = function () {
             }
         }
     }
-};
+});
 
-
-/**
-	KEY PRESS ACTION
-*/
-function keyPressAction(value, length, event) {
-    if (value.replaceAll(",","").includes(".")) {
-        if (value.indexOf(".") > length) {
-            event.preventDefault();
-            event.stopPropagation();
-            return false;
-        } 
-
-        if (value.length - value.indexOf(".") > 2) {
-            event.preventDefault();
-            event.stopPropagation();
-            return false;
-        }
+mEditAdjust.addEventListener('DOMSubtreeModified', function () {
+    if (isValidNumber(Other.getNumFromString(mEditAdjust.textContent).replaceAll("-", ""))) {
+        setZandaka();
+        updatePrintData();
+        mEditAdjust.textContent = onChangeMinus(mEditAdjust.textContent);
+        setupButtonNyukinMode();
     } else {
-        if (value.replaceAll(",","").length > length) {
-            event.preventDefault();
-            event.stopPropagation();
-            return false;
-        } 
+        console.log("value err");
     }
-}
+});
+
+mEditInputReceipt.addEventListener('DOMSubtreeModified', function () {
+    if (isValidNumber(Other.getNumFromString(mEditInputReceipt.textContent).replaceAll("-", ""))) {
+        nyuukin = Other.getNumFromString(mEditInputReceipt.textContent);
+        mEditReceipt.textContent = Other.formatDecial(nyuukin);
+        Sashihiki_zandaka.textContent = Other.formatDecial(nyuukin);
+        setZandaka();
+        updatePrintData();
+        mEditInputReceipt.textContent = onChangeMinus(mEditInputReceipt.textContent);
+        setupButtonNyukinMode();
+    } else {
+        console.log("value err");
+    }
+});
+
+mEditInputReceipt.addEventListener('DOMSubtreeModified', function () {
+    if (isValidNumber(Other.getNumFromString(teiseiNyuukin.textContent).replaceAll("-", ""))) {
+        if (modePage == 3) {
+            setupButtonNyukinMode();
+        }
+        if (teiseiNyuukin.textContent - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0) {
+            document.getElementById("txtErrorTeisei").style.display = "block";
+            teiseiNyuukin.classList.add("text_red");
+            document.getElementById("txtErrorTeiseiDetail").classList.add("text_red");
+            document.getElementById("teisei-sumi").disabled = true;
+            document.getElementById("createPrintingFormButton").disabled = true;
+        } else {
+            document.getElementById("txtErrorTeisei").style.display = "none";
+            teiseiNyuukin.classList.remove("text_red");
+            document.getElementById("txtErrorTeiseiDetail").classList.remove("text_red");
+            document.getElementById("teisei-sumi").disabled = false;
+            document.getElementById("createPrintingFormButton").disabled = false;
+        }
+        teiseiNyuukin.textContent = onChangeMinus(teiseiNyuukin.textContent);
+    } else {
+        console.log("value err");
+    }
+});
 
 
 /**
-	KEY PRESS MINUS ACTION
+    KEY PRESS MINUS ACTION
 */
 function keyPressMinus(value, length, event) {
     if (value.includes("-")) {
@@ -1119,23 +1029,23 @@ function keyPressMinus(value, length, event) {
             event.preventDefault();
             event.stopPropagation();
             return false;
-        } else if (value.replaceAll(",","").length > length) {
+        } else if (value.replaceAll(",", "").length > length) {
             event.preventDefault();
             event.stopPropagation();
             return false;
-        } 
+        }
     } else {
-        if (value.replaceAll(",","").length > length) {
+        if (value.replaceAll(",", "").length > length) {
             event.preventDefault();
             event.stopPropagation();
             return false;
-        } 
+        }
     }
 }
 
 
 /**
-	ONCHANGE MINUS ACTION
+    ONCHANGE MINUS ACTION
 */
 function onChangeMinus(value) {
     var result = value;
@@ -1156,12 +1066,12 @@ teiseiBtn.onclick = function () {
     if (teiseiGroup.classList.contains("hidden") == false) {
         return;
     }
-    teiseiNyuukinPre = teiseiNyuukin.value;
+    teiseiNyuukinPre = teiseiNyuukin.textContent;
     teiseiGroup.classList.remove("hidden");
     nyuukinGroup.classList.add("hidden");
-    // if (isValidNumber(teiseiNyuukin.value)) {
+    // if (isValidNumber(teiseiNyuukin.textContent)) {
     //   otsuri.textContent =
-    //     Number(azukariKin.value) - Number(teiseiNyuukin.value);
+    //     Number(azukariKin.value) - Number(teiseiNyuukin.textContent);
     // }
     checkValue();
 };
@@ -1169,10 +1079,10 @@ teiseiBtn.onclick = function () {
 cancelBtn.onclick = function () {
     teiseiGroup.classList.add("hidden");
     nyuukinGroup.classList.remove("hidden");
-    teiseiNyuukin.value = teiseiNyuukinPre;
+    teiseiNyuukin.textContent = teiseiNyuukinPre;
     teiseiNyuukinPre = "0";
 
-    if (teiseiNyuukin.value - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0) {
+    if (teiseiNyuukin.textContent - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0) {
         document.getElementById("txtErrorTeisei").style.display = "block";
         teiseiNyuukin.classList.add("text_red");
         document.getElementById("txtErrorTeiseiDetail").classList.add("text_red");
@@ -1185,16 +1095,16 @@ cancelBtn.onclick = function () {
         document.getElementById("teisei-sumi").disabled = false;
         document.getElementById("createPrintingFormButton").disabled = false;
     }
-    
+
 };
 
 teiseiSumi.onclick = function () {
-    var teiseiNyuukinVal = Other.getNumFromString(teiseiNyuukin.value);
-    if (isValidNumber(Other.getNumFromString(teiseiNyuukin.value).replaceAll("-",""))) {
-        const chousei = Number(mEditAdjust.value);
+    var teiseiNyuukinVal = Other.getNumFromString(teiseiNyuukin.textContent);
+    if (isValidNumber(Other.getNumFromString(teiseiNyuukin.textContent).replaceAll("-", ""))) {
+        const chousei = Number(mEditAdjust.textContent);
         nyuukin = Number(teiseiNyuukinVal);
         mEditReceipt.textContent = Other.formatDecial(String(nyuukin));
-        txtKensinNyukinOtsuri.textContent = Number(Other.getNumFromString(mEditInputReceipt.value)) - nyuukin;
+        txtKensinNyukinOtsuri.textContent = Number(Other.getNumFromString(mEditInputReceipt.textContent)) - nyuukin;
         //  setZandaka(chousei, nyuukin);
         // nyuukinGaku.textContent = nyuukin;
         teiseiGroup.classList.add("hidden");
@@ -1209,7 +1119,7 @@ teiseiSumi.onclick = function () {
 
 
 /**
-	CHECK VALID STRING
+    CHECK VALID STRING
 */
 function isValidNumber(inputString) {
     const isnum = /^\d+$/.test(inputString);
@@ -1218,13 +1128,13 @@ function isValidNumber(inputString) {
 
 
 /**
-	TOTAL CALCULATION
+    TOTAL CALCULATION
 */
 function calCutaleTotal() {
     checkValue();
     var total;
     var first = Number(Other.getNumFromString(txtKensinNyukinNowSeikyu.textContent));
-    var second = Number(mEditAdjust.value);
+    var second = Number(mEditAdjust.textContent);
     var third = Number(Other.getNumFromString(mEditReceipt.textContent));
 
     if (third >= (first + second)) {
@@ -1241,10 +1151,10 @@ function calCutaleTotal() {
 
 
 /**
-	SET OTSURI
+    SET OTSURI
 */
 function setOtsuri() {
-    var nyuukin = teiseiNyuukin.value;
+    var nyuukin = teiseiNyuukin.textContent;
     var zakanda = Other.getNumFromString(Sashihiki_zandaka.textContent);
     if (isValidNumber(nyuukin)) {
         if (nyuukin < zakanda) {
@@ -1257,11 +1167,11 @@ function setOtsuri() {
 
 
 /**
-	CHECK VALUE
+    CHECK VALUE
 */
 function checkValue() {
     var moneyGasUse = Number(Other.getNumFromString(txtKensinNyukinNowSeikyu.textContent));
-    var moneyBonus = Number(Other.getNumFromString(mEditAdjust.value));
+    var moneyBonus = Number(Other.getNumFromString(mEditAdjust.textContent));
     var moneyUserGet = Number(Other.getNumFromString(mEditReceipt.textContent));
     var inputMoney = Number(Other.getNumFromString(mEditInputReceipt.textContent));
     if (moneyGasUse + moneyBonus > inputMoney) {
@@ -1275,35 +1185,83 @@ function checkValue() {
 
 
 /**
-	UPDATE PRINTTING DATA
+    UPDATE PRINTTING DATA
 */
 function updatePrintData() {
-    mUserData.mKokfDat.mAdjust = getLongValue(mEditAdjust.value);
+    mUserData.mKokfDat.mAdjust = getLongValue(mEditAdjust.textContent);
     mUserData.mKokfDat.mReceipt = getLongValue(mEditReceipt.textContent);
-    mUserData.mKokfDat.mInpReceipt = getLongValue(mEditInputReceipt.value);
+    mUserData.mKokfDat.mInpReceipt = getLongValue(mEditInputReceipt.textContent);
 }
 
 
 /**
-	UPDATE NYUUKIN DATA
+    UPDATE NYUUKIN DATA
 */
 function updateDataNyuukin() {
-    mUserData.mKokfDat.mSyuSumi = getLongValue(mEditReceipt.textContent) != 0 || getLongValue(mEditAdjust.value) != 0;
+    mUserData.mKokfDat.mSyuSumi = getLongValue(mEditReceipt.textContent) != 0 || getLongValue(mEditAdjust.textContent) != 0;
     mUserData.mKokfDat.mKMonth = parseInt(mUserData.mKensinDate.substring(5, 7)) + 1;
     mUserData.mKokfDat.mKDate = parseInt(mUserData.mKensinDate.substring(8, 10));
 }
 
 
 /**
-	SEND DATA
+    ON FOCUS INPUT FIELD
+*/
+function inputFocus() {
+    var keyboard = document.querySelector(".keyboard");
+    var wrapMainForm = document.querySelector(".keyboard .container-mainform .wrap-mainform");
+    document.getElementById("close-icon-keyboard").onclick = function () {
+        keyboard.style.zIndex = "-2";
+        wrapMainForm.classList.remove("overlay-animate");
+    };
+
+    mTxtNowMeter.onclick = function () {
+        keyboard.style.zIndex = "4";
+        wrapMainForm.classList.remove("overlay-animate");
+        var title = document.getElementById("txtKensinMainNowMeter0").textContent;
+        keyboardProp = new Dat.KeyboardProp().setValue(false, true, mUserData.mKokfDat.mMtKeta, 1);
+        sessionStorage.setItem(StringCS.KEYBOARDPROP, JSON.stringify(keyboardProp));
+        Common.showKeyBoard(title, mTxtNowMeter);
+    };
+    
+    mEditAdjust.onclick = function () {
+        keyboard.style.zIndex = "4";
+        wrapMainForm.classList.remove("overlay-animate");
+        var title = document.getElementById("txtKensinNyukinChosei").textContent;
+        keyboardProp = new Dat.KeyboardProp().setValue(true, false, 8, 0);
+        sessionStorage.setItem(StringCS.KEYBOARDPROP, JSON.stringify(keyboardProp));
+        Common.showKeyBoard(title, mEditAdjust);
+    };
+    
+    mEditInputReceipt.onclick = function () {
+        keyboard.style.zIndex = "4";
+        wrapMainForm.classList.remove("overlay-animate");
+        var title = document.getElementById("txtKensinNyukinInput").textContent;
+        keyboardProp = new Dat.KeyboardProp().setValue(true, false, 8, 0);
+        sessionStorage.setItem(StringCS.KEYBOARDPROP, JSON.stringify(keyboardProp));
+        Common.showKeyBoard(title, mEditInputReceipt);
+    };
+
+    teiseiNyuukin.onclick = function () {
+        keyboard.style.zIndex = "4";
+        wrapMainForm.classList.remove("overlay-animate");
+        var title = document.getElementById("teisei-nyuukin-text").textContent;
+        keyboardProp = new Dat.KeyboardProp().setValue(true, false, 8, 0);
+        sessionStorage.setItem(StringCS.KEYBOARDPROP, JSON.stringify(keyboardProp));
+        Common.showKeyBoard(title, teiseiNyuukin);
+    };
+}
+
+/**
+    SEND DATA
 */
 export function sendDataToServer() {
-	var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
+    var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
 
     // const mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
-	var mKokfDat = new Dat.KokfDat().parseData(mUserData.mKokfDat)
-	var mKouserDat = new Dat.KouserDat().parseData(mUserData.mKouserDat)
-	mKokfDat.mKtpcdat = new Dat.KtpcDat();
+    var mKokfDat = new Dat.KokfDat().parseData(mUserData.mKokfDat)
+    var mKouserDat = new Dat.KouserDat().parseData(mUserData.mKouserDat)
+    mKokfDat.mKtpcdat = new Dat.KtpcDat();
     mKokfDat.seiymd = seiymd;
     mKokfDat.kai_ymd = kai_ymd;
     mKokfDat.mReceipt = mKokfDat.mReceipt * (-1)
@@ -1311,91 +1269,91 @@ export function sendDataToServer() {
     mKokfDat.chuatu = chuatu;
     mKokfDat.m_sChocode = mKouserDat.m_sChocode;
     mKokfDat.m_sNyucode = mKouserDat.m_sNyucode;
-	var kensinDate_ss = sessionStorage.getItem(StringCS.KENSINDATE);
-	var kensinDate = new Date(kensinDate_ss);
-	var m_oMetMeisaiDat = new Dat.MetMeisaiDat();
-	var cusRec = mUserData.mKokfDat.mCusrec;
-	var dtSeiymd = kensinDate;
-	var sysDate = new Date(mUserData.mSysfDat.mSysYear + "-" + mUserData.mSysfDat.mSysMonth + "-1");
-	var dtSysymd = sysDate;
-	var nOld_ss = mUserData.mKokfDat.mPreMeter;
-	var nNew_ss = mUserData.mKokfDat.mNowMeter;
-	var nKenmsr = mUserData.mKokfDat.mBetwMeter;
-	var nTancd = dataSetting.tancd;
-	var strTanname = dataSetting.m_lstTantName[0].name;
-	var nWrt_tancd = dataSetting.wrt_tancd;
-	var dtWrt_ymd = kensinDate;
+    var kensinDate_ss = sessionStorage.getItem(StringCS.KENSINDATE);
+    var kensinDate = new Date(kensinDate_ss);
+    var m_oMetMeisaiDat = new Dat.MetMeisaiDat();
+    var cusRec = mUserData.mKokfDat.mCusrec;
+    var dtSeiymd = kensinDate;
+    var sysDate = new Date(mUserData.mSysfDat.mSysYear + "-" + mUserData.mSysfDat.mSysMonth + "-1");
+    var dtSysymd = sysDate;
+    var nOld_ss = mUserData.mKokfDat.mPreMeter;
+    var nNew_ss = mUserData.mKokfDat.mNowMeter;
+    var nKenmsr = mUserData.mKokfDat.mBetwMeter;
+    var nTancd = dataSetting.tancd;
+    var strTanname = dataSetting.m_lstTantName[0].name;
+    var nWrt_tancd = dataSetting.wrt_tancd;
+    var dtWrt_ymd = kensinDate;
 
-	m_oMetMeisaiDat.m_nCusrec = mUserData.mKokfDat.mCusrec;
-	m_oMetMeisaiDat.m_dtSeiymd = kensinDate;
-	m_oMetMeisaiDat.m_dtSysymd = sysDate;
-	m_oMetMeisaiDat.m_nOld_ss = mUserData.mKokfDat.mNowMeter;
-	m_oMetMeisaiDat.m_nNew_ss = mUserData.mKokfDat.mNowMeter;
-	m_oMetMeisaiDat.m_nKenmsr = mUserData.mKokfDat.mBetwMeter;
-	m_oMetMeisaiDat.m_nTancd = dataSetting.tancd;
-	m_oMetMeisaiDat.m_strTanname = dataSetting.m_lstTantName[0].name;
-	m_oMetMeisaiDat.m_nWrt_tancd = dataSetting.wrt_tancd;
-	m_oMetMeisaiDat.m_dtWrt_ymd = kensinDate;
-	m_oMetMeisaiDat.m_dtDenymd = kensinDate;
-	m_oMetMeisaiDat.m_dtEntymd = kensinDate;
+    m_oMetMeisaiDat.m_nCusrec = mUserData.mKokfDat.mCusrec;
+    m_oMetMeisaiDat.m_dtSeiymd = kensinDate;
+    m_oMetMeisaiDat.m_dtSysymd = sysDate;
+    m_oMetMeisaiDat.m_nOld_ss = mUserData.mKokfDat.mNowMeter;
+    m_oMetMeisaiDat.m_nNew_ss = mUserData.mKokfDat.mNowMeter;
+    m_oMetMeisaiDat.m_nKenmsr = mUserData.mKokfDat.mBetwMeter;
+    m_oMetMeisaiDat.m_nTancd = dataSetting.tancd;
+    m_oMetMeisaiDat.m_strTanname = dataSetting.m_lstTantName[0].name;
+    m_oMetMeisaiDat.m_nWrt_tancd = dataSetting.wrt_tancd;
+    m_oMetMeisaiDat.m_dtWrt_ymd = kensinDate;
+    m_oMetMeisaiDat.m_dtDenymd = kensinDate;
+    m_oMetMeisaiDat.m_dtEntymd = kensinDate;
 
-	// m_oMetMeisaiDat.setValue(cusRec, dtSeiymd, dtSysymd, nOld_ss, nNew_ss, nKenmsr, nTancd, strTanname,
-	// 	nWrt_tancd, dtWrt_ymd);
+    // m_oMetMeisaiDat.setValue(cusRec, dtSeiymd, dtSysymd, nOld_ss, nNew_ss, nKenmsr, nTancd, strTanname,
+    // 	nWrt_tancd, dtWrt_ymd);
     var checkHoan = HoanKinnyuu.checkInsertSecLawDat();
-    if(checkHoan == true){
+    if (checkHoan == true) {
         var m_lLawItem;
-        if(mKokfDat.mSupplyForm == 3){
+        if (mKokfDat.mSupplyForm == 3) {
             m_lLawItem = [];
-        }else{
+        } else {
             m_lLawItem = HoanKinnyuu.m_lLawItem;
         }
-        
+
         var m_oSecLawDat = new Dat.SeclawDat();
         var bRec;
-        if(HoanKinnyuu.m_bRes == 4){
+        if (HoanKinnyuu.m_bRes == 4) {
             bRec = 2;
-        }else if(HoanKinnyuu.m_bRes == 2){
+        } else if (HoanKinnyuu.m_bRes == 2) {
             bRec = 1;
-        }else if(HoanKinnyuu.m_bRes == 1){
+        } else if (HoanKinnyuu.m_bRes == 1) {
             bRec = 0;
         }
-	    m_oSecLawDat.m_nCusrec = mUserData.mKokfDat.mCusrec;
-	    m_oSecLawDat.m_dtEntymd = kensinDate;
-	    m_oSecLawDat.m_bRes = bRec;
-	    m_oSecLawDat.m_strTanname = strTanname;
-	    m_oSecLawDat.m_sTancd = nWrt_tancd;
+        m_oSecLawDat.m_nCusrec = mUserData.mKokfDat.mCusrec;
+        m_oSecLawDat.m_dtEntymd = kensinDate;
+        m_oSecLawDat.m_bRes = bRec;
+        m_oSecLawDat.m_strTanname = strTanname;
+        m_oSecLawDat.m_sTancd = nWrt_tancd;
     }
 
-	var m_oDenpyoMeisaiDat = new Dat.HnDenMeiDat();
-	m_oDenpyoMeisaiDat.d_cusrec = mUserData.mKokfDat.mCusrec;
-	m_oDenpyoMeisaiDat.m_kin = mUserData.mKokfDat.mFee;
-	m_oDenpyoMeisaiDat.d_seiymd = kensinDate;
-	m_oDenpyoMeisaiDat.d_sysymd = sysDate;
-	m_oDenpyoMeisaiDat.d_entymd = kensinDate;
-	m_oDenpyoMeisaiDat.d_denymd = kensinDate;
-	m_oDenpyoMeisaiDat.m_tax = mUserData.mKokfDat.mConTax;
-	m_oDenpyoMeisaiDat.d_sisin = mUserData.mKokfDat.mNowMeter;
-	m_oDenpyoMeisaiDat.d_siyouryo = mUserData.mKokfDat.mGasUse;
-	m_oDenpyoMeisaiDat.d_wrt_tancd = dataSetting.tancd;
-	m_oDenpyoMeisaiDat.d_wrt_prg = dataSetting.wrt_tancd;
-	m_oDenpyoMeisaiDat.wrt_ymd = kensinDate;
-	m_oDenpyoMeisaiDat.d_utax = mUserData.mKokfDat.mConTax;
-	m_oDenpyoMeisaiDat.nGasrkcnt = mUserData.mKokfDat.nGasrkcnt;
+    var m_oDenpyoMeisaiDat = new Dat.HnDenMeiDat();
+    m_oDenpyoMeisaiDat.d_cusrec = mUserData.mKokfDat.mCusrec;
+    m_oDenpyoMeisaiDat.m_kin = mUserData.mKokfDat.mFee;
+    m_oDenpyoMeisaiDat.d_seiymd = kensinDate;
+    m_oDenpyoMeisaiDat.d_sysymd = sysDate;
+    m_oDenpyoMeisaiDat.d_entymd = kensinDate;
+    m_oDenpyoMeisaiDat.d_denymd = kensinDate;
+    m_oDenpyoMeisaiDat.m_tax = mUserData.mKokfDat.mConTax;
+    m_oDenpyoMeisaiDat.d_sisin = mUserData.mKokfDat.mNowMeter;
+    m_oDenpyoMeisaiDat.d_siyouryo = mUserData.mKokfDat.mGasUse;
+    m_oDenpyoMeisaiDat.d_wrt_tancd = dataSetting.tancd;
+    m_oDenpyoMeisaiDat.d_wrt_prg = dataSetting.wrt_tancd;
+    m_oDenpyoMeisaiDat.wrt_ymd = kensinDate;
+    m_oDenpyoMeisaiDat.d_utax = mUserData.mKokfDat.mConTax;
+    m_oDenpyoMeisaiDat.nGasrkcnt = mUserData.mKokfDat.nGasrkcnt;
     m_oDenpyoMeisaiDat.m_taxku = mUserData.mGasfDat.mTaxDiv;
 
-	var writeDatadat = new Dat.WriteDataDat();
-    if(checkHoan == true){
+    var writeDatadat = new Dat.WriteDataDat();
+    if (checkHoan == true) {
         writeDatadat.m_oSecLawDat = m_oSecLawDat;
-	    writeDatadat.m_lLawItem = m_lLawItem;
+        writeDatadat.m_lLawItem = m_lLawItem;
     }
 
     writeDatadat.m_kokfDat = mKokfDat;
-	writeDatadat.m_oDenpyoMeisaiDat = m_oDenpyoMeisaiDat;
-	writeDatadat.m_oMetMeisaiDat = m_oMetMeisaiDat;
-	writeDatadat.login_id = sessionStorage.getItem(StringCS.USERNAME);
-	writeDatadat.login_pw =  sessionStorage.getItem(StringCS.PASSWORD);
+    writeDatadat.m_oDenpyoMeisaiDat = m_oDenpyoMeisaiDat;
+    writeDatadat.m_oMetMeisaiDat = m_oMetMeisaiDat;
+    writeDatadat.login_id = sessionStorage.getItem(StringCS.USERNAME);
+    writeDatadat.login_pw = sessionStorage.getItem(StringCS.PASSWORD);
 
-	return writeDatadat;
+    return writeDatadat;
 }
 
 
@@ -1403,17 +1361,17 @@ export function sendDataToServer() {
    * SETUP BUTTON
 */
 function setupButton() {
-    if (mTxtNowMeter.value == "") {
+    if (mTxtNowMeter.textContent == "") {
         document.getElementById("createPrintingFormButton").disabled = true;
     }
 }
 
 
 /**
-	SETUP NYUUKIN MODE BUTTON
+    SETUP NYUUKIN MODE BUTTON
 */
 function setupButtonNyukinMode() {
-    if (mEditAdjust.value != "0" || mEditInputReceipt.value != "0" || parseInt(Other.getNumFromString(teiseiNyuukin.value)) < 0) {
+    if (mEditAdjust.textContent != "0" || mEditInputReceipt.textContent != "0" || parseInt(Other.getNumFromString(teiseiNyuukin.textContent)) < 0) {
         document.getElementById("createPrintingFormButton").disabled = false;
     } else {
         document.getElementById("createPrintingFormButton").disabled = true;
@@ -1439,8 +1397,8 @@ function onclickAction() {
     };
 
     document.getElementById("backPageButton").onclick = function () {
-	    Common.backAction();
-	};
+        Common.backAction();
+    };
 }
 
 
@@ -1450,6 +1408,7 @@ function onclickAction() {
 function onLoadAction() {
     setupCollapseTab();
     setdataNyukinLayout();
+    inputFocus();
 }
 
 

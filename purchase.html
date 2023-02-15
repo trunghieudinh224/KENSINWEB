@@ -131,10 +131,10 @@
                             <div class="col-12">
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text mw135 text">数   量</span>
+                                        <span class="input-group-text mw135 text" id="surTitle">数   量</span>
                                     </div>
 
-                                    <input class="form-control ta-r text t-ip" type="text" id="sur" />
+                                    <span class="form-control ta-r text" type="text" id="sur">0.00</span>
                                     <span class="form-control unit text" id="uriage_unit"></span>
                                 </div>
                             </div>
@@ -142,10 +142,10 @@
                             <div class="col-12">
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text mw135 text">単   価</span>
+                                        <span class="input-group-text mw135 text" id="tankTitle">単   価</span>
                                     </div>
 
-                                    <input class="form-control ta-r text t-ip" type="text" id="tank" />
+                                    <span class="form-control ta-r text" type="text" id="tank">0.00</span>
                                     <span class="form-control unit text">円</span>
                                 </div>
                             </div>
@@ -153,10 +153,10 @@
                             <div class="col-12">
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text mw135 text">金   額</span>
+                                        <span class="input-group-text mw135 text" id="kinTitle">金   額</span>
                                     </div>
 
-                                    <input class="form-control ta-r text fw-b t-ip" type="text" id="kin" />
+                                    <span class="form-control ta-r text fw-b" type="text" id="kin"></span>
                                     <span class="form-control unit text fw-b">円</span>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                                         <option value="2">内税</option>
                                         <option value="3">外税</option>
                                     </select>
-                                    <input class="form-control ta-r text t-ip" type="text" id="uriage_tax_val" />
+                                    <span class="form-control ta-r text" type="text" id="uriage_tax_val"></span>
                                     <span class="form-control unit text">％</span>
                                 </div>
                             </div>
@@ -208,7 +208,7 @@
                                         <span class="input-group-text mw135 text hover" id="cho_text">値引き</span>
                                     </div>
 
-                                    <input class="form-control ta-r text fw-b" type="text" id="cho_val"/>
+                                    <span class="form-control ta-r text fw-b" type="text" id="cho_val">0</span>
                                     <span class="form-control unit text fw-b">円</span>
                                 </div>
                             </div>
@@ -216,10 +216,10 @@
                             <div class="col-12">
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text mw135 text">預  り  金</span>
+                                        <span class="input-group-text mw135 text" id="azukariTitle">預  り  金</span>
                                     </div>
 
-                                    <input class="form-control ta-r text fw-b" type="text" id="azukari"/>
+                                    <span class="form-control ta-r text fw-b" type="text" id="azukari">0</span>
                                     <span class="form-control unit text fw-b">円</span>
                                 </div>
                             </div>
@@ -605,6 +605,57 @@
                     </div>
                 </form>
 
+            </div>
+        </div>
+    </div>
+
+    <!-- 内訳ダイアログ  -->
+    <div class="keyboard">
+        <div class="container-mainform">
+            <div class="wrap-mainform p-t-30 p-b-40" style="padding-top: 60px;">
+                <i class="fa-sharp fa-solid fa-circle-xmark" id="close-icon-keyboard"></i>
+                <form action="">
+
+                    <div class="row content">
+                        <div class="col-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw145 text" id="inputTitle">顧客</span>
+                                </div>
+                                <span class="form-control ta-r text" id="inputVal"></span>
+                            </div> 
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="keyboardTable" class="result-tb">
+                            <tr>
+                                <td><div class="it-keyboard text ta-c fw-b num-kb">7</div></td>
+                                <td><div class="it-keyboard text ta-c fw-b num-kb">8</div></td>
+                                <td><div class="it-keyboard text ta-c fw-b num-kb">9</div></td>
+                                <td><div class="it-keyboard text ta-c fw-b " id="minus-btn">ー</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="it-keyboard text ta-c fw-b num-kb">4</div></td>
+                                <td><div class="it-keyboard text ta-c fw-b num-kb">5</div></td>
+                                <td><div class="it-keyboard text ta-c fw-b num-kb">6</div></td>
+                                <td><div class="it-keyboard text ta-c fw-b" id="dot-btn">.</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="it-keyboard text ta-c fw-b num-kb">1</div></td>
+                                <td><div class="it-keyboard text ta-c fw-b num-kb">2</div></td>
+                                <td><div class="it-keyboard text ta-c fw-b num-kb">3</div></td>
+                                <td rowspan="2"><div class="it-keyboard text ta-c fw-b " id="enter-btn">ENT</div></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><div class="it-keyboard text ta-c fw-b num-kb">0</div></td>
+                                <td ><div class="it-keyboard text ta-c fw-b" id="del-btn">DEL</div></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    
+                </form>
             </div>
         </div>
     </div>

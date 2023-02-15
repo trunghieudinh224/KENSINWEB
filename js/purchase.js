@@ -28,7 +28,7 @@ const uriage_recept = document.getElementById("azukari");
 const uriage_nyu_name = document.getElementById("receipt_text");
 const uriage_nyu = document.getElementById("receipt_val");
 const uriage_gen_name = document.getElementById("uriage_gen_name");
-const uriage_genm_nReceipt = Number(uriage_recept.value);
+const uriage_genm_nReceipt = Number(uriage_recept.textcontent);
 const uriage_gen = document.getElementById("zandaka");
 const select_shohin_list_urimode = document.getElementById("modeForm");
 const cash_sale = document.getElementById("genkin_uri_area");
@@ -49,6 +49,8 @@ const nyuukinGroup = document.querySelector("#nyuukin-group");
 var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
 /** 印刷情報 */
 var printStatus = new Dat.PrintStatus();
+/** keyboard property */
+var keyboardProp = new Dat.KeyboardProp();
 /** ユーザー情報 */
 var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 /* kensin date */
@@ -139,11 +141,15 @@ function calcKin() {
 		}
 		mHmefDat.mKin = Other.hasCom(dKin, nAdd, nMul, 10000) / 10000;
 
-		uriage_kin.value = Other.formatDecial(calcSign(mHmefDat.mSign, mHmefDat.mKin));
-		uriage_kin.disabled = true;
+		uriage_kin.textContent = Other.formatDecial(calcSign(mHmefDat.mSign, mHmefDat.mKin));
+		if (uriage_kin.classList.contains("disabled-inp") == false) {
+			uriage_kin.classList.add("disabled-inp");
+		}
 		calcTax();
 	} else {
-		uriage_kin.disabled = false;
+		if (uriage_kin.classList.contains("disabled-inp")) {
+			uriage_kin.classList.remove("disabled-inp");
+		}
 	}
 
 }
@@ -265,7 +271,7 @@ function onCreateView() {
 	m_nNyu = 0;
 	m_nReceipt = 0;
 	uriage_cho.value = 0;
-	uriage_recept.value = 0;
+	uriage_recept.textcontent = 0;
 	uriage_nyu.textContent = 0;
 
 	// 顧客コード
@@ -284,20 +290,20 @@ function onCreateView() {
 	uriage_hbname.textContent = Other.nullToString(mShofDat.mHinban).trim();
 
 	// 数量
-	uriage_sur.value = Other.formatLocalJS(mHmefDat.mSuryo, 2, 3);
+	uriage_sur.textContent = Other.formatLocalJS(mHmefDat.mSuryo, 2, 3);
 
 	// 単位
 	uriage_unit.textContent = Other.nullToString(mShofDat.mUnit);
 	// 単価
-	uriage_tanka.value = Other.formatLocalJS(mHmefDat.mTanka, 2, 3);
+	uriage_tanka.textContent = Other.formatLocalJS(mHmefDat.mTanka, 2, 3);
 	// 金額
 
-	uriage_kin.value = Other.formatDecial(mHmefDat.mKin);
+	uriage_kin.textContent = Other.formatDecial(mHmefDat.mKin);
 	// 税区分
 	uriage_taxku.value = mHmefDat.mTaxKu;
 
 	// 税率
-	uriage_taxr.value = Other.formatLocalJS(mHmefDat.mTaxR, 1, 1);
+	uriage_taxr.textContent = Other.formatLocalJS(mHmefDat.mTaxR, 1, 1);
 
 	// 消費税
 	uriage_tax.textContent = Other.formatDecial(mHmefDat.mTax);
@@ -440,215 +446,138 @@ function onChangeData() {
 		dispGen();
 	}
 
-	uriage_recept.onchange = function () {
-		m_nReceipt = Number(uriage_recept.value);
-		var nKin = calcSign(mHmefDat.mSign, mHmefDat.mKin + mHmefDat.mTax);
-		m_nNyu = m_nReceipt;
-		if (nKin + m_nCho < m_nReceipt) {
-			// 預り金が売上額より多い場合
-			// 入金額は売上額まで
-			m_nNyu = nKin + m_nCho;
-		}
-
-
-		uriage_nyu.textContent = Other.formatDecial(m_nNyu);
-		dispGen();
-	}
-
-	uriage_cho.onchange = function () {
-		m_nCho = Number(uriage_cho.value);
-		dispGen();
-	}
-
 	uriage_taxku.onchange = function () {
 		mHmefDat.mTaxKu = Number(uriage_taxku.value);
 	}
 
-	// 数量
-	uriage_sur.onchange = function () {
-		// 数量
-		mHmefDat.mSuryo = Number(uriage_sur.value) * 100;
-		uriage_sur.value = Other.formatLocalJS(mHmefDat.mSuryo, 2, 2);
-		calcKin();
-	}
-
-	uriage_sur.addEventListener('keypress', event => {
-		var value = `${event.target.value}${event.key}`;
-		if (window.getSelection().toString() != uriage_sur.value) {
-			var cursorPosition = uriage_sur.selectionStart;
-			var value = "";
-			if (cursorPosition == 0) {
-				var value = `${event.key}${event.target.value}`;
-			} else {
-				value = `${event.target.value}${event.key}`;
-			}
-			if (`${event.target.value}`.includes('.')) {
-				if (`${event.key}` == '.') {
-					event.preventDefault();
-					event.stopPropagation();
-					return false;
-				}
-			}
-
-			if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
-				event.preventDefault();
-				event.stopPropagation();
-				return false;
-			} else {
-				keyPressMinus(value, 4, event);
-			}
-		} else {
-			uriage_sur.value = "";
-			value = `${event.key}`;
-			if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
-				event.preventDefault();
-				event.stopPropagation();
-				return false;
-			} else {
-				keyPressMinus(value, 4, event);
-			}
-		}
-	});
-
-
-	uriage_tanka.onchange = function () {
-		mHmefDat.mTanka = Number(uriage_tanka.value) * 100;
-		uriage_tanka.value = Other.formatLocalJS(mHmefDat.mTanka, 2, 2);
-		calcKin();
-	}
-
-	uriage_tanka.addEventListener('keypress', event => {
-		var value = `${event.target.value}${event.key}`;
-		if (window.getSelection().toString() != uriage_tanka.value) {
-			var cursorPosition = uriage_tanka.selectionStart;
-			var value = "";
-			if (cursorPosition == 0) {
-				var value = `${event.key}${event.target.value}`;
-			} else {
-				value = `${event.target.value}${event.key}`;
-			}
-			if (`${event.target.value}`.includes('.')) {
-				if (`${event.key}` == '.') {
-					event.preventDefault();
-					event.stopPropagation();
-					return false;
-				}
-			}
-
-			if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
-				event.preventDefault();
-				event.stopPropagation();
-				return false;
-			} else {
-				keyPressMinus(value, 6, event);
-			}
-		} else {
-			uriage_tanka.value = "";
-			value = `${event.key}`;
-			if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
-				event.preventDefault();
-				event.stopPropagation();
-				return false;
-			} else {
-				keyPressMinus(value, 6, event);
-			}
-		}
-	});
-
-
-	uriage_kin.onchange = function () {
-		uriage_kin.value = onChangeMinus(uriage_kin.value);
-		mHmefDat.mKin = uriage_kin.value;
-		calcTax();
-	}
-
-	uriage_kin.addEventListener('keypress', event => {
-		var value = `${event.target.value}${event.key}`;
-		if (window.getSelection().toString() != uriage_kin.value) {
-			if (`${event.target.value}`.includes('.')) {
-				if (`${event.key}` == '.') {
-					event.preventDefault();
-					event.stopPropagation();
-					return false;
-				}
-			}
-
-			var cursorPosition = uriage_kin.selectionStart;
-			var value = "";
-			if (cursorPosition == 0) {
-				var value = `${event.key}${event.target.value}`;
-			} else {
-				value = `${event.target.value}${event.key}`;
-			}
-			if (!value.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
-				event.preventDefault();
-				event.stopPropagation();
-				return false;
-			} else {
-				keyPressMinus(value, 8, event);
-			}
-		} else {
-			uriage_kin.value = "";
-			value = `${event.key}`;
-			if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*$/)) {
-				event.preventDefault();
-				event.stopPropagation();
-				return false;
-			} else {
-				keyPressMinus(value, 8, event);
-			}
-		}
-	});
-
-
-	uriage_taxr.onchange = function () {
-		mHmefDat.mTaxR = Number(uriage_taxr.value) * 10;
-		uriage_taxr.value = Other.formatLocalJS(mHmefDat.mTaxR, 1, 1);
-		calcTax();
-	}
-
-	uriage_taxr.addEventListener('keypress', event => {
-		var value = `${event.target.value}${event.key}`;
-		if (window.getSelection().toString() != uriage_taxr.value) {
-			if (`${event.target.value}`.includes('.')) {
-				if (`${event.key}` == '.') {
-					event.preventDefault();
-					event.stopPropagation();
-					return false;
-				}
-			}
-
-			var cursorPosition = uriage_taxr.selectionStart;
-			var value = "";
-			if (cursorPosition == 0) {
-				var value = `${event.key}${event.target.value}`;
-			} else {
-				value = `${event.target.value}${event.key}`;
-			}
-			if (!value.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
-				event.preventDefault();
-				event.stopPropagation();
-				return false;
-			} else {
-				keyPressMinus(value, 2, event);
-			}
-		} else {
-			uriage_taxr.value = "";
-			value = `${event.key}`;
-			if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*\-?[0-9]*$/)) {
-				event.preventDefault();
-				event.stopPropagation();
-				return false;
-			} else {
-				keyPressMinus(value, 2, event);
-			}
-		}
-	});
-
-
 	uriage_name.onchange = function () {
 		mHme2Dat.mBikou = uriage_name.value;
 	}
+
+	// 数量
+	uriage_sur.addEventListener('DOMSubtreeModified', function () {
+		// 数量
+		if (mHmefDat.mSuryo != Other.CvtString2Num(uriage_sur.textContent) * 100) {
+			mHmefDat.mSuryo = Other.CvtString2Num(uriage_sur.textContent) * 100;
+			uriage_sur.textContent = Other.formatLocalJS(mHmefDat.mSuryo, 2, 2);
+			calcKin();
+		}
+	});
+
+	uriage_tanka.addEventListener('DOMSubtreeModified', function () {
+		if (mHmefDat.mTanka != Other.CvtString2Num(uriage_tanka.textContent) * 100) {
+			mHmefDat.mTanka = Other.CvtString2Num(uriage_tanka.textContent) * 100;
+			uriage_tanka.textContent = Other.formatLocalJS(mHmefDat.mTanka, 2, 2);
+			calcKin();
+		}
+
+	});
+
+	uriage_kin.addEventListener('DOMSubtreeModified', function () {
+		if (uriage_kin.textContent != Other.CvtString2Num(uriage_kin.textContent)) {
+			uriage_kin.textContent = Other.CvtString2Num(uriage_kin.textContent);
+			mHmefDat.mKin = parseInt(onChangeMinus(uriage_kin.textContent));
+			calcTax();
+		}
+	});
+
+	uriage_taxr.addEventListener('DOMSubtreeModified', function () {
+		if (mHmefDat.mTaxR != Other.CvtString2Num(uriage_taxr.textContent) * 10) {
+			mHmefDat.mTaxR = Other.CvtString2Num(uriage_taxr.textContent) * 10;
+			uriage_taxr.textContent = Other.formatLocalJS(mHmefDat.mTaxR, 1, 1);
+			calcTax();
+		}
+	});
+
+	uriage_cho.addEventListener('DOMSubtreeModified', function () {
+		if (m_nCho != Other.getNumFromString(uriage_cho.textContent)) {
+			m_nCho = parseInt(Other.getNumFromString(uriage_cho.textContent));
+			uriage_cho.textContent = onChangeMinus(m_nCho);
+			dispGen();
+		}
+	});
+
+	uriage_recept.addEventListener('DOMSubtreeModified', function () {
+		var value = uriage_recept.textContent;
+		if (m_nReceipt != Other.getNumFromString(value)) {
+			m_nReceipt = parseInt(Other.getNumFromString(value));
+			var nKin = calcSign(mHmefDat.mSign, mHmefDat.mKin + mHmefDat.mTax);
+			m_nNyu = parseInt(m_nReceipt);
+			if (nKin + m_nCho < m_nReceipt) {
+				// 預り金が売上額より多い場合
+				// 入金額は売上額まで
+				m_nNyu = nKin + m_nCho;
+			}
+
+			uriage_recept.textContent = Other.formatDecial(m_nReceipt);
+			uriage_nyu.textContent = Other.formatDecial(m_nNyu);
+			dispGen();
+		}
+	});
+}
+
+
+/**
+	ON FOCUS INPUT FIELD
+*/
+function inputFocus() {
+	var keyboard = document.querySelector(".keyboard");
+	var wrapMainForm = document.querySelector(".keyboard .container-mainform .wrap-mainform");
+
+	uriage_sur.onclick = function () {
+		keyboard.style.zIndex = "4";
+		wrapMainForm.classList.remove("overlay-animate");
+		var title = document.getElementById("surTitle").textContent;
+		keyboardProp = new Dat.KeyboardProp().setValue(true, true, 4, 2);
+		sessionStorage.setItem(StringCS.KEYBOARDPROP, JSON.stringify(keyboardProp));
+		Common.showKeyBoard(title, uriage_sur);
+	};
+
+	uriage_tanka.onclick = function () {
+		keyboard.style.zIndex = "4";
+		wrapMainForm.classList.remove("overlay-animate");
+		var title = document.getElementById("tankTitle").textContent;
+		keyboardProp = new Dat.KeyboardProp().setValue(true, true, 6, 2);
+		sessionStorage.setItem(StringCS.KEYBOARDPROP, JSON.stringify(keyboardProp));
+		Common.showKeyBoard(title, uriage_tanka);
+	};
+
+	uriage_kin.onclick = function () {
+		if (uriage_kin.classList.contains("disabled-inp") == false) {
+			keyboard.style.zIndex = "4";
+			wrapMainForm.classList.remove("overlay-animate");
+			var title = document.getElementById("kinTitle").textContent;
+			keyboardProp = new Dat.KeyboardProp().setValue(true, false, 8, 0);
+			sessionStorage.setItem(StringCS.KEYBOARDPROP, JSON.stringify(keyboardProp));
+			Common.showKeyBoard(title, uriage_kin);
+		}
+	};
+
+	uriage_taxr.onclick = function () {
+		keyboard.style.zIndex = "4";
+		wrapMainForm.classList.remove("overlay-animate");
+		keyboardProp = new Dat.KeyboardProp().setValue(true, true, 2, 1);
+		sessionStorage.setItem(StringCS.KEYBOARDPROP, JSON.stringify(keyboardProp));
+		Common.showKeyBoard("", uriage_taxr);
+	};
+
+	uriage_cho.onclick = function () {
+		keyboard.style.zIndex = "4";
+		wrapMainForm.classList.remove("overlay-animate");
+		var title = document.getElementById("cho_text").textContent;
+		keyboardProp = new Dat.KeyboardProp().setValue(true, false, 8, 0);
+		sessionStorage.setItem(StringCS.KEYBOARDPROP, JSON.stringify(keyboardProp));
+		Common.showKeyBoard(title, uriage_cho);
+	};
+
+	uriage_recept.onclick = function () {
+		keyboard.style.zIndex = "4";
+		wrapMainForm.classList.remove("overlay-animate");
+		var title = document.getElementById("azukariTitle").textContent;
+		keyboardProp = new Dat.KeyboardProp().setValue(true, false, 8, 0);
+		sessionStorage.setItem(StringCS.KEYBOARDPROP, JSON.stringify(keyboardProp));
+		Common.showKeyBoard(title, uriage_recept);
+	};
 }
 
 
@@ -706,7 +635,7 @@ function keyPressMinus(value, length, event) {
 	ONCHANGE MINUS ACTION
 */
 function onChangeMinus(value) {
-	var result = value;
+	var result = String(value);
 	if (result.includes("-")) {
 		result = result.replace("-", "");
 		result = Other.formatDecial(Other.getNumFromString(result));
@@ -1875,8 +1804,8 @@ export function sendDataToServer() {
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(hmefWriteDat),
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
 		contentType: "application/json",
 		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
@@ -1906,8 +1835,8 @@ export function sendDataToServer() {
 function reloadUriageList() {
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
-        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + mUserData.mKokfDat.mCusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + mUserData.mKokfDat.mCusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + mUserData.mKokfDat.mCusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + mUserData.mKokfDat.mCusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		headers: {
 			'Content-Type': StringCS.PR_CONTENT_TYPE
 		},
@@ -1935,7 +1864,7 @@ function onLoadAction() {
 	setupTitleClick();
 	createData();
 	onCreateView();
-	Common.setFocusSelectString();
+	inputFocus();
 	onChangeData();
 	onClickAction();
 }

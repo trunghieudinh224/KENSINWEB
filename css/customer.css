@@ -206,6 +206,21 @@ th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3){
   background: #555; 
 }
 
+.sm-btn-area {
+  margin: -4px;
+}
+
+.sm-btn {
+  padding: 4px;
+}
+
+.jikkoButtonArea {
+  padding-left: 0px;
+}
+
+#jikkoButton {
+  margin: 0px;
+}
 
 /*
   ******  RESPONSIVE  ******
@@ -235,6 +250,10 @@ th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3){
 
   .title-collapse {
     font-size: 16px;
+  }
+
+  .sm-btn {
+    padding: 0px 4px;
   }
 }
 

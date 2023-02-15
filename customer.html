@@ -71,20 +71,43 @@
 						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text text mw90">検針日</span>
+									<span class="input-group-text text mw135">検針日</span>
 								</div>
-								<input type="text" class="form-control text ta-c" id="jisshi-bi" data-date-format="yyyy/mm/dd" data-language='en'>
+								<input type="text" class="form-control text ta-c" id="jisshi-bi"
+									data-date-format="yyyy/mm/dd" data-language='en'>
 							</div> <!-- form-group// -->
 						</div>
 
 						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text text mw90">対象</span>
+									<span class="input-group-text text mw135">対象</span>
 								</div>
 
 								<span class="form-control text" id="taishoo"></span>
 							</div>
+						</div>
+					</div>
+
+					<div class="row content">
+						<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb10">
+							<div class="form-group input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text text mw135">顧客コード</span>
+								</div>
+
+								<span class="form-control text" id="kokyaku_kodo"></span>
+							</div> <!-- form-group// -->
+						</div>
+
+						<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb10">
+							<div class="form-group input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text text mw135">顧客名</span>
+								</div>
+
+								<span class="form-control text" id="kokyaku-mei"></span>
+							</div> <!-- form-group// -->
 						</div>
 					</div>
 
@@ -100,36 +123,12 @@
 												<span class="title-collapse">顧客情報</span>
 											</div>
 
-											<!-- <div class="item-collapse ic-dd-collapse">
-												<span class="arrow-ic fas fa-caret-down"></span>
-											</div> -->
 										</div> <!-- form-group// -->
 									</span>
 								</div>
 								<div id="collapseOne" class="collapse collapseOne" data-parent="#accordion">
 									<div class="card-body">
-										<div class="row content">
-											<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb10">
-												<div class="form-group input-group">
-													<div class="input-group-prepend">
-														<span class="input-group-text text mw145">顧客コード</span>
-													</div>
-
-													<span class="form-control text" id="kokyaku_kodo"></span>
-												</div> <!-- form-group// -->
-											</div>
-
-											<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb10">
-												<div class="form-group input-group">
-													<div class="input-group-prepend">
-														<span class="input-group-text text mw145">顧客名</span>
-													</div>
-
-													<span class="form-control text" id="kokyaku-mei"></span>
-												</div> <!-- form-group// -->
-											</div>
-										</div>
-
+										
 										<table id="table-detail">
 											<tr id="title-table">
 												<th class="text mw145"></th>
@@ -333,7 +332,8 @@
 															<span class="input-group-text text mw135">前回使用量</span>
 														</div>
 
-														<span class="form-control text ta-r" id="haisoo-shiyoo-ryoo"></span>
+														<span class="form-control text ta-r"
+															id="haisoo-shiyoo-ryoo"></span>
 														<span class="form-control unit text">m3</span>
 													</div> <!-- form-group// -->
 												</div>
@@ -364,32 +364,47 @@
 					</div>
 
 					<div class="button-area">
-						<div class="row content">
-							<div class="col-4"  id="uriageButtonArea">
-								<button type="button" class="btn btn-default text-center" id="uriageButton"><span
-										class="fas fa-shopping-basket ic-btn"></span><br>売上</button>
-							</div>
-							<div class="col-4"  id="toyuPageButtonArea">
-								<button type="button" class="btn btn-default text-center" id="toyuPageButton"><span
-										class="fas fa-fire ic-btn"></span><br>灯油</button>
+						<div class="row">
+							<div class="col-9">
+								<div class="row content sm-btn-area">
+									<div class="col-4 sm-btn">
+										<button type="button" class="btn btn-default text-center"
+											id="backPageButton"><span
+												class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
+									</div>
+
+									<div class="col-4 sm-btn">
+										<button type="button" class="btn btn-default text-center"
+											id="previousButton"><span
+												class="fas fa-arrow-left ic-btn"></span><br>前顧客</button>
+									</div>
+
+									<div class="col-4 sm-btn">
+										<button type="button" class="btn btn-default text-center" id="nextButton"><span
+												class="fas fa-arrow-right ic-btn"></span><br>次顧客</button>
+									</div>
+
+									<div class="col-4 sm-btn"  id="uriageButtonArea">
+										<button type="button" class="btn btn-default text-center" id="uriageButton"><span
+												class="fas fa-shopping-basket ic-btn"></span><br>売上</button>
+									</div>
+									<div class="col-4 sm-btn"  id="toyuPageButtonArea">
+										<button type="button" class="btn btn-default text-center" id="toyuPageButton"><span
+												class="fas fa-fire ic-btn"></span><br>灯油</button>
+									</div>
+		
+									<div class="col-4 sm-btn"  id="nyuukinButtonArea">
+										<button type="button" class="btn btn-default text-center" id="nyuukinButton"><span
+											class="fas fa-hand-holding-usd ic-btn"></span><br>入金</button>
+									</div>
+								</div>
 							</div>
 
-							<div class="col-4"  id="nyuukinButtonArea">
-								<button type="button" class="btn btn-default text-center" id="nyuukinButton"><span
-									class="fas fa-hand-holding-usd ic-btn"></span><br>入金</button>
-							</div>
-						</div>
-
-						<div class="row content">
-							<div class="col-6">
-								<button type="button" class="btn btn-default text-center" id="backPageButton"><span
-									class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
-							</div>
-
-							<div class="col-6">
+							<div class="col-3 jikkoButtonArea">
 								<button type="button" class="btn btn-default text-center" id="jikkoButton"><span
 										class="fas fa-play ic-btn"></span><br>実行</button>
 							</div>
+
 						</div>
 					</div>
 				</form>

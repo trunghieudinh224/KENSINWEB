@@ -64,6 +64,12 @@ function setupLayout() {
 		for(var i = itemSearch.length-1; i >= 0; i--) {
 			itemSearch[i].remove();
 		}
+
+		var searchKeyArea = document.getElementById("searchKeyArea");
+		searchKeyArea.classList.remove("col-8")
+		searchKeyArea.classList.remove("pd-r-0")
+		searchKeyArea.classList += " col-12";
+		searchKeyArea.style.paddingRight = "none"
 	} else {
 		var itemSearch = document.getElementsByClassName("searchItem1");
 		for(var i = itemSearch.length-1; i >= 0; i--) {
@@ -187,82 +193,6 @@ function getValueCheckbox(checkboxName, data) {
 
 
 /**
-   * SHOW PREVIOUS DATA
-*/
-function checkPreviousData(cuslList) {
-	if (cuslList != null) {
-		if (cuslList.length > 0) {
-			document.getElementsByClassName("table-container")[0].style.display = "block";
-			document.getElementById("countList").innerHTML = "検索件数：" + cuslList.length + "件";
-			document.getElementById("countList").style.display = "block";
-		} else {
-			document.getElementById("countList").style.display = "none";
-		}
-
-		for (var i = 0; i < cuslList.length; i++) {
-			const newElement = document.createElement("tr");
-			const newName = document.createElement("td");
-			newName.className += " text";
-			const newAddress = document.createElement("td");
-			newAddress.className += " text";
-			const newKenshin = document.createElement("td");
-			newKenshin.className += " text";
-			const newShuukin = document.createElement("td");
-			newShuukin.className += " text";
-			newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(cuslList[i].name))));
-			newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(cuslList[i].add_0))));
-			newKenshin.appendChild(document.createTextNode(cuslList[i].kenstat == 1 ? "済" : "未"));
-			newShuukin.appendChild(document.createTextNode(cuslList[i].shustat == 1 ? "済" : "未"));
-			newElement.appendChild(newName);
-			newElement.appendChild(newAddress);
-			newElement.appendChild(newKenshin);
-			newElement.appendChild(newShuukin);
-			table.appendChild(newElement);
-			if (searchMode == "1") {
-				if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
-					if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) == i) {
-						newElement.style.background = "#d9a691";
-					}
-				}
-			}
-			newElement.onclick = function () {
-				sessionStorage.setItem(StringCS.CUSTOMERINDEX, this.rowIndex);
-				var object = cuslList[this.rowIndex];
-				object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
-				if (object.kenstat == 1) {
-					Common.setupModal("question", null, Mess.I00006, StringCS.IIE, StringCS.HAI, null, false);
-					var buttonConfirm = document.getElementsByClassName("button-1")[0];
-					buttonConfirm.onclick = function () {
-						const cusdat = Object.assign({}, object);
-						sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
-						Common.movePage('/customer.html');
-						modal.style.display = "none";
-					}
-				} else {
-					const cusdat = Object.assign({}, object);
-					sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
-					Common.movePage('/customer.html');
-				}
-			};
-		}
-
-		if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
-			
-			const interval = setInterval(function () {
-				scrollToItemList(parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)));
-				clearInterval(interval);
-				alert("Hieu");
-			}, 300);
-		} else {
-			scrollToItemList(0);
-		}
-	} else {
-		document.getElementsByClassName("table-container")[0].style.display = "block";
-	}
-}
-
-
-/**
    * SEARCH CUSTOMER
 */
 function searchCusType1(searchVal) {
@@ -270,9 +200,9 @@ function searchCusType1(searchVal) {
 
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-			"&srch_kind=0" + String(searchType.value) +
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+			"&srch_kind=" + String(searchType.value) +
 			(searchVal != "" ? "&srch_string=" + searchVal : "") +
 			"&match_kind=0" +
 			"&kenstat=0" +
@@ -292,6 +222,7 @@ function searchCusType1(searchVal) {
 			const data = JSON.parse(result);
 			if (data.cuslist != null) {
 				if (data.cuslist.length > 0) {
+					modal.style.display = "none";
 					sessionStorage.setItem(StringCS.CUSTLIST, JSON.stringify(data.cuslist));
 					for (var i = 0; i < data.cuslist.length; i++) {
 						const newElement = document.createElement("tr");
@@ -331,11 +262,13 @@ function searchCusType1(searchVal) {
 									sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
 									Common.movePage('/customer.html');
 									modal.style.display = "none";
+									table.style.display = "none";
 								}
 							} else {
 								const cusdat = Object.assign({}, object);
 								sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
 								Common.movePage('/customer.html');
+								table.style.display = "none";
 							}
 
 						};
@@ -357,7 +290,6 @@ function searchCusType1(searchVal) {
 						document.getElementById("countList").style.display = "none";
 						document.getElementById("data-messages").style.display = "block";
 					}
-					modal.style.display = "none";
 					dataMessage.style.display = "none";
 				} else {
 					dataMessage.innerText = Mess.E00001;
@@ -691,54 +623,17 @@ function onChangeAction() {
    * ONCLICK ACTION
 */
 function onclickAction() {
-	document.getElementById("kensakuButton").onclick = function () {
-		// sessionStorage.setItem(StringCS.CUSTOMERINDEX, 0);
-		// if (searchMode == "1") {
-		// 	var valueSearch = Other.cutStringSpace(String(searchKey.value));
-		// 	for (var i = 0; i < cuslList.length; i++) {
-		// 		if (String(searchType.value) == 0) {
-		// 			if (valueSearch == Other.cutStringSpace(Other.nullToString(cuslList[i].kcode))) {
-		// 				scrollToItemList(i);
-		// 				table.rows.item(i).style.background = "#d9a691";
-		// 				break;
-		// 			}
-		// 		} else if (String(searchType.value) == 1) {
-		// 			if (valueSearch == Other.cutStringSpace(Other.nullToString(cuslList[i].name))) {
-
-		// 			}
-		// 		} else if (String(searchType.value) == 2) {
-		// 			if (valueSearch == Other.cutStringSpace(Other.nullToString(cuslList[i].tel_0))) {
-
-		// 			}
-		// 		}
-		// 	}
-		// } else {
-		// 	searchCusType2();
-		// }
-
-		var valueSearch = Other.cutStringSpace(String(searchKey.value));
-		searchCusType1(valueSearch);
-	}
 	if (searchMode == "2") {
 		document.getElementById("backPage2Button").onclick = Common.backAction;
 		document.getElementById("firstCustomerButton").onclick = firstCustomerAction;
+		document.getElementById("kensakuButton").onclick = function () {
+			searchCusType2();
+		}
 	} else {
 		document.getElementById("backPage1Button").onclick = Common.backAction;
-		document.getElementById("previousButton").onclick = function () {
-			sessionStorage.setItem(StringCS.CUSTOMERINDEX, 0);
-			if (searchMode == "1") {
-				searchCusType1(Other.cutStringSpace(String(searchKey.value)));
-			} else {
-				searchCusType2();
-			}
-		}
-		document.getElementById("nextButton").onclick = function () {
-			sessionStorage.setItem(StringCS.CUSTOMERINDEX, 0);
-			if (searchMode == "1") {
-				searchCusType1("");
-			} else {
-				searchCusType2();
-			}
+		document.getElementById("filterButton").onclick = function () {
+			var valueSearch = Other.cutStringSpace(String(searchKey.value));
+			searchCusType1(valueSearch);
 		}
 	}
 }
@@ -748,6 +643,7 @@ function onclickAction() {
    * ONLOAD ACTION
 */
 function onLoadAction() {
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	setOptionMenu();
 	setupLayout();
 	initCombobox();
@@ -760,17 +656,24 @@ function onLoadAction() {
 		if (sessionStorage.getItem(StringCS.SEARCHSTRING) != null) {
 			searchKey.value = sessionStorage.getItem(StringCS.SEARCHSTRING);
 			searchCusType2();
-			searchCusType2();
 			sessionStorage.removeItem(StringCS.SAVINGSTATUS);
+		} else {
+			modal.style.display = "none";
 		}
 	} else {
-		if (cuslList != null) {
-			checkPreviousData(cuslList);
-		} else {
-			searchCusType1("");
-		}
+		searchCusType1("");
 	}
 }
 
+
+
+
+window.addEventListener("pageshow", function(evt){
+	if(evt.persisted){
+	setTimeout(function(){
+		window.location.reload();
+	},10);
+}
+}, false);
 
 window.onload = onLoadAction;

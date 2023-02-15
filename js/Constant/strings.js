@@ -87,6 +87,8 @@ export var BUSFNYUITEM = "BusfNyuItem";
 export var BUSFCHOITEM = "BusfChoItem";
 // CUS DETAIL DATA
 export var CUSDETAILDATA = "CusDetailData";
+// KEYBOARD PROPERTY
+export var KEYBOARDPROP = "KeyboardProperty";
 
 
 /*****  CONTENT  *****/

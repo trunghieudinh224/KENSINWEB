@@ -2507,3 +2507,35 @@ export class Sy2fFunouComment {
 		return data;
 	}
 }
+
+export class KeyboardProp {
+	constructor() {
+		this.minus = false;
+		this.dot = false;
+		this.lengthVal = 0;
+		this.numAfterDot = 0;
+	}
+
+	setValue(minus, dot, lengthVal, numAfterDot) {
+		var data = new KeyboardProp();
+
+		data.minus = minus;
+		data.dot = dot;
+		data.lengthVal = lengthVal;
+		data.numAfterDot = numAfterDot;
+		return data;
+	}
+
+	parseData(responeData) {
+		var data = new KeyboardProp();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.minus = responeData.minus;
+		data.dot = responeData.dot;
+		data.lengthVal = responeData.lengthVal;
+		data.numAfterDot = responeData.numAfterDot;
+		return data
+	}
+}

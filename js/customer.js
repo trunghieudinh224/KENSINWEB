@@ -19,6 +19,8 @@ var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 /** recent day */
 var recentDay = moment().format('YYYY/MM/DD');
 
+var cusList = JSON.parse(sessionStorage.getItem(StringCS.CUSTLIST))
+
 
 /** 
     * SETUP DATEPICKER
@@ -121,11 +123,20 @@ function getInformation() {
 function setInformation() {
     if (cusDat != null) {
         document.getElementById("taishoo").innerHTML = cusDat.taishoo;
-        document.getElementById("kokyaku_kodo").innerHTML = cusDat.kcode.trim();
-        document.getElementById("kokyaku-mei").innerHTML = cusDat.name.trim();
-        document.getElementById("juusho").innerHTML = cusDat.add_0.trim() + "\n" + cusDat.add_1.trim();
-        document.getElementById("denwabango").innerHTML = cusDat.tel_0;
-        document.getElementById("mtban").innerHTML = cusDetailData.mKokfDat.mtban;
+        if (Other.nullToString(cusDat.kcode) != "") {
+            document.getElementById("kokyaku_kodo").innerHTML = Other.cutStringSpace(cusDat.kcode);
+        }
+        if (Other.nullToString(cusDat.name) != "") {
+            document.getElementById("kokyaku-mei").innerHTML = Other.cutStringSpace(cusDat.name);
+        }
+        if (Other.nullToString(cusDat.add_0) != "" || Other.nullToString(cusDat.add_1) != "") {
+            document.getElementById("kokyaku-mei").innerHTML = Other.cutStringSpace(cusDat.name);
+            document.getElementById("juusho").innerHTML = Other.cutStringSpace(Other.nullToString(cusDat.add_0)) 
+                                                        + "\n" 
+                                                        + Other.cutStringSpace(Other.nullToString(cusDat.add_1));
+        }
+        document.getElementById("denwabango").innerHTML = Other.nullToString(cusDat.tel_0);
+        document.getElementById("mtban").innerHTML = Other.nullToString(cusDetailData.mKokfDat.mtban);
     }
 
     if (cusDetailData != null) {
@@ -167,8 +178,6 @@ function setInformation() {
         toyuBtn.disabled = false;
     } else {
         document.getElementById("toyuPageButtonArea").remove();
-        document.getElementById("uriageButtonArea").className = "col-6";
-        document.getElementById("nyuukinButtonArea").className = "col-6";
     }
 
     var isEnabled = cusDetailData.mKokfDat.mSupplyForm != 2;
@@ -348,6 +357,35 @@ function getRyookin() {
     document.getElementById("ryookin").innerHTML = result;
 }
 
+function getCustomer(isPrevious) {
+    var index = 0;
+    if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
+        index = parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX));
+    }
+
+    if (isPrevious) {
+        if (index == 0) {
+            index = cusList.length - 1;
+        } else {
+            index--;
+        }
+    } else {
+        if (index == cusList.length - 1) {
+            index = 0;
+        } else {
+            index++;
+        }
+    }
+
+    
+    var object = cusList[index];
+    sessionStorage.setItem(StringCS.CUSTOMERINDEX, index);
+    object.taishoo = cusDat.taishoo;
+    sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(object));
+    cusDat = object;
+    getInformation();
+}
+
 
 /**
    * MOVE TO KINYUU PAGE WITH MODE
@@ -393,6 +431,15 @@ function onclickAction() {
     document.getElementById("toyuPageButtonArea").onclick = function () {
         saveUserData();
         Common.movePage('/kerosene.html')
+    };
+
+
+    document.getElementById("previousButton").onclick = function () {
+        getCustomer(true)
+    };
+
+    document.getElementById("nextButton").onclick = function () {
+        getCustomer(false)
     };
 }
 
