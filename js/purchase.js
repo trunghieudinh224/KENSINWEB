@@ -474,9 +474,9 @@ function onChangeData() {
 	});
 
 	uriage_kin.addEventListener('DOMSubtreeModified', function () {
-		if (uriage_kin.textContent != Other.CvtString2Num(uriage_kin.textContent)) {
-			uriage_kin.textContent = Other.CvtString2Num(uriage_kin.textContent);
-			mHmefDat.mKin = parseInt(onChangeMinus(uriage_kin.textContent));
+		if (uriage_kin.textContent != Other.getNumFromString(uriage_kin.textContent)) {
+			uriage_kin.textContent = Other.formatDecial(Other.getNumFromString(uriage_kin.textContent));
+			mHmefDat.mKin = parseInt(Other.getNumFromString(uriage_kin.textContent));
 			calcTax();
 		}
 	});
