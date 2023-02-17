@@ -145,60 +145,6 @@ function setupSelectDateView() {
 }
 
 
-/** 
-    * GET SHUUKEI DATA
-*/
-function getShuukeiData() {
-    var urlString;
-    if (selectDate.value == "1") {
-        let date = document.getElementById("date-end").value;
-        urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
-        // urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
-    } else {
-        let dateStart = document.getElementById("date-start").value;
-        let dateEnd = document.getElementById("date-end").value;
-        urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
-        // urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
-    }
-    shuukeiData = new Dat.ShukeiItem();
-    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
-    $.ajax({
-        url: urlString,
-        headers: {
-            'Content-Type': StringCS.PR_CONTENT_TYPE
-        },
-        success: function (result) {
-            modal.style.display = "none";
-            var shukeiData = JSON.parse(result);
-            m_lstShukeiDat = shukeiData.m_lstShukeiDat;
-            viewItemtList = setViewItemtList("edt");
-
-            if (shukeiData != null) {
-                if (shukeiData.m_lstShukeiDat != null) {
-                    for (var i = 0; i < shukeiData.m_lstShukeiDat.length; i++) {
-                        var shukeiItem = new Dat.ShukeiItem();
-                        shukeiItem.mGsiyou = shukeiData.m_lstShukeiDat[i].h_siyouryo;
-                        shukeiItem.mGryokin = shukeiData.m_lstShukeiDat[i].h_kin;
-                        shukeiItem.mKang = shukeiData.m_lstShukeiDat[i].u_kin + shukeiData.m_lstShukeiDat[i].u_tax;
-                        shukeiItem.mShohi = shukeiData.m_lstShukeiDat[i].h_utax;
-                        shukeiItem.mTotal = shukeiItem.mKang + shukeiItem.mTotal;
-                        addShukeiData(shukeiItem, sysfDat, sy2fDat, kouserDat);
-                    }
-                }
-            }
-
-            setShuukeiData();
-            setShukeiDateList();
-
-        },
-        error: function (jqXHR, exception) {
-            console.log(exception);
-            Common.setupModal("error", null, Mess.E00003, null, StringCS.OK, null, false);
-        },
-        timeout: ValueCS.VL_LONG_TIMEOUT
-    });
-}
-
 
 /** 
     * SET VIEW ITEM LIST
@@ -693,13 +639,13 @@ function getShuukeiData() {
     m_lstShukeiDat = [];
     if (selectDate.value == "1") {
         let date = document.getElementById("date-end").value;
-        urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
-        // urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        // urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&date2=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&date2=" + date.replaceAll("-", "/")+ "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
     } else {
         let dateStart = document.getElementById("date-start").value;
         let dateEnd = document.getElementById("date-end").value;
-        urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
-        // urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        // urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
     }
     shuukeiData = new Dat.ShukeiItem();
     Common.setupModal("load", null, Mess.I00001, null, null, null, false);

@@ -15,8 +15,8 @@ function setOptionMenu() {
 */
 function onclickAction() {
     document.getElementById("shuukeiButton").onclick = function() {
-        // Common.movePage('/total.html')
-        Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
+        Common.movePage('/total.html')
+        // Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
     };
     document.getElementById("settingListButton").onclick = function() {Common.movePage('/meter_reading_setting.html')};
     document.getElementById("settingButton").onclick = function() {Common.movePage('/setting.html')};
