@@ -128,6 +128,11 @@ body {
 	padding: 20px 0;
 }
 
+#uriageForm {
+	display: block;
+	background-color: #ffffff;
+}
+
 @media screen and (max-width: 1200px) {}
 
 @media screen and (max-width: 900px) {
