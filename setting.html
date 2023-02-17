@@ -9,14 +9,14 @@
 	<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="images/icons/ic_setting.png" />
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" id="bootstrap-css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" id="bootstrap-css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+		integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<link rel="stylesheet" type="text/css" href="css/setting.css">
 	<link rel="stylesheet" type="text/css" href="css/modal.css">
@@ -24,28 +24,27 @@
 
 <body>
 	<div id="backgroundPage">
-        <div class="dropdown select-role">
-            <div class="btn-menu btn-secondary dropdown-toggle" type="button" id="dropdownSelectRole"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="text" id="userName"><i class="ic-dropdown fa-solid fa-user"></i><a
-                        id="name"></a></span>
-            </div>
-            <ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
-                <li>
-                    <a class="dropdown-item notice-page" id="menuOption">
-                        <span class="text"><i class="ic-dropdown fa-solid fa-bars"></i>メニュー</span>
-                    </a>
-                </li>
-                <li class="dropdown-divider-wrap">
-                    <hr class="dropdown-divider">
-                </li>
-                <li>
-                    <a class="dropdown-item scan-page" id="logoutOption">
-                        <span class="text"><i class="ic-dropdown logout fa-solid fa-right-from-bracket"></i>ログアウト</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+		<div class="dropdown select-role">
+			<div class="btn-menu btn-secondary dropdown-toggle" type="button" id="dropdownSelectRole"
+				data-bs-toggle="dropdown" aria-expanded="false">
+				<span class="text" id="userName"><i class="ic-dropdown fa-solid fa-user"></i><a id="name"></a></span>
+			</div>
+			<ul class="dropdown-menu" aria-labelledby="dropdownSelectRole">
+				<li>
+					<a class="dropdown-item notice-page" id="menuOption">
+						<span class="text"><i class="ic-dropdown fa-solid fa-bars"></i>メニュー</span>
+					</a>
+				</li>
+				<li class="dropdown-divider-wrap">
+					<hr class="dropdown-divider">
+				</li>
+				<li>
+					<a class="dropdown-item scan-page" id="logoutOption">
+						<span class="text"><i class="ic-dropdown logout fa-solid fa-right-from-bracket"></i>ログアウト</span>
+					</a>
+				</li>
+			</ul>
+		</div>
 
 
 		<div class="container-mainform" id="form">
@@ -98,6 +97,25 @@
 						<div class="col-12">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
+									<span class="input-group-text mw135 text">顧客順</span>
+								</div>
+
+								<select class="custom-select combobox text" id="cbb_kokyaku_jun">
+									<option value="0">検針地区順</option>
+									<option value="1">保安地区順</option>
+									<option value="2">配送地区順</option>
+									<option value="3">顧客コード順</option>
+									<option value="4">顧客カナ順</option>
+									<option value="5">電話番号順</option>
+								</select>
+							</div> <!-- form-group// -->
+						</div>
+					</div>
+
+					<div class="row content">
+						<div class="col-12">
+							<div class="form-group input-group">
+								<div class="input-group-prepend">
 									<span class="input-group-text mw135 text">印刷モード</span>
 								</div>
 
@@ -119,8 +137,8 @@
 						</div>
 
 						<div class="col-6">
-							<button type="button" class="btn btn-default text-center" id="saveButton"><span class="fas fa-play ic-btn"
-								></span><br>設定
+							<button type="button" class="btn btn-default text-center" id="saveButton"><span
+									class="fas fa-play ic-btn"></span><br>設定
 							</button>
 						</div>
 					</div>
@@ -161,19 +179,19 @@
 	</div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
 	<script src="vendor/daterangepicker/moment.min.js"></script>
 	<!--===============================================================================================-->
-    <script type="module" src="./js/Common/check_data.js"></script>
-    <script type="module" src="./js/setting.js"></script>
+	<script type="module" src="./js/Common/check_data.js"></script>
+	<script type="module" src="./js/setting.js"></script>
 
 </body>
 

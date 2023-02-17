@@ -23,6 +23,8 @@ const modal = document.getElementById("myModal");
 /*****  DATA VARIABLE  *****/
 /* systemdat */
 var systemDat = JSON.parse(sessionStorage.getItem(StringCS.SYSTEMDAT));
+/* setting data */
+var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
 /* hanku list */
 var hankuList;
 /* shuku list */
@@ -32,7 +34,7 @@ var tantnameList;
 /* tantname item */
 var tantnameItem = ["kentan", "shutan", "uritan"];
 
-const cuslList = JSON.parse(sessionStorage.getItem(StringCS.CUSTLIST));
+var cuslList = JSON.parse(sessionStorage.getItem(StringCS.CUSTLIST));
 
 var searchMode = sessionStorage.getItem(StringCS.SEARCHMODE);
 
@@ -193,22 +195,16 @@ function getValueCheckbox(checkboxName, data) {
 
 
 /**
-   * SEARCH CUSTOMER
+   * GET CUSTOMER LIST TYPE 1
 */
-function searchCusType1(searchVal) {
+function getCuslistType1() {
 	sessionStorage.setItem(StringCS.SEARCHSTRING, searchKey.value.trim());
 
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-			// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-			"&srch_kind=" + String(searchType.value) +
-			(searchVal != "" ? "&srch_string=" + searchVal : "") +
-			"&match_kind=0" +
-			"&kenstat=0" +
-			"&shustat=0" +
-			"&uristat=0" +
-			"&order_kind=0" +
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSLIST + StringCS.PR_KEY + 
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSLIST + StringCS.PR_KEY +
+			"&tancd=" + dataSetting.tancd + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&order=" + dataSetting.order +
 			"&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
 			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		headers: {
@@ -223,6 +219,7 @@ function searchCusType1(searchVal) {
 			if (data.cuslist != null) {
 				if (data.cuslist.length > 0) {
 					modal.style.display = "none";
+					cuslList = data.cuslist;
 					sessionStorage.setItem(StringCS.CUSTLIST, JSON.stringify(data.cuslist));
 					for (var i = 0; i < data.cuslist.length; i++) {
 						const newElement = document.createElement("tr");
@@ -312,9 +309,111 @@ function searchCusType1(searchVal) {
 	});
 }
 
+function searchCusType1(searchVal) {
+	var list = [];
+	if (Other.cutStringSpace(searchVal) == "") {
+		list = cuslList;
+	} else {
+		let type = String(searchType.value);
+		for (var i = 0; i < cuslList.length; i++) {
+			if (type == "0") {
+				if (Other.cutStringSpace(cuslList[i].kcode).includes(Other.cutStringSpace(searchVal))) {
+					list.push(cuslList[i]);
+				}
+			} else if (type == "1") {
+				if (Other.cutStringSpace(cuslList[i].name).includes(Other.cutStringSpace(searchVal))) {
+					list.push(cuslList[i]);
+				}
+			}
+		}
+	}
+
+	if (list.length > 0) {
+		while (table.hasChildNodes()) {
+			table.removeChild(table.firstChild);
+		}
+
+		for (var i = 0; i < list.length; i++) {
+			const newElement = document.createElement("tr");
+			const newName = document.createElement("td");
+			newName.className += " text";
+			const newAddress = document.createElement("td");
+			newAddress.className += " text";
+			const newKenshin = document.createElement("td");
+			newKenshin.className += " text";
+			const newShuukin = document.createElement("td");
+			newShuukin.className += " text";
+			newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(list[i].name))));
+			newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(list[i].add_0))));
+			newKenshin.appendChild(document.createTextNode(list[i].kenstat == 1 ? "済" : "未"));
+			newShuukin.appendChild(document.createTextNode(list[i].shustat == 1 ? "済" : "未"));
+			newElement.appendChild(newName);
+			newElement.appendChild(newAddress);
+			newElement.appendChild(newKenshin);
+			newElement.appendChild(newShuukin);
+			if (searchMode == "1") {
+				if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
+					if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) == i) {
+						newElement.style.background = "#d9a691";
+					}
+				}
+			}
+			table.appendChild(newElement);
+			newElement.onclick = function () {
+				var object = list[this.rowIndex];
+				sessionStorage.setItem(StringCS.CUSTOMERINDEX, getIndexCustomer(object.cusrec));
+				object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
+				if (object.kenstat == 1) {
+					Common.setupModal("question", null, Mess.I00006, StringCS.IIE, StringCS.HAI, null, false);
+					var buttonConfirm = document.getElementsByClassName("button-1")[0];
+					buttonConfirm.onclick = function () {
+						const cusdat = Object.assign({}, object);
+						sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
+						Common.movePage('/customer.html');
+						modal.style.display = "none";
+						table.style.display = "none";
+					}
+				} else {
+					const cusdat = Object.assign({}, object);
+					sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
+					Common.movePage('/customer.html');
+					table.style.display = "none";
+				}
+
+			};
+		}
+
+		if (table.hasChildNodes()) {
+			document.getElementsByClassName("table-container")[0].style.display = "block";
+			document.getElementById("data-messages").style.display = "none";
+			document.getElementById("countList").innerHTML = "検索件数：" + table.childElementCount + "件";
+			document.getElementById("countList").style.display = "block";
+			if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
+				scrollToItemList(parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)));
+			} else {
+				scrollToItemList(0);
+			}
+
+		} else {
+			document.getElementsByClassName("table-container")[0].style.display = "none";
+			document.getElementById("countList").style.display = "none";
+			document.getElementById("data-messages").style.display = "block";
+		}
+	}
+}
+
+
+function getIndexCustomer(cusrec) {
+	for (var i = 0; i < cuslList.length; i++) {
+		if (cuslList[i].cusrec == cusrec) {
+			return i;
+		}
+	}
+}
+
 
 /**
-   * SEARCH CUSTOMER TYPE 1
+   * SEARCH CUSTOMER TYPE 2
 */
 function searchCusType2() {
 	setConditionData();
@@ -661,7 +760,7 @@ function onLoadAction() {
 			modal.style.display = "none";
 		}
 	} else {
-		searchCusType1("");
+		getCuslistType1();
 	}
 }
 

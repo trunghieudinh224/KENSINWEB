@@ -8,7 +8,7 @@ export var PR_ADDRESS = "192.168.200.218";
 // port :8080
 export var PR_PORT = ":8080";
 // web name
-export var PR_WEBNAME = "/Webkensin/compackr/";
+export var PR_WEBNAME = "/Webkensin/compacks/";
 // web name
 export var PR_WEBNAME_M = "/Webkensin/";
 // web key
@@ -32,6 +32,8 @@ export var PR_READSYUKEI = "readSyukei?";
 export var PR_WRITEDATA = "writeData?";
 // get uriage list
 export var PR_EARNING = "earnings?";
+// get customer list
+export var PR_CUSLIST = "cuslist?";
 
 
 /*****  VARIABLE  *****/

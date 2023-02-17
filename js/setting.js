@@ -30,6 +30,7 @@ function getDataSetting() {
 				setCommentCbb(1);
 				setCommentCbb(2);
 				setTantnameCbb();
+				setKokyakuJunCbb();
 				setPrintModeCbb();
 				modal.style.display = "none";
 			} catch {
@@ -86,6 +87,15 @@ function setTantnameCbb() {
 	}
 }
 
+/**
+   * SET DATA FOR KOKYAKUJUN COMBOBOX
+*/
+function setKokyakuJunCbb() {
+	if (dataSetting != null) {
+		document.getElementById("cbb_kokyaku_jun").value = dataSetting.order;
+	}
+}
+
 
 /**
    * SET DATA FOR PRINT MODE COMBOBOX
@@ -107,6 +117,7 @@ function setPrintModeCbb() {
 function prepareNewDataSetting() {
 	let comment1 = document.getElementById("cbb_comment1").value;
 	let comment2 = document.getElementById("cbb_comment2").value;
+	let orderVal = document.getElementById("cbb_kokyaku_jun").value;
 	let tancd = dataSetting.m_lstTantName[0].code;
 	let print_mode = document.getElementById("combobox_print_mode").value;
 	const newData = {
@@ -117,6 +128,7 @@ function prepareNewDataSetting() {
 		comment2: comment2,
 		m_lstTantName: dataSetting.m_lstTantName,
 		m_lstComment: dataSetting.m_lstComment,
+		order: orderVal,
 		m_nMode: dataSetting.wrt_tancd > 0 ? 1 : 0,
 		login_id: sessionStorage.getItem(StringCS.USERNAME),
 		login_pw: sessionStorage.getItem(StringCS.PASSWORD)
