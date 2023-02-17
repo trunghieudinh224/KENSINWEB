@@ -1744,11 +1744,11 @@ function createImageForm() {
 	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
 	document.getElementById('editView').style.display = "none";
 	document.getElementById('printView').style.display = "block";
-	setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
 	setupTextSizeDetail("konkaiSeikyuuGaku-text", "50px", "60px", "bold");
 	setupTextSizeDetail("ryooshuu-text", "50px", "58px", "bold");
 	setupTextSizeDetail("hmInfoTable-item", "24px", "31px", "normal");
 	setupTextSizeDetail("kk-val", "40px", "48px", "bold");
+	setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
 	domtoimage.toBlob(document.getElementById('printContentDetail'))
 		.then(function (blob) {
 			getBase64(blob).then(
