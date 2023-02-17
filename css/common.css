@@ -16,10 +16,14 @@
 	font-family: sans-serif;
 }
 
-/* .row {
+.row {
 	margin: 0px;
-	padding: 0px;
-} */
+}
+
+.ed-v {
+	margin-right: -15px;
+	margin-left: -15px;
+}
 
 body {
 	font-family: sans-serif;

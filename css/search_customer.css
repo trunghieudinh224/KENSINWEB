@@ -281,7 +281,7 @@ tr:nth-child(even) {
 }
 
 .card-body {
-  padding: 0.9rem;
+  padding: 10px 3px;
 }
 
 .card-link {

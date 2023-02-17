@@ -3,7 +3,7 @@ body {
 }
 
 .card-body {
-	padding: 10px !important;
+	padding: 10px 3px !important;
 	overflow: hidden;
 }
 
