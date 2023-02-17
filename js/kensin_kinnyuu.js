@@ -44,7 +44,7 @@ const nyuukinGroup = document.querySelector("#nyuukin-group");
 const teiseiNyuukin = document.querySelector("#teisei-nyuukin");
 const Sashihiki_zandaka = document.querySelector("#Sashihiki_zandaka");
 const teiseiSumi = document.querySelector("#teisei-sumi");
-const saveButton = document.getElementById("createPrintingFormButton");
+const saveButton = document.getElementById("next3Button");
 
 /*****  DATA VARIABLE  *****/
 /** ユーザー情報 */
@@ -113,8 +113,13 @@ function setupCollapseTab() {
     //     document.getElementById("card2").style.pointerEvents = "none";
     // }
 
+    
     if (mUserData.mSysfDat.mIfMoney == false) {
-        $('.collapseOne').collapse();
+        document.getElementById("card2").style.pointerEvents = "none";
+        document.getElementById("card3").style.pointerEvents = "none";
+        document.getElementById("card-header-2").style.backgroundColor = "#aeaeae";
+        document.getElementById("card-header-3").style.backgroundColor = "#aeaeae";
+        $('.collapseOne').collapse('show');
         document.getElementById("card3").remove();
         displayTab[2] = false;
         setupButton();
@@ -125,16 +130,18 @@ function setupCollapseTab() {
     }
 
     if (modePage == 3) {
-        displayTab[0] = false;
-        displayTab[1] = false;
         document.getElementById("card1").remove();
         document.getElementById("card2").remove();
-        $('.collapseThree').collapse()
+        displayTab[0] = false;
+        displayTab[1] = false;
+        $('.collapseThree').collapse('show')
         setupButtonNyukinMode();
     } else {
         document.getElementById("card2").style.pointerEvents = "none";
         document.getElementById("card3").style.pointerEvents = "none";
-        $('.collapseOne').collapse()
+        document.getElementById("card-header-2").style.backgroundColor = "#aeaeae";
+        document.getElementById("card-header-3").style.backgroundColor = "#aeaeae";
+        $('.collapseOne').collapse('show')
         setupButton();
         openKensinLayout();
     }
@@ -940,8 +947,12 @@ function setdataUchiWake() {
 
 
 //-------------------Enter Input String event--------------------------------->
-mTxtNowMeter.addEventListener('DOMSubtreeModified', function () {
+mTxtNowMeter.addEventListener('DOMNodeInserted', function () {
     var strSisin = mTxtNowMeter.textContent;
+
+    if (mUserData.mKokfDat.mNowMeter == parseFloat(mTxtNowMeter.textContent) * 10) {
+        return;
+    }
 
     if (strSisin != "") {
         setGasInfo();
@@ -955,14 +966,13 @@ mTxtNowMeter.addEventListener('DOMSubtreeModified', function () {
         }
 
         if (mTxtNowMeter.textContent != "") {
-            document.getElementById("createPrintingFormButton").disabled = false;
-            document.getElementById("card2").style.pointerEvents = "auto";
+            document.getElementById("next1Button").disabled = false;
             if (displayTab[2] == true) {
                 document.getElementById("card3").style.pointerEvents = "auto";
             }
         } else {
-            document.getElementById("createPrintingFormButton").disabled = true;
-            document.getElementById("card2").style.pointerEvents = "none";
+            document.getElementById("next1Button").disabled = true;
+            document.getElementById("next3Button").disabled = true;
             if (displayTab[2] == true) {
                 document.getElementById("card3").style.pointerEvents = "none";
             }
@@ -971,6 +981,11 @@ mTxtNowMeter.addEventListener('DOMSubtreeModified', function () {
 });
 
 mEditAdjust.addEventListener('DOMSubtreeModified', function () {
+    //mUserData.mKokfDat.mAdjust
+    if (mUserData.mKokfDat.mAdjust == parseInt(Other.getNumFromString(mEditAdjust.textContent))) {
+        return;
+    }
+
     if (isValidNumber(Other.getNumFromString(mEditAdjust.textContent).replaceAll("-", ""))) {
         setZandaka();
         updatePrintData();
@@ -982,6 +997,10 @@ mEditAdjust.addEventListener('DOMSubtreeModified', function () {
 });
 
 mEditInputReceipt.addEventListener('DOMSubtreeModified', function () {
+    if (mUserData.mKokfDat.mInpReceipt == parseInt(Other.getNumFromString(mEditInputReceipt.textContent))) {
+        return;
+    }
+    
     if (isValidNumber(Other.getNumFromString(mEditInputReceipt.textContent).replaceAll("-", ""))) {
         nyuukin = Other.getNumFromString(mEditInputReceipt.textContent);
         mEditReceipt.textContent = Other.formatDecial(nyuukin);
@@ -995,7 +1014,11 @@ mEditInputReceipt.addEventListener('DOMSubtreeModified', function () {
     }
 });
 
-mEditInputReceipt.addEventListener('DOMSubtreeModified', function () {
+teiseiNyuukin.addEventListener('DOMSubtreeModified', function () {
+    if (teiseiNyuukinPre == parseInt(Other.getNumFromString(teiseiNyuukin.textContent))) {
+        return;
+    }
+
     if (isValidNumber(Other.getNumFromString(teiseiNyuukin.textContent).replaceAll("-", ""))) {
         if (modePage == 3) {
             setupButtonNyukinMode();
@@ -1005,13 +1028,13 @@ mEditInputReceipt.addEventListener('DOMSubtreeModified', function () {
             teiseiNyuukin.classList.add("text_red");
             document.getElementById("txtErrorTeiseiDetail").classList.add("text_red");
             document.getElementById("teisei-sumi").disabled = true;
-            document.getElementById("createPrintingFormButton").disabled = true;
+            document.getElementById("next3Button").disabled = true;
         } else {
             document.getElementById("txtErrorTeisei").style.display = "none";
             teiseiNyuukin.classList.remove("text_red");
             document.getElementById("txtErrorTeiseiDetail").classList.remove("text_red");
             document.getElementById("teisei-sumi").disabled = false;
-            document.getElementById("createPrintingFormButton").disabled = false;
+            document.getElementById("next3Button").disabled = false;
         }
         teiseiNyuukin.textContent = onChangeMinus(teiseiNyuukin.textContent);
     } else {
@@ -1087,13 +1110,13 @@ cancelBtn.onclick = function () {
         teiseiNyuukin.classList.add("text_red");
         document.getElementById("txtErrorTeiseiDetail").classList.add("text_red");
         document.getElementById("teisei-sumi").disabled = true;
-        document.getElementById("createPrintingFormButton").disabled = true;
+        document.getElementById("next3Button").disabled = true;
     } else {
         document.getElementById("txtErrorTeisei").style.display = "none";
         teiseiNyuukin.classList.remove("text_red");
         document.getElementById("txtErrorTeiseiDetail").classList.remove("text_red");
         document.getElementById("teisei-sumi").disabled = false;
-        document.getElementById("createPrintingFormButton").disabled = false;
+        document.getElementById("next3Button").disabled = false;
     }
 
 };
@@ -1362,7 +1385,7 @@ export function sendDataToServer() {
 */
 function setupButton() {
     if (mTxtNowMeter.textContent == "") {
-        document.getElementById("createPrintingFormButton").disabled = true;
+        document.getElementById("next1Button").disabled = true;
     }
 }
 
@@ -1371,10 +1394,11 @@ function setupButton() {
     SETUP NYUUKIN MODE BUTTON
 */
 function setupButtonNyukinMode() {
+    //Hieu
     if (mEditAdjust.textContent != "0" || mEditInputReceipt.textContent != "0" || parseInt(Other.getNumFromString(teiseiNyuukin.textContent)) < 0) {
-        document.getElementById("createPrintingFormButton").disabled = false;
+        document.getElementById("next3Button").disabled = false;
     } else {
-        document.getElementById("createPrintingFormButton").disabled = true;
+        document.getElementById("next3Button").disabled = true;
     }
 }
 
@@ -1396,8 +1420,52 @@ function onclickAction() {
         wrapMainForm.classList.remove("overlay-animate");
     };
 
-    document.getElementById("backPageButton").onclick = function () {
+    document.getElementById("backPage1Button").onclick = function () {
         Common.backAction();
+    };
+
+    document.getElementById("next1Button").onclick = function () {
+        document.getElementById("card-header-1").style.backgroundColor = "#aeaeae";
+        document.getElementById("card1").style.pointerEvents = "none";
+        document.getElementById("card3").style.pointerEvents = "none";
+        document.getElementById("card2").style.pointerEvents = "auto";
+        document.getElementById("card-header-2").style.backgroundColor = "#7ab869";
+        $('.collapseOne').collapse('hide')
+        $('.collapseTwo').collapse('show')
+    };
+
+    document.getElementById("backPage2Button").onclick = function () {
+        document.getElementById("card-header-1").style.backgroundColor = "#7ab869";
+        document.getElementById("card1").style.pointerEvents = "auto";
+        document.getElementById("card2").style.pointerEvents = "none";
+        document.getElementById("card-header-2").style.backgroundColor = "#aeaeae";
+        document.getElementById("card3").style.pointerEvents = "none";
+        $('.collapseOne').collapse('show')
+        $('.collapseTwo').collapse('hide')
+    };
+
+    document.getElementById("next2Button").onclick = function () {
+        document.getElementById("card-header-2").style.backgroundColor = "#aeaeae";
+        document.getElementById("card1").style.pointerEvents = "none";
+        document.getElementById("card2").style.pointerEvents = "none";
+        document.getElementById("card3").style.pointerEvents = "auto";
+        document.getElementById("card-header-3").style.backgroundColor = "#7ab869";
+        $('.collapseTwo').collapse('hide')
+        $('.collapseThree').collapse('show')
+    };
+
+    document.getElementById("backPage3Button").onclick = function () {
+        if (modePage == 3) {   
+            Common.backAction();
+        } else {
+            document.getElementById("card-header-2").style.backgroundColor = "#7ab869";
+            document.getElementById("card2").style.pointerEvents = "auto";
+            document.getElementById("card1").style.pointerEvents = "none";
+            document.getElementById("card3").style.pointerEvents = "none";
+            document.getElementById("card-header-3").style.backgroundColor = "#aeaeae";
+            $('.collapseTwo').collapse('show')
+            $('.collapseThree').collapse('hide')
+        }
     };
 }
 
@@ -1406,9 +1474,9 @@ function onclickAction() {
    * ONLOAD ACTION
 */
 function onLoadAction() {
+    inputFocus();
     setupCollapseTab();
     setdataNyukinLayout();
-    inputFocus();
 }
 
 

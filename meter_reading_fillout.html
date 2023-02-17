@@ -80,17 +80,13 @@
                     <div id="collapseView">
                         <div id="accordion">
                             <div class="card" id="card1">
-                                <div class="card-header">
+                                <div class="card-header" id="card-header-1">
                                     <span class="card-link" data-toggle="collapse" href="#collapseOne">
                                         <div class="input-group">
                                             <div class="item-collapse">
                                                 <span class="title-collapse">検針記入</span>
                                             </div>
-
-                                            <!-- <div class="item-collapse ic-dd-collapse">
-                                                <span class="arrow-ic fas fa-caret-up"></span>
-                                            </div> -->
-                                        </div> <!-- form-group// -->
+                                        </div>
                                     </span>
                                 </div>
                                 <div id="collapseOne" class="collapse collapseOne" data-parent="#accordion">
@@ -230,6 +226,18 @@
                                                     </div> <!-- form-group// -->
                                                 </div>
                                             </div>
+
+                                            <div class="row content">
+                                                <div class="col-6">
+                                                    <button type="button" class="btn btn-default text-center" id="backPage1Button"><span
+                                                            class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
+                                                </div>
+                    
+                                                <div class="col-6">
+                                                    <button type="button" class="btn btn-default text-center" id="next1Button"><span
+                                                            class="fas fa-play ic-btn"></span><br>確認</button>
+                                                </div>
+                                            </div>
                                         </form>
 
                                     </div>
@@ -237,17 +245,13 @@
                             </div>
 
                             <div class="card" id="card2">
-                                <div class="card-header">
+                                <div class="card-header" id="card-header-2">
                                     <span class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
                                         <div class="input-group">
                                             <div class="item-collapse">
                                                 <span class="title-collapse" id="hoan_layout">保安記入</span>
                                             </div>
-
-                                            <!-- <div class="item-collapse ic-dd-collapse">
-                                                <span class="arrow-ic fas fa-caret-down"></span>
-                                            </div> -->
-                                        </div> <!-- form-group// -->
+                                        </div> 
                                     </span>
                                 </div>
                                 <div id="collapseTwo" class="collapse collapseTwo" data-parent="#accordion">
@@ -406,6 +410,18 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="row content">
+                                                <div class="col-6">
+                                                    <button type="button" class="btn btn-default text-center" id="backPage2Button"><span
+                                                            class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
+                                                </div>
+                    
+                                                <div class="col-6">
+                                                    <button type="button" class="btn btn-default text-center" id="next2Button"><span
+                                                            class="fas fa-play ic-btn"></span><br>確認</button>
+                                                </div>
+                                            </div>
                                         </form>
 
 
@@ -414,17 +430,13 @@
                             </div>
 
                             <div class="card" id="card3">
-                                <div class="card-header">
+                                <div class="card-header" id="card-header-3">
                                     <span class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
                                         <div class="input-group">
                                             <div class="item-collapse">
                                                 <span class="title-collapse" id="niukin_layout">入金記入</span>
                                             </div>
-
-                                            <!-- <div class="item-collapse ic-dd-collapse">
-                                                <span class="arrow-ic fas fa-caret-down"></span>
-                                            </div> -->
-                                        </div> <!-- form-group// -->
+                                        </div> 
                                     </span>
                                 </div>
                                 <div id="collapseThree" class="collapse collapseThree" data-parent="#accordion">
@@ -661,25 +673,22 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="row content">
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-default text-center" id="backPage3Button"><span
+                                                        class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
+                                            </div>
+                
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-default text-center" id="next3Button"><span
+                                                        class="fas fa-play ic-btn"></span><br>確認</button>
+                                            </div>
+                                        </div>
                                         </form>
 
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="button-area">
-                        <div class="row content">
-                            <div class="col-6">
-                                <button type="button" class="btn btn-default text-center" id="backPageButton"><span
-                                        class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
-                            </div>
-
-                            <div class="col-6">
-                                <button type="button" class="btn btn-default text-center" id="createPrintingFormButton"><span
-                                        class="fas fa-play ic-btn"></span><br>確認</button>
                             </div>
                         </div>
                     </div>
@@ -2106,26 +2115,26 @@
                     <div class="table-container">
                         <table id="keyboardTable" class="result-tb">
                             <tr>
-                                <td><div class="it-keyboard num-kb">7</div></td>
-                                <td><div class="it-keyboard num-kb">8</div></td>
-                                <td><div class="it-keyboard num-kb">9</div></td>
-                                <td><div class="it-keyboard" id="minus-btn">ー</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">7</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">8</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">9</div></td>
+                                <td><div class="it-keyboard ta-c text fw-b" id="minus-btn">ー</div></td>
                             </tr>
                             <tr>
-                                <td><div class="it-keyboard num-kb">4</div></td>
-                                <td><div class="it-keyboard num-kb">5</div></td>
-                                <td><div class="it-keyboard num-kb">6</div></td>
-                                <td><div class="it-keyboard" id="dot-btn">.</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">4</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">5</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">6</div></td>
+                                <td><div class="it-keyboard ta-c text fw-b" id="dot-btn">.</div></td>
                             </tr>
                             <tr>
-                                <td><div class="it-keyboard num-kb">1</div></td>
-                                <td><div class="it-keyboard num-kb">2</div></td>
-                                <td><div class="it-keyboard num-kb">3</div></td>
-                                <td rowspan="2"><div class="it-keyboard" id="enter-btn">ENT</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">1</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">2</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">3</div></td>
+                                <td rowspan="2"><div class="it-keyboard ta-c text fw-b" id="enter-btn">ENT</div></td>
                             </tr>
                             <tr>
-                                <td colspan="2"><div class="it-keyboard num-kb">0</div></td>
-                                <td ><div class="it-keyboard" id="del-btn">DEL</div></td>
+                                <td colspan="2"><div class="it-keyboard num-kb ta-c text fw-b">0</div></td>
+                                <td ><div class="it-keyboard ta-c text fw-b" id="del-btn">DEL</div></td>
                             </tr>
                         </table>
                     </div>

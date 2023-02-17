@@ -61,7 +61,7 @@ function setupLayout() {
 	if (searchMode == "1") {
 		title.innerHTML = "検針顧客一覧";
 		var itemSearch = document.getElementsByClassName("searchItem2");
-		for(var i = itemSearch.length-1; i >= 0; i--) {
+		for (var i = itemSearch.length - 1; i >= 0; i--) {
 			itemSearch[i].remove();
 		}
 
@@ -72,7 +72,7 @@ function setupLayout() {
 		searchKeyArea.style.paddingRight = "none"
 	} else {
 		var itemSearch = document.getElementsByClassName("searchItem1");
-		for(var i = itemSearch.length-1; i >= 0; i--) {
+		for (var i = itemSearch.length - 1; i >= 0; i--) {
 			itemSearch[i].remove();
 		}
 	}
@@ -201,7 +201,7 @@ function searchCusType1(searchVal) {
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
 		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+			// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + String(searchType.value) +
 			(searchVal != "" ? "&srch_string=" + searchVal : "") +
 			"&match_kind=0" +
@@ -323,7 +323,7 @@ function searchCusType2() {
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
 		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+			// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + conditionData.searchKind +
 			(conditionData.searchKey != "" ? "&srch_string=" + conditionData.searchKey : "") +
 			"&match_kind=" + conditionData.searchPart +
@@ -441,7 +441,7 @@ function firstCustomerAction() {
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
 		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+			// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
 			"&srch_kind=" + conditionData.searchKind +
 			(conditionData.searchKey != "" ? "&srch_string=" + conditionData.searchKey : "") +
 			"&match_kind=" + conditionData.searchPart +
@@ -668,12 +668,12 @@ function onLoadAction() {
 
 
 
-window.addEventListener("pageshow", function(evt){
-	if(evt.persisted){
-	setTimeout(function(){
-		window.location.reload();
-	},10);
-}
+window.addEventListener("pageshow", function (evt) {
+	if (evt.persisted) {
+		setTimeout(function () {
+			window.location.reload();
+		}, 10);
+	}
 }, false);
 
 window.onload = onLoadAction;
