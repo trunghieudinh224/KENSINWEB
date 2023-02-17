@@ -202,8 +202,8 @@ function getCuslistType1() {
 
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
-		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSLIST + StringCS.PR_KEY + 
-		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSLIST + StringCS.PR_KEY +
+		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSLIST + StringCS.PR_KEY + 
+		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSLIST + StringCS.PR_KEY +
 			"&tancd=" + dataSetting.tancd + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&order=" + dataSetting.order +
 			"&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
 			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
