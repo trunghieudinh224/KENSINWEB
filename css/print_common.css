@@ -9,7 +9,7 @@
 }
 
 #printContentDetail {
-	background-color: white;
+	background-color: rgb(245, 245, 245);
 	padding: 0px 20px !important;
 }
 
@@ -137,7 +137,7 @@
 	}
 
 	#printContentDetail {
-		background-color: white;
+		background-color: rgb(235, 235, 235);
 		padding: 0px 10px !important;
 	}
 
