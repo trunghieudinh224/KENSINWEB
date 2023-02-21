@@ -5,10 +5,6 @@ import * as Mess from '../Constant/message.js'
    * BACK ACTION
 */
 function backAction() {
-    let previousURL = document.referrer;
-    // if (previousURL.includes("http://127.0.0.1/")) {
-
-    // }
     history.back();
 }
 
@@ -383,6 +379,7 @@ function showKeyBoard(title, valElement) {
     }
 }
 
+
 function disableNumberKeyboard(enable) {
     var number = document.getElementsByClassName("num-kb");
     for (var i = 0; i < number.length; i++) {
@@ -398,5 +395,26 @@ function disableNumberKeyboard(enable) {
     }
 }
 
+
+function getOS() {
+    var result = bowser.getParser(window.navigator.userAgent);
+    return result;
+}
+
+
+/* 
+	* SET ALIGN COMBOBOX
+*/
+function setAlignCombobox(value) {
+	if (value) {
+		var cbb = document.getElementsByClassName("combobox");
+		for (var i = 0; i < cbb.length; i++) {
+			var width = cbb[i].clientWidth / 2.2;
+			cbb[i].style.paddingLeft = width + "px";
+		}
+	}
+}
+
+
 export {backAction, setupModal, movePage, changePage, checkDevice, setBackgroundDialogScreen, checkPrintable, setFocusSelectString, calcValOfList,
-    showKeyBoard}
+    showKeyBoard, getOS, setAlignCombobox}

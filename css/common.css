@@ -540,12 +540,16 @@ input::-webkit-inner-spin-button {
 
 .it-keyboard {
 	background-color: #b3d2bb;
-	text-align: center;
 	border-radius: 5px;
-	padding: 18px 5px;
+	padding: 0px 5px;
 	height: 100%;
 	overflow: hidden;
 	width: 100%;
+	text-align: center;
+    vertical-align: middle;
+    align-items: center;
+    display: grid;
+	height: 70px;
 }
 
 .it-keyboard:hover {
@@ -553,10 +557,7 @@ input::-webkit-inner-spin-button {
 }
 
 #enter-btn {
-	text-align: center;
-    vertical-align: middle;
-    align-items: center;
-    display: grid;
+	height: 143px;
 }
 
 
@@ -777,6 +778,14 @@ input::-webkit-inner-spin-button {
 	.unit {
 		max-width: 45px;
 	}
+
+	.it-keyboard {
+		height: 60px;
+	}
+	
+	#enter-btn {
+		height: 123px;
+	}
 }
 
 @media screen and (max-width: 580px) {
@@ -812,5 +821,13 @@ input::-webkit-inner-spin-button {
 		margin-top: 80px;
 		margin-bottom: 80px;
 		padding: 20px 10px;
+	}
+
+	.it-keyboard {
+		height: 50px;
+	}
+	
+	#enter-btn {
+		height: 103px;
 	}
 }

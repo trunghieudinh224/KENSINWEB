@@ -1432,6 +1432,8 @@ function onclickAction() {
         document.getElementById("card-header-2").style.backgroundColor = "#7ab869";
         $('.collapseOne').collapse('hide')
         $('.collapseTwo').collapse('show')
+        var OS = Common.getOS().parsedResult.os.name;
+        Common.setAlignCombobox(OS == "iOS" || OS == "macOS");
     };
 
     document.getElementById("backPage2Button").onclick = function () {
@@ -1463,8 +1465,10 @@ function onclickAction() {
             document.getElementById("card1").style.pointerEvents = "none";
             document.getElementById("card3").style.pointerEvents = "none";
             document.getElementById("card-header-3").style.backgroundColor = "#aeaeae";
-            $('.collapseTwo').collapse('show')
             $('.collapseThree').collapse('hide')
+            $('.collapseTwo').collapse('show')
+            var OS = Common.getOS().parsedResult.os.name;
+            Common.setAlignCombobox(OS == "iOS" || OS == "macOS");
         }
     };
 }
