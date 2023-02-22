@@ -23,38 +23,12 @@
     margin-bottom: 15px;
 }
 
-.bd-1 {
-    border: 1.5px solid black;
-}
-
-.bd-3 {
-    border: 3px solid black;
-}
-
 .frames-common {
     padding: 3px 10px
 }
 
-.mt--1 {
-    margin-top: -1px;
-}
-
-.mt--3 {
-    margin-top: -3px;
-}
-
 .pl-25p {
     padding-left: 25%;
-}
-
-.valLine {
-    width: 85%;
-    float: left;
-}
-
-.unitLine {
-    width: 15%;
-    float: right;
 }
 
 .lg-text {
@@ -168,14 +142,6 @@ td {
         padding: 3px 4px
     }
 
-    .valLine {
-        width: 82%;
-    }
-
-    .unitLine {
-        width: 18%;
-    }
-
     .lg-text {
         font-size: 18px;
     }
@@ -198,14 +164,6 @@ td {
 }
 
 @media screen and (max-width: 600px) {
-    .valLine {
-        width: 79%;
-    }
-
-    .unitLine {
-        width: 21%;
-    }
-
     #ryooOsamuShirushiArea {
         height: 120px;
     }

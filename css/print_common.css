@@ -85,10 +85,33 @@
 
 
 /*
-  ******  PADDING && MARGIN  ******
+  ******  BORDER && WIDTH  ******
 */
-.bracket {
-	margin-left: 10px;
+
+.bd-1 {
+    border: 1px solid black;
+}
+
+.bd-3 {
+    border: 3px solid black;
+}
+
+.mt--1 {
+    margin-top: -1px;
+}
+
+.mt--3 {
+    margin-top: -3px;
+}
+
+.valLine {
+    width: 85%;
+    float: left;
+}
+
+.unitLine {
+    width: 15%;
+    float: right;
 }
 
 
@@ -128,6 +151,14 @@
 	.text-print {
 		font-size: 16px;
 	}
+
+    .valLine {
+        width: 83%;
+    }
+
+    .unitLine {
+        width: 17%;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -149,6 +180,14 @@
 	.text-print {
 		font-size: 15px;
 	}
+
+    .valLine {
+        width: 81%;
+    }
+
+    .unitLine {
+        width: 19%;
+    }
 }
 
 @media screen and (max-width: 450px) {
