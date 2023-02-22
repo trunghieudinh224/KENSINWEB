@@ -4,6 +4,7 @@ import * as Dat from './Dat/dat.js'
 import * as Other from './Common/other_util.js'
 import * as StringCS from './Constant/strings.js'
 import * as Mess from './Constant/message.js'
+import * as ValueCS from './Constant/values.js'
 
 /*****  VIEW VARIABLE  *****/
 /* modal */
@@ -33,6 +34,8 @@ var kensinData = new Dat.KensinData();
 var kensin_date = new Date(mUserData.mKensinDate);
 /** 灯油使用量 */
 var m_nToyuuse = 0;
+
+
 
 
 
@@ -389,8 +392,12 @@ function save() {
 				document.getElementById("printView").style.display = "block";
 				var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, false, 0, 0, false, true);
 				createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
+			
+			
 			}
 		}
+
+		sendDataToServer()
 
 	} catch (ex) {
 		console.log(ex);
@@ -2972,7 +2979,7 @@ function onclickAction() {
 	};
 
 	kakuninButton.onclick = function () {
-		// save();
+		 save();
 		Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
 	}
 }
@@ -2993,7 +3000,56 @@ function getPrintStatus(kokfDat, sysfDat, isPrintNyukin, lReceipt, lZandaka, isP
 	return printStatus;
 }
 
+/** 
+	* SENDING DATA
+*/
+export function sendDataToServer() {
+	var kensinDate = new Date(sessionStorage.getItem(StringCS.KENSINDATE));
 
+	var mKokfDat = mUserData.mKokfDat;
+	mKokfDat.l_ken_ss = mUserData.mKokfDat.mKotfDat.m_nNow_meter;
+	mKokfDat.l_ken_stat = 0;
+	mKokfDat.l_ken_sumi = mKokfDat.mKotfDat.m_bKen_sumi;
+	if(mKokfDat.l_ken_sumi == 1 ){
+		mKokfDat.l_ken_wrtf = 1;
+	}else{
+		mKokfDat.l_ken_wrtf = 0;
+	}
+	mKokfDat.l_ken_guri = mKokfDat.mKotfDat.m_nFee;
+	mKokfDat.l_ken_gtax = mKokfDat.mKotfDat.m_nCon_tax;
+	mKokfDat.l_ken_sr = mKokfDat.mKotfDat.m_nLoil_use;
+	mKokfDat.l_mt_keta = mKokfDat.mKotfDat.m_bMt_keta;
+	mKokfDat.m_dtL_ken_ymd = kensinDate;
+
+	var loilWriteDat = new Dat.LoilWriteDat();
+	loilWriteDat.m_kokfDat = mKokfDat;
+	loilWriteDat.login_id = sessionStorage.getItem(StringCS.USERNAME);
+	loilWriteDat.login_pw = sessionStorage.getItem(StringCS.PASSWORD);
+
+
+	$.ajax({
+		type: "POST",
+		data: JSON.stringify(loilWriteDat),
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_TOYU,
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_TOYU,
+		contentType: "application/json",
+		timeout: ValueCS.VL_LONG_TIMEOUT,
+		success: function (response) {
+			console.log(response);
+			Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
+		},
+		error: function (textstatus) {
+			if (textstatus === "timeout") {
+				console.log("timeout")
+			} else {
+				console.log(textstatus)
+			}
+			Common.setupModal("error", null, Mess.E00004, null, StringCS.OK, null, false);
+		}
+	}).done(function (res) {
+		console.log('res', res);
+	});
+}
 /**
    * ONLOAD ACTION
 */

@@ -5,6 +5,7 @@ import * as Mess from './Constant/message.js'
 import * as GasRaterCom from './Common/gasratercom.js'
 import * as Dat from './Dat/dat.js'
 import * as KensinKinyuu from './kensin_kinnyuu.js'
+import * as KensinPrint from './kensin_print.js'
 
 /*****  VIEW VARIABLE  *****/
 /* modal */
@@ -1476,6 +1477,7 @@ function onclickAction() {
 		};
 		KensinKinyuu.saveButton.onclick = function () {
 			// Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
+			KensinPrint.savingData();
 			document.getElementById("editView").style.display = "none";
 			document.getElementById("printView").style.display = "block";
 			document.getElementById("kensinForm").style.display = "none";
