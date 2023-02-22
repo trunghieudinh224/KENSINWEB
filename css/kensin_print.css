@@ -87,8 +87,8 @@
 
 .tb-item {
     font-size: 22px;
-    display: block;
-    float: right;
+    /* display: block;
+    float: right; */
 }
 
 .hybTable-item {
