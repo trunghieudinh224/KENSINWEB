@@ -3140,24 +3140,24 @@ function onclickAction() {
 			sendImage();
 		};
 		KensinKinyuu.saveButton.onclick = function () {
-			// savingData();
+			savingData();
 	
 			// sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
-			document.getElementById("editView").style.display = "none";
-			document.getElementById("printView").style.display = "block";
-			document.getElementById("nyuukinForm").style.display = "none";
-			var mReciept = 0;
-			var mZandaka = 0;
-			if (KensinKinyuu.displayTab[2] == true) {
-				mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
-				mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
-				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
-				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
-			} else {
-				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
-				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
-			}
-			createImageKensinForm();
+			// document.getElementById("editView").style.display = "none";
+			// document.getElementById("printView").style.display = "block";
+			// document.getElementById("nyuukinForm").style.display = "none";
+			// var mReciept = 0;
+			// var mZandaka = 0;
+			// if (KensinKinyuu.displayTab[2] == true) {
+			// 	mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
+			// 	mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
+			// 	getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
+			// 	createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
+			// } else {
+			// 	getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
+			// 	createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
+			// }
+			// createImageKensinForm();
 		};
 	}
 }
@@ -3167,10 +3167,10 @@ function onclickAction() {
 	* CREATE IMAGE FILE OF SHUUKEI NIPPOU FORM
 */
 function createImageKensinForm() {
-	// Common.setupModal("load", null, Mess.I00001, null, null, null, false);
-	// Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
-	// document.getElementById('editView').style.display = "none";
-	// document.getElementById('printView').style.display = "block";
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
+	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
+	document.getElementById('editView').style.display = "none";
+	document.getElementById('printView').style.display = "block";
 	setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
 	setupTextSizeDetail("lg-text", "40px", "47px", "bold");
 	setupTextSizeDetail("tb-item", "22px", "29px", "normal");
@@ -3190,18 +3190,18 @@ function createImageKensinForm() {
 					window.scrollTo(0, 0);
 
 					const interval = setInterval(function () {
-						// setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
-						// setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
-						// setupTextSizeDetail("tb-item-ts", tbItemTS, tbItemLH, "normal");
-						// setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
-						// setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
-						// setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
-						// setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
-						// setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
-						// setupTextSizeDetail("hoan-val", hoanValTS, hoanValLH, "normal");
-						// setupTextSizeDetail("kk-val", kkValTS, kkValLH, "bold");
+						setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
+						setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
+						setupTextSizeDetail("tb-item-ts", tbItemTS, tbItemLH, "normal");
+						setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
+						setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
+						setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
+						setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
+						setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
+						setupTextSizeDetail("hoan-val", hoanValTS, hoanValLH, "normal");
+						setupTextSizeDetail("kk-val", kkValTS, kkValLH, "bold");
 
-						// Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
+						Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
 						clearInterval(interval);
 						modal.style.display = "none";
 					}, 100);
