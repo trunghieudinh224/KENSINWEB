@@ -468,6 +468,11 @@ function searchCusType2() {
 						newElement.appendChild(newKenshin);
 						newElement.appendChild(newShuukin);
 						table.appendChild(newElement);
+						if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
+							if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) == i) {
+								newElement.style.background = "#d9a691";
+							}
+						}
 						newElement.onclick = function () {
 							var object = data.cuslist[this.rowIndex];
 							sessionStorage.setItem(StringCS.CUSTOMERINDEX, this.rowIndex);
