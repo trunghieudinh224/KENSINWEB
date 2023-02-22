@@ -1023,7 +1023,7 @@ teiseiNyuukin.addEventListener('DOMSubtreeModified', function () {
         if (modePage == 3) {
             setupButtonNyukinMode();
         }
-        if (teiseiNyuukin.textContent - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0) {
+        if (teiseiNyuukin.textContent - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0 && modePage == 3) {
             document.getElementById("txtErrorTeisei").style.display = "block";
             teiseiNyuukin.classList.add("text_red");
             document.getElementById("txtErrorTeiseiDetail").classList.add("text_red");
@@ -1105,7 +1105,7 @@ cancelBtn.onclick = function () {
     teiseiNyuukin.textContent = teiseiNyuukinPre;
     teiseiNyuukinPre = "0";
 
-    if (teiseiNyuukin.textContent - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0) {
+    if (teiseiNyuukin.textContent - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0 && modePage == 3) {
         document.getElementById("txtErrorTeisei").style.display = "block";
         teiseiNyuukin.classList.add("text_red");
         document.getElementById("txtErrorTeiseiDetail").classList.add("text_red");
