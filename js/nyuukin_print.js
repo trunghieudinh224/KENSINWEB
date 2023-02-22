@@ -6,6 +6,7 @@ import * as GasRaterCom from './Common/gasratercom.js'
 import * as Dat from './Dat/dat.js'
 import * as KensinKinyuu from './kensin_kinnyuu.js'
 import * as KensinPrint from './kensin_print.js'
+import * as ValueCS from './Constant/values.js'
 
 /*****  VIEW VARIABLE  *****/
 /* modal */
@@ -1477,22 +1478,7 @@ function onclickAction() {
 		};
 		KensinKinyuu.saveButton.onclick = function () {
 			// Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
-			KensinPrint.savingData();
-			document.getElementById("editView").style.display = "none";
-			document.getElementById("printView").style.display = "block";
-			document.getElementById("kensinForm").style.display = "none";
-			var mReciept = 0;
-			var mZandaka = 0;
-			if (KensinKinyuu.displayTab[2] == true) {
-				mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
-				mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
-				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
-				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
-			} else {
-				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
-				createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
-			}
-			createImageKensinForm();
+			savingData();
 		}
 	}
 }
@@ -1550,21 +1536,43 @@ function createImageKensinForm() {
 */
 function savingData() {
 	Common.setupModal("load", null, Mess.I00002, null, null, null, false);
-	document.getElementById("editView").style.display = "none";
-	document.getElementById("printView").style.display = "block";
-	var mReciept = 0;
-	var mZandaka = 0;
-	if (KensinKinyuu.displayTab[2] == true) {
-		mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
-		mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
-		getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
-		createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
-	} else {
-		getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
-		createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
-	}
-	Common.setupModal("load", null, Mess.I00002, null, null, null, false);
-	createImageKensinForm();
+	$.ajax({
+		type: "POST",
+		data: JSON.stringify(KensinKinyuu.sendDataToServer()),
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
+		contentType: "application/json",
+		timeout: ValueCS.VL_LONG_TIMEOUT,
+		success: function (response) {
+			console.log(response);
+			document.getElementById("editView").style.display = "none";
+			document.getElementById("printView").style.display = "block";
+			document.getElementById("kensinForm").style.display = "none";
+			var mReciept = 0;
+			var mZandaka = 0;
+			if (KensinKinyuu.displayTab[2] == true) {
+				mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
+				mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
+				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
+				createPrintData(printStatus, false);
+			} else {
+				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
+				createPrintData(printStatus,  false);
+			}
+			createImageKensinForm();
+		},
+		error: function (xmlhttprequest, textstatus, message) {
+			if (textstatus === "timeout") {
+				console.log("timeout")
+			} else {
+				console.log(textstatus)
+			}
+			Common.setupModal("error", null, Mess.E00004, null, StringCS.OK, null, false);
+		}
+	}).done(function (res) {
+		console.log('res', res);
+		Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
+	});
 }
 
 
