@@ -202,8 +202,8 @@ function getCuslistType1() {
 
 	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSLIST + StringCS.PR_KEY + 
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSLIST + StringCS.PR_KEY +
+		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSLIST + StringCS.PR_KEY +
+			// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSLIST + StringCS.PR_KEY +
 			"&tancd=" + dataSetting.tancd + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&order=" + dataSetting.order +
 			"&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
 			"&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
@@ -444,10 +444,12 @@ function searchCusType2() {
 			while (table.hasChildNodes()) {
 				table.removeChild(table.firstChild);
 			}
+			var checkRecord = false;
 
 			const data = JSON.parse(result);
 			if (data.cuslist != null) {
 				if (data.cuslist.length > 0) {
+					checkRecord = compareObjectList(data.cuslist, JSON.parse(sessionStorage.getItem(StringCS.CUSTLIST)));
 					sessionStorage.setItem(StringCS.CUSTLIST, JSON.stringify(data.cuslist));
 					for (var i = 0; i < data.cuslist.length; i++) {
 						const newElement = document.createElement("tr");
@@ -501,7 +503,9 @@ function searchCusType2() {
 						document.getElementById("countList").innerHTML = "検索件数：" + table.childElementCount + "件";
 						document.getElementById("countList").style.display = "block";
 						if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
-							scrollToItemList(parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)));
+							if (checkRecord == true) {
+								scrollToItemList(parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)));
+							}
 						} else {
 							scrollToItemList(0);
 						}
@@ -532,6 +536,26 @@ function searchCusType2() {
 		},
 		timeout: ValueCS.VL_LONG_TIMEOUT
 	});
+}
+
+
+function compareObjectList(listObj1, listObj2) {
+	var length = 0;
+	if (listObj1 == null || listObj2 == null) {
+		return false;
+	} else {
+		length = listObj1.length <= listObj2.length ? listObj1.length : listObj2.length;
+	}
+	for (var i = 0; i < length; i++) {
+		var objectsAreSame = true;
+		for (var propertyName in listObj1[i]) {
+			if (listObj1[i][propertyName] !== listObj2[i][propertyName]) {
+				objectsAreSame = false;
+				break;
+			}
+		}
+		return objectsAreSame;
+	};
 }
 
 

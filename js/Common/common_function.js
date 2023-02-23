@@ -137,27 +137,27 @@ function changePage(page) {
 }
 
 
-/**
-   * CHECK DEVICE
-   *
-   * @param page     [STRING]
-   * @return [INT]
-*/
-function checkDevice() {
-	if (['iPhone Simulator', 'iPhone'].includes(navigator.platform) == true) {
-		// return "iphone";
-		return 0;
-	} else if (['iPad Simulator', 'iPad'].includes(navigator.platform) || (navigator.userAgent.includes("Mac") && "ontouchend" in document) == true) {
-		// return "ipad";
-		return 1;
-	} else if ((navigator.userAgent.includes("Mac") && "ontouchend" in document) == true) {
-		// return "mac";
-		return 2;
-	} else {
-		// return "window and android";
-		return 3;
-	}
-}
+// /**
+//    * CHECK DEVICE
+//    *
+//    * @param page     [STRING]
+//    * @return [INT]
+// */
+// function checkDevice() {
+// 	if (['iPhone Simulator', 'iPhone'].includes(navigator.platform) == true) {
+// 		// return "iphone";
+// 		return 0;
+// 	} else if (['iPad Simulator', 'iPad'].includes(navigator.platform) || (navigator.userAgent.includes("Mac") && "ontouchend" in document) == true) {
+// 		// return "ipad";
+// 		return 1;
+// 	} else if ((navigator.userAgent.includes("Mac") && "ontouchend" in document) == true) {
+// 		// return "mac";
+// 		return 2;
+// 	} else {
+// 		// return "window and android";
+// 		return 3;
+// 	}
+// }
 
 
 /**
@@ -409,11 +409,20 @@ function setAlignCombobox(value) {
 	if (value) {
 		var cbb = document.getElementsByClassName("combobox");
 		for (var i = 0; i < cbb.length; i++) {
-			var width = cbb[i].clientWidth / 2.2;
+			var width = cbb[i].clientWidth / 2;
 			cbb[i].style.paddingLeft = width + "px";
 		}
 	}
 }
+
+
+function checkDevice() {
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        alert("mobile");
+      }else{
+        alert("not mobile");
+      }
+ }
 
 
 export {backAction, setupModal, movePage, changePage, checkDevice, setBackgroundDialogScreen, checkPrintable, setFocusSelectString, calcValOfList,
