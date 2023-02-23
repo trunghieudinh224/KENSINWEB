@@ -1398,7 +1398,9 @@ function setupButtonNyukinMode() {
     if (mEditAdjust.textContent != "0" || mEditInputReceipt.textContent != "0" || parseInt(Other.getNumFromString(teiseiNyuukin.textContent)) < 0) {
         document.getElementById("next3Button").disabled = false;
     } else {
-        document.getElementById("next3Button").disabled = true;
+        if (modePage == 3) {
+            document.getElementById("next3Button").disabled = true;
+        }
     }
 }
 
