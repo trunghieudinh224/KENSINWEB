@@ -21,7 +21,7 @@ function backAction() {
    * @param isClose     [BOOL]
 */
 function setupModal(status, title, message, textButton0, textButton1, textButton2, isClose) {
-	// init view
+    // init view
     var modal = document.getElementById("myModal");
     var imageModal = document.getElementsByClassName("modal-image")[0];
     var titleModal = document.getElementsByClassName("title-modal")[0];
@@ -31,7 +31,7 @@ function setupModal(status, title, message, textButton0, textButton1, textButton
     var button2 = document.getElementsByClassName("button-2")[0];
     var closeButton = document.getElementsByClassName("modal-close-button")[0];
 
-	// title and message
+    // title and message
     if (title != null) {
         titleModal.innerHTML = title;
     }
@@ -39,62 +39,62 @@ function setupModal(status, title, message, textButton0, textButton1, textButton
         messageModal.innerHTML = message;
     }
 
-	// status
+    // status
     if (status == "load") {
         titleModal.style.display = "none";
-		imageModal.src = "./images/gif/gif_loading_data.gif";
+        imageModal.src = "./images/gif/gif_loading_data.gif";
     } else if (status == "success") {
         titleModal.style.display = "none";
-		imageModal.src = "./images/gif/gif_success.gif";
-	} else if (status == "error") {
+        imageModal.src = "./images/gif/gif_success.gif";
+    } else if (status == "error") {
         titleModal.style.display = "none";
-		imageModal.src = "./images/gif/gif_fail.gif";
-	} else if (status == "question") {
+        imageModal.src = "./images/gif/gif_fail.gif";
+    } else if (status == "question") {
         titleModal.style.display = "none";
-		imageModal.src = "./images/gif/gif_question.gif";
-	}
+        imageModal.src = "./images/gif/gif_question.gif";
+    }
 
-	// button
-	if (textButton0 != null) {
-		button0.style.display = "block";
-		button0.innerHTML = textButton0;
-		button0.onclick = function () {
-			modal.style.display = "none";
-		}
-	} else {
-		button0.style.display = "none";
+    // button
+    if (textButton0 != null) {
+        button0.style.display = "block";
+        button0.innerHTML = textButton0;
+        button0.onclick = function () {
+            modal.style.display = "none";
+        }
+    } else {
+        button0.style.display = "none";
     }
 
     if (textButton1 != null) {
-		button1.style.display = "block";
-		button1.innerHTML = textButton1;
-		button1.onclick = function () {
-			modal.style.display = "none";
-		}
-	} else {
-		button1.style.display = "none";
+        button1.style.display = "block";
+        button1.innerHTML = textButton1;
+        button1.onclick = function () {
+            modal.style.display = "none";
+        }
+    } else {
+        button1.style.display = "none";
     }
 
     if (textButton2 != null) {
-		button2.style.display = "block";
-		button2.innerHTML = textButton2;
-		button2.onclick = function () {
-			modal.style.display = "none";
-		}
-	} else {
-		button2.style.display = "none";
+        button2.style.display = "block";
+        button2.innerHTML = textButton2;
+        button2.onclick = function () {
+            modal.style.display = "none";
+        }
+    } else {
+        button2.style.display = "none";
     }
 
     if (isClose == true) {
-		closeButton.style.display = "block";
+        closeButton.style.display = "block";
         closeButton.onclick = function () {
             modal.style.display = "none";
         }
     } else {
-		closeButton.style.display = "none";
+        closeButton.style.display = "none";
     }
 
-	modal.style.display = "block";
+    modal.style.display = "block";
 }
 
 
@@ -189,12 +189,12 @@ function checkPrintable() {
    * SET FOCUS SELECT STRING
 */
 function setFocusSelectString() {
-	var inputs = document.getElementsByClassName('t-ip');
-	for (var index = 0; index < inputs.length; index++) {
-		inputs[index].onclick = function() {
-			this.setSelectionRange(0, this.value.length)
-		}
-	}
+    var inputs = document.getElementsByClassName('t-ip');
+    for (var index = 0; index < inputs.length; index++) {
+        inputs[index].onclick = function () {
+            this.setSelectionRange(0, this.value.length)
+        }
+    }
 }
 
 
@@ -203,9 +203,9 @@ function setFocusSelectString() {
 */
 function calcValOfList(list, prop) {
     var result = 0;
-	for (var i = 0; i < list.length; i++) {
+    for (var i = 0; i < list.length; i++) {
         var obj = list[i];
-        for(var name in obj) {
+        for (var name in obj) {
             console.log(name);
             if (prop == name) {
                 result += obj[name];
@@ -243,14 +243,19 @@ function showKeyBoard(title, valElement) {
     var keyboard = document.querySelector(".keyboard");
     var wrapMainForm = document.querySelector(".keyboard .container-mainform .wrap-mainform");
     var prop = JSON.parse(sessionStorage.getItem(StringCS.KEYBOARDPROP));
+    document.body.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'center'
+    });
 
 
     //setup layout
-	document.getElementById("close-icon-keyboard").onclick = function () {
-		keyboard.style.zIndex = "-2";
-		wrapMainForm.classList.remove("overlay-animate");
+    document.getElementById("close-icon-keyboard").onclick = function () {
+        keyboard.style.zIndex = "-2";
+        wrapMainForm.classList.remove("overlay-animate");
         inputVal.textContent = "";
-	};
+    };
 
     if (prop.minus == false) {
         btnMinus.classList.add("disabled-div");
@@ -260,7 +265,7 @@ function showKeyBoard(title, valElement) {
     }
 
     btnDel.classList.add("disabled-div");
-    
+
 
     inputVal.addEventListener('DOMSubtreeModified', function () {
         var _prop = JSON.parse(sessionStorage.getItem(StringCS.KEYBOARDPROP));
@@ -331,7 +336,7 @@ function showKeyBoard(title, valElement) {
     btnEnter.onclick = function () {
         if (inputVal.textContent.charAt(0) == ".") {
             inputVal.innerHTML = "0" + inputVal.textContent;
-        } 
+        }
         if (btnDel.classList.contains("disabled-div")) {
             btnDel.classList.remove("disabled-div");
         }
@@ -348,6 +353,7 @@ function showKeyBoard(title, valElement) {
             valElement.textContent = inputVal.textContent;
         }
         inputVal.textContent = "";
+        valElement.scrollIntoView();
     }
 
     for (var i = 0; i < number.length; i++) {
@@ -367,7 +373,7 @@ function showKeyBoard(title, valElement) {
                     disableNumberKeyboard(false);
                 }
             } else {
-                if (inputVal.textContent.length < prop.lengthVal-1) {
+                if (inputVal.textContent.length < prop.lengthVal - 1) {
                     disableNumberKeyboard(true);
                     inputVal.innerHTML = inputVal.textContent + this.textContent;
                 } else {
@@ -403,27 +409,29 @@ function getOS() {
 
 
 /* 
-	* SET ALIGN COMBOBOX
+    * SET ALIGN COMBOBOX
 */
 function setAlignCombobox(value) {
-	if (value) {
-		var cbb = document.getElementsByClassName("combobox");
-		for (var i = 0; i < cbb.length; i++) {
-			var width = cbb[i].clientWidth / 2;
-			cbb[i].style.paddingLeft = width + "px";
-		}
-	}
+    if (value) {
+        var cbb = document.getElementsByClassName("combobox");
+        for (var i = 0; i < cbb.length; i++) {
+            var width = cbb[i].clientWidth / 2;
+            cbb[i].style.paddingLeft = width + "px";
+        }
+    }
 }
 
 
 function checkDevice() {
-    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         alert("mobile");
-      }else{
+    } else {
         alert("not mobile");
-      }
- }
+    }
+}
 
 
-export {backAction, setupModal, movePage, changePage, checkDevice, setBackgroundDialogScreen, checkPrintable, setFocusSelectString, calcValOfList,
-    showKeyBoard, getOS, setAlignCombobox}
+export {
+    backAction, setupModal, movePage, changePage, checkDevice, setBackgroundDialogScreen, checkPrintable, setFocusSelectString, calcValOfList,
+    showKeyBoard, getOS, setAlignCombobox
+}

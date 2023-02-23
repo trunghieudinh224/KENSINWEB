@@ -395,10 +395,16 @@ function searchCusType1(searchVal) {
 			}
 
 		} else {
+			dataMessage.innerText = Mess.E00001;
 			document.getElementsByClassName("table-container")[0].style.display = "none";
 			document.getElementById("countList").style.display = "none";
 			document.getElementById("data-messages").style.display = "block";
 		}
+	} else {
+		dataMessage.innerText = Mess.E00001;
+		document.getElementsByClassName("table-container")[0].style.display = "none";
+		document.getElementById("countList").style.display = "none";
+		document.getElementById("data-messages").style.display = "block";
 	}
 }
 
