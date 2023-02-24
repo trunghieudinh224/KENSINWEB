@@ -229,16 +229,21 @@ function getCuslistType1() {
 						newAddress.className += " text";
 						const newKenshin = document.createElement("td");
 						newKenshin.className += " text";
-						const newShuukin = document.createElement("td");
-						newShuukin.className += " text";
+						const newShuuku = document.createElement("td");
+						newShuuku.className += " text";
 						newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].name))));
 						newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].add_0))));
-						newKenshin.appendChild(document.createTextNode(data.cuslist[i].kenstat == 1 ? "済" : "未"));
-						newShuukin.appendChild(document.createTextNode(data.cuslist[i].shustat == 1 ? "済" : "未"));
+						var kenstatVal = document.createTextNode((data.cuslist[i].kenstat == 1 ? "済" : "未"));
+						var shustatVal = document.createTextNode((data.cuslist[i].shustat == 1 ? "済" : "未"));
+						var br = document.createElement("br");
+						newKenshin.appendChild(kenstatVal);
+						newShuuku.appendChild(document.createTextNode(getShuukuVal(data.cuslist[i].shuku)));
 						newElement.appendChild(newName);
 						newElement.appendChild(newAddress);
 						newElement.appendChild(newKenshin);
-						newElement.appendChild(newShuukin);
+						newElement.appendChild(newShuuku);
+						kenstatVal.after(br);
+						br.after(shustatVal);
 						if (searchMode == "1") {
 							if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
 								if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) == i) {
@@ -341,16 +346,21 @@ function searchCusType1(searchVal) {
 			newAddress.className += " text";
 			const newKenshin = document.createElement("td");
 			newKenshin.className += " text";
-			const newShuukin = document.createElement("td");
-			newShuukin.className += " text";
+			const newShuuku = document.createElement("td");
+			newShuuku.className += " text";
 			newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(list[i].name))));
 			newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(list[i].add_0))));
-			newKenshin.appendChild(document.createTextNode(list[i].kenstat == 1 ? "済" : "未"));
-			newShuukin.appendChild(document.createTextNode(list[i].shustat == 1 ? "済" : "未"));
+			var kenstatVal = document.createTextNode((list[i].kenstat == 1 ? "済" : "未"));
+			var shustatVal = document.createTextNode((list[i].shustat == 1 ? "済" : "未"));
+			var br = document.createElement("br");
+			newKenshin.appendChild(kenstatVal);
+			newShuuku.appendChild(document.createTextNode(getShuukuVal(list[i].shuku)));
 			newElement.appendChild(newName);
 			newElement.appendChild(newAddress);
 			newElement.appendChild(newKenshin);
-			newElement.appendChild(newShuukin);
+			newElement.appendChild(newShuuku);
+			kenstatVal.after(br);
+			br.after(shustatVal);
 			if (searchMode == "1") {
 				if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
 					if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) == i) {
@@ -465,17 +475,23 @@ function searchCusType2() {
 						newAddress.className += " text";
 						const newKenshin = document.createElement("td");
 						newKenshin.className += " text";
-						const newShuukin = document.createElement("td");
-						newShuukin.className += " text";
+						const newShuuku = document.createElement("td");
+						newShuuku.className += " text";
 						newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].name))));
 						newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].add_0))));
-						newKenshin.appendChild(document.createTextNode(data.cuslist[i].kenstat == 1 ? "済" : "未"));
-						newShuukin.appendChild(document.createTextNode(data.cuslist[i].shustat == 1 ? "済" : "未"));
+						var kenstatVal = document.createTextNode((data.cuslist[i].kenstat == 1 ? "済" : "未"));
+						var shustatVal = document.createTextNode((data.cuslist[i].shustat == 1 ? "済" : "未"));
+						var br = document.createElement("br");
+						newKenshin.appendChild(kenstatVal);
+						newShuuku.appendChild(document.createTextNode(getShuukuVal(data.cuslist[i].shuku)));
+						newElement.appendChild(newName);
 						newElement.appendChild(newName);
 						newElement.appendChild(newAddress);
 						newElement.appendChild(newKenshin);
-						newElement.appendChild(newShuukin);
+						newElement.appendChild(newShuuku);
 						table.appendChild(newElement);
+						kenstatVal.after(br);
+						br.after(shustatVal);
 						if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
 							if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) == i) {
 								newElement.style.background = "#d9a691";
@@ -562,6 +578,17 @@ function compareObjectList(listObj1, listObj2) {
 		}
 		return objectsAreSame;
 	};
+}
+
+function getShuukuVal(code) {
+	var name = "";
+	for (var i = 0; i < systemDat.lstShuku.length; i++) {
+		if (code == systemDat.lstShuku[i].code) {
+			name = systemDat.lstShuku[i].name;
+			break;
+		}
+	}
+	return name;
 }
 
 
