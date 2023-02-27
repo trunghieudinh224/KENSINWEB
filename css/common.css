@@ -726,6 +726,10 @@ input::-webkit-inner-spin-button {
 	.mw80 {
 		min-width: 80px;
 	}
+
+	.unit {
+		max-width: 45px;
+	}
 }
 
 @media screen and (max-width: 600px) {
@@ -784,10 +788,6 @@ input::-webkit-inner-spin-button {
 
 	.mw80 {
 		min-width: 70px;
-	}
-
-	.unit {
-		max-width: 45px;
 	}
 
 	.it-keyboard {

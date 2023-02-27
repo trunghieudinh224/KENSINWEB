@@ -2,6 +2,9 @@
     padding: 20px 10px !important;
 }
 
+.container-mainform {
+    height: 100vh; 
+  }
 
 .overlay {
 	position: absolute;
