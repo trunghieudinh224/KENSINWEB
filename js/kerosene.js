@@ -3030,8 +3030,8 @@ export function sendDataToServer() {
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(loilWriteDat),
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_TOYU,
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_TOYU,
+		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_TOYU,
+		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_TOYU,
 		contentType: "application/json",
 		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
