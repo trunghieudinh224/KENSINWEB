@@ -86,3 +86,13 @@ function onLoadAction() {
 
 
 window.onload = onLoadAction;
+
+$(window).bind('beforeunload', function(){
+	myFunction();
+	return 'Are you sure you want to leave?';
+  });
+  
+  function myFunction(){
+	   // Write your business logic here
+	   alert('Bye');
+  }
