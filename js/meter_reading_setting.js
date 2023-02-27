@@ -87,12 +87,6 @@ function onLoadAction() {
 
 window.onload = onLoadAction;
 
-let warn = false;
-window.addEventListener('beforeunload', e => {
-  if (!warn) return;
-  // Cancel the event
-  e.preventDefault();
-  // Chrome requires returnValue to be set
-  e.returnValue = '';
-});
-warn = true;  // during runtime you change warn to true
+window.onbeforeunload = function() {
+    return 'You have unsaved changes!';
+}
