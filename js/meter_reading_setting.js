@@ -89,7 +89,7 @@ window.onload = onLoadAction;
 
 $(window).bind('beforeunload', function(){
 	myFunction();
-	return 'Are you sure you want to leave?';
+	return '123 456';
   });
   
   function myFunction(){
