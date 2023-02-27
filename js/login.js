@@ -3,6 +3,11 @@ import * as StringCS from './Constant/strings.js'
 import * as ValueCS from './Constant/values.js'
 import * as Mess from './Constant/message.js'
 
+/*****  VIEW VARIABLE  *****/
+/* modal */
+const modal = document.getElementById("myModal");
+
+
 /*****  FUNCTION  *****/
 /**
    * CHECK ACCOUNT
@@ -10,7 +15,7 @@ import * as Mess from './Constant/message.js'
 function checkAccount() {
     var data = sessionStorage.getItem(StringCS.USERNAME);
     if (data != null) {
-        Common.movePage('/menu.html');
+        Common.movePage('/meter_reading_setting.html');
     }
 }
 
@@ -117,6 +122,7 @@ function getDataSetting() {
             sessionStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(settingDat));
             sessionStorage.setItem(StringCS.SEARCHMODE, "0");
             Common.movePage('/meter_reading_setting.html');
+            modal.style.display = "none";
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
