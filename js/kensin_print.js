@@ -3219,8 +3219,8 @@ function savingData() {
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(KensinKinyuu.sendDataToServer()),
-		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
-		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
+		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
+		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		timeout: ValueCS.VL_LONG_TIMEOUT,
