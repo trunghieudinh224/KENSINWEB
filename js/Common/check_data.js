@@ -16,7 +16,7 @@ function checkUser() {
 /** 
    * CLEAR DATA SEARCHING
 */
-function clearDataSearch() {
+export function clearDataSearch() {
     var path = window.location.pathname;
     var page = path.split("/").pop().replace(".html", "");
     if (page != "search_customer" && page != "customer" && page != "meter_reading_fillout" && page != "product_search" && page != "purchase" && page != "kerosene" && page != "sales_list") {

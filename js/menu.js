@@ -1,5 +1,6 @@
 import * as Common from './Common/common_function.js'
 import * as StringCS from './Constant/strings.js'
+import * as CheckData from './Common/check_data.js'
 import * as Mess from './Constant/message.js'
 
 /**
@@ -42,6 +43,7 @@ function showDialog() {
 
     var overlay = document.querySelector(".overlay");
     document.getElementById("searchBtn1").onclick = function() {
+        CheckData.clearDataSearch();
         sessionStorage.setItem(StringCS.SEARCHMODE, "1");
         Common.movePage('/search_customer.html');
         sessionStorage.removeItem(StringCS.SEARCHSTRING);
@@ -49,6 +51,7 @@ function showDialog() {
         // Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
     };
     document.getElementById("searchBtn2").onclick = function() {
+        CheckData.clearDataSearch();
         sessionStorage.setItem(StringCS.SEARCHMODE, "2");
         Common.movePage('/search_customer.html');
         sessionStorage.removeItem(StringCS.SEARCHSTRING);
@@ -68,8 +71,3 @@ function onLoadAction() {
 
 
 window.onload = onLoadAction;
-
-if(!!window.performance && window.performance.navigation.type == 2)
-{
-    window.location.reload();
-}
