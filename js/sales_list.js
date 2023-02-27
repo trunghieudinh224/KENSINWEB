@@ -200,7 +200,8 @@ export function deleteData() {
 		data: JSON.stringify(hmefWriteDat),
 		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
 		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
-		contentType: "application/json",
+		dataType: "json",
+		contentType: "application/json; charset=utf-8",
 		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
 			console.log(response);
