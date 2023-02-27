@@ -655,6 +655,7 @@ input::-webkit-inner-spin-button {
 		width: 540px;
 		margin-top: 60px;
 		margin-bottom: 60px;
+		padding: 20px 12px;
 	}
 
 	.mainform-form-title {
@@ -829,5 +830,37 @@ input::-webkit-inner-spin-button {
 	
 	#enter-btn {
 		height: 103px;
+	}
+}
+
+
+@media screen and (max-width: 360px) {
+
+	/* DROPDOWN MENU */
+	.ic-dropdown {
+		font-size: 19px;
+	}
+
+	/* BUTTON */
+	.btn {
+		font-size: 14px;
+	}
+
+	/* TEXT */
+	.text {
+		font-size: 14px !important;
+		min-height: 36px;
+	}
+
+	#name {
+		font-size: 17px;
+	}
+
+	.it-keyboard {
+		height: 45px;
+	}
+	
+	#enter-btn {
+		height: 93px;
 	}
 }

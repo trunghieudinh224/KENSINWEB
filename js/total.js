@@ -61,6 +61,9 @@ var defaultPaddingPrintForm = window.getComputedStyle(document.getElementById("p
 /** list cusrec */
 var lstCusrec = [];
 
+var dateStart = null;
+var dateEnd = null;
+
 
 /** 
     * SETUP LAYOUT EDIT VIEW
@@ -79,18 +82,69 @@ function setupLayoutEditView() {
 */
 function setupDatePicker() {
     $(document).ready(function () {
-        $("#date-start").datepicker({
-            format: 'yyyy/mm/dd'
-        });
-        $("#date-start").on("change", function () {
-            var fromdate = $(this).val();
+        $(function () {
+            $.datepicker.regional['jp'] = {
+                closeText: "閉じる",
+                prevText: "前",
+                nextText: "次",
+                currentText: "現在",
+                monthNames: ["- 1月", "- 2月", "- 3月", "- 4月", "- 5月", "- 6月",
+                    "- 7月", "- 8月", "- 9月", "- 10月", "- 11月", "- 12月"
+                ],
+                monthNamesShort: ["1月", "2月", "3月", "4月", "5月", "6月",
+                    "7月", "8月", "9月", "10月", "11月", "12月"
+                ],
+                dayNames: ["日", "月", "火", "水", "木", "金", "土"],
+                dayNamesShort: ["日", "月", "火", "水", "木", "金", "土"],
+                dayNamesMin: ["日", "月", "火", "水", "木", "金", "土"],
+                dateFormat: "yy/mm/dd",
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: true,
+            };
+            $.datepicker.setDefaults($.datepicker.regional['jp']);
+
+            $('#date-start').datepicker();
+            $('#date-end').datepicker();
+            Common.setupDatePicker("date-start");
+            Common.setupDatePicker("date-end");
         });
 
-        $("#date-end").datepicker({
-            format: 'yyyy/mm/dd'
+        $("#date-start").on("change", function () {
+            if (selectDate.value == "0") {
+                var _dateStart = $(this).val();
+                var _dateEnd = $("#date-end").val();
+                if (_dateStart > _dateEnd) {
+                    Common.setupModal("info", null, Mess.I00011, null, StringCS.OK, null, false);
+    
+                    if (systemDat != null) {
+                        document.getElementById("date-start").value = dateStart;
+                    }
+                }
+            }
         });
+
+        $("#date-start").on("focus", function () {
+            dateStart = $(this).val();
+        });
+
+
         $("#date-end").on("change", function () {
-            var fromdate = $(this).val();
+            if (selectDate.value == "0") {
+                var _dateEnd = $(this).val();
+                var _dateStart = $("#date-start").val();
+                if (_dateStart > _dateEnd) {
+                    Common.setupModal("info", null, Mess.I00011, null, StringCS.OK, null, false);
+
+                    if (systemDat != null) {
+                        document.getElementById("date-end").value = dateEnd;
+                    }
+                }
+            }
+        });
+
+        $("#date-end").on("focus", function () {
+            dateEnd = $(this).val();
         });
     });
 }
@@ -534,7 +588,7 @@ function setShukeiDateList() {
             var shukeiItem1 = new Dat.ShukeiItem();
             shukeiItem1.mGsiyou = item.h_siyouryo;
             shukeiItem1.mGryokin = item.h_kin;
-            shukeiItem1.mKang =     0 + 0           // kokfDat.mReduce + kokfDat.mReduceTax chua tim ra field;
+            shukeiItem1.mKang = 0 + 0           // kokfDat.mReduce + kokfDat.mReduceTax chua tim ra field;
             shukeiItem1.mShohi = item.u_tax / 1000;
             shukeiItem1.mTotal = shukeiItem1.mKang + shukeiItem1.mGryokin + shukeiItem1.mShohi;
             shukeiItem1.mNyukin = item.receipt;
@@ -619,13 +673,13 @@ function setShukeiDateList() {
             //         }
             //     }
             // }
-            
+
             // shuukeiData = shukeiItem;
         }
-    } else{
+    } else {
         shuukeiData = new Dat.ShukeiItem();
     }
-        setShuukeiData();
+    setShuukeiData();
 
 }
 
@@ -638,13 +692,13 @@ function getShuukeiData() {
     m_lstShukeiDat = [];
     if (selectDate.value == "1") {
         let date = document.getElementById("date-end").value;
-        urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&date2=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
-        // urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&date2=" + date.replaceAll("-", "/")+ "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        // urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&date2=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&date2=" + date.replaceAll("-", "/")+ "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
     } else {
         let dateStart = document.getElementById("date-start").value;
         let dateEnd = document.getElementById("date-end").value;
-        urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
-        // urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        // urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
+        urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
     }
     shuukeiData = new Dat.ShukeiItem();
     Common.setupModal("load", null, Mess.I00001, null, null, null, false);
@@ -776,7 +830,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
         for (var i = 0; i < mapKensinData.get(keyVal).length; i++) {
             var kensinData = mapKensinData.get(keyVal)[i];
 
-            //show phần name
+            //show name
             var listItemDetail = document.createElement("div");
             listItemDetail.className = "list-item-detail";
             listItemDetail.id = "listItemDetail_KS" + i;

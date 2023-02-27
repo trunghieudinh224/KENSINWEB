@@ -18,6 +18,8 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" type="text/css"
 		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker3.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+		integrity="sha256-rByPlHULObEjJ6XQxW/flG2r+22R5dKiAoef+aXWfik=" crossorigin="anonymous" />
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<link rel="stylesheet" type="text/css" href="css/customer.css">
@@ -62,7 +64,7 @@
 				</span>
 
 				<form>
-					<div class="row content">
+					<div class="row content ed-v">
 						<div class="col-12 text ta-r" id="recentTime">
 							現在の日時：
 						</div>
@@ -128,7 +130,7 @@
 								</div>
 								<div id="collapseOne" class="collapse collapseOne" data-parent="#accordion">
 									<div class="card-body">
-										
+
 										<table id="table-detail">
 											<tr id="title-table">
 												<th class="text mw145"></th>
@@ -384,18 +386,20 @@
 												class="fas fa-arrow-right ic-btn"></span><br>次顧客</button>
 									</div>
 
-									<div class="col-4 sm-btn"  id="uriageButtonArea">
-										<button type="button" class="btn btn-default text-center" id="uriageButton"><span
+									<div class="col-4 sm-btn" id="uriageButtonArea">
+										<button type="button" class="btn btn-default text-center"
+											id="uriageButton"><span
 												class="fas fa-shopping-basket ic-btn"></span><br>売上</button>
 									</div>
-									<div class="col-4 sm-btn"  id="toyuPageButtonArea">
-										<button type="button" class="btn btn-default text-center" id="toyuPageButton"><span
-												class="fas fa-fire ic-btn"></span><br>灯油</button>
+									<div class="col-4 sm-btn" id="toyuPageButtonArea">
+										<button type="button" class="btn btn-default text-center"
+											id="toyuPageButton"><span class="fas fa-fire ic-btn"></span><br>灯油</button>
 									</div>
-		
-									<div class="col-4 sm-btn"  id="nyuukinButtonArea">
-										<button type="button" class="btn btn-default text-center" id="nyuukinButton"><span
-											class="fas fa-hand-holding-usd ic-btn"></span><br>入金</button>
+
+									<div class="col-4 sm-btn" id="nyuukinButtonArea">
+										<button type="button" class="btn btn-default text-center"
+											id="nyuukinButton"><span
+												class="fas fa-hand-holding-usd ic-btn"></span><br>入金</button>
 									</div>
 								</div>
 							</div>
@@ -456,6 +460,8 @@
 		crossorigin="anonymous"></script>
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	<!--===============================================================================================-->
 	<script type="module" src="./js/Common/check_data.js"></script>
 	<script type="module" src="./js/customer.js"></script>

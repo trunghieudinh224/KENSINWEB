@@ -52,6 +52,9 @@ function setupModal(status, title, message, textButton0, textButton1, textButton
     } else if (status == "question") {
         titleModal.style.display = "none";
         imageModal.src = "./images/gif/gif_question.gif";
+    } else if (status == "info") {
+        titleModal.style.display = "none";
+        imageModal.src = "./images/gif/gif_info.gif";
     }
 
     // button
@@ -431,7 +434,14 @@ function checkDevice() {
 }
 
 
+function setupDatePicker(nameDatePicker) {
+    var dpk = document.getElementById(nameDatePicker);
+    dpk.setAttribute("readOnly", "true");
+    dpk.style.backgroundColor = "White";
+}
+
+
 export {
     backAction, setupModal, movePage, changePage, checkDevice, setBackgroundDialogScreen, checkPrintable, setFocusSelectString, calcValOfList,
-    showKeyBoard, getOS, setAlignCombobox
+    showKeyBoard, getOS, setAlignCombobox, setupDatePicker
 }

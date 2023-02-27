@@ -176,12 +176,12 @@ th, td {
   padding: 8px;
 }
 
-th:nth-child(1), td:nth-child(1) {
+#table-detail th:nth-child(1), #table-detail td:nth-child(1) {
   width: 135px;
   overflow: hidden;
 }
 
-th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3){
+#table-detail th:nth-child(2), #table-detail td:nth-child(2), #table-detail th:nth-child(3), #table-detail td:nth-child(3){
   /* width: 35%; */
   overflow: hidden;
   text-align: center;
@@ -230,7 +230,7 @@ th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3){
     min-width: 105px;
   }
 
-  th:nth-child(1), td:nth-child(1) {
+  #table-detail th:nth-child(1), #table-detail td:nth-child(1) {
     width: 130px;
   }
 
@@ -244,7 +244,7 @@ th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3){
     min-width: 105px;
   }
 
-  th:nth-child(1), td:nth-child(1) {
+  #table-detail th:nth-child(1), #table-detail td:nth-child(1) {
     width: 130px;
   }
 
@@ -262,7 +262,7 @@ th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3){
     min-width: 105px;
   }
 
-  th:nth-child(1), td:nth-child(1) {
+  #table-detail th:nth-child(1), #table-detail td:nth-child(1) {
     width: 125px;
   }
 }

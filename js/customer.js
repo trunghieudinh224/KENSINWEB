@@ -27,32 +27,51 @@ var cusList = JSON.parse(sessionStorage.getItem(StringCS.CUSTLIST))
 */
 function setupDatePicker() {
     $(document).ready(function () {
-        $("#jisshi-bi").datepicker({
-            format: 'yyyy/mm/dd',
-            onSelect: function (dateText) {
-                console.log("Selected date: " + dateText + "; input's current value: " + this.value);
+        $(function () {
+            $.datepicker.regional['jp'] = {
+                closeText: "閉じる",
+                prevText: "前",
+                nextText: "次",
+                currentText: "現在",
+                monthNames: ["- 1月", "- 2月", "- 3月", "- 4月", "- 5月", "- 6月",
+                    "- 7月", "- 8月", "- 9月", "- 10月", "- 11月", "- 12月"
+                ],
+                monthNamesShort: ["1月", "2月", "3月", "4月", "5月", "6月",
+                    "7月", "8月", "9月", "10月", "11月", "12月"
+                ],
+                dayNames: ["日", "月", "火", "水", "木", "金", "土"],
+                dayNamesShort: ["日", "月", "火", "水", "木", "金", "土"],
+                dayNamesMin: ["日", "月", "火", "水", "木", "金", "土"],
+                dateFormat: "yy/mm/dd",
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: true,
+            };
+            $.datepicker.setDefaults($.datepicker.regional['jp']);
+
+            $('#jisshi-bi').datepicker();
+            Common.setupDatePicker("jisshi-bi");
+        });
+
+        $("#jisshi-bi").focus(function () {
+            recentDay = moment($(this).val()).format('YYYY/MM/DD');
+        });
+        $("#jisshi-bi").focusout(function () {
+            if ($(this).val() == "") {
+                document.getElementById("jisshi-bi").value = moment(recentDay).format('YYYY/MM/DD');
+                var kensinDate = recentDay;
+                sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
+                mUserData.mKensinDate = String(kensinDate);
             }
         });
-    });
-
-    $("#jisshi-bi").focus(function () {
-        recentDay = moment($(this).val()).format('YYYY/MM/DD');
-    });
-    $("#jisshi-bi").focusout(function () {
-        if ($(this).val() == "") {
-            document.getElementById("jisshi-bi").value = moment(recentDay).format('YYYY/MM/DD');
+    
+    
+        $('#jisshi-bi').change(function () {
+            recentDay = moment($(this).val()).format('YYYY/MM/DD');
             var kensinDate = recentDay;
             sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
             mUserData.mKensinDate = String(kensinDate);
-        }
-    });
-
-
-    $('#jisshi-bi').change(function () {
-        recentDay = moment($(this).val()).format('YYYY/MM/DD');
-        var kensinDate = recentDay;
-        sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
-        mUserData.mKensinDate = String(kensinDate);
+        });
     });
 }
 
@@ -74,8 +93,8 @@ function getInformation() {
         Common.setupModal("load", null, Mess.I00001, null, null, null, false);
         console.log(cusDat.cusrec);
         $.ajax({
-            url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
-            // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+            // url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+            url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + cusDat.cusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
             headers: {
                 'Content-Type': StringCS.PR_CONTENT_TYPE
             },
