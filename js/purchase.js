@@ -1806,7 +1806,8 @@ export function sendDataToServer() {
 		data: JSON.stringify(hmefWriteDat),
 		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
 		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_EARNING,
-		contentType: "application/json",
+		dataType: "json",
+		contentType: "application/json; charset=utf-8",
 		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
 			console.log(response);
@@ -1838,8 +1839,7 @@ function reloadUriageList() {
 		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + mUserData.mKokfDat.mCusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.PASSWORD) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READDATA + StringCS.PR_KEY + "&cusrec=" + mUserData.mKokfDat.mCusrec + "&htset=" + sessionStorage.getItem(StringCS.HTSETDATCODE) + "&phase=3" + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
 		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
+			'Content-Type': StringCS.PR_CONTENT_TYPE
 		},
 		success: function (result) {
 			let dataHmefList = JSON.parse(result);
