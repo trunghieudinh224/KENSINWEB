@@ -87,11 +87,12 @@ function onLoadAction() {
 
 window.onload = onLoadAction;
 
-$(window).bind('beforeunload', function(){
-	return true
-  });
-  
-  function myFunction(){
-	   // Write your business logic here
-	   alert('Bye');
-  }
+let warn = false;
+window.addEventListener('beforeunload', e => {
+  if (!warn) return;
+  // Cancel the event
+  e.preventDefault();
+  // Chrome requires returnValue to be set
+  e.returnValue = '';
+});
+warn = true;  // during runtime you change warn to true
