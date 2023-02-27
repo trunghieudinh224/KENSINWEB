@@ -86,7 +86,3 @@ function onLoadAction() {
 
 
 window.onload = onLoadAction;
-
-window.onbeforeunload = function() {
-    return 'You have unsaved changes!';
-}
