@@ -5,6 +5,7 @@
 	<title>検針くん</title>
 	<meta charset=UTF-8>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="format-detection" content="telephone=no" />
 	<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="images/icons/ic_home.png" />
 	<!-- Latest compiled and minified CSS -->
@@ -127,9 +128,47 @@
 							</div>
 						</div>
 
+						<div class="row content ed-v">
+							<div class="col-12">
+								<div class="form-group input-group">
+									<button type="button" class="btn btn-default text-center"
+										id="barcodeScannerBtn">バーコードスキャナ</button>
+								</div>
+							</div>
+						</div>
 
 					</form>
 				</div>
+			</div>
+		</div>
+
+		<div class="barcodeOverlay">
+			<div class="container-mainform">
+				<div class="wrap-mainform p-t-30 p-b-40" style="padding-top: 60px;">
+					<i class="fa-sharp fa-solid fa-circle-xmark" id="close-barcode-icon"></i>
+						<div class="row content ed-v">
+							<div class="col-8 mb10 pd-r-0">
+								<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text mw130 text">バーコード</span>
+									</div>
+									<input type="text" class="form-control ta-l text text-center t-ip" id="barcodeValue" readonly/>
+								</div>
+							</div>
+		
+							<div class="col-4 mb10">
+								<div class="form-group input-group">
+									<div class="form-control text bd-0 pd-l-0 pd-r-0 pd-0">
+										<button type="submit" class="btn text-center mg-0" id="kakuninButton">確認</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div id="camera"></div>
+					
+				</div>
+				
 			</div>
 		</div>
 
@@ -146,6 +185,7 @@
 	<script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<!--===============================================================================================-->
+	<script src="./js/Library/quagga.min.js"></script>
 	<script type="module" src="./js/menu.js"></script>
 	<script type="module" src="./js/Common/check_data.js"></script>
 </body>

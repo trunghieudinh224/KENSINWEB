@@ -6,13 +6,20 @@
   src: url('../fonts/ubuntu/Ubuntu-Bold.ttf'); 
 }
 
-
-
 * {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
   font-size: 22px;
+}
+
+#titleForm {
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  margin: 5px 0px 30px 0px;
+  text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee, 2px 1px 1px #ccc, 1px 2px 1px #eee, 3px 2px 1px #ccc, 2px 3px 1px #eee, 4px 3px 1px #ccc, 3px 4px 1px #eee;
 }
 
 .value {
@@ -143,11 +150,15 @@
 /*------------------------------------------------------------------
 [ Input ]*/
 
-.wrap-input100 {
-  width: 100%;
-  position: relative;
-  border-bottom: 1px solid #e6e6e6;
-  padding: 20px 0;
+.wrap-mainform {
+    width: 700px;
+    margin-top: 150px;
+    margin-bottom: 150px;
+    border-radius: 10px;
+    overflow: hidden;
+    height: fit-content;
+    background: white;
+    padding: 30px 20px;
 }
 
 .area-value {
@@ -230,160 +241,479 @@
   font-size: 22px;
 }
 
-
-@media screen and (min-width: 1500px) {
-  #camera video {
-    width: -webkit-fill-available;
-  }
-  
+/*
+  ******  DROPDOWN MENU  ******
+*/
+.select-role {
+	position: absolute;
+	top: 1.5%;
+	right: 2%;
+	z-index: 2;
 }
 
-@media screen and (max-width: 1500px) {
-
-  #camera video {
-    width: -webkit-fill-available;
-  }
+.btn-menu {
+	background-color: transparent;
 }
 
+.btn-menu:hover {
+	background-color: transparent;
+}
+
+#name {
+	font-weight: bold;
+	color: white;
+	font-size: 25px;
+}
+
+.dropdown-menu.show {
+	background-color: hsl(0, 100%, 99%);
+}
+
+.dropdown-menu li {
+	padding: 3px 0;
+}
+
+.dropdown-item:hover {
+	background-color: rgb(215, 215, 215);
+	cursor: pointer;
+}
+
+.dropdown-divider-wrap {
+	padding: 0px;
+}
+
+.ic-dropdown {
+	font-size: 25px;
+	margin-right: 20px;
+	color: var(--icon-color);
+}
+
+.logout {
+	color: var(--gray-color);
+}
+
+/*
+  ******  BUTTON CSS  ******
+*/
+.button-area {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+
+.btn {
+	width: 100%;
+	height: 100%;
+	font-family: sans-serif;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin: auto;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	background-image: var(--button-color);
+	background-size: 200% auto;
+	border-radius: 8px;
+	display: block;
+	margin-bottom: 5px;
+	margin-top: 4px;
+
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
+	transition: all 0.3s ease 0s;
+}
+
+.btn:active,
+.btn:focus,
+.btn:focus:active {
+	outline: 0;
+	box-shadow: none;
+}
+
+.btn:hover {
+	background-position: right center;
+	color: rgb(236, 236, 236);
+	text-decoration: none;
+	/* transform: translateY(-4px); */
+	transform: scale(0.92);
+}
+
+.ic-btn {
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+/*
+  ******  MIN WIDTH  ******
+*/
+.mw215 {
+	min-width: 215px;
+}
+
+.mw175 {
+	min-width: 175px;
+}
+
+.mw145 {
+	min-width: 155px;
+}
+
+.mw135 {
+	min-width: 135px;
+}
+
+.mw130 {
+	min-width: 130px;
+}
+
+.mw90 {
+	min-width: 110px;
+}
+
+.mw80 {
+	min-width: 80px;
+}
+
+/*
+  ******  TEXT-ALIGN && FONT-WEIGHT ******
+*/
+.ta-c {
+	text-align: center;
+}
+
+.ta-l {
+	text-align: left;
+}
+
+.ta-r {
+	text-align: right;
+}
+
+.fw-b {
+	font-weight: bold;
+}
+
+/*
+  ******  MARGIN && PADDING ******
+*/
+.mb10 {
+	margin-bottom: 10px;
+}
+
+.mg-0 {
+	margin: 0px;
+}
+
+.mt-0 {
+	margin-top: 0px;
+}
+
+.mb-0 {
+	margin-bottom: 0px;
+}
+
+.mt-20 {
+	margin-top: 20px;
+}
+
+.mb-20 {
+	margin-bottom: 20px;
+}
+
+.mg-a {
+	margin: auto;
+}
+
+.pd-0 {
+	padding: 0px !important;
+}
+
+.pd-t-0 {
+	padding-top: 0px !important;
+}
+
+.pd-b-0 {
+	padding-bottom: 0px !important;
+}
+
+.pd-l-0 {
+	padding-left: 0px !important;
+}
+
+.pd-r-0 {
+	padding-right: 0px !important;
+}
+
+.pd-l-2 {
+	padding-left: 2px !important;
+}
+
+.pd-r-2 {
+	padding-right: 2px !important;
+}
+
+/*
+  ******  RESPONSIVE LAYOUT  ******
+*/
 @media screen and (max-width: 1200px) {
-
-  .wrap-login100 {
-    width: 690;
-  }
-
-  #camera video {
-    width: -webkit-fill-available;
-  }
-  
-  .icon {
-    height: 25px;
-    width: 25px;
-  }
+	.wrap-mainform {
+		width: 700px;
+	}
 }
 
 @media screen and (max-width: 900px) {
 
-  .wrap-login100 {
-    width: 590px;
-  }
+	/* MAIN FORM */
+	.wrap-mainform {
+		width: 630px;
+	}
 
-  .login100-form-title {
-    font-size: 20px;
-  }
+	.mainform-form-title {
+		font-size: 28px;
+	}
 
-  .value {
-    font-size: 20px !important;
-  }
+	/* BUTTON */
+	.btn {
+		font-size: 18px;
+	}
 
-  .btn-area {
-    padding: 10px 0;
-  }
+	/* TEXT */
+	.text {
+		font-size: 18px !important;
+		min-height: 42.5px;
+	}
 
-  .area-value {
-    min-height: 45px;
-  }
+	.custom-select {
+		font-size: 18px;
+	}
 
-  .btn {
-    font-size: 20px;
-    padding: 20px 0;
-  }
-  
-  #camera video {
-    width: -webkit-fill-available;
-  }
-  
-  .dropdown-menu {
-    width: 260px !important;
-  }
+	#name {
+		font-size: 23px;
+	}
 
-  .icon {
-    height: 25px;
-    width: 25px;
-  }
+	.title-group {
+		font-size: 26px;
+	}
 
-  #userName {
-    font-size: 20px;
-  }
+	#titleForm {
+		font-size: 40px;
+	}
 
-  .value-dropdown {
-    font-size: 20px;
-  }
+	/* DIVIDER TEXT */
+	.divider-text span {
+		margin-left: 25%;
+		margin-right: 25%;
+		font-size: 23px;
+	}
+
+	/* MIN WIDTH */
+	.mw215 {
+		min-width: 195px;
+	}
+
+	.mw175 {
+		min-width: 165px;
+	}
+
+	.mw130 {
+		min-width: 110px;
+	}
+
+	.mw90 {
+		min-width: 105px;
+	}
 }
 
 
 @media screen and (max-width: 768px) {
 
-  .wrap-login100 {
-    width: 540px;
-  }
+	/* DROPDOWN MENU */
+	.ic-dropdown {
+		font-size: 23px;
+		margin-right: 15px;
+	}
 
-  .login100-form-title {
-    font-size: 18px;
-  }
+	/* MAIN FORM */
+	.wrap-mainform {
+		width: 540px;
+		margin-top: 60px;
+		margin-bottom: 60px;
+		padding: 20px 12px;
+	}
 
-  .value {
-    font-size: 18px !important;
-    padding: 0px;
-    padding-left: 12px;
-  }
+	.mainform-form-title {
+		font-size: 25px;
+	}
 
-  .btn-area {
-    padding: 10px 0;
-  }
+	/* MARGIN && PADDING */
+	.mb10 {
+		margin-bottom: 6px;
+	}
 
-  .area-value {
-    min-height: 40px;
-  }
+	/* BUTTON */
+	.btn {
+		font-size: 16px;
+	}
 
-  .title-area {
-    padding: 0px;
-    padding-right: 12px;
-  }
+	/* TEXT */
+	.text {
+		font-size: 16px !important;
+		/* min-height: 39.5px; */
+	}
 
-  .btn {
-    font-size: 18px;
-    padding: 20px 0;
-    height: 40px;
-  }
+	.custom-select {
+		font-size: 16px;
+	}
 
-  #camera video {
-    width: -webkit-fill-available;
-  }
+	#titleForm {
+		font-size: 38px;
+		margin: 5px 0px 25px 0px;
+	}
 
-  .dropdown-menu {
-    max-width: 230px !important;
-  }
+	/* DIVIDER TEXT */
+	.divider-text span {
+		font-size: 20px;
+	}
 
-  .icon {
-    height: 20px;
-    width: 20px;
-  }
+	/* MIN WIDTH */
+	.mw215 {
+		min-width: 190px;
+	}
 
-  #userName {
-    font-size: 18px;
-  }
+	.mw175 {
+		min-width: 155px;
+	}
 
-  .value-dropdown {
-    font-size: 18px;
-  }
+	.mw145 {
+		min-width: 130px;
+	}
 
-  
-  .area-input {
-    padding-right: 15px;
-  }
+	.mw135 {
+		min-width: 115px;
+	}
+
+	.mw130 {
+		min-width: 100px;
+	}
+
+	.mw80 {
+		min-width: 80px;
+	}
+
+	.unit {
+		max-width: 45px;
+	}
 }
 
 @media screen and (max-width: 600px) {
-  .wrap-login100 {
-    width: 390px;
-  }
+
+	/* MAIN FORM */
+	.wrap-mainform {
+		width: 500px;
+	}
+
+	/* MARGIN && PADDING */
+	.mb10 {
+		margin-bottom: 4px;
+	}
+
+	/* TEXT */
+	.text {
+		font-size: 15px !important;
+		min-height: 38px;
+		overflow: hidden;
+	}
+
+	.custom-select {
+		font-size: 15px;
+	}
+
+	#name {
+		font-size: 20px;
+	}
+
+	.title-group {
+		font-size: 24px;
+	}
+
+	#titleForm {
+		font-size: 30px;
+		margin: 5px 0px 15px 0px;
+	}
+
+	/* DIVIDER TEXT */
+	.divider-text span {
+		font-size: 18px;
+	}
+
+	/* MIN WIDTH */
+	.mw175 {
+		min-width: 145px;
+	}
+
+	.mw145 {
+		min-width: 125px;
+	}
+
+	.mw90 {
+		min-width: 90px;
+	}
+
+	.mw80 {
+		min-width: 70px;
+	}
+
+	.it-keyboard {
+		height: 60px;
+	}
+	
+	#enter-btn {
+		height: 123px;
+	}
+}
+
+@media screen and (max-width: 580px) {
+
+	/* MAIN FORM */
+	.wrap-mainform {
+		width: 400px;
+	}
+
+	/* DROPDOWN MENU */
+	.select-role {
+		top: 1.2%;
+	}
+}
+
+@media screen and (max-width: 600px) {
+  /* MAIN FORM */
+	.wrap-mainform {
+		width: 500px;
+	}
+
+	/* MARGIN && PADDING */
+	.mb10 {
+		margin-bottom: 4px;
+	}
+
+	/* TEXT */
+	.text {
+		font-size: 15px !important;
+		min-height: 38px;
+		overflow: hidden;
+	}
 
   .value {
     font-size: 16px !important;
-  }
-
-  .login100-form-title {
-    font-size: 14px;
   }
 
   .btn {
@@ -426,10 +756,81 @@
 
 
 @media screen and (max-width: 450px) {
-  .wrap-login100 {
-    width: 320px;
-    padding: 20px 10px;
-  }
+  .checkbox-in-ddl {
+		height: 38px;
+	}
+
+	.table-container {
+		max-height: 350px;
+	}
+
+
+	#title-table th {
+		padding: 10px 6px;
+	}
+
+	th:nth-child(1),
+	td:nth-child(1) {
+		width: 30% !important;
+	}
+
+	th:nth-child(2),
+	td:nth-child(2) {
+		width: 38% !important;
+	}
+
+	th:nth-child(3),
+	td:nth-child(3) {
+		width: 15% !important;
+	}
+
+	th:nth-child(4),
+	td:nth-child(4) {
+		width: 17% !important;
+	}
+
+	.dropdown-menu {
+		min-width: 150px !important;
+	}
+
+	.l--30 {
+		left: -30px !important;
+	}
+
+	.card-header {
+		padding: 10px 22.5px;
+	}
+
+	#countList {
+		margin-top: 10px;
+	}
+  
+	/* DROPDOWN MENU */
+	.ic-dropdown {
+		font-size: 20px;
+		margin-right: 10px;
+	}
+
+	/* TEXT */
+	#name {
+		font-size: 18px;
+	}
+
+	/* MAIN FORM */
+	.wrap-mainform {
+		width: 380px;
+		margin-top: 80px;
+		margin-bottom: 80px;
+		padding: 20px 10px;
+	}
+
+	.it-keyboard {
+		height: 50px;
+	}
+	
+	#enter-btn {
+		height: 103px;
+	}
 
   #camera video {
     width: -webkit-fill-available;
@@ -443,3 +844,33 @@
   }
 } 
 
+@media screen and (max-width: 360px) {
+
+	/* DROPDOWN MENU */
+	.ic-dropdown {
+		font-size: 19px;
+	}
+
+	/* BUTTON */
+	.btn {
+		font-size: 14px;
+	}
+
+	/* TEXT */
+	.text {
+		font-size: 14px !important;
+		min-height: 36px;
+	}
+
+	#name {
+		font-size: 17px;
+	}
+
+	.it-keyboard {
+		height: 45px;
+	}
+	
+	#enter-btn {
+		height: 93px;
+	}
+}

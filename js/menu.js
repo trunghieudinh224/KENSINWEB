@@ -27,6 +27,7 @@ function onclickAction() {
 /* 
 	SHOW DIALOG
 */
+
 function showDialog() {
 	var btn = document.getElementById("gyoomuButton");
 	var overlay = document.querySelector(".overlay");
@@ -57,8 +58,72 @@ function showDialog() {
         sessionStorage.removeItem(StringCS.SEARCHSTRING);
         overlay.style.zIndex = "-1";
     };
+
+    
+
+    document.getElementById("barcodeScannerBtn").onclick = function () {
+        startScan();
+		overlay.style.zIndex = "-1";
+		wrapMainForm.classList.remove("overlay-animate");
+        var barcodeScannerOverlay = document.querySelector(".barcodeOverlay");
+        var wrapBarcodeMainForm = document.querySelector(".barcodeOverlay .container-mainform .wrap-mainform");
+        document.getElementById("close-barcode-icon").onclick = function () {
+            barcodeScannerOverlay.style.zIndex = "-1";
+            wrapBarcodeMainForm.classList.remove("overlay-animate");
+            overlay.style.zIndex = "2";
+            wrapMainForm.classList.remove("overlay-animate");
+        };
+        barcodeScannerOverlay.style.zIndex = "3";
+        wrapBarcodeMainForm.classList.remove("overlay-animate");
+    }
 }
 
+/* 
+	START CAMERA
+*/
+function startScan() {
+    const camera = document.getElementById("camera");
+    if (window.getComputedStyle(camera).display === "none") {
+        camera.style.display = "block";
+    } else {
+        return;
+    }
+
+    Quagga.init({
+        inputStream: {
+            name: "Live",
+            type: "LiveStream",
+            target: document.querySelector('#camera')
+        },
+        decoder: {
+            readers: [
+                "code_128_reader",
+                "ean_reader",
+                "ean_8_reader",
+                "code_39_reader",
+                "code_39_vin_reader",
+                "codabar_reader",
+                "upc_reader",
+                "upc_e_reader",
+                "i2of5_reader",
+                "2of5_reader",
+                "code_93_reader"
+            ]
+        },
+    }, function (err) {
+        if (err) {
+            console.log(err);
+            return
+        }
+        console.log("Initialization finished. Ready to start");
+        Quagga.start();
+    });
+
+    Quagga.onDetected(function (data) {
+        console.log(data.codeResult.code);
+        document.getElementById("barcodeValue").value = data.codeResult.code;
+    });
+}
 
 /**
    * ONLOAD ACTION
@@ -71,3 +136,4 @@ function onLoadAction() {
 
 
 window.onload = onLoadAction;
+

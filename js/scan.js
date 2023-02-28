@@ -47,6 +47,17 @@ const startScan = () => {
     Quagga.onDetected(function (data) {
         console.log(data.codeResult.code);
         document.getElementById("barcodeValue").value = data.codeResult.code;
-        document.getElementById("barcodeType").value = data.codeResult.format;
     });
 }
+
+function confirmBarcode() {
+    var barcode = document.getElementById("barcodeValue").value;
+    if (barcode) {
+        console.log(barcode);
+        
+    }
+    else
+        console.log("Error")
+}
+
+window.onload = startScan;
