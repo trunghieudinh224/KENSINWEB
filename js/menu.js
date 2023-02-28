@@ -70,7 +70,7 @@ function showDialog() {
         document.getElementById("close-barcode-icon").onclick = function () {
             barcodeScannerOverlay.style.zIndex = "-1";
             wrapBarcodeMainForm.classList.remove("overlay-animate");
-            // Quagga.stop();
+            Quagga.stop();
             overlay.style.zIndex = "2";
             wrapMainForm.classList.remove("overlay-animate");
         };
@@ -86,9 +86,7 @@ function startScan() {
     const camera = document.getElementById("camera");
     if (window.getComputedStyle(camera).display === "none") {
         camera.style.display = "block";
-    } else {
-        return;
-    }
+    } 
 
     Quagga.init({
         inputStream: {
