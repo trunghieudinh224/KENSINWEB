@@ -1214,7 +1214,7 @@ function createComment(commentData) {
 		return;
 	}
 
-	const commentDetailArea = document.getElementById("commentDetailArea");
+	const commentDetailArea = document.getElementById("commentDetailArea_NK");
 	for (var i = 0; i < commentData.length; i++) {
 		if (commentData[i].length == 0) continue;
 		document.getElementById("commentArea_NK").style.display = "block";
