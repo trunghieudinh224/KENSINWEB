@@ -79,7 +79,6 @@
 #camera video {
     width: -webkit-fill-available;
     height: 280px;
-    margin: auto;
 }
 
 .drawingBuffer {
