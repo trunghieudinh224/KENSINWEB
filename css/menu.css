@@ -52,6 +52,29 @@
 	position: relative;
 }
 
+.settingOverlay {
+	position: absolute;
+	inset: 0;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .6);
+	z-index: -1;
+}
+
+.settingOverlay-animate {
+	transform: translateY(100%);
+	animation: showDialog .5s forwards;
+	animation-timing-function: linear;
+}
+
+.settingOverlay .container-mainform {
+	height: 100%;
+}
+
+.settingOverlay .container-mainform .wrap-mainform {
+	max-width: 500px;
+	position: relative;
+}
+
 #close-icon {
 	font-size: 25px;
 	position: absolute;
@@ -78,7 +101,7 @@
 
 #camera video {
     width: -webkit-fill-available;
-    height: -webkit-fill-available;
+    height: 300px;
     margin: 0;
 }
 
@@ -86,6 +109,13 @@
     display: none ;
   }
 
+#barcodeType {
+    display: none;
+}
+
+#kcodeType {
+    display: none;
+}
 
 /*
   ******  RESPONSIVE LAYOUT  ******

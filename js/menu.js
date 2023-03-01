@@ -32,6 +32,22 @@ function showDialog() {
 	var btn = document.getElementById("gyoomuButton");
 	var overlay = document.querySelector(".overlay");
 	var wrapMainForm = document.querySelector(".overlay .container-mainform .wrap-mainform");
+    var barcodeScannerOverlay = document.querySelector(".barcodeOverlay");
+    var wrapBarcodeMainForm = document.querySelector(".barcodeOverlay .container-mainform .wrap-mainform");
+    var settingOverlay = document.querySelector(".settingOverlay");
+    var wrapSettingMainForm = document.querySelector(".settingOverlay .container-mainform .wrap-mainform");
+    var startLetter = document.getElementById("startLetter").value;
+    var numberLetter = document.getElementById("numberLetter").value;
+
+    if (document.getElementById("barcode").checked) {
+        document.getElementById("barcodeType").style.display = "block";
+        document.getElementById("kcodeType").style.display = "none";
+    }
+    else {
+        document.getElementById("kcodeType").style.display = "block";
+        document.getElementById("barcodeType").style.display = "none";
+    }
+
 	document.getElementById("close-icon").onclick = function () {
 		overlay.style.zIndex = "-1";
 		wrapMainForm.classList.remove("overlay-animate");
@@ -42,7 +58,6 @@ function showDialog() {
 		wrapMainForm.classList.remove("overlay-animate");
 	};
 
-    var overlay = document.querySelector(".overlay");
     document.getElementById("searchBtn1").onclick = function() {
         CheckData.clearDataSearch();
         sessionStorage.setItem(StringCS.SEARCHMODE, "1");
@@ -59,23 +74,70 @@ function showDialog() {
         overlay.style.zIndex = "-1";
     };
 
-    
-
     document.getElementById("barcodeScannerBtn").onclick = function () {
         startScan();
 		overlay.style.zIndex = "-1";
 		wrapMainForm.classList.remove("overlay-animate");
-        var barcodeScannerOverlay = document.querySelector(".barcodeOverlay");
-        var wrapBarcodeMainForm = document.querySelector(".barcodeOverlay .container-mainform .wrap-mainform");
-        document.getElementById("close-barcode-icon").onclick = function () {
-            barcodeScannerOverlay.style.zIndex = "-1";
-            wrapBarcodeMainForm.classList.remove("overlay-animate");
-            Quagga.stop();
-            overlay.style.zIndex = "2";
-            wrapMainForm.classList.remove("overlay-animate");
-        };
         barcodeScannerOverlay.style.zIndex = "3";
         wrapBarcodeMainForm.classList.remove("overlay-animate");
+    }
+
+    document.getElementById("barcodeBackBtn").onclick = function () {
+        barcodeScannerOverlay.style.zIndex = "-1";
+        wrapBarcodeMainForm.classList.remove("overlay-animate");
+        Quagga.stop();
+        overlay.style.zIndex = "2";
+        wrapMainForm.classList.remove("overlay-animate");
+    };
+
+    document.getElementById("pauseBtn").onclick = function () {
+        var pauseBtnValue = document.getElementById("pauseBtn").value;
+        var barcode = document.getElementById("barcodeValue").value;
+
+        if ((!pauseBtnValue) || (pauseBtnValue == 0)) {
+            Quagga.stop();
+            document.getElementById("pauseBtn").value = 1;
+        }
+        else {
+            startScan();
+            document.getElementById("pauseBtn").value = 0;
+        }
+        if (barcode)
+            document.getElementById("confirmBtn").removeAttribute("disabled");
+    }
+
+    document.getElementById("settingBtn").onclick = function () {
+        overlay.style.zIndex = "-1";
+		wrapMainForm.classList.remove("overlay-animate");
+        settingOverlay.style.zIndex = "4";
+        wrapSettingMainForm.classList.remove("overlay-animate");
+        Quagga.stop();
+    }
+
+    document.getElementById("settingBackBtn").onclick = function () {
+        settingOverlay.style.zIndex = "-1";
+        wrapSettingMainForm.classList.remove("overlay-animate");
+        startScan();
+    }
+
+    document.getElementById("settingSaveBtn").onclick = function () {
+        settingOverlay.style.zIndex = "-1";
+        wrapSettingMainForm.classList.remove("overlay-animate");
+        startLetter = document.getElementById("startLetter").value;
+        numberLetter = document.getElementById("numberLetter").value;
+        if (document.getElementById("barcode").checked) {
+            document.getElementById("barcodeType").style.display = "block";
+            document.getElementById("kcodeType").style.display = "none";
+        }
+        else {
+            document.getElementById("kcodeType").style.display = "block";
+            document.getElementById("barcodeType").style.display = "none";
+        }
+        startScan();
+    }
+
+    document.getElementById("confirmBtn").onclick = function () {
+        console.log(document.getElementById("barcodeValue").value);
     }
 }
 
@@ -84,6 +146,7 @@ function showDialog() {
 */
 function startScan() {
     const camera = document.getElementById("camera");
+
     if (window.getComputedStyle(camera).display === "none") {
         camera.style.display = "block";
     } 
@@ -119,8 +182,13 @@ function startScan() {
     });
 
     Quagga.onDetected(function (data) {
-        console.log(data.codeResult.code);
-        document.getElementById("barcodeValue").value = data.codeResult.code;
+        var startLetter = document.getElementById("startLetter").value;
+        var numberLetter = document.getElementById("numberLetter").value;
+        var endLetter = parseInt(startLetter) + parseInt(numberLetter);
+        if ((startLetter) && (numberLetter)) 
+            document.getElementById("barcodeValue").value = data.codeResult.code.slice(startLetter,endLetter);
+        else
+            document.getElementById("barcodeValue").value = data.codeResult.code;
     });
 }
 
