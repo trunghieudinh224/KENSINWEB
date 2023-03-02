@@ -153,7 +153,7 @@
 									<span class="input-group-text text" id="kcodeType">顧客コード</span>
 								</div>
 								<input type="text" class="form-control ta-l text text-center t-ip" id="barcodeValue"
-									readonly />
+									readonly/>
 							</div>
 						</div>
 
@@ -202,15 +202,18 @@
 
 		<div class="settingOverlay">
 			<div class="container-mainform">
-				<div class="wrap-mainform p-t-30 p-b-40" style="padding-top: 60px;">
+				<div class="wrap-mainform p-t-30 p-b-40" style="padding-top: 30px;">
 					<div class="row content ed-v text-center">
 						<div class="col-6 mb10">
-							<input type="radio" id="barcode" class="codeType" name="codeType" value="barcode" checked>
-							<label for="barcode" class="text mg-0">バーコード</label><br>
+							<input type="radio" id="barcode" class="codeType" name="codeType" value="barcode">
+							<label for="barcode" class="text mg-0">バーコード</label>
 						</div>
 						<div class="col-6 mb10">
-							<input type="radio" id="kcode" class="codeType" name="codeType" value="kcode">
-							<label for="kcode" class="text mg-0">顧客コード</label><br>
+							<div>
+								<input type="radio" id="kcode" class="codeType" name="codeType" value="kcode">
+								<label for="kcode" class="text mg-0">顧客コード</label>
+							</div>
+							
 						</div>
 					</div>
 
@@ -220,7 +223,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text mw130 text">有効位置</span>
 								</div>
-								<input type="text" class="form-control ta-l text text-right t-ip" id="startLetter" />
+								<input type="number" maxlength="2" class="form-control ta-l text text-right t-ip" id="startLetter" />
 							</div>
 						</div>
 					</div>
@@ -231,7 +234,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text mw130 text">有効桁数</span>
 								</div>
-								<input type="text" class="form-control ta-l text text-right t-ip" id="numberLetter" />
+								<input type="number" maxlength="2" class="form-control ta-l text text-right t-ip" id="numberLetter" />
 							</div>
 						</div>
 					</div>

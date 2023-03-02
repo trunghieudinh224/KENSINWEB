@@ -159,6 +159,10 @@
     .wrap-mainform {
         width: 350px;
     }
+
+	.text{
+		overflow: visible !important;
+	}
 }
 
 
