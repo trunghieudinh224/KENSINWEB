@@ -58,6 +58,7 @@ function checkUser(username, password) {
         },
         error: function (jqXHR, exception) {
             console.log(exception);
+            Common.setupModal("error", StringCS.LOGIN, Mess.E00009, null, StringCS.CONFIRM, null, false);
         },
         timeout: ValueCS.VL_SHORT_TIMEOUT
     });
@@ -100,6 +101,7 @@ function getSystemDat() {
         },
         error: function (jqXHR, exception) {
             console.log(exception);
+            Common.setupModal("error", StringCS.LOGIN, Mess.E00009, null, StringCS.CONFIRM, null, false);
         }, 
         timeout: ValueCS.VL_SHORT_TIMEOUT
     });

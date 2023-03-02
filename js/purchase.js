@@ -768,7 +768,7 @@ function onClickAction() {
 		}
 	}
 
-	document.getElementById("backPrintButton").onclick = function () { Common.movePage('/product_search.html') };
+	document.getElementById("backPrintButton").onclick = function () { Common.backAction() };
 
 	document.getElementById("sendToAppButton").onclick = function () { sendImage(); };
 }
@@ -803,7 +803,7 @@ function createPrintData(isHybseikyu, printGenuriInfo, isHikae) {
 	if (printGenuriInfo.m_isGenuri) {
 		var lSeikyu = 0;
 		printGenuriInfo.m_lstHmefDat.forEach(item => {
-			if (item.mUsef && item.mHmCode > 100) {		//mUserData.mSysfDat.mSnvalue	//Hieu
+			if (item.mUsef && item.mHmCode > mUserData.mSysfDat.mSnvalue) {
 				lSeikyu += item.mKin + item.mTax;
 			}
 		});
@@ -911,7 +911,7 @@ function createMeisaiInfo(lstHmefDat) {
 		var lTax = 0;
 		for (var i = 0; i < lstHmefDat.length; i++) {
 			var item = lstHmefDat[i];
-			if (item.mUsef && item.mHmCode > 100) {		//mUserData.mSysfDat.mSnvalue	//Hieu
+			if (item.mUsef && item.mHmCode > mUserData.mSysfDat.mSnvalue) {
 				lKin += item.mKin;
 				lTax += item.mTax;
 			}
@@ -949,7 +949,7 @@ function isUriage_(hmefDats, sysfDat, isIncludeNyuCho) {
 	if (hmefDats == null) {
 		return false;
 	}
-	var sSnvalue = 100;		//sysfDat.mSnvalue	//Hieu
+	var sSnvalue = sysfDat.mSnvalue;
 	for (var i = 0; i < hmefDats.length; i++) {
 		var hmefDat = hmefDats[i];
 		if (hmefDat.mUsef && (hmefDat.mHmCode >= sSnvalue || isIncludeNyuCho)) {
@@ -991,7 +991,7 @@ function addKeigenTax(sysfDat, hmefDats, mapHmefDat) {
 	var nIdx = 1;
 	for (var i = 0; i < hmefDats.length; i++) {
 		var hmefDat = hmefDats[i];
-		if (!hmefDat.mUsef || hmefDat.mHmCode <= 100) {	//sysfDat.mSnvalue	//Hieu
+		if (!hmefDat.mUsef || hmefDat.mHmCode <= sysfDat.mSnvalue) {
 			continue;
 		}
 		setKeigenKubun(hmefDat, sysfDat);
@@ -1071,7 +1071,7 @@ function calcUtaxHm(wkHmef, sysf, sysf2) {
 	}
 	for (var i = 0; i < wkHmef.length; i++) {
 		var wkHmefDat = wkHmef[i];
-		if (!wkHmefDat.mUsef || wkHmefDat.mHmCode < 100) {	//sysf.mSnvalue	//Hieu
+		if (!wkHmefDat.mUsef || wkHmefDat.mHmCode < sysf.mSnvalue) {
 			continue;
 		}
 		// 金額
@@ -1178,7 +1178,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 	for (var i = 0; i < lstHmefDat.length; i++) {
 		const area = document.getElementById(previousId);
 		var hmefDat = lstHmefDat[i];
-		if (!hmefDat.mUsef || hmefDat.mHmCode < 100) {		//sysfDat.mSnvalue (100)	//Hieu
+		if (!hmefDat.mUsef || hmefDat.mHmCode < sysfDat.mSnvalue) {
 			continue;
 		}
 

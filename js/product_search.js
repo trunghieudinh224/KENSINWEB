@@ -324,7 +324,6 @@ function onclickAction() {
 	};
 	
     document.getElementById("backPageButton").onclick = function () {
-		Common.movePage('/customer.html');
 	    Common.backAction();
 	};
 
