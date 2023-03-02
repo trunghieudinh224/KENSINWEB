@@ -768,7 +768,7 @@ function onClickAction() {
 		}
 	}
 
-	document.getElementById("backPrintButton").onclick = function () { Common.movePage('/product_search.html') };
+	document.getElementById("backPrintButton").onclick = function () { Common.backAction() };
 
 	document.getElementById("sendToAppButton").onclick = function () { sendImage(); };
 }
