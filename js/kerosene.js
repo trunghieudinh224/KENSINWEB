@@ -1274,7 +1274,7 @@ function isUriage_(hmefDats, sysfDat, isIncludeNyuCho) {
 	if (hmefDats == null) {
 		return false;
 	}
-	var sSnvalue = 100; 	//sysfDat.mSnvalue	//Hieu
+	var sSnvalue = sysfDat.mSnvalue;
 	for (var i = 0; i < hmefDats.length; i++) {
 		var hmefDat = hmefDats[i];
 		if (hmefDat.mUsef && (hmefDat.mHmCode >= sSnvalue || isIncludeNyuCho)) {
@@ -2194,7 +2194,7 @@ function addKeigenTax(sysfDat, hmefDats, mapHmefDat) {
 	var nIdx = 1;
 	for (var i = 0; i < hmefDats.length; i++) {
 		var hmefDat = hmefDats[i];
-		if (!hmefDat.mUsef || hmefDat.mHmCode <= 100) {	//sysfDat.mSnvalue	//Hieu
+		if (!hmefDat.mUsef || hmefDat.mHmCode <= sysfDat.mSnvalue) {
 			continue;
 		}
 		setKeigenKubun(hmefDat, sysfDat);
@@ -2277,7 +2277,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 	for (var i = 0; i < lstHmefDat.length; i++) {
 		const area = document.getElementById(previousId);
 		var hmefDat = lstHmefDat[i];
-		if (!hmefDat.mUsef || hmefDat.mHmCode < 100) {	//sysfDat.mSnvalue	//Hieu
+		if (!hmefDat.mUsef || hmefDat.mHmCode < sysfDat.mSnvalue) {	
 			continue;
 		}
 
