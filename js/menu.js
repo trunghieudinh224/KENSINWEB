@@ -159,7 +159,7 @@ function showDialog() {
     }
 
     document.getElementById("confirmBtn").onclick = function () {
-        console.log(document.getElementById("barcodeValue").value);
+        // console.log(document.getElementById("barcodeValue").value);
         sessionStorage.setItem(StringCS.SEARCHMODE, "3");
         Common.movePage("/customer.html");
     }
@@ -220,7 +220,7 @@ function startScan() {
     SET BARCODE TYPE
 */
 function setBarcodeType() {
-    if (dataSetting.barcd_kode === 0)
+    if (dataSetting.barcd_kcode === 0)
         document.getElementById("barcode").setAttribute("checked", "");
     else
         document.getElementById("kcode").setAttribute("checked", "");
@@ -251,8 +251,9 @@ function prepareNewBarcodeDataSetting() {
         setBarcodeType = 0;
     dataSetting.barcd_from = parseInt(startLetter);
     dataSetting.barcd_len = parseInt(numberLetter);
-    dataSetting.barcd_kode = setBarcodeType;
-    console.log(dataSetting)
+    dataSetting.barcd_kcode = setBarcodeType;
+    dataSetting.login_id = sessionStorage.getItem(StringCS.USERNAME);
+    dataSetting.login_pw = sessionStorage.getItem(StringCS.PASSWORD);
     return dataSetting;
 }
 
@@ -264,10 +265,8 @@ function saveBarcodeDataSetting() {
     $.ajax({
         type: "POST",
         data: JSON.stringify(prepareNewBarcodeDataSetting()),
-        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING +
+        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
         // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
-        "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
-        "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         timeout: ValueCS.VL_LONG_TIMEOUT,
