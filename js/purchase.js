@@ -1782,24 +1782,24 @@ export function sendDataToServer() {
 	var mKokfDat = new Dat.KokfDat().parseData(mUserData.mKokfDat)
 	var sysfDat = new Dat.SysfDat().parseData(mUserData.mSysfDat)
 	mKokfDat.mKtpcdat = new Dat.KtpcDat();
-	var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
-	var kensinDate = new Date(sessionStorage.getItem(StringCS.KENSINDATE));
-
-
-	var nTancd = dataSetting.tancd;
-	var strTanname = dataSetting.tanname;
-	var nWrt_tancd = dataSetting.wrt_tancd;
-	var dtWrt_ymd = kensinDate;
 	mHmefDat.m_strBikou = mHme2Dat.mBikou;
 	mHmefDat.m_isToyukensin = sysfDat.m_isToyukensinFlg;
-
-
 	var hmefWriteDat = new Dat.HmefWriteDat();
 	hmefWriteDat.m_lstHmefDat = [mHmefDat];
 	hmefWriteDat.m_kokfDat = mKokfDat;
 	hmefWriteDat.login_id = sessionStorage.getItem(StringCS.USERNAME);
 	hmefWriteDat.login_pw = sessionStorage.getItem(StringCS.PASSWORD);
 
+	var nyu = parseInt(Other.getNumFromString(uriage_nyu.textContent));
+	var cho = parseInt(Other.getNumFromString(uriage_cho.textContent));
+	if (nyu > 0) {
+		var hmefNyu = addHmefDat(m_bdNyu, nyu);
+		hmefWriteDat.m_lstHmefDat.push(hmefNyu);
+	}
+	if (cho > 0) {
+		var hmefCho = addHmefDat(m_bdCho, cho);
+		hmefWriteDat.m_lstHmefDat.push(hmefCho);
+	}
 
 	$.ajax({
 		type: "POST",
@@ -1854,6 +1854,43 @@ function reloadUriageList() {
 		},
 		timeout: ValueCS.VL_SHORT_TIMEOUT
 	});
+}
+
+/**
+ * 入金、調整明細の書き込み.
+ *
+ * @param kokfDat   [in] {@link KokfDat}    顧客データ
+ * @param sysfDat   [in] {@link SysfDat}    システムデータ
+ * @param nKin      [in] int                金額
+ * @param nUriRec   [in] int                1レコード前のレコード番号
+ * @throws Exception    書き込み時にエラーがあった場合に発生
+ */
+function addHmefDat(busfDat, nKin) {
+
+	var hmefDat = new Dat.HmefDat();
+
+	if (busfDat != null) {
+		hmefDat.mKin = nKin * (busfDat.mSign == 1 ? -1 : 1);
+		hmefDat.mTax = 0;
+		hmefDat.mTaxKu = 0;
+		hmefDat.mTaxR = 0;
+		hmefDat.mTanka = 0;
+		hmefDat.mDenKind = busfDat.mKind;
+		hmefDat.mSign = busfDat.mSign;
+		hmefDat.mKeigenKubun = 0;
+		hmefDat.mLeasKind = 0;
+		hmefDat.mHmCode = busfDat.mHinno;
+		hmefDat.mHmName = busfDat.mName;
+		hmefDat.mHbCode = 0;
+		hmefDat.mHbName = "";
+		hmefDat.mSuryo = 0;
+		hmefDat.mUsef = true;
+		var dtKenymd = kensinDate;
+		hmefDat.mDeny = dtKenymd.getFullYear(); // 伝票日付(年)
+		hmefDat.mDenm = dtKenymd.getMonth() + 1; // (月)
+		hmefDat.mDend = dtKenymd.getDate();    // (日)
+	}
+	return hmefDat;
 }
 
 

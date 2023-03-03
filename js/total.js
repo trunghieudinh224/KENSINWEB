@@ -539,6 +539,12 @@ function createImageShuukinNippouForm() {
 
 /**
   * 集計データ一覧の設定.
+  * cách phân biệt data shukei gửi về:
+  * vì data gửi về gồm kensin , kensin no nyukin , kensin no chokin , uriage, nyu và cho của uriage nên có những cách thức phân biệt :
+  * kensin: có busku = 0, sisin > 0 vì số ghi đồng hồ nên sẽ có số dương, kenku > 0
+  * nyukin và chokin của kensin: thường sẽ có lnk_dencnt là dencnt của kensin data.
+  * bất kỳ chokin cũng sẽ có busku = 2
+  * bất kỳ nyukin cũng sẽ có busku = 1
   *
   * @throws MException   エラーがあった場合に発生.
   */
@@ -644,12 +650,11 @@ function setShukeiDateList() {
                 lstKensinData.push(kensinData);
                 m_mapKensinData.set(strKey, lstKensinData);
 
-            }else{
+            }else if(item.h_kin > 0 && item.u_busku == 0){
                 addUriageShukeiData(item);
             }
 
 
-            // if(item.mUriSumi){
             //     HmefDat hmefDat = InputDat.getHmefDat(this, item.mHmew0Srec - 1,  2);
             //     if(hmefDat != null) {
 
@@ -1379,7 +1384,7 @@ function selectionSort() {
 function addUriageShukeiData(item) {
 
     shuukeiData.mUricnt++;
-    // shuukeiData.mUrisur += hmefDat.mSuryo;
+    shuukeiData.mUrisur += item.u_suryo;
     shuukeiData.mUrikin += item.h_kin;
     shuukeiData.mUritax += item.h_stax / 1000;
 }
