@@ -208,7 +208,7 @@ export class KokfDat {
 		this.mPuseSrpDay = 0;
 		this.nGasrkcnt = 0;
 		/** 灯油:単価 */
-		this.mLoilUnit;
+		this.mLoilUnit = 0;
 		/** 灯油：端数処理(加算) */
 		this.mLoilAdd = 0;
 		/** 灯油：端数処理(乗算) */
@@ -236,6 +236,7 @@ export class KokfDat {
 		this.mKenku = 0;
 		this.chuatu = 0;
 		this.sime = 0;
+		this.mLoilDiv = 0;
 	}
 
 	setValue(mName, mKMonth, mKDate, mGasUse, mGasKubun, mKenSumi, mNowMeter, mPreMeter, mPuseYear, mPuseMonth, mPuseDate,
@@ -244,7 +245,7 @@ export class KokfDat {
 		mTaxTisyuu, mPreBalance, mTAdjust, mTReceipt, mProcLease, mTaxLease, mProcDiv, mProcLoil, mTaxLoil, mProcEtc,
 		mTaxEtc, mProcGas, mTaxGas, mReceipt, mAdjust, mSyuSumi, mInpReceipt, mAdd_0, mAdd_1, mCusCode, mSName0,
 		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusrec, mPuseSrpDay, nGasrkcnt, mLoilUnit, mLoilAdd, mLoilMulti,
-		mPoint, mTransMonth, mTransDate, mTransFee, mGUri2, mUri2, mTax2, mNyu2, mCho2, seiymd, kai_ymd, mKenku, chuatu) {
+		mPoint, mTransMonth, mTransDate, mTransFee, mGUri2, mUri2, mTax2, mNyu2, mCho2, seiymd, kai_ymd, mKenku, chuatu,mLoilDiv) {
 
 		var data = new KokfDat();
 
@@ -335,6 +336,7 @@ export class KokfDat {
 		data.mKenku = mKenku;
 		data.chuatu = chuatu;
 		data.sime = sime;
+		data.mLoilDiv = mLoilDiv;
 
 		return data
 	}
@@ -432,6 +434,7 @@ export class KokfDat {
 		data.mKenku = responeData.mKenku;
 		data.chuatu = responeData.chuatu;
 		data.sime = responeData.sime;
+		data.mLoilDiv = responeData.mLoilDiv;
 
 		return data
 	}
@@ -2362,6 +2365,24 @@ export class HmefWriteDat {
 		this.m_strloginPW = "";
 	}
 }
+
+/**
+ * 売上機能の書き込むデータ
+ */
+export class LoilWriteDat {
+
+	constructor() {
+		/** 顧客データ(標準)  */
+		this.m_kokfDat = null;
+		/** 販売明細一覧 */
+		this.m_nMode = 0;
+		/** ログインID */
+		this.m_strloginID = "";
+		/** ログインパスワード */
+		this.m_strloginPW = "";
+	}
+}
+
 
 
 export class HynmDat {
