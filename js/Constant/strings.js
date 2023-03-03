@@ -34,6 +34,8 @@ export var PR_WRITEDATA = "writeData?";
 export var PR_EARNING = "earnings?";
 // get customer list
 export var PR_CUSLIST = "cuslist?";
+// 灯油検針:
+export var PR_TOYU = "loil?";
 
 
 /*****  VARIABLE  *****/
