@@ -7,10 +7,21 @@ import * as ValueCS from './Constant/values.js'
 /*****  VIEW VARIABLE  *****/
 /* modal */
 const modal = document.getElementById("myModal");
+const settingModal = document.getElementById("settingModal");
+
 
 /*****  DATA VARIABLE  *****/
 /* data setting */
 var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
+var overlay = document.querySelector(".overlay");
+var wrapMainForm = document.querySelector(".overlay .container-mainform .wrap-mainform");
+var barcodeScannerOverlay = document.querySelector(".barcodeOverlay");
+var wrapBarcodeMainForm = document.querySelector(".barcodeOverlay .container-mainform .wrap-mainform");
+var settingOverlay = document.querySelector(".settingOverlay");
+var wrapSettingMainForm = document.querySelector(".settingOverlay .container-mainform .wrap-mainform");
+var startLetter = document.getElementById("startLetter").value;
+var numberLetter = document.getElementById("numberLetter").value;
+var cusrec;
 
 /**
    * SETUP OPTION MENU
@@ -38,14 +49,7 @@ function onclickAction() {
 */
 
 function showDialog() {
-    var regex = /^\d{1,2}$/;
     var btn = document.getElementById("gyoomuButton");
-    var overlay = document.querySelector(".overlay");
-    var wrapMainForm = document.querySelector(".overlay .container-mainform .wrap-mainform");
-    var barcodeScannerOverlay = document.querySelector(".barcodeOverlay");
-    var wrapBarcodeMainForm = document.querySelector(".barcodeOverlay .container-mainform .wrap-mainform");
-    var settingOverlay = document.querySelector(".settingOverlay");
-    var wrapSettingMainForm = document.querySelector(".settingOverlay .container-mainform .wrap-mainform");
     var tempStartLetter = dataSetting.barcd_from;
     var tempNumberLetter = dataSetting.barcd_len;
     var tempBarcodeType = dataSetting.barcd_kode;
@@ -85,14 +89,11 @@ function showDialog() {
         setBarcodeType();
         setBarcodeStart();
         setBarcodeNumber();
-        if (dataSetting.barcd_kode === 0) {
-            document.getElementById("barcodeType").style.display = "block";
-            document.getElementById("kcodeType").style.display = "none";
-        }
-        else {
-            document.getElementById("kcodeType").style.display = "block";
-            document.getElementById("barcodeType").style.display = "none";
-        }
+        if (dataSetting.barcd_kode === 0)
+            document.getElementById("barcodeType").innerHTML = '顧客コード';
+        else
+            document.getElementById("barcodeType").innerHTML = 'バーコード';
+
     }
 
     document.getElementById("barcodeBackBtn").onclick = function () {
@@ -106,45 +107,33 @@ function showDialog() {
     document.getElementById("pauseBtn").onclick = function () {
         var pauseBtnValue = document.getElementById("pauseBtn").value;
         var barcode = document.getElementById("barcodeValue").value;
-
-        if ((!pauseBtnValue) || (pauseBtnValue == 0)) {
-            Quagga.stop();
-            document.getElementById("pauseBtn").value = 1;
-        }
-        else {
-            startScan();
-            document.getElementById("pauseBtn").value = 0;
-        }
+        console.log(tempBarcodeType);
+        console.log(barcode)
         if (barcode)
-            document.getElementById("confirmBtn").removeAttribute("disabled");
+            getCustomerData(tempBarcodeType,barcode);
+        // if ((!pauseBtnValue) || (pauseBtnValue == 0)) {
+        //     Quagga.stop();
+        //     document.getElementById("pauseBtn").value = 1;
+        // }
+        // else {
+        //     startScan();
+        //     document.getElementById("pauseBtn").value = 0;
+        // }
+        // if (barcode)
+        //     document.getElementById("confirmBtn").removeAttribute("disabled");
     }
 
     document.getElementById("settingBtn").onclick = function () {
-        overlay.style.zIndex = "-1";
-        wrapMainForm.classList.remove("overlay-animate");
+        barcodeScannerOverlay.style.zIndex = "-1";
+        wrapBarcodeMainForm.classList.remove("overlay-animate");
         settingOverlay.style.zIndex = "4";
         wrapSettingMainForm.classList.remove("overlay-animate");
         Quagga.stop();
-        if (regex.test(tempStartLetter) && regex.test(tempNumberLetter))
-            document.getElementById("settingSaveBtn").removeAttribute("disabled");
         console.log(tempBarcodeType)
         if (tempBarcodeType === 0)
-            document.getElementById("barcode").setAttribute("checked", "");
-        else
             document.getElementById("kcode").setAttribute("checked", "");
-        document.getElementById("startLetter").oninput = function () {
-            if (!regex.test(document.getElementById("startLetter").value))
-                document.getElementById("settingSaveBtn").setAttribute("disabled", "");
-            else
-                document.getElementById("settingSaveBtn").removeAttribute("disabled");
-        }
-        document.getElementById("numberLetter").oninput = function () {
-            if (!regex.test(document.getElementById("numberLetter").value))
-                document.getElementById("settingSaveBtn").setAttribute("disabled", "");
-            else
-                document.getElementById("settingSaveBtn").removeAttribute("disabled");
-        }
-
+        else
+            document.getElementById("barcode").setAttribute("checked", "");
     }
 
     document.getElementById("settingBackBtn").onclick = function () {
@@ -153,15 +142,15 @@ function showDialog() {
         document.getElementById("startLetter").value = tempStartLetter;
         document.getElementById("numberLetter").value = tempNumberLetter;
         if (tempBarcodeType === 0)
-            document.getElementById("barcode").setAttribute("checked", "");
-        else
             document.getElementById("kcode").setAttribute("checked", "");
+        else
+            document.getElementById("barcode").setAttribute("checked", "");
         startScan();
+        barcodeScannerOverlay.style.zIndex = "3";
+        wrapBarcodeMainForm.classList.remove("overlay-animate");
     }
 
     document.getElementById("settingSaveBtn").onclick = function () {
-        var startLetter = document.getElementById("startLetter").value;
-        var numberLetter = document.getElementById("numberLetter").value;
         settingOverlay.style.zIndex = "-1";
         wrapSettingMainForm.classList.remove("overlay-animate");
         startLetter = parseInt(document.getElementById("startLetter").value);
@@ -170,20 +159,22 @@ function showDialog() {
         tempNumberLetter = numberLetter;
         saveBarcodeDataSetting();
         if (document.getElementById("barcode").checked) {
-            document.getElementById("barcodeType").style.display = "block";
-            document.getElementById("kcodeType").style.display = "none";
-            tempBarcodeType = 0;
+            tempBarcodeType = 4;
+            document.getElementById("barcodeType").innerHTML = 'バーコード';
         }
         else {
-            document.getElementById("kcodeType").style.display = "block";
-            document.getElementById("barcodeType").style.display = "none";
-            tempBarcodeType = 1;
+            document.getElementById("barcodeType").innerHTML = '顧客コード';
+            tempBarcodeType = 0;
         }
         startScan();
+        barcodeScannerOverlay.style.zIndex = "3";
+        wrapBarcodeMainForm.classList.remove("overlay-animate");
     }
 
     document.getElementById("confirmBtn").onclick = function () {
         console.log(document.getElementById("barcodeValue").value);
+        confirm('cusrec')
+        Common.movePage("customer.html");
     }
 }
 
@@ -266,22 +257,16 @@ function setBarcodeNumber() {
    * PREPARE NEW DATA SETTING
 */
 function prepareNewBarcodeDataSetting() {
-    let startLetter = document.getElementById("startLetter").value;
-    let numberLetter = document.getElementById("numberLetter").value;
     let setBarcodeType;
     if (document.getElementById("barcode").checked)
-        setBarcodeType = 0;
+        setBarcodeType = 4;
     else
-        setBarcodeType = 1;
-    const newBarcodeData = {
-        barcd_from: parseInt(startLetter),
-        barcd_kode: setBarcodeType,
-        barcd_len: parseInt(numberLetter),
-        login_id: sessionStorage.getItem(StringCS.USERNAME),
-        login_pw: sessionStorage.getItem(StringCS.PASSWORD)
-    }
-    console.log(newBarcodeData)
-    return newBarcodeData;
+        setBarcodeType = 0;
+    dataSetting.barcd_from = parseInt(startLetter);
+    dataSetting.barcd_len = parseInt(numberLetter);
+    dataSetting.barcd_kode = setBarcodeType;
+    console.log(dataSetting)
+    return dataSetting;
 }
 
 /** 
@@ -314,6 +299,44 @@ function saveBarcodeDataSetting() {
         sessionStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(prepareNewBarcodeDataSetting()));
         Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
     });
+}
+
+/**
+    * GET CUSTOMER DATA
+ */
+function getCustomerData(type, string) {
+    $.ajax({
+        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+            // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+            "&srch_kind=" + type +
+            "&srch_string=" + string +
+            "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
+            "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
+        headers: {
+            'Content-Type': StringCS.PR_CONTENT_TYPE
+        },
+        success: function (result) {
+            let tempResult =  JSON.parse(result);
+            if (tempResult) {
+                document.getElementById("confirmBtn").removeAttribute("disabled");
+                Quagga.stop();
+            }
+            else    
+                Common.setupModal("error", null, Mess.E00005, null, StringCS.OK, null, false);
+        },
+        error: function (jqXHR, exception) {
+			console.log(exception);
+			Common.setupModal("error", null, Mess.E00003, null, StringCS.OK, null, false);
+		},
+		timeout: ValueCS.VL_LONG_TIMEOUT
+    })
+}
+
+/** 
+   * SEARCH BARCODE DATA SETTING
+*/
+function searchBarcode() {
+
 }
 
 /*

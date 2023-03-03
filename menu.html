@@ -76,32 +76,7 @@
 				</div>
 			</div>
 
-			<!-- The Modal -->
-			<div id="myModal" class="modal">
-				<!-- Modal content -->
-				<div class="modal-content">
-					<!-- Modal image area -->
-					<div class="modal-image-area background-error-modal">
-						<span class="modal-close-button">X</span>
-						<img id="imgStatusModal" class="modal-image">
-					</div>
 
-					<!-- Modal message area -->
-					<div class="modal-message">
-						<div class="modal-message-area">
-							<span class="title-modal text">題名</span>
-							<span class="modal-message-detail text">メッセージ</span>
-						</div>
-
-						<div id="buttonAreaModal">
-							<button class="button-modal btn-common button-0" role="button"></button>
-							<button class="button-modal btn-common button-1" role="button"></button>
-							<button class="button-modal btn-common button-2" role="button"></button>
-						</div>
-					</div>
-				</div>
-
-			</div>
 		</div>
 
 		<!-- 内訳ダイアログ  -->
@@ -136,7 +111,6 @@
 								</div>
 							</div>
 						</div>
-
 					</form>
 				</div>
 			</div>
@@ -149,11 +123,10 @@
 						<div class="col-8 mb10 pd-r-0">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text text" id="barcodeType">バーコード</span>
-									<span class="input-group-text text" id="kcodeType">顧客コード</span>
+									<span class="input-group-text text" id="barcodeType"></span>
 								</div>
 								<input type="text" class="form-control ta-l text text-center t-ip" id="barcodeValue"
-									readonly/>
+									readonly />
 							</div>
 						</div>
 
@@ -194,9 +167,33 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
+			</div>
 
+						<!-- The Modal -->
+			<div id="myModal" class="modal">
+				<!-- Modal content -->
+				<div class="modal-content">
+					<!-- Modal image area -->
+					<div class="modal-image-area background-error-modal">
+						<span class="modal-close-button">X</span>
+						<img id="imgStatusModal" class="modal-image">
+					</div>
+
+					<!-- Modal message area -->
+					<div class="modal-message">
+						<div class="modal-message-area">
+							<span class="title-modal text">題名</span>
+							<span class="modal-message-detail text">メッセージ</span>
+						</div>
+
+						<div id="buttonAreaModal">
+							<button class="button-modal btn-common button-0" role="button"></button>
+							<button class="button-modal btn-common button-1" role="button"></button>
+							<button class="button-modal btn-common button-2" role="button"></button>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -213,7 +210,7 @@
 								<input type="radio" id="kcode" class="codeType" name="codeType" value="kcode">
 								<label for="kcode" class="text mg-0">顧客コード</label>
 							</div>
-							
+
 						</div>
 					</div>
 
@@ -223,7 +220,8 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text mw130 text">有効位置</span>
 								</div>
-								<input type="number" maxlength="2" class="form-control ta-l text text-right t-ip" id="startLetter" />
+								<input type="tel" maxlength="2" class="form-control ta-l text text-right t-ip"
+									id="startLetter" />
 							</div>
 						</div>
 					</div>
@@ -234,7 +232,8 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text mw130 text">有効桁数</span>
 								</div>
-								<input type="number" maxlength="2" class="form-control ta-l text text-right t-ip" id="numberLetter" />
+								<input type="tel" maxlength="2" class="form-control ta-l text text-right t-ip"
+									id="numberLetter" />
 							</div>
 						</div>
 					</div>
@@ -256,9 +255,7 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
-
 			</div>
 		</div>
 
