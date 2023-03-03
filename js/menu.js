@@ -105,22 +105,10 @@ function showDialog() {
     };
 
     document.getElementById("pauseBtn").onclick = function () {
-        var pauseBtnValue = document.getElementById("pauseBtn").value;
+        // var pauseBtnValue = document.getElementById("pauseBtn").value;
         var barcode = document.getElementById("barcodeValue").value;
-        console.log(tempBarcodeType);
-        console.log(barcode)
         if (barcode)
             getCustomerData(tempBarcodeType,barcode);
-        // if ((!pauseBtnValue) || (pauseBtnValue == 0)) {
-        //     Quagga.stop();
-        //     document.getElementById("pauseBtn").value = 1;
-        // }
-        // else {
-        //     startScan();
-        //     document.getElementById("pauseBtn").value = 0;
-        // }
-        // if (barcode)
-        //     document.getElementById("confirmBtn").removeAttribute("disabled");
     }
 
     document.getElementById("settingBtn").onclick = function () {
@@ -129,7 +117,6 @@ function showDialog() {
         settingOverlay.style.zIndex = "4";
         wrapSettingMainForm.classList.remove("overlay-animate");
         Quagga.stop();
-        console.log(tempBarcodeType)
         if (tempBarcodeType === 0)
             document.getElementById("kcode").setAttribute("checked", "");
         else
@@ -173,8 +160,8 @@ function showDialog() {
 
     document.getElementById("confirmBtn").onclick = function () {
         console.log(document.getElementById("barcodeValue").value);
-        confirm('cusrec')
-        Common.movePage("customer.html");
+        sessionStorage.setItem(StringCS.SEARCHMODE, "3");
+        Common.movePage("/customer.html");
     }
 }
 
@@ -277,8 +264,10 @@ function saveBarcodeDataSetting() {
     $.ajax({
         type: "POST",
         data: JSON.stringify(prepareNewBarcodeDataSetting()),
-        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
+        url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING +
         // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
+        "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
+        "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         timeout: ValueCS.VL_LONG_TIMEOUT,
@@ -332,13 +321,6 @@ function getCustomerData(type, string) {
     })
 }
 
-/** 
-   * SEARCH BARCODE DATA SETTING
-*/
-function searchBarcode() {
-
-}
-
 /*
    * ONLOAD ACTION
 */
@@ -346,10 +328,7 @@ function onLoadAction() {
     setOptionMenu();
     onclickAction();
     showDialog();
-    console.log(dataSetting);
+    // console.log(dataSetting);
 }
 
-
-
 window.onload = onLoadAction;
-
