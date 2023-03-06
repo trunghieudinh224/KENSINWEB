@@ -136,7 +136,9 @@ function onclickAction() {
         $('input[type=radio]').prop('checked', function () {
             return this.getAttribute('checked') == 'checked';
         });
-        startScan();
+        if (!document.getElementById("barcodeValue").value) {
+            startScan();
+        }
     }
 
     document.getElementById("settingSaveBtn").onclick = function () {
