@@ -21,7 +21,6 @@ var settingOverlay = document.querySelector(".settingOverlay");
 var wrapSettingMainForm = document.querySelector(".settingOverlay .container-mainform .wrap-mainform");
 var startLetter = document.getElementById("startLetter").value;
 var numberLetter = document.getElementById("numberLetter").value;
-var cusrec;
 
 /**
    * SETUP OPTION MENU
@@ -52,7 +51,7 @@ function showDialog() {
     var btn = document.getElementById("gyoomuButton");
     var tempStartLetter = dataSetting.barcd_from;
     var tempNumberLetter = dataSetting.barcd_len;
-    var tempBarcodeType = dataSetting.barcd_kode;
+    var tempBarcodeType = dataSetting.barcd_kcode;
 
     document.getElementById("close-icon").onclick = function () {
         overlay.style.zIndex = "-1";
@@ -89,11 +88,12 @@ function showDialog() {
         setBarcodeType();
         setBarcodeStart();
         setBarcodeNumber();
-        if (dataSetting.barcd_kode === 0)
+        if (tempBarcodeType === 0) {
             document.getElementById("barcodeType").innerHTML = '顧客コード';
-        else
+        }
+        else{
             document.getElementById("barcodeType").innerHTML = 'バーコード';
-
+        } 
     }
 
     document.getElementById("barcodeBackBtn").onclick = function () {
@@ -105,10 +105,10 @@ function showDialog() {
     };
 
     document.getElementById("pauseBtn").onclick = function () {
-        // var pauseBtnValue = document.getElementById("pauseBtn").value;
         var barcode = document.getElementById("barcodeValue").value;
-        if (barcode)
+        if (barcode){
             getCustomerData(tempBarcodeType,barcode);
+        }
     }
 
     document.getElementById("settingBtn").onclick = function () {
@@ -117,10 +117,12 @@ function showDialog() {
         settingOverlay.style.zIndex = "4";
         wrapSettingMainForm.classList.remove("overlay-animate");
         Quagga.stop();
-        if (tempBarcodeType === 0)
-            document.getElementById("kcode").setAttribute("checked", "");
-        else
+        if (tempBarcodeType === 0) {
+                document.getElementById("kcode").setAttribute("checked", "");
+        }
+        else {
             document.getElementById("barcode").setAttribute("checked", "");
+        }
     }
 
     document.getElementById("settingBackBtn").onclick = function () {
@@ -128,10 +130,12 @@ function showDialog() {
         wrapSettingMainForm.classList.remove("overlay-animate");
         document.getElementById("startLetter").value = tempStartLetter;
         document.getElementById("numberLetter").value = tempNumberLetter;
-        if (tempBarcodeType === 0)
+        if (tempBarcodeType === 0) {
             document.getElementById("kcode").setAttribute("checked", "");
-        else
+        }
+        else {
             document.getElementById("barcode").setAttribute("checked", "");
+        }
         startScan();
         barcodeScannerOverlay.style.zIndex = "3";
         wrapBarcodeMainForm.classList.remove("overlay-animate");
@@ -159,9 +163,13 @@ function showDialog() {
     }
 
     document.getElementById("confirmBtn").onclick = function () {
-        // console.log(document.getElementById("barcodeValue").value);
-        sessionStorage.setItem(StringCS.SEARCHMODE, "3");
-        Common.movePage("/customer.html");
+        console.log(document.getElementById("barcodeValue").value)
+        if (tempBarcodeType === 4) {
+            sessionStorage.setItem(StringCS.SEARCHMODE, "3");
+            Common.movePage("/customer.html");
+        } else {
+            Common.movePage("/customer.html");
+        }
     }
 }
 
@@ -220,10 +228,12 @@ function startScan() {
     SET BARCODE TYPE
 */
 function setBarcodeType() {
-    if (dataSetting.barcd_kcode === 0)
+    if (dataSetting.barcd_kcode === 0) {
         document.getElementById("barcode").setAttribute("checked", "");
-    else
+    }
+    else {
         document.getElementById("kcode").setAttribute("checked", "");
+    }
 }
 
 /* 
@@ -245,10 +255,12 @@ function setBarcodeNumber() {
 */
 function prepareNewBarcodeDataSetting() {
     let setBarcodeType;
-    if (document.getElementById("barcode").checked)
+    if (document.getElementById("barcode").checked) {
         setBarcodeType = 4;
-    else
+    }
+    else {
         setBarcodeType = 0;
+    }
     dataSetting.barcd_from = parseInt(startLetter);
     dataSetting.barcd_len = parseInt(numberLetter);
     dataSetting.barcd_kcode = setBarcodeType;
@@ -305,8 +317,11 @@ function getCustomerData(type, string) {
         },
         success: function (result) {
             let tempResult =  JSON.parse(result);
-            if (tempResult) {
+            if (tempResult.cuslist.length > 0) {
+                var object = tempResult.cuslist[0];
                 document.getElementById("confirmBtn").removeAttribute("disabled");
+                const cusdat = Object.assign({}, object);
+                sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
                 Quagga.stop();
             }
             else    
@@ -327,7 +342,6 @@ function onLoadAction() {
     setOptionMenu();
     onclickAction();
     showDialog();
-    // console.log(dataSetting);
 }
 
 window.onload = onLoadAction;
