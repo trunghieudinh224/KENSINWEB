@@ -101,7 +101,7 @@
 
 #camera video {
     width: -webkit-fill-available;
-    height: 300px;
+    height: fit-content;
     margin: 0;
 }
 
