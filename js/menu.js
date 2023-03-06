@@ -21,6 +21,9 @@ var settingOverlay = document.querySelector(".settingOverlay");
 var wrapSettingMainForm = document.querySelector(".settingOverlay .container-mainform .wrap-mainform");
 var startLetter = document.getElementById("startLetter").value;
 var numberLetter = document.getElementById("numberLetter").value;
+var tempStartLetter = dataSetting.barcd_from;
+var tempNumberLetter = dataSetting.barcd_len;
+var tempBarcodeType = dataSetting.barcd_kcode;
 
 /**
    * SETUP OPTION MENU
@@ -38,27 +41,22 @@ function onclickAction() {
         Common.movePage('/total.html')
         // Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
     };
-    document.getElementById("settingListButton").onclick = function () { Common.movePage('/meter_reading_setting.html') };
-    document.getElementById("settingButton").onclick = function () { Common.movePage('/setting.html') };
-}
+    
+    document.getElementById("settingListButton").onclick = function () { 
+        Common.movePage('/meter_reading_setting.html') 
+    };
 
+    document.getElementById("settingButton").onclick = function () { 
+        Common.movePage('/setting.html') 
+    };
 
-/* 
-    SHOW DIALOG
-*/
-
-function showDialog() {
-    var btn = document.getElementById("gyoomuButton");
-    var tempStartLetter = dataSetting.barcd_from;
-    var tempNumberLetter = dataSetting.barcd_len;
-    var tempBarcodeType = dataSetting.barcd_kcode;
-
+    
     document.getElementById("close-icon").onclick = function () {
         overlay.style.zIndex = "-1";
         wrapMainForm.classList.remove("overlay-animate");
     };
 
-    btn.onclick = function () {
+    document.getElementById("gyoomuButton").onclick = function () {
         overlay.style.zIndex = "2";
         wrapMainForm.classList.remove("overlay-animate");
     };
@@ -229,10 +227,10 @@ function startScan() {
 */
 function setBarcodeType() {
     if (dataSetting.barcd_kcode === 0) {
-        document.getElementById("barcode").setAttribute("checked", "checked");
+        $('input[value="kcode"]').prop('checked', 'checked');
     }
     else {
-        document.getElementById("kcode").setAttribute("checked", "checked");
+        $('input[value="barcode"]').prop('checked', 'checked');
     }
 }
 
@@ -342,7 +340,6 @@ function getCustomerData(type, string) {
 function onLoadAction() {
     setOptionMenu();
     onclickAction();
-    showDialog();
 }
 
 window.onload = onLoadAction;
