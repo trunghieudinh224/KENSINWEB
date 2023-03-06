@@ -102,6 +102,9 @@ function showDialog() {
         Quagga.stop();
         overlay.style.zIndex = "2";
         wrapMainForm.classList.remove("overlay-animate");
+        document.getElementById("barcodeValue").value = null;
+        document.getElementById("confirmBtn").setAttribute("disabled","");
+        document.getElementById("pauseBtn").removeAttribute("disabled");
     };
 
     document.getElementById("pauseBtn").onclick = function () {
@@ -117,33 +120,32 @@ function showDialog() {
         settingOverlay.style.zIndex = "4";
         wrapSettingMainForm.classList.remove("overlay-animate");
         Quagga.stop();
-        if (tempBarcodeType === 0) {
-                document.getElementById("kcode").setAttribute("checked", "");
+        if (tempBarcodeType == 0) {
+            $('input[value="kcode"]').prop('checked', 'checked');
         }
         else {
-            document.getElementById("barcode").setAttribute("checked", "");
+            $('input[value="barcode"]').prop('checked', 'checked');
         }
     }
 
     document.getElementById("settingBackBtn").onclick = function () {
         settingOverlay.style.zIndex = "-1";
         wrapSettingMainForm.classList.remove("overlay-animate");
-        document.getElementById("startLetter").value = tempStartLetter;
-        document.getElementById("numberLetter").value = tempNumberLetter;
-        if (tempBarcodeType === 0) {
-            document.getElementById("kcode").setAttribute("checked", "");
-        }
-        else {
-            document.getElementById("barcode").setAttribute("checked", "");
-        }
-        startScan();
         barcodeScannerOverlay.style.zIndex = "3";
         wrapBarcodeMainForm.classList.remove("overlay-animate");
+        document.getElementById("startLetter").value = tempStartLetter;
+        document.getElementById("numberLetter").value = tempNumberLetter;
+        $('input[type=radio]').prop('checked', function () {
+            return this.getAttribute('checked') == 'checked';
+        });
+        startScan();
     }
 
     document.getElementById("settingSaveBtn").onclick = function () {
         settingOverlay.style.zIndex = "-1";
         wrapSettingMainForm.classList.remove("overlay-animate");
+        barcodeScannerOverlay.style.zIndex = "3";
+        wrapBarcodeMainForm.classList.remove("overlay-animate");
         startLetter = parseInt(document.getElementById("startLetter").value);
         numberLetter = parseInt(document.getElementById("numberLetter").value);
         tempStartLetter = startLetter;
@@ -158,16 +160,14 @@ function showDialog() {
             tempBarcodeType = 0;
         }
         startScan();
-        barcodeScannerOverlay.style.zIndex = "3";
-        wrapBarcodeMainForm.classList.remove("overlay-animate");
     }
 
     document.getElementById("confirmBtn").onclick = function () {
-        console.log(document.getElementById("barcodeValue").value)
         if (tempBarcodeType === 4) {
             sessionStorage.setItem(StringCS.SEARCHMODE, "3");
             Common.movePage("/customer.html");
         } else {
+            sessionStorage.setItem(StringCS.SEARCHMODE, "2");
             Common.movePage("/customer.html");
         }
     }
@@ -229,10 +229,10 @@ function startScan() {
 */
 function setBarcodeType() {
     if (dataSetting.barcd_kcode === 0) {
-        document.getElementById("barcode").setAttribute("checked", "");
+        document.getElementById("barcode").setAttribute("checked", "checked");
     }
     else {
-        document.getElementById("kcode").setAttribute("checked", "");
+        document.getElementById("kcode").setAttribute("checked", "checked");
     }
 }
 
@@ -319,6 +319,7 @@ function getCustomerData(type, string) {
             let tempResult =  JSON.parse(result);
             if (tempResult.cuslist.length > 0) {
                 var object = tempResult.cuslist[0];
+                document.getElementById("pauseBtn").setAttribute("disabled","");
                 document.getElementById("confirmBtn").removeAttribute("disabled");
                 const cusdat = Object.assign({}, object);
                 sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
