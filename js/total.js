@@ -541,10 +541,10 @@ function createImageShuukinNippouForm() {
   * 集計データ一覧の設定.
   * cách phân biệt data shukei gửi về:
   * vì data gửi về gồm kensin , kensin no nyukin , kensin no chokin , uriage, nyu và cho của uriage nên có những cách thức phân biệt :
-  * kensin: có busku = 0, sisin > 0 vì số ghi đồng hồ nên sẽ có số dương, kenku > 0
+  * kensin: có buskind = 0, sisin > 0 vì số ghi đồng hồ nên sẽ có số dương, kenku > 0
   * nyukin và chokin của kensin: thường sẽ có lnk_dencnt là dencnt của kensin data.
-  * bất kỳ chokin cũng sẽ có busku = 2
-  * bất kỳ nyukin cũng sẽ có busku = 1
+  * bất kỳ chokin cũng sẽ có buskind = 3
+  * bất kỳ nyukin cũng sẽ có buskind = 1
   *
   * @throws MException   エラーがあった場合に発生.
   */
@@ -596,7 +596,9 @@ function setShukeiDateList() {
                 var shukeiItem1 = new Dat.ShukeiItem();
                 shukeiItem1.mGsiyou = item.h_siyouryo;
                 shukeiItem1.mGryokin = item.h_kin;
-                shukeiItem1.mKang = 0 + 0           // kokfDat.mReduce + kokfDat.mReduceTax chua tim ra field;
+                // kokfDat.mReduce + kokfDat.mReduceTax chua tim ra field; can ghi data cua kangen de lay 2 gia tri nay
+                // gia tri duoc luu tai dieu kien  kokfDat.getKng_uri() != 0 function ReceiveJobBase
+                shukeiItem1.mKang = 0 + 0           
                 shukeiItem1.mShohi = item.u_tax / 1000;
                 shukeiItem1.mTotal = shukeiItem1.mKang + shukeiItem1.mGryokin + shukeiItem1.mShohi;
                 shukeiItem1.mNyukin = item.receipt;
@@ -650,7 +652,7 @@ function setShukeiDateList() {
                 lstKensinData.push(kensinData);
                 m_mapKensinData.set(strKey, lstKensinData);
 
-            }else if(item.h_kin > 0 && item.u_busku == 0){
+            }else if(item.h_kin > 0 && item.u_buskind == 0){
                 addUriageShukeiData(item);
             }
 

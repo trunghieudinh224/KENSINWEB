@@ -251,12 +251,10 @@ function setCusInfo() {
         }
         // 前回使用量
         var tvPreUsetTitle = document.getElementById("txtKensinMainPrevSiyou0");
-        if (mUserData.mKokfDat.mBetwMeter > 0) {
+        if (mUserData.mKokfDat.mBetwMeter > 0 && mUserData.mKokfDat.metchg == true) {
             // 中間使用量有
             //tvPreUsetTitle.innerHTML = "前回/中間";]
-            if (mUserData.mKokfDat.metchg == true) {
-                document.getElementById("chukan_shiyo_ryo_id").classList.remove("hidden");
-            }
+            document.getElementById("chukan_shiyo_ryo_id").classList.remove("hidden");
             var strPreUseValue =
                 Other.Format(
                     GasRaterCom.getGasSuryo(mUserData.mKokfDat.mPreUse, mUserData.mSy2fDat, mUserData.mKouserDat),
@@ -266,7 +264,7 @@ function setCusInfo() {
                 Other.Format(
                     GasRaterCom.getGasSuryo(mUserData.mKokfDat.mBetwMeter, mUserData.mSy2fDat, mUserData.mKouserDat),
                     1
-                );
+                );               
             txtKensinMainInterUse.innerHTML = strPreUseValue;
 
         } else {
