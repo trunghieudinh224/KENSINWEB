@@ -114,7 +114,7 @@ body {
 
 .drawingBuffer {
     display: none ;
-  }
+}
 
 /*
   ******  RESPONSIVE LAYOUT  ******
@@ -145,6 +145,12 @@ body {
 	.barcodeOverlay .container-mainform .wrap-mainform {
 		max-height: fit-content;
 	}
+
+		/* DIVIDER TEXT */
+		.divider-text span {
+			margin: 15px 15% !important;
+			font-size: 23px;
+		}
 }
 
 
@@ -158,6 +164,11 @@ body {
     .btn-lg {
         padding: 15px 10px;
     }
+	/* DIVIDER TEXT */
+	.divider-text span {
+		font-size: 20px;
+		margin: 15px 0 !important;
+	}
 }
 
 @media screen and (max-width: 600px) {
@@ -169,6 +180,11 @@ body {
 
 	.text{
 		overflow: visible !important;
+	}
+
+	/* DIVIDER TEXT */
+	.divider-text span {
+		font-size: 18px;
 	}
 }
 

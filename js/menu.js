@@ -103,6 +103,7 @@ function onclickAction() {
         document.getElementById("barcodeValue").value = null;
         document.getElementById("confirmBtn").setAttribute("disabled","");
         document.getElementById("pauseBtn").removeAttribute("disabled");
+        document.getElementById("pauseBtn").classList.remove("disabled-div");
     };
 
     document.getElementById("pauseBtn").onclick = function () {
