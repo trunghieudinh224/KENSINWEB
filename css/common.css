@@ -668,7 +668,7 @@ input::-webkit-inner-spin-button {
 	.wrap-mainform {
 		width: 540px;
 		margin-top: 60px;
-		margin-bottom: 60px;
+		/* margin-bottom: 60px; */
 		padding: 20px 12px;
 	}
 

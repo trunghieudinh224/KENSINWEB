@@ -10,7 +10,7 @@ body {
 
 .container-mainform {
     height: -webkit-fill-available !important; 
-  }
+}
 
 .overlay {
 	position: absolute;
