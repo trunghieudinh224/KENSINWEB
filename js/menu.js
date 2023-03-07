@@ -85,7 +85,7 @@ function onclickAction() {
         setBarcodeType();
         setBarcodeStart();
         setBarcodeNumber();
-        if (tempBarcodeType === 0) {
+        if (dataSetting.barcd_kcode == 0) {
             document.getElementById("barcodeType").innerHTML = '顧客コード';
         }
         else{
@@ -162,7 +162,7 @@ function onclickAction() {
     }
 
     document.getElementById("confirmBtn").onclick = function () {
-        if (tempBarcodeType === 4) {
+        if (tempBarcodeType == 4) {
             sessionStorage.setItem(StringCS.SEARCHMODE, "3");
             Common.movePage("/customer.html");
         } else {
@@ -178,7 +178,7 @@ function onclickAction() {
 function startScan() {
     const camera = document.getElementById("camera");
 
-    if (window.getComputedStyle(camera).display === "none") {
+    if (window.getComputedStyle(camera).display == "none") {
         camera.style.display = "block";
     }
 
@@ -227,7 +227,7 @@ function startScan() {
     SET BARCODE TYPE
 */
 function setBarcodeType() {
-    if (dataSetting.barcd_kcode === 0) {
+    if (dataSetting.barcd_kcode == 0) {
         $('input[value="kcode"]').prop('checked', 'checked');
     }
     else {
