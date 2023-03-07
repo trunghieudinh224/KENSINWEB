@@ -173,6 +173,11 @@ function onLoadAction() {
         list_combobox = [combobox_1, combobox_2, combobox_3, combobox_4, combobox_5, combobox_6, combobox_7, combobox_8];
     }else{
         list_combobox = [combobox_5, combobox_6, combobox_8];
+        combobox_1.disabled = true;
+        combobox_2.disabled = true;
+        combobox_3.disabled = true;
+        combobox_4.disabled = true;
+        combobox_7.disabled = true;
     }
 
     
