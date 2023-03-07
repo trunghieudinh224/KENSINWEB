@@ -256,7 +256,7 @@ function onChangeAction() {
 				1
 			);
 			setToyuInfo();
-		} 
+		}
 
 		if (txtTouyuRyokin.value != "" && txtNowMeter.value != "") {
 			kakuninButton.disabled = false;
@@ -339,22 +339,19 @@ function save() {
 		kotfDat.m_nLoil_use = m_nToyuuse;
 		kotfDat.m_nFee = parseInt(Other.getNumFromString(txtTouyuRyokin.value));
 		if (kotfDat.m_bLoil_taxku == 3) {
-			kotfDat.m_nCon_tax = parseInt(Other.getNumFromString(txtShohi.textContent)); 
+			kotfDat.m_nCon_tax = parseInt(Other.getNumFromString(txtShohi.textContent));
 		} else {
 			kotfDat.m_nCon_tax = 0;
 		}
 
 		// setKensinData();			//Hieu
-		
-
-		// 印刷する、しないを確認する
-		if(kokfDat.mKenSumi){
+		if (kokfDat.mKenSumi) {
 			// ガス検針有り
 			Common.setupModal("load", null, "検針伝票を印刷しますか", "いいえ", "ガス灯油", "灯油のみ", false);
 			var lZandaka;
-			if(kokfDat.mSyuSumi){
-				lZandaka = GasRaterCom.calcTotal(mUserData, mUserData.mSysfDat, kokfDat, mUserData.mKo2fDat, mUserData.mSy2fDat, mUserData.mKouserDat, null) //lstLeasHmefDat  Hieu
-							+ kokfDat.mAdjust - kokfDat.mReceipt;
+			if (kokfDat.mSyuSumi) {
+				lZandaka = GasRaterCom.calcTotal(mUserData, mUserData.mSysfDat, kokfDat, mUserData.mKo2fDat, mUserData.mSy2fDat, mUserData.mKouserDat, mUserData.mHmefList, null) //lstLeasHmefDat  Hieu
+					+ kokfDat.mAdjust - kokfDat.mReceipt;
 			}
 			else {
 				lZandaka = 0;
@@ -364,22 +361,28 @@ function save() {
 			document.getElementsByClassName("button-0")[0].onclick = function () {
 				modal.style.display = "none";
 			}
-			
+
 			// ガス灯油
 			document.getElementsByClassName("button-1")[0].onclick = function () {
+				modal.style.display = "none";
+				document.getElementById("editView").style.display = "none";
+				document.getElementById("printView").style.display = "block";
 				var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, true, kokfDat.mReceipt, lZandaka, true, true);
 				createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
 			}
 
 			// 灯油のみ
 			document.getElementsByClassName("button-2")[0].onclick = function () {
+				modal.style.display = "none";
+				document.getElementById("editView").style.display = "none";
+				document.getElementById("printView").style.display = "block";
 				var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, true, kokfDat.mReceipt, lZandaka, false, true);
 				createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
 			}
 		}
 		else {
 			Common.setupModal("load", null, "検針伝票を印刷しますか。", StringCS.IIE, StringCS.HAI, null, false);
-			
+
 			// いいえ
 			document.getElementsByClassName("button-0")[0].onclick = function () {
 				modal.style.display = "none";
@@ -392,12 +395,9 @@ function save() {
 				document.getElementById("printView").style.display = "block";
 				var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, false, 0, 0, false, true);
 				createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
-			
-			
 			}
 		}
-
-		sendDataToServer()
+		// sendDataToServer(kokfDat)
 
 	} catch (ex) {
 		console.log(ex);
@@ -865,9 +865,9 @@ function calcTotalKin() {
 
 
 /**
-    * 伝票の検針データ印字部分の作成
-    *
-    * @param kensinData  [in] {@link KensinData} 検針データ
+	* 伝票の検針データ印字部分の作成
+	*
+	* @param kensinData  [in] {@link KensinData} 検針データ
 */
 function createKensinInfo(kensinData) {
 	document.getElementById("ToyuKensinInfoArea").style.display = "none";
@@ -907,9 +907,9 @@ function createKensinInfo(kensinData) {
 
 
 /**
-    * 灯油検針情報の印字
-    *
-    * @param kensinData    [in] {@link KensinData} 検針データ
+	* 灯油検針情報の印字
+	*
+	* @param kensinData    [in] {@link KensinData} 検針データ
 */
 function createToyuKensinInfoBase(kensinData) {
 	var strLine;
@@ -991,28 +991,24 @@ function createToyuKensinInfoBase(kensinData) {
 	//灯油メーター料金
 	//通常料金
 	const nFeeVal = document.getElementById("nFeeVal");
-	nFeeVal.innerHTML = Other.Format(kotfDat.m_nFee, 1);
+	nFeeVal.innerHTML = Other.formatDecial(kotfDat.m_nFee);
 
 	if (kensinData.m_isToyuKinSep) {
 		document.getElementById("toyuKinSepKinArea").style.display = "block";
 
 		//基本料金
-		const zenkaiSSVal = document.getElementById("zenkaiSSVal");
-		zenkaiSSVal.innerHTML = Other.KingakuFormat(kotfDat.m_nLoil_base / 100);
+		const loilBaseToyuVal = document.getElementById("loilBaseToyuVal");
+		loilBaseToyuVal.innerHTML = Other.KingakuFormat(kotfDat.m_nLoil_base / 100);
 
 		//従量料金(単価
-		const loilUnitVal = document.getElementById("loilUnitVal");
-		loilUnitVal.innerHTML = Other.KingakuFormat(kensinData.m_nLoilUnit);
-
 		const juuryooRyookinToyuVal = document.getElementById("juuryooRyookinToyuVal");
-		juuryooRyookinToyuVal.innerHTML = Other.KingakuFormat(kotfDat.m_nFee - (kotfDat.m_nLoil_base / 100));
+		juuryooRyookinToyuVal.innerHTML = Other.KingakuFormat(kotfDat.m_nLoil_base / 100);
 	} else {
 		document.getElementById("toyuKinSepKinArea").style.display = "none";
 	}
 
 	// 消費税有り
 	if (kotfDat.m_nCon_tax != 0) {
-		document.getElementById("conTaxToyuArea").style.display = "block";
 		const conTaxToyuVal = document.getElementById("conTaxToyuVal");
 		conTaxToyuVal.innerHTML = Other.KingakuFormat(kotfDat.m_nCon_tax);
 	} else {
@@ -1022,9 +1018,9 @@ function createToyuKensinInfoBase(kensinData) {
 
 
 /**
-    * 金額関係印刷データの生成.
-    *
-    * @param kensinData    [in] {@link KensinData} 検針印刷データ
+	* 金額関係印刷データの生成.
+	*
+	* @param kensinData    [in] {@link KensinData} 検針印刷データ
 */
 function createKinInfo(kensinData) {
 	var isPrint = false;
@@ -1286,9 +1282,9 @@ function isUriage_(hmefDats, sysfDat, isIncludeNyuCho) {
 
 
 /**
-    * 内税コメントの生成.
-    *
-    * @param kensinData    [in] {@link KensinData} 検針印刷データ
+	* 内税コメントの生成.
+	*
+	* @param kensinData    [in] {@link KensinData} 検針印刷データ
 */
 function createUTaxComment(wkKensinData) {
 	var wkStr;
@@ -1356,9 +1352,9 @@ function createSeikyuComment(kensinData) {
 
 
 /**
-    * 伝票にガス料金式を印字
-    *
-    * @param kensinData        [in] KensinData 印刷用検針データ
+	* 伝票にガス料金式を印字
+	*
+	* @param kensinData        [in] KensinData 印刷用検針データ
 */
 function createGasryokinSiki(kensinData) {
 	var gasfDat = kensinData.m_GasfDat;
@@ -1992,9 +1988,9 @@ function printGasryokinComment(gextDat) {
 
 
 /**
-    * 伝票に日割りコメントを印字
-    *
-    * @param kensinData        [in] Kensindata     印刷用検針データ
+	* 伝票に日割りコメントを印字
+	*
+	* @param kensinData        [in] Kensindata     印刷用検針データ
 */
 function createHiwariComment(kensinData) {
 	var countNull = 0;
@@ -2033,7 +2029,7 @@ function createRyoshu(strInpReceipt) {
 
 
 /**
-    * 伝票の自振関連データ印字部分の作成
+	* 伝票の自振関連データ印字部分の作成
 */
 function createBank() {
 	var kokfDat = mUserData.mKokfDat;
@@ -2091,7 +2087,7 @@ function createBank() {
 
 
 /**
-    * 銀行不能コメントの印字.
+	* 銀行不能コメントの印字.
 */
 function createFunouComment() {
 	var sy2fDat = mUserData.mSy2fDat;
@@ -2129,9 +2125,9 @@ function createFunouComment() {
 
 
 /**
-    * 伝票の明細部分の作成
-    *
-    * @param userData    [in] {@link UserData}   共通データ
+	* 伝票の明細部分の作成
+	*
+	* @param userData    [in] {@link UserData}   共通データ
 */
 function createHmInfo_(userData) {
 	// 販売データ
@@ -2277,7 +2273,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 	for (var i = 0; i < lstHmefDat.length; i++) {
 		const area = document.getElementById(previousId);
 		var hmefDat = lstHmefDat[i];
-		if (!hmefDat.mUsef || hmefDat.mHmCode < sysfDat.mSnvalue) {	
+		if (!hmefDat.mUsef || hmefDat.mHmCode < sysfDat.mSnvalue) {
 			continue;
 		}
 
@@ -2529,9 +2525,9 @@ function createComment(commentData) {
 
 
 /**
-    * ハイブリッドコメントの印字.
-    *
-    * @param kensinData    [in] {@link KensinData} 検針印字データ
+	* ハイブリッドコメントの印字.
+	*
+	* @param kensinData    [in] {@link KensinData} 検針印字データ
 */
 function createHybComment(kensinData) {
 	var str;
@@ -2578,9 +2574,9 @@ function createHybComment(kensinData) {
 
 
 /**
-    * ハイブリッド料金式の印字.
-    *
-    * @param kensinData    [in] {@link KensinData} 検針印字データ
+	* ハイブリッド料金式の印字.
+	*
+	* @param kensinData    [in] {@link KensinData} 検針印字データ
 */
 function createHybTblPrint(kensinData) {
 	var strLine;
@@ -2690,9 +2686,9 @@ function createHoanInfo(strHoan) {
 
 
 /**
-    * 通常ポイント印字部分の作成.
-    *
-    * @param kensinData    [in] {@link KensinData} 検針データ
+	* 通常ポイント印字部分の作成.
+	*
+	* @param kensinData    [in] {@link KensinData} 検針データ
 */
 function createPoint() {
 	var sy2fDat = mUserData.mSy2fDat;
@@ -2716,7 +2712,7 @@ function createPoint() {
 
 
 /**
-    * 伝票：宮野式ポイント印字部分の作成
+	* 伝票：宮野式ポイント印字部分の作成
 */
 function createMiyaPoint() {
 	if (mUserData.mSy2fDat.mMiyanoFlg == 0 ||
@@ -2975,12 +2971,12 @@ function createUserInfo(hanfDat, strTantname) {
 */
 function onclickAction() {
 	document.getElementById("backPageButton").onclick = function () {
-	    Common.backAction();
+		Common.backAction();
 	};
 
 	kakuninButton.onclick = function () {
-		 save();
-		Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
+		save();
+		// Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
 	}
 }
 
@@ -3003,16 +2999,16 @@ function getPrintStatus(kokfDat, sysfDat, isPrintNyukin, lReceipt, lZandaka, isP
 /** 
 	* SENDING DATA
 */
-export function sendDataToServer() {
+export function sendDataToServer(kokfDat) {
 	var kensinDate = new Date(sessionStorage.getItem(StringCS.KENSINDATE));
 
 	var mKokfDat = mUserData.mKokfDat;
 	mKokfDat.l_ken_ss = mUserData.mKokfDat.mKotfDat.m_nNow_meter;
 	mKokfDat.l_ken_stat = 0;
 	mKokfDat.l_ken_sumi = mKokfDat.mKotfDat.m_bKen_sumi;
-	if(mKokfDat.l_ken_sumi == 1 ){
+	if (mKokfDat.l_ken_sumi == 1) {
 		mKokfDat.l_ken_wrtf = 1;
-	}else{
+	} else {
 		mKokfDat.l_ken_wrtf = 0;
 	}
 	mKokfDat.l_ken_guri = mKokfDat.mKotfDat.m_nFee;
@@ -3038,6 +3034,53 @@ export function sendDataToServer() {
 		success: function (response) {
 			console.log(response);
 			Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
+			// 印刷する、しないを確認する
+			if (kokfDat.mKenSumi) {
+				// ガス検針有り
+				Common.setupModal("load", null, "検針伝票を印刷しますか", "いいえ", "ガス灯油", "灯油のみ", false);
+				var lZandaka;
+				if (kokfDat.mSyuSumi) {
+					lZandaka = GasRaterCom.calcTotal(mUserData, mUserData.mSysfDat, kokfDat, mUserData.mKo2fDat, mUserData.mSy2fDat, mUserData.mKouserDat, mUserData.mHmefList, null) //lstLeasHmefDat  Hieu
+						+ kokfDat.mAdjust - kokfDat.mReceipt;
+				}
+				else {
+					lZandaka = 0;
+				}
+
+				// いいえ
+				document.getElementsByClassName("button-0")[0].onclick = function () {
+					modal.style.display = "none";
+				}
+
+				// ガス灯油
+				document.getElementsByClassName("button-1")[0].onclick = function () {
+					var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, true, kokfDat.mReceipt, lZandaka, true, true);
+					createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
+				}
+
+				// 灯油のみ
+				document.getElementsByClassName("button-2")[0].onclick = function () {
+					var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, true, kokfDat.mReceipt, lZandaka, false, true);
+					createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
+				}
+			}
+			else {
+				Common.setupModal("load", null, "検針伝票を印刷しますか。", StringCS.IIE, StringCS.HAI, null, false);
+
+				// いいえ
+				document.getElementsByClassName("button-0")[0].onclick = function () {
+					modal.style.display = "none";
+				}
+
+				// はい
+				document.getElementsByClassName("button-1")[0].onclick = function () {
+					modal.style.display = "none";
+					document.getElementById("editView").style.display = "none";
+					document.getElementById("printView").style.display = "block";
+					var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, false, 0, 0, false, true);
+					createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
+				}
+			}
 		},
 		error: function (textstatus) {
 			if (textstatus === "timeout") {

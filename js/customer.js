@@ -66,8 +66,8 @@ function setupDatePicker() {
                 mUserData.mKensinDate = String(kensinDate);
             }
         });
-    
-    
+
+
         $('#jisshi-bi').change(function () {
             recentDay = moment($(this).val()).format('YYYY/MM/DD');
             var kensinDate = recentDay;
@@ -170,9 +170,9 @@ function setInformation() {
         }
         if (Other.nullToString(cusDat.add_0) != "" || Other.nullToString(cusDat.add_1) != "") {
             document.getElementById("kokyaku-mei").innerHTML = Other.cutStringSpace(cusDat.name);
-            document.getElementById("juusho").innerHTML = Other.cutStringSpace(Other.nullToString(cusDat.add_0)) 
-                                                        + "\n" 
-                                                        + Other.cutStringSpace(Other.nullToString(cusDat.add_1));
+            document.getElementById("juusho").innerHTML = Other.cutStringSpace(Other.nullToString(cusDat.add_0))
+                + "\n"
+                + Other.cutStringSpace(Other.nullToString(cusDat.add_1));
         }
         document.getElementById("denwabango").innerHTML = Other.nullToString(cusDat.tel_0);
         document.getElementById("mtban").innerHTML = Other.nullToString(cusDetailData.mKokfDat.mtban);
@@ -234,6 +234,13 @@ function setInformation() {
     if (!isEnabled == true) {
         document.getElementById("uriageButton").classList.add("disabled-div");
         document.getElementById("nyuukinButton").classList.add("disabled-div");
+    } else {
+        if (document.getElementById("uriageButton").classList.contains("disabled-div")) {
+            document.getElementById("uriageButton").classList.remove("disabled-div");
+        }
+        if (document.getElementById("nyuukinButton").classList.contains("disabled-div")) {
+            document.getElementById("nyuukinButton").classList.remove("disabled-div");
+        }
     }
 }
 
@@ -434,7 +441,7 @@ function getCustomer(isPrevious) {
         }
     }
 
-    
+
     var object = cusList[index];
     sessionStorage.setItem(StringCS.CUSTOMERINDEX, index);
     object.taishoo = cusDat.taishoo;
@@ -495,7 +502,7 @@ function onclickAction() {
         document.getElementById("previousButton").onclick = function () {
             getCustomer(true)
         };
-    
+
         document.getElementById("nextButton").onclick = function () {
             getCustomer(false)
         };
