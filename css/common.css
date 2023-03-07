@@ -572,11 +572,15 @@ input::-webkit-inner-spin-button {
 
 
 .disabled-div {
-	background-color: #bfbfbf;
+	background: #757373 !important;
 }
 
 .disabled-inp {
 	background-color: #e2e2e2;
+}
+
+.disabled-text {
+	color: #a5a5a5 !important;
 }
 
 /*
