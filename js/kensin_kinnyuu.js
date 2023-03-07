@@ -172,11 +172,7 @@ function setCusInfo() {
     // 顧客名
     mTxtNameUser.innerHTML = Other.getClearString(mUserData.mKokfDat.mName);
     // 検針日付
-    mTxtDate.innerHTML = Other.MonthDayFormat(
-        kensin_date.getMonth() + 1,
-        kensin_date.getDate(),
-        false
-    );
+    mTxtDate.innerHTML = moment(kensin_date).format('YYYY年 MM月 DD日');
     m_nGasuse = mUserData.mKokfDat.mGasUse;
 
     if (mUserData.mKokfDat.mKenSumi) {
