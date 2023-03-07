@@ -234,16 +234,13 @@ function getCuslistType1() {
 						newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].name))));
 						newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].add_0))));
 						var kenstatVal = document.createTextNode((data.cuslist[i].kenstat == 1 ? "済" : "未"));
-						var shustatVal = document.createTextNode((data.cuslist[i].shustat == 1 ? "済" : "未"));
-						var br = document.createElement("br");
 						newKenshin.appendChild(kenstatVal);
-						newShuuku.appendChild(document.createTextNode(getShuukuVal(data.cuslist[i].shuku)));
+						newShuuku.appendChild(document.createTextNode(getShuukuVal(newShuuku, data.cuslist[i].shuku, data.cuslist[i].shustat)));
 						newElement.appendChild(newName);
 						newElement.appendChild(newAddress);
 						newElement.appendChild(newKenshin);
 						newElement.appendChild(newShuuku);
-						kenstatVal.after(br);
-						br.after(shustatVal);
+						
 						if (searchMode == "1") {
 							if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
 								if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) == i) {
@@ -255,7 +252,10 @@ function getCuslistType1() {
 						newElement.onclick = function () {
 							var object = data.cuslist[this.rowIndex];
 							sessionStorage.setItem(StringCS.CUSTOMERINDEX, this.rowIndex);
-							object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
+							if (searchMode == "1") {
+								object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
+							}
+							
 							if (object.kenstat == 1) {
 								Common.setupModal("question", null, Mess.I00006, StringCS.IIE, StringCS.HAI, null, false);
 								var buttonConfirm = document.getElementsByClassName("button-1")[0];
@@ -351,16 +351,13 @@ function searchCusType1(searchVal) {
 			newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(list[i].name))));
 			newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(list[i].add_0))));
 			var kenstatVal = document.createTextNode((list[i].kenstat == 1 ? "済" : "未"));
-			var shustatVal = document.createTextNode((list[i].shustat == 1 ? "済" : "未"));
-			var br = document.createElement("br");
 			newKenshin.appendChild(kenstatVal);
-			newShuuku.appendChild(document.createTextNode(getShuukuVal(list[i].shuku)));
+			newShuuku.appendChild(document.createTextNode(getShuukuVal(newShuuku, list[i].shuku, list[i].shustat)));
 			newElement.appendChild(newName);
 			newElement.appendChild(newAddress);
 			newElement.appendChild(newKenshin);
 			newElement.appendChild(newShuuku);
-			kenstatVal.after(br);
-			br.after(shustatVal);
+			
 			if (searchMode == "1") {
 				if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
 					if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) == i) {
@@ -372,7 +369,10 @@ function searchCusType1(searchVal) {
 			newElement.onclick = function () {
 				var object = list[this.rowIndex];
 				sessionStorage.setItem(StringCS.CUSTOMERINDEX, getIndexCustomer(object.cusrec));
-				object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
+				if (searchMode == "1") {
+					object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
+				}
+
 				if (object.kenstat == 1) {
 					Common.setupModal("question", null, Mess.I00006, StringCS.IIE, StringCS.HAI, null, false);
 					var buttonConfirm = document.getElementsByClassName("button-1")[0];
@@ -480,18 +480,15 @@ function searchCusType2() {
 						newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].name))));
 						newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].add_0))));
 						var kenstatVal = document.createTextNode((data.cuslist[i].kenstat == 1 ? "済" : "未"));
-						var shustatVal = document.createTextNode((data.cuslist[i].shustat == 1 ? "済" : "未"));
-						var br = document.createElement("br");
 						newKenshin.appendChild(kenstatVal);
-						newShuuku.appendChild(document.createTextNode(getShuukuVal(data.cuslist[i].shuku)));
+						newShuuku.appendChild(document.createTextNode(getShuukuVal(newShuuku, data.cuslist[i].shuku, data.cuslist[i].shustat)));
 						newElement.appendChild(newName);
 						newElement.appendChild(newName);
 						newElement.appendChild(newAddress);
 						newElement.appendChild(newKenshin);
 						newElement.appendChild(newShuuku);
 						table.appendChild(newElement);
-						kenstatVal.after(br);
-						br.after(shustatVal);
+
 						if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
 							if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) == i) {
 								newElement.style.background = "#d9a691";
@@ -500,7 +497,10 @@ function searchCusType2() {
 						newElement.onclick = function () {
 							var object = data.cuslist[this.rowIndex];
 							sessionStorage.setItem(StringCS.CUSTOMERINDEX, this.rowIndex);
-							object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
+							if (searchMode == "1") {
+								object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
+							}
+				
 							if (object.kenstat == 1) {
 								Common.setupModal("question", null, Mess.I00006, StringCS.IIE, StringCS.HAI, null, false);
 								var buttonConfirm = document.getElementsByClassName("button-1")[0];
@@ -580,11 +580,24 @@ function compareObjectList(listObj1, listObj2) {
 	};
 }
 
-function getShuukuVal(code) {
+function getShuukuVal(element, code, shustat) {
 	var name = "";
 	for (var i = 0; i < systemDat.lstShuku.length; i++) {
 		if (code == systemDat.lstShuku[i].code) {
 			name = systemDat.lstShuku[i].name;
+
+			// set color shuuku field
+			if (code == 0 || code == 1) {
+				element.style.background = ValueCS.VL_COLOR_CUSLIST[0];
+			} else if (code == 2 || code == 3) {
+				element.style.background = ValueCS.VL_COLOR_CUSLIST[1];
+			} else if (code > 3) {
+				element.style.background = ValueCS.VL_COLOR_CUSLIST[2];
+			}
+
+			if (shustat == 0) {
+				element.style.color = "#ffffff";
+			}
 			break;
 		}
 	}
@@ -788,6 +801,7 @@ function onclickAction() {
 		document.getElementById("backPage2Button").onclick = Common.backAction;
 		document.getElementById("firstCustomerButton").onclick = firstCustomerAction;
 		document.getElementById("kensakuButton").onclick = function () {
+			sessionStorage.removeItem(StringCS.CUSTOMERINDEX);
 			searchCusType2();
 		}
 	} else {
