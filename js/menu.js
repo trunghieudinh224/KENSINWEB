@@ -7,7 +7,6 @@ import * as ValueCS from './Constant/values.js'
 /*****  VIEW VARIABLE  *****/
 /* modal */
 const modal = document.getElementById("myModal");
-const settingModal = document.getElementById("settingModal");
 
 
 /*****  DATA VARIABLE  *****/
@@ -278,7 +277,7 @@ function saveBarcodeDataSetting() {
         type: "POST",
         data: JSON.stringify(prepareNewBarcodeDataSetting()),
         url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
-        // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
+        // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         timeout: ValueCS.VL_LONG_TIMEOUT,
@@ -307,7 +306,7 @@ function saveBarcodeDataSetting() {
 function getCustomerData(type, string) {
     $.ajax({
         url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
-            // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
+            // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
             "&srch_kind=" + type +
             "&srch_string=" + string +
             "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
