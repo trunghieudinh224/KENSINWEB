@@ -85,6 +85,7 @@ function onclickAction() {
         setBarcodeType();
         setBarcodeStart();
         setBarcodeNumber();
+        document.getElementById("confirmBtn").classList.add("disabled-div");
         if (dataSetting.barcd_kcode == 0) {
             document.getElementById("barcodeType").innerHTML = '顧客コード';
         }
@@ -319,7 +320,9 @@ function getCustomerData(type, string) {
             if (tempResult.cuslist.length > 0) {
                 var object = tempResult.cuslist[0];
                 document.getElementById("pauseBtn").setAttribute("disabled","");
+                document.getElementById("pauseBtn").classList.add("disabled-div");
                 document.getElementById("confirmBtn").removeAttribute("disabled");
+                document.getElementById("confirmBtn").classList.remove("disabled-div");
                 const cusdat = Object.assign({}, object);
                 sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
                 Quagga.stop();
