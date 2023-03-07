@@ -1,6 +1,6 @@
 body {
 	position: relative;
-	min-height: 100vh;
+	min-height: -webkit-fill-available !important;
 	font-family: sans-serif;
 }
 
@@ -9,7 +9,7 @@ body {
 }
 
 .container-mainform {
-    height: 100vh; 
+    height: -webkit-fill-available !important; 
   }
 
 .overlay {
@@ -78,7 +78,7 @@ body {
 
 .settingOverlay .container-mainform .wrap-mainform {
 	max-width: 500px;
-	position: relative;
+		position: relative;
 }
 
 #close-icon {
@@ -108,6 +108,7 @@ body {
 
 #camera video {
     width: -webkit-fill-available;
+	max-height: 400px;
     margin: 0;
 }
 
@@ -120,7 +121,7 @@ body {
 */
 @media screen and (min-width: 1200px) {
     .wrap-mainform {
-        width: 450px;
+        width: 700px;
     }
 }
 
@@ -128,6 +129,10 @@ body {
     .wrap-mainform {
         width: 700px;
     }
+
+	.barcodeOverlay .container-mainform .wrap-mainform {
+		max-height: fit-content;
+	}
 }
 
 @media screen and (max-width: 900px) {
@@ -136,6 +141,10 @@ body {
     .wrap-mainform {
         width: 630px;
     }
+
+	.barcodeOverlay .container-mainform .wrap-mainform {
+		max-height: fit-content;
+	}
 }
 
 
@@ -144,9 +153,6 @@ body {
     /* MAIN FORM */
     .wrap-mainform {
 		width: 540px;
-		margin-top: 60px;
-		margin-bottom: 60px;
-		padding: 20px 12px;
     }
     
     .btn-lg {
@@ -172,9 +178,6 @@ body {
     /* MAIN FORM */
     .wrap-mainform {
 		width: 380px;
-		margin-top: 80px;
-		margin-bottom: 80px;
-		padding: 20px 10px;
     }
 
     .btn-lg {
