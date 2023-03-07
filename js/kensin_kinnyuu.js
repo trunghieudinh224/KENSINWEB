@@ -172,7 +172,7 @@ function setCusInfo() {
     // 顧客名
     mTxtNameUser.innerHTML = Other.getClearString(mUserData.mKokfDat.mName);
     // 検針日付
-    mTxtDate.innerHTML = moment(kensin_date).format('YYYY年 MM月 DD日');
+    mTxtDate.innerHTML = moment(kensin_date).format('YYYY/MM/DD');
     m_nGasuse = mUserData.mKokfDat.mGasUse;
 
     if (mUserData.mKokfDat.mKenSumi) {
@@ -233,6 +233,7 @@ function setCusInfo() {
         } else {
             // 入力前は前回値
             mTxtNowMeter.innerHTML = "";
+            mUserData.mKokfDat.mNowMeter = -1;
         }
         // 前回指針
         mTxtPreMeter.innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
@@ -945,6 +946,10 @@ mTxtNowMeter.addEventListener('DOMNodeInserted', function () {
     var strSisin = mTxtNowMeter.textContent;
 
     if (mUserData.mKokfDat.mNowMeter == parseFloat(mTxtNowMeter.textContent) * 10) {
+        mTxtNowMeter.textContent = Other.Format(
+                parseFloat(mTxtNowMeter.textContent) * 10,
+                1
+            );
         return;
     }
 
