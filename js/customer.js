@@ -18,8 +18,10 @@ var cusDetailData = JSON.parse(sessionStorage.getItem(StringCS.CUSDETAILDATA));
 var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 /** recent day */
 var recentDay = moment().format('YYYY/MM/DD');
-
+/** list customer */
 var cusList = JSON.parse(sessionStorage.getItem(StringCS.CUSTLIST))
+/** search mode */
+var searchMode = sessionStorage.getItem(StringCS.SEARCHMODE);
 
 
 /** 
@@ -141,7 +143,25 @@ function getInformation() {
 */
 function setInformation() {
     if (cusDat != null) {
-        document.getElementById("taishoo").innerHTML = cusDat.taishoo;
+        if (cusDat.taishoo != null) {
+            document.getElementById("taishoo").innerHTML = cusDat.taishoo;
+        } else {
+            document.getElementById("taishooArea").style.display = "none";
+            document.getElementById("taishooArea").classList.remove('col-sm-12');
+            document.getElementById("taishooArea").classList.remove('col-md-6');
+            document.getElementById("taishooArea").classList.remove('col-lg-6');
+            document.getElementById("taishooArea").classList.remove('col-xl-6');
+            document.getElementById("jisshiBiArea").classList.remove('col-sm-12');
+            document.getElementById("jisshiBiArea").classList.remove('col-md-6');
+            document.getElementById("jisshiBiArea").classList.remove('col-lg-6');
+            document.getElementById("jisshiBiArea").classList.remove('col-xl-6');
+        }
+        if (searchMode == "3") {
+            document.getElementById("barcode").innerHTML = Other.cutStringSpace(cusDat.barcd);
+        } else {
+            document.getElementById("barcodeArea").style.display = "none";
+        }
+
         if (Other.nullToString(cusDat.kcode) != "") {
             document.getElementById("kokyaku_kodo").innerHTML = Other.cutStringSpace(cusDat.kcode);
         }
@@ -188,20 +208,33 @@ function setInformation() {
     var jikkoBtn = document.getElementById("jikkoButton");
     if (cusDetailData.mKokfDat.mNoKensin == 0) {
         jikkoBtn.disabled = false;
+        jikkoBtn.classList.remove("disabled-div");
     } else {
         jikkoBtn.disabled = true;
+        jikkoBtn.classList.add("disabled-div");
     }
 
     var toyuBtn = document.getElementById("toyuPageButton");
     if (cusDetailData.mSysfDat.m_isToyukensinFlg == true) {
         toyuBtn.disabled = false;
     } else {
-        document.getElementById("toyuPageButtonArea").remove();
+        if (document.getElementById("toyuPageButtonArea") != null) {
+            document.getElementById("toyuPageButtonArea").remove();
+        }
+    }
+
+    if (cusList == null || cusList.length <= 1) {
+        document.getElementById("previousButtonArea").remove();
+        document.getElementById("nextButtonArea").remove();
     }
 
     var isEnabled = cusDetailData.mKokfDat.mSupplyForm != 2;
     document.getElementById("uriageButton").disabled = !isEnabled;
     document.getElementById("nyuukinButton").disabled = !isEnabled;
+    if (!isEnabled == true) {
+        document.getElementById("uriageButton").classList.add("disabled-div");
+        document.getElementById("nyuukinButton").classList.add("disabled-div");
+    }
 }
 
 
@@ -376,6 +409,11 @@ function getRyookin() {
     document.getElementById("ryookin").innerHTML = result;
 }
 
+
+/**
+   * GET PREVIOUS/NEXT CUSTOMER'S DATA
+   * @param isPrevious     [BOOLEAN]
+*/
 function getCustomer(isPrevious) {
     var index = 0;
     if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
@@ -453,13 +491,15 @@ function onclickAction() {
     };
 
 
-    document.getElementById("previousButton").onclick = function () {
-        getCustomer(true)
-    };
-
-    document.getElementById("nextButton").onclick = function () {
-        getCustomer(false)
-    };
+    if (cusList != null && cusList.length > 1) {
+        document.getElementById("previousButton").onclick = function () {
+            getCustomer(true)
+        };
+    
+        document.getElementById("nextButton").onclick = function () {
+            getCustomer(false)
+        };
+    }
 }
 
 

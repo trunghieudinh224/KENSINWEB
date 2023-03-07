@@ -70,7 +70,7 @@
 						</div>
 					</div>
 					<div class="row content ed-v">
-						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
+						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10" id="jisshiBiArea">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text text mw135">検針日</span>
@@ -80,7 +80,7 @@
 							</div> <!-- form-group// -->
 						</div>
 
-						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10">
+						<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb10" id="taishooArea">
 							<div class="form-group input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text text mw135">対象</span>
@@ -99,6 +99,16 @@
 								</div>
 
 								<span class="form-control text" id="kokyaku_kodo"></span>
+							</div> <!-- form-group// -->
+						</div>
+
+						<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb10" id="barcodeArea">
+							<div class="form-group input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text text mw135">バーコード</span>
+								</div>
+
+								<span class="form-control text" id="barcode"></span>
 							</div> <!-- form-group// -->
 						</div>
 
@@ -375,13 +385,13 @@
 												class="fas fa-arrow-alt-circle-left ic-btn"></span><br>戻る</button>
 									</div>
 
-									<div class="col-4 sm-btn">
+									<div class="col-4 sm-btn" id="previousButtonArea">
 										<button type="button" class="btn btn-default text-center"
 											id="previousButton"><span
 												class="fas fa-arrow-left ic-btn"></span><br>前顧客</button>
 									</div>
 
-									<div class="col-4 sm-btn">
+									<div class="col-4 sm-btn" id="nextButtonArea">
 										<button type="button" class="btn btn-default text-center" id="nextButton"><span
 												class="fas fa-arrow-right ic-btn"></span><br>次顧客</button>
 									</div>
