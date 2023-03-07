@@ -32,6 +32,9 @@ function getDataSetting() {
 				setTantnameCbb();
 				setKokyakuJunCbb();
 				setPrintModeCbb();
+				setBarcodeNumber();
+				setBarcodeStart();
+				setBarcodeTypeCbb();
 				modal.style.display = "none";
 			} catch {
 				Common.setupModal("error", null, Mess.E00007, null, StringCS.OK, null, false);
@@ -110,6 +113,34 @@ function setPrintModeCbb() {
 	}
 }
 
+/* 
+    SET BARCODE START LETTER
+*/
+function setBarcodeStart() {
+    document.getElementById("startLetter").value = dataSetting.barcd_from;
+}
+
+/* 
+    SET BARCODE NUMBER LETTER
+*/
+function setBarcodeNumber() {
+    document.getElementById("numberLetter").value = dataSetting.barcd_len;
+}
+
+/**
+   * SET DATA FOR BARCODE TYPE COMBOBOX
+   *
+*/
+function setBarcodeTypeCbb() {
+	if (dataSetting != null) {
+		if (dataSetting.barcd_kcode == 0) {
+			document.getElementById("barcodeTypeCbb").value = "0";
+		} else {
+			document.getElementById("barcodeTypeCbb").value = "4";
+		}
+	}
+}
+
 
 /**
    * PREPARE NEW DATA SETTING
@@ -120,6 +151,9 @@ function prepareNewDataSetting() {
 	let orderVal = document.getElementById("cbb_kokyaku_jun").value;
 	let tancd = dataSetting.m_lstTantName[0].code;
 	let print_mode = document.getElementById("combobox_print_mode").value;
+	let startLetter = document.getElementById("startLetter").value;
+	let numberLetter = document.getElementById("numberLetter").value;
+	let barcodeType = document.getElementById("barcodeTypeCbb").value;
 	const newData = {
 		wrt_tancd: dataSetting.wrt_tancd,
 		tancd: tancd,
@@ -130,6 +164,9 @@ function prepareNewDataSetting() {
 		m_lstComment: dataSetting.m_lstComment,
 		order: orderVal,
 		m_nMode: dataSetting.wrt_tancd > 0 ? 1 : 0,
+		barcd_from: startLetter,
+		barcd_len: numberLetter,
+		barcd_kcode: barcodeType,
 		login_id: sessionStorage.getItem(StringCS.USERNAME),
 		login_pw: sessionStorage.getItem(StringCS.PASSWORD)
 	}
