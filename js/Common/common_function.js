@@ -209,7 +209,6 @@ function calcValOfList(list, prop) {
     for (var i = 0; i < list.length; i++) {
         var obj = list[i];
         for (var name in obj) {
-            console.log(name);
             if (prop == name) {
                 result += obj[name];
             }
