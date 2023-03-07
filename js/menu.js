@@ -138,10 +138,10 @@ function onclickAction() {
         $('input[type=radio]').prop('checked', function () {
             return this.getAttribute('checked') == 'checked';
         });
-        if (!document.getElementById("barcodeValue").value) {
+        if ((!document.getElementById("barcodeValue").value) || (document.getElementById("confirmBtn").hasAttribute("disabled"))) {
             startScan();
             document.getElementById("greenTick").style.display = "none";
-        }
+        } 
     }
 
     document.getElementById("settingSaveBtn").onclick = function () {
@@ -162,6 +162,10 @@ function onclickAction() {
             document.getElementById("barcodeType").innerHTML = '顧客コード';
             tempBarcodeType = 0;
         }
+        document.getElementById("confirmBtn").setAttribute("disabled","");
+        document.getElementById("confirmBtn").classList.add("disabled-div");
+        document.getElementById("pauseBtn").removeAttribute("disabled");
+        document.getElementById("pauseBtn").classList.remove("disabled-div");
         startScan();
         document.getElementById("greenTick").style.display = "none";
     }
