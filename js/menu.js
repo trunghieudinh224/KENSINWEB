@@ -78,6 +78,7 @@ function onclickAction() {
 
     document.getElementById("barcodeScannerBtn").onclick = function () {
         startScan();
+        document.getElementById("greenTick").style.display = "none";
         overlay.style.zIndex = "-1";
         wrapMainForm.classList.remove("overlay-animate");
         barcodeScannerOverlay.style.zIndex = "3";
@@ -139,6 +140,7 @@ function onclickAction() {
         });
         if (!document.getElementById("barcodeValue").value) {
             startScan();
+            document.getElementById("greenTick").style.display = "none";
         }
     }
 
@@ -161,6 +163,7 @@ function onclickAction() {
             tempBarcodeType = 0;
         }
         startScan();
+        document.getElementById("greenTick").style.display = "none";
     }
 
     document.getElementById("confirmBtn").onclick = function () {
@@ -327,6 +330,8 @@ function getCustomerData(type, string) {
                 const cusdat = Object.assign({}, object);
                 sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
                 Quagga.stop();
+                document.getElementById("camera").style.display = "none";
+                document.getElementById("greenTick").style.display = "block";
             }
             else    
                 Common.setupModal("error", null, Mess.E00005, null, StringCS.OK, null, false);
