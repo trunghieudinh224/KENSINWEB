@@ -93,6 +93,8 @@ export var BUSFCHOITEM = "BusfChoItem";
 export var CUSDETAILDATA = "CusDetailData";
 // KEYBOARD PROPERTY
 export var KEYBOARDPROP = "KeyboardProperty";
+// DIRECTION DATA
+export var DIRECTIONDATA = "DirectionData";
 
 
 /*****  CONTENT  *****/
@@ -117,3 +119,5 @@ export var HAI = "はい";
 export var IIE = "いいえ";
 // 終了
 export var SHUURYOUU = "終了";
+// 一覧へ
+export var ICHIRANE = "一覧へ";

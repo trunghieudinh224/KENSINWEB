@@ -517,7 +517,12 @@ function onLoadAction() {
     setOptionMenu();
     setupDatePicker();
     setDefaultDate();
-    getInformation();
+    if (sessionStorage.getItem(StringCS.DIRECTIONDATA) == "1") {
+        sessionStorage.removeItem(StringCS.DIRECTIONDATA);
+        getCustomer(false);
+    } else {
+        getInformation();
+    }
     onclickAction();
 }
 
