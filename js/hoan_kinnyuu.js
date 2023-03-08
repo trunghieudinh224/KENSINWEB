@@ -59,7 +59,7 @@ function setComboBoxTotal(item) {
         }
     });
 
-    if (isOne == true) {
+    if ((isOne == true) && (list_combobox.length == 8))  {
         combobox_total.value = check;
     }
     m_bRes = getValueOfHoanItem(combobox_total.value);
@@ -169,6 +169,7 @@ function setLawItem() {
 }
 
 function onLoadAction() {
+    // console.log(mUserData)
     if(mUserData.mKokfDat.mSupplyForm != 3 ){
         list_combobox = [combobox_1, combobox_2, combobox_3, combobox_4, combobox_5, combobox_6, combobox_7, combobox_8];
     }else{
@@ -236,8 +237,7 @@ function onLoadAction() {
         
         });
         no_btn.addEventListener("click", function () {
-            setDataforComboBoxSelect(1);
-        
+            setDataforComboBoxSelect(1);   
         });
     }
 }
