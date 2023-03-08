@@ -112,16 +112,6 @@ body {
     margin: 0;
 }
 
-#greenTick {
-	display: none;
-	text-align: center;
-	margin-bottom: 20px;
-}
-
-#greenTick img{
-	width: 30%;
-}
-
 .drawingBuffer {
     display: none ;
 }

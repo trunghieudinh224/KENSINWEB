@@ -78,7 +78,6 @@ function onclickAction() {
 
     document.getElementById("barcodeScannerBtn").onclick = function () {
         startScan();
-        document.getElementById("greenTick").style.display = "none";
         overlay.style.zIndex = "-1";
         wrapMainForm.classList.remove("overlay-animate");
         barcodeScannerOverlay.style.zIndex = "3";
@@ -140,7 +139,6 @@ function onclickAction() {
         });
         if ((!document.getElementById("barcodeValue").value) || (document.getElementById("confirmBtn").hasAttribute("disabled"))) {
             startScan();
-            document.getElementById("greenTick").style.display = "none";
         } 
     }
 
@@ -167,7 +165,6 @@ function onclickAction() {
         document.getElementById("pauseBtn").removeAttribute("disabled");
         document.getElementById("pauseBtn").classList.remove("disabled-div");
         startScan();
-        document.getElementById("greenTick").style.display = "none";
     }
 
     document.getElementById("confirmBtn").onclick = function () {
@@ -333,9 +330,7 @@ function getCustomerData(type, string) {
                 document.getElementById("confirmBtn").classList.remove("disabled-div");
                 const cusdat = Object.assign({}, object);
                 sessionStorage.setItem(StringCS.CUSDAT, JSON.stringify(cusdat));
-                Quagga.stop();
-                document.getElementById("camera").style.display = "none";
-                document.getElementById("greenTick").style.display = "block";
+                document.querySelector("#video").pause();
             }
             else    
                 Common.setupModal("error", null, Mess.E00005, null, StringCS.OK, null, false);
