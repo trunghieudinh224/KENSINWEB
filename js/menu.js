@@ -315,6 +315,7 @@ function getCustomerData(type, string) {
             // url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_CUSSEARCH + StringCS.PR_KEY +
             "&srch_kind=" + type +
             "&srch_string=" + string +
+            "&match_kind=3" +
             "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) +
             "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD),
         headers: {
