@@ -58,9 +58,10 @@ function setComboBoxTotal(item) {
             isOne = false;
         }
     });
-
     if ((isOne == true) && (list_combobox.length == 8))  {
-        combobox_total.value = check;
+        if (check != 2) {
+            combobox_total.value = check;
+        }
     }
     m_bRes = getValueOfHoanItem(combobox_total.value);
 }
