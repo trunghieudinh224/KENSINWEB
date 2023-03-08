@@ -110,6 +110,7 @@ body {
     width: -webkit-fill-available;
 	max-height: 300px;
     margin: 0;
+	overflow: hidden;
 }
 
 .drawingBuffer {
