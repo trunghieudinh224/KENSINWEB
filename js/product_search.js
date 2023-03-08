@@ -342,11 +342,15 @@ function onclickAction() {
 	
 	if (isEnable) {
 		document.getElementById("uriageListButton").disabled = false;
+		if (document.getElementById("uriageListButton").classList.contains("disabled-div")) {
+			document.getElementById("uriageListButton").classList.remove("disabled-div");
+		}
 		document.getElementById("uriageListButton").onclick = function () {
 			Common.movePage('/sales_list.html');
 		};
 	} else {
 		document.getElementById("uriageListButton").disabled = true;
+        document.getElementById("uriageListButton").classList.add("disabled-div");
 	}
 }
 

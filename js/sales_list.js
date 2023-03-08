@@ -105,9 +105,16 @@ function setData() {
 					}
 					if (count > 0) {
 						document.getElementById("deleteButton").disabled = false;
+						if (document.getElementById("deleteButton").classList.contains("disabled-div")) {
+							document.getElementById("deleteButton").classList.remove("disabled-div");
+						}
 						document.getElementById("printButton").disabled = false;
+						if (document.getElementById("printButton").classList.contains("disabled-div")) {
+							document.getElementById("printButton").classList.remove("disabled-div");
+						}
 					} else {
 						document.getElementById("deleteButton").disabled = true;
+						document.getElementById("deleteButton").classList.add("disabled-div");
 					}
 				};
 			}
@@ -115,11 +122,13 @@ function setData() {
 			dataMessage.innerText = Mess.E00008;
 			dataMessage.style.display = "block";
 			document.getElementById("printButton").disabled = true;
+			document.getElementById("deleteButton").classList.add("disabled-div");
 		}
 	} else {
 		dataMessage.innerText = Mess.E00008;
 		dataMessage.style.display = "block";
 		document.getElementById("printButton").disabled = true;
+		document.getElementById("deleteButton").classList.add("disabled-div");
 	}
 }
 
@@ -242,7 +251,9 @@ function reloadUriageList() {
 					dataMessage.innerText = Mess.E00008;
 					dataMessage.style.display = "block";
 					document.getElementById("deleteButton").disabled = true;
+					document.getElementById("deleteButton").classList.add("disabled-div");
 					document.getElementById("printButton").disabled = true;
+					document.getElementById("printButton").classList.add("disabled-div");
 				}
 			}
 		},

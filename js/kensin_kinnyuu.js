@@ -966,12 +966,17 @@ mTxtNowMeter.addEventListener('DOMNodeInserted', function () {
 
         if (mTxtNowMeter.textContent != "") {
             document.getElementById("next1Button").disabled = false;
+            if (document.getElementById("next1Button").classList.contains("disabled-div")) {
+                document.getElementById("next1Button").classList.remove("disabled-div");
+            }
             if (displayTab[2] == true) {
                 document.getElementById("card3").style.pointerEvents = "auto";
             }
         } else {
             document.getElementById("next1Button").disabled = true;
+            document.getElementById("next1Button").classList.add("disabled-div");
             document.getElementById("next3Button").disabled = true;
+            document.getElementById("next3Button").classList.add("disabled-div");
             if (displayTab[2] == true) {
                 document.getElementById("card3").style.pointerEvents = "none";
             }
@@ -1022,19 +1027,28 @@ teiseiNyuukin.addEventListener('DOMSubtreeModified', function () {
         if (modePage == 3) {
             setupButtonNyukinMode();
         }
-        if (teiseiNyuukin.textContent - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0 && modePage == 3) {
+        if (Other.getNumFromString(teiseiNyuukin.textContent) - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0) {
             document.getElementById("txtErrorTeisei").style.display = "block";
             teiseiNyuukin.classList.add("text_red");
             document.getElementById("txtErrorTeiseiDetail").classList.add("text_red");
             document.getElementById("teisei-sumi").disabled = true;
+            document.getElementById("teisei-sumi").classList.add("disabled-div");
             document.getElementById("next3Button").disabled = true;
+            document.getElementById("next3Button").classList.add("disabled-div");
         } else {
             document.getElementById("txtErrorTeisei").style.display = "none";
             teiseiNyuukin.classList.remove("text_red");
             document.getElementById("txtErrorTeiseiDetail").classList.remove("text_red");
             document.getElementById("teisei-sumi").disabled = false;
+            if (document.getElementById("teisei-sumi").classList.contains("disabled-div")) {
+                document.getElementById("teisei-sumi").classList.remove("disabled-div");
+            }
             document.getElementById("next3Button").disabled = false;
+            if (document.getElementById("next3Button").classList.contains("disabled-div")) {
+                document.getElementById("next3Button").classList.remove("disabled-div");
+            }
         }
+        teiseiNyuukinPre = Other.getNumFromString(teiseiNyuukin.textContent);
         teiseiNyuukin.textContent = onChangeMinus(teiseiNyuukin.textContent);
     } else {
         console.log("value err");
@@ -1091,6 +1105,8 @@ teiseiBtn.onclick = function () {
     teiseiNyuukinPre = teiseiNyuukin.textContent;
     teiseiGroup.classList.remove("hidden");
     nyuukinGroup.classList.add("hidden");
+    teiseiBtn.disabled = true;
+    teiseiBtn.classList.add("disabled-div");
     // if (isValidNumber(teiseiNyuukin.textContent)) {
     //   otsuri.textContent =
     //     Number(azukariKin.value) - Number(teiseiNyuukin.textContent);
@@ -1099,6 +1115,14 @@ teiseiBtn.onclick = function () {
 };
 
 cancelBtn.onclick = function () {
+    if (document.getElementById("teisei-sumi").classList.contains("disabled-div")) {
+        document.getElementById("teisei-sumi").classList.remove("disabled-div");
+    }
+    teiseiBtn.disabled = false;
+    if (teiseiBtn.classList.contains("disabled-div")) {
+        teiseiBtn.classList.remove("disabled-div");
+    }
+    
     teiseiGroup.classList.add("hidden");
     nyuukinGroup.classList.remove("hidden");
     teiseiNyuukin.textContent = teiseiNyuukinPre;
@@ -1109,13 +1133,25 @@ cancelBtn.onclick = function () {
         teiseiNyuukin.classList.add("text_red");
         document.getElementById("txtErrorTeiseiDetail").classList.add("text_red");
         document.getElementById("teisei-sumi").disabled = true;
+        document.getElementById("teisei-sumi").classList.add("disabled-div");
         document.getElementById("next3Button").disabled = true;
+        document.getElementById("next3Button").classList.add("disabled-div");
     } else {
         document.getElementById("txtErrorTeisei").style.display = "none";
         teiseiNyuukin.classList.remove("text_red");
         document.getElementById("txtErrorTeiseiDetail").classList.remove("text_red");
         document.getElementById("teisei-sumi").disabled = false;
-        document.getElementById("next3Button").disabled = false;
+        if (document.getElementById("teisei-sumi").classList.contains("disabled-div")) {
+            document.getElementById("teisei-sumi").classList.remove("disabled-div");
+        }
+        if (modePage == 1) {
+            document.getElementById("next3Button").disabled = false;
+            if (document.getElementById("next3Button").classList.contains("disabled-div")) {
+                document.getElementById("next3Button").classList.remove("disabled-div");
+            }
+        } else if (modePage == 3) {
+            setupButtonNyukinMode();
+        }
     }
 
 };
@@ -1136,6 +1172,10 @@ teiseiSumi.onclick = function () {
         mTeiseiFlg = true;
         setZandaka();
         updatePrintData();
+    }
+    teiseiBtn.disabled = false;
+    if (teiseiBtn.classList.contains("disabled-div")) {
+        teiseiBtn.classList.remove("disabled-div");
     }
 };
 
@@ -1385,6 +1425,11 @@ export function sendDataToServer() {
 function setupButton() {
     if (mTxtNowMeter.textContent == "") {
         document.getElementById("next1Button").disabled = true;
+        document.getElementById("next1Button").classList.add("disabled-div");
+    } else {
+        if (document.getElementById("next1Button").classList.contains("disabled-div")) {
+            document.getElementById("next1Button").classList.remove("disabled-div");
+        }
     }
 }
 
@@ -1396,9 +1441,13 @@ function setupButtonNyukinMode() {
     //Hieu
     if (mEditAdjust.textContent != "0" || mEditInputReceipt.textContent != "0" || parseInt(Other.getNumFromString(teiseiNyuukin.textContent)) < 0) {
         document.getElementById("next3Button").disabled = false;
+        if (document.getElementById("next3Button").classList.contains("disabled-div")) {
+            document.getElementById("next3Button").classList.remove("disabled-div");
+        }
     } else {
         if (modePage == 3) {
             document.getElementById("next3Button").disabled = true;
+            document.getElementById("next3Button").classList.add("disabled-div");
         }
     }
 }
