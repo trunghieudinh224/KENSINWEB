@@ -720,13 +720,13 @@ function setZandaka() {
     var mZandaka = mTotal + lAdjust - lReceipt; // 13.02.12
     if (lAzukari == lReceipt) {
         mTxtZandakaLabel.innerHTML = "差引残高";
-        mTxtZandaka.innerHTML = mZandaka > 0 ? Other.formatDecial(mZandaka) : 0;
         div_otsuri.classList.add("hidden");
     } else {
         div_otsuri.classList.remove("hidden");
         txtKensinNyukinOtsuri.innerHTML = Other.formatDecial(lAzukari - lReceipt);
-        mTxtZandaka.innerHTML = mZandaka > 0 ? Other.formatDecial(mZandaka) : 0;
     }
+    // mTxtZandaka.innerHTML = mZandaka > 0 ? Other.formatDecial(mZandaka) : 0;
+    mTxtZandaka.innerHTML = Other.formatDecial(mZandaka);
     if (mTeiseiFlg) {
         mTeiseiFlg = false;
     }
@@ -985,7 +985,6 @@ mTxtNowMeter.addEventListener('DOMNodeInserted', function () {
 });
 
 mEditAdjust.addEventListener('DOMSubtreeModified', function () {
-    //mUserData.mKokfDat.mAdjust
     if (mUserData.mKokfDat.mAdjust == parseInt(Other.getNumFromString(mEditAdjust.textContent))) {
         return;
     }
@@ -995,8 +994,6 @@ mEditAdjust.addEventListener('DOMSubtreeModified', function () {
         updatePrintData();
         mEditAdjust.textContent = onChangeMinus(mEditAdjust.textContent);
         setupButtonNyukinMode();
-    } else {
-        console.log("value err");
     }
 });
 
@@ -1013,8 +1010,6 @@ mEditInputReceipt.addEventListener('DOMSubtreeModified', function () {
         updatePrintData();
         mEditInputReceipt.textContent = onChangeMinus(mEditInputReceipt.textContent);
         setupButtonNyukinMode();
-    } else {
-        console.log("value err");
     }
 });
 
@@ -1050,8 +1045,6 @@ teiseiNyuukin.addEventListener('DOMSubtreeModified', function () {
         }
         teiseiNyuukinPre = Other.getNumFromString(teiseiNyuukin.textContent);
         teiseiNyuukin.textContent = onChangeMinus(teiseiNyuukin.textContent);
-    } else {
-        console.log("value err");
     }
 });
 

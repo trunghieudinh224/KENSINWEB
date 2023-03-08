@@ -245,7 +245,7 @@ export class KokfDat {
 		mTaxTisyuu, mPreBalance, mTAdjust, mTReceipt, mProcLease, mTaxLease, mProcDiv, mProcLoil, mTaxLoil, mProcEtc,
 		mTaxEtc, mProcGas, mTaxGas, mReceipt, mAdjust, mSyuSumi, mInpReceipt, mAdd_0, mAdd_1, mCusCode, mSName0,
 		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusrec, mPuseSrpDay, nGasrkcnt, mLoilUnit, mLoilAdd, mLoilMulti,
-		mPoint, mTransMonth, mTransDate, mTransFee, mGUri2, mUri2, mTax2, mNyu2, mCho2, seiymd, kai_ymd, mKenku, chuatu,mLoilDiv) {
+		mPoint, mTransMonth, mTransDate, mTransFee, mGUri2, mUri2, mTax2, mNyu2, mCho2, seiymd, kai_ymd, mKenku, chuatu, mLoilDiv) {
 
 		var data = new KokfDat();
 
@@ -1171,10 +1171,12 @@ export class HmefDat {
 
 export class KotfDat {
 	constructor() {
+		/** 検針対象区分(0:対象, 1:非検針) */
+		this.m_bNo_kensin = 0;
 		/** 灯油検針済み区分(0:未, 1:済) */
 		this.m_bKen_sumi = 0;
 		/** 灯油料金 */
-		this.m_nFee = 0;
+		this.m_nFee = 0;	
 		/** 灯油消費税額 */
 		this.m_nCon_tax = 0;
 		/** 今回指針 */
@@ -1209,7 +1211,7 @@ export class KotfDat {
 	}
 
 	setValue(m_bKen_sumi, m_nFee, m_nCon_tax, m_nNow_meter, m_nPre_meter, m_nLoil_use, m_nBetw_meter, m_nPre_use, m_nLoil_base,
-		m_bLoil_taxku, m_sLoil_taxr, m_nLoil_fracadd_tax, m_nLoil_fracmul_tax, m_bMt_keta, m_sPuse_year, m_bPuse_month, m_bPuse_day) {
+		m_bLoil_taxku, m_sLoil_taxr, m_nLoil_fracadd_tax, m_nLoil_fracmul_tax, m_bMt_keta, m_sPuse_year, m_bPuse_month, m_bPuse_day , m_bNo_kensin) {
 		var data = new KotfDat();
 
 		data.m_bKen_sumi = m_bKen_sumi;
@@ -1229,6 +1231,7 @@ export class KotfDat {
 		data.m_sPuse_year = m_sPuse_year;
 		data.m_bPuse_month = m_bPuse_month;
 		data.m_bPuse_day = m_bPuse_day;
+		data.m_bNo_kensin = m_bNo_kensin;
 		return data;
 	}
 
@@ -1255,6 +1258,7 @@ export class KotfDat {
 		data.m_sPuse_year = responeData.m_sPuse_year;
 		data.m_bPuse_month = responeData.m_bPuse_month;
 		data.m_bPuse_day = responeData.m_bPuse_day;
+		data.m_bNo_kensin = responeData.m_bNo_kensin;
 		return data
 	}
 }
@@ -2470,7 +2474,7 @@ export class Sy2fCnpTempDat {
 
 	}
 
-	setValue(mCnpTempComment_0 , mCnpTempComment_1 , mCnpComment_0, mCnpComment_1, mCnpComment_2) {
+	setValue(mCnpTempComment_0, mCnpTempComment_1, mCnpComment_0, mCnpComment_1, mCnpComment_2) {
 		var data = new Sy2fCnpTempDat();
 
 		data.mCnpTempComment_0 = mCnpTempComment_0;
@@ -2501,10 +2505,10 @@ export class Sy2fCnpTempDat {
  */
 export class Sy2fFunouComment {
 	constructor() {
-    /** 不能コメント1 */
-    this.mFunouComment0 = "";
-    /** 不能コメント2 */
-    this.mFunouComment1 = "";
+		/** 不能コメント1 */
+		this.mFunouComment0 = "";
+		/** 不能コメント2 */
+		this.mFunouComment1 = "";
 	}
 
 	setValue(mFunouComment0, mFunouComment1) {
