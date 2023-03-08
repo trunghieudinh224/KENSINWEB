@@ -19,14 +19,16 @@ var kensinDate = sessionStorage.getItem(StringCS.KENSINDATE);
 var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
 /** 日常点検項目 */
 var HOAN_ITEMS = ["①容器設置場所", "②容器設置状況", "③火気禁止２ｍ", "④調整器", "⑤配管状況", "⑥ガス栓", "⑦危険標識", "⑧マイコンメーター"];
-/** ユーザー情報 */ 
+/** ユーザー情報 */
 var mUserData = KensinKinyuu.mUserData;
 mUserData.mNyukinMode = false;
 mUserData.m_lstLeasHmefDat = null;
-/** 印刷情報 */ 
+/** 印刷情報 */
 var printStatus = new Dat.PrintStatus();
 /** 検針情報 */
 var kensinData = new Dat.KensinData();
+/** search mode */
+var searchMode = sessionStorage.getItem(StringCS.SEARCHMODE);
 
 
 /****  PRINT   ****/
@@ -524,9 +526,9 @@ function calcTotalKin() {
 
 
 /**
-    * 伝票の検針データ印字部分の作成
-    *
-    * @param kensinData  [in] {@link KensinData} 検針データ
+	* 伝票の検針データ印字部分の作成
+	*
+	* @param kensinData  [in] {@link KensinData} 検針データ
 */
 function createKensinInfo(kensinData) {
 	document.getElementById("KensinInfoArea").style.display = "none";
@@ -830,9 +832,9 @@ function createKensinInfoBase(kensinData) {
 
 
 /**
-    * 前年同月使用量を印字
-    *
-    * @param kensinData        [in] KensinData     検針印字データ
+	* 前年同月使用量を印字
+	*
+	* @param kensinData        [in] KensinData     検針印字データ
 */
 function createZenYearkenSr(kensinData) {
 	if (!kensinData.m_bPrintZenYearKenSr) {
@@ -846,9 +848,9 @@ function createZenYearkenSr(kensinData) {
 
 
 /**
-    * 伝票にガス料金総額を印字
-    *
-    * @param kensinData        [in] KensinData     印刷用検針データ
+	* 伝票にガス料金総額を印字
+	*
+	* @param kensinData        [in] KensinData     印刷用検針データ
 */
 function createGasryokinTotal(kensinData) {
 	const gasuRyookinSoogakuVal = document.getElementById("gasuRyookinSoogakuVal");
@@ -857,9 +859,9 @@ function createGasryokinTotal(kensinData) {
 
 
 /**
-    * 灯油検針情報の印字
-    *
-    * @param kensinData    [in] {@link KensinData} 検針データ
+	* 灯油検針情報の印字
+	*
+	* @param kensinData    [in] {@link KensinData} 検針データ
 */
 function createToyuKensinInfoBase(kensinData) {
 	var strLine;
@@ -969,9 +971,9 @@ function createToyuKensinInfoBase(kensinData) {
 
 
 /**
-    * 金額関係印刷データの生成.
-    *
-    * @param kensinData    [in] {@link KensinData} 検針印刷データ
+	* 金額関係印刷データの生成.
+	*
+	* @param kensinData    [in] {@link KensinData} 検針印刷データ
 */
 function createKinInfo(kensinData) {
 	var isPrint = false;
@@ -1136,10 +1138,10 @@ function getChoTitle() {
 }
 
 
- /**
-    * 内税コメントの生成.
-    *
-    * @param kensinData    [in] {@link KensinData} 検針印刷データ
+/**
+   * 内税コメントの生成.
+   *
+   * @param kensinData    [in] {@link KensinData} 検針印刷データ
 */
 function createUTaxComment(wkKensinData) {
 	var wkStr;
@@ -1399,9 +1401,9 @@ function createSeikyuComment(kensinData) {
 
 
 /**
-    * 伝票にガス料金式を印字
-    *
-    * @param kensinData        [in] KensinData 印刷用検針データ
+	* 伝票にガス料金式を印字
+	*
+	* @param kensinData        [in] KensinData 印刷用検針データ
 */
 function createGasryokinSiki(kensinData) {
 	var gasfDat = kensinData.m_GasfDat;
@@ -2036,9 +2038,9 @@ function printGasryokinComment(gextDat) {
 
 
 /**
-    * 伝票に日割りコメントを印字
-    *
-    * @param kensinData        [in] Kensindata     印刷用検針データ
+	* 伝票に日割りコメントを印字
+	*
+	* @param kensinData        [in] Kensindata     印刷用検針データ
 */
 function createHiwariComment(kensinData) {
 	var countNull = 0;
@@ -2078,7 +2080,7 @@ function createRyoshu(strInpReceipt) {
 
 
 /**
-    * 伝票の自振関連データ印字部分の作成
+	* 伝票の自振関連データ印字部分の作成
 */
 function createBank() {
 	var kokfDat = mUserData.mKokfDat;
@@ -2136,7 +2138,7 @@ function createBank() {
 
 
 /**
-    * 銀行不能コメントの印字.
+	* 銀行不能コメントの印字.
 */
 function createFunouComment() {
 	var sy2fDat = mUserData.mSy2fDat;
@@ -2174,9 +2176,9 @@ function createFunouComment() {
 
 
 /**
-    * 伝票の明細部分の作成
-    *
-    * @param userData    [in] {@link UserData}   共通データ
+	* 伝票の明細部分の作成
+	*
+	* @param userData    [in] {@link UserData}   共通データ
 */
 function createHmInfo_(userData) {
 	// 販売データ
@@ -2573,9 +2575,9 @@ function createComment(commentData) {
 
 
 /**
-    * ハイブリッドコメントの印字.
-    *
-    * @param kensinData    [in] {@link KensinData} 検針印字データ
+	* ハイブリッドコメントの印字.
+	*
+	* @param kensinData    [in] {@link KensinData} 検針印字データ
 */
 function createHybComment(kensinData) {
 	var str;
@@ -2622,9 +2624,9 @@ function createHybComment(kensinData) {
 
 
 /**
-    * ハイブリッド料金式の印字.
-    *
-    * @param kensinData    [in] {@link KensinData} 検針印字データ
+	* ハイブリッド料金式の印字.
+	*
+	* @param kensinData    [in] {@link KensinData} 検針印字データ
 */
 function createHybTblPrint(kensinData) {
 	var strLine;
@@ -2734,9 +2736,9 @@ function createHoanInfo(strHoan) {
 
 
 /**
-    * 通常ポイント印字部分の作成.
-    *
-    * @param kensinData    [in] {@link KensinData} 検針データ
+	* 通常ポイント印字部分の作成.
+	*
+	* @param kensinData    [in] {@link KensinData} 検針データ
 */
 function createPoint() {
 	var sy2fDat = mUserData.mSy2fDat;
@@ -2760,7 +2762,7 @@ function createPoint() {
 
 
 /**
-    * 伝票：宮野式ポイント印字部分の作成
+	* 伝票：宮野式ポイント印字部分の作成
 */
 function createMiyaPoint() {
 	if (mUserData.mSy2fDat.mMiyanoFlg == 0 ||
@@ -3127,10 +3129,22 @@ function sendImage() {
 function onclickAction() {
 	if (KensinKinyuu.modePage == 1) {
 		document.getElementById("backPrintButton").onclick = function () {
-			if (sessionStorage.getItem(StringCS.SAVINGSTATUS) != "1") {
-				document.getElementById("editView").style.display = "block";
-				document.getElementById("printView").style.display = "none";
-				location.reload();
+			if (searchMode == "1") {
+				Common.setupModal("question", null, Mess.I00012, StringCS.IIE, StringCS.HAI, StringCS.ICHIRANE, false);
+				document.getElementsByClassName("button-0")[0].onclick = function () {
+					modal.style.display = "none";
+					Common.movePage('/customer.html');
+				}
+				document.getElementsByClassName("button-1")[0].onclick = function () {
+					modal.style.display = "none";
+					Common.movePage('/customer.html');
+					sessionStorage.setItem(StringCS.DIRECTIONDATA, "1");
+				}
+
+				document.getElementsByClassName("button-2")[0].onclick = function () {
+					modal.style.display = "none";
+					Common.movePage('/search_customer.html');
+				}
 			} else {
 				Common.movePage('/search_customer.html');
 			}
@@ -3140,7 +3154,7 @@ function onclickAction() {
 		};
 		KensinKinyuu.saveButton.onclick = function () {
 			savingData();
-	
+
 			// sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
 			// document.getElementById("editView").style.display = "none";
 			// document.getElementById("printView").style.display = "block";
@@ -3151,12 +3165,10 @@ function onclickAction() {
 			// 	mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
 			// 	mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
 			// 	getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
-			// 	createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
 			// } else {
 			// 	getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
-			// 	createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
 			// }
-			// createImageKensinForm();
+			// createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
 		};
 	}
 }
@@ -3265,18 +3277,18 @@ function savingData() {
 function onLoadAction() {
 	onclickAction();
 	Common.setFocusSelectString();
-	if (sessionStorage.getItem(StringCS.SAVINGSTATUS) == "1") {
-		Common.setupModal("question", null, Mess.I00007, null, StringCS.SHUURYOUU, null, false);
-		var buttonConfirm = document.getElementsByClassName("button-1")[0];
-		buttonConfirm.onclick = function () {
-			Common.movePage('/search_customer.html');
-			sessionStorage.removeItem(StringCS.CUSDAT);
-		}
-	}
+	// if (sessionStorage.getItem(StringCS.SAVINGSTATUS) == "1") {
+	// 	Common.setupModal("question", null, Mess.I00007, null, StringCS.SHUURYOUU, null, false);
+	// 	var buttonConfirm = document.getElementsByClassName("button-1")[0];
+	// 	buttonConfirm.onclick = function () {
+	// 		Common.movePage('/search_customer.html');
+	// 		sessionStorage.removeItem(StringCS.CUSDAT);
+	// 	}
+	// }
 }
 
 
 onLoadAction();
 
 
-export {savingData}
+export { savingData }

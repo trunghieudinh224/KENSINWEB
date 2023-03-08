@@ -92,7 +92,7 @@
 .button-modal {
   display: block;
   margin: 0px 10px;
-  padding: 8px 50px;
+  padding: 8px 30px;
   min-width: 125px;
   text-transform: uppercase;
   letter-spacing: 2.5px;
@@ -151,10 +151,6 @@
   .btn-common {
     font-size: 18px !important;
   }
-
-  .button-modal {
-    padding: 8px 40px;
-  }
 }
 
 
@@ -179,7 +175,9 @@
   }
 
   .button-modal {
-    padding: 7px 40px;
+    padding: 6px 20px;
+    margin: 0px 5px;
+    min-width: 90px;
   }
 }
 
@@ -190,6 +188,11 @@
   }
 
   .button-modal {
-    padding: 5px 30px;
+    padding: 5px 10px;
+    margin: 0px 3px;
+  }
+
+  .btn-common {
+    font-size: 15px !important;
   }
 }
