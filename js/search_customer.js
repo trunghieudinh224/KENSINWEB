@@ -240,7 +240,7 @@ function getCuslistType1() {
 						newElement.appendChild(newAddress);
 						newElement.appendChild(newKenshin);
 						newElement.appendChild(newShuuku);
-						
+
 						if (searchMode == "1") {
 							if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
 								if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) == i) {
@@ -255,7 +255,7 @@ function getCuslistType1() {
 							if (searchMode == "1") {
 								object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 							}
-							
+
 							if (object.kenstat == 1) {
 								Common.setupModal("question", null, Mess.I00006, StringCS.IIE, StringCS.HAI, null, false);
 								var buttonConfirm = document.getElementsByClassName("button-1")[0];
@@ -357,7 +357,7 @@ function searchCusType1(searchVal) {
 			newElement.appendChild(newAddress);
 			newElement.appendChild(newKenshin);
 			newElement.appendChild(newShuuku);
-			
+
 			if (searchMode == "1") {
 				if (sessionStorage.getItem(StringCS.CUSTOMERINDEX) != null) {
 					if (parseInt(sessionStorage.getItem(StringCS.CUSTOMERINDEX)) == i) {
@@ -500,7 +500,7 @@ function searchCusType2() {
 							if (searchMode == "1") {
 								object.taishoo = searchOrder.options[searchOrder.selectedIndex].text;
 							}
-				
+
 							if (object.kenstat == 1) {
 								Common.setupModal("question", null, Mess.I00006, StringCS.IIE, StringCS.HAI, null, false);
 								var buttonConfirm = document.getElementsByClassName("button-1")[0];
@@ -798,14 +798,18 @@ function onChangeAction() {
 */
 function onclickAction() {
 	if (searchMode == "2") {
-		document.getElementById("backPage2Button").onclick = Common.backAction;
+		document.getElementById("backPage2Button").onclick = function () {
+			Common.movePage('/menu.html');
+		};
 		document.getElementById("firstCustomerButton").onclick = firstCustomerAction;
 		document.getElementById("kensakuButton").onclick = function () {
 			sessionStorage.removeItem(StringCS.CUSTOMERINDEX);
 			searchCusType2();
 		}
 	} else {
-		document.getElementById("backPage1Button").onclick = Common.backAction;
+		document.getElementById("backPage1Button").onclick = function () {
+			Common.movePage('/menu.html');
+		};
 		document.getElementById("filterButton").onclick = function () {
 			var valueSearch = Other.cutStringSpace(String(searchKey.value));
 			searchCusType1(valueSearch);

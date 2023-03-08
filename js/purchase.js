@@ -696,7 +696,7 @@ function changeLayoutButton() {
 */
 function onClickAction() {
 	document.getElementById("backPageButton").onclick = function () {
-		Common.backAction();
+		Common.movePage('/product_search.html');
 	};
 
 	teiseiBtn.onclick = function () {

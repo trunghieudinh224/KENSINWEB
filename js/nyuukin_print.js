@@ -1464,13 +1464,7 @@ function sendImage() {
 function onclickAction() {
 	if (KensinKinyuu.modePage == 3) {
 		document.getElementById("backPrintButton").onclick = function () {
-			if (sessionStorage.getItem(StringCS.SAVINGSTATUS) != "1") {
-				document.getElementById("editView").style.display = "block";
-				document.getElementById("printView").style.display = "none";
-				location.reload();
-			} else {
-				Common.movePage('/search_customer.html');
-			}
+			Common.movePage('/customer.html');
 		};
 		document.getElementById("sendToAppButton").onclick = function () {
 			sendImage();

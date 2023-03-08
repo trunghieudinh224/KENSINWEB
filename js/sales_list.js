@@ -146,7 +146,7 @@ function setOptionMenu() {
 */
 function onClickAction() {
 	document.getElementById("backPageButton").onclick = function () {
-		Common.backAction();
+		Common.movePage('/product_search.html');
 	};
 
 
@@ -173,7 +173,9 @@ function onClickAction() {
 		// Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
 	}
 
-	document.getElementById("backPrintButton").onclick = function () { Common.backAction() };
+	document.getElementById("backPrintButton").onclick = function () { 
+		location.reload();
+	 };
 
 	document.getElementById("sendToAppButton").onclick = function () { sendImage() };
 }

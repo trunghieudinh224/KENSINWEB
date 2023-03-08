@@ -220,7 +220,9 @@ function setOptionMenu() {
    * ONCLICK ACTION
 */
 function onclickAction() {
-	document.getElementById("backPageButton").onclick = Common.backAction;
+	document.getElementById("backPageButton").onclick = function () {
+		Common.movePage('/menu.html');
+	};
 	document.getElementById("saveButton").onclick = saveDataSetting;
 }
 

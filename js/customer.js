@@ -216,7 +216,15 @@ function setInformation() {
 
     var toyuBtn = document.getElementById("toyuPageButton");
     if (cusDetailData.mSysfDat.m_isToyukensinFlg == true) {
-        toyuBtn.disabled = false;
+        if (mUserData.mKokfDat.mKotfDat.m_bNo_kensin == 0) {
+            toyuBtn.disabled = false;
+            if (toyuBtn.classList.contains("disabled-div")) {
+                toyuBtn.classList.remove("disabled-div");
+            }
+        } else {
+            toyuBtn.disabled = true;
+            toyuBtn.classList.add("disabled-div");
+        }
     } else {
         if (document.getElementById("toyuPageButtonArea") != null) {
             document.getElementById("toyuPageButtonArea").remove();
@@ -486,7 +494,13 @@ function setOptionMenu() {
    * ONCLICK ACTION
 */
 function onclickAction() {
-    document.getElementById("backPageButton").onclick = Common.backAction;
+    document.getElementById("backPageButton").onclick = function () {
+        if (searchMode == "3") {
+            Common.movePage('/menu.html');
+        } else {
+            Common.movePage('/search_customer.html');
+        }
+    };
     document.getElementById("uriageButton").onclick = function () {
         Common.movePage('/product_search.html');
     };

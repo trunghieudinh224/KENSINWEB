@@ -1464,7 +1464,7 @@ function onclickAction() {
     };
 
     document.getElementById("backPage1Button").onclick = function () {
-        Common.backAction();
+        Common.movePage('/customer.html');
     };
 
     document.getElementById("next1Button").onclick = function () {

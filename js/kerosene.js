@@ -345,59 +345,59 @@ function save() {
 		}
 
 		// setKensinData();			//Hieu
-		if (kokfDat.mKenSumi) {
-			// ガス検針有り
-			Common.setupModal("load", null, "検針伝票を印刷しますか", "いいえ", "ガス灯油", "灯油のみ", false);
-			var lZandaka;
-			if (kokfDat.mSyuSumi) {
-				lZandaka = GasRaterCom.calcTotal(mUserData, mUserData.mSysfDat, kokfDat, mUserData.mKo2fDat, mUserData.mSy2fDat, mUserData.mKouserDat, mUserData.mHmefList, null) //lstLeasHmefDat  Hieu
-					+ kokfDat.mAdjust - kokfDat.mReceipt;
-			}
-			else {
-				lZandaka = 0;
-			}
+		// if (kokfDat.mKenSumi) {
+		// 	// ガス検針有り
+		// 	Common.setupModal("load", null, "検針伝票を印刷しますか", "いいえ", "ガス灯油", "灯油のみ", false);
+		// 	var lZandaka;
+		// 	if (kokfDat.mSyuSumi) {
+		// 		lZandaka = GasRaterCom.calcTotal(mUserData, mUserData.mSysfDat, kokfDat, mUserData.mKo2fDat, mUserData.mSy2fDat, mUserData.mKouserDat, mUserData.mHmefList, null) //lstLeasHmefDat  Hieu
+		// 			+ kokfDat.mAdjust - kokfDat.mReceipt;
+		// 	}
+		// 	else {
+		// 		lZandaka = 0;
+		// 	}
 
-			// いいえ
-			document.getElementsByClassName("button-0")[0].onclick = function () {
-				modal.style.display = "none";
-			}
+		// 	// いいえ
+		// 	document.getElementsByClassName("button-0")[0].onclick = function () {
+		// 		modal.style.display = "none";
+		// 	}
 
-			// ガス灯油
-			document.getElementsByClassName("button-1")[0].onclick = function () {
-				modal.style.display = "none";
-				document.getElementById("editView").style.display = "none";
-				document.getElementById("printView").style.display = "block";
-				var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, true, kokfDat.mReceipt, lZandaka, true, true);
-				createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
-			}
+		// 	// ガス灯油
+		// 	document.getElementsByClassName("button-1")[0].onclick = function () {
+		// 		modal.style.display = "none";
+		// 		document.getElementById("editView").style.display = "none";
+		// 		document.getElementById("printView").style.display = "block";
+		// 		var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, true, kokfDat.mReceipt, lZandaka, true, true);
+		// 		createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
+		// 	}
 
-			// 灯油のみ
-			document.getElementsByClassName("button-2")[0].onclick = function () {
-				modal.style.display = "none";
-				document.getElementById("editView").style.display = "none";
-				document.getElementById("printView").style.display = "block";
-				var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, true, kokfDat.mReceipt, lZandaka, false, true);
-				createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
-			}
-		}
-		else {
-			Common.setupModal("load", null, "検針伝票を印刷しますか。", StringCS.IIE, StringCS.HAI, null, false);
+		// 	// 灯油のみ
+		// 	document.getElementsByClassName("button-2")[0].onclick = function () {
+		// 		modal.style.display = "none";
+		// 		document.getElementById("editView").style.display = "none";
+		// 		document.getElementById("printView").style.display = "block";
+		// 		var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, true, kokfDat.mReceipt, lZandaka, false, true);
+		// 		createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
+		// 	}
+		// }
+		// else {
+		// 	Common.setupModal("load", null, "検針伝票を印刷しますか。", StringCS.IIE, StringCS.HAI, null, false);
 
-			// いいえ
-			document.getElementsByClassName("button-0")[0].onclick = function () {
-				modal.style.display = "none";
-			}
+		// 	// いいえ
+		// 	document.getElementsByClassName("button-0")[0].onclick = function () {
+		// 		modal.style.display = "none";
+		// 	}
 
-			// はい
-			document.getElementsByClassName("button-1")[0].onclick = function () {
-				modal.style.display = "none";
-				document.getElementById("editView").style.display = "none";
-				document.getElementById("printView").style.display = "block";
-				var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, false, 0, 0, false, true);
-				createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
-			}
-		}
-		// sendDataToServer(kokfDat)
+		// 	// はい
+		// 	document.getElementsByClassName("button-1")[0].onclick = function () {
+		// 		modal.style.display = "none";
+		// 		document.getElementById("editView").style.display = "none";
+		// 		document.getElementById("printView").style.display = "block";
+		// 		var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, false, 0, 0, false, true);
+		// 		createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
+		// 	}
+		// }
+		sendDataToServer(kokfDat)
 
 	} catch (ex) {
 		console.log(ex);
@@ -2971,7 +2971,7 @@ function createUserInfo(hanfDat, strTantname) {
 */
 function onclickAction() {
 	document.getElementById("backPageButton").onclick = function () {
-		Common.backAction();
+		Common.movePage('/customer.html');
 	};
 
 	kakuninButton.onclick = function () {
@@ -3023,11 +3023,12 @@ export function sendDataToServer(kokfDat) {
 	loilWriteDat.login_pw = sessionStorage.getItem(StringCS.PASSWORD);
 
 
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(loilWriteDat),
-		// url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_TOYU,
-		url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_TOYU,
+		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_TOYU,
+		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_TOYU,
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
 		timeout: ValueCS.VL_LONG_TIMEOUT,
