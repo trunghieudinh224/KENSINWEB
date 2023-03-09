@@ -107,12 +107,12 @@ th {
 
 @media screen and (max-width: 600px) {
     .sm-text {
-        font-size: 14px;
+        font-size: 15px !important;
     }
 }
 
 @media screen and (max-width: 450px) { 
     .sm-text {
-        font-size: 13px;
+        font-size: 14px !important;
     }
 }

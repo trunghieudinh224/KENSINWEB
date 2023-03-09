@@ -308,13 +308,18 @@ function setShuukeiData() {
     * SET DATA SHUUKEI PRINT FORM
 */
 function setDataPrintForm() {
+    var shukeiTime = document.getElementById("shukeiTime");
+    if (selectDate.value == "0") {
+        shukeiTime.textContent = "全 集 計 日 " + "(" + document.getElementById("date-start").value + " - " + document.getElementById("date-end").value + ")"
+    } else {
+        shukeiTime.textContent = "全 集 計 日 " + "(" + document.getElementById("date-end").value + ")"
+    }
     let tempList = viewItemtList;
     viewItemtList = setViewItemtList("prt");
     for (var i = 0; i < viewItemtList.length; i++) {
         viewItemtList[i].innerHTML = tempList[i].textContent + viewItemtList[i].textContent;
     }
 }
-
 
 /** 
     * SHOW NIPPOU DIALOG
@@ -875,7 +880,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
         oldTotalDiv[i].remove();
     }
 
-    var time = moment().format('YYYY年 MM月 dd日 HH:mm:ss');
+    var time = moment().format('YYYY年 MM月 DD日 HH:mm:ss');
     document.getElementById("insatsuBiNP").innerHTML = time;
 
     var tantname = "";
@@ -923,7 +928,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
             listItemDetail.appendChild(shortLine);
 
             var dayDetail = document.createElement("div");
-            dayDetail.className = "day-detail";
+            dayDetail.className = "day-detail pd-0";
             dayDetail.id = "dayDetail" + i;
             shortLine.after(dayDetail);
 
@@ -948,35 +953,35 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
                 nCnt++;
 
                 var shishinText = document.createElement("div");
-                shishinText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shishinText.className = "col-3 sm-text ta-l wsp-text item pd-0";
                 shishinText.innerHTML = "指針";
 
                 var shishinVal = document.createElement("div");
-                shishinVal.className = "col-3 sm-text ta-r wsp-text item";
+                shishinVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
                 shishinVal.innerHTML = Other.formatLocalJS(kensinData.m_nSs, 1, 1) + "m3";
 
                 var shiyouRyouText = document.createElement("div");
-                shiyouRyouText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shiyouRyouText.className = "col-3 sm-text ta-l wsp-text item pd-0 pd-l-5";
                 shiyouRyouText.innerHTML = "使用量";
 
                 var shiyouRyouVal = document.createElement("div");
-                shiyouRyouVal.className = "col-3 sm-text ta-r wsp-text item";
+                shiyouRyouVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
                 shiyouRyouVal.innerHTML = Other.formatLocalJS(kensinData.m_nSr, 1, 1) + "m3";
 
                 var gasuRyoukinText = document.createElement("div");
-                gasuRyoukinText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                gasuRyoukinText.className = "col-3 sm-text ta-l wsp-text item pd-0";
                 gasuRyoukinText.innerHTML = "ガス料金";
 
                 var gasuRyoukinVal = document.createElement("div");
-                gasuRyoukinVal.className = "col-3 sm-text ta-r wsp-text item";
+                gasuRyoukinVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
                 gasuRyoukinVal.innerHTML = Other.formatDecial(kensinData.m_nKin) + "円";
 
                 var shouhizeiGakuText = document.createElement("div");
-                shouhizeiGakuText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shouhizeiGakuText.className = "col-3 sm-text ta-l wsp-text item pd-0 pd-l-5";
                 shouhizeiGakuText.innerHTML = "消費税額";
 
                 var shouhizeiGakuVal = document.createElement("div");
-                shouhizeiGakuVal.className = "col-3 sm-text ta-r wsp-text item";
+                shouhizeiGakuVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
                 shouhizeiGakuVal.innerHTML = Other.formatDecial(kensinData.m_nTax) + "円";
 
                 row1.appendChild(shishinText);
@@ -994,11 +999,11 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
             row2.className = "row";
             if (kensinData.m_nKng != 0) {
                 var kangenGakuText = document.createElement("div");
-                kangenGakuText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                kangenGakuText.className = "col-3 sm-text ta-l wsp-text item pd-0";
                 kangenGakuText.innerHTML = "還元額";
 
                 var kangenGakuVal = document.createElement("div");
-                kangenGakuVal.className = "col-3 sm-text ta-r wsp-text item";
+                kangenGakuVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
                 kangenGakuVal.innerHTML = Other.formatDecial(kensinData.m_nKng) + "円";
                 row2.appendChild(kangenGakuText);
                 kangenGakuText.after(kangenGakuVal);
@@ -1015,35 +1020,35 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
                 row3.appendChild(toyu);
 
                 var shishinText = document.createElement("div");
-                shishinText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shishinText.className = "col-3 sm-text ta-l wsp-text item pd-0";
                 shishinText.innerHTML = "指針";
 
                 var shishinVal = document.createElement("div");
-                shishinVal.className = "col-3 sm-text ta-r wsp-text item";
+                shishinVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
                 shishinVal.innerHTML = Other.formatDecial(kensinData.m_nToyuSs) + "m3";
 
                 var shiyouRyouText = document.createElement("div");
-                shiyouRyouText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shiyouRyouText.className = "col-3 sm-text ta-l wsp-text item pd-0";
                 shiyouRyouText.innerHTML = "使用量";
 
                 var shiyouRyouVal = document.createElement("div");
-                shiyouRyouVal.className = "col-3 sm-text ta-r wsp-text item";
+                shiyouRyouVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
                 shiyouRyouVal.innerHTML = Other.formatDecial(kensinData.m_nToyuSr) + "m3";
 
                 var gasuRyoukinText = document.createElement("div");
-                gasuRyoukinText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                gasuRyoukinText.className = "col-3 sm-text ta-l wsp-text item pd-0";
                 gasuRyoukinText.innerHTML = "ガス料金";
 
                 var gasuRyoukinVal = document.createElement("div");
-                gasuRyoukinVal.className = "col-3 sm-text ta-r wsp-text item";
+                gasuRyoukinVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
                 gasuRyoukinVal.innerHTML = Other.formatDecial(kensinData.m_lToyuKin) + "円";
 
                 var shouhizeiGakuText = document.createElement("div");
-                shouhizeiGakuText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shouhizeiGakuText.className = "col-3 sm-text ta-l wsp-text item pd-0";
                 shouhizeiGakuText.innerHTML = "消費税額";
 
                 var shouhizeiGakuVal = document.createElement("div");
-                shouhizeiGakuVal.className = "col-3 sm-text ta-r wsp-text item";
+                shouhizeiGakuVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
                 shouhizeiGakuVal.innerHTML = Other.formatDecial(kensinData.m_lToyuTax) + "円";
 
                 toyu.after(shishinText);
@@ -1108,7 +1113,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
     var kangenGakuText = document.createElement("div");
     kangenGakuText.className = "col-6 text-print ta-l wsp-text item";
-    kangenGakuText.innerHTML = "消費税額";
+    kangenGakuText.innerHTML = "還元額";
 
     var kangenGakuVal = document.createElement("div");
     kangenGakuVal.className = "col-6 text-print ta-r wsp-text item";
@@ -1186,7 +1191,7 @@ function createPrintDataShuukinNippou(mapKensinData) {
     }
 
 
-    var time = moment().format('YYYY年 MM月 dd日 HH:mm:ss');
+    var time = moment().format('YYYY年 MM月 DD日 HH:mm:ss');
     document.getElementById("insatsuBiNP").innerHTML = time;
 
     var tantname = "";
@@ -1241,7 +1246,7 @@ function createPrintDataShuukinNippou(mapKensinData) {
             listItemDetail.appendChild(shortLine);
 
             var dayDetail = document.createElement("div");
-            dayDetail.className = "day-detail";
+            dayDetail.className = "day-detail pd-0";
             dayDetail.id = "dayDetail" + i;
             shortLine.after(dayDetail);
 
@@ -1266,7 +1271,7 @@ function createPrintDataShuukinNippou(mapKensinData) {
                 nCnt++;
 
                 var shishinText = document.createElement("div");
-                shishinText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shishinText.className = "col-3 sm-text ta-l wsp-text item pd-0";
                 shishinText.innerHTML = "指針";
 
                 var shishinVal = document.createElement("div");
@@ -1274,7 +1279,7 @@ function createPrintDataShuukinNippou(mapKensinData) {
                 shishinVal.innerHTML = Other.formatLocalJS(kensinData.m_nSs, 1, 1) + "m3";
 
                 var shiyouRyouText = document.createElement("div");
-                shiyouRyouText.className = "col-3 sm-text ta-l wsp-text item pr-0";
+                shiyouRyouText.className = "col-3 sm-text ta-l wsp-text item pd-0";
                 shiyouRyouText.innerHTML = "使用量";
 
                 var shiyouRyouVal = document.createElement("div");
