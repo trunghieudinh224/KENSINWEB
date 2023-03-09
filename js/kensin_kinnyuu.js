@@ -180,6 +180,7 @@ function setCusInfo() {
         mTxtCmt.innerHTML = "検針済みです。";
         mTxtNowMeter.textContent = Other.Format(mUserData.mKokfDat.mNowMeter, 1);
         mTxtPreMeter.innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
+        document.getElementById("zenkaiSSKB").innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
         if (mUserData.mKokfDat.mGasDiv != 0 && mUserData.mGasfDat.mTaxDiv == 3) {
             mTxtGasTax.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mConTax);
         } else {
@@ -237,6 +238,7 @@ function setCusInfo() {
         }
         // 前回指針
         mTxtPreMeter.innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
+        document.getElementById("zenkaiSSKB").innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
         // 使用量(これも再入力で初期値が変わるかも)
         if (mUserData.mKokfDat.mKenSumi) {
             mTxtNowUse.innerHTML = Other.Format(

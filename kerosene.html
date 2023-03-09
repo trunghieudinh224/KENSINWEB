@@ -80,7 +80,7 @@
                         <div class="col-12">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text mw135 text">検針月日</span>
+                                    <span class="input-group-text mw135 text">検針日</span>
                                 </div>
 
                                 <span class="form-control ta-c text" id="txtDate"></span>
@@ -92,10 +92,10 @@
                         <div class="col-12">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text mw135 text">今回指針</span>
+                                    <span class="input-group-text mw135 text" id="txtNowMeterTitle">今回指針</span>
                                 </div>
 
-                                <input class="form-control ta-r text t-ip" type="text" id="txtNowMeter">
+                                <span class="form-control ta-r text" type="text" id="txtNowMeter"></span>
                                 <span class="form-control unit text">L</span>
                             </div>
                         </div>
@@ -145,10 +145,10 @@
                         <div class="col-12">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text mw135 text">灯油料金</span>
+                                    <span class="input-group-text mw135 text" id="txtTouyuRyokinTitle">灯油料金</span>
                                 </div>
 
-                                <input class="form-control ta-r text t-ip" type="text" id="txtTouyuRyokin">
+                                <span class="form-control ta-r text" type="text" id="txtTouyuRyokin"></span>
                                 <span class="form-control unit text">円</span>
                             </div>
                         </div>
@@ -1111,6 +1111,67 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 内訳ダイアログ  -->
+    <div class="keyboard">
+        <div class="container-mainform">
+            <div class="wrap-mainform p-t-30 p-b-40" style="padding-top: 60px;">
+                <i class="fa-sharp fa-solid fa-circle-xmark" id="close-icon-keyboard"></i>
+                <form action="">
+
+                    <div class="row content ed-v">
+                        <div class="col-12">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw145 text" id="inputTitle">顧客</span>
+                                </div>
+                                <span class="form-control ta-r text" id="inputVal"></span>
+                            </div> 
+                        </div>
+
+                        <div class="col-12" id="zenkaiSSKBArea">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text mw145 text">前回指針</span>
+                                </div>
+                                <span class="form-control ta-r text" id="zenkaiSSKB"></span>
+                            </div> 
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="keyboardTable" class="result-tb">
+                            <tr>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">7</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">8</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">9</div></td>
+                                <td><div class="it-keyboard ta-c text fw-b" id="minus-btn">ー</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">4</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">5</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">6</div></td>
+                                <td><div class="it-keyboard ta-c text fw-b" id="dot-btn">.</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">1</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">2</div></td>
+                                <td><div class="it-keyboard num-kb ta-c text fw-b">3</div></td>
+                                <td rowspan="2"><div class="it-keyboard ta-c text fw-b" id="enter-btn">ENT</div></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><div class="it-keyboard num-kb ta-c text fw-b">0</div></td>
+                                <td ><div class="it-keyboard ta-c text fw-b" id="del-btn">DEL</div></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    
+                </form>
             </div>
         </div>
     </div>

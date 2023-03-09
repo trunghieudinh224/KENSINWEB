@@ -34,6 +34,8 @@ var kensinData = new Dat.KensinData();
 var kensin_date = new Date(mUserData.mKensinDate);
 /** 灯油使用量 */
 var m_nToyuuse = 0;
+/** keyboard property */
+var keyboardProp = new Dat.KeyboardProp();
 
 
 
@@ -74,6 +76,7 @@ function getData() {
 	if (kotfDat.m_bKen_sumi == 1) {
 		txtInfo.innerHTML = "検針済みです。";
 		txtNowMeter.innerHTML = Other.Format(kotfDat.m_nNow_meter, 1);
+        document.getElementById("zenkaiSSKB").innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
 		txtPrevMeter.innerHTML = Other.Format(kotfDat.m_nPre_meter, 1);
 		txtShohi.innerHTML = Other.formatDecial(kotfDat.m_nCon_tax);
 		txtNowSiyou.innerHTML = Other.Format(kotfDat.m_nLoil_use, 1);
@@ -96,6 +99,7 @@ function getData() {
 	} else {
 		txtNowMeter.innerHTML = "";
 		txtPrevMeter.innerHTML = Other.Format(kotfDat.m_nPre_meter, 1);
+        document.getElementById("zenkaiSSKB").innerHTML = Other.Format(kotfDat.m_nPre_meter, 1);
 		txtNowSiyou.innerHTML = "";
 
 		if (kotfDat.m_nBetw_meter > 0) {
@@ -121,7 +125,7 @@ function getData() {
 */
 function setToyuInfo() {
 	// 灯油使用量計算
-	var strNowmeter = txtNowMeter.value;
+	var strNowmeter = txtNowMeter.textContent;
 	if (strNowmeter == "") {
 		// 空欄なのでなにもしない。
 		txtInfo.innerHTML = "今回指針を入力してください。";
@@ -175,7 +179,7 @@ function setToyuFee(nSiyou, kokfDat) {
 				}
 			}
 		}
-		txtTouyuRyokin.value = Other.formatDecial(lToyuFee);
+		txtTouyuRyokin.textContent = Other.formatDecial(lToyuFee);
 		// 灯油消費税の計算
 		if (kotfDat.m_bLoil_taxku == 3) {
 			var dToyuTax = lToyuFee * kotfDat.m_sLoil_taxr;
@@ -232,63 +236,89 @@ function keyPressAction(value, length, event) {
 
 
 /**
+    ON FOCUS INPUT FIELD
+*/
+function inputFocus() {
+	var kotfDat = mUserData.mKokfDat.mKotfDat;
+    var keyboard = document.querySelector(".keyboard");
+    var wrapMainForm = document.querySelector(".keyboard .container-mainform .wrap-mainform");
+    document.getElementById("close-icon-keyboard").onclick = function () {
+        keyboard.style.zIndex = "-2";
+        wrapMainForm.classList.remove("overlay-animate");
+    };
+
+    txtNowMeter.onclick = function () {
+        keyboard.style.zIndex = "4";
+        wrapMainForm.classList.remove("overlay-animate");
+        var title = document.getElementById("txtNowMeterTitle").textContent;
+        keyboardProp = new Dat.KeyboardProp().setValue(false, true, kotfDat.m_bMt_keta, 1);
+        sessionStorage.setItem(StringCS.KEYBOARDPROP, JSON.stringify(keyboardProp));
+        Common.showKeyBoard(title, txtNowMeter);
+    };
+
+    txtTouyuRyokin.onclick = function () {
+        keyboard.style.zIndex = "4";
+        wrapMainForm.classList.remove("overlay-animate");
+        var title = document.getElementById("txtTouyuRyokinTitle").textContent;
+        keyboardProp = new Dat.KeyboardProp().setValue(false, true, 8, 0);
+        sessionStorage.setItem(StringCS.KEYBOARDPROP, JSON.stringify(keyboardProp));
+        Common.showKeyBoard(title, txtTouyuRyokin);
+    };
+}
+
+
+/**
 	ONCHANGE ACTION
 */
 function onChangeAction() {
 	var kotfDat = mUserData.mKokfDat.mKotfDat;
-	txtNowMeter.addEventListener('keypress', event => {
-		var value = `${event.target.value}${event.key}`;
-		if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*$/)) {
-			event.preventDefault();
-			event.stopPropagation();
-			return false;
+	txtNowMeter.addEventListener('DOMNodeInserted', function () {
+		var strSisin = txtNowMeter.textContent;
+	
+		if (mUserData.mKokfDat.mNowMeter == parseFloat(txtNowMeter.textContent) * 10) {
+			txtNowMeter.textContent = Other.Format(
+					parseFloat(txtNowMeter.textContent) * 10,
+					1
+				);
+			return;
 		} else {
-			keyPressAction(value, kotfDat.m_bMt_keta, event);
+			mUserData.mKokfDat.mNowMeter = parseFloat(txtNowMeter.textContent) * 10
 		}
-	});
-
-	txtNowMeter.onchange = function () {
-		var strSisin = txtNowMeter.value;
-
+	
 		if (strSisin.length > 0) {
-			txtNowMeter.value = Other.Format(
-				parseFloat(txtNowMeter.value) * 10,
+			txtNowMeter.textContent = Other.Format(
+				parseFloat(txtNowMeter.textContent) * 10,
 				1
 			);
 			setToyuInfo();
 		}
 
-		if (txtTouyuRyokin.value != "" && txtNowMeter.value != "") {
+		if (txtTouyuRyokin.textContent != "" && txtNowMeter.textContent != "") {
 			kakuninButton.disabled = false;
 		} else {
 			txtNowSiyou.innerHTML = "";
-			txtTouyuRyokin.value = "";
+			txtTouyuRyokin.textContent = "";
 			txtShohi.innerHTML = "";
 			txtInfo.innerHTML = "今回指針を入力してください。";
 			txtInfo.style.color = "black";
 			kakuninButton.disabled = true;
 		}
-	};
-
-
-	txtTouyuRyokin.addEventListener('keypress', event => {
-		var value = `${event.target.value}${event.key}`;
-		if (!`${Other.getNumFromString(event.target.value)}${event.key}`.match(/^[0-9]*\.?[0-9]*$/)) {
-			event.preventDefault();
-			event.stopPropagation();
-			return false;
-		} else {
-			keyPressAction(value, 8, event);
-		}
 	});
 
-	txtTouyuRyokin.onchange = function () {
-		var strSisin = txtTouyuRyokin.value;
+
+	txtTouyuRyokin.addEventListener('DOMSubtreeModified', function () {
+		var strSisin = txtTouyuRyokin.textContent;
+		if (kotfDat.m_nFee == parseInt(Other.getNumFromString(txtTouyuRyokin.textContent))) {
+			txtNowMeter.textContent = Other.formatDecial(Other.getNumFromString(txtTouyuRyokin.textContent));
+			return;
+		} else {
+			kotfDat.m_nFee = parseInt(Other.getNumFromString(txtTouyuRyokin.textContent));
+		}
 
 		if (strSisin.length > 0) {
-			txtTouyuRyokin.value = Other.formatDecial(strSisin);
+			txtTouyuRyokin.textContent = Other.formatDecial(Other.getNumFromString(strSisin));
 
-			var lToyuFee = parseInt(Other.getClearString(Other.getNumFromString(txtTouyuRyokin.value)));
+			var lToyuFee = parseInt(Other.getClearString(Other.getNumFromString(txtTouyuRyokin.textContent)));
 			var lToyuTax = GasRaterCom.calcConTax(lToyuFee, mUserData.mKokfDat, mUserData.mGasfDat, mUserData.mSysfDat);
 			// 消費税設定
 			if (mUserData.mGasfDat.mTaxDiv == 3) {
@@ -298,20 +328,54 @@ function onChangeAction() {
 			else {
 				txtShohi.innerHTML = "***";
 			}
-			txtInfo.innerHTML = "";
+			if (txtNowMeter.textContent.length == 0) {
+				txtInfo.innerHTML = "";
+			}
 		}
 
-		if (txtTouyuRyokin.value != "" && txtNowMeter.value != "") {
+		if (txtTouyuRyokin.textContent != "" && txtNowMeter.textContent != "") {
 			kakuninButton.disabled = false;
 		} else {
-			txtNowMeter.value = "";
+			txtNowMeter.textContent = "";
 			txtNowSiyou.innerHTML = "";
 			txtShohi.innerHTML = "";
 			txtInfo.innerHTML = "今回指針を入力してください。";
 			txtInfo.style.color = "black";
 			kakuninButton.disabled = true;
 		}
-	};
+	});
+
+
+	// txtTouyuRyokin.onchange = function () {
+	// 	var strSisin = txtTouyuRyokin.textContent;
+
+	// 	if (strSisin.length > 0) {
+	// 		txtTouyuRyokin.textContent = Other.formatDecial(strSisin);
+
+	// 		var lToyuFee = parseInt(Other.getClearString(Other.getNumFromString(txtTouyuRyokin.textContent)));
+	// 		var lToyuTax = GasRaterCom.calcConTax(lToyuFee, mUserData.mKokfDat, mUserData.mGasfDat, mUserData.mSysfDat);
+	// 		// 消費税設定
+	// 		if (mUserData.mGasfDat.mTaxDiv == 3) {
+	// 			// 外税の場合のみ税額表示
+	// 			txtShohi.innerHTML = Other.formatDecial(lToyuTax);
+	// 		}
+	// 		else {
+	// 			txtShohi.innerHTML = "***";
+	// 		}
+	// 		txtInfo.innerHTML = "";
+	// 	}
+
+	// 	if (txtTouyuRyokin.textContent != "" && txtNowMeter.textContent != "") {
+	// 		kakuninButton.disabled = false;
+	// 	} else {
+	// 		txtNowMeter.textContent = "";
+	// 		txtNowSiyou.innerHTML = "";
+	// 		txtShohi.innerHTML = "";
+	// 		txtInfo.innerHTML = "今回指針を入力してください。";
+	// 		txtInfo.style.color = "black";
+	// 		kakuninButton.disabled = true;
+	// 	}
+	// };
 }
 
 
@@ -320,11 +384,11 @@ function onChangeAction() {
 */
 function save() {
 	try {
-		if (txtNowMeter.value == "") {
+		if (txtNowMeter.textContent == "") {
 			txtInfo.innerHTML = "今回指針を入力してください。";
 			return;
 		}
-		if (txtTouyuRyokin.value == "") {
+		if (txtTouyuRyokin.textContent == "") {
 			txtInfo.innerHTML = "ガス料金を入力してください。";
 			return;
 		}
@@ -335,9 +399,9 @@ function save() {
 		kokfDat.mKMonth = new Date(mUserData.mKensinDate).getMonth() + 1;
 		kokfDat.mKDate = new Date(mUserData.mKensinDate).getDate();
 
-		kotfDat.m_nNow_meter = parseInt(parseFloat(Other.CvtString2Num(txtNowMeter.value)) * 10);
+		kotfDat.m_nNow_meter = parseInt(parseFloat(Other.CvtString2Num(txtNowMeter.textContent)) * 10);
 		kotfDat.m_nLoil_use = m_nToyuuse;
-		kotfDat.m_nFee = parseInt(Other.getNumFromString(txtTouyuRyokin.value));
+		kotfDat.m_nFee = parseInt(Other.getNumFromString(txtTouyuRyokin.textContent));
 		if (kotfDat.m_bLoil_taxku == 3) {
 			kotfDat.m_nCon_tax = parseInt(Other.getNumFromString(txtShohi.textContent));
 		} else {
@@ -3100,6 +3164,7 @@ export function sendDataToServer(kokfDat) {
 */
 function onLoadAction() {
 	setOptionMenu();
+	inputFocus();
 	getData();
 	onChangeAction();
 	onclickAction();

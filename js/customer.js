@@ -511,7 +511,7 @@ function onclickAction() {
     };
     document.getElementById("nyuukinButton").onclick = function () { kinyuuMove(3); };
     document.getElementById("jikkoButton").onclick = function () { kinyuuMove(1); };
-    document.getElementById("toyuPageButtonArea").onclick = function () {
+    document.getElementById("toyuPageButton").onclick = function () {
         saveUserData();
         Common.movePage('/kerosene.html')
     };

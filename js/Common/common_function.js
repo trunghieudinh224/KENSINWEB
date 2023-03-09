@@ -253,6 +253,13 @@ function showKeyBoard(title, valElement) {
 
 
     //setup layout
+    if (title != "今回指針") {
+        var view = document.getElementById("zenkaiSSKBArea");
+        if (view != null) {
+            view.style.display = "none";
+        }
+    }
+
     document.getElementById("close-icon-keyboard").onclick = function () {
         keyboard.style.zIndex = "-2";
         wrapMainForm.classList.remove("overlay-animate");
