@@ -808,6 +808,15 @@ function addAllShukeiData() {
    * @param isPrintToyu     [INT]
  */
 function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
+    var oldItemList = document.getElementsByClassName("list-item");
+    for (var i = 0; i < oldItemList.length; i++) {
+        oldItemList[i].remove();
+    }
+    var oldTotalDiv = document.getElementsByClassName("kensin-total"); 
+    for (var i = 0; i < oldTotalDiv.length; i++) {
+        oldTotalDiv[i].remove();
+    }
+
     var time = moment().format('YYYY年 MM月 dd日 HH:mm:ss');
     document.getElementById("insatsuBiNP").innerHTML = time;
 
@@ -1109,6 +1118,16 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
    * @param mapKensinData     [MAP]
  */
 function createPrintDataShuukinNippou(mapKensinData) {
+    var oldItemList = document.getElementsByClassName("list-item");
+    for (var i = 0; i < oldItemList.length; i++) {
+        oldItemList[i].remove();
+    }
+    var oldTotalDiv = document.getElementsByClassName("shuukin-total"); 
+    for (var i = 0; i < oldTotalDiv.length; i++) {
+        oldTotalDiv[i].remove();
+    }
+
+
     var time = moment().format('YYYY年 MM月 dd日 HH:mm:ss');
     document.getElementById("insatsuBiNP").innerHTML = time;
 
