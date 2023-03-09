@@ -672,8 +672,8 @@ function setShukeiDateList() {
                     kotfDat = item.mKotfDat;
                 }
                 // date kensin
-                var kensinDate = new Date(m_lstShukeiDat[i].h_seiymd);
-                var strKey = kensinDate.getMonth() + "/" + kensinDate.getDate();
+                var kensinDate = new Date(m_lstShukeiDat[i].h_denymd);
+                var strKey = (kensinDate.getMonth()+1) + "/" + kensinDate.getDate();
                 var lstKensinData;
                 if (m_mapKensinData.has(strKey)) {
                     lstKensinData = m_mapKensinData.get(strKey);
@@ -693,8 +693,10 @@ function setShukeiDateList() {
                 kensinData.m_nSs = item.h_sisin;
                 kensinData.m_nSr = item.h_siyouryo;
                 kensinData.m_nKin = item.h_kin;
-                kensinData.m_nTax = item.h_utax;
-                kensinData.m_nKng = item.u_kin + item.u_tax;
+                kensinData.m_nTax = item.h_stax / 1000;
+                 // kokfDat.mReduce + kokfDat.mReduceTax chua tim ra field; can ghi data cua kangen de lay 2 gia tri nay
+                // gia tri duoc luu tai dieu kien  kokfDat.getKng_uri() != 0 function ReceiveJobBase
+                kensinData.m_nKng = 0 + 0;    //kokfDat.mReduce + kokfDat.mReduceTax
                 kensinData.m_lNyu = item.receipt;
                 kensinData.m_lCho = item.adjust;
                 if (kotfDat != null && kotfDat.m_bKen_sumi == 1) {
