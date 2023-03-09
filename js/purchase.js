@@ -410,8 +410,9 @@ function generateTable(listItem, tittle, pos) {
 		var span = document.createElement("span");
 		span.id = "span_" + i;
 		span.classList.add("h-40");
+		span.classList.add("text");
 		span.textContent = Other.cutStringSpace(listItem[i].mName);
-		span.onclick = function () {
+		row.onclick = function () {
 			tittle.textContent = Other.cutStringSpace(listItem[i].mName);
 			closeDialog();
 			if (pos == CHOMODE) {

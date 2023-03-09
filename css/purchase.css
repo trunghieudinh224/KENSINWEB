@@ -64,6 +64,7 @@ body {
 #receipt_table td {
     border: 1px solid #ddd;
 	width: 100%;
+	height: 50px;
 	padding: 5px 5px 5px 15px;
 }
 
@@ -81,7 +82,6 @@ body {
 #receipt_table tr:nth-child(even) {
 	background-color: #ececec;
 }
-
 
 .overlay {
 	position: absolute;
