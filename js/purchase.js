@@ -28,22 +28,15 @@ const uriage_recept = document.getElementById("azukari");
 const uriage_nyu_name = document.getElementById("receipt_text");
 const uriage_nyu = document.getElementById("receipt_val");
 const uriage_gen_name = document.getElementById("uriage_gen_name");
-const uriage_genm_nReceipt = Number(uriage_recept.textcontent);
 const uriage_gen = document.getElementById("zandaka");
 const select_shohin_list_urimode = document.getElementById("modeForm");
 const cash_sale = document.getElementById("genkin_uri_area");
 const group_prezandaka = document.getElementById("group_prezandaka");
 const preZandaka = document.getElementById("preZandaka");
-const otsuri = document.getElementById("teisei-group");
-const teiseiBtn = document.querySelector("#teisei");
-const cancelBtn = document.querySelector("#cancel");
-const teiseiGroup = document.querySelector("#teisei-group");
 const uriage_edit = document.getElementById("editButton");
 const uriage_back = document.getElementById("layout_back");
 const uriage_submit = document.getElementById("kakuninButton");
 const titleDialog = document.getElementById("titleDialog");
-const teiseiSumi = document.querySelector("#teisei-sumi");
-const nyuukinGroup = document.querySelector("#nyuukin-group");
 
 /* setting data */
 var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
@@ -330,8 +323,6 @@ function onCreateView() {
 	}
 
 	cash_sale.style.display = "none";
-	//otsuri.style.display = "none";
-	teiseiGroup.classList.add("hidden");
 	changeLayoutButton();
 }
 
@@ -673,7 +664,6 @@ function checkValue() {
 	CHANGING LAYOUT BUTTON
 */
 function changeLayoutButton() {
-	teiseiGroup.classList.add("hidden");
 	if (m_isGenuri) {
 		uriage_edit.style.display = "block";
 		uriage_edit.classList.add("col-4");
@@ -701,60 +691,6 @@ function onClickAction() {
 		Common.movePage('/product_search.html');
 	};
 
-	teiseiBtn.onclick = function () {
-		if (teiseiGroup.classList.contains("hidden") == false) {
-			return;
-		}
-		teiseiNyuukinPre = uriage_nyu.value;
-		teiseiGroup.classList.remove("hidden");
-		nyuukinGroup.classList.add("hidden");
-		// if (isValidNumber(uriage_nyu.value)) {
-		//   otsuri.textContent =
-		//     Number(azukariKin.value) - Number(uriage_nyu.value);
-		// }
-		checkValue();
-	};
-
-	cancelBtn.onclick = function () {
-		teiseiGroup.classList.add("hidden");
-		nyuukinGroup.classList.remove("hidden");
-		uriage_nyu.value = teiseiNyuukinPre;
-		teiseiNyuukinPre = "0";
-
-		if (uriage_nyu.value - Other.getNumFromString(Sashihiki_zandaka.textContent) > 0) {
-			document.getElementById("txtErrorTeisei").style.display = "block";
-			uriage_nyu.classList.add("text_red");
-			document.getElementById("txtErrorTeiseiDetail").classList.add("text_red");
-			document.getElementById("teisei-sumi").disabled = true;
-			document.getElementById("createPrintingFormButton").disabled = true;
-		} else {
-			document.getElementById("txtErrorTeisei").style.display = "none";
-			uriage_nyu.classList.remove("text_red");
-			document.getElementById("txtErrorTeiseiDetail").classList.remove("text_red");
-			document.getElementById("teisei-sumi").disabled = false;
-			document.getElementById("createPrintingFormButton").disabled = false;
-		}
-
-	};
-
-	teiseiSumi.onclick = function () {
-		var uriage_nyuVal = Other.getNumFromString(uriage_nyu.value);
-		if (isValidNumber(Other.getNumFromString(uriage_nyu.value).replaceAll("-", ""))) {
-			const chousei = Number(mEditAdjust.value);
-			nyuukin = Number(uriage_nyuVal);
-			mEditReceipt.textContent = Other.formatDecial(String(nyuukin));
-			txtKensinNyukinOtsuri.textContent = Number(Other.getNumFromString(mEditInputReceipt.value)) - nyuukin;
-			//  setZandaka(chousei, nyuukin);
-			// nyuukinGaku.textContent = nyuukin;
-			teiseiGroup.classList.add("hidden");
-			nyuukinGroup.classList.remove("hidden");
-			// setOtsuri();
-			// calCutaleTotal();
-			mTeiseiFlg = true;
-			// setZandaka();
-			// updatePrintData();
-		}
-	};
 
 	uriage_submit.onclick = function () {
 		Common.setupModal("question", null, Mess.I00008, StringCS.IIE, StringCS.HAI, null, false);
