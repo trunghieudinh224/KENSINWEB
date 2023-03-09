@@ -449,6 +449,7 @@ function onChangeData() {
 
 	uriage_taxku.onchange = function () {
 		mHmefDat.mTaxKu = Number(uriage_taxku.value);
+		calcTax();
 	}
 
 	uriage_name.onchange = function () {
