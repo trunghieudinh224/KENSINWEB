@@ -246,8 +246,13 @@ function setInformation() {
         if (document.getElementById("uriageButton").classList.contains("disabled-div")) {
             document.getElementById("uriageButton").classList.remove("disabled-div");
         }
-        if (document.getElementById("nyuukinButton").classList.contains("disabled-div")) {
-            document.getElementById("nyuukinButton").classList.remove("disabled-div");
+        if (document.getElementById("nyuukinButton").classList.contains("disabled-div") == false) {
+            if (mUserData.mKokfDat.mAdjust != 0 || mUserData.mKokfDat.mReceipt != 0) {
+                document.getElementById("nyuukinButton").disabled = true;
+                document.getElementById("nyuukinButton").classList.add("disabled-div");
+            } else {
+                document.getElementById("nyuukinButton").classList.remove("disabled-div");
+            }
         }
     }
 }
