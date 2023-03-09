@@ -54,6 +54,9 @@ var hmInfoTableItemLH = window.getComputedStyle(document.getElementsByClassName(
    * SET DATA
 */
 function setData() {
+	document.getElementById("codeVal").innerHTML = Other.cutStringSpace(mUserData.mKokfDat.mCusCode);
+	document.getElementById("nameVal").innerHTML = Other.cutStringSpace(mUserData.mKokfDat.mName);
+
 	while (table.hasChildNodes()) {
 		table.removeChild(table.firstChild);
 	}
