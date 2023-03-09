@@ -487,6 +487,9 @@ function onChangeData() {
 			m_nCho = parseInt(Other.getNumFromString(uriage_cho.textContent));
 			uriage_cho.textContent = onChangeMinus(m_nCho);
 			dispGen();
+		} else {
+			uriage_cho.textContent = Other.formatDecial(Other.getNumFromString(uriage_cho.textContent));
+			return;
 		}
 	});
 
@@ -496,6 +499,7 @@ function onChangeData() {
 			m_nReceipt = parseInt(Other.getNumFromString(value));
 			var nKin = calcSign(mHmefDat.mSign, mHmefDat.mKin + mHmefDat.mTax);
 			m_nNyu = parseInt(m_nReceipt);
+			teiseiNyuukinPre = m_nNyu;
 			if (nKin + m_nCho < m_nReceipt) {
 				// 預り金が売上額より多い場合
 				// 入金額は売上額まで
@@ -506,6 +510,24 @@ function onChangeData() {
 			uriage_nyu.textContent = Other.formatDecial(m_nNyu);
 			dispGen();
 		}
+	});
+
+	uriage_nyu.addEventListener('DOMSubtreeModified', function () {
+		if (m_nNyu != Other.getNumFromString(uriage_nyu.textContent)) {
+			if (select_shohin_list_urimode.value == 1) {
+				if (parseInt(Other.getNumFromString(uriage_nyu.textContent)) > parseInt(Other.getNumFromString(uriage_recept.textContent))) {
+					var mess = "最大は" + uriage_recept.textContent + "です。"
+					Common.setupModal("error", null, mess, StringCS.OK, null, null, false);
+					uriage_nyu.textContent = onChangeMinus(teiseiNyuukinPre);
+					return;
+				}
+			}
+			m_nNyu = parseInt(Other.getNumFromString(uriage_nyu.textContent));
+			uriage_nyu.textContent = onChangeMinus(m_nNyu);
+			teiseiNyuukinPre = m_nNyu;
+			dispGen();
+		}
+
 	});
 }
 
@@ -571,6 +593,15 @@ function inputFocus() {
 		sessionStorage.setItem(StringCS.KEYBOARDPROP, JSON.stringify(keyboardProp));
 		Common.showKeyBoard(title, uriage_recept);
 	};
+
+	document.getElementById("teisei").onclick = function () {
+		keyboard.style.zIndex = "4";
+		wrapMainForm.classList.remove("overlay-animate");
+		var title = document.getElementById("receipt_text").textContent;
+		keyboardProp = new Dat.KeyboardProp().setValue(true, false, Other.getNumFromString(uriage_recept.textContent).length, 0);
+		sessionStorage.setItem(StringCS.KEYBOARDPROP, JSON.stringify(keyboardProp));
+		Common.showKeyBoard(title, uriage_nyu);
+	}
 }
 
 
@@ -756,6 +787,8 @@ function createPrintData(isHybseikyu, printGenuriInfo, isHikae) {
 	// コメント
 	if (mUserData.mSy2fDat.mSysOption[Dat.SysOption.PRINT_COMMENT_NOUHIN] == 1) {
 		createComment(getComment());
+	} else {
+		document.getElementById("commentArea").style.display = "none";
 	}
 
 	// 店舗データ
