@@ -77,6 +77,7 @@ function onclickAction() {
     };
 
     document.getElementById("barcodeScannerBtn").onclick = function () {
+        document.querySelector("link[href='images/icons/ic_home.png']").href = "images/icons/ic_barcode.png";
         startScan();
         overlay.style.zIndex = "-1";
         wrapMainForm.classList.remove("overlay-animate");
@@ -95,6 +96,7 @@ function onclickAction() {
     }
 
     document.getElementById("barcodeBackBtn").onclick = function () {
+        document.querySelector("link[href='images/icons/ic_barcode.png']").href = "images/icons/ic_home.png";
         barcodeScannerOverlay.style.zIndex = "-1";
         wrapBarcodeMainForm.classList.remove("overlay-animate");
         Quagga.stop();
