@@ -271,7 +271,7 @@ function prepareNewBarcodeDataSetting() {
         setBarcodeType = 0;
     }
     dataSetting.barcd_from = document.getElementById("startLetter").value;
-    dataSetting.barcd_len = document.getElementById("number").value;
+    dataSetting.barcd_len = document.getElementById("numberLetter").value;
     dataSetting.barcd_kcode = setBarcodeType;
     dataSetting.login_id = sessionStorage.getItem(StringCS.USERNAME);
     dataSetting.login_pw = sessionStorage.getItem(StringCS.PASSWORD);
