@@ -92,7 +92,7 @@
 							<div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" id="date-start-area">
 								<div class="form-group input-group">
 									<div class="input-group-prepend">
-										<span class="input-group-text mw90 text">開始</span>
+										<span class="input-group-text mw90 text">開始日</span>
 									</div>
 									<input type="text" class="form-control text ta-c" id="date-start"
 										data-date-format="yyyy/mm/dd" data-language='en'>
@@ -102,7 +102,7 @@
 							<div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" id="date-end-area">
 								<div class="form-group input-group">
 									<div class="input-group-prepend">
-										<span class="input-group-text mw90 text date-end-title">終了</span>
+										<span class="input-group-text mw90 text date-end-title">終了日</span>
 									</div>
 									<input type="text" class="form-control text ta-c" id="date-end"
 										data-date-format="yyyy/mm/dd" data-language='en'>
@@ -268,7 +268,7 @@
 										<span class="input-group-text mw175 text">売上数量</span>
 									</div>
 									<span class="form-control ta-r text rowUrisur-edt"></span>
-									<span class="form-control unit text">円</span>
+									<span class="form-control unit text"></span>
 								</div>
 							</div>
 							<div class="col-12">
@@ -301,7 +301,7 @@
 						</div>
 						<div class="row content ed-v">
 							<div class="col-12 text" style="padding-left: 15px;">
-								集計日を変更することで、日にち毎の集計を表示します。
+								集計日または集計範囲を変更した上で、実行ボタンを押下ししてください。
 							</div>
 						</div>
 					</form>
@@ -335,7 +335,7 @@
 							<div id="shuukeiForm">
 								<span class="col-12 title-printView wsp-title">集 計 表</span>
 
-								<div class="text-print ta-l fw-b wsp-text sg-line">全 集 計 日</div>
+								<div class="text-print ta-l fw-b wsp-text sg-line" id="shukeiTime">全 集 計 日</div>
 
 								<div class="text-print ta-l wsp-text item">検 針 件 数</div>
 								<div class="container pd-l-25">
@@ -652,7 +652,7 @@
 						</div>
 						<div class="col-12">
 							<button type="button" class="btn btn-default text-center" id="shuukinNippouButton">
-								集計日報
+								集金日報
 							</button>
 						</div>
 						<div class="col-12">

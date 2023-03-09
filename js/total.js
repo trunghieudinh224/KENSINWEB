@@ -154,19 +154,65 @@ function setupDatePicker() {
     * SET DEFAULT VALUE SELECT DATE
 */
 function setDefaultValueSelectDate() {
-    if (systemDat != null) {
-        var startDay = String(systemDat.HANSYSYM);
+    var modeTimeshukei = sessionStorage.getItem(StringCS.MODETIMESHUKEI);
+    var startDay = sessionStorage.getItem(StringCS.SHUKEISTARTDAY);
+    var endDay = sessionStorage.getItem(StringCS.SHUKEIENDDAY);
+    if (startDay == null) {
+        startDay = String(systemDat.HANSYSYM);
         startDay = startDay.substring(0, 10);
         startDay = startDay.replaceAll("-", "/");
-        document.getElementById("date-start").value = startDay;
+    }
 
+    if (endDay == null) {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0');
         var yyyy = today.getFullYear();
-
         today = yyyy + '/' + mm + '/' + dd;
-        document.getElementById("date-end").value = today;
+        endDay = today;
+    }
+    if (modeTimeshukei != null) {
+        selectDate.value = modeTimeshukei;
+        if (modeTimeshukei == "1") {
+            document.getElementById("date-end").value = sessionStorage.getItem(StringCS.SHUKEIENDDAY);
+        } else {
+            document.getElementById("date-start").value = sessionStorage.getItem(StringCS.SHUKEISTARTDAY);
+            document.getElementById("date-end").value = sessionStorage.getItem(StringCS.SHUKEIENDDAY);
+        }
+
+    } else {
+        selectDate.value = "1";
+        if (systemDat != null) {
+            // var startDay = String(systemDat.HANSYSYM);
+            // startDay = startDay.substring(0, 10);
+            // startDay = startDay.replaceAll("-", "/");
+            document.getElementById("date-start").value = startDay;
+
+            // var today = new Date();
+            // var dd = String(today.getDate()).padStart(2, '0');
+            // var mm = String(today.getMonth() + 1).padStart(2, '0');
+            // var yyyy = today.getFullYear();
+
+            // today = yyyy + '/' + mm + '/' + dd;
+            document.getElementById("date-end").value = endDay;
+        }
+    }
+    var dateStartArea = document.getElementById("date-start-area");
+    var dateEndArea = document.getElementById("date-end-area");
+    if (selectDate.value == "1") {
+        dateStartArea.style.display = "none";
+        dateEndArea.classList.remove('col-sm-6');
+        dateEndArea.classList.remove('col-md-6');
+        dateEndArea.classList.remove('col-lg-6');
+        dateEndArea.classList.remove('col-xl-6');
+        document.getElementsByClassName("date-end-title")[0].innerHTML = "集計日";
+    } else {
+        dateStartArea.style.display = "block";
+        dateEndArea.classList.add('col-sm-6');
+        dateEndArea.classList.add('col-md-6');
+        dateEndArea.classList.add('col-lg-6');
+        dateEndArea.classList.add('col-xl-6');
+        document.getElementsByClassName("date-end-title")[0].innerHTML = "終了日";
     }
 }
 
@@ -185,7 +231,7 @@ function setupSelectDateView() {
             dateEndArea.classList.remove('col-lg-6');
             dateEndArea.classList.remove('col-xl-6');
 
-            document.getElementsByClassName("date-end-title")[0].innerHTML = "日付";
+            document.getElementsByClassName("date-end-title")[0].innerHTML = "集計日";
         } else {
             dateStartArea.style.display = "block";
             dateEndArea.classList.add('col-sm-6');
@@ -193,7 +239,7 @@ function setupSelectDateView() {
             dateEndArea.classList.add('col-lg-6');
             dateEndArea.classList.add('col-xl-6');
 
-            document.getElementsByClassName("date-end-title")[0].innerHTML = "終了";
+            document.getElementsByClassName("date-end-title")[0].innerHTML = "終了日";
         }
     }
 }
@@ -415,6 +461,15 @@ function setOptionMenu() {
 */
 function onclickAction() {
     document.getElementById("backPageButton").onclick = function () {
+        var modeTimeShukei = selectDate.value;
+        if (modeTimeShukei == "1") {
+            sessionStorage.setItem(StringCS.MODETIMESHUKEI, modeTimeShukei);
+            sessionStorage.setItem(StringCS.SHUKEIENDDAY, document.getElementById("date-end").value);
+        } else {
+            sessionStorage.setItem(StringCS.MODETIMESHUKEI, modeTimeShukei);
+            sessionStorage.setItem(StringCS.SHUKEISTARTDAY, document.getElementById("date-start").value);
+            sessionStorage.setItem(StringCS.SHUKEIENDDAY, document.getElementById("date-end").value);
+        }
         Common.movePage('/menu.html');
     };
     document.getElementById("insatsuButton").onclick = createImageShuukeiForm;
@@ -600,7 +655,7 @@ function setShukeiDateList() {
                 shukeiItem1.mGryokin = item.h_kin;
                 // kokfDat.mReduce + kokfDat.mReduceTax chua tim ra field; can ghi data cua kangen de lay 2 gia tri nay
                 // gia tri duoc luu tai dieu kien  kokfDat.getKng_uri() != 0 function ReceiveJobBase
-                shukeiItem1.mKang = 0 + 0           
+                shukeiItem1.mKang = 0 + 0
                 shukeiItem1.mShohi = item.u_tax / 1000;
                 shukeiItem1.mTotal = shukeiItem1.mKang + shukeiItem1.mGryokin + shukeiItem1.mShohi;
                 shukeiItem1.mNyukin = item.receipt;
@@ -654,8 +709,10 @@ function setShukeiDateList() {
                 lstKensinData.push(kensinData);
                 m_mapKensinData.set(strKey, lstKensinData);
 
-            }else if(item.h_kin > 0 && item.u_buskind == 0){
+            } else if (item.h_kin > 0 && item.u_buskind == 0) {
                 addUriageShukeiData(item);
+            } else if (item.u_buskind == 1 || item.u_buskind == 3) {
+                shuukeiData.mUricnt++;
             }
 
 
@@ -752,6 +809,7 @@ function getShuukeiData() {
         error: function (jqXHR, exception) {
             console.log(exception);
             Common.setupModal("error", null, Mess.E00003, null, StringCS.OK, null, false);
+            setShukeiDateList();
         },
         timeout: ValueCS.VL_LONG_TIMEOUT
     });
@@ -812,7 +870,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
     for (var i = 0; i < oldItemList.length; i++) {
         oldItemList[i].remove();
     }
-    var oldTotalDiv = document.getElementsByClassName("kensin-total"); 
+    var oldTotalDiv = document.getElementsByClassName("kensin-total");
     for (var i = 0; i < oldTotalDiv.length; i++) {
         oldTotalDiv[i].remove();
     }
@@ -1122,7 +1180,7 @@ function createPrintDataShuukinNippou(mapKensinData) {
     for (var i = 0; i < oldItemList.length; i++) {
         oldItemList[i].remove();
     }
-    var oldTotalDiv = document.getElementsByClassName("shuukin-total"); 
+    var oldTotalDiv = document.getElementsByClassName("shuukin-total");
     for (var i = 0; i < oldTotalDiv.length; i++) {
         oldTotalDiv[i].remove();
     }
