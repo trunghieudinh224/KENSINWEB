@@ -120,7 +120,6 @@ function onclickAction() {
         wrapBarcodeMainForm.classList.remove("overlay-animate");
         settingOverlay.style.zIndex = "4";
         wrapSettingMainForm.classList.remove("overlay-animate");
-        console.log(dataSetting);
         Quagga.stop();
         if (tempBarcodeType == 0) {
             $('input[value="kcode"]').prop('checked', 'checked');
@@ -168,7 +167,6 @@ function onclickAction() {
         document.getElementById("pauseBtn").removeAttribute("disabled");
         document.getElementById("pauseBtn").classList.remove("disabled-div");
         startScan();
-        console.log(dataSetting);
     }
 
     document.getElementById("confirmBtn").onclick = function () {
@@ -265,13 +263,13 @@ function setBarcodeNumber() {
 function prepareNewBarcodeDataSetting() {
     let setBarcodeType;
     if (document.getElementById("barcode").checked) {
-        setBarcodeType = 4;
+        setBarcodeType = "4";
     }
     else {
-        setBarcodeType = 0;
+        setBarcodeType = "0";
     }
-    dataSetting.barcd_from = parseInt(document.getElementById("startLetter").value);
-    dataSetting.barcd_len = parseInt(document.getElementById("numberLetter").value);
+    dataSetting.barcd_from = document.getElementById("startLetter").value;
+    dataSetting.barcd_len = document.getElementById("numberLetter").value;
     dataSetting.barcd_kcode = setBarcodeType;
     dataSetting.login_id = sessionStorage.getItem(StringCS.USERNAME);
     dataSetting.login_pw = sessionStorage.getItem(StringCS.PASSWORD);
@@ -354,6 +352,7 @@ function getCustomerData(type, string) {
 function onLoadAction() {
     setOptionMenu();
     onclickAction();
+    console.log(dataSetting);
 }
 
 window.onload = onLoadAction;
