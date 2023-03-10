@@ -449,7 +449,7 @@ input::-webkit-inner-spin-button {
 }
 
 .pd-l-5 {
-	padding-left: 5px !important;
+	padding-left: 10px !important;
 }
 
 
@@ -848,6 +848,10 @@ input::-webkit-inner-spin-button {
 	
 	#enter-btn {
 		height: 103px;
+	}
+
+	.pd-l-5 {
+		padding-left: 5px !important;
 	}
 }
 

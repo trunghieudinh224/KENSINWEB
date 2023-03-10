@@ -569,11 +569,11 @@ function createImageShuukinNippouForm() {
     // }
     setTitlePrintForm(1);
 
-    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
-    Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
     document.getElementById('nippouArea').style.display = "block";
+    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
+    Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
     document.getElementById('shuukinNippouForm').style.display = "block";
     document.getElementById('kensinNippouForm').style.display = "none";
     createPrintDataShuukinNippou(m_mapKensinData);
@@ -1274,19 +1274,19 @@ function createPrintDataShuukinNippou(mapKensinData) {
 
                 var shishinText = document.createElement("div");
                 shishinText.className = "col-3 sm-text ta-l wsp-text item pd-0";
-                shishinText.innerHTML = "指針";
+                shishinText.innerHTML = "入金額";
 
                 var shishinVal = document.createElement("div");
-                shishinVal.className = "col-3 sm-text ta-r wsp-text item";
-                shishinVal.innerHTML = Other.formatLocalJS(kensinData.m_nSs, 1, 1) + "m3";
+                shishinVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
+                shishinVal.innerHTML = Other.formatDecial(kensinData.m_lNyu) + "円";
 
                 var shiyouRyouText = document.createElement("div");
-                shiyouRyouText.className = "col-3 sm-text ta-l wsp-text item pd-0";
-                shiyouRyouText.innerHTML = "使用量";
+                shiyouRyouText.className = "col-3 sm-text ta-l wsp-text item pd-0 pd-l-5";
+                shiyouRyouText.innerHTML = "調整額";
 
                 var shiyouRyouVal = document.createElement("div");
-                shiyouRyouVal.className = "col-3 sm-text ta-r wsp-text item";
-                shiyouRyouVal.innerHTML = Other.formatLocalJS(kensinData.m_nSr, 1, 1) + "m3";
+                shiyouRyouVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
+                shiyouRyouVal.innerHTML = Other.formatDecial(kensinData.m_lCho) + "円";
 
 
                 row1.appendChild(shishinText);
