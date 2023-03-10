@@ -150,8 +150,8 @@ function setupDatePicker() {
 }
 
 
-    /** 
-    * SET DEFAULT VALUE SELECT DATE
+/** 
+* SET DEFAULT VALUE SELECT DATE
 */
 function setDefaultValueSelectDate() {
     var modeTimeshukei = sessionStorage.getItem(StringCS.MODETIMESHUKEI);
@@ -161,7 +161,7 @@ function setDefaultValueSelectDate() {
         startDay = String(systemDat.HANSYSYM);
         startDay = startDay.substring(0, 10);
         startDay = startDay.replaceAll("-", "/");
-        sessionStorage.setItem(StringCS.SHUKEISTARTDAY , startDay);
+        sessionStorage.setItem(StringCS.SHUKEISTARTDAY, startDay);
     }
 
     if (endDay == null) {
@@ -171,16 +171,13 @@ function setDefaultValueSelectDate() {
         var yyyy = today.getFullYear();
         today = yyyy + '/' + mm + '/' + dd;
         endDay = today;
-        sessionStorage.setItem(StringCS.SHUKEIENDDAY , endDay);
+        sessionStorage.setItem(StringCS.SHUKEIENDDAY, endDay);
     }
     if (modeTimeshukei != null) {
         selectDate.value = modeTimeshukei;
-        if (modeTimeshukei == "1") {
-            document.getElementById("date-end").value = sessionStorage.getItem(StringCS.SHUKEIENDDAY);
-        } else {
-            document.getElementById("date-start").value = sessionStorage.getItem(StringCS.SHUKEISTARTDAY);
-            document.getElementById("date-end").value = sessionStorage.getItem(StringCS.SHUKEIENDDAY);
-        }
+        document.getElementById("date-start").value = sessionStorage.getItem(StringCS.SHUKEISTARTDAY);
+        document.getElementById("date-end").value = sessionStorage.getItem(StringCS.SHUKEIENDDAY);
+
 
     } else {
         selectDate.value = "1";
@@ -468,15 +465,7 @@ function setOptionMenu() {
 */
 function onclickAction() {
     document.getElementById("backPageButton").onclick = function () {
-        var modeTimeShukei = selectDate.value;
-        if (modeTimeShukei == "1") {
-            sessionStorage.setItem(StringCS.MODETIMESHUKEI, modeTimeShukei);
-            sessionStorage.setItem(StringCS.SHUKEIENDDAY, document.getElementById("date-end").value);
-        } else {
-            sessionStorage.setItem(StringCS.MODETIMESHUKEI, modeTimeShukei);
-            sessionStorage.setItem(StringCS.SHUKEISTARTDAY, document.getElementById("date-start").value);
-            sessionStorage.setItem(StringCS.SHUKEIENDDAY, document.getElementById("date-end").value);
-        }
+
         Common.movePage('/menu.html');
     };
     document.getElementById("insatsuButton").onclick = createImageShuukeiForm;
@@ -675,7 +664,7 @@ function setShukeiDateList() {
                 }
                 // date kensin
                 var kensinDate = new Date(m_lstShukeiDat[i].h_denymd);
-                var strKey = (kensinDate.getMonth()+1) + "/" + kensinDate.getDate();
+                var strKey = (kensinDate.getMonth() + 1) + "/" + kensinDate.getDate();
                 var lstKensinData;
                 if (m_mapKensinData.has(strKey)) {
                     lstKensinData = m_mapKensinData.get(strKey);
@@ -696,7 +685,7 @@ function setShukeiDateList() {
                 kensinData.m_nSr = item.h_siyouryo;
                 kensinData.m_nKin = item.h_kin;
                 kensinData.m_nTax = item.h_stax / 1000;
-                 // kokfDat.mReduce + kokfDat.mReduceTax chua tim ra field; can ghi data cua kangen de lay 2 gia tri nay
+                // kokfDat.mReduce + kokfDat.mReduceTax chua tim ra field; can ghi data cua kangen de lay 2 gia tri nay
                 // gia tri duoc luu tai dieu kien  kokfDat.getKng_uri() != 0 function ReceiveJobBase
                 kensinData.m_nKng = 0 + 0;    //kokfDat.mReduce + kokfDat.mReduceTax
                 kensinData.m_lNyu = item.receipt;
@@ -718,48 +707,48 @@ function setShukeiDateList() {
                 lstKensinData.push(kensinData);
                 m_mapKensinData.set(strKey, lstKensinData);
 
-            } else if (item.h_kin > 0 && item.u_buskind == 0) {
-                addUriageShukeiData(item);
-            } else if (item.u_buskind == 1 || item.u_buskind == 3) {
-                shuukeiData.mUricnt++;
+            } else {
+                if (item.h_kin > 0 && item.u_buskind == 0) {
+                    addUriageShukeiData(item);
+                } else if (item.u_buskind == 1 || item.u_buskind == 3) {
+                    shuukeiData.mUricnt++;
+                }
+
+                // var den_uriage = new Date(item.h_denymd);
+
+                // var strKey = (den_uriage.getMonth() + 1) + "/" + den_uriage.getDate();
+                // addShukeiUriageData(strKey, item);
+                // if (mItemList.containsKey(strKey)) {
+                //     shukeiItem = mItemList.get(strKey);
+                // }
+                // else {
+                //     shukeiItem = new ShukeiItem();
+                //     mItemList.put(strKey, shukeiItem);
+                // }
+                // addUriageShukeiData(shukeiItem, hmefDat);
+                // while (hmefDat.mNxtHrec != 0) {
+                //     hmefDat = InputDat.getHmefDat(this, hmefDat.mNxtHrec - 1, 2);
+                //     if (hmefDat == null) {
+                //         break;
+                //     }
+                //     strKey = hmefDat.mDenm + "/" + hmefDat.mDend;
+                //     addShukeiUriageData(strKey, item, hmefDat);
+                //     if (mItemList.containsKey(strKey)) {
+                //         shukeiItem = mItemList.get(strKey);
+                //     }
+                //     else {
+                //         shukeiItem = new ShukeiItem();
+                //         mItemList.put(strKey, shukeiItem);
+                //     }
+                //     addUriageShukeiData(shukeiItem, hmefDat);
+                // }
+
+
+
+
             }
-
-
-            //     HmefDat hmefDat = InputDat.getHmefDat(this, item.mHmew0Srec - 1,  2);
-            //     if(hmefDat != null) {
-
-            //         String strKey = hmefDat.mDenm + "/" + hmefDat.mDend;
-            //         addShukeiUriageData(strKey, item, hmefDat);
-            //         if(mItemList.containsKey(strKey)){
-            //             shukeiItem = mItemList.get(strKey);
-            //         }
-            //         else {
-            //             shukeiItem = new ShukeiItem();
-            //             mItemList.put(strKey, shukeiItem);
-            //         }
-            //         addUriageShukeiData(shukeiItem, hmefDat);
-            //         while (hmefDat.mNxtHrec != 0) {
-            //             hmefDat = InputDat.getHmefDat(this, hmefDat.mNxtHrec - 1, (byte) 2);
-            //             if(hmefDat == null){
-            //                 break;
-            //             }
-            //             strKey = hmefDat.mDenm + "/" + hmefDat.mDend;
-            //             addShukeiUriageData(strKey, item, hmefDat);
-            //             if(mItemList.containsKey(strKey)){
-            //                 shukeiItem = mItemList.get(strKey);
-            //             }
-            //             else {
-            //                 shukeiItem = new ShukeiItem();
-            //                 mItemList.put(strKey, shukeiItem);
-            //             }
-            //             addUriageShukeiData(shukeiItem, hmefDat);
-            //         }
-            //     }
-            // }
-
-            // shuukeiData = shukeiItem;
         }
-    } 
+    }
     setShuukeiData();
 
 }
@@ -782,6 +771,10 @@ function getShuukeiData() {
         urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
         // urlString = StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + dateStart.replaceAll("-", "/") + "&date2=" + dateEnd.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
     }
+    var modeTimeShukei = selectDate.value;
+    sessionStorage.setItem(StringCS.MODETIMESHUKEI, modeTimeShukei);
+    sessionStorage.setItem(StringCS.SHUKEISTARTDAY, document.getElementById("date-start").value);
+    sessionStorage.setItem(StringCS.SHUKEIENDDAY, document.getElementById("date-end").value);
     shuukeiData = new Dat.ShukeiItem();
     Common.setupModal("load", null, Mess.I00001, null, null, null, false);
     $.ajax({
@@ -1404,11 +1397,8 @@ function addShukeiData(shukeiItem, sysfDat, sy2fDat, kouserDat) {
  * @param kokfDat   [in] {@link KokfDat}    顧客データ
  * @param hmefDat   [in] {@link HmefDat}    販売明細データ
  */
-function addShukeiUriageData(strKey, kokfDat, hmefDat) {
-    if (!hmefDat.mUsef) {
-        return;
-    }
-    Map < Integer, ShukeiUriageData > mapShukeiUriageData;
+function addShukeiUriageData(strKey, item) {
+    var mapShukeiUriageData;
     // 対象の日付に集計用売上データが存在するか確認
     if (m_mapUriageData.containsKey(strKey)) {
         // 存在する場合はそのデータを使用
@@ -1419,17 +1409,15 @@ function addShukeiUriageData(strKey, kokfDat, hmefDat) {
         mapShukeiUriageData = new Map();
         m_mapUriageData.put(strKey, mapShukeiUriageData);
     }
-    // ShukeiUriageData shukeiUriageData;
     var shukeiUriageData;
     // 対象顧客のデータが存在するか確認
-    if (Objects.requireNonNull(mapShukeiUriageData).containsKey(kokfDat.mCusRec)) {
+    if (mapShukeiUriageData.containsKey(item.h_cusrec)) {
         // 存在する場合はそのデータを使用
-        shukeiUriageData = mapShukeiUriageData.get(kokfDat.mCusRec);
+        shukeiUriageData = mapShukeiUriageData.get(item.h_cusrec);
     }
     else {
         // 存在しない場合は新規作成後追加
-        shukeiUriageData = new ShukeiUriageData(kokfDat.mCusCode, kokfDat.mName);
-        mapShukeiUriageData.put(kokfDat.mCusRec, shukeiUriageData);
+        mapShukeiUriageData.put(item.h_cusrec, item);
     }
     // 販売明細を追加
     Objects.requireNonNull(shukeiUriageData).addHmefDat(hmefDat);
