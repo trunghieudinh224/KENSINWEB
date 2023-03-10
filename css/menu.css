@@ -9,7 +9,7 @@ body {
 }
 
 .container-mainform {
-    min-height: -webkit-fill-available !important; 
+	height: -webkit-fill-available !important; 
 }
 
 .overlay {
@@ -27,7 +27,7 @@ body {
 }
 
 .overlay .container-mainform {
-	height: 100%;
+	height: -webkit-fill-available !important; 
 }
 
 .overlay .container-mainform .wrap-mainform {
@@ -50,7 +50,7 @@ body {
 }
 
 .barcodeOverlay .container-mainform {
-	height: 100%;
+	height: -webkit-fill-available !important; 
 }
 
 .barcodeOverlay .container-mainform .wrap-mainform {
@@ -78,7 +78,7 @@ body {
 
 .settingOverlay .container-mainform .wrap-mainform {
 	max-width: 500px;
-		position: relative;
+	position: relative;
 }
 
 #close-icon {
@@ -127,6 +127,10 @@ body {
 }
 
 @media screen and (max-width: 1200px) {
+	.container-mainform {
+		height: fit-content !important;
+	}
+
     .wrap-mainform {
         width: 700px;
     }
@@ -137,21 +141,20 @@ body {
 }
 
 @media screen and (max-width: 900px) {
-
     /* MAIN FORM */
     .wrap-mainform {
         width: 630px;
     }
-
+	
 	.barcodeOverlay .container-mainform .wrap-mainform {
 		max-height: fit-content;
 	}
 
-		/* DIVIDER TEXT */
-		.divider-text span {
-			margin: 15px 15% !important;
-			font-size: 23px;
-		}
+	/* DIVIDER TEXT */
+	.divider-text span {
+		margin: 15px 15% !important;
+		font-size: 23px;
+	}
 }
 
 
