@@ -207,6 +207,8 @@ function saveDataSetting() {
 			console.log('res', res);
 			sessionStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(prepareNewDataSetting()));
 			Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
+			document.getElementById("msgError1").style.display = "none";
+			document.getElementById("msgError2").style.display = "none";
 		});
 	}
 	else {
