@@ -178,32 +178,40 @@ function prepareNewDataSetting() {
    * SAVE DATA SETTING
 */
 function saveDataSetting() {
+	var regex = new RegExp("^[0-9]{1,2}$");
+	var startLetter = document.getElementById("startLetter").value;
+	var numberLetter = document.getElementById("numberLetter").value;
 	Common.setupModal("load", null, Mess.I00002, null, null, null, false);
-	$.ajax({
-		type: "POST",
-		data: JSON.stringify(prepareNewDataSetting()),
-		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
-		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
-		dataType: "json",
-		contentType: "application/json; charset=utf-8",
-		timeout: ValueCS.VL_LONG_TIMEOUT,
-		success: function (response) {
-			console.log(response);
-			Common.setupModal("load", null, Mess.I00002, null, null, null, false);
-		},
-		error: function (xmlhttprequest, textstatus, message) {
-			if (textstatus === "timeout") {
-				console.log("timeout")
-			} else {
-				console.log(textstatus)
+	if (regex.test(startLetter) && regex.test(numberLetter)) { 
+		$.ajax({
+			type: "POST",
+			data: JSON.stringify(prepareNewDataSetting()),
+			url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
+			// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_GETSETTING,
+			dataType: "json",
+			contentType: "application/json; charset=utf-8",
+			timeout: ValueCS.VL_LONG_TIMEOUT,
+			success: function (response) {
+				console.log(response);
+				Common.setupModal("load", null, Mess.I00002, null, null, null, false);
+			},
+			error: function (xmlhttprequest, textstatus, message) {
+				if (textstatus === "timeout") {
+					console.log("timeout")
+				} else {
+					console.log(textstatus)
+				}
+				Common.setupModal("error", null, Mess.E00004, null, StringCS.OK, null, false);
 			}
-			Common.setupModal("error", null, Mess.E00004, null, StringCS.OK, null, false);
-		}
-	}).done(function (res) {
-		console.log('res', res);
-		sessionStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(prepareNewDataSetting()));
-		Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
-	});
+		}).done(function (res) {
+			console.log('res', res);
+			sessionStorage.setItem(StringCS.SETTINGDATA, JSON.stringify(prepareNewDataSetting()));
+			Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
+		});
+	}
+	else {
+		Common.setupModal("error", null, Mess.E00010, null, StringCS.OK, null, false);
+	}
 }
 
 
