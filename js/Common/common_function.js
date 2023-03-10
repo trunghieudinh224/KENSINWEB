@@ -253,10 +253,14 @@ function showKeyBoard(title, valElement) {
 
 
     //setup layout
+    var view = document.getElementById("zenkaiSSKBArea");
     if (title != "今回指針") {
-        var view = document.getElementById("zenkaiSSKBArea");
         if (view != null) {
             view.style.display = "none";
+        }
+    } else {
+        if (view != null) {
+            view.style.display = "block";
         }
     }
 

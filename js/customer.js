@@ -231,7 +231,7 @@ function setInformation() {
         }
     }
 
-    if (cusList == null || cusList.length <= 1) {
+    if (cusList == null || cusList.length <= 1 || searchMode != "1") {
         document.getElementById("previousButtonArea").remove();
         document.getElementById("nextButtonArea").remove();
     }
@@ -246,11 +246,15 @@ function setInformation() {
         if (document.getElementById("uriageButton").classList.contains("disabled-div")) {
             document.getElementById("uriageButton").classList.remove("disabled-div");
         }
-        if (document.getElementById("nyuukinButton").classList.contains("disabled-div") == false) {
-            if (mUserData.mKokfDat.mAdjust != 0 || mUserData.mKokfDat.mReceipt != 0) {
-                document.getElementById("nyuukinButton").disabled = true;
+
+        if (mUserData.mKokfDat.mAdjust != 0 || mUserData.mKokfDat.mReceipt != 0) {
+            document.getElementById("nyuukinButton").disabled = true;
+            if (document.getElementById("nyuukinButton").classList.contains("disabled-div") == false) {
                 document.getElementById("nyuukinButton").classList.add("disabled-div");
-            } else {
+            }
+        } else {
+            document.getElementById("nyuukinButton").disabled = false;
+            if (document.getElementById("nyuukinButton").classList.contains("disabled-div") == true) {
                 document.getElementById("nyuukinButton").classList.remove("disabled-div");
             }
         }
@@ -517,7 +521,7 @@ function onclickAction() {
     };
 
 
-    if (cusList != null && cusList.length > 1) {
+    if (cusList != null && cusList.length > 1 && searchMode == "1") {
         document.getElementById("previousButton").onclick = function () {
             getCustomer(true)
         };
