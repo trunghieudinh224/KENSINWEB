@@ -182,7 +182,7 @@ function setCusInfo() {
         mTxtPreMeter.innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
         document.getElementById("zenkaiSSKB").innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
         if (mUserData.mKokfDat.mGasDiv != 0 && mUserData.mGasfDat.mTaxDiv == 3) {
-            mTxtGasTax.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mConTax);
+            mTxtGasTax.innerHTML = Other.formatDecial(mUserData.mKokfDat.mConTax);
         } else {
             mTxtGasTax.innerHTML = "***";
         }
@@ -276,7 +276,7 @@ function setCusInfo() {
         // ガス料金
         // 顧客データからガス料金を取得する 12.05.07 不具合対応票No.50対応
         if (mUserData.mKokfDat.mKenSumi) {
-            mTxtGasPay.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mFee);
+            mTxtGasPay.innerHTML = Other.formatDecial(mUserData.mKokfDat.mFee);
         } else {
             mTxtGasPay.innerHTML = "";
         }
@@ -477,12 +477,12 @@ function setGasPay(
     } else {
         mTitleGasPay.innerHTML = "ガス料金";
     }
-    mTxtGasPay.innerHTML = Other.KingakuFormat(lGasFee);
+    mTxtGasPay.innerHTML = Other.formatDecial(lGasFee);
     // mTxtGasPay.innerHTML = ((lGasFee));
     // 消費税設定
     if (gasfDat.mTaxDiv == 3) {
         // 外税の場合のみ税額表示
-        mTxtGasTax.innerHTML = Other.KingakuFormat(nGasTax);
+        mTxtGasTax.innerHTML = Other.formatDecial(nGasTax);
         // mTxtGasTax.innerHTML = ((nGasTax));
     } else {
         mTxtGasTax.innerHTML = "***";
@@ -574,7 +574,7 @@ function init() {
         lstLeasHmefDat,
         false
     );
-    txtKensinNyukinNowSeikyu.innerHTML = nRyokin > 0 ? Other.KingakuFormat(nRyokin) : 0;
+    txtKensinNyukinNowSeikyu.innerHTML = nRyokin > 0 ? Other.formatDecial(nRyokin) : 0;
 
     mTotal = nRyokin;
 
@@ -589,7 +589,7 @@ function init() {
         nKangen = mUserData.mKokfDat.mReduce;
     }
 
-    txtKensinNyukinGasRyokin.innerHTML = nRyokin > 0 ? Other.KingakuFormat(nRyokin) : 0;
+    txtKensinNyukinGasRyokin.innerHTML = nRyokin > 0 ? Other.formatDecial(nRyokin) : 0;
     //txtKensinNyukinGasRyokin.innerHTML = nRyokin;
 
     // 消費税
@@ -603,7 +603,7 @@ function init() {
                 // 還元額消費税
                 nKangen += mUserData.mKokfDat.mReduceTax;
             }
-            tvTax.innerHTML = nRyokin > 0 ? Other.KingakuFormat(nRyokin) : 0;
+            tvTax.innerHTML = nRyokin > 0 ? Other.formatDecial(nRyokin) : 0;
             //tvTax.innerHTML = (nRyokin);
         } else {
             tvTax.innerHTML = "***";
@@ -616,7 +616,7 @@ function init() {
     txtKensinNyukinKangen.innerHTML = (Other.getKangcontname(mUserData));
     // txtKensinNyukinKangen.innerHTML = mUserData.mSy2fDat;
     // 還元額
-    txtKensinNyukinKangenKin.innerHTML = Other.KingakuFormat(nKangen);
+    txtKensinNyukinKangenKin.innerHTML = Other.formatDecial(nKangen);
     //txtKensinNyukinKangenKin.innerHTML = (nKangen);
 
     // 値引き
@@ -626,7 +626,7 @@ function init() {
         // 漢の値引き有り
         nNebiki = GasRaterCom.calcNebiki(mUserData.mSysfDat, m_lstKnebDat);
     }
-    txtKensinNyukinNebiki.innerHTML = Other.KingakuFormat(nNebiki);
+    txtKensinNyukinNebiki.innerHTML = Other.formatDecial(nNebiki);
     //txtKensinNyukinNebiki.innerHTML = (nNebiki);
 
     // その他売上
@@ -659,7 +659,7 @@ function init() {
     if (mUserData.mKokfDat.mSyuSumi == 1) {
         // 13.02.13
         // 検針済み or 再入力の場合は入力して編集不可
-        mEditAdjust.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mAdjust);
+        mEditAdjust.innerHTML = Other.formatDecial(mUserData.mKokfDat.mAdjust);
         // mEditInputReceipt.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mInpReceipt);
         mEditReceipt.innerHTML = Other.formatDecial(mUserData.mKokfDat.mReceipt);
         // mTeiseiFlg = getLongValue(mEditInputReceipt) != getLongValue(mEditReceipt);
@@ -668,8 +668,8 @@ function init() {
         // mEditReceipt.innerHTML = ((mUserData.mKokfDat.mReceipt));
         // mTeiseiFlg = getLongValue(mEditInputReceipt) != getLongValue(mEditReceipt);
     } else {
-        mEditAdjust.innerHTML = Other.KingakuFormat(0); // 調整額
-        mEditInputReceipt.innerHTML = Other.KingakuFormat(0); // 預かり金
+        mEditAdjust.innerHTML = Other.formatDecial(0); // 調整額
+        mEditInputReceipt.innerHTML = Other.formatDecial(0); // 預かり金
         mEditReceipt.innerHTML = Other.formatDecial(0); // 入金額
         // mEditAdjust.textContent = "0";// 調整額
         // mEditInputReceipt.textContent = "0";// 預かり金
