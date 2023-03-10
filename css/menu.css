@@ -117,6 +117,13 @@ body {
     display: none ;
 }
 
+.msgError {
+	color: red;
+	text-align: right;
+	margin-bottom: 0 !important;
+	display: none;
+}
+
 /*
   ******  RESPONSIVE LAYOUT  ******
 */

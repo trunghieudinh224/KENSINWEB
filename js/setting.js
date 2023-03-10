@@ -181,8 +181,8 @@ function saveDataSetting() {
 	var regex = new RegExp("^[0-9]{1,2}$");
 	var startLetter = document.getElementById("startLetter").value;
 	var numberLetter = document.getElementById("numberLetter").value;
-	Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 	if (regex.test(startLetter) && regex.test(numberLetter)) { 
+		Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 		$.ajax({
 			type: "POST",
 			data: JSON.stringify(prepareNewDataSetting()),
@@ -210,7 +210,14 @@ function saveDataSetting() {
 		});
 	}
 	else {
-		Common.setupModal("error", null, Mess.E00010, null, StringCS.OK, null, false);
+		document.getElementById("msgError1").style.display = "none";
+		document.getElementById("msgError2").style.display = "none";
+		if (!regex.test(startLetter)) {
+			document.getElementById("msgError1").style.display = "block";
+		};
+		if (!regex.test(numberLetter)) {
+			document.getElementById("msgError2").style.display = "block";
+		};
 	}
 }
 

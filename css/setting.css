@@ -27,6 +27,13 @@
   font-weight: bold;;
 }
 
+.msgError {
+	color: red;
+	text-align: right;
+	margin-bottom: 0 !important;
+	display: none;
+}
+
 @media screen and (max-width: 900px) {
   .my-checkbox {
     transform: scale(1.5) !important;

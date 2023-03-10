@@ -141,20 +141,20 @@ function onclickAction() {
         });
         if ((!document.getElementById("barcodeValue").value) || (document.getElementById("confirmBtn").hasAttribute("disabled"))) {
             startScan();
-        } 
+        }
     }
 
     document.getElementById("settingSaveBtn").onclick = function () {
         var regex = new RegExp("^[0-9]{1,2}$");
         startLetter = document.getElementById("startLetter").value;
         numberLetter = document.getElementById("numberLetter").value;
-        settingOverlay.style.zIndex = "-1";
-        wrapSettingMainForm.classList.remove("overlay-animate");
-        barcodeScannerOverlay.style.zIndex = "3";
-        wrapBarcodeMainForm.classList.remove("overlay-animate");
         if (regex.test(startLetter) && regex.test(numberLetter)) {
             tempStartLetter = startLetter;
             tempNumberLetter = numberLetter;
+            settingOverlay.style.zIndex = "-1";
+            wrapSettingMainForm.classList.remove("overlay-animate");
+            barcodeScannerOverlay.style.zIndex = "3";
+            wrapBarcodeMainForm.classList.remove("overlay-animate");
             saveBarcodeDataSetting();
             if (document.getElementById("barcode").checked) {
                 tempBarcodeType = 4;
@@ -163,19 +163,24 @@ function onclickAction() {
             else {
                 document.getElementById("barcodeType").innerHTML = '顧客コード';
                 tempBarcodeType = 0;
-            }
+            };
             document.getElementById("confirmBtn").setAttribute("disabled","");
             document.getElementById("confirmBtn").classList.add("disabled-div");
             document.getElementById("pauseBtn").removeAttribute("disabled");
             document.getElementById("pauseBtn").classList.remove("disabled-div");
+            document.getElementById("msgError1").style.display = "none";
+            document.getElementById("msgError2").style.display = "none";
             startScan();
         }
         else {
-            Common.setupModal("error", null, Mess.E00010, null, StringCS.OK, null, false);
-            setBarcodeStart();
-            setBarcodeNumber();
-            setBarcodeType();
-            startScan();
+            document.getElementById("msgError1").style.display = "none";
+            document.getElementById("msgError2").style.display = "none";
+            if (!regex.test(startLetter)) {
+                document.getElementById("msgError1").style.display = "block";
+            };
+            if (!regex.test(numberLetter)) {
+                document.getElementById("msgError2").style.display = "block";
+            };
         }
 
     }
