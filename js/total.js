@@ -32,6 +32,7 @@ var sysfDat = new Dat.SysfDat().setValue(25, 35, 29, 1970, 1, 1, 80, 50, 80, 1, 
     false, [50, 250, 50, 200, 60, 180], [20, 60], 0, true, true, true, true, true, true);
 var sy2fDat = new Dat.Sy2fDat().setValue(0, 0, 0, 0, 0, [1, 1, -1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 5, 0, 0]);
 var kouserDat = new Dat.KouserDat();
+var unitList = ["件 ]", "件 ]", "件 ]", "件 ]", "m３ ]", "円 ]", "円 ]", "円 ]", "円 ]", "L ]", "円 ]", "円 ]", "円 ]", "円 ]", "円 ]", " ]", "円 ]", "円 ]", "円 ]"];
 // var kokfDat1 = new Dat.KokfDat().setValue("野村　洋子", 5, 1, 440, 1, true, 9990, 9550, 2019, 2, 7, 570, 1830, 0, 319, 22920, 0,
 //                                             0, 0, 0, 0, 0, new Dat.KtpcDat().setValue(18000000, 211200000, 0), 1, 0, 4, 0, 0, 0,
 //                                             0, 0, 0, null, 0, 0, 14884, 0, 0, 100, 8, 0, 0, 0, 20000, 1600, 0, 0, 0, 0, 0, 1000,
@@ -47,22 +48,23 @@ var kouserDat = new Dat.KouserDat();
 // kokfDat4.mCusCode = "0010000370";
 // kokfDat4.mName = "xyz";
 
+/** list cusrec */
+var lstCusrec = [];
+
+var dateStart = null;
+var dateEnd = null;
+
+
 
 /*****  PRINT VARIABLE  *****/
 /* image string */
 var imgString = "";
 /* view item list */
 var viewItemtList;
+/* default padding printting form */
+var defaultPaddingPrintForm = window.getComputedStyle(document.getElementById("printContentDetail"), null).getPropertyValue('padding');
 /* default text size of printting form */
 var defaultPrintSize = window.getComputedStyle(document.getElementsByClassName("text")[0]).fontSize;
-/* default title size of printting form */
-var defaultPaddingPrintForm = window.getComputedStyle(document.getElementById("printContentDetail"), null).getPropertyValue('padding');
-
-/** list cusrec */
-var lstCusrec = [];
-
-var dateStart = null;
-var dateEnd = null;
 
 
 /** 
@@ -313,10 +315,11 @@ function setDataPrintForm() {
     } else {
         shukeiTime.textContent = "全 集 計 日 " + "(" + document.getElementById("date-end").value + ")"
     }
+    viewItemtList = setViewItemtList("edt");
     let tempList = viewItemtList;
     viewItemtList = setViewItemtList("prt");
     for (var i = 0; i < viewItemtList.length; i++) {
-        viewItemtList[i].innerHTML = tempList[i].textContent + viewItemtList[i].textContent;
+        viewItemtList[i].innerHTML = tempList[i].textContent + unitList[i];
     }
 }
 
@@ -480,6 +483,22 @@ function onclickAction() {
 }
 
 
+/**
+   * SETUP PRINT FORM
+   *
+   * @param sizeSingleLine     [STRING]
+   * @param lineHeightSingleLine     [STRING]
+*/
+function setupTextSizeDetail(nameItem, textSize, lineHeight, fontWeight) {
+	const element = document.getElementsByClassName(nameItem);
+	for (let i = 0; i < element.length; i++) {
+		element[i].style.setProperty("font-size", textSize, "important")
+		element[i].style.lineHeight = lineHeight;
+		element[i].style.fontWeight = fontWeight;
+	}
+}
+
+
 /** 
     * CREATE IMAGE FILE OF SHUUKEI FORM
 */
@@ -526,8 +545,12 @@ function createImageKenshinNippouForm() {
     document.getElementById('kensinNippouForm').style.display = "block";
     document.getElementById('shuukinNippouForm').style.display = "none";
     createPrintDataKenshinNippou(m_mapKensinData, sysfDat.m_isToyukensinFlg);
-    // setupPrintForm("100vh", "670px", "55px", "27px", "33px", "27px", "33px", true, "20px");
+    /* default title size of printting form */
+    var smTextTS = window.getComputedStyle(document.getElementsByClassName("sm-text")[0]).fontSize;
+    /* default line height text of printting form */
+    var smTextLH = window.getComputedStyle(document.getElementsByClassName("sm-text")[0]).lineHeight;
     setupPrintForm("100vh", "670px", "55px", "31px", "37px", "31px", "37px", true, "20px");
+	setupTextSizeDetail("sm-text", "23px", "30px", "normal");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
@@ -537,7 +560,8 @@ function createImageKenshinNippouForm() {
                     window.scrollTo(0, 0);
 
                     const interval = setInterval(function () {
-                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
+                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm);
+						setupTextSizeDetail("sm-text", smTextTS, smTextLH, "normal");
                         Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
                         clearInterval(interval);
                         modal.style.display = "none";
@@ -568,7 +592,12 @@ function createImageShuukinNippouForm() {
     document.getElementById('shuukinNippouForm').style.display = "block";
     document.getElementById('kensinNippouForm').style.display = "none";
     createPrintDataShuukinNippou(m_mapKensinData);
+    /* default title size of printting form */
+    var smTextTS = window.getComputedStyle(document.getElementsByClassName("sm-text")[0]).fontSize;
+    /* default line height text of printting form */
+    var smTextLH = window.getComputedStyle(document.getElementsByClassName("sm-text")[0]).lineHeight;
     setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
+	setupTextSizeDetail("sm-text", "23px", "30px", "normal");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
@@ -578,7 +607,8 @@ function createImageShuukinNippouForm() {
                     window.scrollTo(0, 0);
 
                     const interval = setInterval(function () {
-                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
+                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm);
+						setupTextSizeDetail("sm-text", smTextTS, smTextLH, "normal");
                         Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
                         clearInterval(interval);
                         modal.style.display = "none";
