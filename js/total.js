@@ -150,7 +150,7 @@ function setupDatePicker() {
 }
 
 
-/** 
+    /** 
     * SET DEFAULT VALUE SELECT DATE
 */
 function setDefaultValueSelectDate() {
@@ -161,6 +161,7 @@ function setDefaultValueSelectDate() {
         startDay = String(systemDat.HANSYSYM);
         startDay = startDay.substring(0, 10);
         startDay = startDay.replaceAll("-", "/");
+        sessionStorage.setItem(StringCS.SHUKEISTARTDAY , startDay);
     }
 
     if (endDay == null) {
@@ -170,6 +171,7 @@ function setDefaultValueSelectDate() {
         var yyyy = today.getFullYear();
         today = yyyy + '/' + mm + '/' + dd;
         endDay = today;
+        sessionStorage.setItem(StringCS.SHUKEIENDDAY , endDay);
     }
     if (modeTimeshukei != null) {
         selectDate.value = modeTimeshukei;
@@ -757,9 +759,7 @@ function setShukeiDateList() {
 
             // shuukeiData = shukeiItem;
         }
-    } else {
-        shuukeiData = new Dat.ShukeiItem();
-    }
+    } 
     setShuukeiData();
 
 }
@@ -771,6 +771,7 @@ function setShukeiDateList() {
 function getShuukeiData() {
     var urlString;
     m_lstShukeiDat = [];
+    viewItemtList = setViewItemtList("edt");
     if (selectDate.value == "1") {
         let date = document.getElementById("date-end").value;
         urlString = StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_READSYUKEI + StringCS.PR_KEY + "&date1=" + date.replaceAll("-", "/") + "&date2=" + date.replaceAll("-", "/") + "&login_id=" + sessionStorage.getItem(StringCS.USERNAME) + "&login_pw=" + sessionStorage.getItem(StringCS.PASSWORD);
@@ -793,7 +794,6 @@ function getShuukeiData() {
             var shukeiData = JSON.parse(result);
             m_lstShukeiDat = shukeiData.m_lstShukeiDat;
             selectionSort();
-            viewItemtList = setViewItemtList("edt");
 
             // if (shukeiData != null) {
             //     if (shukeiData.m_lstShukeiDat != null) {
