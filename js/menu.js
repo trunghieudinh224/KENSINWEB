@@ -136,6 +136,8 @@ function onclickAction() {
         wrapBarcodeMainForm.classList.remove("overlay-animate");
         document.getElementById("startLetter").value = tempStartLetter;
         document.getElementById("numberLetter").value = tempNumberLetter;
+        document.getElementById("msgError1").style.display = "none";
+		document.getElementById("msgError2").style.display = "none";
         $('input[type=radio]').prop('checked', function () {
             return this.getAttribute('checked') == 'checked';
         });
