@@ -145,28 +145,39 @@ function onclickAction() {
     }
 
     document.getElementById("settingSaveBtn").onclick = function () {
+        var regex = new RegExp("^[0-9]{1,2}$");
+        startLetter = document.getElementById("startLetter").value;
+        numberLetter = document.getElementById("numberLetter").value;
         settingOverlay.style.zIndex = "-1";
         wrapSettingMainForm.classList.remove("overlay-animate");
         barcodeScannerOverlay.style.zIndex = "3";
         wrapBarcodeMainForm.classList.remove("overlay-animate");
-        startLetter = parseInt(document.getElementById("startLetter").value);
-        numberLetter = parseInt(document.getElementById("numberLetter").value);
-        tempStartLetter = startLetter;
-        tempNumberLetter = numberLetter;
-        saveBarcodeDataSetting();
-        if (document.getElementById("barcode").checked) {
-            tempBarcodeType = 4;
-            document.getElementById("barcodeType").innerHTML = 'バーコード';
+        if (regex.test(startLetter) && regex.test(numberLetter)) {
+            tempStartLetter = startLetter;
+            tempNumberLetter = numberLetter;
+            saveBarcodeDataSetting();
+            if (document.getElementById("barcode").checked) {
+                tempBarcodeType = 4;
+                document.getElementById("barcodeType").innerHTML = 'バーコード';
+            }
+            else {
+                document.getElementById("barcodeType").innerHTML = '顧客コード';
+                tempBarcodeType = 0;
+            }
+            document.getElementById("confirmBtn").setAttribute("disabled","");
+            document.getElementById("confirmBtn").classList.add("disabled-div");
+            document.getElementById("pauseBtn").removeAttribute("disabled");
+            document.getElementById("pauseBtn").classList.remove("disabled-div");
+            startScan();
         }
         else {
-            document.getElementById("barcodeType").innerHTML = '顧客コード';
-            tempBarcodeType = 0;
+            Common.setupModal("error", null, Mess.E00010, null, StringCS.OK, null, false);
+            setBarcodeStart();
+            setBarcodeNumber();
+            setBarcodeType();
+            startScan();
         }
-        document.getElementById("confirmBtn").setAttribute("disabled","");
-        document.getElementById("confirmBtn").classList.add("disabled-div");
-        document.getElementById("pauseBtn").removeAttribute("disabled");
-        document.getElementById("pauseBtn").classList.remove("disabled-div");
-        startScan();
+
     }
 
     document.getElementById("confirmBtn").onclick = function () {
