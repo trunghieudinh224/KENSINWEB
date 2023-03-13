@@ -113,13 +113,13 @@ td {
 
 .td-nm {
     border: 1px solid black; 
-    width: 70%; 
+    width: 71%; 
     padding: 1px 10px;
 }
 
 .td-r {
     border-left: 1px solid black; 
-    width: 30%;
+    width: 29%;
 }
 
 #ryoshuDetail {
@@ -183,6 +183,10 @@ td {
     width: 6%;
     float: left;
 }
+.tbw-8{
+    width: 8%;
+    float: left;
+}
 .tbw-28{
     width: 28%;
     float: left;
@@ -192,6 +196,10 @@ td {
     float: left;
 }
 
+.tbw-21{
+    width: 21%;
+    float: left;
+}
 .tbw-22{
     width: 22%;
     float: left;

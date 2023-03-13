@@ -1627,7 +1627,7 @@ function printGasRyokinStep_A(dLowLimit, dUpLimit, dAddKin, dTotalKin, areaName)
 	td.className = "text-print ta-r wsp-text";
 
 	const dLowLimitStepA = document.createElement("span");
-	dLowLimitStepA.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-15";
+	dLowLimitStepA.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-16";
 	dLowLimitStepA.appendChild(document.createTextNode(Other.formatLocalJS(parseInt(dLowLimit), 1, 1)));
 
 
@@ -1644,7 +1644,7 @@ function printGasRyokinStep_A(dLowLimit, dUpLimit, dAddKin, dTotalKin, areaName)
 	tanka.appendChild(document.createTextNode("m3 単価"));
 
 	const dAddKinStepA = document.createElement("span");
-	dAddKinStepA.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-22";
+	dAddKinStepA.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-21";
 	dAddKinStepA.appendChild(document.createTextNode(Other.formatLocalJS(dAddKin, 2, 4)));
 
 	const unitRow = document.createElement("span");
@@ -3153,22 +3153,23 @@ function onclickAction() {
 			sendImage();
 		};
 		KensinKinyuu.saveButton.onclick = function () {
-			savingData();
+			// savingData();
 
 			// sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
-			// document.getElementById("editView").style.display = "none";
-			// document.getElementById("printView").style.display = "block";
-			// document.getElementById("nyuukinForm").style.display = "none";
-			// var mReciept = 0;
-			// var mZandaka = 0;
-			// if (KensinKinyuu.displayTab[2] == true) {
-			// 	mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
-			// 	mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
-			// 	getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
-			// } else {
-			// 	getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
-			// }
-			// createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
+			document.getElementById("editView").style.display = "none";
+			document.getElementById("printView").style.display = "block";
+			document.getElementById("nyuukinForm").style.display = "none";
+			var mReciept = 0;
+			var mZandaka = 0;
+			if (KensinKinyuu.displayTab[2] == true) {
+				mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
+				mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
+				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
+			} else {
+				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
+			}
+			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
+			createImageKensinForm();
 		};
 	}
 }
