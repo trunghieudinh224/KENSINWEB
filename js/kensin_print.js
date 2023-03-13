@@ -1640,7 +1640,7 @@ function printGasRyokinStep_A(dLowLimit, dUpLimit, dAddKin, dTotalKin, areaName)
 	dUpLimitStepA.appendChild(document.createTextNode(Other.formatLocalJS(parseInt(dUpLimit), 1, 1)));
 
 	const tanka = document.createElement("span");
-	tanka.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-28";
+	tanka.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-27";
 	tanka.appendChild(document.createTextNode("m3 単価"));
 
 	const dAddKinStepA = document.createElement("span");

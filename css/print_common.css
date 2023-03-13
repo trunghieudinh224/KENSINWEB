@@ -209,3 +209,26 @@
 		word-spacing: 4px;
 	}
 }
+
+@media screen and (max-width: 370px) {
+	#printContent {
+		padding: 40px 3px;
+	}
+
+	#printContentDetail {
+		padding: 0px 7px !important;
+	}
+
+	/* TEXT */
+	.title-printView {
+		font-size: 24px;
+	}
+
+	.wsp-title {
+		word-spacing: 4px;
+	}
+
+	.text-print {
+		font-size: 13px;
+	}
+}
