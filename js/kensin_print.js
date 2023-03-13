@@ -1627,7 +1627,7 @@ function printGasRyokinStep_A(dLowLimit, dUpLimit, dAddKin, dTotalKin, areaName)
 	td.className = "text-print ta-r wsp-text";
 
 	const dLowLimitStepA = document.createElement("span");
-	dLowLimitStepA.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-16";
+	dLowLimitStepA.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-15";
 	dLowLimitStepA.appendChild(document.createTextNode(Other.formatLocalJS(parseInt(dLowLimit), 1, 1)));
 
 
@@ -1636,7 +1636,7 @@ function printGasRyokinStep_A(dLowLimit, dUpLimit, dAddKin, dTotalKin, areaName)
 	arrow.appendChild(document.createTextNode("→"));
 
 	const dUpLimitStepA = document.createElement("span");
-	dUpLimitStepA.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-22";
+	dUpLimitStepA.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-21";
 	dUpLimitStepA.appendChild(document.createTextNode(Other.formatLocalJS(parseInt(dUpLimit), 1, 1)));
 
 	const tanka = document.createElement("span");
@@ -1648,7 +1648,7 @@ function printGasRyokinStep_A(dLowLimit, dUpLimit, dAddKin, dTotalKin, areaName)
 	dAddKinStepA.appendChild(document.createTextNode(Other.formatLocalJS(dAddKin, 2, 4)));
 
 	const unitRow = document.createElement("span");
-	unitRow.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-6";
+	unitRow.className = "text-print ta-r wsp-text tb-item tb-item-ts tbw-8";
 	unitRow.appendChild(document.createTextNode("円"));
 
 	td.appendChild(dLowLimitStepA);
@@ -3277,14 +3277,27 @@ function savingData() {
 function onLoadAction() {
 	onclickAction();
 	Common.setFocusSelectString();
-	// if (sessionStorage.getItem(StringCS.SAVINGSTATUS) == "1") {
-	// 	Common.setupModal("question", null, Mess.I00007, null, StringCS.SHUURYOUU, null, false);
-	// 	var buttonConfirm = document.getElementsByClassName("button-1")[0];
-	// 	buttonConfirm.onclick = function () {
-	// 		Common.movePage('/search_customer.html');
-	// 		sessionStorage.removeItem(StringCS.CUSDAT);
-	// 	}
-	// }
+	if (sessionStorage.getItem(StringCS.SAVINGSTATUS) == "1") {
+		if (searchMode == "1") {
+			Common.setupModal("question", null, Mess.I00012, StringCS.IIE, StringCS.HAI, StringCS.ICHIRANE, false);
+			document.getElementsByClassName("button-0")[0].onclick = function () {
+				modal.style.display = "none";
+				Common.changePage('customer.html');
+			}
+			document.getElementsByClassName("button-1")[0].onclick = function () {
+				modal.style.display = "none";
+				Common.changePage('customer.html');
+				sessionStorage.setItem(StringCS.DIRECTIONDATA, "1");
+			}
+
+			document.getElementsByClassName("button-2")[0].onclick = function () {
+				modal.style.display = "none";
+				Common.changePage('search_customer.html');
+			}
+		} else {
+			Common.changePage('search_customer.html');
+		}
+	}
 }
 
 
