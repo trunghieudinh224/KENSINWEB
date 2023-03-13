@@ -95,6 +95,13 @@ export var CUSDETAILDATA = "CusDetailData";
 export var KEYBOARDPROP = "KeyboardProperty";
 // DIRECTION DATA
 export var DIRECTIONDATA = "DirectionData";
+// MODE TIME SHUKEI
+export var MODETIMESHUKEI = "ModetimeShukei";
+// SHUKEI START DAY
+export var SHUKEISTARTDAY = "ShukeiStartday";
+// SHUKEI END DAY
+export var SHUKEIENDDAY = "ShukeiEndday";
+
 
 
 /*****  CONTENT  *****/
