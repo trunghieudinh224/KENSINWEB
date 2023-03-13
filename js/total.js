@@ -641,17 +641,9 @@ function setShukeiDateList() {
     m_mapKensinData = new Map();
     m_mapUriageData = new Map();
 
-    // var sysfDat = userData.sysfDat;
-    // var sy2fDat = userData.sy2fDat;
-    // var kouserDat = userData.kouserDat;
-    // var cuslist = userData.cuslist;
-
     if (m_lstShukeiDat.length > 0) {
         for (var i = 0; i < m_lstShukeiDat.length; i++) {
             // 顧客データ取得
-            // nSearchNo = sysfDat.mSearchNo;
-            // idxfDat = this.mUserData.getIdxfDat().get(nSearchNo);
-            // nIdx = Objects.requireNonNull(idxfDat).mRecId[i];
             item = m_lstShukeiDat[i];
 
             if (item.h_sisin > 0 || item.h_lnk_dencnt != 0) {
@@ -744,38 +736,9 @@ function setShukeiDateList() {
                     shuukeiData.mUricnt++;
                 }
 
-                // var den_uriage = new Date(item.h_denymd);
-
-                // var strKey = (den_uriage.getMonth() + 1) + "/" + den_uriage.getDate();
-                // addShukeiUriageData(strKey, item);
-                // if (mItemList.containsKey(strKey)) {
-                //     shukeiItem = mItemList.get(strKey);
-                // }
-                // else {
-                //     shukeiItem = new ShukeiItem();
-                //     mItemList.put(strKey, shukeiItem);
-                // }
-                // addUriageShukeiData(shukeiItem, hmefDat);
-                // while (hmefDat.mNxtHrec != 0) {
-                //     hmefDat = InputDat.getHmefDat(this, hmefDat.mNxtHrec - 1, 2);
-                //     if (hmefDat == null) {
-                //         break;
-                //     }
-                //     strKey = hmefDat.mDenm + "/" + hmefDat.mDend;
-                //     addShukeiUriageData(strKey, item, hmefDat);
-                //     if (mItemList.containsKey(strKey)) {
-                //         shukeiItem = mItemList.get(strKey);
-                //     }
-                //     else {
-                //         shukeiItem = new ShukeiItem();
-                //         mItemList.put(strKey, shukeiItem);
-                //     }
-                //     addUriageShukeiData(shukeiItem, hmefDat);
-                // }
-
-
-
-
+                var den_uriage = new Date(item.h_denymd);
+                var strKey = (den_uriage.getMonth() + 1) + "/" + den_uriage.getDate();
+                addShukeiUriageData(strKey, item);
             }
         }
     }
@@ -1417,9 +1380,6 @@ function addShukeiData(shukeiItem, sysfDat, sy2fDat, kouserDat) {
     }
 }
 
-
-
-
 /**
  * 売上日報用データの追加.
  *
@@ -1430,27 +1390,27 @@ function addShukeiData(shukeiItem, sysfDat, sy2fDat, kouserDat) {
 function addShukeiUriageData(strKey, item) {
     var mapShukeiUriageData;
     // 対象の日付に集計用売上データが存在するか確認
-    if (m_mapUriageData.containsKey(strKey)) {
+    if (m_mapUriageData.has(strKey)) {
         // 存在する場合はそのデータを使用
         mapShukeiUriageData = m_mapUriageData.get(strKey);
     }
     else {
         // 存在しない場合は新規作成後追加
         mapShukeiUriageData = new Map();
-        m_mapUriageData.put(strKey, mapShukeiUriageData);
+        m_mapUriageData.set(strKey, mapShukeiUriageData);
     }
     var shukeiUriageData;
     // 対象顧客のデータが存在するか確認
-    if (mapShukeiUriageData.containsKey(item.h_cusrec)) {
+    if (mapShukeiUriageData.has(item.h_cusrec)) {
         // 存在する場合はそのデータを使用
         shukeiUriageData = mapShukeiUriageData.get(item.h_cusrec);
     }
     else {
         // 存在しない場合は新規作成後追加
-        mapShukeiUriageData.put(item.h_cusrec, item);
+        shukeiUriageData = new Array();
     }
-    // 販売明細を追加
-    Objects.requireNonNull(shukeiUriageData).addHmefDat(hmefDat);
+    shukeiUriageData.push(item);
+    mapShukeiUriageData.set(item.h_cusrec, shukeiUriageData);
 }
 
 /**
@@ -1488,7 +1448,6 @@ function selectionSort() {
  * @param hmefDat       [in] {@link HmefDat}    販売明細データ
  */
 function addUriageShukeiData(item) {
-
     shuukeiData.mUricnt++;
     shuukeiData.mUrisur += item.u_suryo;
     shuukeiData.mUrikin += item.h_kin;
