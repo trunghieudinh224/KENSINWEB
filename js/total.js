@@ -698,6 +698,13 @@ function setShukeiDateList() {
             if (item.h_sisin > 0 || item.h_lnk_dencnt != 0) {
                 item.receipt = 0;
                 item.adjust = 0;
+                // if (parseInt(systemDat.FSHOCODE_3) != 0 && item.u_shocode == parseInt(systemDat.FSHOCODE_3)) {
+                //     item.m_isToyu = true;
+                //     item.m_nToyuSs = kotfDat.m_nNow_meter;
+                //     item.m_nToyuSr = kotfDat.m_nLoil_use;
+                //     item.m_lToyuKin = kotfDat.m_nFee;
+                //     item.m_lToyuTax = kotfDat.m_nCon_tax;
+                // }
 
                 if (checkCusrec(item.h_cusrec)) {
                     continue;
@@ -713,7 +720,14 @@ function setShukeiDateList() {
                             } else {
                                 item.receipt = m_lstShukeiDat[j].h_kin * (-1);
                             }
-                        }
+                        } 
+                        // else if (item.u_shocode == parseInt(systemDat.FSHOCODE_3)) {
+                        //     item.m_isToyu = true;
+                        //     item.m_nToyuSs = item.h_sisin;
+                        //     item.m_nToyuSr = item.h_siyouryo;
+                        //     item.m_lToyuKin = item.h_kin;
+                        //     item.m_lToyuTax = item.h_stax / 1000;
+                        // }
                     }
                 }
 
@@ -722,17 +736,13 @@ function setShukeiDateList() {
                 shukeiItem1.mGryokin = item.h_kin;
                 // kokfDat.mReduce + kokfDat.mReduceTax chua tim ra field; can ghi data cua kangen de lay 2 gia tri nay
                 // gia tri duoc luu tai dieu kien  kokfDat.getKng_uri() != 0 function ReceiveJobBase
-                shukeiItem1.mKang = 0 + 0
+                shukeiItem1.mKang = 0 + 0;
                 shukeiItem1.mShohi = item.u_tax / 1000;
                 shukeiItem1.mTotal = shukeiItem1.mKang + shukeiItem1.mGryokin + shukeiItem1.mShohi;
                 shukeiItem1.mNyukin = item.receipt;
                 shukeiItem1.mChosei = item.adjust;
                 // addShukeiData(shukeiItem1, sysfDat, sy2fDat, kouserDat);
 
-                var kotfDat = null;
-                if (sysfDat.m_isToyukeninFlg) {
-                    kotfDat = item.mKotfDat;
-                }
                 // date kensin
                 var kensinDate = new Date(m_lstShukeiDat[i].h_denymd);
                 var strKey = (kensinDate.getMonth() + 1) + "/" + kensinDate.getDate();
@@ -761,13 +771,13 @@ function setShukeiDateList() {
                 kensinData.m_nKng = 0 + 0;    //kokfDat.mReduce + kokfDat.mReduceTax
                 kensinData.m_lNyu = item.receipt;
                 kensinData.m_lCho = item.adjust;
-                if (kotfDat != null && kotfDat.m_bKen_sumi == 1) {
-                    kensinData.m_isToyu = true;
-                    kensinData.m_nToyuSs = kotfDat.m_nNow_meter;
-                    kensinData.m_nToyuSr = kotfDat.m_nLoil_use;
-                    kensinData.m_lToyuKin = kotfDat.m_nFee;
-                    kensinData.m_lToyuTax = kotfDat.m_nCon_tax;
-                }
+                // if (parseInt(systemDat.FSHOCODE_3) != 0 && item.u_shocode == parseInt(systemDat.FSHOCODE_3)) {
+                //     kensinData.m_isToyu = true;
+                //     kensinData.m_nToyuSs = item.m_nToyuSs;
+                //     kensinData.m_nToyuSr = item.m_nToyuSr;
+                //     kensinData.m_lToyuKin = item.m_lToyuKin;
+                //     kensinData.m_lToyuTax = item.m_lToyuTax;
+                // }
                 if (mItemList.has(strKey))
                     shukeiItem = mItemList.get(strKey);
                 else {
@@ -779,12 +789,14 @@ function setShukeiDateList() {
                 m_mapKensinData.set(strKey, lstKensinData);
 
             } else {
-                if (item.h_kin > 0 && item.u_buskind == 0) {
-                    addUriageShukeiData(item);
-                } else if (item.u_buskind == 1 || item.u_buskind == 3) {
-                    shuukeiData.mUricnt++;
-                }
+                // if (item.h_kin > 0 && item.u_buskind == 0) {
+                //     addUriageShukeiData(item);
+                // } else
 
+                // if (item.u_buskind == 1 || item.u_buskind == 3) {
+                //     shuukeiData.mUricnt++;
+                // }
+                addUriageShukeiData(item);
                 var den_uriage = new Date(item.h_denymd);
                 var strKey = (den_uriage.getMonth() + 1) + "/" + den_uriage.getDate();
                 addShukeiUriageData(strKey, item);
@@ -792,7 +804,6 @@ function setShukeiDateList() {
         }
     }
     setShuukeiData();
-
 }
 
 
@@ -1585,15 +1596,12 @@ function addShukeiData(shukeiItem, sysfDat, sy2fDat, kouserDat) {
     shuukeiData.mShohi += shukeiItem.mShohi;
     shuukeiData.mTotal += shukeiItem.mTotal;
 
-    // if(sysfDat.m_isToyukeninFlg){
-    //     var kotfDat = kokfDat.mKotfDat;
-    //     if(kotfDat != null && kotfDat.m_bKen_sumi == 1){
-    //         shukeiItem.mToyuCnt++;
-    //         shukeiItem.mToyuUse += kotfDat.m_nLoil_use;
-    //         shukeiItem.mToyuKin += kotfDat.m_nFee;
-    //         shukeiItem.mToyuTax += kotfDat.m_nCon_tax;
-    //         shukeiItem.mToyuTotal += kotfDat.m_nFee + kotfDat.m_nCon_tax;
-    //     }
+    // if (item.u_shocode > 0 && item.u_shocode == parseInt(systemDat.FSHOCODE_3)) {
+    //     shukeiItem.mToyuCnt++;
+    //     shukeiItem.mToyuUse += item.m_nToyuSr;
+    //     shukeiItem.mToyuKin += item.m_lToyuKin;
+    //     shukeiItem.mToyuTax += item.m_lToyuTax;
+    //     shukeiItem.mToyuTotal += item.m_lToyuKin + item.m_lToyuTax;
     // }
     shuukeiData.mNyukin += shukeiItem.mNyukin;
     shuukeiData.mChosei += shukeiItem.mChosei;
