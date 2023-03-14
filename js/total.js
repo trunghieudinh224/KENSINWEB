@@ -648,7 +648,7 @@ function createImageUriageNippouForm() {
     /* default line height text of printting form */
     var smTextLH = document.getElementsByClassName("sm-text")[0].lineHeight;
     setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
-    setupTextSizeDetail("sm-text", "23px", "30px", "normal");
+    setupTextSizeDetail("sm-text", "25px", "32px", "normal");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
