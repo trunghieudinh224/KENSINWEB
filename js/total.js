@@ -537,7 +537,7 @@ function createImageShuukeiForm() {
 function createImageKenshinNippouForm() {
     closeNippouDialog();
     if (m_mapKensinData.size == 0) {
-        Common.setupModal("info", null,  "検針" + Mess.I00013, null, StringCS.OK, null, false);
+        Common.setupModal("info", null, "検針" + Mess.I00013, null, StringCS.OK, null, false);
         return;
     }
     setTitlePrintForm(0);
@@ -583,7 +583,7 @@ function createImageKenshinNippouForm() {
 function createImageShuukinNippouForm() {
     closeNippouDialog();
     if (m_mapKensinData.size == 0) {
-        Common.setupModal("info", null,  "集金" + Mess.I00013, null, StringCS.OK, null, false);
+        Common.setupModal("info", null, "集金" + Mess.I00013, null, StringCS.OK, null, false);
         return;
     }
     setTitlePrintForm(1);
@@ -1433,14 +1433,14 @@ function createPrintDataUriageNippou(mapUriageData) {
         listItemList.appendChild(dateAreaUr);
 
 
+        var nTax = 0;
+        var previousID;
+        var idx = 0;
         //list
         mapUriageData.get(keyVal).forEach((values, keys) => {
             console.log(values, keys);
 
             var uriageDataList = values;
-            var nTax = 0;
-            var idx = 0;
-            var previousID;
 
 
             //show phần name
@@ -1528,7 +1528,6 @@ function createPrintDataUriageNippou(mapUriageData) {
 
                 nTax += uriageData.u_tax;
             }
-            idx++;
 
             var rowTax = document.createElement("div");
             rowTax.className = "row";
@@ -1538,14 +1537,15 @@ function createPrintDataUriageNippou(mapUriageData) {
     
             var taxVal = document.createElement("div");
             taxVal.className = "col-9 sm-text text-print ta-r wsp-text item";
-            taxVal.innerHTML = Other.formatDecial(nTax/1000);;
+            taxVal.innerHTML = Other.formatDecial(nTax / 1000);;
     
             document.getElementById(previousID).after(rowTax);
             rowTax.appendChild(taxTitle);
             taxTitle.after(taxVal);
+            idx++;
         })
 
-        if (mapUriageData.size+1 < mapUriageData.size) {
+        if (mapUriageData.size + 1 < mapUriageData.size) {
             var longline = createStrongLine(i);
             listItemList.appendChild(longline);
         }
