@@ -480,6 +480,7 @@ function onclickAction() {
     document.getElementById("closeNippouButton").onclick = closeNippouDialog;
     document.getElementById("kenshinNippouButton").onclick = createImageKenshinNippouForm;
     document.getElementById("shuukinNippouButton").onclick = createImageShuukinNippouForm;
+    document.getElementById("UriageNippouButton").onclick = createImageUriageNippouForm;
 }
 
 
@@ -490,12 +491,12 @@ function onclickAction() {
    * @param lineHeightSingleLine     [STRING]
 */
 function setupTextSizeDetail(nameItem, textSize, lineHeight, fontWeight) {
-	const element = document.getElementsByClassName(nameItem);
-	for (let i = 0; i < element.length; i++) {
-		element[i].style.setProperty("font-size", textSize, "important")
-		element[i].style.lineHeight = lineHeight;
-		element[i].style.fontWeight = fontWeight;
-	}
+    const element = document.getElementsByClassName(nameItem);
+    for (let i = 0; i < element.length; i++) {
+        element[i].style.setProperty("font-size", textSize, "important")
+        element[i].style.lineHeight = lineHeight;
+        element[i].style.fontWeight = fontWeight;
+    }
 }
 
 
@@ -535,6 +536,10 @@ function createImageShuukeiForm() {
 */
 function createImageKenshinNippouForm() {
     closeNippouDialog();
+    if (m_mapKensinData.size == 0) {
+        Common.setupModal("info", null,  "検針" + Mess.I00013, null, StringCS.OK, null, false);
+        return;
+    }
     setTitlePrintForm(0);
 
     Common.setupModal("load", null, Mess.I00001, null, null, null, false);
@@ -546,11 +551,11 @@ function createImageKenshinNippouForm() {
     document.getElementById('shuukinNippouForm').style.display = "none";
     createPrintDataKenshinNippou(m_mapKensinData, sysfDat.m_isToyukensinFlg);
     /* default title size of printting form */
-    var smTextTS = window.getComputedStyle(document.getElementsByClassName("sm-text")[0]).fontSize;
+    var smTextTS = document.getElementsByClassName("sm-text")[0].fontSize;
     /* default line height text of printting form */
-    var smTextLH = window.getComputedStyle(document.getElementsByClassName("sm-text")[0]).lineHeight;
+    var smTextLH = document.getElementsByClassName("sm-text")[0].lineHeight;
     setupPrintForm("100vh", "670px", "55px", "31px", "37px", "31px", "37px", true, "20px");
-	setupTextSizeDetail("sm-text", "23px", "30px", "normal");
+    setupTextSizeDetail("sm-text", "23px", "30px", "normal");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
@@ -560,8 +565,8 @@ function createImageKenshinNippouForm() {
                     window.scrollTo(0, 0);
 
                     const interval = setInterval(function () {
-                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm);
-						setupTextSizeDetail("sm-text", smTextTS, smTextLH, "normal");
+                        setupPrintForm("100%", "600px", "37px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm);
+                        setupTextSizeDetail("sm-text", smTextTS, smTextLH, "normal");
                         Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
                         clearInterval(interval);
                         modal.style.display = "none";
@@ -577,11 +582,10 @@ function createImageKenshinNippouForm() {
 */
 function createImageShuukinNippouForm() {
     closeNippouDialog();
-    // Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
-    // return;
-    // if (Common.checkPrintable() == false) {
-    //     return;
-    // }
+    if (m_mapKensinData.size == 0) {
+        Common.setupModal("info", null,  "集金" + Mess.I00013, null, StringCS.OK, null, false);
+        return;
+    }
     setTitlePrintForm(1);
 
     document.getElementById('editView').style.display = "none";
@@ -597,7 +601,7 @@ function createImageShuukinNippouForm() {
     /* default line height text of printting form */
     var smTextLH = window.getComputedStyle(document.getElementsByClassName("sm-text")[0]).lineHeight;
     setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
-	setupTextSizeDetail("sm-text", "23px", "30px", "normal");
+    setupTextSizeDetail("sm-text", "23px", "30px", "normal");
     domtoimage.toBlob(document.getElementById('printContentDetail'))
         .then(function (blob) {
             getBase64(blob).then(
@@ -607,8 +611,8 @@ function createImageShuukinNippouForm() {
                     window.scrollTo(0, 0);
 
                     const interval = setInterval(function () {
-                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm);
-						setupTextSizeDetail("sm-text", smTextTS, smTextLH, "normal");
+                        setupPrintForm("100%", "600px", "37px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm);
+                        setupTextSizeDetail("sm-text", smTextTS, smTextLH, "normal");
                         Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
                         clearInterval(interval);
                         modal.style.display = "none";
@@ -619,6 +623,51 @@ function createImageShuukinNippouForm() {
 }
 
 
+/** 
+    * CREATE IMAGE FILE OF URIAGE NIPPOU FORM
+*/
+function createImageUriageNippouForm() {
+    closeNippouDialog();
+    if (m_mapUriageData.size == 0) {
+        Common.setupModal("info", null, "売上" + Mess.I00013, null, StringCS.OK, null, false);
+        return;
+    }
+    setTitlePrintForm(2);
+
+    document.getElementById('editView').style.display = "none";
+    document.getElementById('printView').style.display = "block";
+    document.getElementById('nippouArea').style.display = "block";
+    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
+    Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
+    document.getElementById('uriageNippouForm').style.display = "block";
+    document.getElementById('kensinNippouForm').style.display = "none";
+    document.getElementById('shuukinNippouForm').style.display = "none";
+    createPrintDataUriageNippou(m_mapUriageData);
+    /* default title size of printting form */
+    var smTextTS = document.getElementsByClassName("sm-text")[0].fontSize;
+    /* default line height text of printting form */
+    var smTextLH = document.getElementsByClassName("sm-text")[0].lineHeight;
+    setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
+    setupTextSizeDetail("sm-text", "23px", "30px", "normal");
+    domtoimage.toBlob(document.getElementById('printContentDetail'))
+        .then(function (blob) {
+            getBase64(blob).then(
+                data => {
+                    console.log(data)
+                    imgString = data;
+                    window.scrollTo(0, 0);
+
+                    const interval = setInterval(function () {
+                        setupPrintForm("100%", "600px", "37px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm);
+                        setupTextSizeDetail("sm-text", smTextTS, smTextLH, "normal");
+                        Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
+                        clearInterval(interval);
+                        modal.style.display = "none";
+                    }, 100);
+                }
+            );
+        })
+}
 
 /**
   * 集計データ一覧の設定.
@@ -1328,6 +1377,179 @@ function createPrintDataShuukinNippou(mapKensinData) {
     gasuShiyouRyouText.after(gasuShiyouRyouVal);
     gasuShiyouRyouVal.after(gasuRyoukinText);
     gasuRyoukinText.after(gasuRyoukinVal);
+}
+
+
+/**
+   * SHUUKIN NIPPOU PRINT INITIALIZATION
+   *
+   * @param mapUriageData     [MAP]
+ */
+function createPrintDataUriageNippou(mapUriageData) {
+    var oldItemList = document.getElementsByClassName("list-item");
+    for (var i = 0; i < oldItemList.length; i++) {
+        oldItemList[i].remove();
+    }
+    var oldTotalDiv = document.getElementsByClassName("uriage-total");
+    for (var i = 0; i < oldTotalDiv.length; i++) {
+        oldTotalDiv[i].remove();
+    }
+
+
+    var time = moment().format('YYYY年 MM月 DD日 HH:mm:ss');
+    document.getElementById("insatsuBiNP").innerHTML = time;
+
+    var tantname = "";
+    for (var i = 0; i < dataSetting.m_lstTantName.length; i++) {
+        if (dataSetting.m_lstTantName[i].code == dataSetting.tancd) {
+            tantname = dataSetting.m_lstTantName[i].name;
+            break;
+        }
+    }
+    // 担当
+    document.getElementById("tantNameNP").innerHTML = tantname;
+
+    const keys = mapUriageData.keys();
+    var listUriage = document.getElementById("listUriage");
+    for (var idx = 0; idx < mapUriageData.size; idx++) {
+        var keyVal = keys.next().value;
+        console.log(keyVal);
+
+        //Khởi tạo ngày
+        var listItemList = document.createElement("div");
+        listItemList.className = "list-item";
+        listItemList.id = "listItemUr" + idx;
+        listUriage.appendChild(listItemList);
+        var dateAreaUr = document.createElement("div");
+        dateAreaUr.className = "text-print ta-l wsp-text sg-line";
+        dateAreaUr.id = "dateAreaUr" + idx;
+        dateAreaUr.innerHTML = "売上日";
+
+        var dateVal = document.createElement("span");
+        dateVal.className = "text-print item mr-5";
+        dateVal.innerHTML = keyVal;
+
+        dateAreaUr.appendChild(dateVal);
+        listItemList.appendChild(dateAreaUr);
+
+
+        //list
+        mapUriageData.get(keyVal).forEach((values, keys) => {
+            console.log(values, keys);
+
+            var uriageDataList = values;
+            var nTax = 0;
+            var idx = 0;
+            var previousID;
+
+
+            //show phần name
+            var listItemDetail = document.createElement("div");
+            listItemDetail.className = "list-item-detail";
+            listItemDetail.id = "listItemDetail_Ur" + idx;
+            dateAreaUr.appendChild(listItemDetail);
+            var shortLine = createShortLine(idx);
+            listItemDetail.appendChild(shortLine);
+
+            var dayDetail = document.createElement("div");
+            dayDetail.className = "day-detail pd-0";
+            dayDetail.id = "dayDetail" + idx;
+            shortLine.after(dayDetail);
+            for (var i = 0; i < uriageDataList.length; i++) {
+                var uriageData = uriageDataList[i];
+
+                var rowName = document.createElement("div");
+                rowName.className = "row name-area-ur";
+
+                var kcode = document.createElement("div");
+                kcode.className = "col-5 text-print ta-l wsp-text item codeVal-Ur";
+                kcode.innerHTML = Other.cutStringSpace(Other.nullToString(uriageData.mCusCode).trim());
+
+
+                var name = document.createElement("div");
+                name.className = "col-7 text-print ta-l wsp-text item NameVal-Ur";
+                name.innerHTML = Other.cutStringSpace(Other.nullToString(uriageData.mName).trim());
+
+                if (uriageData.u_buskind == 0 && i == 0) {
+                    dayDetail.appendChild(rowName);
+                    rowName.appendChild(kcode);
+                    kcode.after(name);
+                }
+
+
+                // show sanpham
+                var rowDetail = document.createElement("div");
+                rowDetail.className = "row";
+                rowDetail.id = "rowDetail-ur-" + idx + "-" + i;
+                previousID = rowDetail.id;
+                if (uriageData.u_buskind == 0 && i == 0) {
+                    rowName.after(rowDetail)
+                } else {
+                    dayDetail.appendChild(rowDetail);
+                }
+
+                var hmNameText = document.createElement("div");
+                hmNameText.className = "col-4 sm-text ta-l wsp-text item pd-0";
+                if (uriageData.u_buskind == 0) {
+                    hmNameText.innerHTML = Other.cutStringSpace(Other.nullToString(uriageData.u_hmname).trim());
+                } else if (uriageData.u_buskind == 3) {
+                    hmNameText.innerHTML = "現金";
+                } else if (uriageData.u_buskind == 1) {
+                    hmNameText.innerHTML = "調整";
+                }
+
+                var suryouText = document.createElement("div");
+                suryouText.className = "col-3 sm-text ta-r wsp-text item pd-r-0";
+                if (uriageData.m_lNyu != 0 && uriageData.u_buskind == 0) {
+                    suryouText.innerHTML = Other.formatDecial(uriageData.u_suryo);
+                }
+
+                var shiyouRyouText = document.createElement("div");
+                shiyouRyouText.className = "col-2 sm-text ta-r wsp-text item pd-r-0";
+                if (uriageData.u_tank != 0 && uriageData.u_buskind == 0) {
+                    // 単価印字有り
+                    if (uriageData.u_tank % 100 == 0) {
+                        shiyouRyouText.innerHTML = Other.formatDecial(uriageData.u_tank / 100);
+                    } else if (hmefDat.mTanka % 10 == 0) {
+                        shiyouRyouText.innerHTML = Other.formatLocalJS(uriageData.u_tank, 1, 2);
+                    } else {
+                        shiyouRyouText.innerHTML = Other.formatLocalJS(uriageData.u_tank, 2, 2);
+                    }
+                }
+
+                var kinVal = document.createElement("div");
+                kinVal.className = "col-3 sm-text ta-r wsp-text item pd-r-0";
+                kinVal.innerHTML = Other.formatDecial(uriageData.u_kin);
+
+                rowDetail.appendChild(hmNameText);
+                hmNameText.after(suryouText);
+                suryouText.after(shiyouRyouText);
+                shiyouRyouText.after(kinVal);
+
+                nTax += uriageData.u_tax;
+            }
+            idx++;
+
+            var rowTax = document.createElement("div");
+            rowTax.className = "row";
+            var taxTitle = document.createElement("div");
+            taxTitle.className = "col-3 sm-text text-print ta-l wsp-text item";
+            taxTitle.innerHTML = "消費税";
+    
+            var taxVal = document.createElement("div");
+            taxVal.className = "col-9 sm-text text-print ta-r wsp-text item";
+            taxVal.innerHTML = Other.formatDecial(nTax/1000);;
+    
+            document.getElementById(previousID).after(rowTax);
+            rowTax.appendChild(taxTitle);
+            taxTitle.after(taxVal);
+        })
+
+        if (mapUriageData.size+1 < mapUriageData.size) {
+            var longline = createStrongLine(i);
+            listItemList.appendChild(longline);
+        }
+    }
 }
 
 
