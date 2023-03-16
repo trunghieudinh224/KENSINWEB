@@ -2575,3 +2575,26 @@ export class AndroidData {
 		this.mUserData;
 	}
 }
+
+export class HieuDat {
+	constructor() {
+		this.mName = "";
+		this.mTel = "";
+		this.mFax = "";
+		this.mAdd1 = "";
+		this.mAdd2 = "";
+		this.mAdd3 = "";
+	}
+
+	setValue(mName, mTel, mFax, mAdd1, mAdd2, mAdd3) {
+		var data = new HieuDat();
+
+		data.mName = mName;
+		data.mTel = mTel;
+		data.mFax = mFax;
+		data.mAdd1 = mAdd1;
+		data.mAdd2 = mAdd2;
+		data.mAdd3 = mAdd3;
+		return data;
+	}
+}
