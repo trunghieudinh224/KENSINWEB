@@ -3162,6 +3162,20 @@ function onclickAction() {
 			sendImage();
 		};
 		KensinKinyuu.saveButton.onclick = function () {
+			var mReciept = 0;
+			var mZandaka = 0;
+			if (KensinKinyuu.displayTab[2] == true) {
+				mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
+				mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
+				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
+			} else {
+				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
+			}
+			androidData.type = "kensin";
+			androidData.printStatus = printStatus;
+			androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
+			androidData.isHikae = false;
+			androidData.mUserData.mSysfDat = finalData.mSysfDat;
 			window.location.href = "https://www.example.com/path?param="+JSON.stringify(androidData);
 			// savingData();
 
