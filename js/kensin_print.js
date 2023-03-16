@@ -3162,7 +3162,6 @@ function onclickAction() {
 			sendImage();
 		};
 		KensinKinyuu.saveButton.onclick = function () {
-			var finalData = KensinKinyuu.sendDataToServer();
 			var mReciept = 0;
 			var mZandaka = 0;
 			if (KensinKinyuu.displayTab[2] == true) {
@@ -3176,7 +3175,7 @@ function onclickAction() {
 			androidData.printStatus = printStatus;
 			androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
 			androidData.isHikae = false;
-			androidData.mUserData.mSysfDat = finalData.mSysfDat;
+			androidData.mUserData.mSysfDat = mUserData.mSysfDat;
 			window.location.href = "https://www.example.com/path?param="+JSON.stringify(androidData);
 			// savingData();
 
