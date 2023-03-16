@@ -3162,6 +3162,7 @@ function onclickAction() {
 			sendImage();
 		};
 		KensinKinyuu.saveButton.onclick = function () {
+			var finalData = KensinKinyuu.sendDataToServer();
 			var mReciept = 0;
 			var mZandaka = 0;
 			if (KensinKinyuu.displayTab[2] == true) {
