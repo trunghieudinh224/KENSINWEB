@@ -3119,11 +3119,12 @@ function setupTextSizeDetail(nameItem, textSize, lineHeight, fontWeight) {
 function sendImage() {
 	imgString = imgString.replace("data:image/png;base64,", "");
 	navigator.clipboard.writeText(imgString);
+	navigator.clipboard.writeText(JSON.stringify(KensinKinyuu.sendDataToServer()));
 	var check = Common.getMobileOperatingSystem();
 	if (check == "Ios") {
 		window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://", "");
 	} else if (check == "Android") {
-		window.location.href = "https://www.printermarutou.com/path?" + JSON.stringify(KensinKinyuu.sendDataToServer());
+		window.location.href = "https://www.printermarutou.com/path?aaaa";
 	}
 }
 
