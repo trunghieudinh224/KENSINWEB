@@ -3123,8 +3123,11 @@ function sendImage() {
 	if (check == "Ios") {
 		window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://", "");
 	} else if (check == "Android") {
-		var hieudat = new Dat.HieuDat().setValue("Hieu","0902622737", "0001-2940","vo van kiet", "p16", "quan 8")
-		window.location.href = "https://www.example.com/path?param="+JSON.stringify(hieudat);
+		// var hieudat = new Dat.HieuDat().setValue("Hieu","0902622737", "0001-2940","vo van kiet", "p16", "quan 8")
+		// window.location.href = "https://www.example.com/path?param="+JSON.stringify(hieudat);
+
+
+		window.location.href = "https://www.example.com/path?param="+JSON.stringify(androidData);
 	}
 }
 
@@ -3159,7 +3162,8 @@ function onclickAction() {
 			sendImage();
 		};
 		KensinKinyuu.saveButton.onclick = function () {
-			savingData();
+			window.location.href = "https://www.example.com/path?param="+JSON.stringify(androidData);
+			// savingData();
 
 			// sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
 			// document.getElementById("editView").style.display = "none";
