@@ -2572,9 +2572,21 @@ export class AndroidData {
 		this.printStatus;
 		this.isHybseikyu;
 		this.isHikae;
-		this.mUserData;
+		this.mUserData = new UserData();
+	}
+
+	setValue(type, printStatus, isHybseikyu, isHikae, mUserData) {
+		var data = new AndroidData();
+
+		data.type = type;
+		data.printStatus = printStatus;
+		data.isHybseikyu = isHybseikyu;
+		data.isHikae = isHikae;
+		data.mUserData = mUserData;
+		return data;
 	}
 }
+
 
 export class HieuDat {
 	constructor() {

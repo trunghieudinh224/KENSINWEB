@@ -3119,8 +3119,6 @@ function setupTextSizeDetail(nameItem, textSize, lineHeight, fontWeight) {
 function sendImage() {
 	imgString = imgString.replace("data:image/png;base64,", "");
 	navigator.clipboard.writeText(imgString);
-	navigator.clipboard.writeText("Hieu123");
-	myFunction();
 	var check = Common.getMobileOperatingSystem();
 	if (check == "Ios") {
 		window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://", "");
@@ -3128,17 +3126,6 @@ function sendImage() {
 		var hieudat = new Dat.HieuDat().setValue("Hieu","0902622737", "0001-2940","vo van kiet", "p16", "quan 8")
 		window.location.href = "https://www.example.com/path?param="+JSON.stringify(hieudat);
 	}
-}
-
-function myFunction() {
-    navigator.clipboard
-      .writeText("Hieu123")
-      .then(() => {
-        alert("successfully copied");
-      })
-      .catch(() => {
-        alert("something went wrong");
-      });
 }
 
 
@@ -3241,14 +3228,16 @@ function createImageKensinForm() {
 }
 
 
+var androidData = new Dat.AndroidData();
 /** 
 	* SENDING DATA
 */
 function savingData() {
 	Common.setupModal("load", null, Mess.I00002, null, null, null, false);
+	var finalData = KensinKinyuu.sendDataToServer();
 	$.ajax({
 		type: "POST",
-		data: JSON.stringify(KensinKinyuu.sendDataToServer()),
+		data: JSON.stringify(finalData),
 		url: StringCS.PR_HTTPS + StringCS.PR_ADDRESS + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
 		// url: StringCS.PR_HTTP + StringCS.PR_ADDRESS + StringCS.PR_PORT + StringCS.PR_WEBNAME + StringCS.PR_WRITEDATA,
 		dataType: "json",
@@ -3270,6 +3259,12 @@ function savingData() {
 				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
 			}
 			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
+			androidData.type = "kensin";
+			androidData.printStatus = printStatus;
+			androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
+			androidData.isHikae = false;
+			androidData.mUserData.mSysfDat = finalData.mSysfDat;
+
 			Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 			createImageKensinForm();
 		},

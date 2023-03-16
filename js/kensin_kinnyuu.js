@@ -1311,7 +1311,6 @@ function inputFocus() {
 
 
 
-export var androidData = new Dat.AndroidData();
 /**
     SEND DATA
 */
@@ -1412,15 +1411,6 @@ export function sendDataToServer() {
     writeDatadat.m_oMetMeisaiDat = m_oMetMeisaiDat;
     writeDatadat.login_id = sessionStorage.getItem(StringCS.USERNAME);
     writeDatadat.login_pw = sessionStorage.getItem(StringCS.PASSWORD);
-
-
-    androidData.type = "kensin";
-    // androidData.printStatus
-    // androidData.isHybseikyu
-    // androidData.isHikae
-    // androidData.mUserData.mSysfDat = mUserData.mSysfDat;
-    // androidData.mUserData.mKokfDat = mUserData.mKokfDat;
-
 
     return writeDatadat;
 }
