@@ -2564,3 +2564,14 @@ export class KeyboardProp {
 		return data
 	}
 }
+
+
+export class AndroidData {
+	constructor() {
+		this.type = "";
+		this.printStatus;
+		this.isHybseikyu;
+		this.isHikae;
+		this.mUserData;
+	}
+}
