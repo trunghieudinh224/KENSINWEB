@@ -3120,12 +3120,24 @@ function sendImage() {
 	imgString = imgString.replace("data:image/png;base64,", "");
 	navigator.clipboard.writeText(imgString);
 	navigator.clipboard.writeText("Hieu123");
+	myFunction();
 	var check = Common.getMobileOperatingSystem();
 	if (check == "Ios") {
 		window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://", "");
 	} else if (check == "Android") {
 		window.location.href = "https://www.example.com/path?id=1&name=mark";
 	}
+}
+
+function myFunction() {
+    navigator.clipboard
+      .writeText("Hieu123")
+      .then(() => {
+        alert("successfully copied");
+      })
+      .catch(() => {
+        alert("something went wrong");
+      });
 }
 
 
