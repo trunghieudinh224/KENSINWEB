@@ -3125,7 +3125,7 @@ function sendImage() {
 	if (check == "Ios") {
 		window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://", "");
 	} else if (check == "Android") {
-		window.location.href = "https://www.example.com/path?"+JSON.stringify(KensinKinyuu.sendDataToServer());
+		window.location.href = "https://www.example.com/path?param="+JSON.stringify(KensinKinyuu.sendDataToServer());
 	}
 }
 
