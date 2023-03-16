@@ -3124,7 +3124,7 @@ function sendImage() {
 	if (check == "Ios") {
 		window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://", "");
 	} else if (check == "Android") {
-		window.location.href = "https://www.example.com";
+		window.location.href = "https://www.example.com/path?id=1&name=mark";
 	}
 }
 
