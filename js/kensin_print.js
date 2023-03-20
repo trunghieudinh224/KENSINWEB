@@ -3176,6 +3176,7 @@ function onclickAction() {
 			androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
 			androidData.isHikae = false;
 			androidData.mUserData.mSysfDat = mUserData.mSysfDat;
+			androidData.mUserData.mKokfDat = mUserData.mKokfDat;
 			androidData.mUserData.mKensinDate = mUserData.mKensinDate;
 			window.location.href = "https://www.example.com/path?param="+JSON.stringify(androidData);
 			// savingData();
