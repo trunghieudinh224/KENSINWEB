@@ -2570,9 +2570,10 @@ export class AndroidData {
 		this.isHybseikyu;
 		this.isHikae;
 		this.mUserData = new UserData();
+		this.kensinData = new KensinData();
 	}
 
-	setValue(type, printStatus, isHybseikyu, isHikae, mUserData) {
+	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData) {
 		var data = new AndroidData();
 
 		data.type = type;
@@ -2580,6 +2581,7 @@ export class AndroidData {
 		data.isHybseikyu = isHybseikyu;
 		data.isHikae = isHikae;
 		data.mUserData = mUserData;
+		data.kensinData = kensinData;
 		return data;
 	}
 }

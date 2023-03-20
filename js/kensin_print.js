@@ -3177,6 +3177,7 @@ function onclickAction() {
 			androidData.isHikae = false;
 			androidData.mUserData.mSysfDat = mUserData.mSysfDat;
 			androidData.mUserData.mKokfDat = mUserData.mKokfDat;
+			androidData.kensinData = kensinData;
 			androidData.mUserData.mKensinDate = mUserData.mKensinDate;
 			window.location.href = "https://www.example.com/path?param="+JSON.stringify(androidData);
 			// savingData();
