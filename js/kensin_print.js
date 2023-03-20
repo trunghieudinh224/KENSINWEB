@@ -3283,6 +3283,7 @@ function savingData() {
 			androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
 			androidData.isHikae = false;
 			androidData.mUserData.mSysfDat = finalData.mSysfDat;
+			androidData.mUserData.mKokfDat = finalData.mKokfDat;
 
 			Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 			createImageKensinForm();

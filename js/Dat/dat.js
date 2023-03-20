@@ -235,7 +235,6 @@ export class KokfDat {
 		this.kai_ymd = null;
 		this.mKenku = 0;
 		this.chuatu = 0;
-		this.sime = 0;
 		this.mLoilDiv = 0;
 	}
 
@@ -267,7 +266,7 @@ export class KokfDat {
 		data.mFee = mFee;
 		data.mHiwari = mHiwari;
 		data.mTaxDiv = mTaxDiv;
-		data.mSimeF = mSimeF;
+		data.mSimeF = sime;
 		data.mKaiYear = mKaiYear;
 		data.mKaiMonth = mKaiMonth;
 		data.mKaiDate = mKaiDate;
@@ -335,7 +334,6 @@ export class KokfDat {
 		data.kai_ymd = kai_ymd;
 		data.mKenku = mKenku;
 		data.chuatu = chuatu;
-		data.sime = sime;
 		data.mLoilDiv = mLoilDiv;
 
 		return data
@@ -365,7 +363,7 @@ export class KokfDat {
 		data.mFee = responeData.mFee;
 		data.mHiwari = responeData.mHiwari;
 		data.mTaxDiv = responeData.mTaxDiv;
-		data.mSimeF = responeData.mSimeF;
+		data.mSimeF = responeData.sime;
 		data.mKaiYear = responeData.mKaiYear;
 		data.mKaiMonth = responeData.mKaiMonth;
 		data.mKaiDate = responeData.mKaiDate;
@@ -433,7 +431,6 @@ export class KokfDat {
 		data.kai_ymd = responeData.kai_ymd;
 		data.mKenku = responeData.mKenku;
 		data.chuatu = responeData.chuatu;
-		data.sime = responeData.sime;
 		data.mLoilDiv = responeData.mLoilDiv;
 
 		return data
