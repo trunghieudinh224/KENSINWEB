@@ -3171,6 +3171,7 @@ function onclickAction() {
 			} else {
 				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
 			}
+			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
 			androidData.type = "kensin";
 			androidData.printStatus = printStatus;
 			androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
