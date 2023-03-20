@@ -266,7 +266,7 @@ export class KokfDat {
 		data.mFee = mFee;
 		data.mHiwari = mHiwari;
 		data.mTaxDiv = mTaxDiv;
-		data.mSimeF = sime;
+		data.mSimeF = mSimeF;
 		data.mKaiYear = mKaiYear;
 		data.mKaiMonth = mKaiMonth;
 		data.mKaiDate = mKaiDate;
