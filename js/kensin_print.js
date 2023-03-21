@@ -633,7 +633,7 @@ function createKensinInfoBase(kensinData) {
 	// 使用量
 	const shiyooRyooVal = document.getElementById("shiyooRyooVal");
 	shiyooRyooVal.innerHTML = Other.Format(kensinData.m_NowUse, 1);
-	mKSIB.sNowUse = Other.Format(kensinData.sNowUse, 1) + "m3";
+	mKSIB.sNowUse = Other.Format(kensinData.m_NowUse, 1) + "m3";
 
 	var countZenkaiSS = 0;
 	// 矩形印字
