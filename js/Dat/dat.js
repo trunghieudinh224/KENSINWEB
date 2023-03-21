@@ -1569,7 +1569,7 @@ export class KensinData {
 		/** ハイブリッドフラグ */
 		this.m_isHybrid = false;
 		/** 顧客ハイブリッドデータ */
-		this.mKo2fDat = null;
+		this.mKo2fDat = new Ko2fDat();
 		/** ガス料金のみ */
 		this.m_nOnlyGas = 0;
 		/** ガス料金透明化フラグ */
