@@ -31,6 +31,10 @@ var kensinData = new Dat.KensinData();
 var searchMode = sessionStorage.getItem(StringCS.SEARCHMODE);
 
 
+/*****  ANDROID DATA  *****/
+var androidData = new Dat.AndroidData();
+var mKSIB = new Dat.KSIB();
+
 /****  PRINT   ****/
 /* image string */
 var imgString = "";
@@ -576,11 +580,13 @@ function createKensinInfoBase(kensinData) {
 	var sysfDat = mUserData.mSysfDat;
 	var sy2fDat = mUserData.mSy2fDat;
 
-	// 今回検針 ==> done
+	// 今回検針
 	const konkaiSSVal = document.getElementById("konkaiSSVal");
 	konkaiSSVal.innerHTML = Other.Format(kensinData.m_Sisin, 1);
+	mKSIB.sSisin = Other.Format(kensinData.m_Sisin, 1) + "  ";
 
 	const toritsukjJiZenkaiSSText = document.getElementById("toritsukjJiZenkaiSSText");
+	mKSIB.bIsChgMeter = kensinData.m_bChgMeter;
 	if (kensinData.m_bChgMeter) {
 		// メーター取替有
 		toritsukjJiZenkaiSSText.innerHTML = "取付指針";
@@ -595,6 +601,7 @@ function createKensinInfoBase(kensinData) {
 			strLine = " (" + Other.DateFormat(kensinData.m_KensinPrevMonth, kensinData.m_KensinPrevDay, true) + ")";
 		}
 	}
+	mKSIB.sToritsukjJiZenkaiSiSin = strLine;
 	if (strLine.length > 0) {
 		const span = document.createElement("span");
 		span.className = "text-print item";
@@ -607,12 +614,14 @@ function createKensinInfoBase(kensinData) {
 	strLine = Other.Format(kensinData.m_SisinPrev, 1);
 	const toritsukjJiZenkaiSSVal = document.getElementById("toritsukjJiZenkaiSSVal");
 	toritsukjJiZenkaiSSVal.innerHTML = strLine;
+	mKSIB.sSisinPrev = strLine + "  ";
 
 	if (kensinData.m_bChgMeter) {
 		// メーター取替有は中間使用量を印字
 		document.getElementById("chuukanShiyooRyooArea").style.display = "block";
 		const chuukanShiyooRyooVal = document.getElementById("chuukanShiyooRyooVal");
 		chuukanShiyooRyooVal.innerHTML = Other.Format(kensinData.m_ChukanSur, 1);
+		mKSIB.sChukanSur = Other.Format(kensinData.m_ChukanSur, 1) + "  ";
 	} else {
 		document.getElementById("chuukanShiyooRyooArea").style.display = "none";
 	}
@@ -624,16 +633,20 @@ function createKensinInfoBase(kensinData) {
 	// 使用量
 	const shiyooRyooVal = document.getElementById("shiyooRyooVal");
 	shiyooRyooVal.innerHTML = Other.Format(kensinData.m_NowUse, 1);
+	mKSIB.sNowUse = Other.Format(kensinData.sNowUse, 1) + "m3";
 
 	var countZenkaiSS = 0;
 	// 矩形印字
+	mKSIB.bIsPrnZensr = kensinData.mPrnZensr;
 	if (kensinData.mPrnZensr) {
 		const zenkaiShiyooRyooVal = document.getElementById("zenkaiShiyooRyooVal");
 		zenkaiShiyooRyooVal.innerHTML = Other.Format(kensinData.m_PreUse, 1);
+		mKSIB.sPreUse = Other.Format(kensinData.m_PreUse, 1) + "m3";
 	} else {
 		document.getElementById("zenkaiShiyooRyooArea").style.display = "none";
 		countZenkaiSS++;
 	}
+	mKSIB.bIsPrintZenYearKenSr = kensinData.m_bPrintZenYearKenSr;
 	if (kensinData.m_bPrintZenYearKenSr) {
 		createZenYearkenSr(kensinData);
 	} else {
@@ -647,10 +660,12 @@ function createKensinInfoBase(kensinData) {
 		if (kensinData.m_ChgMonth != 0 && kensinData.m_ChgDay != 0) {
 			strLine = "(" + Other.DateFormat(kensinData.m_ChgMonth, kensinData.m_ChgDay, true) + ")";
 		}
+		mKSIB.sTorihazuSiSinDate= strLine;
 		const torihazuSSDate = document.getElementById("torihazuSSDate");
 		torihazuSSDate.innerHTML = strLine;
 		const torihazuSSVal = document.getElementById("torihazuSSVal");
 		torihazuSSVal.innerHTML = Other.Format(kensinData.m_ChgSisin, 1);
+		mKSIB.sTorihazuSiSin = Other.Format(kensinData.m_ChgSisin, 1);
 
 
 		if (kensinData.m_KensinPrevMonth != 0 && kensinData.m_KensinPrevDay != 0) {
@@ -658,9 +673,11 @@ function createKensinInfoBase(kensinData) {
 			const zenkaiSSDate = document.getElementById("zenkaiSSDate");
 			zenkaiSSDate.innerHTML = strLine;
 		}
+		mKSIB.sZenkaiSiSinDate = strLine;
 
 		const zenkaiSSVal = document.getElementById("zenkaiSSVal");
 		zenkaiSSVal.innerHTML = Other.Format(kensinData.m_ChgZsisin, 1);
+		mKSIB.sChgZsisin = Other.Format(kensinData.m_ChgZsisin, 1);
 	} else {
 		document.getElementById("torihazuZenkaiSSArea").style.display = "none";
 		countZenkaiSS++;
@@ -675,32 +692,40 @@ function createKensinInfoBase(kensinData) {
 	//通常料金
 	const gasuRyookinVal = document.getElementById("gasuRyookinVal");
 	gasuRyookinVal.innerHTML = Other.KingakuFormat(kensinData.m_GasPay);
+	mKSIB.sGasPay = Other.KingakuFormat(kensinData.m_GasPay)+ "円";
 
 	var ko2fDat = kensinData.mKo2fDat;
 	var hybfDat = kensinData.mHybfDat;
 	var previousIdCounter = "";
+	mKSIB.bIsPrnGasBaseKin = kensinData.mPrnGasBaseKin;
 	if (kensinData.mPrnGasBaseKin) {
 		document.getElementById("gasBaseKinArea").style.display = "block";
 		//基本料金
 		const kihonRyookinVal = document.getElementById("kihonRyookinVal");
 		kihonRyookinVal.innerHTML = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000);
+		mKSIB.sKihonRyookin = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000)+ "円";
 		previousIdCounter = "kihonRyookinValArea";
 
+		mKSIB.bIsHybrid = kensinData.m_isHybrid;
+		mKSIB.nGashyb = ko2fDat.mGashyb;
 		if (kensinData.m_isHybrid && ko2fDat.mGashyb > 0) {
 			document.getElementById("juuryooRyookinArea").style.display = "none";
 			//通常従量料金
 			const tsuujooJuuryooRyookinVal = document.getElementById("tsuujooJuuryooRyookinVal");
-			tsuujooJuuryooRyookinVal.innerHTML = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000)
+			tsuujooJuuryooRyookinVal.innerHTML = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000);
+			mKSIB.sRyookin = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000)+ "円";
 			previousIdCounter = "tsuujooJuuryooRyookinArea";
 		} else {
 			document.getElementById("tsuujooJuuryooRyookinArea").style.display = "none";
 			//従量料金
 			strLine = Other.KingakuFormat(kensinData.m_GasPay - kensinData.mGasBaseKin / 1000 - kensinData.m_nFacilityKin / 1000);
+			mKSIB.sRyookin = strLine+ "円";
 			const juuryooRyookinVal = document.getElementById("juuryooRyookinVal");
 			juuryooRyookinVal.innerHTML = strLine;
 			previousIdCounter = "juuryooRyookinArea";
 		}
 
+		//Hieu android
 		if (kensinData.m_isHybrid && ko2fDat.mGashyb > 0) {
 			var str;
 			var nGasTotal;
@@ -751,6 +776,9 @@ function createKensinInfoBase(kensinData) {
 	if (kensinData.m_isHybrid) {
 		//カウンター使用料 (nType is unnecessary, let it be zero)
 		printCounterUseKin(ko2fDat, hybfDat);
+		mKSIB.counterUseKinDat.nUseKin = ko2fDat.mUseKin;
+		mKSIB.counterUseKinDat.mUseSncode = hybfDat.mUseKin;
+		mKSIB.counterUseKinDat.sKin = document.getElementById("counterUseKinVal").textContent + "円";
 	} else {
 		document.getElementById("counterUseKinArea").style.display = "none";
 		countCounterNameArea++;
@@ -758,6 +786,8 @@ function createKensinInfoBase(kensinData) {
 
 	// 消費税有り
 	var gasfDat = mUserData.mGasfDat;
+	mKSIB.gasfDat = gasfDat;
+	mKSIB.nGasTax = kensinData.m_GasTax
 	if (gasfDat != null) {
 		if (gasfDat.mTaxDiv == 3 && kensinData.m_GasTax != 0) {
 			const gasuShoohizeiVal = document.getElementById("gasuShoohizeiVal");
@@ -771,7 +801,8 @@ function createKensinInfoBase(kensinData) {
 		countCounterNameArea++;
 	}
 
-	if (sysfDat.mKnebFlg == 1) {
+	mKSIB.nKnebFlg = sysfDat.mKnebFlg;
+	if (sysfDat.mKnebFlg == 1) {		//Hieu android
 		var hasData = false;
 		// 漢の値引き有り
 		for (var i = 0; mUserData.m_lstKnebDat.length; i++) {
@@ -780,7 +811,7 @@ function createKensinInfoBase(kensinData) {
 				knebDat.m_nUmu == 1 &&  // 割引フラグ有
 				knebDat.m_nRes == 1 &&  // 割引実績有
 				knebDat.m_nKin != 0) {  // 割引金額有
-				var warifDat = mUserData.getWarifDat(knebDat.m_nCode);
+				var warifDat = mUserData.getWarifDat(knebDat.m_nCode);		//Hieu
 				const hinName = document.getElementById("hinName");
 				hinName.innerHTML = warifDat.m_strHinName;
 
@@ -803,11 +834,14 @@ function createKensinInfoBase(kensinData) {
 	}
 
 	// 還元額有り
+	mKSIB.bIfReduce = sysfDat.mIfReduce;
+	mKSIB.nReduce = kensinData.m_Reduce;
 	if (sysfDat.mIfReduce && kensinData.m_Reduce != 0) {
 		// 差益還元額名称取得
 		strLine = Other.getKangcontname(sy2fDat, mUserData);
 		const kangconTnameVal = document.getElementById("kangconTnameVal");
 		kangconTnameVal.innerHTML = strLine;
+		mKSIB.sKangcontname = strLine
 
 		strLine = Other.KingakuFormat(kensinData.m_Reduce);
 		const reduceVal = document.getElementById("reduceVal");
@@ -817,6 +851,7 @@ function createKensinInfoBase(kensinData) {
 		countCounterNameArea++;
 	}
 
+	mKSIB.bIsPrintGasRyokinTotal = kensinData.m_bPrintGasRyokinTotal;
 	if (kensinData.m_bPrintGasRyokinTotal) {
 		document.getElementById("gasuRyookinSoogakuArea").style.display = "block";
 		createGasryokinTotal(kensinData);
@@ -844,6 +879,7 @@ function createZenYearkenSr(kensinData) {
 
 	const zenYearkenSrVal = document.getElementById("zenYearkenSrVal");
 	zenYearkenSrVal.innerHTML = Other.Format(kensinData.m_nZenYearKenSr, 1);
+	mKSIB.sZenYearKenSr = Other.Format(kensinData.m_nZenYearKenSr, 1)+ "m3";
 }
 
 
@@ -855,6 +891,7 @@ function createZenYearkenSr(kensinData) {
 function createGasryokinTotal(kensinData) {
 	const gasuRyookinSoogakuVal = document.getElementById("gasuRyookinSoogakuVal");
 	gasuRyookinSoogakuVal.innerHTML = Other.KingakuFormat(kensinData.m_nGasTotalKin);
+	mKSIB.sGasTotalKin = Other.KingakuFormat(kensinData.m_nGasTotalKin) + "円";
 }
 
 
@@ -3180,6 +3217,7 @@ function onclickAction() {
 			androidData.mUserData.mKokfDat = mUserData.mKokfDat;
 			androidData.kensinData = kensinData;
 			androidData.mUserData.mKensinDate = mUserData.mKensinDate;
+			androidData.mKSIB = mKSIB;
 			window.location.href = "https://www.example.com/path?param="+JSON.stringify(androidData);
 			// savingData();
 
@@ -3250,7 +3288,6 @@ function createImageKensinForm() {
 }
 
 
-var androidData = new Dat.AndroidData();
 /** 
 	* SENDING DATA
 */

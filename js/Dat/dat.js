@@ -2571,9 +2571,10 @@ export class AndroidData {
 		this.isHikae;
 		this.mUserData = new UserData();
 		this.kensinData = new KensinData();
+		this.mKSIB = new KSIB();
 	}
 
-	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData) {
+	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, mKSIB) {
 		var data = new AndroidData();
 
 		data.type = type;
@@ -2582,6 +2583,7 @@ export class AndroidData {
 		data.isHikae = isHikae;
 		data.mUserData = mUserData;
 		data.kensinData = kensinData;
+		data.mKSIB = mKSIB;
 		return data;
 	}
 }
@@ -2606,6 +2608,96 @@ export class HieuDat {
 		data.mAdd1 = mAdd1;
 		data.mAdd2 = mAdd2;
 		data.mAdd3 = mAdd3;
+		return data;
+	}
+}
+
+export class KSIB {
+	constructor() {
+		this.sSisin = "";
+		this.bIsChgMeter = false;
+		this.sToritsukjJiZenkaiSiSin = "";
+		this.sSisinPrev = "";
+		this.sChukanSur = "";
+		this.sNowUse = "";
+		this.bIsPrnZensr = false;
+		this.sPreUse = "";
+		this.bIsPrintZenYearKenSr = false;
+		this.sZenYearKenSr = "";
+		this.sTorihazuSiSinDate = "";
+		this.sZenkaiSiSinDate = "";
+		this.sChgZsisin = "";
+		this.sGasPay = "";
+		this.bIsPrnGasBaseKin = false;
+		this.sKihonRyookin = "";
+		this.bIsHybrid = false;
+		this.nGashyb = 0;
+		this.sRyookinTitle = "";
+		this.sRyookin = "";
+		this.counterUseKinDat = new CounterUseKinDat();
+		this.gasfDat = null;
+		this.nGasTax = "";
+		this.nKnebFlg = 0;
+		this.bIfReduce = false;
+		this.nReduce = 0;
+		this.sKangcontname = "";
+		this.bIsPrintGasRyokinTotal = false;
+		this.sGasTotalKin = "";
+	}
+
+	setValue(sSisin, bIsChgMeter, sToritsukjJiZenkaiSiSin, sSisinPrev, sChukanSur, sNowUse, bIsPrnZensr, 
+			sPreUse, bIsPrintZenYearKenSr, sZenYearKenSr, sTorihazuSiSinDate, sZenkaiSiSinDate, sChgZsisin, 
+			sGasPay, bIsPrnGasBaseKin, sKihonRyookin, bIsHybrid, nGashyb, sRyookinTitle, sRyookin, counterUseKinDat, 
+			gasfDat, nGasTax, nKnebFlg, bIfReduce, nReduce, sKangcontname, bIsPrintGasRyokinTotal, sGasTotalKin ) {
+		var data = new KSIB();
+
+		data.sSisin = sSisin;
+		data.bIsChgMeter = bIsChgMeter;
+		data.mFax = mFax;
+		data.sToritsukjJiZenkaiSiSin = sToritsukjJiZenkaiSiSin;
+		data.sSisinPrev = sSisinPrev;
+		data.sChukanSur = sChukanSur;
+		data.sNowUse = sNowUse;
+		data.bIsPrnZensr = bIsPrnZensr;
+		data.sPreUse = sPreUse;
+		data.bIsPrintZenYearKenSr = bIsPrintZenYearKenSr;
+		data.sZenYearKenSr = sZenYearKenSr;
+		data.sTorihazuSiSinDate = sTorihazuSiSinDate;
+		data.sZenkaiSiSinDate = sZenkaiSiSinDate;
+		data.sChgZsisin = sChgZsisin;
+		data.sGasPay = sGasPay;
+		data.bIsPrnGasBaseKin = bIsPrnGasBaseKin;
+		data.sKihonRyookin = sKihonRyookin;
+		data.bIsHybrid = bIsHybrid;
+		data.nGashyb = nGashyb;
+		data.sRyookinTitle = sRyookinTitle;
+		data.sRyookin = sRyookin;
+		data.counterUseKinDat = counterUseKinDat;
+		data.gasfDat = gasfDat;
+		data.nGasTax = nGasTax;
+		data.nKnebFlg = nKnebFlg;
+		data.bIfReduce = bIfReduce;
+		data.nReduce = nReduce;
+		data.sKangcontname = sKangcontname;
+		data.bIsPrintGasRyokinTotal = bIsPrintGasRyokinTotal;
+		data.sGasTotalKin = sGasTotalKin;
+		return data;
+	}
+}
+
+export class CounterUseKinDat {
+	constructor() {
+		this.nUseKin = 0;
+		this.nUseSncode = 0;
+		this.sKin = "";
+	}
+
+	setValue(nUseKin, nUseSncode, sKin) {
+		var data = new CounterUseKinDat();
+
+		data.nUseKin = nUseKin;
+		data.nUseSncode = nUseSncode;
+		data.sKin = sKin;
 		return data;
 	}
 }
