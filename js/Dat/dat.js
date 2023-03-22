@@ -2600,9 +2600,10 @@ export class AndroidData {
 		this.kensinData = new KensinData();
 		this.mKSIB = new KSIB();
 		this.mKI = new KI();
+		this.mUTC = new UTC();
 	}
 
-	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, mKSIB, mKI) {
+	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, mKSIB, mKI, mUTC) {
 		var data = new AndroidData();
 
 		data.type = type;
@@ -2613,6 +2614,7 @@ export class AndroidData {
 		data.kensinData = kensinData;
 		data.mKSIB = mKSIB;
 		data.mKI = mKI;
+		data.mUTC = mUTC;
 		return data;
 	}
 }
@@ -2776,6 +2778,22 @@ export class KI {
 		data.nAzukarikin = nAzukarikin;
 		data.nKZandaka = nKZandaka;
 		data.nLZandaka = nLZandaka;
+		return data;
+	}
+}
+
+
+export class UTC {
+	constructor() {
+		this.nGUchiZei = 0;
+		this.nUchiZei = 0;
+	}
+
+	setValue(nGUchiZei, nUchiZei) {
+		var data = new KI();
+
+		data.nGUchiZei = nGUchiZei;
+		data.nUchiZei = nUchiZei;
 		return data;
 	}
 }

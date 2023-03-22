@@ -35,6 +35,7 @@ var searchMode = sessionStorage.getItem(StringCS.SEARCHMODE);
 var androidData = new Dat.AndroidData();
 var mKSIB = new Dat.KSIB();
 var mKI = new Dat.KI();
+var mUTC = new Dat.UTC();
 
 /****  PRINT   ****/
 /* image string */
@@ -1245,6 +1246,8 @@ function createUTaxComment(wkKensinData) {
 	var wkStr;
 	var wkTaxDat = Calc_UchiZei(wkKensinData, wkKensinData.m_isHybrid);
 
+	mUTC.nGUchiZei = wkTaxDat.mGUchiZei;
+	mUTC.nUchiZei = wkTaxDat.mUchiZei;
 	if (wkTaxDat.mGUchiZei != 0 || wkTaxDat.mUchiZei != 0) {
 		document.getElementById("uTaxCommentArea").style.display = "block";
 		if (wkTaxDat.mGUchiZei != 0) {
@@ -3276,10 +3279,12 @@ function onclickAction() {
 			androidData.isHikae = false;
 			androidData.mUserData.mSysfDat = mUserData.mSysfDat;
 			androidData.mUserData.mKokfDat = mUserData.mKokfDat;
+			androidData.mUserData.mSy2fDat = mUserData.mSy2fDat;
 			androidData.kensinData = kensinData;
 			androidData.mUserData.mKensinDate = mUserData.mKensinDate;
 			androidData.mKSIB = mKSIB;
 			androidData.mKI = mKI;
+			androidData.mUTC = mUTC;
 			window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
 			// createImageKensinForm();
 			// savingData();
