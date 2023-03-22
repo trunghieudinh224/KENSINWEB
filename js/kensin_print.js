@@ -305,29 +305,29 @@ function setKensinData(userData, isHybSeikyu, isPrintKensin, isPrintToyu) {
 	kensinData.m_HmMonth = GasRaterCom.calcEtcUri(sysfDat, kokfDat) + GasRaterCom.calcEtcTax(sysfDat, kokfDat);// 当月売上
 
 	//HieuNote
-	// if (sysfDat.mIfAdjust) {
-	// 	kensinData.m_nTReceipt = kokfDat.mTReceipt;
-	// 	kensinData.m_nTAdjust = kokfDat.mTAdjust;
-	// }
-	// if (sysfDat.m_isLtas) {
-	// 	// これまでの残高 = 前残 + 当月売上
-	// 	kensinData.m_PreReceipt += kensinData.m_HmMonth;
-	// 	kensinData.m_PreReceipt -= kensinData.m_nTReceipt;
-	// 	kensinData.m_nTReceipt = 0;
-	// 	kensinData.m_PreReceipt += kensinData.m_nTAdjust;
-	// 	kensinData.m_nTAdjust = 0;
-	// 	kensinData.m_HmMonth = 0;
-	// 	kensinData.m_strZanTitle = "これまでの残高";
-	// }
-	// kensinData.m_isFuriDemand = GasRaterCom.isFuriDemand(sysfDat, sy2fDat, kokfDat);
-	// if (!kensinData.m_isFuriDemand && kokfDat.mBankCode != 0 && kokfDat.mFriKin != 0 && (kokfDat.mFristat == 2 || kokfDat.mFristat == 3) && sysfDat.mIfDemand) {
-	// 	kensinData.m_strIrai = "上記請求額の内￥" +
-	// 		Other.formatDecial(kokfDat.mFriKin) +
-	// 		".-は振替依頼中です。";
-	// }
-	// else {
-	// 	kensinData.m_strIrai = "";
-	// }
+	if (sysfDat.mIfAdjust) {
+		kensinData.m_nTReceipt = kokfDat.mTReceipt;
+		kensinData.m_nTAdjust = kokfDat.mTAdjust;
+	}
+	if (sysfDat.m_isLtas) {
+		// これまでの残高 = 前残 + 当月売上
+		kensinData.m_PreReceipt += kensinData.m_HmMonth;
+		kensinData.m_PreReceipt -= kensinData.m_nTReceipt;
+		kensinData.m_nTReceipt = 0;
+		kensinData.m_PreReceipt += kensinData.m_nTAdjust;
+		kensinData.m_nTAdjust = 0;
+		kensinData.m_HmMonth = 0;
+		kensinData.m_strZanTitle = "これまでの残高";
+	}
+	kensinData.m_isFuriDemand = GasRaterCom.isFuriDemand(sysfDat, sy2fDat, kokfDat);
+	if (!kensinData.m_isFuriDemand && kokfDat.mBankCode != 0 && kokfDat.mFriKin != 0 && (kokfDat.mFristat == 2 || kokfDat.mFristat == 3) && sysfDat.mIfDemand) {
+		kensinData.m_strIrai = "上記請求額の内￥" +
+			Other.formatDecial(kokfDat.mFriKin) +
+			".-は振替依頼中です。";
+	}
+	else {
+		kensinData.m_strIrai = "";
+	}
 
 	kensinData.m_HmDay = kokfDat.mUrikin + kokfDat.mUriTax;// 本日売上
 	if (kokfDat.mKenSumi && isPrintKensin) {
@@ -1101,23 +1101,23 @@ function createKinInfo(kensinData) {
 
 		var t_kokfdat = mUserData.mKokfDat;
 		// 当月入金額
+		mKI.nTReceipt = t_kokfdat.mTReceipt;
 		if (sysfDat.mIfAdjust && t_kokfdat.mTReceipt != 0) {
 			//当月入金額
 			const hmDayVal = document.getElementById("tReceiptVal");
 			hmDayVal.innerHTML = Other.formatDecial(t_kokfdat.mTReceipt);
-			mKI.nTReceipt = t_kokfdat.mTReceipt;
 		} else {
 			document.getElementById("toogetsuNyuuKingakuArea").style.display = "none";
 			countDisplay++;
 		}
 
 		// 当月調整額
+		mKI.nTAdjust = t_kokfdat.mTAdjust;
 		if (sysfDat.mIfAdjust && t_kokfdat.mTAdjust != 0) {
 			// document.getElementById("toogetsuChooseiGakuArea").style.display = "block";
 			//当月調整額
 			const tAdjustVal = document.getElementById("tAdjustVal");
 			tAdjustVal.innerHTML = Other.formatDecial(t_kokfdat.mTAdjust);
-			mKI.nTAdjust = t_kokfdat.mTAdjust;
 		} else {
 			document.getElementById("toogetsuChooseiGakuArea").style.display = "none";
 			countDisplay++;
@@ -1134,15 +1134,26 @@ function createKinInfo(kensinData) {
 		const konkaiSeikyuuGakuVal = document.getElementById("konkaiSeikyuuGakuVal");
 		konkaiSeikyuuGakuVal.innerHTML = strLine;
 
+		mKI.bIsFuriDemand = kensinData.isFuriDemand;
+		var strSeiTitle = "今回請求";
+		if (kensinData.isFuriDemand) {
+			strSeiTitle += "予定";
+		}
+		strSeiTitle += "額";
+		const konkaiSeikyuuGakuTitle = document.getElementById("konkaiSeikyuuGakuTitle");
+		konkaiSeikyuuGakuTitle.innerHTML = strLine;
 
-
-		//HieuNote Thiếu
-		//isFuriDemand && sIraimsg
-
-
+		//sIraimsg
+		mKI.sIraimsg = Other.cutStringSpace(Other.nullToString(kensinData.m_strIrai));
+		if (Other.cutStringSpace(Other.nullToString(kensinData.m_strIrai)).length > 0) {
+			document.getElementById("iraiMsgText").innerHTML = Other.cutStringSpace(Other.nullToString(kensinData.m_strIrai))
+		} else {
+			document.getElementById("iraiMsgText").style.display = "none";
+		}
 
 
 		// 調整額
+		mKI.nChosei = kensinData.m_Chosei;
 		if (kensinData.m_Chosei != 0) {
 			// 調整額有り
 			isPrint = true;
@@ -1152,7 +1163,6 @@ function createKinInfo(kensinData) {
 			mKI.sChoseiTitle = getChoTitle();
 
 			strLine = Other.formatDecial(kensinData.m_Chosei);
-			mKI.nChosei = kensinData.m_Chosei;
 			const choseiVal = document.getElementById("choseiVal");
 			choseiVal.innerHTML = strLine;
 		} else {
@@ -3271,6 +3281,7 @@ function onclickAction() {
 			androidData.mKSIB = mKSIB;
 			androidData.mKI = mKI;
 			window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
+			createImageKensinForm();
 			// savingData();
 
 			// sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");

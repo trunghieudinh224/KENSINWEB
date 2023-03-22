@@ -231,6 +231,10 @@ export class KokfDat {
 		this.mNyu2 = 0;
 		/** 締後：調整額 */
 		this.mCho2 = 0;
+		/** 振替依頼状態 */
+		this.mFristat = 0;
+		/** 振替依頼金額 */
+		this.mFriKin = 0;
 		this.seiymd = null;
 		this.kai_ymd = null;
 		this.mKenku = 0;
@@ -244,7 +248,7 @@ export class KokfDat {
 		mTaxTisyuu, mPreBalance, mTAdjust, mTReceipt, mProcLease, mTaxLease, mProcDiv, mProcLoil, mTaxLoil, mProcEtc,
 		mTaxEtc, mProcGas, mTaxGas, mReceipt, mAdjust, mSyuSumi, mInpReceipt, mAdd_0, mAdd_1, mCusCode, mSName0,
 		mSName1, mKName, mZyksDat, mHoan, mBankCode, mNoKensin, mCusrec, mPuseSrpDay, nGasrkcnt, mLoilUnit, mLoilAdd, mLoilMulti,
-		mPoint, mTransMonth, mTransDate, mTransFee, mGUri2, mUri2, mTax2, mNyu2, mCho2, seiymd, kai_ymd, mKenku, chuatu, mLoilDiv) {
+		mPoint, mTransMonth, mTransDate, mTransFee, mGUri2, mUri2, mTax2, mNyu2, mCho2, mFristat, mFriKin, seiymd, kai_ymd, mKenku, chuatu, mLoilDiv) {
 
 		var data = new KokfDat();
 
@@ -330,6 +334,8 @@ export class KokfDat {
 		data.mTax2 = mTax2;
 		data.mNyu2 = mNyu2;
 		data.mCho2 = mCho2;
+		data.mFristat = mFristat;
+		data.mFriKin = mFriKin;
 		data.seiymd = seiymd;
 		data.kai_ymd = kai_ymd;
 		data.mKenku = mKenku;
@@ -427,6 +433,8 @@ export class KokfDat {
 		data.mTax2 = responeData.mTax2;
 		data.mNyu2 = responeData.mNyu2;
 		data.mCho2 = responeData.mCho2;
+		data.mFristat = responeData.mFristat;
+		data.mFriKin = responeData.mFriKin;
 		data.seiymd = responeData.seiymd;
 		data.kai_ymd = responeData.kai_ymd;
 		data.mKenku = responeData.mKenku;
@@ -521,17 +529,16 @@ export class SysfDat {
 		this.mSanki = 0;
 		/** 灯油品目コード */
 		this.mHinCd9 = 0;
-		/** 振替依頼状態 */
-		this.mFristat = 0;
-		/** 振替依頼金額 */
-		this.mFriKin = 0;
+		/** ltasモードフラグ */
+		this.m_isLtas = false;
 		/**  */
 		this.mShofDatKangen = null;
 	}
 
-	setValue(mKgasDays0, mKgasDays1, mKgasDays2, mTax_yy, mTax_mm, mTax_dd, mConsumTax, mTaxr_old, mTaxr_new, mVisibleGas, mVisibleFacility, mLesUmu, mFracAddKin, mFracMulKin,
-		mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas, m_isToyukensinFlg, mSrChkr, mSrChkm, mKnebFlg, mIfAdjust,
-		mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta, mSanki, mHinCd9, mFristat, mFriKin, mShofDatKangen) {
+	setValue(mKgasDays0, mKgasDays1, mKgasDays2, mTax_yy, mTax_mm, mTax_dd, mConsumTax, mTaxr_old, mTaxr_new, mVisibleGas, mVisibleFacility, 
+		mLesUmu, mFracAddKin, mFracMulKin, mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, 
+		mTenkenKgas, m_isToyukensinFlg, mSrChkr, mSrChkm, mKnebFlg, mIfAdjust, mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat,
+		mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta, mSanki, mHinCd9, m_isLtas, mShofDatKangen) {
 		var data = new SysfDat();
 
 		data.mKgasDays0 = mKgasDays0;
@@ -576,8 +583,7 @@ export class SysfDat {
 		data.mTenkenDelta = mTenkenDelta;
 		data.mSanki = mSanki;
 		data.mHinCd9 = mHinCd9;
-		data.mFristat = mFristat;
-		data.mFriKin = mFriKin;
+		data.m_isLtas = m_isLtas;
 		data.mShofDatKangen = mShofDatKangen;
 		return data;
 	}
@@ -633,8 +639,7 @@ export class SysfDat {
 		data.mTenkenDelta = responeData.mTenkenDelta;
 		data.mSanki = responeData.mSanki;
 		data.mHinCd9 = responeData.mHinCd9;
-		data.mFristat = responeData.mFristat;
-		data.mFriKin = responeData.mFriKin;
+		data.m_isLtas = responeData.m_isLtas;
 		if (responeData.mShofDatKangen != null) {
 			data.mShofDatKangen = new ShofDat().parseData(responeData.mShofDatKangen);
 		}

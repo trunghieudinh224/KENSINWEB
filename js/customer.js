@@ -298,7 +298,7 @@ function getShuukei() {
     }
 
     if (cusDetailData.mKokfDat.mShuku == 0 || cusDetailData.mKokfDat.mShuku == 4 || cusDetailData.mKokfDat.mBankCode != 0) {
-        if (cusDetailData.mKokfDat.fkin != 0) {
+        if (cusDetailData.mKokfDat.mFriKin != 0) {
             shuukei = "依頼中";
         } else {
             shuukei = formatShuku(cusDetailData.mKokfDat.mBankCode);
