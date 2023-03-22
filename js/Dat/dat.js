@@ -734,9 +734,11 @@ export class Ko2fDat {
 		this.mChoKin = 0;
 		/** 今回使用量 */
 		this.mGasUse = [];
+		/** 通常使用量料金 */
+		this.mNorKin = 0;
 	}
 
-	setValue(mGashyb, mChoTaxku, mChoTax, mUseKin, mUseTaxku, mUseTax, mChoKin, mGasUse) {
+	setValue(mGashyb, mChoTaxku, mChoTax, mUseKin, mUseTaxku, mUseTax, mChoKin, mGasUse, mNorKin) {
 		var data = new Ko2fDat();
 
 		data.kHyb_MAX = 4;
@@ -748,6 +750,7 @@ export class Ko2fDat {
 		data.mUseTax = mUseTax;
 		data.mChoKin = mChoKin;
 		data.mGasUse = mGasUse;
+		data.mNorKin = mNorKin;
 		return data;
 	}
 
@@ -766,6 +769,7 @@ export class Ko2fDat {
 		data.mUseTax = responeData.mUseTax;
 		data.mChoKin = responeData.mChoKin;
 		data.mGasUse = responeData.mGasUse;
+		data.mNorKin = responeData.mNorKin;
 		return data
 	}
 }
@@ -914,10 +918,12 @@ export class GasfDat {
 		/** ガス料金拡張データ */
 		this.mGextDat = null;
 		/** 消費税区分 */
-		this.mTaxDiv;
+		this.mTaxDiv = 0;
+		/** 明細行数 */
+		this.mLine = 0;
 	}
 
-	setValue(mSum, mSyu, mFrac1Add, mFrac2Add, mFrac1Mult, mFrac2Mult, mRiseFall, m_lstGstpDat, mTaxDiv, mTaxAdd, mTaxMult, mChoTanka, mGextDat) {
+	setValue(mSum, mSyu, mFrac1Add, mFrac2Add, mFrac1Mult, mFrac2Mult, mRiseFall, m_lstGstpDat, mTaxDiv, mTaxAdd, mTaxMult, mChoTanka, mGextDat, mLine) {
 		var data = new GasfDat();
 
 		data.mSum = mSum;
@@ -933,6 +939,7 @@ export class GasfDat {
 		data.mTaxMult = mTaxMult;
 		data.mChoTanka = mChoTanka;
 		data.mGextDat = mGextDat;
+		data.mLine = mLine;
 		return data;
 	}
 
@@ -955,6 +962,7 @@ export class GasfDat {
 		data.mTaxMult = responeData.mTaxMult;
 		data.mChoTanka = responeData.mChoTanka;
 		data.mGextDat = responeData.mGextDat;
+		data.mLine = responeData.mLine;
 		return data
 	}
 }
@@ -2601,9 +2609,10 @@ export class AndroidData {
 		this.mKSIB = new KSIB();
 		this.mKI = new KI();
 		this.mUTC = new UTC();
+		this.mGS = new GS();
 	}
 
-	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, mKSIB, mKI, mUTC) {
+	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, mKSIB, mKI, mUTC, mGS) {
 		var data = new AndroidData();
 
 		data.type = type;
@@ -2615,6 +2624,7 @@ export class AndroidData {
 		data.mKSIB = mKSIB;
 		data.mKI = mKI;
 		data.mUTC = mUTC;
+		data.mGS = mGS;
 		return data;
 	}
 }

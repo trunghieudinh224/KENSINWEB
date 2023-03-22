@@ -305,7 +305,6 @@ function setKensinData(userData, isHybSeikyu, isPrintKensin, isPrintToyu) {
 	kensinData.m_PreReceipt = GasRaterCom.readPrebalance(sysfDat, kokfDat, sy2fDat);
 	kensinData.m_HmMonth = GasRaterCom.calcEtcUri(sysfDat, kokfDat) + GasRaterCom.calcEtcTax(sysfDat, kokfDat);// 当月売上
 
-	//HieuNote
 	if (sysfDat.mIfAdjust) {
 		kensinData.m_nTReceipt = kokfDat.mTReceipt;
 		kensinData.m_nTAdjust = kokfDat.mTAdjust;
