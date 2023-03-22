@@ -3279,6 +3279,7 @@ function onclickAction() {
 			androidData.mUserData.mSysfDat = mUserData.mSysfDat;
 			androidData.mUserData.mKokfDat = mUserData.mKokfDat;
 			androidData.mUserData.mSy2fDat = mUserData.mSy2fDat;
+			androidData.mUserData.mKouserDat = mUserData.mKouserDat;
 			androidData.kensinData = kensinData;
 			androidData.mUserData.mKensinDate = mUserData.mKensinDate;
 			androidData.mKSIB = mKSIB;
