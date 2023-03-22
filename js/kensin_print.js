@@ -2250,7 +2250,7 @@ function createFunouComment() {
 	if (kouserDat.m_nIraiStat != 6) {
 		document.getElementById("funouCommentArea").style.display = "none";
 		return;
-	}
+	}	
 	var strFunouComment0 = Other.getClearString(sy2fDat.mSy2fFunouComment.mFunouComment0);
 	var strFunouComment1 = Other.getClearString(sy2fDat.mSy2fFunouComment.mFunouComment1);
 	var countNull = 0;

@@ -651,30 +651,34 @@ export class SysfDat {
 export class Sy2fDat {
 	constructor() {
 		/** 中圧係数での使用量端数処理(0:切り捨て, 1:四捨五入, 2:切り上げ) */
-		this.mCaHas;
+		this.mCaHas = 0;
 		/** 中圧ガス料金計算有無 */
-		this.mCaFlg;
+		this.mCaFlg = 0;
 		/** 差益還元品番コード */
-		this.mKangHbcd;
+		this.mKangHbcd = 0;
 		/** 差益還元コード */
-		this.mKangHcd;
+		this.mKangHcd = 0;
 		/** 入金・調整取引区分設定フラグ */
-		this.mNyucho;
+		this.mNyucho = 0;
 		/** オプション3 */
-		this.mSysOption;
+		this.mSysOption = [];
 		/** 調整額コード */
-		this.mSysfHmcd13;
+		this.mSysfHmcd13 = 0;
 		/** 次回予定日印字フラグ */
-		this.mJifuriNext;
+		this.mJifuriNext = 0;
 		/** 軽減税率対応 */
-		this.mSyskeigen;
+		this.mSyskeigen = 0;
 		/** ポイントシステムver */
-		this.mPntVer;
+		this.mPntVer = 0;
 		/** ポイント名称 */
-		this.pntDatName;
+		this.pntDatName = "";
+		/** 振替不能コメント印字フラグ */
+		this.mFunouPrint = 0;
+		/** 振替不能コメント */
+		this.mSy2fFunouComment = new Sy2fFunouComment();
 	}
 
-	setValue(mCaHas, mCaFlg, mKangHbcd, mKangHcd, mNyucho, mSysOption, mSysfHmcd13, mJifuriNext, mSyskeigen, mPntVer, pntDatName) {
+	setValue(mCaHas, mCaFlg, mKangHbcd, mKangHcd, mNyucho, mSysOption, mSysfHmcd13, mJifuriNext, mSyskeigen, mPntVer, pntDatName, mFunouPrint, mSy2fFunouComment) {
 		var data = new Sy2fDat();
 
 		data.mCaHas = mCaHas;
@@ -688,6 +692,8 @@ export class Sy2fDat {
 		data.mSyskeigen = mSyskeigen;
 		data.mPntVer = mPntVer;
 		data.pntDatName = pntDatName;
+		data.mFunouPrint = mFunouPrint;
+		data.mSy2fFunouComment = mSy2fFunouComment;
 		return data;
 	}
 
@@ -708,6 +714,8 @@ export class Sy2fDat {
 		data.mSyskeigen = responeData.mSyskeigen;
 		data.mPntVer = responeData.mPntVer;
 		data.pntDatName = responeData.pntDatName;
+		data.mFunouPrint = responeData.mFunouPrint;
+		data.mSy2fFunouComment = responeData.mSy2fFunouComment;
 		return data
 	}
 }
@@ -2802,6 +2810,32 @@ export class UTC {
 
 		data.nGUchiZei = nGUchiZei;
 		data.nUchiZei = nUchiZei;
+		return data;
+	}
+}
+
+export class Sy2fFunouComment {
+	constructor() {
+		this.mFunouComment0 = "";
+		this.mFunouComment1 = "";
+	}
+
+	setValue(mFunouComment0, mFunouComment1) {
+		var data = new Sy2fFunouComment();
+
+		data.mFunouComment0 = mFunouComment0;
+		data.mFunouComment1 = mFunouComment1;
+		return data;
+	}
+
+	parseData(responeData) {
+		var data = new Sy2fFunouComment();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mFunouComment0 = responeData.mFunouComment0;
+		data.mFunouComment1 = responeData.mFunouComment1;
 		return data;
 	}
 }
