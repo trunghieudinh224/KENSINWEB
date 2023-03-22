@@ -3281,7 +3281,7 @@ function onclickAction() {
 			androidData.mKSIB = mKSIB;
 			androidData.mKI = mKI;
 			window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
-			createImageKensinForm();
+			// createImageKensinForm();
 			// savingData();
 
 			// sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
