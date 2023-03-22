@@ -2609,10 +2609,9 @@ export class AndroidData {
 		this.mKSIB = new KSIB();
 		this.mKI = new KI();
 		this.mUTC = new UTC();
-		this.mGS = new GS();
 	}
 
-	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, mKSIB, mKI, mUTC, mGS) {
+	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, mKSIB, mKI, mUTC) {
 		var data = new AndroidData();
 
 		data.type = type;
@@ -2624,7 +2623,6 @@ export class AndroidData {
 		data.mKSIB = mKSIB;
 		data.mKI = mKI;
 		data.mUTC = mUTC;
-		data.mGS = mGS;
 		return data;
 	}
 }
