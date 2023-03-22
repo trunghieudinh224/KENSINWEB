@@ -34,6 +34,7 @@ var searchMode = sessionStorage.getItem(StringCS.SEARCHMODE);
 /*****  ANDROID DATA  *****/
 var androidData = new Dat.AndroidData();
 var mKSIB = new Dat.KSIB();
+var mKI = new Dat.KI();
 
 /****  PRINT   ****/
 /* image string */
@@ -301,6 +302,33 @@ function setKensinData(userData, isHybSeikyu, isPrintKensin, isPrintToyu) {
 
 	kensinData.m_Reduce = kokfDat.mReduce + kokfDat.mReduceTax;// 還元額
 	kensinData.m_PreReceipt = GasRaterCom.readPrebalance(sysfDat, kokfDat, sy2fDat);
+	kensinData.m_HmMonth = GasRaterCom.calcEtcUri(sysfDat, kokfDat) + GasRaterCom.calcEtcTax(sysfDat, kokfDat);// 当月売上
+
+	//HieuNote
+	// if (sysfDat.mIfAdjust) {
+	// 	kensinData.m_nTReceipt = kokfDat.mTReceipt;
+	// 	kensinData.m_nTAdjust = kokfDat.mTAdjust;
+	// }
+	// if (sysfDat.m_isLtas) {
+	// 	// これまでの残高 = 前残 + 当月売上
+	// 	kensinData.m_PreReceipt += kensinData.m_HmMonth;
+	// 	kensinData.m_PreReceipt -= kensinData.m_nTReceipt;
+	// 	kensinData.m_nTReceipt = 0;
+	// 	kensinData.m_PreReceipt += kensinData.m_nTAdjust;
+	// 	kensinData.m_nTAdjust = 0;
+	// 	kensinData.m_HmMonth = 0;
+	// 	kensinData.m_strZanTitle = "これまでの残高";
+	// }
+	// kensinData.m_isFuriDemand = GasRaterCom.isFuriDemand(sysfDat, sy2fDat, kokfDat);
+	// if (!kensinData.m_isFuriDemand && kokfDat.mBankCode != 0 && kokfDat.mFriKin != 0 && (kokfDat.mFristat == 2 || kokfDat.mFristat == 3) && sysfDat.mIfDemand) {
+	// 	kensinData.m_strIrai = "上記請求額の内￥" +
+	// 		Other.formatDecial(kokfDat.mFriKin) +
+	// 		".-は振替依頼中です。";
+	// }
+	// else {
+	// 	kensinData.m_strIrai = "";
+	// }
+
 	kensinData.m_HmDay = kokfDat.mUrikin + kokfDat.mUriTax;// 本日売上
 	if (kokfDat.mKenSumi && isPrintKensin) {
 		// 検針済みの場合は検針時リース金額加算
@@ -315,7 +343,6 @@ function setKensinData(userData, isHybSeikyu, isPrintKensin, isPrintToyu) {
 		}
 	}
 
-	kensinData.m_HmMonth = GasRaterCom.calcEtcUri(sysfDat, kokfDat) + GasRaterCom.calcEtcTax(sysfDat, kokfDat);// 当月売上
 
 	kensinData.m_isHybrid = kouserDat.mHyc5 == 1 && isHybSeikyu;
 	if (kensinData.m_isHybrid) {
@@ -660,7 +687,7 @@ function createKensinInfoBase(kensinData) {
 		if (kensinData.m_ChgMonth != 0 && kensinData.m_ChgDay != 0) {
 			strLine = "(" + Other.DateFormat(kensinData.m_ChgMonth, kensinData.m_ChgDay, true) + ")";
 		}
-		mKSIB.sTorihazuSiSinDate= strLine;
+		mKSIB.sTorihazuSiSinDate = strLine;
 		const torihazuSSDate = document.getElementById("torihazuSSDate");
 		torihazuSSDate.innerHTML = strLine;
 		const torihazuSSVal = document.getElementById("torihazuSSVal");
@@ -692,7 +719,7 @@ function createKensinInfoBase(kensinData) {
 	//通常料金
 	const gasuRyookinVal = document.getElementById("gasuRyookinVal");
 	gasuRyookinVal.innerHTML = Other.KingakuFormat(kensinData.m_GasPay);
-	mKSIB.sGasPay = Other.KingakuFormat(kensinData.m_GasPay)+ "円";
+	mKSIB.sGasPay = Other.KingakuFormat(kensinData.m_GasPay) + "円";
 
 	var ko2fDat = kensinData.mKo2fDat;
 	var hybfDat = kensinData.mHybfDat;
@@ -703,7 +730,7 @@ function createKensinInfoBase(kensinData) {
 		//基本料金
 		const kihonRyookinVal = document.getElementById("kihonRyookinVal");
 		kihonRyookinVal.innerHTML = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000);
-		mKSIB.sKihonRyookin = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000)+ "円";
+		mKSIB.sKihonRyookin = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000) + "円";
 		previousIdCounter = "kihonRyookinValArea";
 
 		mKSIB.bIsHybrid = kensinData.m_isHybrid;
@@ -713,13 +740,13 @@ function createKensinInfoBase(kensinData) {
 			//通常従量料金
 			const tsuujooJuuryooRyookinVal = document.getElementById("tsuujooJuuryooRyookinVal");
 			tsuujooJuuryooRyookinVal.innerHTML = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000);
-			mKSIB.sRyookin = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000)+ "円";
+			mKSIB.sRyookin = Other.KingakuFormat(kensinData.mGasBaseKin / 1000 + kensinData.m_nFacilityKin / 1000) + "円";
 			previousIdCounter = "tsuujooJuuryooRyookinArea";
 		} else {
 			document.getElementById("tsuujooJuuryooRyookinArea").style.display = "none";
 			//従量料金
 			strLine = Other.KingakuFormat(kensinData.m_GasPay - kensinData.mGasBaseKin / 1000 - kensinData.m_nFacilityKin / 1000);
-			mKSIB.sRyookin = strLine+ "円";
+			mKSIB.sRyookin = strLine + "円";
 			const juuryooRyookinVal = document.getElementById("juuryooRyookinVal");
 			juuryooRyookinVal.innerHTML = strLine;
 			previousIdCounter = "juuryooRyookinArea";
@@ -879,7 +906,7 @@ function createZenYearkenSr(kensinData) {
 
 	const zenYearkenSrVal = document.getElementById("zenYearkenSrVal");
 	zenYearkenSrVal.innerHTML = Other.Format(kensinData.m_nZenYearKenSr, 1);
-	mKSIB.sZenYearKenSr = Other.Format(kensinData.m_nZenYearKenSr, 1)+ "m3";
+	mKSIB.sZenYearKenSr = Other.Format(kensinData.m_nZenYearKenSr, 1) + "m3";
 }
 
 
@@ -1017,13 +1044,20 @@ function createKinInfo(kensinData) {
 	var strLine;
 	var sysfDat = mUserData.mSysfDat;
 
+	mKI.bNyukinOnly = mUserData.mNyukinOnly;
 	if (!mUserData.mNyukinOnly) {
 		var countDisplay = 0;
 		//kinInfoTop
 		// 入金のみの場合は前残等印字しない
 		// 前月残高
+		mKI.mIfDemand = sysfDat.mIfDemand;
+		mKI.nPreReceipt = kensinData.m_PreReceipt;
 		if (sysfDat.mIfDemand && kensinData.m_PreReceipt != 0) {
 			document.getElementById("zengetsuZandakaArea").style.display = "block";
+			const preReceiptTitle = document.getElementById("preReceiptTitle");
+			preReceiptTitle.innerHTML = kensinData.m_strZanTitle;
+			mKI.sZanTitle = kensinData.m_strZanTitle;
+
 			// 前月御請求額
 			const preReceiptVal = document.getElementById("preReceiptVal");
 			preReceiptVal.innerHTML = Other.formatDecial(kensinData.m_PreReceipt);
@@ -1034,8 +1068,10 @@ function createKinInfo(kensinData) {
 
 		// その他売上
 		var countProceed = 0;
+		mKI.bIfProceeds = sysfDat.mIfProceeds;
 		if (sysfDat.mIfProceeds) {
 			document.getElementById("sonohokaUriageArea").style.display = "block";
+			mKI.nHmDay = kensinData.m_HmDay;
 			if (kensinData.m_HmDay != 0) {
 				//本日お買い上げ額	
 				const hmDayVal = document.getElementById("hmDayVal");
@@ -1045,6 +1081,7 @@ function createKinInfo(kensinData) {
 				countProceed++;
 			}
 
+			mKI.nHmMonth = kensinData.m_HmMonth;
 			if (kensinData.m_HmMonth != 0) {
 				//当月お買い上げ額
 				const hmDayVal = document.getElementById("hmMonthVal");
@@ -1068,6 +1105,7 @@ function createKinInfo(kensinData) {
 			//当月入金額
 			const hmDayVal = document.getElementById("tReceiptVal");
 			hmDayVal.innerHTML = Other.formatDecial(t_kokfdat.mTReceipt);
+			mKI.nTReceipt = t_kokfdat.mTReceipt;
 		} else {
 			document.getElementById("toogetsuNyuuKingakuArea").style.display = "none";
 			countDisplay++;
@@ -1079,6 +1117,7 @@ function createKinInfo(kensinData) {
 			//当月調整額
 			const tAdjustVal = document.getElementById("tAdjustVal");
 			tAdjustVal.innerHTML = Other.formatDecial(t_kokfdat.mTAdjust);
+			mKI.nTAdjust = t_kokfdat.mTAdjust;
 		} else {
 			document.getElementById("toogetsuChooseiGakuArea").style.display = "none";
 			countDisplay++;
@@ -1090,12 +1129,18 @@ function createKinInfo(kensinData) {
 
 		// 今回請求額
 		// 今回請求額用矩形生成
+		mKI.nReceipt = kensinData.m_Receipt;
 		strLine = Other.KingakuFormat(kensinData.m_Receipt);
-		if (kensinData.m_Receipt >= 100000) {
-
-		}
 		const konkaiSeikyuuGakuVal = document.getElementById("konkaiSeikyuuGakuVal");
 		konkaiSeikyuuGakuVal.innerHTML = strLine;
+
+
+
+		//HieuNote Thiếu
+		//isFuriDemand && sIraimsg
+
+
+
 
 		// 調整額
 		if (kensinData.m_Chosei != 0) {
@@ -1104,8 +1149,10 @@ function createKinInfo(kensinData) {
 
 			const choseiText = document.getElementById("choseiText");
 			choseiText.innerHTML = getChoTitle();
+			mKI.sChoseiTitle = getChoTitle();
 
 			strLine = Other.formatDecial(kensinData.m_Chosei);
+			mKI.nChosei = kensinData.m_Chosei;
 			const choseiVal = document.getElementById("choseiVal");
 			choseiVal.innerHTML = strLine;
 		} else {
@@ -1117,8 +1164,10 @@ function createKinInfo(kensinData) {
 
 
 	// 本日入金額
+	mKI.nNyukin = kensinData.m_Nyukin;
 	if (kensinData.m_Nyukin != 0) {
 		isPrint = true;
+		mKI.nAzukarikin = kensinData.m_Azukarikin;
 		if (kensinData.m_Azukarikin == kensinData.m_Nyukin) {
 			strLine = "本日入金額";
 		}
@@ -1146,8 +1195,10 @@ function createKinInfo(kensinData) {
 	}
 
 	// 差引残高
+	mKI.nKZandaka = kensinData.m_Zandaka;
 	if (kensinData.m_Zandaka != 0 && isPrint) {
 		var lZandaka = kensinData.m_Zandaka - GasRaterCom.calcPrebalance(sysfDat, mUserData.mKokfDat, mUserData.mSy2fDat);
+		mKI.nLZandaka = lZandaka;
 		const sashihikiZandakaVal = document.getElementById("sashihikiZandakaVal");
 		sashihikiZandakaVal.innerHTML = Other.KingakuFormat(lZandaka);
 	} else {
@@ -3164,7 +3215,7 @@ function sendImage() {
 		// window.location.href = "https://www.example.com/path?param="+JSON.stringify(hieudat);
 
 
-		window.location.href = "https://www.example.com/path?param="+JSON.stringify(androidData);
+		window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
 	}
 }
 
@@ -3218,7 +3269,8 @@ function onclickAction() {
 			androidData.kensinData = kensinData;
 			androidData.mUserData.mKensinDate = mUserData.mKensinDate;
 			androidData.mKSIB = mKSIB;
-			window.location.href = "https://www.example.com/path?param="+JSON.stringify(androidData);
+			androidData.mKI = mKI;
+			window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
 			// savingData();
 
 			// sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");

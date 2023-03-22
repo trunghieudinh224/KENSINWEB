@@ -521,13 +521,17 @@ export class SysfDat {
 		this.mSanki = 0;
 		/** 灯油品目コード */
 		this.mHinCd9 = 0;
+		/** 振替依頼状態 */
+		this.mFristat = 0;
+		/** 振替依頼金額 */
+		this.mFriKin = 0;
 		/**  */
 		this.mShofDatKangen = null;
 	}
 
 	setValue(mKgasDays0, mKgasDays1, mKgasDays2, mTax_yy, mTax_mm, mTax_dd, mConsumTax, mTaxr_old, mTaxr_new, mVisibleGas, mVisibleFacility, mLesUmu, mFracAddKin, mFracMulKin,
 		mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, mTenkenKgas, m_isToyukensinFlg, mSrChkr, mSrChkm, mKnebFlg, mIfAdjust,
-		mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta, mSanki, mHinCd9, mShofDatKangen) {
+		mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat, mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta, mSanki, mHinCd9, mFristat, mFriKin, mShofDatKangen) {
 		var data = new SysfDat();
 
 		data.mKgasDays0 = mKgasDays0;
@@ -572,6 +576,8 @@ export class SysfDat {
 		data.mTenkenDelta = mTenkenDelta;
 		data.mSanki = mSanki;
 		data.mHinCd9 = mHinCd9;
+		data.mFristat = mFristat;
+		data.mFriKin = mFriKin;
 		data.mShofDatKangen = mShofDatKangen;
 		return data;
 	}
@@ -627,6 +633,8 @@ export class SysfDat {
 		data.mTenkenDelta = responeData.mTenkenDelta;
 		data.mSanki = responeData.mSanki;
 		data.mHinCd9 = responeData.mHinCd9;
+		data.mFristat = responeData.mFristat;
+		data.mFriKin = responeData.mFriKin;
 		if (responeData.mShofDatKangen != null) {
 			data.mShofDatKangen = new ShofDat().parseData(responeData.mShofDatKangen);
 		}
@@ -1588,6 +1596,14 @@ export class KensinData {
 		this.m_isPrintToyu = false;
 		/** 灯油単価 */
 		this.m_nLoilUnit = 0;
+		
+		/** 前月ご請求額タイトル */
+		this.m_strZanTitle = "前月御請求額";
+		/** 当月入金額 */
+		this.m_nTReceipt = 0;
+		/** 当月調整額 */
+		this.m_nTAdjust = 0;
+		this.m_strIrai = "";
 	}
 
 	setValue(m_Sisin, m_KensinPrevMonth, m_KensinPrevDay, m_SisinPrev, m_NowUse, m_PreUse, m_GasPay, m_GasTax, m_Reduce,
@@ -1596,7 +1612,8 @@ export class KensinData {
 		mGasBaseKin, mGasAddKin, m_nZenYearKenSr, m_nGasTotalKin, m_nGasTotalKinWithoutTax, m_nFacilityKin, m_bPrintGasRyokinTotal,
 		m_bPrintGasRyokinSiki, m_bPrintGasFacilityKin, m_bPrintHiwariComment, m_bPrintZenYearKenSr, m_strHiwariComment_0,
 		m_strHiwariComment_1, m_GasfDat, m_nStartIdx, m_bSingleStep, m_nPrintGasRyokinSikiPtn, mHybfDat, mCounterName, m_isHybrid,
-		mKo2fDat, m_nOnlyGas, m_isVisibleGas, m_nNorSr, m_nHybGasUse, mKotfDat, m_isToyuKinSep, m_isPrintKensin, m_isPrintToyu, m_nLoilUnit) {
+		mKo2fDat, m_nOnlyGas, m_isVisibleGas, m_nNorSr, m_nHybGasUse, mKotfDat, m_isToyuKinSep, m_isPrintKensin, m_isPrintToyu, m_nLoilUnit,
+		m_strZanTitle, m_nTReceipt, m_nTAdjust, m_strIrai) {
 
 		this.m_Sisin = m_Sisin;
 		this.m_KensinPrevMonth = m_KensinPrevMonth;
@@ -1657,6 +1674,11 @@ export class KensinData {
 		this.m_isPrintKensin = m_isPrintKensin;
 		this.m_isPrintToyu = m_isPrintToyu;
 		this.m_nLoilUnit = m_nLoilUnit;
+
+		this.m_strZanTitle = m_strZanTitle;
+		this.m_nTReceipt = m_nTReceipt;
+		this.m_nTAdjust = m_nTAdjust;
+		this.m_strIrai = m_strIrai;
 	}
 };
 
@@ -2572,9 +2594,10 @@ export class AndroidData {
 		this.mUserData = new UserData();
 		this.kensinData = new KensinData();
 		this.mKSIB = new KSIB();
+		this.mKI = new KI();
 	}
 
-	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, mKSIB) {
+	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, mKSIB, mKI) {
 		var data = new AndroidData();
 
 		data.type = type;
@@ -2584,6 +2607,7 @@ export class AndroidData {
 		data.mUserData = mUserData;
 		data.kensinData = kensinData;
 		data.mKSIB = mKSIB;
+		data.mKI = mKI;
 		return data;
 	}
 }
@@ -2698,6 +2722,55 @@ export class CounterUseKinDat {
 		data.nUseKin = nUseKin;
 		data.nUseSncode = nUseSncode;
 		data.sKin = sKin;
+		return data;
+	}
+}
+
+
+export class KI {
+	constructor() {
+		this.bNyukinOnly = false;
+		this.bIfDemand = false;
+		this.sZanTitle = "";
+		this.nPreReceipt = 0;
+		this.bIfProceeds = false;
+		this.nHmDay = 0;
+		this.nHmMonth = 0;
+		this.nTReceipt = 0;
+		this.nTAdjust = 0;
+		this.nReceipt = 0;
+		this.bIsFuriDemand = false;
+		this.sIraimsg = "";
+		this.sChoseiTitle = "";
+		this.nChosei = 0;
+		this.nNyukin = 0;
+		this.nAzukarikin = 0;
+		this.nKZandaka = 0;
+		this.nLZandaka = 0;
+	}
+
+	setValue(bNyukinOnly, bIfDemand, sZanTitle, nPreReceipt, bIfProceeds, nHmDay, nHmMonth, nTReceipt, nTAdjust, 
+			nReceipt,bIsFuriDemand, sIraimsg, sChoseiTitle, nChosei, nNyukin, nAzukarikin, nKZandaka, nLZandaka) {
+		var data = new KI();
+
+		data.bNyukinOnly = bNyukinOnly;
+		data.bIfDemand = bIfDemand;
+		data.sZanTitle = sZanTitle;
+		data.nPreReceipt = nPreReceipt;
+		data.bIfProceeds = bIfProceeds;
+		data.nHmDay = nHmDay;
+		data.nHmMonth = nHmMonth;
+		data.nTReceipt = nTReceipt;
+		data.nTAdjust = nTAdjust;
+		data.nReceipt = nReceipt;
+		data.bIsFuriDemand = bIsFuriDemand;
+		data.sIraimsg = sIraimsg;
+		data.sChoseiTitle = sChoseiTitle;
+		data.nChosei = nChosei;
+		data.nNyukin = nNyukin;
+		data.nAzukarikin = nAzukarikin;
+		data.nKZandaka = nKZandaka;
+		data.nLZandaka = nLZandaka;
 		return data;
 	}
 }

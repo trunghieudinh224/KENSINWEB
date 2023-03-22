@@ -1490,10 +1490,32 @@ function calcPrebalance(sysfDat, kokfDat, sy2fDat) {
 	return wkKingaku;
 }
 
+/**
+     * 振替依頼中の前残非表示有無の取得.
+     *
+     * @param sysfDat   [in] {@link SysfDat}    システムデータ
+     * @param sy2fDat   [in] {@link Sy2fDat}    システム2データ
+     * @param kokfDat   [in] {@link KokfDat}    顧客データ
+     * @return  boolean true:前残印字しない, false:前残印字する
+     */
+function isFuriDemand(sysfDat, sy2fDat, kokfDat){
+	var isFuriDemand = false;
+
+	if (sy2fDat.mSysOption[11] == 1) {
+		// 振替依頼中は、前月残高を抑制フラグの有効中
+		if (kokfDat.mBankCode != 0 && kokfDat.mFriKin != 0 && (kokfDat.mFristat == 2 || kokfDat.mFristat == 3) && sysfDat.mIfDemand) {
+			// 振替依頼中は前月残高は印字しない
+			// ただし、振替依頼中の金額<>前月残高では、前月残高の抑制は不可
+			isFuriDemand = kokfDat.mFriKin == kokfDat.mPreBalance;
+		}
+	}
+	return isFuriDemand;
+}
+
 
 export {
-	calcConTax, getKenTaxr, getGasSuryo, hasCom, calcGasUse, calcGasBaseKin, calcGasBase,
-	checkSrpday, getSrpSuryo, checkKgas, getKgasday, dailyGasrate, mathDayGasRate, mathDayGasRateNormal_1,
-	mathDayGasRateNormal, mathDayGasRateKgas, mathDayGasRateDay, mathGasRate, mathGasRateNormalG_1, mathGasRateNormalG
-	, calcNebiki, calcTotal, calcSeikyu, readPrebalance, calcZogenHiwari, calcGasKangen, calcEtcUri, calcEtcTax , calcPrebalance
+	calcConTax, getKenTaxr, getGasSuryo, hasCom, calcGasUse, calcGasBaseKin, calcGasBase, checkSrpday, getSrpSuryo, 
+	checkKgas, getKgasday, dailyGasrate, mathDayGasRate, mathDayGasRateNormal_1, mathDayGasRateNormal, mathDayGasRateKgas, 
+	mathDayGasRateDay, mathGasRate, mathGasRateNormalG_1, mathGasRateNormalG, calcNebiki, calcTotal, calcSeikyu, 
+	readPrebalance, calcZogenHiwari, calcGasKangen, calcEtcUri, calcEtcTax , calcPrebalance, isFuriDemand
 }
