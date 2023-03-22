@@ -2814,28 +2814,3 @@ export class UTC {
 	}
 }
 
-export class Sy2fFunouComment {
-	constructor() {
-		this.mFunouComment0 = "";
-		this.mFunouComment1 = "";
-	}
-
-	setValue(mFunouComment0, mFunouComment1) {
-		var data = new Sy2fFunouComment();
-
-		data.mFunouComment0 = mFunouComment0;
-		data.mFunouComment1 = mFunouComment1;
-		return data;
-	}
-
-	parseData(responeData) {
-		var data = new Sy2fFunouComment();
-		if (responeData == null) {
-			return data;
-		}
-
-		data.mFunouComment0 = responeData.mFunouComment0;
-		data.mFunouComment1 = responeData.mFunouComment1;
-		return data;
-	}
-}
