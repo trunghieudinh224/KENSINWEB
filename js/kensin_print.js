@@ -1638,7 +1638,7 @@ function printGasryokinA(kensinData) {
 			nGasStepKin = 0;
 			if (gasfDat.mSum == 1 && nStartIdx < gasfDat.mLine) {
 				// 通常料金式では、次のステップの基本料金迄の金額を計算
-				nWorkKin = lstGstpDat[nStartIdx + 1].mBase;
+				nWorkKin = lstGstpDat[nStartIdx + 1].m_nBase;
 				nWorkKin = Other.hasCom(nWorkKin, gasfDat.mFrac1Add, gasfDat.mFrac1Mult, 10000.);
 				nWorkKin *= 1000 + gasfDat.mRiseFall;
 				nNextBaseKin = parseInt(Other.hasCom(nWorkKin, gasfDat.mFrac2Add, gasfDat.mFrac2Mult, 10000000.) / 10000000.);
@@ -1676,7 +1676,7 @@ function printGasryokinA(kensinData) {
 					nGasStepKin = 0;
 					if (gasfDat.mSum == 1 && i < gasfDat.mLine) {
 						// 通常料金式では、次のステップの基本料金迄の金額を計算
-						nWorkKin = lstGstpDat[i + 1].mBase;
+						nWorkKin = lstGstpDat[i + 1].m_nBase;
 						nWorkKin = Other.hasCom(nWorkKin, gasfDat.mFrac1Add, gasfDat.mFrac1Mult, 10000.);
 						nWorkKin *= 1000 + gasfDat.mRiseFall;
 						nNextBaseKin = (Other.hasCom(nWorkKin, gasfDat.mFrac2Add, gasfDat.mFrac2Mult, 10000000.) / 10000000.);
