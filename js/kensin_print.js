@@ -2295,15 +2295,22 @@ function createHmInfo_(userData) {
 		calcKeigen(mapHmefDat, hmefList1);
 		calcKeigen(mapHmefDat, hmefList2);
 		var nTax = 0;
-		if (hmefList.length > 0) {
-			nTax = createHmInfo(hmefList, sysfDat, mapHmefDat, isTanka);
+		if (hmefList != null) {
+			if (hmefList.length > 0) {
+				nTax = createHmInfo(hmefList, sysfDat, mapHmefDat, isTanka);
+			}
 		}
-		if (hmefList1.length > 0) {
-			nTax += createHmInfo(hmefList1, sysfDat, mapHmefDat, isTanka);
+		if (hmefList1 != null) { 
+			if (hmefList1.length > 0) {
+				nTax += createHmInfo(hmefList1, sysfDat, mapHmefDat, isTanka);
+			}
 		}
-		if (hmefList2.length > 0) {
-			createHmInfo(hmefList2, sysfDat, mapHmefDat, isTanka);
+		if (hmefList2 != null) { 
+			if (hmefList2.length > 0) {
+				createHmInfo(hmefList2, sysfDat, mapHmefDat, isTanka);
+			}
 		}
+		
 		createHmInfoTax(mapHmefDat, userData.mKokfDat.mUriTax + nTax);
 	} else {
 		document.getElementById("hmInfoArea").style.display = "none";

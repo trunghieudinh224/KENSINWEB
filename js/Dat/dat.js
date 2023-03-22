@@ -1836,7 +1836,7 @@ export class UserData {
 		data.mHynmDat = new HynmDat().parseData(responeData.mHynmDat);
 		data.getHmef0 = responeData.getHmef0;
 		data.getHmef1 = responeData.getHmef1;
-		data.getHmef2 = responeData.getHmef2;
+		data.getHmef2 = responeData.mHmefList;
 		return data;
 	}
 }
