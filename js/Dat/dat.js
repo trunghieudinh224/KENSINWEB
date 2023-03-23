@@ -744,9 +744,15 @@ export class Ko2fDat {
 		this.mGasUse = [];
 		/** 通常使用量料金 */
 		this.mNorKin = 0;
+		/** ガス料金 */
+		this.mFee = [];
+		/** 前回指針 */
+		this.mPreMeter = [];
+		/** 今回指針 */
+		this.mNowMeter = [];
 	}
 
-	setValue(mGashyb, mChoTaxku, mChoTax, mUseKin, mUseTaxku, mUseTax, mChoKin, mGasUse, mNorKin) {
+	setValue(mGashyb, mChoTaxku, mChoTax, mUseKin, mUseTaxku, mUseTax, mChoKin, mGasUse, mNorKin, mFee, mPreMeter, mNowMeter) {
 		var data = new Ko2fDat();
 
 		data.kHyb_MAX = 4;
@@ -759,6 +765,9 @@ export class Ko2fDat {
 		data.mChoKin = mChoKin;
 		data.mGasUse = mGasUse;
 		data.mNorKin = mNorKin;
+		data.mFee = mFee;
+		data.mPreMeter = mPreMeter;
+		data.mNowMeter = mNowMeter;
 		return data;
 	}
 
@@ -778,6 +787,9 @@ export class Ko2fDat {
 		data.mChoKin = responeData.mChoKin;
 		data.mGasUse = responeData.mGasUse;
 		data.mNorKin = responeData.mNorKin;
+		data.mFee = responeData.mFee;
+		data.mPreMeter = responeData.mPreMeter;
+		data.mNowMeter = responeData.mNowMeter;
 		return data
 	}
 }
