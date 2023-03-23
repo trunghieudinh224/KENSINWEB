@@ -2885,48 +2885,6 @@ export class CnpCusDat {
 	}
 }
 
-export class Sy2fCnpTempDat {
-	constructor() {
-		/** CN仮会員コメント1 */
-		this.mCnpTempComment_0 = 0;
-		/** CN仮会員コメント2 */
-		this.mCnpTempComment_1 = 0;
-		/** CNコメント１ */
-		this.mCnpComment_0 = 0;
-		/** CNコメント２ */
-		this.mCnpComment_1 = 0;
-		/** CNコメント３ */
-		this.mCnpComment_2 = 0;
-	}
-
-	setValue(mCnpTempComment_0, mCnpTempComment_1, mCnpComment_0, mCnpComment_1, mCnpComment_2) {
-		var data = new Sy2fCnpTempDat();
-
-		data.mCnpTempComment_0 = mCnpTempComment_0;
-		data.mCnpTempComment_1 = mCnpTempComment_1;
-		data.mCnpComment_0 = mCnpComment_0;
-		data.mCnpComment_1 = mCnpComment_1;
-		data.mCnpComment_2 = mCnpComment_2;
-		return data;
-	}
-
-	parseData(responeData) {
-		var data = new Sy2fCnpTempDat();
-		if (responeData == null) {
-			return data;
-		}
-
-		data.mCnpTempComment_0 = responeData.mCnpTempComment_0;
-		data.mCnpTempComment_1 = responeData.mCnpTempComment_1;
-		data.mCnpComment_0 = responeData.mCnpComment_0;
-		data.mCnpComment_1 = responeData.mCnpComment_1;
-		data.mCnpComment_2 = responeData.mCnpComment_2;
-
-		return data;
-	}
-}
-
-
 export class Sy2fCnpDat {
 	constructor() {
 		/** CNコメント１ */
