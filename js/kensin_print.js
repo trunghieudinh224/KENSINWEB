@@ -36,6 +36,7 @@ var androidData = new Dat.AndroidData();
 var mKSIB = new Dat.KSIB();
 var mKI = new Dat.KI();
 var mUTC = new Dat.UTC();
+var lstComment = ["", ""];
 
 /****  PRINT   ****/
 /* image string */
@@ -2653,6 +2654,7 @@ function getComment() {
 			strComments[1] = dataSetting.m_lstComment[i].name;
 		}
 	}
+	lstComment = strComments;
 	return strComments;
 }
 
@@ -3295,6 +3297,7 @@ function onclickAction() {
 			androidData.mKSIB = mKSIB;
 			androidData.mKI = mKI;
 			androidData.mUTC = mUTC;
+			androidData.lstComment = lstComment;
 			window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
 			// createImageKensinForm();
 			// savingData();
