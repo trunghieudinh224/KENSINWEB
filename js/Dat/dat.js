@@ -2884,37 +2884,3 @@ export class CnpCusDat {
 		return data;
 	}
 }
-
-export class Sy2fCnpDat {
-	constructor() {
-		/** CNコメント１ */
-		this.mCnpComment_0 = 0;
-		/** CNコメント２ */
-		this.mCnpComment_1 = 0;
-		/** CNコメント３ */
-		this.mCnpComment_2 = 0;
-	}
-
-	setValue(mCnpComment_0, mCnpComment_1, mCnpComment_2) {
-		var data = new Sy2fCnpDat();
-
-		data.mCnpComment_0 = mCnpComment_0;
-		data.mCnpComment_1 = mCnpComment_1;
-		data.mCnpComment_2 = mCnpComment_2;
-		return data;
-	}
-
-	parseData(responeData) {
-		var data = new Sy2fCnpDat();
-		if (responeData == null) {
-			return data;
-		}
-
-		data.mCnpComment_0 = responeData.mCnpComment_0;
-		data.mCnpComment_1 = responeData.mCnpComment_1;
-		data.mCnpComment_2 = responeData.mCnpComment_2;
-
-		return data;
-	}
-}
-
