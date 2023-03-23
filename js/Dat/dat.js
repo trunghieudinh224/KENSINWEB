@@ -676,6 +676,8 @@ export class Sy2fDat {
 		this.mFunouPrint = 0;
 		/** 振替不能コメント */
 		this.mSy2fFunouComment = new Sy2fFunouComment();
+		/** 宮野式ポイントフラグ */
+		this.mMiyanoFlg = 0;
 	}
 
 	setValue(mCaHas, mCaFlg, mKangHbcd, mKangHcd, mNyucho, mSysOption, mSysfHmcd13, mJifuriNext, mSyskeigen, mPntVer, pntDatName, mFunouPrint, mSy2fFunouComment) {
@@ -1564,11 +1566,11 @@ export class KensinData {
 		/** CNポイント使用フラグ */
 		this.mCnp = false;
 		/** CNポイントデータ */
-		this.mCnpCusDat = null;
+		this.mCnpCusDat = new CnpCusDat();
 		/** CNポイント本会員用コメント */
-		this.mCnpMemberCmt = null;
+		this.mCnpMemberCmt = new Sy2fCnpDat();
 		/** CNポイント仮会員用コメント */
-		this.mCnpTempCmt = null;
+		this.mCnpTempCmt = new Sy2fCnpTempDat();
 		/** 前回使用量印字フラグ */
 		this.mPrnZensr = false;
 		/** ガス基本料金印字フラグ */
@@ -2826,6 +2828,134 @@ export class UTC {
 
 		data.nGUchiZei = nGUchiZei;
 		data.nUchiZei = nUchiZei;
+		return data;
+	}
+}
+
+export class CnpCusDat {
+	constructor() {
+		/** 仮会員フラグ（0: 未会員, 1: 仮会員） */
+		this.mCnpTemp = 0;
+		/** 本会員フラグ（0: 未会員, 1: 本会員） */
+		this.mCnpMembers = 0;
+		/** CNポイント */
+		this.mCnpPoint = 0;
+		/** 前月獲得CNポイント */
+		this.mCnpZpoint = 0;
+		/** 会員ＩＤ */
+		this.mCnpMembersId = 0;
+		/** 残高取得日：年 */
+		this.mCnpZanymd_y = 0;
+		/** 残高取得日：月 */
+		this.mCnpZanymd_m = 0;
+		/** 残高取得日：日 */
+		this.mCnpZanymd_d = 0;
+	}
+
+	setValue(mCnpTemp, mCnpMembers, mCnpPoint, mCnpZpoint, mCnpMembersId, mCnpZanymd_y, mCnpZanymd_m, mCnpZanymd_d) {
+		var data = new CnpCusDat();
+
+		data.mCnpTemp = mCnpTemp;
+		data.mCnpMembers = mCnpMembers;
+		data.mCnpPoint = mCnpPoint;
+		data.mCnpZpoint = mCnpZpoint;
+		data.mCnpMembersId = mCnpMembersId;
+		data.mCnpZanymd_y = mCnpZanymd_y;
+		data.mCnpZanymd_m = mCnpZanymd_m;
+		data.mCnpZanymd_d = mCnpZanymd_d;
+		return data;
+	}
+
+	parseData(responeData) {
+		var data = new CnpCusDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mCnpTemp = responeData.mCnpTemp;
+		data.mCnpMembers = responeData.mCnpMembers;
+		data.mCnpPoint = responeData.mCnpPoint;
+		data.mCnpZpoint = responeData.mCnpZpoint;
+		data.mCnpMembersId = responeData.mCnpMembersId;
+		data.mCnpZanymd_y = responeData.mCnpZanymd_y;
+		data.mCnpZanymd_m = responeData.mCnpZanymd_m;
+		data.mCnpZanymd_d = responeData.mCnpZanymd_d;
+
+		return data;
+	}
+}
+
+export class Sy2fCnpTempDat {
+	constructor() {
+		/** CN仮会員コメント1 */
+		this.mCnpTempComment_0 = 0;
+		/** CN仮会員コメント2 */
+		this.mCnpTempComment_1 = 0;
+		/** CNコメント１ */
+		this.mCnpComment_0 = 0;
+		/** CNコメント２ */
+		this.mCnpComment_1 = 0;
+		/** CNコメント３ */
+		this.mCnpComment_2 = 0;
+	}
+
+	setValue(mCnpTempComment_0, mCnpTempComment_1, mCnpComment_0, mCnpComment_1, mCnpComment_2) {
+		var data = new Sy2fCnpTempDat();
+
+		data.mCnpTempComment_0 = mCnpTempComment_0;
+		data.mCnpTempComment_1 = mCnpTempComment_1;
+		data.mCnpComment_0 = mCnpComment_0;
+		data.mCnpComment_1 = mCnpComment_1;
+		data.mCnpComment_2 = mCnpComment_2;
+		return data;
+	}
+
+	parseData(responeData) {
+		var data = new Sy2fCnpTempDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mCnpTempComment_0 = responeData.mCnpTempComment_0;
+		data.mCnpTempComment_1 = responeData.mCnpTempComment_1;
+		data.mCnpComment_0 = responeData.mCnpComment_0;
+		data.mCnpComment_1 = responeData.mCnpComment_1;
+		data.mCnpComment_2 = responeData.mCnpComment_2;
+
+		return data;
+	}
+}
+
+
+export class Sy2fCnpDat {
+	constructor() {
+		/** CNコメント１ */
+		this.mCnpComment_0 = 0;
+		/** CNコメント２ */
+		this.mCnpComment_1 = 0;
+		/** CNコメント３ */
+		this.mCnpComment_2 = 0;
+	}
+
+	setValue(mCnpComment_0, mCnpComment_1, mCnpComment_2) {
+		var data = new Sy2fCnpDat();
+
+		data.mCnpComment_0 = mCnpComment_0;
+		data.mCnpComment_1 = mCnpComment_1;
+		data.mCnpComment_2 = mCnpComment_2;
+		return data;
+	}
+
+	parseData(responeData) {
+		var data = new Sy2fCnpDat();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.mCnpComment_0 = responeData.mCnpComment_0;
+		data.mCnpComment_1 = responeData.mCnpComment_1;
+		data.mCnpComment_2 = responeData.mCnpComment_2;
+
 		return data;
 	}
 }
