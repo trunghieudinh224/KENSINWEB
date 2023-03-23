@@ -1139,10 +1139,12 @@ export class HmefDat {
 		this.mPreHrec = 0;
 		/** 次明細レコード 0で最終レコード */
 		this.mNxtHrec = 0;
+		/**  */
+		this.mShofDat = null;
 	}
 
 	setValue(mUsef, mHmeKind, mLeasKind, mKin, mTax, mHmCode, mTaxKu, mTaxR, mHbCode, mDenm,
-		mDend, mHmName, mSuryo, mTanka, mKeigenKubun, mHbnmPrn, mHbName, mDeny) {
+		mDend, mHmName, mSuryo, mTanka, mKeigenKubun, mHbnmPrn, mHbName, mDeny, mShofDat) {
 		var data = new HmefDat();
 
 		data.mUsef = mUsef;
@@ -1163,6 +1165,7 @@ export class HmefDat {
 		data.mHbnmPrn = mHbnmPrn;
 		data.mHbName = mHbName;
 		data.mDeny = mDeny;
+		data.mShofDat = mShofDat;
 		return data;
 	}
 
@@ -1190,6 +1193,7 @@ export class HmefDat {
 		data.mHbnmPrn = responeData.mHbnmPrn;
 		data.mHbName = responeData.mHbName;
 		data.mDeny = responeData.mDeny;
+		data.mShofDat = responeData.mShofDat;
 		return data
 	}
 }
@@ -1804,8 +1808,6 @@ export class UserData {
 		this.mBusfDat_hmcd13 = null;
 		/** ハイブリッドカウンタ名称データ */
 		this.mHynmDat = null;
-
-
 
 		this.getHmef0 = null;
 		this.getHmef1 = null;

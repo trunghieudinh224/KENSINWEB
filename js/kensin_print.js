@@ -1471,7 +1471,7 @@ function calcUtax(sysfDat, hmefDat) {
 	if (hmefDat.mTaxKu == 2) {	//内税
 		var flo = (parseFloat(hmefDat.mKin) * (parseFloat(hmefDat.mTaxR))) / parseFloat(hmefDat.mTaxR + 1000);
 		//  商品マスタに端数処理が登録されていない時のみ、システムの端数処理を使用する。2012.09.26
-		var shofDat = mUserData.getShofDat(hmefDat.mHmCode, hmefDat.mHbCode);
+		var shofDat = hmefDat.mShofDat;
 
 		if (shofDat.mFracAddTax == 0 && shofDat.mFracAddMult == 0) {
 			//　消費税：端数処理　システムをしようする。 Ver2.4.13 以前
@@ -3287,6 +3287,9 @@ function onclickAction() {
 			androidData.mUserData.mKokfDat = mUserData.mKokfDat;
 			androidData.mUserData.mSy2fDat = mUserData.mSy2fDat;
 			androidData.mUserData.mKouserDat = mUserData.mKouserDat;
+			androidData.mUserData.getHmef0 = mUserData.getHmef0;
+			androidData.mUserData.getHmef1 = mUserData.getHmef1;
+			androidData.mUserData.getHmef2 = mUserData.getHmef2;
 			androidData.kensinData = kensinData;
 			androidData.mUserData.mKensinDate = mUserData.mKensinDate;
 			androidData.mKSIB = mKSIB;
