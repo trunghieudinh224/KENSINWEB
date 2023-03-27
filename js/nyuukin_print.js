@@ -443,7 +443,7 @@ function createRyosyuInfo(wkKensinData, isNyukinOnly) {
 
 		if (wkKensinData.m_Chosei != 0) {
 			document.getElementById("choTitleText_NK").innerHTML = getChoTitle();
-			mUTC.sChoseiTitle = getChoTitle();
+			androidData.androidNyukinDat.sChoseiTitle = getChoTitle();
 			document.getElementById("choTitleVal_NK").innerHTML = Other.formatDecial(wkKensinData.m_Chosei);
 		} else {
 			document.getElementById("choTitleArea_NK").style.display = "none";
