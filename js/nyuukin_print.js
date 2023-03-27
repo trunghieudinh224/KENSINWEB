@@ -844,8 +844,12 @@ function createHmInfoHeader(isTanka) {
 		document.getElementsByClassName("hinmoku-nk")[0].classList.add(" hmw-40");
 	} else {
 		document.getElementsByClassName("tanka-nk")[0].style.display = "none";
-		document.getElementsByClassName("hinmoku-nk")[0].classList.remove("hmw-40");
-		document.getElementsByClassName("hinmoku-nk")[0].classList.add(" hmw-20");
+		if (document.getElementsByClassName("hinmoku-nk")[0].classList.contains("hmw-40")) {
+			document.getElementsByClassName("hinmoku-nk")[0].classList.remove("hmw-40");
+		}
+		if (document.getElementsByClassName("hinmoku-nk")[0].classList.contains(" hmw-20")) {
+			document.getElementsByClassName("hinmoku-nk")[0].classList.add(" hmw-20");
+		}
 	}
 }
 
