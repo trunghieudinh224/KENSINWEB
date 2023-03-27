@@ -821,9 +821,21 @@ function createHmInfo_() {
 			}
 			createHmInfo(new Array(hmefDatZan), sysfDat, mapHmefDat, isTanka);
 		}
-		if (wkHmefList.length > 0) nTax = createHmInfo(wkHmefList, sysfDat, mapHmefDat, isTanka);
-		if (lstHmefDat.length == 0) nTax = createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka);
-		if (wkHmefList2.length > 0) createHmInfo(wkHmefList2, sysfDat, mapHmefDat, isTanka);
+		if (wkHmefList != null) {
+			if (wkHmefList.length > 0) {
+				if (wkHmefList.length > 0) nTax = createHmInfo(wkHmefList, sysfDat, mapHmefDat, isTanka);
+			}
+		}
+		if (lstHmefDat != null) {
+			if (lstHmefDat.length > 0) {
+				if (lstHmefDat.length == 0) nTax = createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka);
+			}
+		}
+		if (wkHmefList2 != null) {
+			if (wkHmefList2.length > 0) {
+				if (wkHmefList2.length > 0) createHmInfo(wkHmefList2, sysfDat, mapHmefDat, isTanka);
+			}
+		}
 
 		// 消費税
 		createHmInfoTax(mapHmefDat, kokfDat.mUriTax + nTax);
@@ -1070,8 +1082,12 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		row.appendChild(date);
 		date.after(name);
 		name.after(suryo);
-		suryo.after(tanka);
-		tanka.after(kin);
+		if (isTanka == true) {
+			suryo.after(tanka);
+			tanka.after(kin);
+		} else {
+			suryo.after(kin);
+		}
 		area.after(row);
 		previousId = row.id;
 	}
