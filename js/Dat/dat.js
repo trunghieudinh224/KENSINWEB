@@ -2633,7 +2633,7 @@ export class AndroidData {
 		this.isHybseikyu;
 		this.isHikae;
 		this.mUserData = new UserData();
-		this.kensinData = new KensinData();
+		this.kensinData = null;
 		this.mKSIB = new KSIB();
 		this.mKI = new KI();
 		this.mUTC = new UTC();
