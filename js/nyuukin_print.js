@@ -26,6 +26,15 @@ var printStatus = new Dat.PrintStatus();
 /** 検針情報 */
 var kensinData = new Dat.KensinData();
 
+var previousHmInfoId = "hmInfoHeaderText_NK";
+
+/*****  ANDROID DATA  *****/
+var androidData = new Dat.AndroidData();
+var mKSIB = new Dat.KSIB();
+var mKI = new Dat.KI();
+var mUTC = new Dat.UTC();
+var lstComment = ["", ""];
+
 
 /****  PRINT   ****/
 /* image string */
@@ -823,17 +832,17 @@ function createHmInfo_() {
 		}
 		if (wkHmefList != null) {
 			if (wkHmefList.length > 0) {
-				if (wkHmefList.length > 0) nTax = createHmInfo(wkHmefList, sysfDat, mapHmefDat, isTanka);
+				nTax = createHmInfo(wkHmefList, sysfDat, mapHmefDat, isTanka);
 			}
 		}
 		if (lstHmefDat != null) {
 			if (lstHmefDat.length > 0) {
-				if (lstHmefDat.length == 0) nTax = createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka);
+				nTax = createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka);
 			}
 		}
 		if (wkHmefList2 != null) {
 			if (wkHmefList2.length > 0) {
-				if (wkHmefList2.length > 0) createHmInfo(wkHmefList2, sysfDat, mapHmefDat, isTanka);
+				nTax = createHmInfo(wkHmefList2, sysfDat, mapHmefDat, isTanka);
 			}
 		}
 
@@ -975,7 +984,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 	}
 	var nTax = 0;
 	var strPrint = "";
-	var previousId = "hmInfoHeaderText";
+	var previousId = previousHmInfoId;
 	for (var i = 0; i < lstHmefDat.length; i++) {
 		const area = document.getElementById(previousId);
 		var hmefDat = lstHmefDat[i];
@@ -1090,6 +1099,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		}
 		area.after(row);
 		previousId = row.id;
+		previousHmInfoId = row.id;
 	}
 	return nTax;
 }
@@ -1521,13 +1531,13 @@ function onclickAction() {
 			androidData.mUserData.mHanfDat = mUserData.mHanfDat;
 			androidData.kensinData = kensinData;
 			androidData.mUserData.mKensinDate = mUserData.mKensinDate;
-			androidData.mKSIB = mKSIB;
-			androidData.mKI = mKI;
-			androidData.mUTC = mUTC;
-			androidData.lstComment = lstComment;
-			androidData.sTantname = dataSetting.m_lstTantName[0].name;
-			// window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
-			createImageKensinForm();
+			// androidData.mKSIB = mKSIB;
+			// androidData.mKI = mKI;
+			// androidData.mUTC = mUTC;
+			// androidData.lstComment = lstComment;
+			// androidData.sTantname = dataSetting.m_lstTantName[0].name;
+			window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
+			// createImageKensinForm();
 		}
 	}
 }
