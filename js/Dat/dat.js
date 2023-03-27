@@ -2632,7 +2632,7 @@ export class AndroidData {
 		this.printStatus;
 		this.isHybseikyu;
 		this.isHikae;
-		this.mUserData = null;
+		this.mUserData = new UserData();
 		this.kensinData = null;
 		this.mKSIB = null;
 		this.mKI = null;
