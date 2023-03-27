@@ -843,8 +843,8 @@ function createHmInfoHeader(isTanka) {
 		document.getElementsByClassName("hinmoku-nk")[0].classList.remove("hmw-20");
 		document.getElementsByClassName("hinmoku-nk")[0].classList.add(" hmw-40");
 	} else {
-		document.getElementsByClassName("tanka-nk")[0].remove();
 		document.getElementsByClassName("tanka-nk")[1].remove();
+		document.getElementsByClassName("tanka-nk")[0].remove();
 		if (document.getElementsByClassName("hinmoku-nk")[0].classList.contains("hmw-40")) {
 			document.getElementsByClassName("hinmoku-nk")[0].classList.remove("hmw-40");
 		}
