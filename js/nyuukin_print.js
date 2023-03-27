@@ -1504,9 +1504,9 @@ function onclickAction() {
 			// Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
 			// savingData();
 
-			document.getElementById("editView").style.display = "none";
-			document.getElementById("printView").style.display = "block";
-			document.getElementById("kensinForm").style.display = "none";
+			// document.getElementById("editView").style.display = "none";
+			// document.getElementById("printView").style.display = "block";
+			// document.getElementById("kensinForm").style.display = "none";
 			var mReciept = 0;
 			var mZandaka = 0;
 			if (KensinKinyuu.displayTab[2] == true) {
