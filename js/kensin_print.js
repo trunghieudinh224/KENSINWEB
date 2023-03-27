@@ -2534,8 +2534,12 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		row.appendChild(date);
 		date.after(name);
 		name.after(suryo);
-		suryo.after(tanka);
-		tanka.after(kin);
+		if (isTanka == true) {
+			suryo.after(tanka);
+			tanka.after(kin);
+		} else {
+			suryo.after(kin);
+		}
 		area.after(row);
 		previousId = row.id;
 	}
