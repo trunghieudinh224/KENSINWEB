@@ -1471,7 +1471,42 @@ function onclickAction() {
 		};
 		KensinKinyuu.saveButton.onclick = function () {
 			// Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
-			savingData();
+			// savingData();
+
+			// document.getElementById("editView").style.display = "none";
+			// document.getElementById("printView").style.display = "block";
+			// document.getElementById("kensinForm").style.display = "none";
+			var mReciept = 0;
+			var mZandaka = 0;
+			if (KensinKinyuu.displayTab[2] == true) {
+				mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
+				mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
+				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
+			} else {
+				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
+			}
+			createPrintData(printStatus, false);
+			androidData.type = "nyukin";
+			androidData.printStatus = printStatus;
+			androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
+			androidData.isHikae = false;
+			androidData.mUserData.mSysfDat = mUserData.mSysfDat;
+			androidData.mUserData.mKokfDat = mUserData.mKokfDat;
+			androidData.mUserData.mSy2fDat = mUserData.mSy2fDat;
+			androidData.mUserData.mKouserDat = mUserData.mKouserDat;
+			androidData.mUserData.getHmef0 = mUserData.getHmef0;
+			androidData.mUserData.getHmef1 = mUserData.getHmef1;
+			androidData.mUserData.getHmef2 = mUserData.getHmef2;
+			androidData.mUserData.mHanfDat = mUserData.mHanfDat;
+			androidData.kensinData = kensinData;
+			androidData.mUserData.mKensinDate = mUserData.mKensinDate;
+			androidData.mKSIB = mKSIB;
+			androidData.mKI = mKI;
+			androidData.mUTC = mUTC;
+			androidData.lstComment = lstComment;
+			androidData.sTantname = dataSetting.m_lstTantName[0].name;
+			// window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
+			createImageKensinForm();
 		}
 	}
 }
@@ -1548,11 +1583,10 @@ function savingData() {
 				mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
 				mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
 				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
-				createPrintData(printStatus, false);
 			} else {
 				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
-				createPrintData(printStatus, false);
 			}
+			createPrintData(printStatus, false);
 			createImageKensinForm();
 		},
 		error: function (xmlhttprequest, textstatus, message) {
