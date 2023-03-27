@@ -2632,11 +2632,11 @@ export class AndroidData {
 		this.printStatus;
 		this.isHybseikyu;
 		this.isHikae;
-		this.mUserData = new UserData();
+		this.mUserData = null;
 		this.kensinData = null;
-		this.mKSIB = new KSIB();
-		this.mKI = new KI();
-		this.mUTC = new UTC();
+		this.mKSIB = null;
+		this.mKI = null;
+		this.mUTC = null;
 		this.lstComment = [];
 	}
 
