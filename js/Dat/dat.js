@@ -531,6 +531,8 @@ export class SysfDat {
 		this.mHinCd9 = 0;
 		/** ltasモードフラグ */
 		this.m_isLtas = false;
+		/** インボイスコメント */
+		this.m_strInvoiceComment = "";
 		/**  */
 		this.mShofDatKangen = null;
 	}
@@ -538,7 +540,7 @@ export class SysfDat {
 	setValue(mKgasDays0, mKgasDays1, mKgasDays2, mTax_yy, mTax_mm, mTax_dd, mConsumTax, mTaxr_old, mTaxr_new, mVisibleGas, mVisibleFacility, 
 		mLesUmu, mFracAddKin, mFracMulKin, mFracAddTax, mFracMulTax, mSysYear, mMonth, mDate, mIfReduce, mShoTaxcom, mCheckHoan, mIfMoney, 
 		mTenkenKgas, m_isToyukensinFlg, mSrChkr, mSrChkm, mKnebFlg, mIfAdjust, mIfAlarm, mIfDiv, mIfLampoil, mIfProceeds, mIfDemand, mGtpcDat,
-		mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta, mSanki, mHinCd9, m_isLtas, mShofDatKangen) {
+		mHtOption, mSnvalue, mIfChitUser, mSysMonth, mTenkenDelta, mSanki, mHinCd9, m_isLtas, m_strInvoiceComment, mShofDatKangen) {
 		var data = new SysfDat();
 
 		data.mKgasDays0 = mKgasDays0;
@@ -584,6 +586,7 @@ export class SysfDat {
 		data.mSanki = mSanki;
 		data.mHinCd9 = mHinCd9;
 		data.m_isLtas = m_isLtas;
+		data.m_strInvoiceComment = m_strInvoiceComment;
 		data.mShofDatKangen = mShofDatKangen;
 		return data;
 	}
@@ -640,6 +643,7 @@ export class SysfDat {
 		data.mSanki = responeData.mSanki;
 		data.mHinCd9 = responeData.mHinCd9;
 		data.m_isLtas = responeData.m_isLtas;
+		data.m_strInvoiceComment = responeData.m_strInvoiceComment;
 		if (responeData.mShofDatKangen != null) {
 			data.mShofDatKangen = new ShofDat().parseData(responeData.mShofDatKangen);
 		}
