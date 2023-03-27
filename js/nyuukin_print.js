@@ -1529,13 +1529,11 @@ function onclickAction() {
 			androidData.mUserData.getHmef1 = mUserData.getHmef1;
 			androidData.mUserData.getHmef2 = mUserData.getHmef2;
 			androidData.mUserData.mHanfDat = mUserData.mHanfDat;
-			// androidData.kensinData = kensinData;
-			// androidData.mUserData.mKensinDate = mUserData.mKensinDate;
-			// androidData.mKSIB = mKSIB;
-			// androidData.mKI = mKI;
-			// androidData.mUTC = mUTC;
-			// androidData.lstComment = lstComment;
-			// androidData.sTantname = dataSetting.m_lstTantName[0].name;
+			androidData.kensinData = kensinData;
+			androidData.mUserData.mKensinDate = mUserData.mKensinDate;
+			androidData.androidKensinDat = null;
+			androidData.lstComment = lstComment;
+			androidData.sTantname = dataSetting.m_lstTantName[0].name;
 			window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
 			// createImageKensinForm();
 		}
