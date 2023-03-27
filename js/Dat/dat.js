@@ -2633,14 +2633,12 @@ export class AndroidData {
 		this.isHybseikyu;
 		this.isHikae;
 		this.mUserData = new UserData();
-		this.kensinData = null;
-		this.mKSIB = null;
-		this.mKI = null;
-		this.mUTC = null;
+		this.kensinData = new KensinData();
+		this.androidKensinDat = new AndroidKensinDat();
 		this.lstComment = [];
 	}
 
-	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, mKSIB, mKI, mUTC, lstComment) {
+	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, androidKensinDat, lstComment) {
 		var data = new AndroidData();
 
 		data.type = type;
@@ -2649,34 +2647,26 @@ export class AndroidData {
 		data.isHikae = isHikae;
 		data.mUserData = mUserData;
 		data.kensinData = kensinData;
-		data.mKSIB = mKSIB;
-		data.mKI = mKI;
-		data.mUTC = mUTC;
+		data.androidKensinDat = androidKensinDat;
 		data.lstComment = lstComment;
 		return data;
 	}
 }
 
 
-export class HieuDat {
+export class AndroidKensinDat {
 	constructor() {
-		this.mName = "";
-		this.mTel = "";
-		this.mFax = "";
-		this.mAdd1 = "";
-		this.mAdd2 = "";
-		this.mAdd3 = "";
+		this.mKSIB = new KSIB();
+		this.mKI = new KI();
+		this.mUTC = new UTC();
 	}
 
-	setValue(mName, mTel, mFax, mAdd1, mAdd2, mAdd3) {
-		var data = new HieuDat();
+	setValue(mKSIB, mKI, mUTC) {
+		var data = new AndroidKensinDat();
 
-		data.mName = mName;
-		data.mTel = mTel;
-		data.mFax = mFax;
-		data.mAdd1 = mAdd1;
-		data.mAdd2 = mAdd2;
-		data.mAdd3 = mAdd3;
+		data.mKSIB = mKSIB;
+		data.mKI = mKI;
+		data.mUTC = mUTC;
 		return data;
 	}
 }
