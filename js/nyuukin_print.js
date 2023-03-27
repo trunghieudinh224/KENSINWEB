@@ -30,8 +30,6 @@ var previousHmInfoId = "hmInfoHeaderText_NK";
 
 /*****  ANDROID DATA  *****/
 var androidData = new Dat.AndroidData();
-var mKSIB = new Dat.KSIB();
-var mKI = new Dat.KI();
 var mUTC = new Dat.UTC();
 var lstComment = ["", ""];
 
@@ -445,6 +443,7 @@ function createRyosyuInfo(wkKensinData, isNyukinOnly) {
 
 		if (wkKensinData.m_Chosei != 0) {
 			document.getElementById("choTitleText_NK").innerHTML = getChoTitle();
+			mUTC.sChoseiTitle = getChoTitle();
 			document.getElementById("choTitleVal_NK").innerHTML = Other.formatDecial(wkKensinData.m_Chosei);
 		} else {
 			document.getElementById("choTitleArea_NK").style.display = "none";
@@ -486,6 +485,8 @@ function createUTaxComment(wkKensinData) {
 	var wkStr;
 	var wkTaxDat = Calc_UchiZei(wkKensinData, wkKensinData.m_isHybrid);
 
+	mUTC.nGUchiZei = wkTaxDat.mGUchiZei;
+	mUTC.nUchiZei = wkTaxDat.mUchiZei;
 	if (wkTaxDat.mGUchiZei != 0 || wkTaxDat.mUchiZei != 0) {
 		document.getElementById("uTaxCommentArea_NK").style.display = "block";
 		if (wkTaxDat.mGUchiZei != 0) {
@@ -1530,8 +1531,9 @@ function onclickAction() {
 			androidData.mUserData.getHmef2 = mUserData.getHmef2;
 			androidData.mUserData.mHanfDat = mUserData.mHanfDat;
 			androidData.kensinData = kensinData;
-			androidData.mUserData.mKensinDate = mUserData.mKensinDate;
+			androidData.mUserData.mKensinDate = document.getElementById("hakkooBiKenshinBi_NK").textContent;
 			androidData.androidKensinDat = null;
+			androidData.androidNyukinDat.mUTC = mUTC;
 			androidData.lstComment = lstComment;
 			androidData.sTantname = dataSetting.m_lstTantName[0].name;
 			window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);

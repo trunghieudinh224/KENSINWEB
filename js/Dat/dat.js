@@ -2635,10 +2635,11 @@ export class AndroidData {
 		this.mUserData = new UserData();
 		this.kensinData = new KensinData();
 		this.androidKensinDat = new AndroidKensinDat();
+		this.androidNyukinDat = new AndroidNyukinDat();
 		this.lstComment = [];
 	}
 
-	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, androidKensinDat, lstComment) {
+	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, androidKensinDat, androidNyukinDat, lstComment) {
 		var data = new AndroidData();
 
 		data.type = type;
@@ -2648,6 +2649,7 @@ export class AndroidData {
 		data.mUserData = mUserData;
 		data.kensinData = kensinData;
 		data.androidKensinDat = androidKensinDat;
+		data.androidNyukinDat = androidNyukinDat;
 		data.lstComment = lstComment;
 		return data;
 	}
@@ -2670,6 +2672,22 @@ export class AndroidKensinDat {
 		return data;
 	}
 }
+
+
+export class AndroidNyukinDat {
+	constructor() {
+		this.mUTC = new UTC();
+		this.sChoseiTitle = "";
+	}
+
+	setValue(mUTC, sChoseiTitle) {
+		var data = new AndroidNyukinDat();
+		data.mUTC = mUTC;
+		data.sChoseiTitle = sChoseiTitle;
+		return data;
+	}
+}
+
 
 export class KSIB {
 	constructor() {
