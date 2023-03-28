@@ -537,7 +537,7 @@ function createImageShuukeiForm() {
     androidData.androidKensinDat = null;
     androidData.androidNyukinDat.mUTC = null;
     androidData.lstComment = null;
-    androidData.sTantname = dataSetting.m_lstTantName[0].name;
+    androidData.sTantname = Other.cutStringSpace(dataSetting.m_lstTantName[0].name);
     androidData.shukeiDat = shukeiDat;
     window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
 }
