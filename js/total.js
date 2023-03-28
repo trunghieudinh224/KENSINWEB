@@ -683,7 +683,7 @@ function createImageUriageNippouForm() {
 
 
 function setDataAndroidShukei() {
-    shukeiDat.shukeiDate = document.getElementById("date-start").value + " - " + document.getElementById("date-end").value;
+    shukeiDat.shukeiDate = document.getElementById("date-start").value + "-" + document.getElementById("date-end").value;
     shukeiDat.nKensu = removeUnusedData(document.getElementsByClassName("kenCnt-prt")[0].textContent);
     shukeiDat.nGsiyou = removeUnusedData(document.getElementsByClassName("rowUses-prt")[0].textContent);
     shukeiDat.nGryokin = removeUnusedData(document.getElementsByClassName("rowPay-prt")[0].textContent);
