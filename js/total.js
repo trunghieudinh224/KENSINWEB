@@ -16,6 +16,8 @@ var selectDate = document.getElementById('selectDate');
 const modal = document.getElementById("myModal");
 
 /*****  DATA VARIABLE  *****/
+/** ユーザー情報 */ 
+var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 /* user data */
 var systemDat = JSON.parse(sessionStorage.getItem(StringCS.SYSTEMDAT)).mSystemDat;
 /* setting data */
@@ -33,20 +35,6 @@ var sysfDat = new Dat.SysfDat().setValue(25, 35, 29, 1970, 1, 1, 80, 50, 80, 1, 
 var sy2fDat = new Dat.Sy2fDat().setValue(0, 0, 0, 0, 0, [1, 1, -1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 5, 0, 0]);
 var kouserDat = new Dat.KouserDat();
 var unitList = ["件 ]", "件 ]", "件 ]", "件 ]", "m３ ]", "円 ]", "円 ]", "円 ]", "円 ]", "L ]", "円 ]", "円 ]", "円 ]", "円 ]", "円 ]", " ]", "円 ]", "円 ]", "円 ]"];
-// var kokfDat1 = new Dat.KokfDat().setValue("野村　洋子", 5, 1, 440, 1, true, 9990, 9550, 2019, 2, 7, 570, 1830, 0, 319, 22920, 0,
-//                                             0, 0, 0, 0, 0, new Dat.KtpcDat().setValue(18000000, 211200000, 0), 1, 0, 4, 0, 0, 0,
-//                                             0, 0, 0, null, 0, 0, 14884, 0, 0, 100, 8, 0, 0, 0, 20000, 1600, 0, 0, 0, 0, 0, 1000,
-//                                             true, 0, "○児市△貫町３－３", "0010000375",  "", "野村　洋子", "様", new Dat.ZyksDat().setValue(261, 2018, 5, 8),
-//                                             "---------��", 44, true);
-// var kokfDat2 = kokfDat1;
-// kokfDat2.mCusCode = "0010000370";
-// kokfDat2.mName = "xyz";
-// var kokfDat3 = kokfDat1;
-// kokfDat3.mKDate = 7;
-// var kokfDat4 = kokfDat1;
-// kokfDat4.mKDate = 7;
-// kokfDat4.mCusCode = "0010000370";
-// kokfDat4.mName = "xyz";
 
 /** list cusrec */
 var lstCusrec = [];
@@ -54,6 +42,10 @@ var lstCusrec = [];
 var dateStart = null;
 var dateEnd = null;
 
+
+/*****  ANDROID DATA  *****/
+var androidData = new Dat.AndroidData();
+var shukeiDat = new Dat.ShukeiDat();
 
 
 /*****  PRINT VARIABLE  *****/
@@ -321,6 +313,7 @@ function setDataPrintForm() {
     for (var i = 0; i < viewItemtList.length; i++) {
         viewItemtList[i].innerHTML = tempList[i].textContent + unitList[i];
     }
+    setDataAndroidShukei();
 }
 
 /** 
@@ -504,30 +497,49 @@ function setupTextSizeDetail(nameItem, textSize, lineHeight, fontWeight) {
     * CREATE IMAGE FILE OF SHUUKEI FORM
 */
 function createImageShuukeiForm() {
-    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
-    Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
+    // Common.setupModal("load", null, Mess.I00001, null, null, null, false);
+    // Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
     document.getElementById('shuukeiForm').style.display = "block";
-    setDataPrintForm();
-    setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
-    domtoimage.toBlob(document.getElementById('printContentDetail'))
-        .then(function (blob) {
-            getBase64(blob).then(
-                data => {
-                    console.log(data)
-                    imgString = data;
-                    window.scrollTo(0, 0);
+    // setDataPrintForm();
+    // setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
+    // domtoimage.toBlob(document.getElementById('printContentDetail'))
+    //     .then(function (blob) {
+    //         getBase64(blob).then(
+    //             data => {
+    //                 console.log(data)
+    //                 imgString = data;
+    //                 window.scrollTo(0, 0);
 
-                    const interval = setInterval(function () {
-                        setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
-                        Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
-                        clearInterval(interval);
-                        modal.style.display = "none";
-                    }, 100);
-                }
-            );
-        })
+    //                 const interval = setInterval(function () {
+    //                     setupPrintForm("100%", "600px", "45px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm)
+    //                     Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
+    //                     clearInterval(interval);
+    //                     modal.style.display = "none";
+    //                 }, 100);
+    //             }
+    //         );
+    //     })
+
+    setDataPrintForm();
+    androidData.type = "shukei";
+    androidData.mUserData.mSysfDat = mUserData.mSysfDat;
+    androidData.mUserData.mKokfDat = null;
+    androidData.mUserData.mSy2fDat = null;
+    androidData.mUserData.mKouserDat = null;
+    androidData.mUserData.getHmef0 = null;
+    androidData.mUserData.getHmef1 = null;
+    androidData.mUserData.getHmef2 = null;
+    androidData.mUserData.mHanfDat = null;
+    androidData.kensinData = null;
+    androidData.mUserData.mKensinDate = null;
+    androidData.androidKensinDat = null;
+    androidData.androidNyukinDat.mUTC = null;
+    androidData.lstComment = null;
+    androidData.sTantname = dataSetting.m_lstTantName[0].name;
+    androidData.shukeiDat = shukeiDat;
+    window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
 }
 
 
@@ -669,6 +681,35 @@ function createImageUriageNippouForm() {
         })
 }
 
+
+function setDataAndroidShukei() {
+    shukeiDat.shukeiDate = document.getElementById("date-start").value + " - " + document.getElementById("date-end").value;
+    shukeiDat.nKensu = removeUnusedData(document.getElementsByClassName("kenCnt-prt")[0].textContent);
+    shukeiDat.nGsiyou = removeUnusedData(document.getElementsByClassName("rowUses-prt")[0].textContent);
+    shukeiDat.nGryokin = removeUnusedData(document.getElementsByClassName("rowPay-prt")[0].textContent);
+    shukeiDat.nShohi = removeUnusedData(document.getElementsByClassName("rowTax-prt")[0].textContent);
+    shukeiDat.nKang = removeUnusedData(document.getElementsByClassName("rowKang-prt")[0].textContent);
+    shukeiDat.nTotal = removeUnusedData(document.getElementsByClassName("rowTotal-prt")[0].textContent);
+    shukeiDat.nToyuCnt = removeUnusedData(document.getElementsByClassName("toyuCnt-prt")[0].textContent);
+    shukeiDat.nToyuUse = removeUnusedData(document.getElementsByClassName("toyuUse-prt")[0].textContent);
+    shukeiDat.nToyuKin = removeUnusedData(document.getElementsByClassName("toyuPay-prt")[0].textContent);
+    shukeiDat.nToyuTax = removeUnusedData(document.getElementsByClassName("toyuTax-prt")[0].textContent);
+    shukeiDat.nToyuTotal = removeUnusedData(document.getElementsByClassName("toyuTotal-prt")[0].textContent);
+    shukeiDat.nNyuCnt = removeUnusedData(document.getElementsByClassName("nyuCnt-prt")[0].textContent);
+    shukeiDat.nNyukin = removeUnusedData(document.getElementsByClassName("rowInput-prt")[0].textContent);
+    shukeiDat.nChosei = removeUnusedData(document.getElementsByClassName("rowAdjust-prt")[0].textContent);
+    shukeiDat.nUricnt = removeUnusedData(document.getElementsByClassName("uriCnt-prt")[0].textContent);
+    shukeiDat.nUrisur = removeUnusedData(document.getElementsByClassName("rowUrisur-prt")[0].textContent);
+    shukeiDat.nUrikin = removeUnusedData(document.getElementsByClassName("rowUrikin-prt")[0].textContent);
+    shukeiDat.nUritax = removeUnusedData(document.getElementsByClassName("rowUriTax-prt")[0].textContent);
+}
+
+
+function removeUnusedData(value) {
+    return parseInt(Other.getNumFromString(value.replace(" ]","").replace("件","").replace("m３","").replace("円", "").replace("L", "")));
+}
+
+
 /**
   * 集計データ一覧の設定.
   * cách phân biệt data shukei gửi về:
@@ -720,7 +761,7 @@ function setShukeiDateList() {
                             } else {
                                 item.receipt = m_lstShukeiDat[j].h_kin * (-1);
                             }
-                        } 
+                        }
                         // else if (item.u_shocode == parseInt(systemDat.FSHOCODE_3)) {
                         //     item.m_isToyu = true;
                         //     item.m_nToyuSs = item.h_sisin;
@@ -1545,11 +1586,11 @@ function createPrintDataUriageNippou(mapUriageData) {
             var taxTitle = document.createElement("div");
             taxTitle.className = "col-3 sm-text text-print ta-l wsp-text item";
             taxTitle.innerHTML = "消費税";
-    
+
             var taxVal = document.createElement("div");
             taxVal.className = "col-9 sm-text text-print ta-r wsp-text item";
             taxVal.innerHTML = Other.formatDecial(nTax / 1000);;
-    
+
             document.getElementById(previousID).after(rowTax);
             rowTax.appendChild(taxTitle);
             taxTitle.after(taxVal);

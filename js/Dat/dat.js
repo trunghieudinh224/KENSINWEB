@@ -2637,9 +2637,10 @@ export class AndroidData {
 		this.androidKensinDat = new AndroidKensinDat();
 		this.androidNyukinDat = new AndroidNyukinDat();
 		this.lstComment = [];
+		this.shukeiDat = new ShukeiDat();
 	}
 
-	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, androidKensinDat, androidNyukinDat, lstComment) {
+	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, androidKensinDat, androidNyukinDat, lstComment, shukeiDat) {
 		var data = new AndroidData();
 
 		data.type = type;
@@ -2651,6 +2652,7 @@ export class AndroidData {
 		data.androidKensinDat = androidKensinDat;
 		data.androidNyukinDat = androidNyukinDat;
 		data.lstComment = lstComment;
+		data.shukeiDat = shukeiDat;
 		return data;
 	}
 }
@@ -2893,6 +2895,56 @@ export class CnpCusDat {
 		data.mCnpZanymd_m = responeData.mCnpZanymd_m;
 		data.mCnpZanymd_d = responeData.mCnpZanymd_d;
 
+		return data;
+	}
+}
+
+export class ShukeiDat {
+	constructor() {
+		this.shukeiDate = "";
+		this.nKensu = 0;
+		this.nGsiyou = 0;
+		this.nGryokin = 0;
+		this.nShohi = 0;
+		this.nKang = 0;
+		this.nTotal = 0;
+		this.nToyuCnt = 0;
+		this.nToyuUse = 0;
+		this.nToyuKin = 0;
+		this.nToyuTax = 0;
+		this.nToyuTotal = 0;
+		this.nNyuCnt = 0;
+		this.nNyukin = 0;
+		this.nChosei = 0;
+		this.nUricnt = 0;
+		this.nUrisur = 0;
+		this.nUrikin = 0;
+		this.nUritax = 0;
+	}
+
+	setValue(shukeiDate, nKensu, nGsiyou, nGryokin, nShohi, nKang, nTotal, nToyuCnt, nToyuUse, 
+			nToyuKin, nToyuTax, nToyuTotal, nNyuCnt, nNyukin, nChosei, nUricnt, nUrisur, nUrikin, nUritax) {
+		var data = new ShukeiDat();
+
+		data.shukeiDate = shukeiDate;
+		data.nKensu = nKensu;
+		data.nGsiyou = nGsiyou;
+		data.nGryokin = nGryokin;
+		data.nShohi = nShohi;
+		data.nKang = nKang;
+		data.nTotal = nTotal;
+		data.nToyuCnt = nToyuCnt;
+		data.nToyuUse = nToyuUse;
+		data.nToyuKin = nToyuKin;
+		data.nToyuTax = nToyuTax;
+		data.nToyuTotal = nToyuTotal;
+		data.nNyuCnt = nNyuCnt;
+		data.nNyukin = nNyukin;
+		data.nChosei = nChosei;
+		data.nUricnt = nUricnt;
+		data.nUrisur = nUrisur;
+		data.nUrikin = nUrikin;
+		data.nUritax = nUritax;
 		return data;
 	}
 }
