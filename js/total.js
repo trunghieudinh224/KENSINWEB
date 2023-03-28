@@ -499,9 +499,9 @@ function setupTextSizeDetail(nameItem, textSize, lineHeight, fontWeight) {
 function createImageShuukeiForm() {
     // Common.setupModal("load", null, Mess.I00001, null, null, null, false);
     // Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
-    document.getElementById('editView').style.display = "none";
-    document.getElementById('printView').style.display = "block";
-    document.getElementById('shuukeiForm').style.display = "block";
+    // document.getElementById('editView').style.display = "none";
+    // document.getElementById('printView').style.display = "block";
+    // document.getElementById('shuukeiForm').style.display = "block";
     // setDataPrintForm();
     // setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
     // domtoimage.toBlob(document.getElementById('printContentDetail'))
