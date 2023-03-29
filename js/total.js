@@ -603,38 +603,49 @@ function createImageShuukinNippouForm() {
     }
     setTitlePrintForm(1);
 
-    document.getElementById('editView').style.display = "none";
-    document.getElementById('printView').style.display = "block";
-    document.getElementById('nippouArea').style.display = "block";
-    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
-    Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
-    document.getElementById('shuukinNippouForm').style.display = "block";
-    document.getElementById('kensinNippouForm').style.display = "none";
+    // document.getElementById('editView').style.display = "none";
+    // document.getElementById('printView').style.display = "block";
+    // document.getElementById('nippouArea').style.display = "block";
+    // Common.setupModal("load", null, Mess.I00001, null, null, null, false);
+    // Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
+    // document.getElementById('shuukinNippouForm').style.display = "block";
+    // document.getElementById('kensinNippouForm').style.display = "none";
     createPrintDataShuukinNippou(m_mapKensinData);
-    /* default title size of printting form */
-    var smTextTS = window.getComputedStyle(document.getElementsByClassName("sm-text")[0]).fontSize;
-    /* default line height text of printting form */
-    var smTextLH = window.getComputedStyle(document.getElementsByClassName("sm-text")[0]).lineHeight;
-    setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
-    setupTextSizeDetail("sm-text", "23px", "30px", "normal");
-    domtoimage.toBlob(document.getElementById('printContentDetail'))
-        .then(function (blob) {
-            getBase64(blob).then(
-                data => {
-                    console.log(data)
-                    imgString = data;
-                    window.scrollTo(0, 0);
+    androidData.type = "shukin_nippou";
+    // androidData.mUserData.mSysfDat = mUserData.mSysfDat;
+    androidData.mUserData = null
+    androidData.kensinData = null;
+    androidData.androidKensinDat = null;
+    androidData.androidNyukinDat.mUTC = null;
+    androidData.lstComment = null;
+    androidData.sTantname = Other.cutStringSpace(dataSetting.m_lstTantName[0].name);
+    androidData.shukeiDat = null;
+    androidData.nippouDat.mapKensinData = Object.fromEntries(m_mapKensinData);
+    window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
+    // /* default title size of printting form */
+    // var smTextTS = window.getComputedStyle(document.getElementsByClassName("sm-text")[0]).fontSize;
+    // /* default line height text of printting form */
+    // var smTextLH = window.getComputedStyle(document.getElementsByClassName("sm-text")[0]).lineHeight;
+    // setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
+    // setupTextSizeDetail("sm-text", "23px", "30px", "normal");
+    // domtoimage.toBlob(document.getElementById('printContentDetail'))
+    //     .then(function (blob) {
+    //         getBase64(blob).then(
+    //             data => {
+    //                 console.log(data)
+    //                 imgString = data;
+    //                 window.scrollTo(0, 0);
 
-                    const interval = setInterval(function () {
-                        setupPrintForm("100%", "600px", "37px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm);
-                        setupTextSizeDetail("sm-text", smTextTS, smTextLH, "normal");
-                        Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
-                        clearInterval(interval);
-                        modal.style.display = "none";
-                    }, 100);
-                }
-            );
-        })
+    //                 const interval = setInterval(function () {
+    //                     setupPrintForm("100%", "600px", "37px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm);
+    //                     setupTextSizeDetail("sm-text", smTextTS, smTextLH, "normal");
+    //                     Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
+    //                     clearInterval(interval);
+    //                     modal.style.display = "none";
+    //                 }, 100);
+    //             }
+    //         );
+    //     })
 }
 
 
