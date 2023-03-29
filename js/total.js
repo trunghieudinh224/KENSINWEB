@@ -556,11 +556,11 @@ function createImageKenshinNippouForm() {
 
     // Common.setupModal("load", null, Mess.I00001, null, null, null, false);
     // Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
-    document.getElementById('editView').style.display = "none";
-    document.getElementById('printView').style.display = "block";
-    document.getElementById('nippouArea').style.display = "block";
-    document.getElementById('kensinNippouForm').style.display = "block";
-    document.getElementById('shuukinNippouForm').style.display = "none";
+    // document.getElementById('editView').style.display = "none";
+    // document.getElementById('printView').style.display = "block";
+    // document.getElementById('nippouArea').style.display = "block";
+    // document.getElementById('kensinNippouForm').style.display = "block";
+    // document.getElementById('shuukinNippouForm').style.display = "none";
     createPrintDataKenshinNippou(m_mapKensinData, sysfDat.m_isToyukensinFlg);
     androidData.type = "kensin_nippou";
     // androidData.mUserData.mSysfDat = mUserData.mSysfDat;
