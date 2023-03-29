@@ -563,7 +563,8 @@ function createImageKenshinNippouForm() {
     document.getElementById('shuukinNippouForm').style.display = "none";
     createPrintDataKenshinNippou(m_mapKensinData, sysfDat.m_isToyukensinFlg);
     androidData.type = "kensin_nippou";
-    androidData.mUserData.mSysfDat = mUserData.mSysfDat;
+    // androidData.mUserData.mSysfDat = mUserData.mSysfDat;
+    androidData.mUserData.mSysfDat = null;
     androidData.mUserData.mKokfDat = null;
     androidData.mUserData.mSy2fDat = null;
     androidData.mUserData.mKouserDat = null;
@@ -577,7 +578,7 @@ function createImageKenshinNippouForm() {
     androidData.androidNyukinDat.mUTC = null;
     androidData.lstComment = null;
     androidData.sTantname = Other.cutStringSpace(dataSetting.m_lstTantName[0].name);
-    androidData.mapKensinData = m_mapKensinData;
+    androidData.mapKensinData = Object.fromEntries(m_mapKensinData);
     window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
     // /* default title size of printting form */
     // var smTextTS = document.getElementsByClassName("sm-text")[0].fontSize;
