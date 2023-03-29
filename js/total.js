@@ -621,6 +621,7 @@ function createImageShuukinNippouForm() {
     androidData.sTantname = Other.cutStringSpace(dataSetting.m_lstTantName[0].name);
     androidData.shukeiDat = null;
     androidData.nippouDat.mapKensinData = Object.fromEntries(m_mapKensinData);
+    androidData.nippouDat.mapUriageData = null;
     window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
     // /* default title size of printting form */
     // var smTextTS = window.getComputedStyle(document.getElementsByClassName("sm-text")[0]).fontSize;
@@ -660,39 +661,50 @@ function createImageUriageNippouForm() {
     }
     setTitlePrintForm(2);
 
-    document.getElementById('editView').style.display = "none";
-    document.getElementById('printView').style.display = "block";
-    document.getElementById('nippouArea').style.display = "block";
-    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
-    Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
-    document.getElementById('uriageNippouForm').style.display = "block";
-    document.getElementById('kensinNippouForm').style.display = "none";
-    document.getElementById('shuukinNippouForm').style.display = "none";
+    // document.getElementById('editView').style.display = "none";
+    // document.getElementById('printView').style.display = "block";
+    // document.getElementById('nippouArea').style.display = "block";
+    // Common.setupModal("load", null, Mess.I00001, null, null, null, false);
+    // Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
+    // document.getElementById('uriageNippouForm').style.display = "block";
+    // document.getElementById('kensinNippouForm').style.display = "none";
+    // document.getElementById('shuukinNippouForm').style.display = "none";
     createPrintDataUriageNippou(m_mapUriageData);
-    /* default title size of printting form */
-    var smTextTS = document.getElementsByClassName("sm-text")[0].fontSize;
-    /* default line height text of printting form */
-    var smTextLH = document.getElementsByClassName("sm-text")[0].lineHeight;
-    setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
-    setupTextSizeDetail("sm-text", "25px", "32px", "normal");
-    domtoimage.toBlob(document.getElementById('printContentDetail'))
-        .then(function (blob) {
-            getBase64(blob).then(
-                data => {
-                    console.log(data)
-                    imgString = data;
-                    window.scrollTo(0, 0);
+    androidData.type = "uriage_nippou";
+    androidData.mUserData = null
+    androidData.kensinData = null;
+    androidData.androidKensinDat = null;
+    androidData.androidNyukinDat.mUTC = null;
+    androidData.lstComment = null;
+    androidData.sTantname = Other.cutStringSpace(dataSetting.m_lstTantName[0].name);
+    androidData.shukeiDat = null;
+    androidData.nippouDat.mapKensinData = null;
+    androidData.nippouDat.mapUriageData = Object.fromEntries(m_mapUriageData);
+    window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
+    // /* default title size of printting form */
+    // var smTextTS = document.getElementsByClassName("sm-text")[0].fontSize;
+    // /* default line height text of printting form */
+    // var smTextLH = document.getElementsByClassName("sm-text")[0].lineHeight;
+    // setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
+    // setupTextSizeDetail("sm-text", "25px", "32px", "normal");
+    // domtoimage.toBlob(document.getElementById('printContentDetail'))
+    //     .then(function (blob) {
+    //         getBase64(blob).then(
+    //             data => {
+    //                 console.log(data)
+    //                 imgString = data;
+    //                 window.scrollTo(0, 0);
 
-                    const interval = setInterval(function () {
-                        setupPrintForm("100%", "600px", "37px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm);
-                        setupTextSizeDetail("sm-text", smTextTS, smTextLH, "normal");
-                        Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
-                        clearInterval(interval);
-                        modal.style.display = "none";
-                    }, 100);
-                }
-            );
-        })
+    //                 const interval = setInterval(function () {
+    //                     setupPrintForm("100%", "600px", "37px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm);
+    //                     setupTextSizeDetail("sm-text", smTextTS, smTextLH, "normal");
+    //                     Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
+    //                     clearInterval(interval);
+    //                     modal.style.display = "none";
+    //                 }, 100);
+    //             }
+    //         );
+    //     })
 }
 
 

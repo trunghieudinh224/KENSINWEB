@@ -2956,13 +2956,33 @@ export class NippouDat {
 	constructor() {
 		this.m_isToyukensinFlg = false;
 		this.mapKensinData = new Map();
+		this.mapUriageData = new Map();
 	}
 
-	setValue(m_isToyukensinFlg, mapKensinData) {
+	setValue(m_isToyukensinFlg, mapKensinData, mapUriageData) {
 		var data = new NippouDat();
 
 		data.m_isToyukensinFlg = m_isToyukensinFlg;
 		data.mapKensinData = mapKensinData;
+		data.mapUriageData = mapUriageData;
+		return data;
+	}
+}
+
+
+export class UriageDat {
+	constructor() {
+		this.m_isToyukensinFlg = false;
+		this.mapKensinData = new Map();
+		this.mapUriageData = new Map();
+	}
+
+	setValue(m_isToyukensinFlg, mapKensinData, mapUriageData) {
+		var data = new NippouDat();
+
+		data.m_isToyukensinFlg = m_isToyukensinFlg;
+		data.mapKensinData = mapKensinData;
+		data.mapUriageData = mapUriageData;
 		return data;
 	}
 }
