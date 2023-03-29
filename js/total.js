@@ -526,7 +526,6 @@ function createImageShuukeiForm() {
     androidData.type = "shukei";
     androidData.mUserData = null;
     androidData.kensinData = null;
-    androidData.mUserData.mKensinDate = null;
     androidData.androidKensinDat = null;
     androidData.androidNyukinDat.mUTC = null;
     androidData.lstComment = null;
@@ -560,7 +559,6 @@ function createImageKenshinNippouForm() {
     // androidData.mUserData.mSysfDat = mUserData.mSysfDat;
     androidData.mUserData = null
     androidData.kensinData = null;
-    androidData.mUserData.mKensinDate = null;
     androidData.androidKensinDat = null;
     androidData.androidNyukinDat.mUTC = null;
     androidData.lstComment = null;
