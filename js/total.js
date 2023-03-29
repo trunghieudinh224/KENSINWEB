@@ -16,8 +16,6 @@ var selectDate = document.getElementById('selectDate');
 const modal = document.getElementById("myModal");
 
 /*****  DATA VARIABLE  *****/
-/** ユーザー情報 */ 
-var mUserData = JSON.parse(sessionStorage.getItem(StringCS.USERDATA));
 /* user data */
 var systemDat = JSON.parse(sessionStorage.getItem(StringCS.SYSTEMDAT)).mSystemDat;
 /* setting data */
@@ -30,8 +28,8 @@ var m_lstShukeiDat;
 let mItemList = new Map();
 let m_mapKensinData = new Map();
 let m_mapUriageData = new Map();
-var sysfDat = new Dat.SysfDat().setValue(25, 35, 29, 1970, 1, 1, 80, 50, 80, 1, 0, 1, 0, 1000, 0, 1000, 2019, 5, 1, false, 0, true, true, 0,
-    false, [50, 250, 50, 200, 60, 180], [20, 60], 0, true, true, true, true, true, true);
+var sysfDat = new Dat.SysfDat()
+sysfDat.m_isToyukensinFlg = !(systemDat.FBUNRUI_3 == 0 && systemDat.FHMCODE_3 == 0 && systemDat.FHBCODE_3 == 0);
 var sy2fDat = new Dat.Sy2fDat().setValue(0, 0, 0, 0, 0, [1, 1, -1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 5, 0, 0]);
 var kouserDat = new Dat.KouserDat();
 var unitList = ["件 ]", "件 ]", "件 ]", "件 ]", "m３ ]", "円 ]", "円 ]", "円 ]", "円 ]", "L ]", "円 ]", "円 ]", "円 ]", "円 ]", "円 ]", " ]", "円 ]", "円 ]", "円 ]"];
@@ -63,7 +61,7 @@ var defaultPrintSize = window.getComputedStyle(document.getElementsByClassName("
     * SETUP LAYOUT EDIT VIEW
 */
 function setupLayoutEditView() {
-    if (systemDat.FBUNRUI_3 == 0 && systemDat.FHMCODE_3 == 0 && systemDat.FHBCODE_3 == 0) {
+    if (sysfDat.m_isToyukensinFlg) {
         document.getElementById("ShukeiToyuCnt").style.display = "none";
         document.getElementById("ToyuTable").style.display = "none";
         document.getElementById("ToyuTablePrint").style.display = "none";
@@ -564,7 +562,7 @@ function createImageKenshinNippouForm() {
     androidData.lstComment = null;
     androidData.sTantname = Other.cutStringSpace(dataSetting.m_lstTantName[0].name);
     androidData.shukeiDat = null;
-    androidData.nippouDat.m_isToyukensinFlg = (systemDat.FBUNRUI_3 == 0 && systemDat.FHMCODE_3 == 0 && systemDat.FHBCODE_3 == 0);
+    androidData.nippouDat.m_isToyukensinFlg = sysfDat.m_isToyukensinFlg;
     androidData.nippouDat.mapKensinData = Object.fromEntries(m_mapKensinData);
     window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
     // /* default title size of printting form */
