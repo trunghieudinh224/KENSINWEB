@@ -562,30 +562,47 @@ function createImageKenshinNippouForm() {
     document.getElementById('kensinNippouForm').style.display = "block";
     document.getElementById('shuukinNippouForm').style.display = "none";
     createPrintDataKenshinNippou(m_mapKensinData, sysfDat.m_isToyukensinFlg);
-    /* default title size of printting form */
-    var smTextTS = document.getElementsByClassName("sm-text")[0].fontSize;
-    /* default line height text of printting form */
-    var smTextLH = document.getElementsByClassName("sm-text")[0].lineHeight;
-    setupPrintForm("100vh", "670px", "55px", "31px", "37px", "31px", "37px", true, "20px");
-    setupTextSizeDetail("sm-text", "23px", "30px", "normal");
-    domtoimage.toBlob(document.getElementById('printContentDetail'))
-        .then(function (blob) {
-            getBase64(blob).then(
-                data => {
-                    console.log(data)
-                    imgString = data;
-                    window.scrollTo(0, 0);
+    androidData.type = "kensin_nippou";
+    androidData.mUserData.mSysfDat = mUserData.mSysfDat;
+    androidData.mUserData.mKokfDat = null;
+    androidData.mUserData.mSy2fDat = null;
+    androidData.mUserData.mKouserDat = null;
+    androidData.mUserData.getHmef0 = null;
+    androidData.mUserData.getHmef1 = null;
+    androidData.mUserData.getHmef2 = null;
+    androidData.mUserData.mHanfDat = null;
+    androidData.kensinData = null;
+    androidData.mUserData.mKensinDate = null;
+    androidData.androidKensinDat = null;
+    androidData.androidNyukinDat.mUTC = null;
+    androidData.lstComment = null;
+    androidData.sTantname = Other.cutStringSpace(dataSetting.m_lstTantName[0].name);
+    androidData.mapKensinData = m_mapKensinData;
+    window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
+    // /* default title size of printting form */
+    // var smTextTS = document.getElementsByClassName("sm-text")[0].fontSize;
+    // /* default line height text of printting form */
+    // var smTextLH = document.getElementsByClassName("sm-text")[0].lineHeight;
+    // setupPrintForm("100vh", "670px", "55px", "31px", "37px", "31px", "37px", true, "20px");
+    // setupTextSizeDetail("sm-text", "23px", "30px", "normal");
+    // domtoimage.toBlob(document.getElementById('printContentDetail'))
+    //     .then(function (blob) {
+    //         getBase64(blob).then(
+    //             data => {
+    //                 console.log(data)
+    //                 imgString = data;
+    //                 window.scrollTo(0, 0);
 
-                    const interval = setInterval(function () {
-                        setupPrintForm("100%", "600px", "37px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm);
-                        setupTextSizeDetail("sm-text", smTextTS, smTextLH, "normal");
-                        Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
-                        clearInterval(interval);
-                        modal.style.display = "none";
-                    }, 100);
-                }
-            );
-        })
+    //                 const interval = setInterval(function () {
+    //                     setupPrintForm("100%", "600px", "37px", defaultPrintSize, "25px", defaultPrintSize, "25px", false, defaultPaddingPrintForm);
+    //                     setupTextSizeDetail("sm-text", smTextTS, smTextLH, "normal");
+    //                     Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
+    //                     clearInterval(interval);
+    //                     modal.style.display = "none";
+    //                 }, 100);
+    //             }
+    //         );
+    //     })
 }
 
 
