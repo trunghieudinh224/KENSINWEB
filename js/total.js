@@ -524,14 +524,7 @@ function createImageShuukeiForm() {
 
     setDataPrintForm();
     androidData.type = "shukei";
-    androidData.mUserData.mSysfDat = mUserData.mSysfDat;
-    androidData.mUserData.mKokfDat = null;
-    androidData.mUserData.mSy2fDat = null;
-    androidData.mUserData.mKouserDat = null;
-    androidData.mUserData.getHmef0 = null;
-    androidData.mUserData.getHmef1 = null;
-    androidData.mUserData.getHmef2 = null;
-    androidData.mUserData.mHanfDat = null;
+    androidData.mUserData = null;
     androidData.kensinData = null;
     androidData.mUserData.mKensinDate = null;
     androidData.androidKensinDat = null;
@@ -539,6 +532,7 @@ function createImageShuukeiForm() {
     androidData.lstComment = null;
     androidData.sTantname = Other.cutStringSpace(dataSetting.m_lstTantName[0].name);
     androidData.shukeiDat = shukeiDat;
+    androidData.nippouDat = null;
     window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
 }
 
@@ -564,21 +558,16 @@ function createImageKenshinNippouForm() {
     createPrintDataKenshinNippou(m_mapKensinData, sysfDat.m_isToyukensinFlg);
     androidData.type = "kensin_nippou";
     // androidData.mUserData.mSysfDat = mUserData.mSysfDat;
-    androidData.mUserData.mSysfDat = null;
-    androidData.mUserData.mKokfDat = null;
-    androidData.mUserData.mSy2fDat = null;
-    androidData.mUserData.mKouserDat = null;
-    androidData.mUserData.getHmef0 = null;
-    androidData.mUserData.getHmef1 = null;
-    androidData.mUserData.getHmef2 = null;
-    androidData.mUserData.mHanfDat = null;
+    androidData.mUserData = null
     androidData.kensinData = null;
     androidData.mUserData.mKensinDate = null;
     androidData.androidKensinDat = null;
     androidData.androidNyukinDat.mUTC = null;
     androidData.lstComment = null;
     androidData.sTantname = Other.cutStringSpace(dataSetting.m_lstTantName[0].name);
-    androidData.mapKensinData = Object.fromEntries(m_mapKensinData);
+    androidData.shukeiDat = null;
+    androidData.nippouDat.m_isToyukensinFlg = (systemDat.FBUNRUI_3 == 0 && systemDat.FHMCODE_3 == 0 && systemDat.FHBCODE_3 == 0);
+    androidData.nippouDat.mapKensinData = Object.fromEntries(m_mapKensinData);
     window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
     // /* default title size of printting form */
     // var smTextTS = document.getElementsByClassName("sm-text")[0].fontSize;
@@ -1649,7 +1638,7 @@ function createShortLine(countLine) {
 function addShukeiData(shukeiItem, sysfDat, sy2fDat, kouserDat) {
 
     shuukeiData.mKensu += 1;
-    shuukeiData.mGsiyou += GasRaterCom.getGasSuryo(shukeiItem.mGsiyou, sy2fDat, kouserDat);     // lấy data từ api
+    shuukeiData.mGsiyou += shukeiItem.mGsiyou;     // lấy data từ api
     shuukeiData.mGryokin += shukeiItem.mGryokin;
     shuukeiData.mKang += shukeiItem.mKang;
     shuukeiData.mShohi += shukeiItem.mShohi;

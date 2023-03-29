@@ -2638,10 +2638,10 @@ export class AndroidData {
 		this.androidNyukinDat = new AndroidNyukinDat();
 		this.lstComment = [];
 		this.shukeiDat = new ShukeiDat();
-		this.mapKensinData = new Map();
+		this.nippouDat = new NippouDat();
 	}
 
-	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, androidKensinDat, androidNyukinDat, lstComment, shukeiDat, mapKensinData) {
+	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, androidKensinDat, androidNyukinDat, lstComment, shukeiDat, nippouDat) {
 		var data = new AndroidData();
 
 		data.type = type;
@@ -2654,7 +2654,7 @@ export class AndroidData {
 		data.androidNyukinDat = androidNyukinDat;
 		data.lstComment = lstComment;
 		data.shukeiDat = shukeiDat;
-		data.mapKensinData = mapKensinData;
+		data.nippouDat = nippouDat;
 		return data;
 	}
 }
@@ -2947,6 +2947,22 @@ export class ShukeiDat {
 		data.nUrisur = nUrisur;
 		data.nUrikin = nUrikin;
 		data.nUritax = nUritax;
+		return data;
+	}
+}
+
+
+export class NippouDat {
+	constructor() {
+		this.m_isToyukensinFlg = false;
+		this.mapKensinData = new Map();
+	}
+
+	setValue(m_isToyukensinFlg, mapKensinData) {
+		var data = new NippouDat();
+
+		data.m_isToyukensinFlg = m_isToyukensinFlg;
+		data.mapKensinData = mapKensinData;
 		return data;
 	}
 }
