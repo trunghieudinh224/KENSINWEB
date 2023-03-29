@@ -554,8 +554,8 @@ function createImageKenshinNippouForm() {
     }
     setTitlePrintForm(0);
 
-    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
-    Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
+    // Common.setupModal("load", null, Mess.I00001, null, null, null, false);
+    // Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
     document.getElementById('editView').style.display = "none";
     document.getElementById('printView').style.display = "block";
     document.getElementById('nippouArea').style.display = "block";
