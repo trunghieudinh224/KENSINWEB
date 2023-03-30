@@ -264,6 +264,7 @@ function reloadUriageList() {
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
+			Common.setupModal("error", null, Mess.E00004, null, StringCS.OK, null, false);
 		},
 		timeout: ValueCS.VL_SHORT_TIMEOUT
 	});
