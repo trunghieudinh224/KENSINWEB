@@ -2922,10 +2922,11 @@ export class ShukeiDat {
 		this.nUrisur = 0;
 		this.nUrikin = 0;
 		this.nUritax = 0;
+		this.m_isToyukensinFlg = false;
 	}
 
-	setValue(shukeiDate, nKensu, nGsiyou, nGryokin, nShohi, nKang, nTotal, nToyuCnt, nToyuUse, 
-			nToyuKin, nToyuTax, nToyuTotal, nNyuCnt, nNyukin, nChosei, nUricnt, nUrisur, nUrikin, nUritax) {
+	setValue(shukeiDate, nKensu, nGsiyou, nGryokin, nShohi, nKang, nTotal, nToyuCnt, nToyuUse, nToyuKin, 
+		nToyuTax, nToyuTotal, nNyuCnt, nNyukin, nChosei, nUricnt, nUrisur, nUrikin, nUritax, m_isToyukensinFlg) {
 		var data = new ShukeiDat();
 
 		data.shukeiDate = shukeiDate;
@@ -2947,6 +2948,7 @@ export class ShukeiDat {
 		data.nUrisur = nUrisur;
 		data.nUrikin = nUrikin;
 		data.nUritax = nUritax;
+		data.m_isToyukensinFlg = m_isToyukensinFlg;
 		return data;
 	}
 }

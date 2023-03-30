@@ -691,6 +691,7 @@ function setDataAndroidShukei() {
     shukeiDat.nUrisur = removeUnusedData(document.getElementsByClassName("rowUrisur-prt")[0].textContent);
     shukeiDat.nUrikin = removeUnusedData(document.getElementsByClassName("rowUrikin-prt")[0].textContent);
     shukeiDat.nUritax = removeUnusedData(document.getElementsByClassName("rowUriTax-prt")[0].textContent);
+    shukeiDat.m_isToyukensinFlg = sysfDat.m_isToyukensinFlg;
 }
 
 
