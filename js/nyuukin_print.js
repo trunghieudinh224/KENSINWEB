@@ -751,11 +751,12 @@ function createHmInfo_() {
 	var sysfDat = JSON.parse(JSON.stringify(mUserData.mSysfDat));
 	var sy2fDat = JSON.parse(JSON.stringify(mUserData.mSy2fDat));
 	var isTanka = sy2fDat.mSysOption[Dat.SysOption.PRINT_TANKA] == 1;
+	var isZanMeisai = false;
 
 	// 販売データ
 	var wkHmefList = kokfDat.mSimeF == 1 ? mUserData.getHmef0 : mUserData.getHmef1;
 	var wkHmefList2 = mUserData.getHmef2;
-	var isUriage = isUriage_(wkHmefList, sysfDat, true) || isUriage_(wkHmefList2, sysfDat, true);
+	var isUriage = isUriage_(wkHmefList, sysfDat, true) || isUriage_(wkHmefList2, sysfDat, true) || kokfDat.mFee> 0 || isZanMeisai;
 	if (isUriage) {
 		createHmInfoHeader(isTanka);
 		var mapHmefDat = new Map();
@@ -774,7 +775,11 @@ function createHmInfo_() {
 			hmefDatGas.mDend = kokfDat.mKDate;
 			hmefDatGas.mKin = kokfDat.mFee;
 			hmefDatGas.mTax = kokfDat.mConTax;
-			hmefDatGas.mTaxKu = mUserData.mGasfDat.mTaxDiv;
+			if (mUserData.mGasfDat != null) {
+				hmefDatGas.mTaxKu = mUserData.mGasfDat.mTaxDiv;
+			} else {
+				hmefDatGas.mTaxKu = 0;
+			}
 			if (hmefDatGas.mTaxKu > 1) {
 				hmefDatGas.mTaxR = GasRaterCom.getKenTaxr(kokfDat, sysfDat, sysfDat.mTax_yy, sysfDat.mTax_mm, sysfDat.mTax_dd, sysfDat.mConsumTax, sysfDat.mTaxr_old, sysfDat.mTaxr_new);
 				if (getKeigenKubun(sysfDat, hmefDatGas.mTaxR) > 0) {
