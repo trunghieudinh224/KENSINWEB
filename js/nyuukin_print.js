@@ -770,7 +770,7 @@ function createHmInfoShukin() {
 		calcKeigen(mapHmefDat, wkHmefList);
 		calcKeigen(mapHmefDat, wkHmefList2);
 		calcKeigen(mapHmefDat, hmefDatsZan);
-		var lstHmefDat;
+		var lstHmefDat = [];
 		if (kokfDat.mFee > 0) {
 			// ガス料金有り⇒軽減税率チェック実施
 			var hmefDatGas = new Dat.HmefDat();
