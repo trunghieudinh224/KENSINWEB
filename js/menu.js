@@ -100,7 +100,7 @@ function onclickAction() {
         barcodeScannerOverlay.style.zIndex = "-1";
         wrapBarcodeMainForm.classList.remove("overlay-animate");
         Quagga.stop();
-        overlay.style.zIndex = "2";
+        // overlay.style.zIndex = "2";
         wrapMainForm.classList.remove("overlay-animate");
         document.getElementById("barcodeValue").value = null;
         document.getElementById("confirmBtn").setAttribute("disabled","");
