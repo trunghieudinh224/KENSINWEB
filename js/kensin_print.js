@@ -3271,38 +3271,7 @@ function onclickAction() {
 			sendImage();
 		};
 		KensinKinyuu.saveButton.onclick = function () {
-			var mReciept = 0;
-			var mZandaka = 0;
-			if (KensinKinyuu.displayTab[2] == true) {
-				mReciept = Other.getNumFromString(document.getElementById("nyuukin").textContent);
-				mZandaka = Other.getNumFromString(document.getElementById("zandaka").textContent);
-				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, mReciept, mZandaka, true, mUserData.mSysfDat.m_isToyukensinFlg);
-			} else {
-				getPrintStatus(mUserData.mKokfDat, mUserData.mSysfDat, true, 0, 0, true, mUserData.mSysfDat.m_isToyukensinFlg);
-			}
-			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
-			androidData.type = "kensin";
-			androidData.printStatus = printStatus;
-			androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
-			androidData.isHikae = false;
-			androidData.mUserData.mSysfDat = mUserData.mSysfDat;
-			androidData.mUserData.mKokfDat = mUserData.mKokfDat;
-			androidData.mUserData.mSy2fDat = mUserData.mSy2fDat;
-			androidData.mUserData.mKouserDat = mUserData.mKouserDat;
-			androidData.mUserData.getHmef0 = mUserData.getHmef0;
-			androidData.mUserData.getHmef1 = mUserData.getHmef1;
-			androidData.mUserData.getHmef2 = mUserData.getHmef2;
-			androidData.mUserData.mHanfDat = mUserData.mHanfDat;
-			androidData.kensinData = kensinData;
-			androidData.mUserData.mKensinDate = mUserData.mKensinDate;
-			androidData.androidKensinDat.mKSIB = mKSIB;
-			androidData.androidKensinDat.mKI = mKI;
-			androidData.androidKensinDat.mUTC = mUTC;
-			androidData.lstComment = lstComment;
-			androidData.sTantname = dataSetting.m_lstTantName[0].name;
-			window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
-			// createImageKensinForm();
-			// savingData();
+			savingData();
 
 			// sessionStorage.setItem(StringCS.SAVINGSTATUS, "1");
 			// document.getElementById("editView").style.display = "none";
@@ -3405,8 +3374,21 @@ function savingData() {
 			androidData.printStatus = printStatus;
 			androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
 			androidData.isHikae = false;
-			androidData.mUserData.mSysfDat = finalData.mSysfDat;
-			androidData.mUserData.mKokfDat = finalData.mKokfDat;
+			androidData.mUserData.mSysfDat = mUserData.mSysfDat;
+			androidData.mUserData.mKokfDat = mUserData.mKokfDat;
+			androidData.mUserData.mSy2fDat = mUserData.mSy2fDat;
+			androidData.mUserData.mKouserDat = mUserData.mKouserDat;
+			androidData.mUserData.getHmef0 = mUserData.getHmef0;
+			androidData.mUserData.getHmef1 = mUserData.getHmef1;
+			androidData.mUserData.getHmef2 = mUserData.getHmef2;
+			androidData.mUserData.mHanfDat = mUserData.mHanfDat;
+			androidData.kensinData = kensinData;
+			androidData.mUserData.mKensinDate = mUserData.mKensinDate;
+			androidData.androidKensinDat.mKSIB = mKSIB;
+			androidData.androidKensinDat.mKI = mKI;
+			androidData.androidKensinDat.mUTC = mUTC;
+			androidData.lstComment = lstComment;
+			androidData.sTantname = dataSetting.m_lstTantName[0].name;
 
 			Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 			createImageKensinForm();
