@@ -1774,6 +1774,7 @@ export function sendDataToServer() {
 		hmefWriteDat.m_lstHmefDat.push(hmefCho);
 	}
 
+    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(hmefWriteDat),
@@ -1784,7 +1785,6 @@ export function sendDataToServer() {
 		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
 			console.log(response);
-			Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
 			var buttonConfirm = document.getElementsByClassName("button-1")[0];
 			buttonConfirm.onclick = function () {
 				modal.style.display = "none";
@@ -1821,9 +1821,11 @@ function reloadUriageList() {
 			mUserData.mKokfDat.mUriTax = Common.calcValOfList(mUserData.mHmefList, "mTax");
 			sessionStorage.setItem(StringCS.USERDATA, JSON.stringify(mUserData));
 			createImageForm();
+			Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
 		},
 		error: function (jqXHR, exception) {
 			console.log(exception);
+			Common.setupModal("error", null, Mess.E00004, null, StringCS.OK, null, false);
 		},
 		timeout: ValueCS.VL_SHORT_TIMEOUT
 	});
