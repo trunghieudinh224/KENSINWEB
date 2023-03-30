@@ -17,11 +17,11 @@ const modal = document.getElementById("myModal");
 var kensinDate = sessionStorage.getItem(StringCS.KENSINDATE);
 /* setting data */
 var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
-/** ユーザー情報 */ 
+/** ユーザー情報 */
 var mUserData = KensinKinyuu.mUserData;
 mUserData.m_lstLeasHmefDat = null;
 mUserData.mNyukinOnly = false;
-/** 印刷情報 */ 
+/** 印刷情報 */
 var printStatus = new Dat.PrintStatus();
 /** 検針情報 */
 var kensinData = new Dat.KensinData();
@@ -82,7 +82,7 @@ function createPrintData(printStatus, isHikae) {
 		createRyosyuInfo(wkKensinData, mUserData.mNyukinOnly);
 
 		if (!mUserData.mNyukinOnly) {
-			createHmInfo_();
+			createHmInfoShukin();
 		} else {
 			document.getElementById("hmInfoArea_NK").style.display = "none";
 		}
@@ -534,9 +534,9 @@ function createUTaxComment(wkKensinData) {
 
 
 /**
- 	* 調整額名称の取得.
- 	*
- 	* @return String   調整額名称
+	  * 調整額名称の取得.
+	  *
+	  * @return String   調整額名称
 */
 function getChoTitle() {
 	var strChoTitle = "調整額";
@@ -654,7 +654,7 @@ function isUriage_(hmefDats, sysfDat, isIncludeNyuCho) {
 	if (hmefDats == null) {
 		return false;
 	}
-	var sSnvalue = sysfDat.mSnvalue;	
+	var sSnvalue = sysfDat.mSnvalue;
 	for (var i = 0; i < hmefDats.length; i++) {
 		var hmefDat = hmefDats[i];
 		if (hmefDat.mUsef && (hmefDat.mHmCode >= sSnvalue || isIncludeNyuCho)) {
@@ -746,22 +746,30 @@ function calcUtax(sysfDat, hmefDat) {
 /**
 	* 伝票の明細部分の作成
 */
-function createHmInfo_() {
+function createHmInfoShukin() {
 	var kokfDat = JSON.parse(JSON.stringify(mUserData.mKokfDat));
 	var sysfDat = JSON.parse(JSON.stringify(mUserData.mSysfDat));
 	var sy2fDat = JSON.parse(JSON.stringify(mUserData.mSy2fDat));
 	var isTanka = sy2fDat.mSysOption[Dat.SysOption.PRINT_TANKA] == 1;
 	var isZanMeisai = false;
+	var hmefDatsZan = null;	//[]
+
+	if (sysfDat.m_isLtas) {
+		// khúc này chưa làm ra vì chưa có gethmef4()
+		// hmefDatsZan = wkUserData.getHmef(InputDat.ENUM_HMEF_TYPE.ZAN);
+		isZanMeisai = hmefDatsZan != null && isUriage(hmefDatsZan, sysfDat, true);
+	}
 
 	// 販売データ
 	var wkHmefList = kokfDat.mSimeF == 1 ? mUserData.getHmef0 : mUserData.getHmef1;
 	var wkHmefList2 = mUserData.getHmef2;
-	var isUriage = isUriage_(wkHmefList, sysfDat, true) || isUriage_(wkHmefList2, sysfDat, true) || kokfDat.mFee> 0 || isZanMeisai;
+	var isUriage = isUriage_(wkHmefList, sysfDat, true) || isUriage_(wkHmefList2, sysfDat, true) || kokfDat.mFee > 0 || isZanMeisai;
 	if (isUriage) {
 		createHmInfoHeader(isTanka);
 		var mapHmefDat = new Map();
 		calcKeigen(mapHmefDat, wkHmefList);
 		calcKeigen(mapHmefDat, wkHmefList2);
+		calcKeigen(mapHmefDat, hmefDatsZan);
 		var lstHmefDat;
 		if (kokfDat.mFee > 0) {
 			// ガス料金有り⇒軽減税率チェック実施
@@ -815,27 +823,65 @@ function createHmInfo_() {
 				}
 				lstHmefDat.push(hmefDatKng);
 			}
+
+			if (sysfDat.mKnebFlg == 1) {
+				//Hiếu note khúc này làm chưa ra
+				// for (var i = 0; i < m_lstKnebDat.length; i++) {
+				// 	if (knebDat.m_nCode > 0 &&  // 割引コード設定有
+				//                 knebDat.m_nUmu == 1 &&  // 割引フラグ有
+				//                 knebDat.m_nRes == 1 &&  // 割引実績有
+				//                 knebDat.m_nKin != 0) {  // 割引金額有
+				//             var hmefDatNeb = new Dat.HmefDat();
+				//             WarifDat warifDat = InputDat.getWarifDat(mContext, knebDat.getCode());
+				//             hmefDatNeb.setUsef(true);
+				//             hmefDatNeb.setHmCode(warifDat.m_nHinHinno);
+				//             hmefDatNeb.setHmName(warifDat.m_strHinName);
+				//             hmefDatNeb.setDeny(Short.valueOf(wkUserData.getKensinDate().substring(0,4)));
+				//             hmefDatNeb.setDenm(kokfDat.getKMonth());
+				//             hmefDatNeb.setDend(kokfDat.getKDate());
+				//             hmefDatNeb.setKin(knebDat.getKin());
+				//             hmefDatNeb.setTax(knebDat.getTax());
+				//             hmefDatNeb.setTaxKu(warifDat.m_nShoTaxku);
+				//             if(hmefDatNeb.getTaxKu() > 1){
+				//                 hmefDatNeb.setTaxR((short)GasRaterCom.getKenTaxr(kokfDat, sysfDat, warifDat.m_sShoTax_yy, warifDat.m_bShoTax_mm, warifDat.m_bShoTax_dd, warifDat.m_nShoTaxr, warifDat.m_sShoTaxr_old, warifDat.m_sShoTaxr_new));
+				//                 if(getKeigenKubun(sysfDat, hmefDatNeb.getTaxR()) > 0){
+				//                     hmefDatNeb.setKeigenKubun((byte) 1);
+				//                 }
+				//             }
+				//             lstHmefDat.add(hmefDatNeb);
+				//         }
+				// }
+
+			}
 			calcKeigen(mapHmefDat, lstHmefDat);
 		}
 
 		var nTax = 0;
-		// 前残
-		var nPreBalance = GasRaterCom.readPrebalance(sysfDat, kokfDat, sy2fDat);
-		if (nPreBalance != 0) {
-			var hmefDatZan = new Dat.HmefDat();
-			hmefDatZan.mUsef = true;
-			hmefDatZan.mHmCode = 9999;
-			if (kokfDat.mSimeF == 0) {
-				hmefDatZan.mHmName = "前月残高";
-				hmefDatZan.mKin = kokfDat.mPreBalance;
+		if (sysfDat.m_isLtas) {
+			// 残高明細
+			if(isZanMeisai){
+				nTax = createHmInfo(hmefDatsZan, sysfDat, mapHmefDat, isTanka);
 			}
-			else {
-				hmefDatZan.mHmName = "前月繰越額";
-				hmefDatZan.mKin = GasRaterCom.calcSeikyu(sysfDat, kokfDat, sy2fDat, false);
-				hmefDatZan.mKin -= (kokfDat.mGUri2 + kokfDat.mUri2 + kokfDat.mTax2 - kokfDat.mNyu2 + kokfDat.mCho2);
+		} else {
+			// 前残
+			var nPreBalance = GasRaterCom.readPrebalance(sysfDat, kokfDat, sy2fDat);
+			if (nPreBalance != 0) {
+				var hmefDatZan = new Dat.HmefDat();
+				hmefDatZan.mUsef = true;
+				hmefDatZan.mHmCode = 9999;
+				if (kokfDat.mSimeF == 0) {
+					hmefDatZan.mHmName = "前月残高";
+					hmefDatZan.mKin = kokfDat.mPreBalance;
+				}
+				else {
+					hmefDatZan.mHmName = "前月繰越額";
+					hmefDatZan.mKin = GasRaterCom.calcSeikyu(sysfDat, kokfDat, sy2fDat, false);
+					hmefDatZan.mKin -= (kokfDat.mGUri2 + kokfDat.mUri2 + kokfDat.mTax2 - kokfDat.mNyu2 + kokfDat.mCho2);
+				}
+				createHmInfo(new Array(hmefDatZan), sysfDat, mapHmefDat, isTanka);
 			}
-			createHmInfo(new Array(hmefDatZan), sysfDat, mapHmefDat, isTanka);
 		}
+
 		if (wkHmefList != null) {
 			if (wkHmefList.length > 0) {
 				nTax = createHmInfo(wkHmefList, sysfDat, mapHmefDat, isTanka);
