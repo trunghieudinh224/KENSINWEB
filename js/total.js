@@ -1637,12 +1637,12 @@ function setDataUriageAndroid(mapUriageData) {
     const keyList = mapUriageData.keys();
     var key = keyList.next();
     while (key.value != null) {
+        var list = [];
         console.log(key.value)
         mapUriageData.get(key.value).forEach((values, keys) => {
             console.log(values, keys);
 
             var uriageDataList = values;
-            var list = [];
             for (var j = 0; j < uriageDataList.length; j++) {
                 var data = new Dat.UriageItemDat();
                 data.mCusCode = uriageDataList[j].mCusCode;
@@ -1656,9 +1656,10 @@ function setDataUriageAndroid(mapUriageData) {
                 data.u_tax = uriageDataList[j].u_tax;
                 list.push(data);
             }
-            map.set(key.value,list); 
+            map.set(key.value, list); 
         })
         key = keyList.next();
+        // map.set(key.value,list); 
     }
 
     return map;
