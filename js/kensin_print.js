@@ -1142,7 +1142,7 @@ function createKinInfo(kensinData) {
 		}
 		strSeiTitle += "額";
 		const konkaiSeikyuuGakuTitle = document.getElementById("konkaiSeikyuuGakuTitle");
-		konkaiSeikyuuGakuTitle.innerHTML = strLine;
+		konkaiSeikyuuGakuTitle.innerHTML = strSeiTitle;
 
 		//sIraimsg
 		mKI.sIraimsg = Other.cutStringSpace(Other.nullToString(kensinData.m_strIrai));
