@@ -1638,8 +1638,8 @@ function prepareAndroidData(type, tantname, shukeiDat, mapKensinData, mapUriageD
     androidData.sTantname = Other.cutStringSpace(tantname);
     androidData.shukeiDat = shukeiDat;
     androidData.nippouDat.m_isToyukensinFlg = sysfDat.m_isToyukensinFlg;
-    androidData.nippouDat.mapKensinData = Object.fromEntries(mapKensinData);
-    androidData.nippouDat.mapUriageData = mapUriageData;
+    androidData.nippouDat.mapKensinData = mapKensinData != null ? Object.fromEntries(mapKensinData) : null;
+    androidData.nippouDat.mapUriageData = mapUriageData != null ? Object.fromEntries(mapUriageData) : null;
 }
 
 
