@@ -2986,3 +2986,33 @@ export class UriageDat {
 		return data;
 	}
 }
+
+
+export class UriageItemDat {
+	constructor() {
+		this.mCusCode = false;
+		this.mName = false;
+		this.u_buskind = false;
+		this.u_hmname = false;
+		this.m_lNyu = false;
+		this.u_suryo = false;
+		this.u_tank = false;
+		this.u_kin = false;
+		this.u_tax = false;
+	}
+
+	setValue(mCusCode, mName, u_buskind, u_hmname, m_lNyu, u_suryo, u_tank, u_kin, u_tax) {
+		var data = new UriageItemDat();
+
+		data.mCusCode = mCusCode;
+		data.mName = mName;
+		data.u_buskind = u_buskind;
+		data.u_hmname = u_hmname;
+		data.m_lNyu = m_lNyu;
+		data.u_suryo = u_suryo;
+		data.u_tank = u_tank;
+		data.u_kin = u_kin;
+		data.u_tax = u_tax;
+		return data;
+	}
+}

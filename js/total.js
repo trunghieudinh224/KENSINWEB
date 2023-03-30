@@ -679,7 +679,7 @@ function createImageUriageNippouForm() {
     androidData.sTantname = Other.cutStringSpace(dataSetting.m_lstTantName[0].name);
     androidData.shukeiDat = null;
     androidData.nippouDat.mapKensinData = null;
-    androidData.nippouDat.mapUriageData = Object.fromEntries(m_mapUriageData);
+    androidData.nippouDat.mapUriageData = Object.fromEntries(setDataUriageAndroid(m_mapUriageData));
     window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
     // /* default title size of printting form */
     // var smTextTS = document.getElementsByClassName("sm-text")[0].fontSize;
@@ -1628,6 +1628,40 @@ function createPrintDataUriageNippou(mapUriageData) {
             listItemList.appendChild(longline);
         }
     }
+}
+
+
+function setDataUriageAndroid(mapUriageData) {
+    var map = new Map()
+
+    const keyList = mapUriageData.keys();
+    var key = keyList.next();
+    while (key.value != null) {
+        console.log(key.value)
+        mapUriageData.get(key.value).forEach((values, keys) => {
+            console.log(values, keys);
+
+            var uriageDataList = values;
+            var list = [];
+            for (var j = 0; j < uriageDataList.length; j++) {
+                var data = new Dat.UriageItemDat();
+                data.mCusCode = uriageDataList[j].mCusCode;
+                data.mName = uriageDataList[j].mName;
+                data.u_buskind = uriageDataList[j].u_buskind;
+                data.u_hmname = uriageDataList[j].u_hmname;
+                data.m_lNyu = uriageDataList[j].m_lNyu;
+                data.u_suryo = uriageDataList[j].u_suryo;
+                data.u_tank = uriageDataList[j].u_tank;
+                data.u_kin = uriageDataList[j].u_kin;
+                data.u_tax = uriageDataList[j].u_tax;
+                list.push(data);
+            }
+            map.set(key.value,list); 
+        })
+        key = keyList.next();
+    }
+
+    return map;
 }
 
 
