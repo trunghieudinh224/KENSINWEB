@@ -40,8 +40,6 @@ const titleDialog = document.getElementById("titleDialog");
 
 /* setting data */
 var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
-/** 印刷情報 */
-var printStatus = new Dat.PrintStatus();
 /** keyboard property */
 var keyboardProp = new Dat.KeyboardProp();
 /** ユーザー情報 */
@@ -76,11 +74,15 @@ var m_isGenuri = false;
 var m_bdCho;
 /** 入金取引区分 */
 var m_bdNyu;
+var printGenuriInfo = new Dat.PrintGenuriInfo();
 var lstBusfCho = JSON.parse(sessionStorage.getItem(StringCS.LISTBUSTCHO));
 var lstBusfNyu = JSON.parse(sessionStorage.getItem(StringCS.LISTBUSTNYU));
 
 var CHOMODE = 1;
 var NYUMODE = 2;
+
+/*****  ANDROID DATA  *****/
+var androidData = new Dat.AndroidData();
 
 
 /****  PRINT   ****/
@@ -727,17 +729,37 @@ function onClickAction() {
 		Common.setupModal("question", null, Mess.I00008, StringCS.IIE, StringCS.HAI, null, false);
 		var buttonConfirm = document.getElementsByClassName("button-1")[0];
 		buttonConfirm.onclick = function () {
-			sendDataToServer();
+			// sendDataToServer();
 
-			// modal.style.display = "none";
-			// document.getElementById("editView").style.display = "none";
-			// document.getElementById("printView").style.display = "block";
-			// preparePrintData();
-			// reloadUriageList();
+			modal.style.display = "none";
+			document.getElementById("editView").style.display = "none";
+			document.getElementById("printView").style.display = "block";
+			preparePrintData();
+			createImageForm();
+
+			androidData.type = "uriage";
+			androidData.printStatus = null;
+			androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
+			androidData.isHikae = false;
+			androidData.mUserData.mSysfDat = mUserData.mSysfDat;
+			androidData.mUserData.mKokfDat = mUserData.mKokfDat;
+			androidData.mUserData.mSy2fDat = mUserData.mSy2fDat;
+			androidData.mUserData.mKouserDat = null;
+			androidData.mUserData.getHmef0 = null;
+			androidData.mUserData.getHmef1 = null;
+			androidData.mUserData.getHmef2 = null;
+			androidData.mUserData.mHanfDat = null;
+			androidData.kensinData = null;
+			androidData.mUserData.mKensinDate = document.getElementById("hakkooBiKenshinBi").textContent;
+			androidData.androidKensinDat = null;
+			androidData.androidNyukinDat.mUTC = null;
+			androidData.lstComment = null;
+			androidData.sTantname = dataSetting.m_lstTantName[0].name;
+			window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
 		}
 	}
 
-	document.getElementById("backPrintButton").onclick = function () { 
+	document.getElementById("backPrintButton").onclick = function () {
 		Common.movePage('/product_search.html');
 	};
 
@@ -754,8 +776,7 @@ function preparePrintData() {
 	if (Other.getClearString(strSname_0) == Other.getClearString(mUserData.mKokfDat.mName)) {
 		strSname_0 = mUserData.mKokfDat.mSName0;
 		strSname_1 = mUserData.mKokfDat.mSName1;
-		var printGenuriInfo = new Dat.PrintGenuriInfo().setValue(strSname_0, strSname_1, m_isGenuri, m_nCho, m_nNyu, m_nReceipt, [mHmefDat]);
-		getPrintStatus(false, 0, 0, false, false);
+		printGenuriInfo = new Dat.PrintGenuriInfo().setValue(strSname_0, strSname_1, m_isGenuri, m_nCho, m_nNyu, m_nReceipt, [mHmefDat]);
 		createPrintData(false, printGenuriInfo, false);
 	}
 }
@@ -1604,20 +1625,6 @@ function calcTaxList(lstHmefDat, recentTax) {
 
 
 /** 
-	* GET PRINT STATUS
-*/
-function getPrintStatus(isPrintNyukin, lReceipt, lZandaka, isPrintKensin, isToyu) {
-	printStatus.m_isPrintHoan = false;
-	printStatus.m_isPrintNyukin = isPrintNyukin;
-	printStatus.m_lReceipt = lReceipt;
-	printStatus.m_lZandaka = lZandaka;
-	printStatus.m_isPrintKensin = isPrintKensin;
-	printStatus.m_isPrintToyu = isToyu;
-}
-
-
-
-/** 
 	* CONVERT IMAGE TO BASE64
 */
 function getBase64(file) {
@@ -1774,7 +1781,7 @@ export function sendDataToServer() {
 		hmefWriteDat.m_lstHmefDat.push(hmefCho);
 	}
 
-    Common.setupModal("load", null, Mess.I00001, null, null, null, false);
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
 	$.ajax({
 		type: "POST",
 		data: JSON.stringify(hmefWriteDat),

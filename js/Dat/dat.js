@@ -2639,9 +2639,10 @@ export class AndroidData {
 		this.lstComment = [];
 		this.shukeiDat = new ShukeiDat();
 		this.nippouDat = new NippouDat();
+		this.printGenuriInfo = new PrintGenuriInfo();
 	}
 
-	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, androidKensinDat, androidNyukinDat, lstComment, shukeiDat, nippouDat) {
+	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, androidKensinDat, androidNyukinDat, lstComment, shukeiDat, nippouDat, printGenuriInfo) {
 		var data = new AndroidData();
 
 		data.type = type;
@@ -2655,6 +2656,7 @@ export class AndroidData {
 		data.lstComment = lstComment;
 		data.shukeiDat = shukeiDat;
 		data.nippouDat = nippouDat;
+		data.printGenuriInfo = printGenuriInfo;
 		return data;
 	}
 }
