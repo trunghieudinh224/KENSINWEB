@@ -198,7 +198,6 @@ function onClickAction() {
 		androidData.printGenuriInfo = printGenuriInfo;
 		reloadUriageList();
 		createImageForm();
-		// Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
 	}
 
 	document.getElementById("backPrintButton").onclick = function () { 
