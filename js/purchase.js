@@ -1773,9 +1773,7 @@ export function sendDataToServer() {
 		timeout: ValueCS.VL_LONG_TIMEOUT,
 		success: function (response) {
 			console.log(response);
-			var buttonConfirm = document.getElementsByClassName("button-1")[0];
-			buttonConfirm.onclick = function () {
-				modal.style.display = "none";
+			modal.style.display = "none";
 				preparePrintData();
 				androidData.type = "uriage";
 				androidData.printStatus = null;
@@ -1797,7 +1795,6 @@ export function sendDataToServer() {
 				androidData.sTantname = dataSetting.m_lstTantName[0].name;
 				androidData.printGenuriInfo = printGenuriInfo;
 				reloadUriageList();
-			}
 		},
 		error: function (textstatus) {
 			if (textstatus === "timeout") {
