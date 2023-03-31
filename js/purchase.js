@@ -83,6 +83,7 @@ var NYUMODE = 2;
 
 /*****  ANDROID DATA  *****/
 var androidData = new Dat.AndroidData();
+var lstComment = ["", ""];
 
 
 /****  PRINT   ****/
@@ -753,8 +754,9 @@ function onClickAction() {
 			androidData.mUserData.mKensinDate = document.getElementById("hakkooBiKenshinBi").textContent;
 			androidData.androidKensinDat = null;
 			androidData.androidNyukinDat.mUTC = null;
-			androidData.lstComment = null;
+			androidData.lstComment = lstComment;
 			androidData.sTantname = dataSetting.m_lstTantName[0].name;
+			androidData.printGenuriInfo = printGenuriInfo;
 			window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
 		}
 	}
@@ -1436,6 +1438,7 @@ function getComment() {
 			strComments[1] = dataSetting.m_lstComment[i].name;
 		}
 	}
+	lstComment = strComments;
 	return strComments;
 }
 

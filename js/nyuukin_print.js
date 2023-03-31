@@ -1281,6 +1281,7 @@ function getComment() {
 			strComments[1] = dataSetting.m_lstComment[i].name;
 		}
 	}
+	lstComment = strComments;
 	return strComments;
 }
 
