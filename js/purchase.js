@@ -732,10 +732,10 @@ function onClickAction() {
 			// sendDataToServer();
 
 			modal.style.display = "none";
-			document.getElementById("editView").style.display = "none";
-			document.getElementById("printView").style.display = "block";
+			// document.getElementById("editView").style.display = "none";
+			// document.getElementById("printView").style.display = "block";
 			preparePrintData();
-			createImageForm();
+			// createImageForm();
 
 			androidData.type = "uriage";
 			androidData.printStatus = null;
