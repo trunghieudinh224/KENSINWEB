@@ -31,6 +31,11 @@ var deleteList = [];
 
 var deletePositionList = [];
 
+var printGenuriInfo = new Dat.PrintGenuriInfo();
+
+/*****  ANDROID DATA  *****/
+var androidData = new Dat.AndroidData();
+var lstComment = ["", ""];
 
 
 /****  PRINT   ****/
@@ -172,6 +177,26 @@ function onClickAction() {
 		document.getElementById("editView").style.display = "none";
 		document.getElementById("printView").style.display = "block";
 		preparePrintData();
+		androidData.type = "uriage";
+		androidData.printStatus = null;
+		androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
+		androidData.isHikae = false;
+		androidData.mUserData.mSysfDat = mUserData.mSysfDat;
+		androidData.mUserData.mKokfDat = mUserData.mKokfDat;
+		androidData.mUserData.mSy2fDat = mUserData.mSy2fDat;
+		androidData.mUserData.mKouserDat = null;
+		androidData.mUserData.getHmef0 = null;
+		androidData.mUserData.getHmef1 = null;
+		androidData.mUserData.getHmef2 = null;
+		androidData.mUserData.mHanfDat = mUserData.mHanfDat;
+		androidData.kensinData = null;
+		androidData.mUserData.mKensinDate = document.getElementById("hakkooBiKenshinBi").textContent;
+		androidData.androidKensinDat = null;
+		androidData.androidNyukinDat.mUTC = null;
+		androidData.lstComment = lstComment;
+		androidData.sTantname = dataSetting.m_lstTantName[0].name;
+		androidData.printGenuriInfo = printGenuriInfo;
+		reloadUriageList();
 		createImageForm();
 		// Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
 	}
@@ -281,7 +306,7 @@ function preparePrintData() {
 	if (Other.getClearString(strSname_0) == Other.getClearString(mUserData.mKokfDat.mName)) {
 		strSname_0 = mUserData.mKokfDat.mSName0;
 		strSname_1 = mUserData.mKokfDat.mSName1;
-		var printGenuriInfo = new Dat.PrintGenuriInfo().setValue(strSname_0, strSname_1, false, 0, 0, 0, mUserData.mHmefList);
+		printGenuriInfo = new Dat.PrintGenuriInfo().setValue(strSname_0, strSname_1, false, 0, 0, 0, mUserData.mHmefList);
 		getPrintStatus(false, 0, 0, false, false);
 		createPrintData(false, printGenuriInfo, false);
 	}
@@ -1188,7 +1213,12 @@ function setupTextSizeDetail(nameItem, textSize, lineHeight, fontWeight) {
 function sendImage() {
 	imgString = imgString.replace("data:image/png;base64,", "");
 	navigator.clipboard.writeText(imgString);
-	window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://", "");
+	var check = Common.getMobileOperatingSystem();
+	if (check == "Ios") {
+		window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://", "");
+	} else if (check == "Android") {
+		window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
+	}
 }
 
 
