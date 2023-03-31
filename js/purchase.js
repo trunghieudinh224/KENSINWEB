@@ -749,7 +749,7 @@ function onClickAction() {
 			androidData.mUserData.getHmef0 = null;
 			androidData.mUserData.getHmef1 = null;
 			androidData.mUserData.getHmef2 = null;
-			androidData.mUserData.mHanfDat = null;
+			androidData.mUserData.mHanfDat = mUserData.mHanfDat;
 			androidData.kensinData = null;
 			androidData.mUserData.mKensinDate = document.getElementById("hakkooBiKenshinBi").textContent;
 			androidData.androidKensinDat = null;
