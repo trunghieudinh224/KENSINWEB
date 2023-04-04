@@ -205,6 +205,9 @@ function setFocusSelectString() {
    * CALCULATING ITEM'S VALUE OF LIST
 */
 function calcValOfList(list, prop) {
+    if (list == null) {
+        return 0;
+    }
     var result = 0;
     for (var i = 0; i < list.length; i++) {
         var obj = list[i];

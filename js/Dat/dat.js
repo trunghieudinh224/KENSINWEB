@@ -1844,7 +1844,7 @@ export class UserData {
 		data.mKokfDat = new KokfDat().parseData(responeData.mKokfDat);
 		data.mKo2fDat = new Ko2fDat().parseData(responeData.mKo2fDat);
 		data.mGasfDat = new GasfDat().parseData(responeData.mGasfDat);
-		data.mHmefList = responeData.mHmefList2;
+		data.mHmefList = responeData.hmefList2;
 		data.mHanfDat = new HanfDat().parseData(responeData.mHanfDat);
 		data.mNyukinMode = responeData.mNyukinMode;
 		data.mNyukinOnly = responeData.mNyukinOnly;
@@ -1855,8 +1855,8 @@ export class UserData {
 		data.mBusfDat_hmcd13 = responeData.mBusfDat_hmcd13;
 		data.mHynmDat = new HynmDat().parseData(responeData.mHynmDat);
 		data.getHmef0 = responeData.getHmef0;
-		data.getHmef1 = responeData.mHmefList1;
-		data.getHmef2 = responeData.mHmefList2;
+		data.getHmef1 = responeData.hmefList1;
+		data.getHmef2 = responeData.hmefList2;
 		return data;
 	}
 }
