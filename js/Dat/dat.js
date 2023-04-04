@@ -2351,10 +2351,10 @@ export class Hme2Dat {
 			return data;
 		}
 
-		data.mBikou = mBikou;
-		data.m_bGenuri = m_bGenuri;
-		data.m_nUrirec = m_nUrirec;
-		data.m_nReceipt = m_nReceipt;;
+		data.mBikou = responeData.mBikou;
+		data.m_bGenuri = responeData.m_bGenuri;
+		data.m_nUrirec = responeData.m_nUrirec;
+		data.m_nReceipt = responeData.m_nReceipt;;
 		return data
 	}
 }
@@ -2640,9 +2640,12 @@ export class AndroidData {
 		this.shukeiDat = new ShukeiDat();
 		this.nippouDat = new NippouDat();
 		this.printGenuriInfo = new PrintGenuriInfo();
+		this.cusData = new CusData();
+		this.printMode = 0;
 	}
 
-	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, androidKensinDat, androidNyukinDat, lstComment, shukeiDat, nippouDat, printGenuriInfo) {
+	setValue(type, printStatus, isHybseikyu, isHikae, mUserData, kensinData, androidKensinDat, androidNyukinDat, 
+			lstComment, shukeiDat, nippouDat, printGenuriInfo, cusData, printMode) {
 		var data = new AndroidData();
 
 		data.type = type;
@@ -2657,6 +2660,8 @@ export class AndroidData {
 		data.shukeiDat = shukeiDat;
 		data.nippouDat = nippouDat;
 		data.printGenuriInfo = printGenuriInfo;
+		data.cusData = cusData;
+		data.printMode = printMode;
 		return data;
 	}
 }
@@ -3018,5 +3023,53 @@ export class UriageItemDat {
 		data.u_kin = u_kin;
 		data.u_tax = u_tax;
 		return data;
+	}
+}
+
+
+export class CusData {
+	constructor() {
+		/** 検針日 */
+		this.m_strDate = "";
+		/** 顧客コード */
+		this.m_strKcode = "";
+		/** 顧客名1 */
+		this.m_strName0 = "";
+		/** 顧客名2 */
+		this.m_strName1 = "";
+		/** 敬称 */
+		this.m_strKname = "";
+		/** 住所１ */
+		this.m_strAdd0 = "";
+		/** 住所２ */
+		this.m_strAdd1 = "";
+	}
+
+	setValue(m_strDate, m_strKcode, m_strName0, m_strName1, m_strKname, m_strAdd0, m_strAdd1) {
+		var data = new CusData();
+		data.m_strDate = m_strDate;
+		data.m_strKcode = m_strKcode;
+		data.m_strName0 = m_strName0;
+		data.m_strName1 = m_strName1;
+		data.m_strKname = m_strKname;
+		data.m_strAdd0 = m_strAdd0;
+		data.m_strAdd1 = m_strAdd1;
+	}
+
+
+	parseData(responeData) {
+		var data = new CusData();
+		if (responeData == null) {
+			return data;
+		}
+
+		data.m_strDate = responeData.m_strDate;
+		data.m_strKcode = responeData.m_strKcode;
+		data.m_strName0 = responeData.m_strName0;
+		data.m_strName1 = responeData.m_strName1;
+		data.m_strKname = responeData.m_strKname;
+		data.m_strAdd0 = responeData.m_strAdd0;
+		data.m_strAdd1 = responeData.m_strAdd1;
+		return data
 	}
 }

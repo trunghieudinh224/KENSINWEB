@@ -1776,6 +1776,7 @@ export function sendDataToServer() {
 			modal.style.display = "none";
 				preparePrintData();
 				androidData.type = "uriage";
+				androidData.printMode = dataSetting.prnt_mode;
 				androidData.printStatus = null;
 				androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
 				androidData.isHikae = false;

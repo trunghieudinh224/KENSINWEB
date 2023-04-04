@@ -36,6 +36,7 @@ var androidData = new Dat.AndroidData();
 var mKSIB = new Dat.KSIB();
 var mKI = new Dat.KI();
 var mUTC = new Dat.UTC();
+var cusData = new Dat.CusData();
 var lstComment = ["", ""];
 
 /****  PRINT   ****/
@@ -239,6 +240,7 @@ function getCusData() {
 		m_strAdd0: Other.getClearString(kokfDat.mAdd_0.substring(0, 20)),
 		m_strAdd1: Other.getClearString(kokfDat.mAdd_1.substring(20))
 	};
+	cusData = new Dat.CusData().parseData(data);
 	return data;
 }
 
@@ -3371,9 +3373,11 @@ function savingData() {
 			}
 			createPrintData(printStatus, mUserData.mSysfDat.is_m_isToyukensinFlg, false);
 			androidData.type = "kensin";
+			androidData.printMode = dataSetting.prnt_mode;
 			androidData.printStatus = printStatus;
 			androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
 			androidData.isHikae = false;
+			androidData.cusData = cusData;
 			androidData.mUserData.mSysfDat = mUserData.mSysfDat;
 			androidData.mUserData.mKokfDat = mUserData.mKokfDat;
 			androidData.mUserData.mSy2fDat = mUserData.mSy2fDat;

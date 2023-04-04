@@ -1642,6 +1642,7 @@ function savingData() {
 			}
 			createPrintData(printStatus, false);
 			androidData.type = "nyukin";
+			androidData.printMode = dataSetting.prnt_mode;
 			androidData.printStatus = printStatus;
 			androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
 			androidData.isHikae = false;

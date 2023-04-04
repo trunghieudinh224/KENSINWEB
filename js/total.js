@@ -1631,6 +1631,7 @@ function setDataUriageAndroid(mapUriageData) {
 
 function prepareAndroidData(type, tantname, shukeiDat, mapKensinData, mapUriageData) {
     androidData.type = type;
+    androidData.printMode = dataSetting.prnt_mode;
     androidData.mUserData = null
     androidData.kensinData = null;
     androidData.androidKensinDat = null;
