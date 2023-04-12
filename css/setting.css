@@ -34,6 +34,96 @@
 	display: none;
 }
 
+.w-100p {
+	width: 100%;
+}
+
+.edv {
+	padding: 0px;
+}
+
+.card-body {
+	padding: 10px 10px !important;
+	overflow: hidden;
+}
+
+.igt-center {
+	display: block !important;
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.collapsible {
+	background-color: #777;
+	color: white;
+	cursor: pointer;
+	padding: 18px;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+}
+
+.active,
+.collapsible:hover {
+	background-color: #555;
+	color: black;
+}
+
+.content-collapse {
+	padding: 0 18px;
+	display: none;
+	overflow: hidden;
+	background-color: #f1f1f1;
+}
+
+.card {
+	margin-bottom: 5px;
+}
+
+.card-header {
+	background-color: #7ab869;
+	padding: 10px 10px;
+}
+
+.card-link {
+	font-size: 20px !important;
+	color: white;
+	font-weight: bold;
+	display: block;
+	text-align: center;
+}
+
+.card-link:hover {
+	cursor: pointer;
+}
+
+.ta-l {
+	text-align: left;
+}
+
+.ta-r {
+	text-align: right;
+}
+
+
+.item-collapse {
+	width: 100%;
+}
+
+.ic-dd-collapse {
+	position: absolute;
+	height: 30px;
+}
+
+.title-collapse {
+	border: none;
+	background: transparent;
+	margin: auto;
+	font-size: 20px;
+}
+
 @media screen and (max-width: 900px) {
   .my-checkbox {
     transform: scale(1.5) !important;

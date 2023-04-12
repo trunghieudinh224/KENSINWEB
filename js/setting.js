@@ -35,6 +35,8 @@ function getDataSetting() {
 				setBarcodeNumber();
 				setBarcodeStart();
 				setBarcodeTypeCbb();
+				setCNPointCbb();
+				$('.collapseOne').collapse('show');
 				modal.style.display = "none";
 			} catch {
 				Common.setupModal("error", null, Mess.E00007, null, StringCS.OK, null, false);
@@ -114,17 +116,17 @@ function setPrintModeCbb() {
 }
 
 /* 
-    SET BARCODE START LETTER
+	SET BARCODE START LETTER
 */
 function setBarcodeStart() {
-    document.getElementById("startLetter").value = dataSetting.barcd_from;
+	document.getElementById("startLetter").value = dataSetting.barcd_from;
 }
 
 /* 
-    SET BARCODE NUMBER LETTER
+	SET BARCODE NUMBER LETTER
 */
 function setBarcodeNumber() {
-    document.getElementById("numberLetter").value = dataSetting.barcd_len;
+	document.getElementById("numberLetter").value = dataSetting.barcd_len;
 }
 
 /**
@@ -154,6 +156,13 @@ function prepareNewDataSetting() {
 	let startLetter = document.getElementById("startLetter").value;
 	let numberLetter = document.getElementById("numberLetter").value;
 	let barcodeType = document.getElementById("barcodeTypeCbb").value;
+
+	var listCNPCbb = document.getElementsByClassName("cnp-cbb");
+	var cnpList = new Array(6);
+	for (var idx = 0; idx < listCNPCbb.length; idx++) {
+		cnpList[idx] = listCNPCbb[idx].value;
+	}
+
 	const newData = {
 		wrt_tancd: dataSetting.wrt_tancd,
 		tancd: tancd,
@@ -167,6 +176,7 @@ function prepareNewDataSetting() {
 		barcd_from: startLetter,
 		barcd_len: numberLetter,
 		barcd_kcode: barcodeType,
+		cnp_comment: cnpList,
 		login_id: sessionStorage.getItem(StringCS.USERNAME),
 		login_pw: sessionStorage.getItem(StringCS.PASSWORD)
 	}
@@ -181,7 +191,7 @@ function saveDataSetting() {
 	var regex = new RegExp("^[0-9]{1,2}$");
 	var startLetter = document.getElementById("startLetter").value;
 	var numberLetter = document.getElementById("numberLetter").value;
-	if (regex.test(startLetter) && regex.test(numberLetter)) { 
+	if (regex.test(startLetter) && regex.test(numberLetter)) {
 		Common.setupModal("load", null, Mess.I00002, null, null, null, false);
 		$.ajax({
 			type: "POST",
@@ -220,6 +230,37 @@ function saveDataSetting() {
 		if (!regex.test(numberLetter)) {
 			document.getElementById("msgError2").style.display = "block";
 		};
+	}
+}
+
+
+function setCNPointCbb() {
+	if (dataSetting != null) {
+		if (dataSetting.m_lstCnpCmt != null) {
+			var listCNPCbb = document.getElementsByClassName("cnp-cbb");
+			for (var idx = 0; idx < listCNPCbb.length; idx++) {
+				var optionSpace = document.createElement("option");
+				optionSpace.classList.add("text")
+				optionSpace.text = "";
+				optionSpace.value = 0;
+				listCNPCbb[idx].add(optionSpace);
+				for (var i = 0; i < dataSetting.m_lstCnpCmt.length; i++) {
+					var option = document.createElement("option");
+					option.classList.add("text")
+					option.text = dataSetting.m_lstCnpCmt[i].name;
+					option.value = dataSetting.m_lstCnpCmt[i].code;
+					document.getElementById("cbb_cnp" + idx).add(option);
+
+					if (dataSetting.cnp_comment[idx] == dataSetting.m_lstCnpCmt[i].code) {
+						option.selected = 'selected';
+					}
+				}
+			}
+		} else {
+			document.getElementById("card3").remove();
+		}
+	} else {
+		document.getElementById("card3").remove();
 	}
 }
 

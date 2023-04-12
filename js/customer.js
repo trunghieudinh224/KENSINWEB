@@ -115,6 +115,9 @@ function getInformation() {
                     document.getElementById("jisshi-bi").value = kensinDate;
                     mUserData.mKensinDate = String(kensinDate);
                 }
+                mUserData.mSy2fDat.mSy2fCnpMemberDat = new Dat.Sy2fCnpMemberDat()
+
+
                 saveUserData();
                 modal.style.display = "none";
 
