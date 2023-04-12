@@ -2522,9 +2522,9 @@ export class Sy2fCnpDat {
 export class Sy2fCnpTempDat {
 	constructor() {
 		/** CN仮会員コメント1 */
-		this.mCnpTempComment_0 = "";
+		this.mCnpTempComment_0 = "上記ポイントを利用するにはCN会員登録が";
 		/** CN仮会員コメント2 */
-		this.mCnpTempComment_1 = "";
+		this.mCnpTempComment_1 = "必要となります。";
 		/** CNコメント１ */
 		this.mCnpComment_0 = "";
 		/** CNコメント２ */
@@ -2534,11 +2534,8 @@ export class Sy2fCnpTempDat {
 
 	}
 
-	setValue(mCnpTempComment_0, mCnpTempComment_1, mCnpComment_0, mCnpComment_1, mCnpComment_2) {
+	setValue(mCnpComment_0, mCnpComment_1, mCnpComment_2) {
 		var data = new Sy2fCnpTempDat();
-
-		data.mCnpTempComment_0 = mCnpTempComment_0;
-		data.mCnpTempComment_1 = mCnpTempComment_1;
 		data.mCnpComment_0 = mCnpComment_0;
 		data.mCnpComment_1 = mCnpComment_1;
 		data.mCnpComment_2 = mCnpComment_2;
@@ -2550,9 +2547,6 @@ export class Sy2fCnpTempDat {
 		if (responeData == null) {
 			return data;
 		}
-
-		data.mCnpTempComment_0 = responeData.mCnpTempComment_0;
-		data.mCnpTempComment_1 = responeData.mCnpTempComment_1;
 		data.mCnpComment_0 = responeData.mCnpComment_0;
 		data.mCnpComment_1 = responeData.mCnpComment_1;
 		data.mCnpComment_2 = responeData.mCnpComment_2;

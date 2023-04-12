@@ -10,6 +10,8 @@ import * as Dat from './Dat/dat.js'
 const modal = document.getElementById("myModal");
 
 /*****  DATA VARIABLE  *****/
+/* setting data */
+var dataSetting = JSON.parse(sessionStorage.getItem(StringCS.SETTINGDATA));
 /* customer data */
 var cusDat = JSON.parse(sessionStorage.getItem(StringCS.CUSDAT));
 /* customer detail data */
@@ -115,7 +117,16 @@ function getInformation() {
                     document.getElementById("jisshi-bi").value = kensinDate;
                     mUserData.mKensinDate = String(kensinDate);
                 }
-                mUserData.mSy2fDat.mSy2fCnpMemberDat = new Dat.Sy2fCnpMemberDat()
+                if (dataSetting.m_lstCnpCmt != null) {
+                    mUserData.mSy2fDat.mSy2fCnpMemberDat = new Dat.Sy2fCnpDat();
+                    mUserData.mSy2fDat.mSy2fCnpMemberDat.mCnpComment_0 = getCommentFromCd(dataSetting.cnp_comment[0], dataSetting.m_lstCnpCmt);
+                    mUserData.mSy2fDat.mSy2fCnpMemberDat.mCnpComment_1 = getCommentFromCd(dataSetting.cnp_comment[1], dataSetting.m_lstCnpCmt);
+                    mUserData.mSy2fDat.mSy2fCnpMemberDat.mCnpComment_2 = getCommentFromCd(dataSetting.cnp_comment[2], dataSetting.m_lstCnpCmt);
+                    mUserData.mSy2fDat.mSy2fCnpTempDat = new Dat.Sy2fCnpTempDat();
+                    mUserData.mSy2fDat.mSy2fCnpTempDat.mCnpComment_0 = getCommentFromCd(dataSetting.cnp_comment[3], dataSetting.m_lstCnpCmt);
+                    mUserData.mSy2fDat.mSy2fCnpTempDat.mCnpComment_1 = getCommentFromCd(dataSetting.cnp_comment[4], dataSetting.m_lstCnpCmt);
+                    mUserData.mSy2fDat.mSy2fCnpTempDat.mCnpComment_2 = getCommentFromCd(dataSetting.cnp_comment[5], dataSetting.m_lstCnpCmt);
+                }
 
 
                 saveUserData();
@@ -489,6 +500,15 @@ function saveUserData() {
     sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
     mUserData.mKensinDate = String(kensinDate);
     sessionStorage.setItem(StringCS.USERDATA, JSON.stringify(mUserData));
+}
+
+
+function getCommentFromCd(code, list) {
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].code == code) {
+            return list[i].name;
+        }
+    }
 }
 
 
