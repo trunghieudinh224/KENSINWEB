@@ -1256,10 +1256,18 @@ export class KotfDat {
 		this.m_bPuse_month = 0;
 		/** 前回検針：日 */
 		this.m_bPuse_day = 0;
+		/** メーター取替：月 */
+		this.m_bMtchg_m = 0;
+		/** メーター取替：日 */
+		this.m_bMtchg_d = 0;
+		/** メーター取替：旧指針 */
+		this.m_nMtchg_oldss = 0;
+		
 	}
 
 	setValue(m_bKen_sumi, m_nFee, m_nCon_tax, m_nNow_meter, m_nPre_meter, m_nLoil_use, m_nBetw_meter, m_nPre_use, m_nLoil_base,
-		m_bLoil_taxku, m_sLoil_taxr, m_nLoil_fracadd_tax, m_nLoil_fracmul_tax, m_bMt_keta, m_sPuse_year, m_bPuse_month, m_bPuse_day , m_bNo_kensin) {
+			m_bLoil_taxku, m_sLoil_taxr, m_nLoil_fracadd_tax, m_nLoil_fracmul_tax, m_bMt_keta, m_sPuse_year, m_bPuse_month, 
+			m_bPuse_day , m_bNo_kensin, m_bMtchg_m, m_bMtchg_d, m_nMtchg_oldss) {
 		var data = new KotfDat();
 
 		data.m_bKen_sumi = m_bKen_sumi;
@@ -1280,6 +1288,9 @@ export class KotfDat {
 		data.m_bPuse_month = m_bPuse_month;
 		data.m_bPuse_day = m_bPuse_day;
 		data.m_bNo_kensin = m_bNo_kensin;
+		data.m_bMtchg_m = m_bMtchg_m;
+		data.m_bMtchg_d = m_bMtchg_d;
+		data.m_nMtchg_oldss = m_nMtchg_oldss;
 		return data;
 	}
 
@@ -1307,6 +1318,9 @@ export class KotfDat {
 		data.m_bPuse_month = responeData.m_bPuse_month;
 		data.m_bPuse_day = responeData.m_bPuse_day;
 		data.m_bNo_kensin = responeData.m_bNo_kensin;
+		data.m_bMtchg_m = responeData.m_bMtchg_m;
+		data.m_bMtchg_d = responeData.m_bMtchg_d;
+		data.m_nMtchg_oldss = responeData.m_nMtchg_oldss;
 		return data
 	}
 }
