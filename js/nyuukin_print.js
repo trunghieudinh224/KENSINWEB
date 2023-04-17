@@ -87,7 +87,7 @@ function createPrintData(printStatus, isHikae) {
 			document.getElementById("hmInfoArea_NK").style.display = "none";
 		}
 
-		createRyoshu(Other.formatDecial(printStatus.m_lReceipt));
+		createRyoshu(Other.formatDecimal(printStatus.m_lReceipt));
 
 		// コメント
 		if (mUserData.mSy2fDat.mSysOption[Dat.SysOption.PRINT_COMMENT_RYOSHU] == 1) {
@@ -436,7 +436,7 @@ function calcTotalKin() {
 function createRyosyuInfo(wkKensinData, isNyukinOnly) {
 	if (!isNyukinOnly) {
 		if (wkKensinData.m_Receipt != 0) {
-			document.getElementById("konkaiSeikyuGakuVal_NK").innerHTML = Other.formatDecial(wkKensinData.m_Receipt);
+			document.getElementById("konkaiSeikyuGakuVal_NK").innerHTML = Other.formatDecimal(wkKensinData.m_Receipt);
 		} else {
 			document.getElementById("konkaiSeikyuGakuArea_NK").style.display = "none";
 		}
@@ -444,7 +444,7 @@ function createRyosyuInfo(wkKensinData, isNyukinOnly) {
 		if (wkKensinData.m_Chosei != 0) {
 			document.getElementById("choTitleText_NK").innerHTML = getChoTitle();
 			androidData.androidNyukinDat.sChoseiTitle = getChoTitle();
-			document.getElementById("choTitleVal_NK").innerHTML = Other.formatDecial(wkKensinData.m_Chosei);
+			document.getElementById("choTitleVal_NK").innerHTML = Other.formatDecimal(wkKensinData.m_Chosei);
 		} else {
 			document.getElementById("choTitleArea_NK").style.display = "none";
 		}
@@ -452,10 +452,10 @@ function createRyosyuInfo(wkKensinData, isNyukinOnly) {
 
 	var isJust = wkKensinData.m_Azukarikin == wkKensinData.m_Nyukin;
 	document.getElementById("isJustText").innerHTML = isJust ? "ご入金" : "お預り額";
-	document.getElementById("isJustVal").innerHTML = Other.formatDecial(wkKensinData.m_Azukarikin);
+	document.getElementById("isJustVal").innerHTML = Other.formatDecimal(wkKensinData.m_Azukarikin);
 
 	if (wkKensinData.m_Azukarikin > wkKensinData.m_Nyukin) {
-		document.getElementById("otsuriVal_NK").innerHTML = Other.formatDecial(wkKensinData.m_Azukarikin - wkKensinData.m_Nyukin);
+		document.getElementById("otsuriVal_NK").innerHTML = Other.formatDecimal(wkKensinData.m_Azukarikin - wkKensinData.m_Nyukin);
 	} else {
 		document.getElementById("otsuriArea_NK").style.display = "none";
 	}
@@ -464,7 +464,7 @@ function createRyosyuInfo(wkKensinData, isNyukinOnly) {
 	if (!isNyukinOnly) {
 		var lZandaka = wkKensinData.m_Receipt + wkKensinData.m_Chosei - wkKensinData.m_Nyukin;
 		if (isJust || lZandaka != 0) {
-			document.getElementById("sashihikiZandakaVal_NK").innerHTML = Other.formatDecial(lZandaka);
+			document.getElementById("sashihikiZandakaVal_NK").innerHTML = Other.formatDecimal(lZandaka);
 		} else {
 			document.getElementById("sashihikiZandakaArea_NK").style.display = "none";
 		}
@@ -1107,7 +1107,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		if (nKin < 1000) {
 			strPrint = Other.formatLocalJS(nKin, 0, 0);
 		} else {
-			strPrint = Other.formatDecial(nKin);
+			strPrint = Other.formatDecimal(nKin);
 		}
 		var hmefDatKeigen = mapHmefDat.get(hmefDat.mKeigenKubun * 1000 + hmefDat.mTaxR);
 		if (hmefDatKeigen != null && hmefDatKeigen.mKeigenKubun != 0) {
@@ -1173,7 +1173,7 @@ function createHmInfoTax(mapHmefDat, nTax) {
 			document.getElementById("infoTaxArea_NK").style.display = "none";
 			// document.getElementById("hmInfoTotal").style.display = "block";
 			const nTaxVal = document.getElementById("nTaxVal_NK");
-			nTaxVal.innerHTML = Other.formatDecial(nTax);
+			nTaxVal.innerHTML = Other.formatDecimal(nTax);
 		} else {
 			document.getElementById("hmInfoTotal_NK").style.display = "none";
 			document.getElementById("infoTaxArea_NK").style.display = "none";
@@ -1188,13 +1188,13 @@ function createHmInfoTax(mapHmefDat, nTax) {
 			hmefTaxKeigenTotalVal.innerHTML = getHmefTaxKeigenTotal(hmefDat);
 
 			const hmefKinVal = document.getElementById("hmefKinVal_NK");
-			hmefKinVal.innerHTML = Other.formatDecial(hmefDat.mKin) + ")";
+			hmefKinVal.innerHTML = Other.formatDecimal(hmefDat.mKin) + ")";
 
 			const hmefTaxKeigenTaxVal = document.getElementById("hmefTaxKeigenTaxVal_NK");
 			hmefTaxKeigenTaxVal.innerHTML = getHmefTaxkeigenTax(hmefDat);
 
 			const hmefTaXVal = document.getElementById("hmefTaXVal_NK");
-			hmefTaXVal.innerHTML = Other.formatDecial(hmefDat.mTax) + ")";
+			hmefTaXVal.innerHTML = Other.formatDecimal(hmefDat.mTax) + ")";
 		}
 	}
 }

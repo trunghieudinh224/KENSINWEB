@@ -325,7 +325,7 @@ function setKensinData(userData, isHybSeikyu, isPrintKensin, isPrintToyu) {
 	kensinData.m_isFuriDemand = GasRaterCom.isFuriDemand(sysfDat, sy2fDat, kokfDat);
 	if (!kensinData.m_isFuriDemand && kokfDat.mBankCode != 0 && kokfDat.mFriKin != 0 && (kokfDat.mFristat == 2 || kokfDat.mFristat == 3) && sysfDat.mIfDemand) {
 		kensinData.m_strIrai = "上記請求額の内￥" +
-			Other.formatDecial(kokfDat.mFriKin) +
+			Other.formatDecimal(kokfDat.mFriKin) +
 			".-は振替依頼中です。";
 	}
 	else {
@@ -1063,7 +1063,7 @@ function createKinInfo(kensinData) {
 
 			// 前月御請求額
 			const preReceiptVal = document.getElementById("preReceiptVal");
-			preReceiptVal.innerHTML = Other.formatDecial(kensinData.m_PreReceipt);
+			preReceiptVal.innerHTML = Other.formatDecimal(kensinData.m_PreReceipt);
 		} else {
 			document.getElementById("zengetsuZandakaArea").style.display = "none";
 			countDisplay++;
@@ -1078,7 +1078,7 @@ function createKinInfo(kensinData) {
 			if (kensinData.m_HmDay != 0) {
 				//本日お買い上げ額	
 				const hmDayVal = document.getElementById("hmDayVal");
-				hmDayVal.innerHTML = Other.formatDecial(kensinData.m_HmDay);
+				hmDayVal.innerHTML = Other.formatDecimal(kensinData.m_HmDay);
 			} else {
 				document.getElementById("hmDayArea").style.display = "none";
 				countProceed++;
@@ -1088,7 +1088,7 @@ function createKinInfo(kensinData) {
 			if (kensinData.m_HmMonth != 0) {
 				//当月お買い上げ額
 				const hmDayVal = document.getElementById("hmMonthVal");
-				hmDayVal.innerHTML = Other.formatDecial(kensinData.m_HmMonth);
+				hmDayVal.innerHTML = Other.formatDecimal(kensinData.m_HmMonth);
 			} else {
 				document.getElementById("hmMonthArea").style.display = "none";
 				countProceed++;
@@ -1108,7 +1108,7 @@ function createKinInfo(kensinData) {
 		if (sysfDat.mIfAdjust && t_kokfdat.mTReceipt != 0) {
 			//当月入金額
 			const hmDayVal = document.getElementById("tReceiptVal");
-			hmDayVal.innerHTML = Other.formatDecial(t_kokfdat.mTReceipt);
+			hmDayVal.innerHTML = Other.formatDecimal(t_kokfdat.mTReceipt);
 		} else {
 			document.getElementById("toogetsuNyuuKingakuArea").style.display = "none";
 			countDisplay++;
@@ -1120,7 +1120,7 @@ function createKinInfo(kensinData) {
 			// document.getElementById("toogetsuChooseiGakuArea").style.display = "block";
 			//当月調整額
 			const tAdjustVal = document.getElementById("tAdjustVal");
-			tAdjustVal.innerHTML = Other.formatDecial(t_kokfdat.mTAdjust);
+			tAdjustVal.innerHTML = Other.formatDecimal(t_kokfdat.mTAdjust);
 		} else {
 			document.getElementById("toogetsuChooseiGakuArea").style.display = "none";
 			countDisplay++;
@@ -1165,7 +1165,7 @@ function createKinInfo(kensinData) {
 			choseiText.innerHTML = getChoTitle();
 			mKI.sChoseiTitle = getChoTitle();
 
-			strLine = Other.formatDecial(kensinData.m_Chosei);
+			strLine = Other.formatDecimal(kensinData.m_Chosei);
 			const choseiVal = document.getElementById("choseiVal");
 			choseiVal.innerHTML = strLine;
 		} else {
@@ -2176,7 +2176,7 @@ function createHiwariComment(kensinData) {
 */
 function createRyoshu(strInpReceipt) {
 	var wkStr;
-	wkStr = Other.formatDecial(strInpReceipt) + "円";
+	wkStr = Other.formatDecimal(strInpReceipt) + "円";
 	const ryooshuuKingakuVal = document.getElementById("ryooshuuKingakuVal");
 	ryooshuuKingakuVal.innerHTML = wkStr;
 }
@@ -2200,7 +2200,7 @@ function createBank() {
 		const transMonthDateVal = document.getElementById("transMonthDateVal");
 		transMonthDateVal.innerHTML = wkStr;
 
-		wkStr = Other.formatDecial(kokfDat.mTransFee);
+		wkStr = Other.formatDecimal(kokfDat.mTransFee);
 		const zenkaiHikiotoshiGakuVal = document.getElementById("zenkaiHikiotoshiGakuVal");
 		zenkaiHikiotoshiGakuVal.innerHTML = wkStr;
 	} else {
@@ -2214,7 +2214,7 @@ function createBank() {
 		const iraiMonthDateVal = document.getElementById("iraiMonthDateVal");
 		iraiMonthDateVal.innerHTML = wkStr;
 
-		wkStr = Other.formatDecial(kouserDat.m_nIraiKin);
+		wkStr = Other.formatDecimal(kouserDat.m_nIraiKin);
 		const iraiKinVal = document.getElementById("iraiKinVal");
 		iraiKinVal.innerHTML = wkStr;
 	} else {
@@ -2500,7 +2500,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		if (nKin < 1000) {
 			strPrint = Other.formatLocalJS(nKin, 0, 0);
 		} else {
-			strPrint = Other.formatDecial(nKin);
+			strPrint = Other.formatDecimal(nKin);
 		}
 		var hmefDatKeigen = mapHmefDat.get(hmefDat.mKeigenKubun * 1000 + hmefDat.mTaxR);
 		if (hmefDatKeigen != null && hmefDatKeigen.mKeigenKubun != 0) {
@@ -2565,7 +2565,7 @@ function createHmInfoTax(mapHmefDat, nTax) {
 			document.getElementById("infoTaxArea").style.display = "none";
 			// document.getElementById("hmInfoTotal").style.display = "block";
 			const nTaxVal = document.getElementById("nTaxVal");
-			nTaxVal.innerHTML = Other.formatDecial(nTax);
+			nTaxVal.innerHTML = Other.formatDecimal(nTax);
 		} else {
 			document.getElementById("hmInfoTotal").style.display = "none";
 			document.getElementById("infoTaxArea").style.display = "none";
@@ -2580,13 +2580,13 @@ function createHmInfoTax(mapHmefDat, nTax) {
 			hmefTaxKeigenTotalVal.innerHTML = getHmefTaxKeigenTotal(hmefDat);
 
 			const hmefKinVal = document.getElementById("hmefKinVal");
-			hmefKinVal.innerHTML = Other.formatDecial(hmefDat.mKin) + ")";
+			hmefKinVal.innerHTML = Other.formatDecimal(hmefDat.mKin) + ")";
 
 			const hmefTaxKeigenTaxVal = document.getElementById("hmefTaxKeigenTaxVal");
 			hmefTaxKeigenTaxVal.innerHTML = getHmefTaxkeigenTax(hmefDat);
 
 			const hmefTaXVal = document.getElementById("hmefTaXVal");
-			hmefTaXVal.innerHTML = Other.formatDecial(hmefDat.mTax) + ")";
+			hmefTaXVal.innerHTML = Other.formatDecimal(hmefDat.mTax) + ")";
 		}
 	}
 }
@@ -2868,7 +2868,7 @@ function createPoint() {
 		pointPntNameVal.innerHTML = Other.cutStringSpace(Other.nullToString(sy2fDat.pntDatName));
 
 		const pointVal = document.getElementById("pointVal");
-		pointVal.innerHTML = Other.formatDecial(kokfDat.mPoint);
+		pointVal.innerHTML = Other.formatDecimal(kokfDat.mPoint);
 	} else {
 		document.getElementById("pointArea").style.display = "none";
 	}
@@ -2892,17 +2892,17 @@ function createMiyaPoint() {
 	if (mUserData.mSy2fDat.mSysOption[Dat.SysOption.PRINT_MIYANO_GET] == 1) {
 		// 獲得ポイント
 		const kakutokuPointoVal = document.getElementById("kakutokuPointoVal");
-		kakutokuPointoVal.innerHTML = Other.formatDecial(kouserDat.m_nMiyanoGetpnt);
+		kakutokuPointoVal.innerHTML = Other.formatDecimal(kouserDat.m_nMiyanoGetpnt);
 	}
 	if (mUserData.mSy2fDat.mSysOption[Dat.SysOption.PRINT_MIYANO_USE] == 1) {
 		// 使用ポイント
 		const shiyooPointoVal = document.getElementById("shiyooPointoVal");
-		shiyooPointoVal.innerHTML = Other.formatDecial(kouserDat.m_nMiyanoUsepnt);
+		shiyooPointoVal.innerHTML = Other.formatDecimal(kouserDat.m_nMiyanoUsepnt);
 	}
 	if (mUserData.mSy2fDat.mSysOption[Dat.SysOption.PRINT_MIYANO_RUI] == 1) {
 		// 累計ポイント
 		const genzaiPointoVal = document.getElementById("genzaiPointoVal");
-		genzaiPointoVal.innerHTML = Other.formatDecial(kouserDat.m_nMiyanoZanpnt);
+		genzaiPointoVal.innerHTML = Other.formatDecimal(kouserDat.m_nMiyanoZanpnt);
 	}
 }
 
@@ -2924,7 +2924,7 @@ function createCnComment(kensinData) {
 
 		//前月獲得ポイント
 		const cnpZpointVal = document.getElementById("cnpZpointVal");
-		cnpZpointVal.innerHTML = Other.formatDecial(cnpCusDat.mCnpZpoint);
+		cnpZpointVal.innerHTML = Other.formatDecimal(cnpCusDat.mCnpZpoint);
 
 		var strLine = "";
 		if (cnpCusDat.mCnpMembers > 0) {
@@ -2938,7 +2938,7 @@ function createCnComment(kensinData) {
 		const cnpMembersText = document.getElementById("cnpMembersText");
 		cnpMembersText.innerHTML = strLine;
 		const cnpPointVal = document.getElementById("cnpPointVal");
-		cnpPointVal.innerHTML = Other.formatDecial(cnpCusDat.mCnpPoint);
+		cnpPointVal.innerHTML = Other.formatDecimal(cnpCusDat.mCnpPoint);
 
 		if (cnpCusDat.mCnpMembers == 0 && cnpCusDat.mCnpTemp > 0) {
 			// 仮会員はコメントを追加

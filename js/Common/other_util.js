@@ -508,7 +508,7 @@ function formatLocalJS(value, numBehindDot, wkMulti) {
 	* @param wkVal [in] String
 	* @return String
 */
-function formatDecial(wkVal) {
+function formatDecimal(wkVal) {
 	let number = parseInt(wkVal);
 	let nf = new Intl.NumberFormat('en-US');
 	return nf.format(number);
@@ -710,6 +710,6 @@ function CvtString2Num(value) {
 export {
 	Format, KingakuFormat, KingakuFormatLocal, isEmpty, cutStringSpace, nullToString, getClearString, DateFormat, 
 	MonthDayFormat, getKangcontname, hasCom, printformat, printformatLocal, calcMulti, format, format2pr, formatLocal, 
-	getUriTaxr, getBytesLen, formatLocalJS, formatDecial, getNumFromString, parseDate, betweenDays, DateFormatYMD, 
+	getUriTaxr, getBytesLen, formatLocalJS, formatDecimal, getNumFromString, parseDate, betweenDays, DateFormatYMD, 
 	Double2Long, CvtString2Num
 }

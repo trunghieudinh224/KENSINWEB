@@ -371,7 +371,7 @@ function showKenshinJoohoo() {
         document.getElementById("kenshin-bii").innerText = String(cusDetailData.mKoukanDat.HN_DENYMD).substring(0, 10).replaceAll("-", "/");
         document.getElementById("shishin").innerText = Other.Format(cusDetailData.mKoukanDat.HN_SISIN, 1);
         document.getElementById("shiyoo-ryoo").innerText = Other.Format(cusDetailData.mKoukanDat.HN_SIYOURYO, 1);
-        document.getElementById("gasu-ryookin").innerText = Other.formatDecial(cusDetailData.mHndenpyoDat.zkn_kin);
+        document.getElementById("gasu-ryookin").innerText = Other.formatDecimal(cusDetailData.mHndenpyoDat.zkn_kin);
     } else {
         document.getElementById("kenshin-joohoo-area").style.display = "none";
     }

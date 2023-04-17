@@ -137,7 +137,7 @@ function calcKin() {
 		}
 		mHmefDat.mKin = Other.hasCom(dKin, nAdd, nMul, 10000) / 10000;
 
-		uriage_kin.textContent = Other.formatDecial(calcSign(mHmefDat.mSign, mHmefDat.mKin));
+		uriage_kin.textContent = Other.formatDecimal(calcSign(mHmefDat.mSign, mHmefDat.mKin));
 		if (uriage_kin.classList.contains("disabled-inp") == false) {
 			uriage_kin.classList.add("disabled-inp");
 		}
@@ -169,7 +169,7 @@ function calcTax() {
 		mHmefDat.mTax = (Other.hasCom(dTax, nFracAddTax, nFracMulTax, 1000.) / 1000.);
 	}
 
-	uriage_tax.textContent = Other.formatDecial(calcSign(mHmefDat.mSign, mHmefDat.mTax));
+	uriage_tax.textContent = Other.formatDecimal(calcSign(mHmefDat.mSign, mHmefDat.mTax));
 	dispTotal();
 }
 
@@ -178,7 +178,7 @@ function calcTax() {
 	* 請求金額の設定.
 */
 function dispTotal() {
-	uriage_total.textContent = Other.formatDecial(calcSign(mHmefDat.mSign, mHmefDat.mKin + mHmefDat.mTax));
+	uriage_total.textContent = Other.formatDecimal(calcSign(mHmefDat.mSign, mHmefDat.mKin + mHmefDat.mTax));
 	dispGen();
 }
 
@@ -206,10 +206,10 @@ function dispGen() {
 	else {
 		nGen += GasRaterCom.calcTotal(mUserData, mUserData.mSysfDat, mUserData.mKokfDat, mUserData.mKo2fDat, mUserData.mSy2fDat, mUserData.mKouserDat, false);
 		group_prezandaka.style.display = "block";
-		preZandaka.textContent = Other.formatDecial(GasRaterCom.calcTotal(mUserData, mUserData.mSysfDat, mUserData.mKokfDat, mUserData.mKo2fDat, mUserData.mSy2fDat, mUserData.mKouserDat, false));
+		preZandaka.textContent = Other.formatDecimal(GasRaterCom.calcTotal(mUserData, mUserData.mSysfDat, mUserData.mKokfDat, mUserData.mKo2fDat, mUserData.mSy2fDat, mUserData.mKouserDat, false));
 	}
 	uriage_gen_name.textContent = strGenName;
-	uriage_gen.textContent = Other.formatDecial(nGen);
+	uriage_gen.textContent = Other.formatDecimal(nGen);
 }
 
 
@@ -294,7 +294,7 @@ function onCreateView() {
 	uriage_tanka.textContent = Other.formatLocalJS(mHmefDat.mTanka, 2, 3);
 	// 金額
 
-	uriage_kin.textContent = Other.formatDecial(mHmefDat.mKin);
+	uriage_kin.textContent = Other.formatDecimal(mHmefDat.mKin);
 	// 税区分
 	uriage_taxku.value = mHmefDat.mTaxKu;
 
@@ -302,7 +302,7 @@ function onCreateView() {
 	uriage_taxr.textContent = Other.formatLocalJS(mHmefDat.mTaxR, 1, 1);
 
 	// 消費税
-	uriage_tax.textContent = Other.formatDecial(mHmefDat.mTax);
+	uriage_tax.textContent = Other.formatDecimal(mHmefDat.mTax);
 
 
 	// 合計
@@ -471,7 +471,7 @@ function onChangeData() {
 
 	uriage_kin.addEventListener('DOMSubtreeModified', function () {
 		if (uriage_kin.textContent != Other.getNumFromString(uriage_kin.textContent)) {
-			uriage_kin.textContent = Other.formatDecial(Other.getNumFromString(uriage_kin.textContent));
+			uriage_kin.textContent = Other.formatDecimal(Other.getNumFromString(uriage_kin.textContent));
 			mHmefDat.mKin = parseInt(Other.getNumFromString(uriage_kin.textContent));
 			calcTax();
 		}
@@ -491,7 +491,7 @@ function onChangeData() {
 			uriage_cho.textContent = onChangeMinus(m_nCho);
 			dispGen();
 		} else {
-			uriage_cho.textContent = Other.formatDecial(Other.getNumFromString(uriage_cho.textContent));
+			uriage_cho.textContent = Other.formatDecimal(Other.getNumFromString(uriage_cho.textContent));
 			return;
 		}
 	});
@@ -509,8 +509,8 @@ function onChangeData() {
 				m_nNyu = nKin + m_nCho;
 			}
 
-			uriage_recept.textContent = Other.formatDecial(m_nReceipt);
-			uriage_nyu.textContent = Other.formatDecial(m_nNyu);
+			uriage_recept.textContent = Other.formatDecimal(m_nReceipt);
+			uriage_nyu.textContent = Other.formatDecimal(m_nNyu);
 			dispGen();
 		}
 	});
@@ -665,12 +665,12 @@ function onChangeMinus(value) {
 	var result = String(value);
 	if (result.includes("-")) {
 		result = result.replace("-", "");
-		result = Other.formatDecial(Other.getNumFromString(result));
+		result = Other.formatDecimal(Other.getNumFromString(result));
 		if (result != 0) {
 			result = "-" + result;
 		}
 	} else {
-		result = Other.formatDecial(Other.getNumFromString(result));
+		result = Other.formatDecimal(Other.getNumFromString(result));
 	}
 	return result;
 }
@@ -686,10 +686,10 @@ function checkValue() {
 	var tienNhap = Number(Other.getNumFromString(mEditInputReceipt.textContent));
 	if (moneyGasUse + moneyBonus > tienNhap) {
 		moneyUserGet = tienNhap;
-		mEditReceipt.textContent = Other.formatDecial(moneyUserGet);
+		mEditReceipt.textContent = Other.formatDecimal(moneyUserGet);
 	} else {
 		moneyUserGet = moneyBonus + moneyGasUse;
-		mEditReceipt.textContent = Other.formatDecial(moneyUserGet);
+		mEditReceipt.textContent = Other.formatDecimal(moneyUserGet);
 	}
 }
 
@@ -1214,7 +1214,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		if (String(nKin).length < 4) {
 			strPrint = Other.formatLocalJS(nKin, 0, 0);
 		} else {
-			strPrint = Other.formatDecial(nKin);
+			strPrint = Other.formatDecimal(nKin);
 		}
 		var hmefDatKeigen = mapHmefDat.get(hmefDat.mKeigenKubun * 1000 + hmefDat.mTaxR);
 		if (hmefDatKeigen != null && hmefDatKeigen.mKeigenKubun != 0) {
@@ -1278,7 +1278,7 @@ function createHmInfoTax(mapHmefDat, nTax) {
 		if (nTax != 0) {
 			document.getElementById("infoTaxArea").style.display = "none";
 			const nTaxVal = document.getElementById("nTaxVal");
-			nTaxVal.innerHTML = Other.formatDecial(nTax);
+			nTaxVal.innerHTML = Other.formatDecimal(nTax);
 		} else {
 			document.getElementById("hmInfoTotal").style.display = "none";
 			document.getElementById("infoTaxArea").style.display = "none";
@@ -1299,13 +1299,13 @@ function createHmInfoTax(mapHmefDat, nTax) {
 			hmefTaxKeigenTotalVal.innerHTML = getHmefTaxKeigenTotal(hmefDat);
 
 			const hmefKinVal = document.getElementById("hmefKinVal");
-			hmefKinVal.innerHTML = Other.formatDecial(hmefDat.mKin) + ")";
+			hmefKinVal.innerHTML = Other.formatDecimal(hmefDat.mKin) + ")";
 
 			const hmefTaxKeigenTaxVal = document.getElementById("hmefTaxKeigenTaxVal");
 			hmefTaxKeigenTaxVal.innerHTML = getHmefTaxkeigenTax(hmefDat);
 
 			const hmefTaXVal = document.getElementById("hmefTaXVal");
-			hmefTaXVal.innerHTML = Other.formatDecial(hmefDat.mTax) + ")";
+			hmefTaXVal.innerHTML = Other.formatDecimal(hmefDat.mTax) + ")";
 		}
 	}
 }
@@ -1315,7 +1315,7 @@ function createHmInfoTax(mapHmefDat, nTax) {
 	* CREATING HMINFO FOOTER
 */
 function createHmInfoFooter(lKin) {
-	document.getElementById("honjitsuUriageKingakuVal").innerHTML = Other.formatDecial(lKin);
+	document.getElementById("honjitsuUriageKingakuVal").innerHTML = Other.formatDecimal(lKin);
 }
 
 
@@ -1328,12 +1328,12 @@ function createHmInfoFooter(lKin) {
 	* @param lSeikyu   [in] int    請求金額
 */
 function createRyoshu(nChokin, nNyukin, nRecept, lSeikyu) {
-	document.getElementById("konkaiSeikyuGakuVal").innerHTML = Other.formatDecial(lSeikyu);
+	document.getElementById("konkaiSeikyuGakuVal").innerHTML = Other.formatDecimal(lSeikyu);
 
 	// 調整額
 	if (nChokin != 0) {
 		document.getElementById("choTitleText").innerHTML = getChoTitle();
-		document.getElementById("choTitleVal").innerHTML = Other.formatDecial(nChokin);
+		document.getElementById("choTitleVal").innerHTML = Other.formatDecimal(nChokin);
 	} else {
 		document.getElementById("choTitleArea").style.display = "none";
 	}
@@ -1345,7 +1345,7 @@ function createRyoshu(nChokin, nNyukin, nRecept, lSeikyu) {
 		} else {
 			document.getElementById("honjitsuNyuuKingakuText").innerHTML = "本日お預かり金額";
 		}
-		document.getElementById("honjitsuNyuuKingakuVal").innerHTML = Other.formatDecial(nRecept);
+		document.getElementById("honjitsuNyuuKingakuVal").innerHTML = Other.formatDecimal(nRecept);
 	} else {
 		document.getElementById("honjitsuNyuuKingakuArea").style.display = "none";
 	}
@@ -1354,7 +1354,7 @@ function createRyoshu(nChokin, nNyukin, nRecept, lSeikyu) {
 	var lOtsuri = nRecept - (lSeikyu + nChokin);
 	var genkinUriPrintArea = document.getElementById("genkin_uri_print_area");
 	if (lOtsuri > 0) {
-		document.getElementById("otsuriVal").innerHTML = Other.formatDecial(lOtsuri);
+		document.getElementById("otsuriVal").innerHTML = Other.formatDecimal(lOtsuri);
 		if (genkinUriPrintArea.classList.contains("mg-bt-15") == false) {
 			genkinUriPrintArea.className += " mg-bt-15";
 		}
@@ -1368,12 +1368,12 @@ function createRyoshu(nChokin, nNyukin, nRecept, lSeikyu) {
 	// 差引残高
 	var lZandaka = lSeikyu + nChokin - nNyukin;
 	if (lZandaka != 0) {
-		document.getElementById("sashihikiZandakaVal").innerHTML = Other.formatDecial(lZandaka);
+		document.getElementById("sashihikiZandakaVal").innerHTML = Other.formatDecimal(lZandaka);
 	} else {
 		document.getElementById("sashihikiZandakaArea").style.display = "none";
 	}
 
-	document.getElementById("ryooshuuKingakuVal").innerHTML = Other.formatDecial(nNyukin) + "円";
+	document.getElementById("ryooshuuKingakuVal").innerHTML = Other.formatDecimal(nNyukin) + "円";
 }
 
 

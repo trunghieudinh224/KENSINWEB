@@ -182,7 +182,7 @@ function setCusInfo() {
         mTxtPreMeter.innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
         document.getElementById("zenkaiSSKB").innerHTML = Other.Format(mUserData.mKokfDat.mPreMeter, 1);
         if (mUserData.mKokfDat.mGasDiv != 0 && mUserData.mGasfDat.mTaxDiv == 3) {
-            mTxtGasTax.innerHTML = Other.formatDecial(mUserData.mKokfDat.mConTax);
+            mTxtGasTax.innerHTML = Other.formatDecimal(mUserData.mKokfDat.mConTax);
         } else {
             mTxtGasTax.innerHTML = "***";
         }
@@ -217,7 +217,7 @@ function setCusInfo() {
 
         // ガス料金
         // 顧客データからガス料金を取得する 12.04.24
-        mTxtGasPay.innerHTML = Other.formatDecial(mUserData.mKokfDat.mFee);
+        mTxtGasPay.innerHTML = Other.formatDecimal(mUserData.mKokfDat.mFee);
 
         // 確認ボタンを押せるようにする 12.04.24
         mDays = mUserData.mKokfDat.mHiwari;
@@ -276,7 +276,7 @@ function setCusInfo() {
         // ガス料金
         // 顧客データからガス料金を取得する 12.05.07 不具合対応票No.50対応
         if (mUserData.mKokfDat.mKenSumi) {
-            mTxtGasPay.innerHTML = Other.formatDecial(mUserData.mKokfDat.mFee);
+            mTxtGasPay.innerHTML = Other.formatDecimal(mUserData.mKokfDat.mFee);
         } else {
             mTxtGasPay.innerHTML = "";
         }
@@ -477,12 +477,12 @@ function setGasPay(
     } else {
         mTitleGasPay.innerHTML = "ガス料金";
     }
-    mTxtGasPay.innerHTML = Other.formatDecial(lGasFee);
+    mTxtGasPay.innerHTML = Other.formatDecimal(lGasFee);
     // mTxtGasPay.innerHTML = ((lGasFee));
     // 消費税設定
     if (gasfDat.mTaxDiv == 3) {
         // 外税の場合のみ税額表示
-        mTxtGasTax.innerHTML = Other.formatDecial(nGasTax);
+        mTxtGasTax.innerHTML = Other.formatDecimal(nGasTax);
         // mTxtGasTax.innerHTML = ((nGasTax));
     } else {
         mTxtGasTax.innerHTML = "***";
@@ -574,13 +574,13 @@ function init() {
         lstLeasHmefDat,
         false
     );
-    txtKensinNyukinNowSeikyu.innerHTML = nRyokin > 0 ? Other.formatDecial(nRyokin) : 0;
+    txtKensinNyukinNowSeikyu.innerHTML = nRyokin > 0 ? Other.formatDecimal(nRyokin) : 0;
 
     mTotal = nRyokin;
 
     // @当月請求
     nRyokin = GasRaterCom.calcSeikyu(mUserData.mSysfDat, mUserData.mKokfDat, mUserData.mSy2fDat, false);
-    txtKensinNyukinPreZandaka.innerHTML = Other.formatDecial(nRyokin);
+    txtKensinNyukinPreZandaka.innerHTML = Other.formatDecimal(nRyokin);
 
     // 当月ガス売上
     nRyokin = mUserData.mKokfDat.mFee;
@@ -589,7 +589,7 @@ function init() {
         nKangen = mUserData.mKokfDat.mReduce;
     }
 
-    txtKensinNyukinGasRyokin.innerHTML = nRyokin > 0 ? Other.formatDecial(nRyokin) : 0;
+    txtKensinNyukinGasRyokin.innerHTML = nRyokin > 0 ? Other.formatDecimal(nRyokin) : 0;
     //txtKensinNyukinGasRyokin.innerHTML = nRyokin;
 
     // 消費税
@@ -603,7 +603,7 @@ function init() {
                 // 還元額消費税
                 nKangen += mUserData.mKokfDat.mReduceTax;
             }
-            tvTax.innerHTML = nRyokin > 0 ? Other.formatDecial(nRyokin) : 0;
+            tvTax.innerHTML = nRyokin > 0 ? Other.formatDecimal(nRyokin) : 0;
             //tvTax.innerHTML = (nRyokin);
         } else {
             tvTax.innerHTML = "***";
@@ -616,7 +616,7 @@ function init() {
     txtKensinNyukinKangen.innerHTML = (Other.getKangcontname(mUserData));
     // txtKensinNyukinKangen.innerHTML = mUserData.mSy2fDat;
     // 還元額
-    txtKensinNyukinKangenKin.innerHTML = Other.formatDecial(nKangen);
+    txtKensinNyukinKangenKin.innerHTML = Other.formatDecimal(nKangen);
     //txtKensinNyukinKangenKin.innerHTML = (nKangen);
 
     // 値引き
@@ -626,7 +626,7 @@ function init() {
         // 漢の値引き有り
         nNebiki = GasRaterCom.calcNebiki(mUserData.mSysfDat, m_lstKnebDat);
     }
-    txtKensinNyukinNebiki.innerHTML = Other.formatDecial(nNebiki);
+    txtKensinNyukinNebiki.innerHTML = Other.formatDecimal(nNebiki);
     //txtKensinNyukinNebiki.innerHTML = (nNebiki);
 
     // その他売上
@@ -651,26 +651,26 @@ function init() {
         }
     }
 
-    txtKensinNyukinOtherUri.innerHTML = Other.formatDecial(nEtcUri);
-    txtKensinNyukinOtherShohi.innerHTML = Other.formatDecial(nEtcUriTax);
+    txtKensinNyukinOtherUri.innerHTML = Other.formatDecimal(nEtcUri);
+    txtKensinNyukinOtherShohi.innerHTML = Other.formatDecimal(nEtcUriTax);
     //txtKensinNyukinOtherUri.innerHTML = ((nEtcUri));
     //txtKensinNyukinOtherShohi.innerHTML = ((nEtcUriTax));
 
     if (mUserData.mKokfDat.mSyuSumi == 1) {
         // 13.02.13
         // 検針済み or 再入力の場合は入力して編集不可
-        mEditAdjust.innerHTML = Other.formatDecial(mUserData.mKokfDat.mAdjust);
+        mEditAdjust.innerHTML = Other.formatDecimal(mUserData.mKokfDat.mAdjust);
         // mEditInputReceipt.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mInpReceipt);
-        mEditReceipt.innerHTML = Other.formatDecial(mUserData.mKokfDat.mReceipt);
+        mEditReceipt.innerHTML = Other.formatDecimal(mUserData.mKokfDat.mReceipt);
         // mTeiseiFlg = getLongValue(mEditInputReceipt) != getLongValue(mEditReceipt);
         // mEditAdjust.innerHTML = ((mUserData.mKokfDat.mAdjust));
         // mEditInputReceipt.innerHTML = ((mUserData.mKokfDat.mInpReceipt));
         // mEditReceipt.innerHTML = ((mUserData.mKokfDat.mReceipt));
         // mTeiseiFlg = getLongValue(mEditInputReceipt) != getLongValue(mEditReceipt);
     } else {
-        mEditAdjust.innerHTML = Other.formatDecial(0); // 調整額
-        mEditInputReceipt.innerHTML = Other.formatDecial(0); // 預かり金
-        mEditReceipt.innerHTML = Other.formatDecial(0); // 入金額
+        mEditAdjust.innerHTML = Other.formatDecimal(0); // 調整額
+        mEditInputReceipt.innerHTML = Other.formatDecimal(0); // 預かり金
+        mEditReceipt.innerHTML = Other.formatDecimal(0); // 入金額
         // mEditAdjust.textContent = "0";// 調整額
         // mEditInputReceipt.textContent = "0";// 預かり金
         // mEditReceipt.value = "0";// 入金額
@@ -716,7 +716,7 @@ function setZandaka() {
                 lReceipt = mTotal + lAdjust;
             }
         }
-        mEditReceipt.innerHTML = Other.formatDecial(lReceipt);
+        mEditReceipt.innerHTML = Other.formatDecimal(lReceipt);
     }
 
     var mZandaka = mTotal + lAdjust - lReceipt; // 13.02.12
@@ -725,10 +725,10 @@ function setZandaka() {
         div_otsuri.classList.add("hidden");
     } else {
         div_otsuri.classList.remove("hidden");
-        txtKensinNyukinOtsuri.innerHTML = Other.formatDecial(lAzukari - lReceipt);
+        txtKensinNyukinOtsuri.innerHTML = Other.formatDecimal(lAzukari - lReceipt);
     }
-    // mTxtZandaka.innerHTML = mZandaka > 0 ? Other.formatDecial(mZandaka) : 0;
-    mTxtZandaka.innerHTML = Other.formatDecial(mZandaka);
+    // mTxtZandaka.innerHTML = mZandaka > 0 ? Other.formatDecimal(mZandaka) : 0;
+    mTxtZandaka.innerHTML = Other.formatDecimal(mZandaka);
     if (mTeiseiFlg) {
         mTeiseiFlg = false;
     }
@@ -901,41 +901,41 @@ function setdataUchiWake() {
         nKin = mUserData.mKokfDat.mPreBalance;
     }
     document.getElementById("txtKensinNaiyakuZandaka").innerHTML =
-        Other.formatDecial(nKin);
+        Other.formatDecimal(nKin);
 
     // 当月ガス料金
     document.getElementById("txtKensinNaiyakuGasRyokin").innerHTML =
-        Other.formatDecial(mUserData.mKokfDat.mProcGas);
+        Other.formatDecimal(mUserData.mKokfDat.mProcGas);
 
     // 当月ガス料金消費税
     document.getElementById("txtKensinNaiyakuShohizei").innerHTML =
-        Other.formatDecial(mUserData.mKokfDat.mTaxGas);
+        Other.formatDecimal(mUserData.mKokfDat.mTaxGas);
 
     // その他売上
     document.getElementById("txtKensinNaiyakuOtherUri").innerHTML =
-        Other.formatDecial(GasRaterCom.calcEtcUri(mUserData.mSysfDat, mUserData.mKokfDat));
+        Other.formatDecimal(GasRaterCom.calcEtcUri(mUserData.mSysfDat, mUserData.mKokfDat));
 
     // その他売上消費税
     document.getElementById("txtKensinNaiyakuOtherShohi").innerHTML =
-        Other.formatDecial(GasRaterCom.calcEtcTax(mUserData.mSysfDat, mUserData.mKokfDat));
+        Other.formatDecimal(GasRaterCom.calcEtcTax(mUserData.mSysfDat, mUserData.mKokfDat));
 
     // 当月調整
     document.getElementById("txtKensinNaiyakuChosei").innerHTML =
-        Other.formatDecial(mUserData.mKokfDat.mTAdjust);
+        Other.formatDecimal(mUserData.mKokfDat.mTAdjust);
     // 当月入金
     document.getElementById("txtKensinNaiyakuNyukin").innerHTML =
-        Other.formatDecial(mUserData.mKokfDat.mTReceipt);
+        Other.formatDecimal(mUserData.mKokfDat.mTReceipt);
 
     // 当月請求金額
     document.getElementById("txtKensinNaiyakuSeikyu").innerHTML =
-        Other.formatDecial(
+        Other.formatDecimal(
             GasRaterCom.calcSeikyu(mUserData.mSysfDat, mUserData.mKokfDat, mUserData.mSy2fDat, false)
         );
 
     if (mUserData.mSysfDat.mKnebFlg == 1) {
         // 漢の値引きシステム有り
         document.getElementById("txtKensinNaiyakuNebiki").innerHTML =
-            Other.formatDecial(GasRaterCom.calcNebiki(knebDat));
+            Other.formatDecimal(GasRaterCom.calcNebiki(knebDat));
     } else {
         // 値引き項目のビューを取り除く
         document.getElementById("nebiki").classList.add("hidden");
@@ -1006,8 +1006,8 @@ mEditInputReceipt.addEventListener('DOMSubtreeModified', function () {
     
     if (isValidNumber(Other.getNumFromString(mEditInputReceipt.textContent).replaceAll("-", ""))) {
         nyuukin = Other.getNumFromString(mEditInputReceipt.textContent);
-        mEditReceipt.textContent = Other.formatDecial(nyuukin);
-        Sashihiki_zandaka.textContent = Other.formatDecial(nyuukin);
+        mEditReceipt.textContent = Other.formatDecimal(nyuukin);
+        Sashihiki_zandaka.textContent = Other.formatDecimal(nyuukin);
         setZandaka();
         updatePrintData();
         mEditInputReceipt.textContent = onChangeMinus(mEditInputReceipt.textContent);
@@ -1082,12 +1082,12 @@ function onChangeMinus(value) {
     var result = value;
     if (result.includes("-")) {
         result = result.replace("-", "");
-        result = Other.formatDecial(Other.getNumFromString(result));
+        result = Other.formatDecimal(Other.getNumFromString(result));
         if (result != 0) {
             result = "-" + result;
         }
     } else {
-        result = Other.formatDecial(Other.getNumFromString(result));
+        result = Other.formatDecimal(Other.getNumFromString(result));
     }
     return result;
 }
@@ -1156,7 +1156,7 @@ teiseiSumi.onclick = function () {
     if (isValidNumber(Other.getNumFromString(teiseiNyuukin.textContent).replaceAll("-", ""))) {
         const chousei = Number(mEditAdjust.textContent);
         nyuukin = Number(teiseiNyuukinVal);
-        mEditReceipt.textContent = Other.formatDecial(String(nyuukin));
+        mEditReceipt.textContent = Other.formatDecimal(String(nyuukin));
         txtKensinNyukinOtsuri.textContent = Number(Other.getNumFromString(mEditInputReceipt.textContent)) - nyuukin;
         //  setZandaka(chousei, nyuukin);
         // nyuukinGaku.textContent = nyuukin;
@@ -1201,7 +1201,7 @@ function calCutaleTotal() {
 
         div_otsuri.classList.add("hidden");
         total = Number(first) + Number(second) - Number(third);
-        mTxtZandaka.textContent = total > 0 ? Other.formatDecial(total) : 0;
+        mTxtZandaka.textContent = total > 0 ? Other.formatDecimal(total) : 0;
     }
 
 }
@@ -1233,10 +1233,10 @@ function checkValue() {
     var inputMoney = Number(Other.getNumFromString(mEditInputReceipt.textContent));
     if (moneyGasUse + moneyBonus > inputMoney) {
         moneyUserGet = inputMoney;
-        mEditReceipt.textContent = Other.formatDecial(moneyUserGet);
+        mEditReceipt.textContent = Other.formatDecimal(moneyUserGet);
     } else {
         moneyUserGet = moneyBonus + moneyGasUse;
-        mEditReceipt.textContent = Other.formatDecial(moneyUserGet);
+        mEditReceipt.textContent = Other.formatDecimal(moneyUserGet);
     }
 }
 

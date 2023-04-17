@@ -91,7 +91,7 @@ function setData() {
 				col4.className += " ta-r";
 				col2.appendChild(document.createTextNode(item.mDenm + "/" + item.mDend));
 				col3.appendChild(document.createTextNode(Other.cutStringSpace(item.mHmName)));
-				col4.appendChild(document.createTextNode(Other.formatDecial(item.mKin + item.mTax) + " 円"));
+				col4.appendChild(document.createTextNode(Other.formatDecimal(item.mKin + item.mTax) + " 円"));
 				newElement.appendChild(col1);
 				newElement.appendChild(col2);
 				newElement.appendChild(col3);
@@ -767,7 +767,7 @@ function createHmInfo(lstHmefDat, sysfDat, mapHmefDat, isTanka) {
 		if (nKin < 1000) {
 			strPrint = Other.formatLocalJS(nKin, 0, 0);
 		} else {
-			strPrint = Other.formatDecial(nKin);
+			strPrint = Other.formatDecimal(nKin);
 		}
 		var hmefDatKeigen = mapHmefDat.get(hmefDat.mKeigenKubun * 1000 + hmefDat.mTaxR);
 		if (hmefDatKeigen != null && hmefDatKeigen.mKeigenKubun != 0) {
@@ -830,7 +830,7 @@ function createHmInfoTax(mapHmefDat, nTax) {
 		if (nTax != 0) {
 			document.getElementById("infoTaxArea").style.display = "none";
 			const nTaxVal = document.getElementById("nTaxVal");
-			nTaxVal.innerHTML = Other.formatDecial(nTax);
+			nTaxVal.innerHTML = Other.formatDecimal(nTax);
 		} else {
 			document.getElementById("hmInfoTotal").style.display = "none";
 			document.getElementById("infoTaxArea").style.display = "none";
@@ -844,13 +844,13 @@ function createHmInfoTax(mapHmefDat, nTax) {
 			hmefTaxKeigenTotalVal.innerHTML = getHmefTaxKeigenTotal(hmefDat);
 
 			const hmefKinVal = document.getElementById("hmefKinVal");
-			hmefKinVal.innerHTML = Other.formatDecial(hmefDat.mKin) + ")";
+			hmefKinVal.innerHTML = Other.formatDecimal(hmefDat.mKin) + ")";
 
 			const hmefTaxKeigenTaxVal = document.getElementById("hmefTaxKeigenTaxVal");
 			hmefTaxKeigenTaxVal.innerHTML = getHmefTaxkeigenTax(hmefDat);
 
 			const hmefTaXVal = document.getElementById("hmefTaXVal");
-			hmefTaXVal.innerHTML = Other.formatDecial(hmefDat.mTax) + ")";
+			hmefTaXVal.innerHTML = Other.formatDecimal(hmefDat.mTax) + ")";
 		}
 	}
 }
@@ -860,7 +860,7 @@ function createHmInfoTax(mapHmefDat, nTax) {
 	* CREATING HMINFO FOOTER
 */
 function createHmInfoFooter(lKin) {
-	document.getElementById("honjitsuUriageKingakuVal").innerHTML = Other.formatDecial(lKin);
+	document.getElementById("honjitsuUriageKingakuVal").innerHTML = Other.formatDecimal(lKin);
 }
 
 
@@ -873,12 +873,12 @@ function createHmInfoFooter(lKin) {
 	* @param lSeikyu   [in] int    請求金額
 */
 function createRyoshu(nChokin, nNyukin, nRecept, lSeikyu) {
-	document.getElementById("konkaiSeikyuGakuVal").innerHTML = Other.formatDecial(lSeikyu);
+	document.getElementById("konkaiSeikyuGakuVal").innerHTML = Other.formatDecimal(lSeikyu);
 
 	// 調整額
 	if (nChokin != 0) {
 		document.getElementById("choTitleText").innerHTML = getChoTitle();
-		document.getElementById("choTitleVal").innerHTML = Other.formatDecial(nChokin);
+		document.getElementById("choTitleVal").innerHTML = Other.formatDecimal(nChokin);
 	} else {
 		document.getElementById("choTitleArea").style.display = "none";
 	}
@@ -890,7 +890,7 @@ function createRyoshu(nChokin, nNyukin, nRecept, lSeikyu) {
 		} else {
 			document.getElementById("honjitsuNyuuKingakuText").innerHTML = "本日お預かり金額";
 		}
-		document.getElementById("honjitsuNyuuKingakuVal").innerHTML = Other.formatDecial(nRecept);
+		document.getElementById("honjitsuNyuuKingakuVal").innerHTML = Other.formatDecimal(nRecept);
 	} else {
 		document.getElementById("honjitsuNyuuKingakuArea").style.display = "none";
 	}
@@ -898,7 +898,7 @@ function createRyoshu(nChokin, nNyukin, nRecept, lSeikyu) {
 	// おつり
 	var lOtsuri = nRecept - (lSeikyu + nChokin);
 	if (lOtsuri > 0) {
-		document.getElementById("otsuriVal").innerHTML = Other.formatDecial(lOtsuri);
+		document.getElementById("otsuriVal").innerHTML = Other.formatDecimal(lOtsuri);
 	} else {
 		document.getElementById("otsuriArea").style.display = "none";
 	}
@@ -906,12 +906,12 @@ function createRyoshu(nChokin, nNyukin, nRecept, lSeikyu) {
 	// 差引残高
 	var lZandaka = lSeikyu + nChokin - nNyukin;
 	if (lZandaka != 0) {
-		document.getElementById("sashihikiZandakaVal").innerHTML = Other.formatDecial(lZandaka);
+		document.getElementById("sashihikiZandakaVal").innerHTML = Other.formatDecimal(lZandaka);
 	} else {
 		document.getElementById("sashihikiZandakaArea").style.display = "none";
 	}
 
-	document.getElementById("ryooshuuKingakuVal").innerHTML = Other.formatDecial(nNyukin) + "円";
+	document.getElementById("ryooshuuKingakuVal").innerHTML = Other.formatDecimal(nNyukin) + "円";
 }
 
 

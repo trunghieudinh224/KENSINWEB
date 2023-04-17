@@ -271,27 +271,27 @@ function setViewItemtList(type) {
     * SET SHUUKEI DATA
 */
 function setShuukeiData() {
-    viewItemtList[0].innerHTML = Other.formatDecial(shuukeiData.mKensu);
-    viewItemtList[1].innerHTML = Other.formatDecial(shuukeiData.mToyuCnt);
-    viewItemtList[2].innerHTML = Other.formatDecial(shuukeiData.mNyucnt);
-    viewItemtList[3].innerHTML = Other.formatDecial(shuukeiData.mUricnt);
+    viewItemtList[0].innerHTML = Other.formatDecimal(shuukeiData.mKensu);
+    viewItemtList[1].innerHTML = Other.formatDecimal(shuukeiData.mToyuCnt);
+    viewItemtList[2].innerHTML = Other.formatDecimal(shuukeiData.mNyucnt);
+    viewItemtList[3].innerHTML = Other.formatDecimal(shuukeiData.mUricnt);
     viewItemtList[4].innerHTML = Other.formatLocalJS(shuukeiData.mGsiyou, 1, 1);
-    viewItemtList[5].innerHTML = Other.formatDecial(shuukeiData.mGryokin);
-    viewItemtList[6].innerHTML = Other.formatDecial(shuukeiData.mShohi);
-    viewItemtList[7].innerHTML = Other.formatDecial(shuukeiData.mKang);
-    viewItemtList[8].innerHTML = Other.formatDecial(shuukeiData.mTotal);
+    viewItemtList[5].innerHTML = Other.formatDecimal(shuukeiData.mGryokin);
+    viewItemtList[6].innerHTML = Other.formatDecimal(shuukeiData.mShohi);
+    viewItemtList[7].innerHTML = Other.formatDecimal(shuukeiData.mKang);
+    viewItemtList[8].innerHTML = Other.formatDecimal(shuukeiData.mTotal);
 
     viewItemtList[9].innerHTML = Other.formatLocalJS(shuukeiData.mToyuUse, 1, 1);
-    viewItemtList[10].innerHTML = Other.formatDecial(shuukeiData.mToyuKin);
-    viewItemtList[11].innerHTML = Other.formatDecial(shuukeiData.mToyuTax);
-    viewItemtList[12].innerHTML = Other.formatDecial(shuukeiData.mToyuTotal);
+    viewItemtList[10].innerHTML = Other.formatDecimal(shuukeiData.mToyuKin);
+    viewItemtList[11].innerHTML = Other.formatDecimal(shuukeiData.mToyuTax);
+    viewItemtList[12].innerHTML = Other.formatDecimal(shuukeiData.mToyuTotal);
 
-    viewItemtList[13].innerHTML = Other.formatDecial(shuukeiData.mNyukin);
-    viewItemtList[14].innerHTML = Other.formatDecial(shuukeiData.mChosei);
+    viewItemtList[13].innerHTML = Other.formatDecimal(shuukeiData.mNyukin);
+    viewItemtList[14].innerHTML = Other.formatDecimal(shuukeiData.mChosei);
     viewItemtList[15].innerHTML = Other.formatLocalJS(shuukeiData.mUrisur, 2, 2);
-    viewItemtList[16].innerHTML = Other.formatDecial(shuukeiData.mUrikin);
-    viewItemtList[17].innerHTML = Other.formatDecial(shuukeiData.mUritax);
-    viewItemtList[18].innerHTML = Other.formatDecial(shuukeiData.mUrikin + shuukeiData.mUritax);
+    viewItemtList[16].innerHTML = Other.formatDecimal(shuukeiData.mUrikin);
+    viewItemtList[17].innerHTML = Other.formatDecimal(shuukeiData.mUritax);
+    viewItemtList[18].innerHTML = Other.formatDecimal(shuukeiData.mUrikin + shuukeiData.mUritax);
 }
 
 
@@ -1053,7 +1053,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
                 var gasuRyoukinVal = document.createElement("div");
                 gasuRyoukinVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
-                gasuRyoukinVal.innerHTML = Other.formatDecial(kensinData.m_nKin) + "円";
+                gasuRyoukinVal.innerHTML = Other.formatDecimal(kensinData.m_nKin) + "円";
 
                 var shouhizeiGakuText = document.createElement("div");
                 shouhizeiGakuText.className = "col-3 sm-text ta-l wsp-text item pd-0 pd-l-5";
@@ -1061,7 +1061,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
                 var shouhizeiGakuVal = document.createElement("div");
                 shouhizeiGakuVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
-                shouhizeiGakuVal.innerHTML = Other.formatDecial(kensinData.m_nTax) + "円";
+                shouhizeiGakuVal.innerHTML = Other.formatDecimal(kensinData.m_nTax) + "円";
 
                 row1.appendChild(shishinText);
                 shishinText.after(shishinVal);
@@ -1083,7 +1083,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
                 var kangenGakuVal = document.createElement("div");
                 kangenGakuVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
-                kangenGakuVal.innerHTML = Other.formatDecial(kensinData.m_nKng) + "円";
+                kangenGakuVal.innerHTML = Other.formatDecimal(kensinData.m_nKng) + "円";
                 row2.appendChild(kangenGakuText);
                 kangenGakuText.after(kangenGakuVal);
                 row1.after(row2);
@@ -1104,7 +1104,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
                 var shishinVal = document.createElement("div");
                 shishinVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
-                shishinVal.innerHTML = Other.formatDecial(kensinData.m_nToyuSs) + "m3";
+                shishinVal.innerHTML = Other.formatDecimal(kensinData.m_nToyuSs) + "m3";
 
                 var shiyouRyouText = document.createElement("div");
                 shiyouRyouText.className = "col-3 sm-text ta-l wsp-text item pd-0";
@@ -1112,7 +1112,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
                 var shiyouRyouVal = document.createElement("div");
                 shiyouRyouVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
-                shiyouRyouVal.innerHTML = Other.formatDecial(kensinData.m_nToyuSr) + "m3";
+                shiyouRyouVal.innerHTML = Other.formatDecimal(kensinData.m_nToyuSr) + "m3";
 
                 var gasuRyoukinText = document.createElement("div");
                 gasuRyoukinText.className = "col-3 sm-text ta-l wsp-text item pd-0";
@@ -1120,7 +1120,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
                 var gasuRyoukinVal = document.createElement("div");
                 gasuRyoukinVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
-                gasuRyoukinVal.innerHTML = Other.formatDecial(kensinData.m_lToyuKin) + "円";
+                gasuRyoukinVal.innerHTML = Other.formatDecimal(kensinData.m_lToyuKin) + "円";
 
                 var shouhizeiGakuText = document.createElement("div");
                 shouhizeiGakuText.className = "col-3 sm-text ta-l wsp-text item pd-0";
@@ -1128,7 +1128,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
                 var shouhizeiGakuVal = document.createElement("div");
                 shouhizeiGakuVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
-                shouhizeiGakuVal.innerHTML = Other.formatDecial(kensinData.m_lToyuTax) + "円";
+                shouhizeiGakuVal.innerHTML = Other.formatDecimal(kensinData.m_lToyuTax) + "円";
 
                 toyu.after(shishinText);
                 shishinText.after(shishinVal);
@@ -1164,7 +1164,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
     var kenshinKensuuVal = document.createElement("div");
     kenshinKensuuVal.className = "col-6 text-print ta-r wsp-text item";
-    kenshinKensuuVal.innerHTML = Other.formatDecial(nCnt) + "件";
+    kenshinKensuuVal.innerHTML = Other.formatDecimal(nCnt) + "件";
 
     var gasuShiyouRyouText = document.createElement("div");
     gasuShiyouRyouText.className = "col-6 text-print ta-l wsp-text item";
@@ -1180,7 +1180,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
     var gasuRyoukinVal = document.createElement("div");
     gasuRyoukinVal.className = "col-6 text-print ta-r wsp-text item";
-    gasuRyoukinVal.innerHTML = Other.formatDecial(footerKensinData.m_nKin) + "円";
+    gasuRyoukinVal.innerHTML = Other.formatDecimal(footerKensinData.m_nKin) + "円";
 
     var shouhizeiGakuText = document.createElement("div");
     shouhizeiGakuText.className = "col-6 text-print ta-l wsp-text item";
@@ -1188,7 +1188,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
     var shouhizeiGakuVal = document.createElement("div");
     shouhizeiGakuVal.className = "col-6 text-print ta-r wsp-text item";
-    shouhizeiGakuVal.innerHTML = Other.formatDecial(footerKensinData.m_nTax) + "円";
+    shouhizeiGakuVal.innerHTML = Other.formatDecimal(footerKensinData.m_nTax) + "円";
 
     var kangenGakuText = document.createElement("div");
     kangenGakuText.className = "col-6 text-print ta-l wsp-text item";
@@ -1196,7 +1196,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
     var kangenGakuVal = document.createElement("div");
     kangenGakuVal.className = "col-6 text-print ta-r wsp-text item";
-    kangenGakuVal.innerHTML = Other.formatDecial(footerKensinData.m_nKng) + "円";
+    kangenGakuVal.innerHTML = Other.formatDecimal(footerKensinData.m_nKng) + "円";
 
     rowTotal.appendChild(kenshinKensuuText);
     kenshinKensuuText.after(kenshinKensuuVal);
@@ -1216,7 +1216,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
         var touyuKensuuVal = document.createElement("div");
         touyuKensuuVal.className = "col-6 text-print ta-r wsp-text item";
-        touyuKensuuVal.innerHTML = Other.formatDecial(nToyuCnt) + "件";
+        touyuKensuuVal.innerHTML = Other.formatDecimal(nToyuCnt) + "件";
 
         var touyuShiyouRyouText = document.createElement("div");
         touyuShiyouRyouText.className = "col-6 text-print ta-l wsp-text item";
@@ -1232,7 +1232,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
         var touyuRyoukinVal = document.createElement("div");
         touyuRyoukinVal.className = "col-6 text-print ta-r wsp-text item";
-        touyuRyoukinVal.innerHTML = Other.formatDecial(footerKensinData.m_lToyuKin) + "円";
+        touyuRyoukinVal.innerHTML = Other.formatDecimal(footerKensinData.m_lToyuKin) + "円";
 
         var shouhizeiGakuText = document.createElement("div");
         shouhizeiGakuText.className = "col-6 text-print ta-l wsp-text item";
@@ -1240,7 +1240,7 @@ function createPrintDataKenshinNippou(mapKensinData, isPrintToyu) {
 
         var shouhizeiGakuVal = document.createElement("div");
         shouhizeiGakuVal.className = "col-6 text-print ta-r wsp-text item";
-        shouhizeiGakuVal.innerHTML = Other.formatDecial(footerKensinData.m_lToyuTax) + "円";
+        shouhizeiGakuVal.innerHTML = Other.formatDecimal(footerKensinData.m_lToyuTax) + "円";
 
         kangenGakuVal.after(touyuKensuuText);
         touyuKensuuText.after(touyuKensuuVal);
@@ -1355,7 +1355,7 @@ function createPrintDataShuukinNippou(mapKensinData) {
 
                 var shishinVal = document.createElement("div");
                 shishinVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
-                shishinVal.innerHTML = Other.formatDecial(kensinData.m_lNyu) + "円";
+                shishinVal.innerHTML = Other.formatDecimal(kensinData.m_lNyu) + "円";
 
                 var shiyouRyouText = document.createElement("div");
                 shiyouRyouText.className = "col-3 sm-text ta-l wsp-text item pd-0 pd-l-5";
@@ -1363,7 +1363,7 @@ function createPrintDataShuukinNippou(mapKensinData) {
 
                 var shiyouRyouVal = document.createElement("div");
                 shiyouRyouVal.className = "col-3 sm-text ta-r wsp-text item pd-0";
-                shiyouRyouVal.innerHTML = Other.formatDecial(kensinData.m_lCho) + "円";
+                shiyouRyouVal.innerHTML = Other.formatDecimal(kensinData.m_lCho) + "円";
 
 
                 row1.appendChild(shishinText);
@@ -1395,7 +1395,7 @@ function createPrintDataShuukinNippou(mapKensinData) {
 
     var kenshinKensuuVal = document.createElement("div");
     kenshinKensuuVal.className = "col-6 text-print ta-r wsp-text item";
-    kenshinKensuuVal.innerHTML = Other.formatDecial(nCnt) + "件";
+    kenshinKensuuVal.innerHTML = Other.formatDecimal(nCnt) + "件";
 
     var gasuShiyouRyouText = document.createElement("div");
     gasuShiyouRyouText.className = "col-6 text-print ta-l wsp-text item";
@@ -1403,7 +1403,7 @@ function createPrintDataShuukinNippou(mapKensinData) {
 
     var gasuShiyouRyouVal = document.createElement("div");
     gasuShiyouRyouVal.className = "col-6 text-print ta-r wsp-text item";
-    gasuShiyouRyouVal.innerHTML = Other.formatDecial(footerKensinData.m_lNyu) + "円";
+    gasuShiyouRyouVal.innerHTML = Other.formatDecimal(footerKensinData.m_lNyu) + "円";
 
     var gasuRyoukinText = document.createElement("div");
     gasuRyoukinText.className = "col-6 text-print ta-l wsp-text item";
@@ -1411,7 +1411,7 @@ function createPrintDataShuukinNippou(mapKensinData) {
 
     var gasuRyoukinVal = document.createElement("div");
     gasuRyoukinVal.className = "col-6 text-print ta-r wsp-text item";
-    gasuRyoukinVal.innerHTML = Other.formatDecial(footerKensinData.m_lCho) + "円";
+    gasuRyoukinVal.innerHTML = Other.formatDecimal(footerKensinData.m_lCho) + "円";
 
     rowTotal.appendChild(kenshinKensuuText);
     kenshinKensuuText.after(kenshinKensuuVal);
@@ -1543,7 +1543,7 @@ function createPrintDataUriageNippou(mapUriageData) {
                 var suryouText = document.createElement("div");
                 suryouText.className = "col-3 sm-text ta-r wsp-text item pd-r-0";
                 if (uriageData.m_lNyu != 0 && uriageData.u_buskind == 0) {
-                    suryouText.innerHTML = Other.formatDecial(uriageData.u_suryo);
+                    suryouText.innerHTML = Other.formatDecimal(uriageData.u_suryo);
                 }
 
                 var shiyouRyouText = document.createElement("div");
@@ -1551,7 +1551,7 @@ function createPrintDataUriageNippou(mapUriageData) {
                 if (uriageData.u_tank != 0 && uriageData.u_buskind == 0) {
                     // 単価印字有り
                     if (uriageData.u_tank % 100 == 0) {
-                        shiyouRyouText.innerHTML = Other.formatDecial(uriageData.u_tank / 100);
+                        shiyouRyouText.innerHTML = Other.formatDecimal(uriageData.u_tank / 100);
                     } else if (hmefDat.mTanka % 10 == 0) {
                         shiyouRyouText.innerHTML = Other.formatLocalJS(uriageData.u_tank, 1, 2);
                     } else {
@@ -1561,7 +1561,7 @@ function createPrintDataUriageNippou(mapUriageData) {
 
                 var kinVal = document.createElement("div");
                 kinVal.className = "col-3 sm-text ta-r wsp-text item pd-r-0";
-                kinVal.innerHTML = Other.formatDecial(uriageData.u_kin);
+                kinVal.innerHTML = Other.formatDecimal(uriageData.u_kin);
 
                 rowDetail.appendChild(hmNameText);
                 hmNameText.after(suryouText);
@@ -1579,7 +1579,7 @@ function createPrintDataUriageNippou(mapUriageData) {
 
             var taxVal = document.createElement("div");
             taxVal.className = "col-9 sm-text text-print ta-r wsp-text item";
-            taxVal.innerHTML = Other.formatDecial(nTax / 1000);;
+            taxVal.innerHTML = Other.formatDecimal(nTax / 1000);;
 
             document.getElementById(previousID).after(rowTax);
             rowTax.appendChild(taxTitle);
