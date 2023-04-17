@@ -740,10 +740,12 @@ export class Ko2fDat {
 		this.mChoTax = 0;
 		/** カウンタ使用料 */
 		this.mUseKin = 0;
-		/** カウンター使用料:税区分 */
-		this.mUseTaxku = 0;
 		/** カウンタ使用料消費税 */
 		this.mUseTax = 0;
+		/** カウンター使用料:税区分 */
+		this.mUseTaxku = 0;
+		/** カウンター使用料:税率 */
+		this.mUseTaxr = 0;
 		/** カウント値引 */
 		this.mChoKin = 0;
 		/** 今回使用量 */
@@ -758,7 +760,7 @@ export class Ko2fDat {
 		this.mNowMeter = [];
 	}
 
-	setValue(mGashyb, mChoTaxku, mChoTax, mUseKin, mUseTaxku, mUseTax, mChoKin, mGasUse, mNorKin, mFee, mPreMeter, mNowMeter) {
+	setValue(mGashyb, mChoTaxku, mChoTax, mUseKin, mUseTax, mUseTaxku, mUseTaxr, mChoKin, mGasUse, mNorKin, mFee, mPreMeter, mNowMeter) {
 		var data = new Ko2fDat();
 
 		data.kHyb_MAX = 4;
@@ -766,8 +768,9 @@ export class Ko2fDat {
 		data.mChoTaxku = mChoTaxku;
 		data.mChoTax = mChoTax;
 		data.mUseKin = mUseKin;
-		data.mUseTaxku = mUseTaxku;
 		data.mUseTax = mUseTax;
+		data.mUseTaxku = mUseTaxku;
+		data.mUseTaxr = mUseTaxr;
 		data.mChoKin = mChoKin;
 		data.mGasUse = mGasUse;
 		data.mNorKin = mNorKin;
@@ -788,8 +791,9 @@ export class Ko2fDat {
 		data.mChoTaxku = responeData.mChoTaxku;
 		data.mChoTax = responeData.mChoTax;
 		data.mUseKin = responeData.mUseKin;
-		data.mUseTaxku = responeData.mUseTaxku;
 		data.mUseTax = responeData.mUseTax;
+		data.mUseTaxku = responeData.mUseTaxku;
+		data.mUseTaxr = responeData.mUseTaxr;
 		data.mChoKin = responeData.mChoKin;
 		data.mGasUse = responeData.mGasUse;
 		data.mNorKin = responeData.mNorKin;

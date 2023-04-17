@@ -20,7 +20,10 @@ const txtTouyuRyokin = document.getElementById("txtTouyuRyokin");
 const txtShohi = document.getElementById("txtShohi");
 const txtInfo = document.getElementById("txtInfo");
 const txtPrevSiyouText = document.getElementById("txtPrevSiyouText");
+const backPageButton = document.getElementById("backPageButton");
 const kakuninButton = document.getElementById("kakuninButton");
+const backPrintButton = document.getElementById("backPrintButton");
+const sendToAppButton = document.getElementById("sendToAppButton");
 
 /*****  DATA VARIABLE  *****/
 /* setting data */
@@ -38,6 +41,43 @@ var m_nToyuuse = 0;
 var keyboardProp = new Dat.KeyboardProp();
 
 
+/*****  ANDROID DATA  *****/
+var androidData = new Dat.AndroidData();
+var mKI = new Dat.KI();
+var mUTC = new Dat.UTC();
+var cusData = new Dat.CusData();
+var lstComment = ["", ""];
+
+
+/****  PRINT   ****/
+/* image string */
+var imgString = "";
+/* default padding printting form */
+var defaultPaddingPrintForm = window.getComputedStyle(document.getElementById("printContentDetail"), null).getPropertyValue('padding');
+/* default title size of printting form */
+var itemTS = window.getComputedStyle(document.getElementsByClassName("item")[0]).fontSize;
+var lgTextTS = window.getComputedStyle(document.getElementsByClassName("lg-text")[0]).fontSize;
+var tbItemTS = window.getComputedStyle(document.getElementsByClassName("tb-item")[0]).fontSize;
+var ryooshuuTextTS = window.getComputedStyle(document.getElementsByClassName("ryooshuu-text")[0]).fontSize;
+var hmInfoTableItemTS = window.getComputedStyle(document.getElementsByClassName("hmInfoTable-item")[0]).fontSize;
+var hybTableItemTS = window.getComputedStyle(document.getElementsByClassName("hybTable-item")[0]).fontSize;
+var hoanItemTS = window.getComputedStyle(document.getElementsByClassName("hoan-item")[0]).fontSize;
+var hoanValTS = window.getComputedStyle(document.getElementsByClassName("hoan-val")[0]).fontSize;
+var konkaiSeikyuuGakuTS = window.getComputedStyle(document.getElementsByClassName("konkaiSeikyuuGaku-text")[0]).fontSize;
+var titlePrintViewTS = window.getComputedStyle(document.getElementsByClassName("titlePrintView")[0]).fontSize;
+var kkValTS = window.getComputedStyle(document.getElementsByClassName("kk-val")[0]).fontSize;
+/* default line height text of printting form */
+var itemLH = window.getComputedStyle(document.getElementsByClassName("item")[0]).lineHeight;
+var lgTextLH = window.getComputedStyle(document.getElementsByClassName("lg-text")[0]).lineHeight;
+var tbItemLH = window.getComputedStyle(document.getElementsByClassName("tb-item")[0]).lineHeight;
+var ryooshuuTextLH = window.getComputedStyle(document.getElementsByClassName("ryooshuu-text")[0]).lineHeight;
+var hmInfoTableItemLH = window.getComputedStyle(document.getElementsByClassName("hmInfoTable-item")[0]).lineHeight;
+var hybTableItemLH = window.getComputedStyle(document.getElementsByClassName("hybTable-item")[0]).lineHeight;
+var hoanItemLH = window.getComputedStyle(document.getElementsByClassName("hoan-item")[0]).lineHeight;
+var hoanValLH = window.getComputedStyle(document.getElementsByClassName("hoan-val")[0]).lineHeight;
+var konkaiSeikyuuGakuLH = window.getComputedStyle(document.getElementsByClassName("konkaiSeikyuuGaku-text")[0]).lineHeight;
+var titlePrintViewLH = window.getComputedStyle(document.getElementsByClassName("titlePrintView")[0]).lineHeight;
+var kkValLH = window.getComputedStyle(document.getElementsByClassName("kk-val")[0]).lineHeight;
 
 
 
@@ -666,6 +706,7 @@ function getCusData() {
 		m_strAdd0: Other.getClearString(kokfDat.mAdd_0.substring(0, 20)),
 		m_strAdd1: Other.getClearString(kokfDat.mAdd_1.substring(20))
 	};
+	cusData = new Dat.CusData().parseData(data);
 	return data;
 }
 
@@ -1091,13 +1132,19 @@ function createKinInfo(kensinData) {
 	var strLine;
 	var sysfDat = mUserData.mSysfDat;
 
+	mKI.bNyukinOnly = mUserData.mNyukinOnly;
 	if (!mUserData.mNyukinOnly) {
 		var countDisplay = 0;
 		//kinInfoTop
 		// 入金のみの場合は前残等印字しない
 		// 前月残高
+		mKI.mIfDemand = sysfDat.mIfDemand;
+		mKI.nPreReceipt = kensinData.m_PreReceipt;
 		if (sysfDat.mIfDemand && kensinData.m_PreReceipt != 0) {
 			document.getElementById("zengetsuZandakaArea").style.display = "block";
+			const preReceiptTitle = document.getElementById("preReceiptTitle");
+			preReceiptTitle.innerHTML = kensinData.m_strZanTitle;
+			mKI.sZanTitle = kensinData.m_strZanTitle;
 			// 前月御請求額
 			const preReceiptVal = document.getElementById("preReceiptVal");
 			preReceiptVal.innerHTML = Other.formatDecial(kensinData.m_PreReceipt);
@@ -1108,8 +1155,10 @@ function createKinInfo(kensinData) {
 
 		// その他売上
 		var countProceed = 0;
+		mKI.bIfProceeds = sysfDat.mIfProceeds;
 		if (sysfDat.mIfProceeds) {
 			document.getElementById("sonohokaUriageArea").style.display = "block";
+			mKI.nHmDay = kensinData.m_HmDay;
 			if (kensinData.m_HmDay != 0) {
 				//本日お買い上げ額	
 				const hmDayVal = document.getElementById("hmDayVal");
@@ -1119,6 +1168,7 @@ function createKinInfo(kensinData) {
 				countProceed++;
 			}
 
+			mKI.nHmMonth = kensinData.m_HmMonth;
 			if (kensinData.m_HmMonth != 0) {
 				//当月お買い上げ額
 				const hmDayVal = document.getElementById("hmMonthVal");
@@ -1138,6 +1188,7 @@ function createKinInfo(kensinData) {
 
 		var t_kokfdat = mUserData.mKokfDat;
 		// 当月入金額
+		mKI.nTReceipt = t_kokfdat.mTReceipt;
 		if (sysfDat.mIfAdjust && t_kokfdat.mTReceipt != 0) {
 			//当月入金額
 			const hmDayVal = document.getElementById("tReceiptVal");
@@ -1148,6 +1199,7 @@ function createKinInfo(kensinData) {
 		}
 
 		// 当月調整額
+		mKI.nTAdjust = t_kokfdat.mTAdjust;
 		if (sysfDat.mIfAdjust && t_kokfdat.mTAdjust != 0) {
 			// document.getElementById("toogetsuChooseiGakuArea").style.display = "block";
 			//当月調整額
@@ -1164,20 +1216,37 @@ function createKinInfo(kensinData) {
 
 		// 今回請求額
 		// 今回請求額用矩形生成
+		mKI.nReceipt = kensinData.m_Receipt;
 		strLine = Other.KingakuFormat(kensinData.m_Receipt);
-		if (kensinData.m_Receipt >= 100000) {
-
-		}
 		const konkaiSeikyuuGakuVal = document.getElementById("konkaiSeikyuuGakuVal");
 		konkaiSeikyuuGakuVal.innerHTML = strLine;
 
+		mKI.bIsFuriDemand = kensinData.isFuriDemand;
+		var strSeiTitle = "今回請求";
+		if (kensinData.isFuriDemand) {
+			strSeiTitle += "予定";
+		}
+		strSeiTitle += "額";
+		const konkaiSeikyuuGakuTitle = document.getElementById("konkaiSeikyuuGakuTitle");
+		konkaiSeikyuuGakuTitle.innerHTML = strSeiTitle;
+
+		//sIraimsg
+		mKI.sIraimsg = Other.cutStringSpace(Other.nullToString(kensinData.m_strIrai));
+		if (Other.cutStringSpace(Other.nullToString(kensinData.m_strIrai)).length > 0) {
+			document.getElementById("iraiMsgText").innerHTML = Other.cutStringSpace(Other.nullToString(kensinData.m_strIrai))
+		} else {
+			document.getElementById("iraiMsgText").style.display = "none";
+		}	
+
 		// 調整額
+		mKI.nChosei = kensinData.m_Chosei;
 		if (kensinData.m_Chosei != 0) {
 			// 調整額有り
 			isPrint = true;
 
 			const choseiText = document.getElementById("choseiText");
 			choseiText.innerHTML = getChoTitle();
+			mKI.sChoseiTitle = getChoTitle();
 
 			strLine = Other.formatDecial(kensinData.m_Chosei);
 			const choseiVal = document.getElementById("choseiVal");
@@ -1191,8 +1260,10 @@ function createKinInfo(kensinData) {
 
 
 	// 本日入金額
+	mKI.nNyukin = kensinData.m_Nyukin;
 	if (kensinData.m_Nyukin != 0) {
 		isPrint = true;
+		mKI.nAzukarikin = kensinData.m_Azukarikin;
 		if (kensinData.m_Azukarikin == kensinData.m_Nyukin) {
 			strLine = "本日入金額";
 		}
@@ -1220,8 +1291,10 @@ function createKinInfo(kensinData) {
 	}
 
 	// 差引残高
+	mKI.nKZandaka = kensinData.m_Zandaka;
 	if (kensinData.m_Zandaka != 0 && isPrint) {
 		var lZandaka = kensinData.m_Zandaka - GasRaterCom.calcPrebalance(sysfDat, mUserData.mKokfDat, mUserData.mSy2fDat);
+		mKI.nLZandaka = lZandaka;
 		const sashihikiZandakaVal = document.getElementById("sashihikiZandakaVal");
 		sashihikiZandakaVal.innerHTML = Other.KingakuFormat(lZandaka);
 	} else {
@@ -1354,6 +1427,8 @@ function createUTaxComment(wkKensinData) {
 	var wkStr;
 	var wkTaxDat = Calc_UchiZei(wkKensinData, wkKensinData.m_isHybrid);
 
+	mUTC.nGUchiZei = wkTaxDat.mGUchiZei;
+	mUTC.nUchiZei = wkTaxDat.mUchiZei;
 	if (wkTaxDat.mGUchiZei != 0 || wkTaxDat.mUchiZei != 0) {
 		document.getElementById("uTaxCommentArea").style.display = "block";
 		if (wkTaxDat.mGUchiZei != 0) {
@@ -2560,6 +2635,7 @@ function getComment() {
 			strComments[1] = dataSetting.m_lstComment[i].name;
 		}
 	}
+	lstComment = strComments;
 	return strComments;
 }
 
@@ -3034,13 +3110,35 @@ function createUserInfo(hanfDat, strTantname) {
    * ONCLICK ACTION
 */
 function onclickAction() {
-	document.getElementById("backPageButton").onclick = function () {
+	backPageButton.onclick = function () {
 		Common.movePage('/customer.html');
 	};
 
 	kakuninButton.onclick = function () {
 		save();
 		// Common.setupModal("load", null, Mess.I00004, null, StringCS.OK, null, false);
+	}
+
+	backPrintButton.onclick = function () {
+		Common.movePage('/customer.html');
+	}
+
+	sendToAppButton.onclick = function () {
+		sendImage();
+	}
+}
+
+/**
+   * SEND IMAGE TO PRINTER
+*/
+function sendImage() {
+	imgString = imgString.replace("data:image/png;base64,", "");
+	navigator.clipboard.writeText(imgString);
+	var check = Common.getMobileOperatingSystem();
+	if (check == "Ios") {
+		window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://", "");
+	} else if (check == "Android") {
+		window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
 	}
 }
 
@@ -3099,6 +3197,8 @@ export function sendDataToServer(kokfDat) {
 		success: function (response) {
 			console.log(response);
 			Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
+
+			var printStatus = new Dat.PrintStatus();
 			// 印刷する、しないを確認する
 			if (kokfDat.mKenSumi) {
 				// ガス検針有り
@@ -3119,20 +3219,18 @@ export function sendDataToServer(kokfDat) {
 
 				// ガス灯油
 				document.getElementsByClassName("button-1")[0].onclick = function () {
-					var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, true, kokfDat.mReceipt, lZandaka, true, true);
+					printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, true, kokfDat.mReceipt, lZandaka, true, true);
 					modal.style.display = "none";
 					document.getElementById("editView").style.display = "none";
 					document.getElementById("printView").style.display = "block";
-					createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
 				}
 
 				// 灯油のみ
 				document.getElementsByClassName("button-2")[0].onclick = function () {
-					var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, true, kokfDat.mReceipt, lZandaka, false, true);
+					printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, true, kokfDat.mReceipt, lZandaka, false, true);
 					modal.style.display = "none";
 					document.getElementById("editView").style.display = "none";
 					document.getElementById("printView").style.display = "block";
-					createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
 				}
 			}
 			else {
@@ -3148,10 +3246,36 @@ export function sendDataToServer(kokfDat) {
 					modal.style.display = "none";
 					document.getElementById("editView").style.display = "none";
 					document.getElementById("printView").style.display = "block";
-					var printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, false, 0, 0, false, true);
-					createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
+					printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, false, 0, 0, false, true);
 				}
 			}
+
+
+			createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
+			androidData.type = "toyu";
+			androidData.printMode = dataSetting.prnt_mode;
+			androidData.printStatus = printStatus;
+			androidData.isHybseikyu = mUserData.mSysfDat.is_m_isToyukensinFlg;
+			androidData.isHikae = false;
+			androidData.cusData = cusData;
+			androidData.mUserData.mSysfDat = mUserData.mSysfDat;
+			androidData.mUserData.mKokfDat = mUserData.mKokfDat;
+			androidData.mUserData.mSy2fDat = mUserData.mSy2fDat;
+			androidData.mUserData.mKouserDat = mUserData.mKouserDat;
+			androidData.mUserData.getHmef0 = mUserData.getHmef0;
+			androidData.mUserData.getHmef1 = mUserData.getHmef1;
+			androidData.mUserData.getHmef2 = mUserData.getHmef2;
+			androidData.mUserData.mHanfDat = mUserData.mHanfDat;
+			androidData.kensinData = kensinData;
+			androidData.mUserData.mKensinDate = mUserData.mKensinDate;
+			androidData.androidKensinDat.mKSIB = null;
+			androidData.androidKensinDat.mKI =  mKI;
+			androidData.androidKensinDat.mUTC = mUTC;
+			androidData.lstComment = lstComment;
+			androidData.sTantname = dataSetting.m_lstTantName[0].name;
+
+			Common.setupModal("load", null, Mess.I00002, null, null, null, false);
+			createImageToyuKensinForm();
 		},
 		error: function (textstatus) {
 			if (textstatus === "timeout") {
@@ -3165,6 +3289,139 @@ export function sendDataToServer(kokfDat) {
 		console.log('res', res);
 	});
 }
+
+
+/** 
+	* CONVERT IMAGE TO BASE64
+*/
+function getBase64(file) {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = () => resolve(reader.result);
+		reader.onerror = error => reject(error);
+	});
+}
+
+
+/**
+   * SETUP PRINT FORM
+   *
+   * @param widthScreen     [STRING]
+   * @param widthForm     [STRING]
+   * @param sizeTitle     [STRING]
+   * @param sizeSingleLine     [STRING]
+   * @param lineHeightSingleLine     [STRING]
+   * @param sizeItem     [STRING]
+   * @param lineheightItem     [STRING]
+   * @param showEndPage     [STRING]
+   * @param paddingForm     [STRING]
+*/
+function setupPrintForm(widthScreen, widthForm, sizeTitle, sizeSingleLine, lineHeightSingleLine, sizeItem, lineheightItem, showEndPage, paddingForm) {
+	if (true) {		//Common.checkDevice() < 2
+		document.getElementById('form').style.width = widthScreen;
+		const form = document.getElementsByClassName("wrap-mainform");
+		form[0].style.width = widthForm;
+	}
+
+	var title = document.getElementsByClassName("title-printView");
+	for (let i = 0; i < title.length; i++) {
+		title[i].style.fontSize = sizeTitle;
+	}
+
+	const shukei_single_line = document.getElementsByClassName("sg-line");
+	for (let i = 0; i < shukei_single_line.length; i++) {
+		console.log(shukei_single_line[i].value);
+		shukei_single_line[i].style.fontSize = sizeSingleLine;
+		shukei_single_line[i].style.lineHeight = lineHeightSingleLine;
+		shukei_single_line[i].style.fontWeight = "normal";
+	}
+
+	const item = document.getElementsByClassName("item");
+	for (let i = 0; i < item.length; i++) {
+		console.log(item[i].value);
+		item[i].style.fontSize = sizeItem;
+		item[i].style.lineHeight = lineheightItem;
+	}
+
+	var endspace = document.getElementsByClassName("end-space");
+	for (let i = 0; i < endspace.length; i++) {
+
+		if (showEndPage == true) {
+			endspace[i].style.display = "block";
+		} else {
+			endspace[i].style.display = "none";
+		}
+	}
+
+	document.getElementById("printContentDetail").padding = paddingForm;
+}
+
+
+/**
+   * SETUP PRINT FORM
+   *
+   * @param sizeSingleLine     [STRING]
+   * @param lineHeightSingleLine     [STRING]
+*/
+function setupTextSizeDetail(nameItem, textSize, lineHeight, fontWeight) {
+	const element = document.getElementsByClassName(nameItem);
+	for (let i = 0; i < element.length; i++) {
+		element[i].style.setProperty("font-size", textSize, "important")
+		element[i].style.lineHeight = lineHeight;
+		element[i].style.fontWeight = fontWeight;
+	}
+}
+
+
+/** 
+	* CREATE IMAGE FILE OF SHUUKEI NIPPOU FORM
+*/
+function createImageToyuKensinForm() {
+	Common.setupModal("load", null, Mess.I00001, null, null, null, false);
+	Common.setBackgroundDialogScreen("none", "rgba(0,0,0,0.95)");
+	document.getElementById('editView').style.display = "none";
+	document.getElementById('printView').style.display = "block";
+	setupPrintForm("100vh", "670px", "55px", "31px", "38px", "31px", "38px", true, "20px");
+	setupTextSizeDetail("lg-text", "40px", "47px", "bold");
+	setupTextSizeDetail("tb-item", "22px", "29px", "normal");
+	setupTextSizeDetail("konkaiSeikyuuGaku-text", "50px", "60px", "bold");
+	setupTextSizeDetail("ryooshuu-text", "50px", "58px", "bold");
+	setupTextSizeDetail("hmInfoTable-item", "24px", "31px", "normal");
+	setupTextSizeDetail("hybTable-item", "24px", "31px", "normal");
+	setupTextSizeDetail("hoan-item", "25px", "31px", "normal");
+	setupTextSizeDetail("hoan-val", "25px", "31px", "normal");
+	setupTextSizeDetail("kk-val", "40px", "48px", "bold");
+	domtoimage.toBlob(document.getElementById('printContentDetail'))
+		.then(function (blob) {
+			getBase64(blob).then(
+				data => {
+					console.log(data)
+					imgString = data;
+					window.scrollTo(0, 0);
+
+					const interval = setInterval(function () {
+						setupPrintForm("100%", "600px", titlePrintViewTS, itemTS, itemLH, itemTS, itemLH, false, defaultPaddingPrintForm);
+						setupTextSizeDetail("lg-text", lgTextTS, lgTextLH, "bold");
+						setupTextSizeDetail("tb-item-ts", tbItemTS, tbItemLH, "normal");
+						setupTextSizeDetail("ryooshuu-text", ryooshuuTextTS, ryooshuuTextLH, "bold");
+						setupTextSizeDetail("konkaiSeikyuuGaku-text", konkaiSeikyuuGakuTS, konkaiSeikyuuGakuLH, "bold");
+						setupTextSizeDetail("hmInfoTable-item", hmInfoTableItemTS, hmInfoTableItemLH, "normal");
+						setupTextSizeDetail("hybTable-item", hybTableItemTS, hybTableItemLH, "normal");
+						setupTextSizeDetail("hoan-item", hoanItemTS, hoanItemLH, "normal");
+						setupTextSizeDetail("hoan-val", hoanValTS, hoanValLH, "normal");
+						setupTextSizeDetail("kk-val", kkValTS, kkValLH, "bold");
+
+						Common.setBackgroundDialogScreen("block", "rgba(0,0,0,0.4)");
+						clearInterval(interval);
+						modal.style.display = "none";
+					}, 100);
+				}
+			);
+		})
+}
+
+
 /**
    * ONLOAD ACTION
 */
