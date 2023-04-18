@@ -316,20 +316,22 @@ function onChangeAction() {
 		var strSisin = txtNowMeter.textContent;
 
 		if (mUserData.mKokfDat.mNowMeter == parseFloat(txtNowMeter.textContent) * 10) {
-			txtNowMeter.textContent = Other.Format(
-				parseFloat(txtNowMeter.textContent) * 10,
-				1
-			);
+			if (txtNowMeter.textContent != Other.Format(parseFloat(txtNowMeter.textContent) * 10, 1)) {
+				txtNowMeter.textContent = Other.Format(
+					parseFloat(txtNowMeter.textContent) * 10,
+					1
+				);
+			}
 			return;
 		} else {
 			mUserData.mKokfDat.mNowMeter = parseFloat(txtNowMeter.textContent) * 10
 		}
 
 		if (strSisin.length > 0) {
-			txtNowMeter.textContent = Other.Format(
-				parseFloat(txtNowMeter.textContent) * 10,
-				1
-			);
+			// if (txtNowMeter.textContent != Other.Format(parseFloat(strSisin) * 10, 1)) {
+			// }
+			txtNowMeter.textContent = Other.Format(parseFloat(strSisin) * 10, 1);
+			
 			setToyuInfo();
 		}
 
@@ -2286,11 +2288,11 @@ function createHmInfo_(userData) {
 		if (hmefList != null && hmefList.length > 0) {
 			nTax = createHmInfo(hmefList, sysfDat, mapHmefDat, isTanka);
 		}
-		if (hmefList1 != null && hmefList1.length > 0) {
-			nTax += createHmInfo(hmefList1, sysfDat, mapHmefDat, isTanka);
-		}
+		// if (hmefList1 != null && hmefList1.length > 0) {
+		// 	nTax += createHmInfo(hmefList1, sysfDat, mapHmefDat, isTanka);
+		// }
 		if (hmefList2 != null && hmefList2.length > 0) {
-			createHmInfo(hmefList2, sysfDat, mapHmefDat, isTanka);
+			nTax += createHmInfo(hmefList2, sysfDat, mapHmefDat, isTanka);
 		}
 		createHmInfoTax(mapHmefDat, userData.mKokfDat.mUriTax + nTax);
 	} else {
@@ -3200,7 +3202,7 @@ export function sendDataToServer(kokfDat) {
 
 			var printStatus = new Dat.PrintStatus();
 			// 印刷する、しないを確認する
-			if (kokfDat.mKenSumi) {
+			if (kokfDat.mNoKensin == 0 && kokfDat.mKenSumi) {
 				// ガス検針有り
 				Common.setupModal("load", null, "検針伝票を印刷しますか", "いいえ", "ガス灯油", "灯油のみ", false);
 				var lZandaka;
