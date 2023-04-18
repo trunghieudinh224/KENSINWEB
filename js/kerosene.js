@@ -316,22 +316,20 @@ function onChangeAction() {
 		var strSisin = txtNowMeter.textContent;
 
 		if (mUserData.mKokfDat.mNowMeter == parseFloat(txtNowMeter.textContent) * 10) {
-			if (txtNowMeter.textContent != Other.Format(parseFloat(txtNowMeter.textContent) * 10, 1)) {
-				txtNowMeter.textContent = Other.Format(
-					parseFloat(txtNowMeter.textContent) * 10,
-					1
-				);
-			}
+			txtNowMeter.textContent = Other.Format(
+				parseFloat(txtNowMeter.textContent) * 10,
+				1
+			);
 			return;
 		} else {
 			mUserData.mKokfDat.mNowMeter = parseFloat(txtNowMeter.textContent) * 10
 		}
 
 		if (strSisin.length > 0) {
-			// if (txtNowMeter.textContent != Other.Format(parseFloat(strSisin) * 10, 1)) {
-			// }
-			txtNowMeter.textContent = Other.Format(parseFloat(strSisin) * 10, 1);
-			
+			txtNowMeter.textContent = Other.Format(
+				parseFloat(txtNowMeter.textContent) * 10,
+				1
+			);
 			setToyuInfo();
 		}
 
@@ -351,7 +349,7 @@ function onChangeAction() {
 	txtTouyuRyokin.addEventListener('DOMSubtreeModified', function () {
 		var strSisin = txtTouyuRyokin.textContent;
 		if (kotfDat.m_nFee == parseInt(Other.getNumFromString(txtTouyuRyokin.textContent))) {
-			txtNowMeter.textContent = Other.formatDecimal(Other.getNumFromString(txtTouyuRyokin.textContent));
+			// txtNowMeter.textContent = Other.formatDecimal(Other.getNumFromString(txtTouyuRyokin.textContent));
 			return;
 		} else {
 			kotfDat.m_nFee = parseInt(Other.getNumFromString(txtTouyuRyokin.textContent));
