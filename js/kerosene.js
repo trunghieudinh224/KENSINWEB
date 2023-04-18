@@ -316,17 +316,20 @@ function onChangeAction() {
 		var strSisin = txtNowMeter.textContent;
 
 		if (mUserData.mKokfDat.mNowMeter == parseFloat(txtNowMeter.textContent) * 10) {
-			var value = Other.Format(parseFloat(txtNowMeter.textContent) * 10, 1 );
-			txtNowMeter.innerHTML = value;
+			txtNowMeter.textContent = Other.Format(
+				parseFloat(txtNowMeter.textContent) * 10,
+				1
+			);
 			return;
 		} else {
-			var value = parseFloat(txtNowMeter.textContent)
-			mUserData.mKokfDat.mNowMeter = value;
+			mUserData.mKokfDat.mNowMeter = parseFloat(txtNowMeter.textContent) * 10
 		}
 
 		if (strSisin.length > 0) {
-			var value = Other.Format(parseFloat(txtNowMeter.textContent) * 10, 1);
-			txtNowMeter.innerHTML = value;
+			txtNowMeter.textContent = Other.Format(
+				parseFloat(txtNowMeter.textContent) * 10,
+				1
+			);
 			setToyuInfo();
 		}
 
@@ -346,7 +349,7 @@ function onChangeAction() {
 	txtTouyuRyokin.addEventListener('DOMSubtreeModified', function () {
 		var strSisin = txtTouyuRyokin.textContent;
 		if (kotfDat.m_nFee == parseInt(Other.getNumFromString(txtTouyuRyokin.textContent))) {
-			txtNowMeter.innerHTML = Other.formatDecimal(Other.getNumFromString(txtTouyuRyokin.textContent));
+			txtNowMeter.textContent = Other.formatDecimal(Other.getNumFromString(txtTouyuRyokin.textContent));
 			return;
 		} else {
 			kotfDat.m_nFee = parseInt(Other.getNumFromString(txtTouyuRyokin.textContent));
@@ -2283,11 +2286,11 @@ function createHmInfo_(userData) {
 		if (hmefList != null && hmefList.length > 0) {
 			nTax = createHmInfo(hmefList, sysfDat, mapHmefDat, isTanka);
 		}
-		// if (hmefList1 != null && hmefList1.length > 0) {
-		// 	nTax += createHmInfo(hmefList1, sysfDat, mapHmefDat, isTanka);
-		// }
+		if (hmefList1 != null && hmefList1.length > 0) {
+			nTax += createHmInfo(hmefList1, sysfDat, mapHmefDat, isTanka);
+		}
 		if (hmefList2 != null && hmefList2.length > 0) {
-			nTax += createHmInfo(hmefList2, sysfDat, mapHmefDat, isTanka);
+			createHmInfo(hmefList2, sysfDat, mapHmefDat, isTanka);
 		}
 		createHmInfoTax(mapHmefDat, userData.mKokfDat.mUriTax + nTax);
 	} else {
@@ -3197,7 +3200,7 @@ export function sendDataToServer(kokfDat) {
 
 			var printStatus = new Dat.PrintStatus();
 			// 印刷する、しないを確認する
-			if (kokfDat.mNoKensin == 0 && kokfDat.mKenSumi) {
+			if (kokfDat.mKenSumi) {
 				// ガス検針有り
 				Common.setupModal("load", null, "検針伝票を印刷しますか", "いいえ", "ガス灯油", "灯油のみ", false);
 				var lZandaka;
