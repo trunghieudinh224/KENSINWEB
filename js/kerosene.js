@@ -320,7 +320,7 @@ function onChangeAction() {
 			txtNowMeter.innerHTML = value;
 			return;
 		} else {
-			var value = parseFloat(txtNowMeter.textContent) * 10
+			var value = parseFloat(txtNowMeter.textContent)
 			mUserData.mKokfDat.mNowMeter = value;
 		}
 
