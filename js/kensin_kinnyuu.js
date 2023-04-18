@@ -660,7 +660,7 @@ function init() {
         // 13.02.13
         // 検針済み or 再入力の場合は入力して編集不可
         mEditAdjust.innerHTML = Other.formatDecimal(mUserData.mKokfDat.mAdjust);
-        // mEditInputReceipt.innerHTML = Other.KingakuFormat(mUserData.mKokfDat.mInpReceipt);
+        // mEditInputReceipt.innerHTML = Other.formatDecimal(mUserData.mKokfDat.mInpReceipt);
         mEditReceipt.innerHTML = Other.formatDecimal(mUserData.mKokfDat.mReceipt);
         // mTeiseiFlg = getLongValue(mEditInputReceipt) != getLongValue(mEditReceipt);
         // mEditAdjust.innerHTML = ((mUserData.mKokfDat.mAdjust));

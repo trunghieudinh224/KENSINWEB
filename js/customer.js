@@ -106,8 +106,6 @@ function getInformation() {
                 cusDetailData = JSON.parse(result);
                 sessionStorage.setItem(StringCS.CUSDETAILDATA, JSON.stringify(cusDetailData));
                 mUserData = new Dat.UserData().parseData(cusDetailData);
-                mUserData.mKokfDat.mUrikin = Common.calcValOfList(mUserData.mHmefList, "mKin");
-                mUserData.mKokfDat.mUriTax = Common.calcValOfList(mUserData.mHmefList, "mTax");
                 if (sessionStorage.getItem(StringCS.KENSINDATE) == null) {
                     var kensinDate = document.getElementById("jisshi-bi").value;
                     sessionStorage.setItem(StringCS.KENSINDATE, String(kensinDate));
@@ -536,9 +534,20 @@ function onclickAction() {
     document.getElementById("uriageButton").onclick = function () {
         Common.movePage('/product_search.html');
     };
-    document.getElementById("nyuukinButton").onclick = function () { kinyuuMove(3); };
-    document.getElementById("jikkoButton").onclick = function () { kinyuuMove(1); };
+    document.getElementById("nyuukinButton").onclick = function () { 
+        mUserData.mKokfDat.mUrikin = Common.calcValOfList(mUserData.mHmefList, "mKin");
+        mUserData.mKokfDat.mUriTax = Common.calcValOfList(mUserData.mHmefList, "mTax");
+        kinyuuMove(3); 
+    };
+    document.getElementById("jikkoButton").onclick = function () { 
+        mUserData.mKokfDat.mUrikin = Common.calcValOfList(mUserData.mHmefList, "mKin");
+        mUserData.mKokfDat.mUriTax = Common.calcValOfList(mUserData.mHmefList, "mTax");
+        saveUserData();
+        kinyuuMove(1); 
+    };
     document.getElementById("toyuPageButton").onclick = function () {
+        mUserData.mKokfDat.mUrikin = 0;
+        mUserData.mKokfDat.mUriTax = 0;
         saveUserData();
         Common.movePage('/kerosene.html')
     };

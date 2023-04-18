@@ -495,14 +495,14 @@ function createUTaxComment(wkKensinData) {
 				//ガス売上には
 
 				const gUchiZeiVal = document.getElementById("gUchiZeiVal_NK");
-				gUchiZeiVal.innerHTML = Other.KingakuFormat(wkTaxDat.mGUchiZei);
+				gUchiZeiVal.innerHTML = Other.formatDecimal(wkTaxDat.mGUchiZei);
 
 				const gUchiZeiText = document.getElementById("gUchiZeiText_NK");
 				gUchiZeiText.innerHTML = "円の消費税が含まれます。";
 			} else {
 				// ガス売上には
 				const gUchiZeiVal = document.getElementById("gUchiZeiVal_NK");
-				gUchiZeiVal.innerHTML = Other.KingakuFormat(wkTaxDat.mGUchiZei);
+				gUchiZeiVal.innerHTML = Other.formatDecimal(wkTaxDat.mGUchiZei);
 
 				const gUchiZeiText = document.getElementById("gUchiZeiText_NK");
 				gUchiZeiText.innerHTML = "円、";
@@ -523,7 +523,7 @@ function createUTaxComment(wkKensinData) {
 
 
 			const taUriageUriageVal = document.getElementById("taUriage-uriageVal_NK");
-			taUriageUriageVal.innerHTML = Other.KingakuFormat(wkTaxDat.mUchiZei);
+			taUriageUriageVal.innerHTML = Other.formatDecimal(wkTaxDat.mUchiZei);
 		} else {
 			document.getElementById("uTaxComment2Area_NK").style.display = "none";
 		}

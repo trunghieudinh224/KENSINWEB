@@ -534,7 +534,7 @@ function createPrintForm(printStatus, isHybseikyu, isHikae) {
 
 	if (printStatus.m_isPrintNyukin) {
 		if (printStatus.m_lReceipt > 0) {
-			createRyoshu(Other.KingakuFormat(printStatus.m_lReceipt));
+			createRyoshu(Other.formatDecimal(printStatus.m_lReceipt));
 		} else {
 			document.getElementById("ryoshuArea").style.display = "none";
 		}
@@ -1103,11 +1103,11 @@ function createToyuKensinInfoBase(kensinData) {
 
 		//基本料金
 		const loilBaseToyuVal = document.getElementById("loilBaseToyuVal");
-		loilBaseToyuVal.innerHTML = Other.KingakuFormat(kotfDat.m_nLoil_base / 100);
+		loilBaseToyuVal.innerHTML = Other.formatDecimal(kotfDat.m_nLoil_base / 100);
 
 		//従量料金(単価
 		const juuryooRyookinToyuVal = document.getElementById("juuryooRyookinToyuVal");
-		juuryooRyookinToyuVal.innerHTML = Other.KingakuFormat(kotfDat.m_nLoil_base / 100);
+		juuryooRyookinToyuVal.innerHTML = Other.formatDecimal(kotfDat.m_nLoil_base / 100);
 	} else {
 		document.getElementById("toyuKinSepKinArea").style.display = "none";
 	}
@@ -1115,7 +1115,7 @@ function createToyuKensinInfoBase(kensinData) {
 	// 消費税有り
 	if (kotfDat.m_nCon_tax != 0) {
 		const conTaxToyuVal = document.getElementById("conTaxToyuVal");
-		conTaxToyuVal.innerHTML = Other.KingakuFormat(kotfDat.m_nCon_tax);
+		conTaxToyuVal.innerHTML = Other.formatDecimal(kotfDat.m_nCon_tax);
 	} else {
 		document.getElementById("conTaxToyuArea").style.display = "none";
 	}
@@ -1217,7 +1217,7 @@ function createKinInfo(kensinData) {
 		// 今回請求額
 		// 今回請求額用矩形生成
 		mKI.nReceipt = kensinData.m_Receipt;
-		strLine = Other.KingakuFormat(kensinData.m_Receipt);
+		strLine = Other.formatDecimal(kensinData.m_Receipt);
 		const konkaiSeikyuuGakuVal = document.getElementById("konkaiSeikyuuGakuVal");
 		konkaiSeikyuuGakuVal.innerHTML = strLine;
 
@@ -1274,9 +1274,9 @@ function createKinInfo(kensinData) {
 		honjitsuNyuuKingakuTitle.innerHTML = strLine;
 
 
-		strLine = Other.KingakuFormat(kensinData.m_Azukarikin) + "円";
+		strLine = Other.formatDecimal(kensinData.m_Azukarikin) + "円";
 		const honjitsuNyuuKingakuVal = document.getElementById("honjitsuNyuuKingakuVal");
-		honjitsuNyuuKingakuVal.innerHTML = Other.KingakuFormat(kensinData.m_Azukarikin);
+		honjitsuNyuuKingakuVal.innerHTML = Other.formatDecimal(kensinData.m_Azukarikin);
 	} else {
 		document.getElementById("honjitsuNyuuKingakuArea").style.display = "none";
 	}
@@ -1285,7 +1285,7 @@ function createKinInfo(kensinData) {
 	var t_otsuri = kensinData.m_Azukarikin - kensinData.m_Nyukin;
 	if (t_otsuri > 0) {
 		const otsuriVal = document.getElementById("otsuriVal");
-		otsuriVal.innerHTML = Other.KingakuFormat(t_otsuri);
+		otsuriVal.innerHTML = Other.formatDecimal(t_otsuri);
 	} else {
 		document.getElementById("otsuriArea").style.display = "none";
 	}
@@ -1296,7 +1296,7 @@ function createKinInfo(kensinData) {
 		var lZandaka = kensinData.m_Zandaka - GasRaterCom.calcPrebalance(sysfDat, mUserData.mKokfDat, mUserData.mSy2fDat);
 		mKI.nLZandaka = lZandaka;
 		const sashihikiZandakaVal = document.getElementById("sashihikiZandakaVal");
-		sashihikiZandakaVal.innerHTML = Other.KingakuFormat(lZandaka);
+		sashihikiZandakaVal.innerHTML = Other.formatDecimal(lZandaka);
 	} else {
 		document.getElementById("sashihikiZandakaArea").style.display = "none";
 		document.getElementById("sashihikiZandakaFrames").style.display = "none";
@@ -1437,14 +1437,14 @@ function createUTaxComment(wkKensinData) {
 				//ガス売上には
 
 				const gUchiZeiVal = document.getElementById("gUchiZeiVal");
-				gUchiZeiVal.innerHTML = Other.KingakuFormat(wkTaxDat.mGUchiZei);
+				gUchiZeiVal.innerHTML = Other.formatDecimal(wkTaxDat.mGUchiZei);
 
 				const gUchiZeiText = document.getElementById("gUchiZeiText");
 				gUchiZeiText.innerHTML = "円の消費税が含まれます。";
 			} else {
 				// ガス売上には
 				const gUchiZeiVal = document.getElementById("gUchiZeiVal");
-				gUchiZeiVal.innerHTML = Other.KingakuFormat(wkTaxDat.mGUchiZei);
+				gUchiZeiVal.innerHTML = Other.formatDecimal(wkTaxDat.mGUchiZei);
 
 				const gUchiZeiText = document.getElementById("gUchiZeiText");
 				gUchiZeiText.innerHTML = "円、";
@@ -1465,7 +1465,7 @@ function createUTaxComment(wkKensinData) {
 
 
 			const taUriageUriageVal = document.getElementById("taUriage-uriageVal");
-			taUriageUriageVal.innerHTML = Other.KingakuFormat(wkTaxDat.mUchiZei);
+			taUriageUriageVal.innerHTML = Other.formatDecimal(wkTaxDat.mUchiZei);
 		} else {
 			document.getElementById("uTaxComment2Area").style.display = "none";
 		}
@@ -1514,13 +1514,13 @@ function createGasryokinSiki(kensinData) {
 
 				//基本料金
 				const gasBaseKinTBVal = document.getElementById("gasBaseKinTBVal");
-				gasBaseKinTBVal.innerHTML = Other.KingakuFormat(kensinData.mGasBaseKin / 1000) + " 円";
+				gasBaseKinTBVal.innerHTML = Other.formatDecimal(kensinData.mGasBaseKin / 1000) + " 円";
 				if (kensinData.m_bPrintGasFacilityKin) {
 					document.getElementById("facilityKinTBArea").style.display = "block";
 					// 設備料金印字
 					// 設備料金
 					const facilityKinTBVal = document.getElementById("facilityKinTBVal");
-					facilityKinTBVal.innerHTML = Other.KingakuFormat(kensinData.m_nFacilityKin / 1000);
+					facilityKinTBVal.innerHTML = Other.formatDecimal(kensinData.m_nFacilityKin / 1000);
 				} else {
 					document.getElementById("facilityKinTBArea").style.display = "none";
 				}
@@ -1545,7 +1545,7 @@ function createGasryokinSiki(kensinData) {
 						document.getElementById("gasTotalKinWithoutTaxArea").style.display = "contents";
 					}
 					const gasTotalKinWithoutTaxVal = document.getElementById("gasTotalKinWithoutTaxVal");
-					gasTotalKinWithoutTaxVal.innerHTML = Other.KingakuFormat(kensinData.m_nGasTotalKinWithoutTax) + " 円";
+					gasTotalKinWithoutTaxVal.innerHTML = Other.formatDecimal(kensinData.m_nGasTotalKinWithoutTax) + " 円";
 				} else {
 					document.getElementById("gasTotalKinWithoutTaxArea").style.display = "none";
 				}
@@ -1752,7 +1752,7 @@ function printGasRyokinStep_A(dLowLimit, dUpLimit, dAddKin, dTotalKin, areaName)
 	tdRight.className = "text-print item td-r";
 	const divTotal = document.createElement("div");
 	divTotal.className = "text-print ta-r wsp-text item tb-item tb-item-ts";
-	divTotal.appendChild(document.createTextNode(Other.KingakuFormat(dTotalKin) + " 円"));
+	divTotal.appendChild(document.createTextNode(Other.formatDecimal(dTotalKin) + " 円"));
 
 	// const spanTotal = document.createElement("span");
 	// spanTotal.className = "text-print ta-r wsp-text tb-item tb-item-ts";
@@ -1958,7 +1958,7 @@ function printCounterUseKin(ko2fDat, hybfDat) {
 			nKin += ko2fDat.mUseTax;
 		}
 		const counterUseKinVal = document.getElementById("counterUseKinVal");
-		counterUseKinVal.innerHTML = Other.KingakuFormat(nKin);
+		counterUseKinVal.innerHTML = Other.formatDecimal(nKin);
 	} else {
 		document.getElementById("counterUseKinGasryokinArea").style.display = "none";
 	}
@@ -2286,11 +2286,11 @@ function createHmInfo_(userData) {
 		if (hmefList != null && hmefList.length > 0) {
 			nTax = createHmInfo(hmefList, sysfDat, mapHmefDat, isTanka);
 		}
-		if (hmefList1 != null && hmefList1.length > 0) {
-			nTax += createHmInfo(hmefList1, sysfDat, mapHmefDat, isTanka);
-		}
+		// if (hmefList1 != null && hmefList1.length > 0) {
+		// 	nTax += createHmInfo(hmefList1, sysfDat, mapHmefDat, isTanka);
+		// }
 		if (hmefList2 != null && hmefList2.length > 0) {
-			createHmInfo(hmefList2, sysfDat, mapHmefDat, isTanka);
+			nTax += createHmInfo(hmefList2, sysfDat, mapHmefDat, isTanka);
 		}
 		createHmInfoTax(mapHmefDat, userData.mKokfDat.mUriTax + nTax);
 	} else {
@@ -2696,7 +2696,7 @@ function createHybComment(kensinData) {
 
 		//　通常料金の場合 
 		const gaskinVal = document.getElementById("gaskinVal");
-		gaskinVal.innerHTML = Other.KingakuFormat(lGaskin);
+		gaskinVal.innerHTML = Other.formatDecimal(lGaskin);
 
 		// 今回のガスご使用料金は、
 
@@ -2705,7 +2705,7 @@ function createHybComment(kensinData) {
 
 		// 　当社標準価格より
 		const hybkinVal = document.getElementById("hybkinVal");
-		hybkinVal.innerHTML = Other.KingakuFormat((lHybkin * -1));
+		hybkinVal.innerHTML = Other.formatDecimal((lHybkin * -1));
 
 	} else {
 		document.getElementById("hybCommentArea").style.display = "none";
@@ -3200,7 +3200,7 @@ export function sendDataToServer(kokfDat) {
 
 			var printStatus = new Dat.PrintStatus();
 			// 印刷する、しないを確認する
-			if (kokfDat.mKenSumi) {
+			if (kokfDat.mNoKensin == 0 && kokfDat.mKenSumi) {
 				// ガス検針有り
 				Common.setupModal("load", null, "検針伝票を印刷しますか", "いいえ", "ガス灯油", "灯油のみ", false);
 				var lZandaka;
@@ -3223,7 +3223,7 @@ export function sendDataToServer(kokfDat) {
 					modal.style.display = "none";
 					document.getElementById("editView").style.display = "none";
 					document.getElementById("printView").style.display = "block";
-					createPrintingForm(printStatus);
+					createPrintingForm(kokfDat, printStatus);
 				}
 
 				// 灯油のみ
@@ -3232,7 +3232,7 @@ export function sendDataToServer(kokfDat) {
 					modal.style.display = "none";
 					document.getElementById("editView").style.display = "none";
 					document.getElementById("printView").style.display = "block";
-					createPrintingForm(printStatus);
+					createPrintingForm(kokfDat, printStatus);
 				}
 			}
 			else {
@@ -3249,7 +3249,7 @@ export function sendDataToServer(kokfDat) {
 					document.getElementById("editView").style.display = "none";
 					document.getElementById("printView").style.display = "block";
 					printStatus = getPrintStatus(kokfDat, mUserData.mSysfDat, false, 0, 0, false, true);
-					createPrintingForm(printStatus);
+					createPrintingForm(kokfDat, printStatus);
 				}
 			}
 		},
@@ -3267,7 +3267,7 @@ export function sendDataToServer(kokfDat) {
 }
 
 
-function createPrintingForm(printStatus) {
+function createPrintingForm(kokfDat, printStatus) {
 	createPrintForm(printStatus, kokfDat.mHybseikyu != 2);
 	androidData.type = "toyu";
 	androidData.printMode = dataSetting.prnt_mode;
