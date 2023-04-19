@@ -233,7 +233,18 @@ function getCuslistType1() {
 						newShuuku.className += " text";
 						newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].name))));
 						newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].add_0))));
-						var kenstatVal = document.createTextNode((data.cuslist[i].kenstat == 1 ? "済" : "未"));
+						var kenstatVal = "";
+						switch (data.cuslist[i].kenstat) {
+							case 0:
+								kenstatVal = document.createTextNode("未");
+								break;
+							case 1:
+								kenstatVal = document.createTextNode("済");
+								break;
+							case 2:
+								kenstatVal = document.createTextNode("不可");
+								break;
+						}
 						newKenshin.appendChild(kenstatVal);
 						newShuuku.appendChild(document.createTextNode(getShuukuVal(newShuuku, data.cuslist[i].shuku, data.cuslist[i].shustat)));
 						newElement.appendChild(newName);
@@ -350,7 +361,18 @@ function searchCusType1(searchVal) {
 			newShuuku.className += " text";
 			newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(list[i].name))));
 			newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(list[i].add_0))));
-			var kenstatVal = document.createTextNode((list[i].kenstat == 1 ? "済" : "未"));
+			var kenstatVal = "";
+			switch (list[i].kenstat) {
+				case 0:
+					kenstatVal = document.createTextNode("未");
+					break;
+				case 1:
+					kenstatVal = document.createTextNode("済");
+					break;
+				case 2:
+					kenstatVal = document.createTextNode("不可");
+					break;
+			}
 			newKenshin.appendChild(kenstatVal);
 			newShuuku.appendChild(document.createTextNode(getShuukuVal(newShuuku, list[i].shuku, list[i].shustat)));
 			newElement.appendChild(newName);
@@ -479,7 +501,18 @@ function searchCusType2() {
 						newShuuku.className += " text";
 						newName.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].name))));
 						newAddress.appendChild(document.createTextNode(Other.cutStringSpace(Other.nullToString(data.cuslist[i].add_0))));
-						var kenstatVal = document.createTextNode((data.cuslist[i].kenstat == 1 ? "済" : "未"));
+						var kenstatVal = "";
+						switch (data.cuslist[i].kenstat) {
+							case 0:
+								kenstatVal = document.createTextNode("未");
+								break;
+							case 1:
+								kenstatVal = document.createTextNode("済");
+								break;
+							case 2:
+								kenstatVal = document.createTextNode("不可");
+								break;
+						}
 						newKenshin.appendChild(kenstatVal);
 						newShuuku.appendChild(document.createTextNode(getShuukuVal(newShuuku, data.cuslist[i].shuku, data.cuslist[i].shustat)));
 						newElement.appendChild(newName);
