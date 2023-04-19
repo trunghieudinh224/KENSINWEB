@@ -1215,7 +1215,7 @@ function sendImage() {
 	navigator.clipboard.writeText(imgString);
 	var check = Common.getMobileOperatingSystem();
 	if (check == "Ios") {
-		window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://", "");
+		window.location.href = "printermarutou://print&&1" + "&&" + Common.browserDetect();
 	} else if (check == "Android") {
 		window.location.href = "https://www.example.com/path?param=" + JSON.stringify(androidData);
 	}
