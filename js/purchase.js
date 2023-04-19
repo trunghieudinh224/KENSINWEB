@@ -120,6 +120,7 @@ function calcSign(nSign, nKin) {
 	return nKin;
 }
 
+Common.browserDetect();
 
 /**
 	* 金額計算処理.
@@ -1690,7 +1691,6 @@ function sendImage() {
 	imgString = imgString.replace("data:image/png;base64,", "");
 	navigator.clipboard.writeText(imgString);
 	var check = Common.getMobileOperatingSystem();
-	Common.browserDetect();
 	if (check == "Ios") {
 		window.location.href = "printermarutou://print&&1" + "&&" + window.location.href.replace("https://", "");
 	} else if (check == "Android") {

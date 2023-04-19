@@ -492,6 +492,7 @@ function browserDetect() {
 		browserName = "No browser detection";
 	}
 
+    alert("You are using " + browserName + " browser");
 	console.log("You are using " + browserName + " browser");
 }
 
