@@ -479,7 +479,7 @@ function browserDetect() {
 	let browserName;
 
 	if (userAgent.match(/chrome|chromium|crios/i)) {
-		browserName = "chrome";
+		browserName = "googlechrome";
 	} else if (userAgent.match(/firefox|fxios/i)) {
 		browserName = "firefox";
 	} else if (userAgent.match(/safari/i)) {
