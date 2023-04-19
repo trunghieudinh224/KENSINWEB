@@ -1364,13 +1364,13 @@ function Calc_UchiZei(wkKensinData, isHybSeikyu) {
 		if ((wkKokf.mUriSumi && mIsUriage) ||//売上済区分 0:未, 1:済み	かつ明細あり
 			(wkKokf.mSimeF == 0 && wkKokf.mHme01Ken != 0) ||	//フラグ締日処理(0:未 1:済)//販売明細(締前) ・件数
 			(wkKokf.mSimeF == 1 && wkKokf.mHme00Ken != 0)) {	//フラグ締日処理(0:未 1:済)//販売明細(締後) ・件数
-			if (wkHmefList.length > 0) {
+			if (wkHmefList != null && wkHmefList.length > 0) {
 				wTaxdat.mUchiZei += calcUtaxHm(wkHmefList, wkSysf, wkSys2f);
 			}
-			if (wkHmefList1.length > 0) {
+			if (wkHmefList1 != null && wkHmefList1.length > 0) {
 				wTaxdat.mUchiZei += calcUtaxHm(wkHmefList1, wkSysf, wkSys2f);
 			}
-			if (wkHmefList2.length > 0) {
+			if (wkHmefList2 != null && wkHmefList2.length > 0) {
 				wTaxdat.mUchiZei += calcUtaxHm(wkHmefList2, wkSysf, wkSys2f);
 			}
 		}

@@ -79,9 +79,9 @@ function cutStringSpace(strTarget) {
 	var strMulti = '　';   // 全角スペース
 	var strSingle = ' ';   // 半角スペース
 
-	for (var i = nLen-1; i>=0; i--) {
-		if (strTarget.substring(i-1, i) == strMulti || strTarget.substring(i-1, i) == strSingle) {
-			strTarget = strTarget.substring(0, i-1);
+	for (var i = nLen - 1; i >= 0; i--) {
+		if (strTarget.substring(i - 1, i) == strMulti || strTarget.substring(i - 1, i) == strSingle) {
+			strTarget = strTarget.substring(0, i - 1);
 		} else {
 			break;
 		}
@@ -274,12 +274,12 @@ function format(wkFormat, wkValue, wkMulti) {
 
 
 /**
-     * 数値(long型)を指定フォーマットに合わせた文字列に変換します。
-     * 
-     * @param wkFormat  [in] String 指定フォーマット
-     * @param wkValue   [in] long   変換したい数値(long型)
-     * @return String   変換後文字列
-     */
+	 * 数値(long型)を指定フォーマットに合わせた文字列に変換します。
+	 * 
+	 * @param wkFormat  [in] String 指定フォーマット
+	 * @param wkValue   [in] long   変換したい数値(long型)
+	 * @return String   変換後文字列
+	 */
 function format2pr(wkFormat, wkValue) {
 	return formatLocal(wkFormat, parseFloat(wkValue), 0);
 }
@@ -642,14 +642,14 @@ function betweenDays(wkDateA, wkDateB) {
 }
 
 /**
-     * 年と月と日から0無しでyyyy/mm/dd形式で作成
-     * 
-     * @param year  [in] int        年
-     * @param month [in] int        月
-     * @param day   [in] int        日
-     * @param mask  [in] boolean    true: yyyy/mm/dd, false: yyyy年mm月dd日
-     * @return  String  整形された日付文字列
-     */
+	 * 年と月と日から0無しでyyyy/mm/dd形式で作成
+	 * 
+	 * @param year  [in] int        年
+	 * @param month [in] int        月
+	 * @param day   [in] int        日
+	 * @param mask  [in] boolean    true: yyyy/mm/dd, false: yyyy年mm月dd日
+	 * @return  String  整形された日付文字列
+	 */
 function DateFormatYMD(year, month, day, mask) {
 	var _year = year;
 	var _month = month;
@@ -674,13 +674,13 @@ function DateFormatYMD(year, month, day, mask) {
 }
 
 /**
-    * double型をlong型に変換.
-    *
-    * @param dvalue    [in] float 変換元double値
-    * @return  int    変換後int値
+	* double型をlong型に変換.
+	*
+	* @param dvalue    [in] float 変換元double値
+	* @return  int    変換後int値
 */
-function Double2Long(dvalue){
-	if(parseFloat(dvalue) < 0.){
+function Double2Long(dvalue) {
+	if (parseFloat(dvalue) < 0.) {
 		return parseInt(parseFloat(dvalue) - 0.001);
 	}
 	else {
@@ -690,10 +690,10 @@ function Double2Long(dvalue){
 
 
 /**
-    * Convert string to number
-    *
-    * @param value    [int / float]
-    * @return  int    変換後int値
+	* Convert string to number
+	*
+	* @param value    [int / float]
+	* @return  int    変換後int値
 */
 function CvtString2Num(value) {
 	if (value != null) {
@@ -708,8 +708,8 @@ function CvtString2Num(value) {
 }
 
 export {
-	Format, KingakuFormat, KingakuFormatLocal, isEmpty, cutStringSpace, nullToString, getClearString, DateFormat, 
-	MonthDayFormat, getKangcontname, hasCom, printformat, printformatLocal, calcMulti, format, format2pr, formatLocal, 
-	getUriTaxr, getBytesLen, formatLocalJS, formatDecimal, getNumFromString, parseDate, betweenDays, DateFormatYMD, 
+	Format, KingakuFormat, KingakuFormatLocal, isEmpty, cutStringSpace, nullToString, getClearString, DateFormat,
+	MonthDayFormat, getKangcontname, hasCom, printformat, printformatLocal, calcMulti, format, format2pr, formatLocal,
+	getUriTaxr, getBytesLen, formatLocalJS, formatDecimal, getNumFromString, parseDate, betweenDays, DateFormatYMD,
 	Double2Long, CvtString2Num
 }
