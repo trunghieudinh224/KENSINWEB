@@ -236,13 +236,14 @@ function getCuslistType1() {
 						var kenstatVal = "";
 						switch (data.cuslist[i].kenstat) {
 							case 0:
-								kenstatVal = document.createTextNode("未");
+								if (data.cuslist[i].nokensin == 1) {
+									kenstatVal = document.createTextNode("未");
+								} else {
+									kenstatVal = document.createTextNode("不可");
+								}
 								break;
 							case 1:
 								kenstatVal = document.createTextNode("済");
-								break;
-							case 2:
-								kenstatVal = document.createTextNode("不可");
 								break;
 						}
 						newKenshin.appendChild(kenstatVal);
@@ -364,13 +365,14 @@ function searchCusType1(searchVal) {
 			var kenstatVal = "";
 			switch (list[i].kenstat) {
 				case 0:
-					kenstatVal = document.createTextNode("未");
+					if (list[i].nokensin == 1) {
+						kenstatVal = document.createTextNode("未");
+					} else {
+						kenstatVal = document.createTextNode("不可");
+					}
 					break;
 				case 1:
 					kenstatVal = document.createTextNode("済");
-					break;
-				case 2:
-					kenstatVal = document.createTextNode("不可");
 					break;
 			}
 			newKenshin.appendChild(kenstatVal);
@@ -504,13 +506,14 @@ function searchCusType2() {
 						var kenstatVal = "";
 						switch (data.cuslist[i].kenstat) {
 							case 0:
-								kenstatVal = document.createTextNode("未");
+								if (data.cuslist[i].nokensin == 1) {
+									kenstatVal = document.createTextNode("未");
+								} else {
+									kenstatVal = document.createTextNode("不可");
+								}
 								break;
 							case 1:
 								kenstatVal = document.createTextNode("済");
-								break;
-							case 2:
-								kenstatVal = document.createTextNode("不可");
 								break;
 						}
 						newKenshin.appendChild(kenstatVal);
