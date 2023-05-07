@@ -236,7 +236,7 @@ function getCuslistType1() {
 						var kenstatVal = "";
 						switch (data.cuslist[i].kenstat) {
 							case 0:
-								if (data.cuslist[i].nokensin == 1) {
+								if (data.cuslist[i].nokensin == 0) {
 									kenstatVal = document.createTextNode("未");
 								} else {
 									kenstatVal = document.createTextNode("不可");
@@ -365,7 +365,7 @@ function searchCusType1(searchVal) {
 			var kenstatVal = "";
 			switch (list[i].kenstat) {
 				case 0:
-					if (list[i].nokensin == 1) {
+					if (list[i].nokensin == 0) {
 						kenstatVal = document.createTextNode("未");
 					} else {
 						kenstatVal = document.createTextNode("不可");
@@ -506,7 +506,7 @@ function searchCusType2() {
 						var kenstatVal = "";
 						switch (data.cuslist[i].kenstat) {
 							case 0:
-								if (data.cuslist[i].nokensin == 1) {
+								if (data.cuslist[i].nokensin == 0) {
 									kenstatVal = document.createTextNode("未");
 								} else {
 									kenstatVal = document.createTextNode("不可");
