@@ -730,7 +730,10 @@ function onClickAction() {
 		Common.setupModal("question", null, Mess.I00008, StringCS.IIE, StringCS.HAI, null, false);
 		var buttonConfirm = document.getElementsByClassName("button-1")[0];
 		buttonConfirm.onclick = function () {
-			sendDataToServer();
+			// sendDataToServer();
+			preparePrintData();
+			createImageForm();
+			Common.setupModal("success", null, Mess.I00003, null, StringCS.OK, null, false);
 		}
 	}
 
